@@ -13,6 +13,9 @@ backrooms_infinite/Cargo.lock
 # Chainlink - ignore local database
 .chainlink/issues.db
 
+# Forgejo - ignore local runner configuration
+.forgejo/runner.local.yml
+
 # Codex - ignore local session state
 .codex/
 
