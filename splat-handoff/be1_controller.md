@@ -7,11 +7,10 @@ zero front-end dependency. This is the foundation everything else builds on.
 - BLOCKER (resolve first): create the new crate `splat_walk/` at the workspace root.
   (The old `backrooms_infinite/` WFC crate was DELETED — clean slate. Do not recreate
   it or copy its rapier-based physics; this crate uses avian3d + bevy-tnua.)
-- BLOCKER: verify on crates.io that `avian3d`, `bevy-tnua`, `bevy-tnua-avian3d`
-  each publish a release compatible with **Bevy 0.18**. The crate `physics-integration-layer`
-  version pulled by `bevy-tnua` and `bevy-tnua-avian3d` MUST match between them.
-  If no 0.18-compatible set exists, ESCALATE: fall back to a Bevy-0.16 pin for this
-  crate only and record the decision in the epic.
+- RESOLVED (verified crates.io 2026-05-29): a consistent Bevy 0.18 stack exists.
+  Use `avian3d=0.6`, `bevy-tnua=0.31`, `bevy-tnua-avian3d=0.11` — both tnua crates
+  depend on `bevy-tnua-physics-integration-layer ^0.12` (they match). NO Bevy-0.16
+  fallback needed. Run `cargo update` and confirm a single PIL 0.12.x resolves.
 
 ## Files to create
 - `splat_walk/Cargo.toml`
