@@ -1,23 +1,39 @@
 name: CI
 
-# =====================================================================
-# EXOMONAD GENERATED PLACEHOLDER
-# Replace this scaffold with the build, test, lint, and release checks
-# your project needs before relying on Forgejo/Gitea Actions gating.
-# =====================================================================
-
-on: push
+on:
+  push:
+  pull_request:
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: docker
+    container:
+      image: rust:1-bookworm
     steps:
+      - name: Install git
+        run: apt-get update -qq && apt-get install -y -qq git
+
       - name: Checkout repository
         run: |
           git clone --depth 1 "${{ github.server_url }}/${{ github.repository }}.git" .
           git checkout "${{ github.sha }}"
 
-      - name: Customize workflow
+      - name: Print Rust toolchain
+        run: rustc --version && cargo --version
+
+      - name: Build, test, lint
         run: |
-          echo "Replace .forgejo/workflows/ci.yml with project-specific CI commands."
-          echo "Add real build, test, lint, and release checks before merge gating."
+          if [ -f "splat_walk/Cargo.toml" ]; then
+            cd splat_walk
+            cargo fmt --check
+            cargo clippy -- -D warnings
+            cargo test
+            cargo build
+          elif [ -f "Cargo.toml" ]; then
+            cargo fmt --check
+            cargo clippy -- -D warnings
+            cargo test
+            cargo build
+          else
+            echo "No Cargo.toml found — skipping Rust CI (project not yet initialized)."
+          fi
