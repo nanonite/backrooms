@@ -1,6 +1,7 @@
 # ExoMonad project config
-# All fields are optional — see docs for overrides
+# All fields are optional - see CLAUDE.md for full reference.
 
-[reviewer]
-agent_type = "opencode"
-context = ["CLAUDE.md"]
+# Forgejo integration
+# forgejo_url = "http://localhost:3000"
+# forgejo_token = "..."
+# forgejo_reviewer_token = "..."  # must belong to a different Forgejo user than forgejo_token

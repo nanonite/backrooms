@@ -34,10 +34,12 @@ guarantees co-registration), ONE transform fixes both.
   history was reset to a clean-slate orphan commit (old 90-commit history is
   recoverable via local tag `archive/pre-cleanup-2026-05-29`). `splat_walk/` uses
   `avian3d` + `bevy-tnua` (NOT rapier). Do not resurrect the old crate.
-- **Bevy version: pin 0.18** to match the workspace. `bevy_gaussian_splatting 7.x`
-  targets Bevy 0.18 (5.x→0.16, 6.x→0.17). VERIFY on crates.io that avian3d + bevy-tnua
-  + bevy-tnua-avian3d all have a 0.18-compatible release before committing. If they do
-  NOT, the fallback is a dedicated Bevy-0.16 workspace member for splat_walk only.
+- **Bevy version: pin 0.18.** VERIFIED on crates.io 2026-05-29 — a consistent 0.18
+  stack exists, NO Bevy-0.16 fallback needed. Pin set:
+  `bevy=0.18`, `avian3d=0.6`, `bevy-tnua=0.31`, `bevy-tnua-avian3d=0.11`,
+  `bevy_gaussian_splatting=7` (default-features=false). Both tnua crates depend on
+  `bevy-tnua-physics-integration-layer ^0.12` → they MATCH (the key risk, resolved).
+  `bevy_gaussian_splatting 7.x`→0.18 (5.x→0.16, 6.x→0.17), as the plan assumed.
 - **Front-end scripts live in** `scripts/splat_pipeline/`.
 - **Per-scene assets live in** `splat_walk/assets/splats/<scene_name>/`.
 

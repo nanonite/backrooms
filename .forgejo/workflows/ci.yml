@@ -1,0 +1,23 @@
+name: CI
+
+# =====================================================================
+# EXOMONAD GENERATED PLACEHOLDER
+# Replace this scaffold with the build, test, lint, and release checks
+# your project needs before relying on Forgejo/Gitea Actions gating.
+# =====================================================================
+
+on: push
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        run: |
+          git clone --depth 1 "${{ github.server_url }}/${{ github.repository }}.git" .
+          git checkout "${{ github.sha }}"
+
+      - name: Customize workflow
+        run: |
+          echo "Replace .forgejo/workflows/ci.yml with project-specific CI commands."
+          echo "Add real build, test, lint, and release checks before merge gating."
