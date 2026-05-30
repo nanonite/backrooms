@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "exomonad": {
+      "args": [
+        "mcp-stdio",
+        "--role",
+        "reviewer",
+        "--name",
+        "backrooms-workspace"
+      ],
+      "command": "exomonad",
+      "type": "stdio"
+    }
+  }
+}
