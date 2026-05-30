@@ -1,0 +1,50 @@
+# ExoMonad - track config and source, ignore runtime artifacts
+.exo/*
+!.exo/config.toml
+!.exo/roles/
+!.exo/lib/
+!.exo/rules/
+
+# Rust / Bevy - ignore build artifacts and debug files
+backrooms_infinite/target/
+backrooms_infinite/.rustc_info.json
+backrooms_infinite/Cargo.lock
+
+# Chainlink - ignore local database
+.chainlink/issues.db
+
+# Codex - ignore local session state
+.codex/
+
+# Nested agent runtime state
+backrooms_infinite/.exo/
+
+# Blender - ignore generated logs and backup saves
+*.blend1
+backrooms_infinite/assets/scenes/source/*.log
+
+# Python - ignore local caches
+__pycache__/
+*.py[cod]
+
+# Local generated databases
+spindle.db*
+
+# Local data and environment sandboxes
+data/nerfstudio/
+environment/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+.git-remote/
+dispatch-postmortem.md
+session-export.json
+assets/audio/

@@ -1,0 +1,6 @@
+# ExoMonad project config
+# All fields are optional — see docs for overrides
+
+[reviewer]
+agent_type = "opencode"
+context = ["CLAUDE.md"]
