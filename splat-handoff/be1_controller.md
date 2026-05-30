@@ -28,9 +28,9 @@ edition = "2021"
 
 [dependencies]
 bevy = "0.18"
-avian3d = "*"               # PIN to the 0.18-compatible release after verifying
-bevy-tnua = "*"             # PIN; must share physics-integration-layer with the line below
-bevy-tnua-avian3d = "*"     # PIN
+avian3d = "0.6"             # verified bevy ^0.18 (2026-05-29)
+bevy-tnua = "0.31"          # verified bevy ^0.18, PIL ^0.12
+bevy-tnua-avian3d = "0.11"  # verified bevy ^0.18, PIL ^0.12 (matches bevy-tnua)
 ```
 
 ### `src/player.rs` stub
