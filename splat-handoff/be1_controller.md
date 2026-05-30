@@ -4,9 +4,9 @@ feels right walking on a primitive ground plane. NO splats yet. Pure back-end,
 zero front-end dependency. This is the foundation everything else builds on.
 
 ## Prereqs / Blockers
-- BLOCKER (resolve first): create the new crate `splat_walk/` as a sibling to
-  `backrooms_infinite/`. Do NOT add splat/avian deps to `backrooms_infinite/`
-  (it uses bevy_rapier3d — do not mix physics engines).
+- BLOCKER (resolve first): create the new crate `splat_walk/` at the workspace root.
+  (The old `backrooms_infinite/` WFC crate was DELETED — clean slate. Do not recreate
+  it or copy its rapier-based physics; this crate uses avian3d + bevy-tnua.)
 - BLOCKER: verify on crates.io that `avian3d`, `bevy-tnua`, `bevy-tnua-avian3d`
   each publish a release compatible with **Bevy 0.18**. The crate `physics-integration-layer`
   version pulled by `bevy-tnua` and `bevy-tnua-avian3d` MUST match between them.
@@ -102,9 +102,12 @@ fn main() {
 Field/type names move between Bevy/tnua/avian versions. Reconcile against the docs
 for your pinned versions, especially: `TnuaBuiltinWalk` fields (`float_height`,
 `desired_velocity`), `LockedAxes` API for yaw-only, and Avian's `Collider::capsule`
-argument order. The mouse-motion reader API matters: this workspace already hit a
-Bevy-0.18 gotcha (use `MessageReader`/`EventReader` correctly — see commit 7727357
-and `backrooms_infinite/src/player/movement.rs` for the working pattern).
+argument order. The mouse-motion reader API matters: this workspace previously hit a
+Bevy-0.18 gotcha (`MessageReader` vs `EventReader<MouseMotion>`). The old fix lives
+only in the backup tag `archive/pre-cleanup-2026-05-29`
+(`backrooms_infinite/src/player/movement.rs`, `player/camera.rs`) — treat it as
+UNTRUSTED reference; prefer the bevy-tnua / bevy_gaussian_splatting examples for your
+pinned versions.
 
 ## Acceptance criteria
 - `cargo build` and `cargo run` from `splat_walk/` succeed.

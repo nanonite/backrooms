@@ -29,9 +29,11 @@ Because `scene.ply` and `collision.glb` come from the SAME reconstruction (Stage
 guarantees co-registration), ONE transform fixes both.
 
 ### Workspace decisions baked into the subissues (verify before pinning)
-- **New sibling crate `splat_walk/`** (do NOT extend `backrooms_infinite/`). Reason:
-  the existing crate uses `bevy_rapier3d 0.33` + WFC; this plan uses `avian3d` +
-  `bevy-tnua`. Mixing two physics engines in one app is a footgun. Keep them separate.
+- **Single new crate `splat_walk/`.** The prior WFC/PSX crate (`backrooms_infinite/`)
+  was DELETED as non-functional — it compiled but produced garbage at runtime. Git
+  history was reset to a clean-slate orphan commit (old 90-commit history is
+  recoverable via local tag `archive/pre-cleanup-2026-05-29`). `splat_walk/` uses
+  `avian3d` + `bevy-tnua` (NOT rapier). Do not resurrect the old crate.
 - **Bevy version: pin 0.18** to match the workspace. `bevy_gaussian_splatting 7.x`
   targets Bevy 0.18 (5.x→0.16, 6.x→0.17). VERIFY on crates.io that avian3d + bevy-tnua
   + bevy-tnua-avian3d all have a 0.18-compatible release before committing. If they do
