@@ -1,120 +1,99 @@
-# First Walkable GLTF Room
-**Milestone #9** | All issues tracked in chainlink (`chainlink issue tree`)
+# Video → Walkable Gaussian Splat
+**Milestone #10** | All issues tracked in chainlink (`chainlink issue tree`)
 
 ---
 
 ## Goal
 
-Player can WASD-walk around a room reconstructed from `data/videos/corridor_corner.mp4`
-with working mouse look and floor collision (can't fall through).
+Walk around a video-reconstructed real place in first-person inside Bevy.
+A Gaussian splat provides visuals; a co-registered collision mesh provides physics.
 
-This replaces the WFC procedural world with a real video-sourced mesh.
+---
+
+## Crate
+
+`splat_walk/` at the workspace root (`/home/user/backrooms-workspace/splat_walk/`).
+The old `backrooms_infinite/` WFC crate was deleted — do not recreate it.
 
 ---
 
 ## Pipeline
 
 ```
-data/videos/corridor_corner.mp4
+data/videos/<capture>.mp4
         │
-        ▼  (Nerfstudio, conda env `nerfstudio`)
-data/nerfstudio/corridor_corner/mesh/mesh.obj
+        ▼  (ffmpeg → COLMAP/VGGT → Brush)
+splat_walk/assets/splats/<scene>/scene.ply        ← VISUAL only
         │
-        ▼  (Blender cleanup + GLB export)
-backrooms_infinite/assets/scenes/corridor_corner.glb
+        ▼  (SuGaR/2DGS → Blender decimate → GLB)
+splat_walk/assets/splats/<scene>/collision.glb    ← PHYSICS only, invisible
         │
-        ▼  (Bevy SceneRoot + AsyncSceneCollider)
-Walkable game room
+        ▼  + alignment.toml (rotation/scale/translation)
+Bevy: splat entity + static trimesh collider + FPS controller
 ```
 
 ---
 
-## Task Tree
+## Tech Stack
 
-```
-Milestone #9: First Walkable GLTF Room
-│
-├── [PHASE 1 — Unblocked, do first — can run in parallel]
-│
-├── #70  [bug/high]  Fix mouse look — EventReader<MouseMotion>
-│         File: backrooms_infinite/src/player/camera.rs
-│         Root cause: wrong Bevy API (bevy::ecs::message::MessageReader)
-│         Fix: replace with EventReader<MouseMotion> from bevy::prelude
-│         Import: use bevy::input::mouse::MouseMotion;
-│
-├── #71  [bug/high]  Fix UV mapping — remove atlas tile math
-│         File: backrooms_infinite/src/world/room_mesh.rs
-│         Root cause: AtlasTile 0–0.25 UV range applied to individual textures
-│         Fix: emit full 0.0–1.0 UV range per quad face
-│
-├── [PHASE 2 — Unblocked, can start parallel with Phase 1]
-│
-├── #72  [feature/high]  Run Nerfstudio on corridor_corner.mp4
-│         Env: conda activate nerfstudio
-│         Commands:
-│           ns-process-data video \
-│             --data data/videos/corridor_corner.mp4 \
-│             --output-dir data/nerfstudio/corridor_corner \
-│             --matching-method exhaustive
-│           ns-train nerfacto \
-│             --data data/nerfstudio/corridor_corner \
-│             --output-dir data/nerfstudio/corridor_corner/output
-│           TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1 ns-export tsdf \
-│             --load-config data/nerfstudio/corridor_corner/output/<run>/config.yml \
-│             --output-dir data/nerfstudio/corridor_corner/mesh
-│         Output: data/nerfstudio/corridor_corner/mesh/mesh.obj
-│         Fallback: if AI video lacks parallax, hand-model box room in Blender
-│
-├── #73  [feature/high]  Blender cleanup → GLB export
-│         Blocked by: #72
-│         - Import mesh.obj into Blender
-│         - Decimate to ~5k polys, delete floating fragments
-│         - Export: File → Export → glTF 2.0, format = GLB
-│         Output: backrooms_infinite/assets/scenes/corridor_corner.glb
-│
-└── [PHASE 3 — Blocked by #70, #71, #73]
-
-    #74  [feature/high]  Load GLTF scene in Bevy
-    │     Blocked by: #70, #71, #73
-    │     File: backrooms_infinite/src/main.rs
-    │     - Comment out WFC startup: spawn_chunk_tasks, apply_generated_chunks
-    │     - Add startup system spawn_gltf_world:
-    │         commands.spawn((
-    │             SceneRoot(asset_server.load("scenes/corridor_corner.glb#Scene0")),
-    │             AsyncSceneCollider::new(Some(ComputedColliderShape::TriMesh)),
-    │             RigidBody::Fixed,
-    │         ));
-    │     - Verify Cargo.toml: bevy_rapier3d features = ["async-collider"]
-    │     - Fallback if AsyncSceneCollider unavailable: Collider::cuboid() floor plane
-    │
-    └── #75  [feature/high]  Set player spawn inside reconstructed room
-              Blocked by: #74
-              File: backrooms_infinite/src/player/movement.rs, spawn_player()
-              Change spawn Transform to origin (0, 1, 0); tune after first run.
-```
+| Crate | Version | Purpose |
+|-------|---------|---------|
+| `bevy` | 0.18 | engine |
+| `avian3d` | 0.6 | physics |
+| `bevy-tnua` | 0.31 | character controller |
+| `bevy-tnua-avian3d` | 0.11 | tnua ↔ avian (PIL ^0.12) |
+| `bevy_gaussian_splatting` | 7 | splat renderer (default-features=false) |
 
 ---
 
-## Dependency Order
+## Build Order (de-risking sequence)
 
-| Order | Issue | Can start when |
-|-------|-------|----------------|
-| 1 | #70 mouse look fix | immediately |
-| 1 | #71 UV fix | immediately (parallel) |
-| 1 | #72 Nerfstudio reconstruction | immediately (parallel) |
-| 2 | #73 Blender → GLB | #72 done |
-| 3 | #74 Bevy GLTF load | #70 + #71 + #73 done |
-| 4 | #75 player spawn | #74 done |
+| Step | Issue | Goal |
+|------|-------|------|
+| BE-1 | #101 | Controller + mouse-look on flat plane (no splats) |
+| BE-2 | #102 | Render known-good demo .ply |
+| BE-3 | #103 | Hand-placed box collider under demo splat |
+| BE-4 | #104 | SceneAlignment resource + per-scene ritual |
+| FE-A | #105 | Frame extraction (ffmpeg) |
+| FE-B | #106 | Pose estimation (COLMAP → VGGT fallback) |
+| FE-C | #107 | Train splat (Brush) |
+| FE-D | #108 | Collision mesh (SuGaR) |
+| INT-4 | #109 | Run full front-end on one good capture |
+| INT-5 | #110 | Integrate real assets + alignment, walk end-to-end |
+
+BE-1 through BE-4 and FE-A through FE-D are independent tracks (run in parallel).
+INT-4 requires FE-A–D; INT-5 requires BE-1–4 + INT-4.
 
 ---
 
 ## Verification
 
-1. `cargo run` — game opens, no panic
-2. Player spawns inside the corridor corner room (not underground)
-3. WASD moves, mouse rotates camera
-4. Player cannot fall through the floor (trimesh collider active)
-5. Surfaces are visually recognizable as corridor corner geometry
+1. `cargo build` from `splat_walk/` succeeds.
+2. Player spawns, WASD moves, mouse rotates; no falling through floor.
+3. Splat renders at real-scene viewpoints; collision is solid and invisible.
+
+---
+
+## Detail Docs
+
+See `splat-handoff/` for per-step scaffolding:
+
+| Doc | Content |
+|-----|---------|
+| `splat-handoff/epic.md` | Full epic overview |
+| `splat-handoff/PLAN_video_to_splat.md` | Detailed implementation plan |
+| `splat-handoff/be1_controller.md` | BE-1 scaffold |
+| `splat-handoff/be2_render_splat.md` | BE-2 scaffold |
+| `splat-handoff/be3_handmade_collider.md` | BE-3 scaffold |
+| `splat-handoff/be4_alignment.md` | BE-4 scaffold |
+| `splat-handoff/handoff_contract.md` | Front ↔ back interface |
+| `splat-handoff/fe_stageA_frames.md` | FE-A frames |
+| `splat-handoff/fe_stageB_colmap.md` | FE-B COLMAP |
+| `splat-handoff/fe_stageB_vggt.md` | FE-B VGGT fallback |
+| `splat-handoff/fe_stageC_brush.md` | FE-C splat training |
+| `splat-handoff/fe_stageD_mesh.md` | FE-D collision mesh |
+| `splat-handoff/integ4_run_frontend.md` | INT-4 pipeline run |
+| `splat-handoff/integ5_full.md` | INT-5 end-to-end |
 
 ---
 
@@ -124,20 +103,5 @@ Milestone #9: First Walkable GLTF Room
 chainlink issue list
 chainlink issue ready
 chainlink issue tree
-chainlink milestone show 9
+chainlink milestone show 10
 ```
-
----
-
-## Key Files
-
-| File | Role |
-|------|------|
-| `backrooms_infinite/src/player/camera.rs` | Fix #70: mouse look EventReader |
-| `backrooms_infinite/src/world/room_mesh.rs` | Fix #71: UV math |
-| `backrooms_infinite/src/main.rs` | #74: disable WFC, add GLTF loader |
-| `backrooms_infinite/Cargo.toml` | verify async-collider feature |
-| `backrooms_infinite/src/player/movement.rs` | #75: player spawn point |
-| `backrooms_infinite/assets/scenes/corridor_corner.glb` | output of #73 |
-| `data/videos/corridor_corner.mp4` | source video for #72 |
-| `data/nerfstudio/corridor_corner/` | Nerfstudio workspace for #72 |

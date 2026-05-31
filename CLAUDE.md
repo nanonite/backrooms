@@ -1,20 +1,25 @@
 # Backrooms Infinite
 
-PS1-style horror game built in Bevy 0.15 (Rust). Procedurally generated infinite backrooms environment with WFC dungeon layout, Rapier physics, and low-resolution retro rendering effects.
+Video-sourced walkable Gaussian splat in Bevy 0.18 (Rust). Pipeline: video → COLMAP/VGGT → Brush (splat) → SuGaR (collision mesh) → Bevy first-person controller.
+
+## Crate
+
+`splat_walk/` — lives at the workspace root (`/home/user/backrooms-workspace/splat_walk/`).
 
 ## Tech Stack
 
 | Crate | Purpose |
 |-------|---------|
-| `bevy` 0.15 | Game engine |
-| `ghx_proc_gen` 0.8 | WFC dungeon layout |
-| `bevy_rapier3d` 0.27 | Physics + collision |
-| `noise` 0.9 | Perlin/simplex variation |
-| `fastrand` 2.0 | Seeded deterministic RNG |
+| `bevy` 0.18 | Game engine |
+| `avian3d` 0.6 | Physics + collision (NOT rapier) |
+| `bevy-tnua` 0.31 | Character controller |
+| `bevy-tnua-avian3d` 0.11 | tnua ↔ avian bridge (PIL ^0.12) |
+| `bevy_gaussian_splatting` 7 | Gaussian splat renderer (default-features=false) |
 
 ## Build and Test
 
 ```bash
+# run from splat_walk/
 cargo check              # Fast syntax + type check (preferred for iteration)
 cargo clippy             # Lint
 cargo test               # Unit tests

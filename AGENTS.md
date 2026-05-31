@@ -1,4 +1,4 @@
-# AGENTS.md — Backrooms Infinite
+# AGENTS.md — Backrooms / splat_walk
 
 ## 0. FIRST: Read All Chainlink Rules
 
@@ -193,35 +193,31 @@ See `.chainlink/rules/rust.md` for full standards. Key rules:
 
 ---
 
-## 8. Project: Backrooms Infinite
+## 8. Project: Backrooms / splat_walk
 
-This is a PS1-style horror game built in Bevy (Rust). See `backrooms_implementation_plan.md` for the full plan.
+Video-sourced walkable Gaussian splat in Bevy 0.18 (Rust). See `PLAN.md` for the current milestone plan and `splat-handoff/` for per-step scaffolding docs.
 
-### Milestones (in chainlink)
+**Crate:** `splat_walk/` at workspace root (`/home/user/backrooms-workspace/splat_walk/`).
+The old `backrooms_infinite/` WFC crate was deleted — do not recreate it.
 
-Work through these in order. Each is independently shippable:
+### Current Milestone
 
-1. **M1: Static Room** — Single room mesh with PSX shader (vertex jitter, affine UV, fog)
-2. **M2: Walkable Room** — Rapier collision + KinematicCharacterController
-3. **M3: Procedural Single Chunk** — WFC-generated chunk with connectivity
-4. **M4: Infinite World** — Chunk streaming via AsyncComputeTaskPool
-5. **M5: Seeded Textures** — Video-derived PSX texture atlas
-6. **M6: Audio + Variation** — Ambient audio, noise-based fog/texture variation
-7. **M7: Polish** — Flickering lights, footstep audio, ambient sounds
+**Milestone #10: Video → Walkable Gaussian Splat** — see `PLAN.md` for issue table and build order.
 
 ### Asset Pipeline
 
 ```
-seed_image.jpg → Seedance/Wan 2.0 (6 video clips) → ffmpeg extract frames
-→ nearest-neighbor downscale to 64×64 → PSX texture atlas
+data/videos/<capture>.mp4
+  → ffmpeg frames → COLMAP/VGGT → Brush (scene.ply) → SuGaR (collision.glb)
+  → splat_walk/assets/splats/<scene>/{scene.ply, collision.glb, alignment.toml}
 ```
 
 ### Key Dependencies
 
-| Crate | Purpose |
-|-------|---------|
-| `bevy` 0.15 | Game engine |
-| `ghx_proc_gen` 0.8 | WFC dungeon layout |
-| `bevy_rapier3d` 0.27 | Physics + collision |
-| `noise` 0.9 | Perlin/simplex variation |
-| `fastrand` 2.0 | Seeded deterministic RNG |
+| Crate | Version | Purpose |
+|-------|---------|---------|
+| `bevy` | 0.18 | Game engine |
+| `avian3d` | 0.6 | Physics + collision (NOT rapier) |
+| `bevy-tnua` | 0.31 | Character controller |
+| `bevy-tnua-avian3d` | 0.11 | tnua ↔ avian bridge (PIL ^0.12) |
+| `bevy_gaussian_splatting` | 7 | Splat renderer (default-features=false) |
