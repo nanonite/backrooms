@@ -6,9 +6,9 @@
 !.exo/rules/
 
 # Rust / Bevy - ignore build artifacts and debug files
-backrooms_infinite/target/
-backrooms_infinite/.rustc_info.json
-backrooms_infinite/Cargo.lock
+splat_walk/target/
+splat_walk/.rustc_info.json
+splat_walk/Cargo.lock
 
 # Chainlink - ignore local database
 .chainlink/issues.db
@@ -20,11 +20,10 @@ backrooms_infinite/Cargo.lock
 .codex/
 
 # Nested agent runtime state
-backrooms_infinite/.exo/
+splat_walk/.exo/
 
 # Blender - ignore generated logs and backup saves
 *.blend1
-backrooms_infinite/assets/scenes/source/*.log
 
 # Python - ignore local caches
 __pycache__/
@@ -35,6 +34,10 @@ spindle.db*
 
 # Local data and environment sandboxes
 data/nerfstudio/
+data/videos/
+data/frames/
+data/colmap_output/
+splat_walk/assets/splats/
 environment/
 
 # IDE / Editor
