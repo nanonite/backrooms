@@ -33,6 +33,12 @@
 set -euo pipefail
 
 # ---------------------------------------------------------------------------
+# Configurable defaults
+# ---------------------------------------------------------------------------
+
+EXTRACT_FPS="${SPLAT_EXTRACT_FPS:-3}"
+
+# ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 
@@ -47,7 +53,8 @@ Usage: run_pipeline.sh <scene_dir>
 
 Stages:
   validate   Intake check (resolution, blur, parallax proxies)
-  Stage A    Frame extraction + blur culling       [subissue #107]
+  Stage A    Frame extraction at ${EXTRACT_FPS} fps + blur culling  [subissue #107]
+              (Override fps: SPLAT_EXTRACT_FPS=2 run_pipeline.sh ...)
   Stage B    Pose estimation (COLMAP → VGGT fallback) [subissue #108]
   Stage C    Splat training (Brush)                [subissue #109]
   Stage D    Collision mesh (SuGaR → decimate)     [subissue #110]
@@ -106,11 +113,39 @@ python3 "$SCRIPT_DIR/validate_input.py" "$VIDEO_PATH" || {
 # ---------------------------------------------------------------------------
 
 echo
-echo "--- Stage A: Frame extraction (subissue #107) ---"
-echo "NOT YET IMPLEMENTED. Will call: cull_blurry.py $SCENE_DIR"
-echo "Expected: $SCENE_DIR/images/ filled with sharp frames."
-echo "Install: ffmpeg, opencv-python, numpy."
-echo "See: splat-handoff/fe_stageA_frames.md"
+echo "--- Stage A: Frame extraction ---"
+
+ffmpeg_bin="$(command -v ffmpeg || true)"
+if [[ -z "$ffmpeg_bin" ]]; then
+    echo "FAIL: ffmpeg not found in PATH. Install ffmpeg and re-run." >&2
+    exit 2
+fi
+
+echo "Extracting frames at ${EXTRACT_FPS} fps from $VIDEO_PATH ..."
+
+# Clear stale frames from previous extractions so downstream stages only
+# see frames from the current video/settings.
+find "$SCENE_DIR/images" -maxdepth 1 -type f \( -iname 'frame_*.jpg' -o -iname 'frame_*.jpeg' -o -iname 'frame_*.png' \) -delete
+
+"$ffmpeg_bin" -y \
+    -i "$VIDEO_PATH" \
+    -vf "fps=${EXTRACT_FPS}" \
+    -q:v 2 \
+    "$SCENE_DIR/images/frame_%04d.jpg"
+
+extracted_count=$(find "$SCENE_DIR/images" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | wc -l)
+if [[ "$extracted_count" -eq 0 ]]; then
+    echo "FAIL: ffmpeg extracted zero frames. Check the video file." >&2
+    exit 3
+fi
+echo "Extracted $extracted_count frames."
+
+echo
+echo "Culling blurry frames ..."
+python3 "$SCRIPT_DIR/cull_blurry.py" "$SCENE_DIR" || {
+    echo "FAIL: blur culling failed (see above). Aborting." >&2
+    exit 1
+}
 echo
 
 # ---------------------------------------------------------------------------

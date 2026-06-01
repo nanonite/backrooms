@@ -61,7 +61,7 @@ fundamental limitation of Gaussian splatting from posed video, not a bug.
 | Stage | Script (when implemented) | Subissue | Input | Output |
 |-------|--------------------------|----------|-------|--------|
 | Validate | `validate_input.py` | #106 | `video.mp4` | PASS / FAIL |
-| A — Frames | `cull_blurry.py` | #107 | `video.mp4` | `images/*.jpg` |
+| A — Frames | `run_pipeline.sh Stage A` + `cull_blurry.py` | #107 | `video.mp4` | `images/*.jpg` |
 | B — Pose | `pose_colmap.sh` / `pose_vggt.sh` | #108 | `images/` | `sparse/0/*.bin` |
 | C — Splat | `train_brush.sh` | #109 | `images/` + `sparse/` | `scene.ply` |
 | D — Mesh | `extract_mesh.sh` + `decimate_to_glb.py` | #110 | `scene.ply` checkpoint | `collision.glb` |
@@ -74,8 +74,17 @@ via ffprobe) that exit non-zero on failure. Runs soft checks (blur proxy, motion
 via OpenCV optical flow) that warn but do not block. Always prints a manual
 static-scene checklist that the operator must verify.
 
-**Stage A (#107):** Extract 2–4 fps with ffmpeg, cull blurriest ~18% by
-variance-of-Laplacian. Output: `images/` containing only sharp frames.
+**Stage A (#107):** Extract frames at 3 fps (configurable via `SPLAT_EXTRACT_FPS`
+env var) with ffmpeg, then cull the blurriest ~18% by variance-of-Laplacian using
+`cull_blurry.py`. Output: `images/` containing only sharp frames.
+- **Usage**: `scripts/splat_pipeline/cull_blurry.py <scene_dir> [--percentile 18] [--dry-run]`
+- **Exit codes**: 0 = ok, 1 = usage error, 2 = missing opencv/numpy, 3 = no readable frames
+- **Idempotent**: re-running on an already-culled directory does not crash
+- **Escalation — dark/low-contrast video**: if most frames score low and culling removes
+  too many, apply a brightening pre-pass before Stage A:
+  `ffmpeg -i video.mp4 -vf "eq=gamma=3.0:contrast=1.5:brightness=0.2" -c:v libx264 bright_video.mp4`
+  then use the brightened video as input. Also consider lowering `--percentile` or raising
+  `SPLAT_EXTRACT_FPS` to retain more frames for pose estimation.
 
 **Stage B (#108):** COLMAP feature extraction + exhaustive/sequential matching, then
 GLOMAP global mapping. Default path. On failure (few images registered), auto-fallback
@@ -96,8 +105,8 @@ to populate `alignment.toml`. Walk end-to-end in Bevy.
 ### Dependency graph
 
 ```
-#106 (this)  ← you are here
-  ├── #107 (Stage A)
+#106 (validate scaffold)
+  ├── #107 (Stage A)  ← Frame extraction + blur culling implemented
   ├── #108 (Stage B)  ← depends on #107
   ├── #109 (Stage C)  ← depends on #108
   ├── #110 (Stage D)  ← depends on #109
