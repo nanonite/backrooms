@@ -135,6 +135,70 @@ routes to `pose_vggt.sh` (Path 2).
 
 **Output:** `<scene_dir>/sparse/0/{cameras.bin, images.bin, points3D.bin}` in COLMAP binary format. Consumed by Stage C (Brush).
 
+### Stage B — VGGT fallback (Path 2)
+
+When COLMAP fails or produces too few registered images, `run_pipeline.sh` automatically
+routes to `pose_vggt.sh` (Path 2). VGGT is a feed-forward transformer that predicts
+poses + 3D in a single pass, tolerating low parallax, motion blur, and textureless
+surfaces. It exports directly to COLMAP binary format — a drop-in replacement for
+Path 1's output.
+
+**Usage:**
+
+```bash
+# Default: VGGT without bundle adjustment (lower VRAM, faster)
+scripts/splat_pipeline/pose_vggt.sh <scene_dir>
+
+# With bundle adjustment: set VGGT_USE_BA=1 (more robust, higher VRAM)
+VGGT_USE_BA=1 scripts/splat_pipeline/pose_vggt.sh <scene_dir>
+```
+
+**Prerequisites:**
+
+| Tool | Version | Note |
+|------|---------|------|
+| Python | 3.10+ | Must have pip; CUDA toolkit for GPU inference |
+| git | any | For cloning VGGT repo |
+
+VGGT is cloned automatically on first run into `$VGGT_ROOT` (default `$HOME/vggt`).
+Dependencies are installed via pip into the active Python environment and guarded
+by a `.vggt_deps_ok` marker file to avoid re-installing on every run.
+
+**Success / failure semantics:**
+
+| Exit code | Meaning | Pipeline action |
+|-----------|---------|-----------------|
+| 0 | `POSE_OK` — sparse model produced | Proceed to Stage C |
+| 1 | Usage error | Fix arguments |
+| 2 | Missing `python3` or `git` | Install dependencies |
+| 3 | No `images/` directory or no frames | Run Stage A first |
+| 4 | VGGT clone or pip install failed | Check network, git, pip |
+| 5 | VGGT ran but produced no output | Re-capture (violates requirements) |
+
+**Environment variables:**
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `VGGT_ROOT` | `$HOME/vggt` | Path to clone/use the VGGT repo |
+| `VGGT_REPO_URL` | `https://github.com/facebookresearch/vggt` | Repo URL for cloning |
+| `VGGT_USE_BA` | (empty — disabled) | Set to `1` or `true` to enable bundle adjustment |
+| `VGGT_PYTHON` | `python3` | Python interpreter to use |
+
+**Escalation notes:**
+
+| Symptom | Cause | Action |
+|---------|-------|--------|
+| VGGT OOMs | 12 GB VRAM exceeded with `--use_ba` | Drop `VGGT_USE_BA` (faster, slightly less robust) or reduce frame count / resolution |
+| VGGT produces garbage | Video violates static-scene or parallax requirements | Re-capture is the only fix — do not attempt to salvage dynamic-scene video |
+| VGGT not found | `VGGT_ROOT` points to an empty or wrong directory | Set `VGGT_ROOT` to an empty path and re-run to trigger auto-clone |
+
+**Trade-off:** VGGT poses are less metrically precise than a clean COLMAP run but
+vastly more robust. Less metric precision means a fiddlier alignment ritual
+(Back-end Step 4) and possibly a non-trivial scale factor.
+
+**Output:** `<scene_dir>/sparse/0/{cameras.bin, images.bin, points3D.bin}` in COLMAP
+binary format — identical contract to Path 1. Consumed by Stage C (Brush).
+
 **Stage C (#109):** Train the Gaussian splat with Brush (`ArthurBrussee/brush`), a
 Rust+wgpu trainer. Monitor in Brush viewer; stop when quality plateaus. Output:
 `scene.ply`.
