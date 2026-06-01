@@ -152,12 +152,49 @@ echo
 # Stage B — Pose estimation (COLMAP default, VGGT fallback)
 # ---------------------------------------------------------------------------
 
-echo "--- Stage B: Pose estimation (subissue #108) ---"
-echo "NOT YET IMPLEMENTED. Will call: pose_colmap.sh $SCENE_DIR"
-echo "Expected: $SCENE_DIR/sparse/0/{cameras,images,points3D}.bin"
-echo "Fallback script: pose_vggt.sh for low-parallax videos."
-echo "Install: COLMAP 3.10, GLOMAP (default); VGGT (fallback)."
-echo "See: splat-handoff/fe_stageB_colmap.md, fe_stageB_vggt.md"
+echo
+echo "--- Stage B: Pose estimation ---"
+
+STAGE_B_STATUS=0
+
+if [[ -x "$SCRIPT_DIR/pose_colmap.sh" ]]; then
+    echo "Path 1 (default): COLMAP/GLOMAP"
+    "$SCRIPT_DIR/pose_colmap.sh" "$SCENE_DIR" || STAGE_B_STATUS=$?
+
+    if [[ "$STAGE_B_STATUS" -eq 0 ]]; then
+        echo "Stage B (COLMAP) succeeded."
+    elif [[ "$STAGE_B_STATUS" -eq 5 ]] || [[ "$STAGE_B_STATUS" -eq 6 ]] || [[ -f "$SCENE_DIR/POSE_FAILED" ]]; then
+        echo "COLMAP failed or POSE_FAILED (exit $STAGE_B_STATUS)."
+        echo "Trying VGGT fallback (Path 2) ..."
+
+        if [[ -x "$SCRIPT_DIR/pose_vggt.sh" ]]; then
+            "$SCRIPT_DIR/pose_vggt.sh" "$SCENE_DIR" || STAGE_B_STATUS=$?
+        else
+            echo "FAIL: POSE_FAILED but pose_vggt.sh not found/executable." >&2
+            echo "Install VGGT or re-capture with better parallax." >&2
+            exit 1
+        fi
+
+        if [[ "$STAGE_B_STATUS" -eq 0 ]]; then
+            echo "Stage B (VGGT fallback) succeeded."
+        else
+            echo "FAIL: both COLMAP and VGGT failed. Pipeline cannot continue." >&2
+            exit 1
+        fi
+    elif [[ -f "$SCENE_DIR/sparse/0/images.bin" ]]; then
+        echo "Stage B produced a sparse model (non-zero exit $STAGE_B_STATUS)."
+        echo "Continuing with available model — inspect registration count."
+        STAGE_B_STATUS=0
+    else
+        echo "FAIL: Stage B failed with exit code $STAGE_B_STATUS." >&2
+        echo "No sparse model was produced." >&2
+        exit 1
+    fi
+else
+    echo "WARN: pose_colmap.sh not found or not executable. Skipping Stage B." >&2
+    echo "Expected: $SCENE_DIR/sparse/0/{cameras,images,points3D}.bin" >&2
+fi
+
 echo
 
 # ---------------------------------------------------------------------------
