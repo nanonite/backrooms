@@ -201,12 +201,34 @@ echo
 # Stage C — Splat training (Brush)
 # ---------------------------------------------------------------------------
 
-echo "--- Stage C: Splat training (subissue #109) ---"
-echo "NOT YET IMPLEMENTED. Will call: train_brush.sh $SCENE_DIR"
-echo "Expected: $SCENE_DIR/scene.ply (VISUAL asset)."
-echo "Install: Brush (ArthurBrussee/brush)."
-echo "VRAM note: 12GB VRAM on RTX 4070 Ti; cap with --max-splats if needed."
-echo "See: splat-handoff/fe_stageC_brush.md"
+echo
+echo "--- Stage C: Splat training ---"
+
+if [[ -x "$SCRIPT_DIR/train_brush.sh" ]]; then
+    "$SCRIPT_DIR/train_brush.sh" "$SCENE_DIR" || {
+        echo "FAIL: Stage C (Brush training) failed (see above). Aborting." >&2
+        exit 1
+    }
+
+    if [[ ! -f "$SCENE_DIR/scene.ply" ]]; then
+        echo "FAIL: train_brush.sh exited 0 but scene.ply is missing at '$SCENE_DIR/scene.ply'." >&2
+        exit 1
+    fi
+
+    PLY_SIZE=$(stat -c%s "$SCENE_DIR/scene.ply" 2>/dev/null || echo "0")
+    if [[ "$PLY_SIZE" -eq 0 ]]; then
+        echo "FAIL: scene.ply is empty (0 bytes)." >&2
+        exit 1
+    fi
+    echo "Stage C complete — scene.ply ($PLY_SIZE bytes)."
+else
+    echo "FAIL: train_brush.sh not found or not executable." >&2
+    echo "Expected: $SCRIPT_DIR/train_brush.sh" >&2
+    echo "Install Brush (ArthurBrussee/brush) and create the wrapper." >&2
+    echo "See: splat-handoff/fe_stageC_brush.md" >&2
+    exit 1
+fi
+
 echo
 
 # ---------------------------------------------------------------------------
