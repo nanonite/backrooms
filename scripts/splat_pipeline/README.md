@@ -90,6 +90,51 @@ env var) with ffmpeg, then cull the blurriest ~18% by variance-of-Laplacian usin
 GLOMAP global mapping. Default path. On failure (few images registered), auto-fallback
 to VGGT (Path 2). Output: `sparse/0/` in COLMAP binary format.
 
+### Stage B — Usage
+
+```bash
+# Default: COLMAP exhaustive matching + GLOMAP mapper
+scripts/splat_pipeline/pose_colmap.sh <scene_dir>
+
+# Sequential matcher for long walk-through videos (much faster)
+scripts/splat_pipeline/pose_colmap.sh <scene_dir> --sequential
+
+# Keep database.db after run (default: cleaned up)
+scripts/splat_pipeline/pose_colmap.sh <scene_dir> --no-cleanup
+```
+
+**Prerequisites:**
+
+| Tool | Version | Note |
+|------|---------|------|
+| COLMAP | 3.10 | **3.13 breaks downstream tools** (dot-vs-colon CLI syntax change). Standardize on 3.10. |
+| GLOMAP | latest | Drop-in global mapper, faster than vanilla COLMAP at comparable quality. |
+
+**Success / failure semantics:**
+
+| Exit code | Meaning | Pipeline action |
+|-----------|---------|-----------------|
+| 0 | `POSE_OK` — model complete, sufficient registered images | Proceed to Stage C |
+| 1 | Usage error | Fix arguments |
+| 2 | Missing `colmap` or `glomap` on PATH | Install dependencies |
+| 3 | No `images/` directory or no frames | Run Stage A first |
+| 4 | COLMAP step failed (features or matching) | Check video quality |
+| 5 | GLOMAP failed (no model produced) | Try VGGT fallback |
+| 6 | `POSE_FAILED` — model exists but too few images registered | Auto-routed to VGGT fallback (Path 2) |
+
+On exit code 6, the script writes a `POSE_FAILED` marker file to `<scene_dir>/POSE_FAILED`
+with a human+ machine-readable reason. `run_pipeline.sh` detects this and automatically
+routes to `pose_vggt.sh` (Path 2).
+
+**Environment variables:**
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `POSE_MATCHER_MODE` | `exhaustive` | `sequential` or `exhaustive` |
+| `POSE_MIN_REGISTERED` | `0.5` | Fraction of input images that must register (0.0–1.0) |
+
+**Output:** `<scene_dir>/sparse/0/{cameras.bin, images.bin, points3D.bin}` in COLMAP binary format. Consumed by Stage C (Brush).
+
 **Stage C (#109):** Train the Gaussian splat with Brush (`ArthurBrussee/brush`), a
 Rust+wgpu trainer. Monitor in Brush viewer; stop when quality plateaus. Output:
 `scene.ply`.
