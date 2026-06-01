@@ -203,6 +203,66 @@ binary format — identical contract to Path 1. Consumed by Stage C (Brush).
 Rust+wgpu trainer. Monitor in Brush viewer; stop when quality plateaus. Output:
 `scene.ply`.
 
+### Stage C — Usage
+
+```bash
+# Basic: 30k steps, no splat cap
+scripts/splat_pipeline/train_brush.sh <scene_dir>
+
+# Custom step count
+scripts/splat_pipeline/train_brush.sh <scene_dir> --total-steps 20000
+
+# Cap splats for VRAM-limited targets (e.g., 12 GB RTX 4070 Ti)
+scripts/splat_pipeline/train_brush.sh <scene_dir> --max-splats 3000000
+```
+
+| Option | Default | Purpose |
+|--------|---------|---------|
+| `--total-steps N` | 30000 | Number of training iterations. 7k–30k typical. |
+| `--max-splats N` | unlimited | Cap the number of Gaussians at export time. |
+
+**Environment variables:**
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `BRUSH_BIN` | `brush` | Path to the Brush binary. |
+| `BRUSH_TOTAL_STEPS` | 30000 | Default total steps (overridable by `--total-steps`). |
+| `BRUSH_MAX_SPLATS` | (none) | Default max splats (overridable by `--max-splats`). |
+
+**Prerequisites:** Brush (ArthurBrussee/brush), a Rust+wgpu+Burn trainer.
+Install from: https://github.com/ArthurBrussee/brush/releases
+
+**Output:** `<scene_dir>/scene.ply` — the VISUAL Gaussian splat asset. The script reads
+the PLY header and reports the splat count, with VRAM advisory at 5M and 10M thresholds.
+
+**VRAM / splat budget for 12 GB RTX 4070 Ti:**
+
+| Splats | Status | Action |
+|--------|--------|--------|
+| 1–3M | Comfortable | Proceed. |
+| 3–5M | Acceptable | Monitor Bevy runtime framerate. |
+| 5–10M | Warning | Re-train with `--max-splats` if framerate drops. |
+| 10M+ | Critical | Re-train with `--max-splats`; Bevy renderer will strain. |
+
+**Exit codes:**
+
+| Exit code | Meaning | Pipeline action |
+|-----------|---------|-----------------|
+| 0 | Success — scene.ply produced and non-empty | Proceed to Stage D |
+| 1 | Usage error | Fix arguments |
+| 2 | Missing `brush` on PATH | Install Brush |
+| 3 | Missing `images/` or `sparse/0/` | Run Stages A + B first |
+| 4 | Brush training failed | Check Brush logs, GPU drivers, VRAM |
+
+**Escalation guidance:**
+
+| Symptom | Likely cause | Action |
+|---------|-------------|--------|
+| Smearing everywhere, quality never plateaus | Upstream pose problem | Revisit Stage B (try the other path) |
+| Smearing only far from camera path | Expected limitation | Enforce player confinement downstream |
+| VRAM blowout during training | Too many Gaussians | Cap with `--max-splats`, lower resolution |
+| Brush fails to find COLMAP data | Sparse dir structure wrong | Verify `sparse/0/{cameras,images,points3D}.bin` exist |
+
 **Stage D (#110):** Extract a surface-aligned mesh from the trained splat using SuGaR
 or 2DGS — co-registered with the splat automatically. Decimate to <200k tris via
 Blender headless. Output: `collision.glb`.
