@@ -37,7 +37,8 @@ data/nerfstudio/
 data/videos/
 data/frames/
 data/colmap_output/
-splat_walk/assets/splats/
+splat_walk/assets/splats/*
+!splat_walk/assets/splats/_template/
 environment/
 
 # IDE / Editor
