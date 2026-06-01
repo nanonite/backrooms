@@ -4,3 +4,4 @@ hook-config.local.json
 .cache/
 agent.json
 .locks-cache/
+issues.db

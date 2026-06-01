@@ -12,6 +12,7 @@ splat_walk/Cargo.lock
 
 # Chainlink - ignore local database
 .chainlink/issues.db
+.chainlink/
 
 # Forgejo - ignore local runner configuration
 .forgejo/runner.local.yml
