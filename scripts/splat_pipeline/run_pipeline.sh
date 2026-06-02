@@ -2,8 +2,8 @@
 # run_pipeline.sh — End-to-end splat-pipeline driver.
 #
 # Validates input, creates per-scene directory layout, and sequences
-# Stages A → D. Each stage script is invoked here as it lands via its
-# own subissue. Currently ALL stage calls are PLACEHOLDERS.
+# Stages A → D. Most stage calls are now implemented (A, B with COLMAP+VGGT
+# fallback, C, D). Integration stage is a placeholder pending #113/#114.
 #
 # Usage:
 #   scripts/splat_pipeline/run_pipeline.sh /abs/or/relative/scene_dir
@@ -57,8 +57,8 @@ Stages:
               (Override fps: SPLAT_EXTRACT_FPS=2 run_pipeline.sh ...)
   Stage B    Pose estimation (COLMAP → VGGT fallback) [subissue #108]
   Stage C    Splat training (Brush)                [subissue #109]
-  Stage D    Collision mesh (SuGaR → decimate)     [subissue #110]
-  Stage INT  Asset copy + alignment ritual          [subissue #111]
+  Stage D    Collision mesh (SuGaR → decimate)     [subissue #111]
+  Stage INT  Asset copy + alignment ritual          [subissue #113 / #114]
 
 Design rule: the splat is reliable ONLY near the captured camera path.
 Confine the player to roughly the captured volume.
@@ -235,19 +235,120 @@ echo
 # Stage D — Collision mesh (SuGaR → decimate → glb)
 # ---------------------------------------------------------------------------
 
-echo "--- Stage D: Collision mesh (subissue #110) ---"
-echo "NOT YET IMPLEMENTED. Will call: extract_mesh.sh $SCENE_DIR && decimate_to_glb.py $SCENE_DIR"
-echo "Expected: $SCENE_DIR/collision.glb (PHYSICS asset, invisible, <200k tris)."
-echo "Install: SuGaR / 2DGS, Blender (headless)."
-echo "CRITICAL: mesh must be co-registered with scene.ply (same reconstruction frame)."
-echo "See: splat-handoff/fe_stageD_mesh.md"
 echo
+echo "--- Stage D: Collision mesh ---"
+
+CO_REGISTRATION_WARNING=$(cat <<'CO_CONTRACT'
++-------------------------------------------------------------+
+|  CO-REGISTRATION CONTRACT                                   |
+|                                                             |
+|  collision.glb MUST share the coordinate frame of scene.ply.|
+|  They come from the SAME Gaussian reconstruction — one      |
+|  transform fixes both at Back-end Step 4 (alignment.toml).  |
+|                                                             |
+|  collision.glb is PHYSICS-ONLY: invisible, never rendered.  |
+|  It needs a mesh, not a material — ugly is fine.            |
++-------------------------------------------------------------+
+CO_CONTRACT
+)
+echo "$CO_REGISTRATION_WARNING"
+echo
+
+# -- Step D1: SuGaR mesh extraction --
+if [[ -x "$SCRIPT_DIR/extract_mesh.sh" ]]; then
+    echo "Step D1: Extracting mesh from splat (SuGaR) ..."
+    "$SCRIPT_DIR/extract_mesh.sh" "$SCENE_DIR" || {
+        echo "FAIL: SuGaR mesh extraction failed (see above). Aborting." >&2
+        exit 1
+    }
+
+    MESH_OBJ="$SCENE_DIR/mesh_export.obj"
+    if [[ ! -f "$MESH_OBJ" ]]; then
+        echo "FAIL: extract_mesh.sh exited 0 but mesh_export.obj is missing at '$MESH_OBJ'." >&2
+        exit 1
+    fi
+
+    OBJ_SIZE=$(stat -c%s "$MESH_OBJ" 2>/dev/null || echo "0")
+    if [[ "$OBJ_SIZE" -eq 0 ]]; then
+        echo "FAIL: mesh_export.obj is empty (0 bytes)." >&2
+        exit 1
+    fi
+    echo "Step D1 complete — mesh_export.obj ($OBJ_SIZE bytes)."
+else
+    echo "FAIL: extract_mesh.sh not found or not executable." >&2
+    echo "Expected: $SCRIPT_DIR/extract_mesh.sh" >&2
+    echo "Install: SuGaR (Anttwo/SuGaR) or 2DGS and create the wrapper." >&2
+    echo "See: splat-handoff/fe_stageD_mesh.md" >&2
+    exit 1
+fi
+
+echo
+
+# -- Step D2: Decimate + export collision.glb via Blender --
+BLENDER_BIN="${BLENDER_BIN:-blender}"
+BLENDER_PATH="$(command -v "$BLENDER_BIN" || true)"
+
+if [[ -z "$BLENDER_PATH" ]]; then
+    echo "FAIL: Blender binary '$BLENDER_BIN' not found in PATH." >&2
+    echo "Install Blender and ensure 'blender' is on PATH." >&2
+    echo "Or set BLENDER_BIN=/path/to/blender." >&2
+    exit 1
+fi
+
+if [[ -f "$SCRIPT_DIR/decimate_to_glb.py" ]]; then
+    echo "Step D2: Decimating mesh → collision.glb (headless Blender) ..."
+
+    DECIMATE_LOG="$SCENE_DIR/decimate_to_glb.log"
+
+    "$BLENDER_PATH" --background \
+        --python "$SCRIPT_DIR/decimate_to_glb.py" -- \
+        --scene-dir "$SCENE_DIR" \
+        --target-triangles "${DECIMATE_TARGET_TRIS:-200000}" \
+        --log-file "$DECIMATE_LOG" || {
+        echo "FAIL: Blender decimation failed (see above or $DECIMATE_LOG)." >&2
+        if [[ -f "$DECIMATE_LOG" ]]; then
+            echo "--- Decimation log tail ---" >&2
+            tail -20 "$DECIMATE_LOG" >&2
+            echo "--- end log tail ---" >&2
+        fi
+        exit 1
+    }
+
+    if [[ ! -f "$SCENE_DIR/collision.glb" ]]; then
+        echo "FAIL: Blender exited 0 but collision.glb is missing at '$SCENE_DIR/collision.glb'." >&2
+        exit 1
+    fi
+
+    GLB_SIZE=$(stat -c%s "$SCENE_DIR/collision.glb" 2>/dev/null || echo "0")
+    if [[ "$GLB_SIZE" -eq 0 ]]; then
+        echo "FAIL: collision.glb is empty (0 bytes)." >&2
+        exit 1
+    fi
+
+    echo "Step D2 complete — collision.glb ($GLB_SIZE bytes)."
+    echo "Decimation log: $DECIMATE_LOG"
+else
+    echo "FAIL: decimate_to_glb.py not found at '$SCRIPT_DIR/decimate_to_glb.py'." >&2
+    echo "Expected: $SCRIPT_DIR/decimate_to_glb.py" >&2
+    echo "See: splat-handoff/fe_stageD_mesh.md" >&2
+    exit 1
+fi
+
+echo
+echo "=== Stage D complete ==="
+echo "Physics asset: $SCENE_DIR/collision.glb"
+echo "CO-REGISTRATION: mesh shares coordinate frame with scene.ply (same reconstruction)."
+echo
+echo "Post-Stage D quality notes (requires human verification):"
+echo "  - Floor continuity: verify no gaps that could cause fall-through."
+echo "  - Floating junk: manual inspection in Blender if physics feels lumpy."
+echo "  - Co-registration: verify ONE transform aligns both mesh + splat at Step 4."
 
 # ---------------------------------------------------------------------------
 # Integration — Asset copy + alignment
 # ---------------------------------------------------------------------------
 
-echo "--- Integration (subissue #111) ---"
+echo "--- Integration (subissue #113 / #114) ---"
 echo "NOT YET IMPLEMENTED."
 echo "After all stages complete, copy assets to:"
 echo "  splat_walk/assets/splats/$SCENE_NAME/"
@@ -255,5 +356,5 @@ echo "Expected files: scene.ply, collision.glb, alignment.toml"
 echo "See: splat-handoff/handoff_contract.md, splat-handoff/integ5_full.md"
 echo
 
-echo "=== Pipeline scaffold complete ==="
-echo "Stages A–D are placeholders. Implement each via its subissue to run the full pipeline."
+echo "=== Pipeline complete ==="
+echo "Stages A–D are implemented. Run the integration stage to copy assets."

@@ -14,7 +14,7 @@ cp /path/to/capture.mp4 scenes/my_room/video.mp4
 # 2. Validate the input
 python3 scripts/splat_pipeline/validate_input.py scenes/my_room/video.mp4
 
-# 3. Run the pipeline (skeleton — stages land via subissues #107–#111)
+# 3. Run the pipeline (Stages A–D implemented; integration pending #113/#114)
 bash scripts/splat_pipeline/run_pipeline.sh scenes/my_room
 ```
 
@@ -35,7 +35,7 @@ bash scripts/splat_pipeline/run_pipeline.sh scenes/my_room
 ```
 
 Final assets are copied to `splat_walk/assets/splats/<scene_name>/` at integration
-(subissue #111).
+(subissue #113/#114).
 
 ## Conforming video requirements
 
@@ -64,8 +64,8 @@ fundamental limitation of Gaussian splatting from posed video, not a bug.
 | A — Frames | `run_pipeline.sh Stage A` + `cull_blurry.py` | #107 | `video.mp4` | `images/*.jpg` |
 | B — Pose | `pose_colmap.sh` / `pose_vggt.sh` | #108 | `images/` | `sparse/0/*.bin` |
 | C — Splat | `train_brush.sh` | #109 | `images/` + `sparse/` | `scene.ply` |
-| D — Mesh | `extract_mesh.sh` + `decimate_to_glb.py` | #110 | `scene.ply` checkpoint | `collision.glb` |
-| Integration | Asset copy + alignment | #111 | all above | `splat_walk/assets/splats/` |
+| D — Mesh | `extract_mesh.sh` + `decimate_to_glb.py` | #111 | `scene.ply` checkpoint | `collision.glb` |
+| Integration | Asset copy + alignment | #113/#114 | all above | `splat_walk/assets/splats/` |
 
 ### Stage details
 
@@ -263,11 +263,103 @@ the PLY header and reports the splat count, with VRAM advisory at 5M and 10M thr
 | VRAM blowout during training | Too many Gaussians | Cap with `--max-splats`, lower resolution |
 | Brush fails to find COLMAP data | Sparse dir structure wrong | Verify `sparse/0/{cameras,images,points3D}.bin` exist |
 
-**Stage D (#110):** Extract a surface-aligned mesh from the trained splat using SuGaR
-or 2DGS — co-registered with the splat automatically. Decimate to <200k tris via
-Blender headless. Output: `collision.glb`.
+**Stage D (#111):** Extract a surface-aligned collision mesh from the trained splat
+using SuGaR or 2DGS. The mesh is CO-REGISTERED with `scene.ply` automatically —
+they come from the same Gaussian reconstruction, so one transform fixes both
+at Back-end Step 4. Decimate to <200k tris via Blender headless. Output: `collision.glb`.
 
-**Integration (#111):** Copy `scene.ply` + `collision.glb` to
+### Stage D — Usage
+
+```bash
+# Step D1: Extract mesh from splat (SuGaR)
+scripts/splat_pipeline/extract_mesh.sh <scene_dir>
+
+# With explicit checkpoint path
+scripts/splat_pipeline/extract_mesh.sh <scene_dir> --checkpoint <ckpt_dir>
+
+# Step D2: Decimate and export collision.glb (headless Blender)
+blender --background --python scripts/splat_pipeline/decimate_to_glb.py -- \\
+    --scene-dir <scene_dir> [--target-triangles 150000]
+
+# Both steps are run automatically by run_pipeline.sh in sequence.
+```
+
+**Prerequisites:**
+
+| Tool | Version | Note |
+|------|---------|------|
+| SuGaR / 2DGS | latest | Install from https://github.com/Anttwo/SuGaR (or equivalent) |
+| Blender | 3.x+ | Headless mode (`--background`) required for automation |
+| Python | 3.10+ | Must have SuGaR dependencies installed |
+
+**Success / failure semantics:**
+
+| Exit code (extract_mesh.sh) | Meaning | Pipeline action |
+|------------------------------|---------|-----------------|
+| 0 | Mesh exported — `mesh_export.obj` produced | Proceed to Step D2 |
+| 1 | Usage error | Fix arguments |
+| 2 | Missing dependencies (python3, SuGaR train.py) | Install SuGaR |
+| 3 | Input validation failed (no scene.ply, no checkpoint) | Run Stages A–C first |
+| 4 | SuGaR export failed (non-zero exit from train.py) | Check GPU drivers, VRAM |
+| 5 | Output mesh missing or empty | Check SuGaR model config |
+
+**Blender decimation (decimate_to_glb.py):**
+
+The headless Blender script performs three operations:
+1. **Import** — reads `mesh_export.obj` (or any format SuGaR produces)
+2. **Clean** — deletes disconnected components with <50 faces (floating junk)
+3. **Decimate** — applies collapse decimation to reach the target triangle budget
+4. **Export** — writes `collision.glb` (GLB format, no materials)
+
+All diagnostics are written to `<scene_dir>/decimate_to_glb.log` because
+snap/flatpak Blender may suppress stdout/stderr.
+
+**Environment variables:**
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `SUGAR_ROOT` | `$HOME/SuGaR` | Path to SuGaR/2DGS repo |
+| `SUGAR_PYTHON` | `python3` | Python interpreter for SuGaR |
+| `SUGAR_TRAIN_SCRIPT` | `$SUGAR_ROOT/train.py` | Path to SuGaR's train.py |
+| `SUGAR_LOW_POLY` | `True` | Low-poly export flag |
+| `SUGAR_SKIP_TEXTURE` | `True` | Skip texture baking (not needed for collision) |
+| `BLENDER_BIN` | `blender` | Path to Blender binary |
+| `DECIMATE_TARGET_TRIS` | 200000 | Max triangle count after decimation |
+
+**Asset contract:**
+
+`collision.glb` is a **PHYSICS-ONLY** asset:
+- Never rendered — no textures, no materials, no normals needed
+- Loaded in Bevy as a `Mesh` for the `avian3d` trimesh collider
+- CO-REGISTERED with `scene.ply` — they share the same coordinate frame
+- One transform in `alignment.toml` (Back-end Step 4) fixes both
+- Ugly is fine — floors/walls clean up well; vegetation/thin rails come out blobby but collision just feels slightly lumpy there
+
+**Failure modes:**
+
+| Symptom | Cause | Action |
+|---------|-------|--------|
+| SuGaR OOMs on 12 GB VRAM | Texture baking enabled or Poisson too expensive | Ensure `SUGAR_SKIP_TEXTURE=True`, `SUGAR_LOW_POLY=True` |
+| Floor has holes | Mesh extraction produced non-continuous floor | Hand-patch in Blender; continuous floor is the one hard requirement |
+| Co-registration looks off | Mesh extracted from wrong reconstruction frame | Re-extract WITH SAME checkpoint SuGaR uses (not an independent mesher) |
+| collision.glb > 200k tris | Decimation ratio was insufficient | Lower `DECIMATE_TARGET_TRIS` and re-run Step D2 |
+| Blender log file is empty | Snap Blender sandboxing suppresses file writes | Use system-installed Blender or adjust snap permissions |
+
+**Post-Stage D quality verification (requires human):**
+- Open `collision.glb` in Blender — verify continuous floor, no large gaps
+- At Back-end Step 4: verify ONE transform aligns both mesh + splat
+- In Bevy runtime: walk the mesh, confirm no fall-throughs
+
+**Escalation guidance:**
+
+| Symptom | Likely cause | Action |
+|---------|-------------|--------|
+| SuGaR train.py not found | `SUGAR_ROOT` or `SUGAR_TRAIN_SCRIPT` misconfigured | Set the correct path or clone the repo |
+| export_obj flag not recognized | Different SuGaR fork with different interface | Set `SUGAR_TRAIN_SCRIPT` to the correct script and adjust flags in `extract_mesh.sh` |
+| Blender hangs on large OBJ | Import too slow for headless | Decimate in SuGaR first with more aggressive `--low_poly` settings |
+| Decimated mesh loses critical geometry | Target triangle count too low | Raise `DECIMATE_TARGET_TRIS` (but keep under 200k for runtime performance) |
+
+**Integration (#113/#114):** Copy `scene.ply` + `collision.glb` to
 `splat_walk/assets/splats/<scene_name>/`. Run the alignment ritual (Back-end Step 4)
 to populate `alignment.toml`. Walk end-to-end in Bevy.
 
@@ -276,10 +368,10 @@ to populate `alignment.toml`. Walk end-to-end in Bevy.
 ```
 #106 (validate scaffold)
   ├── #107 (Stage A)  ← Frame extraction + blur culling implemented
-  ├── #108 (Stage B)  ← depends on #107
-  ├── #109 (Stage C)  ← depends on #108
-  ├── #110 (Stage D)  ← depends on #109
-  └── #111 (Integration) ← depends on #107-#110 + back-end steps
+  ├── #108 (Stage B)  ← COLMAP pose + VGGT fallback implemented
+  ├── #109 (Stage C)  ← Brush splat training implemented
+  ├── #111 (Stage D)  ← SuGaR mesh extraction + decimation implemented
+  └── #113/#114 (Integration) ← depends on #107-#111 + back-end steps
 ```
 
 ## Validator output reference
