@@ -10,9 +10,10 @@ splat_walk/target/
 splat_walk/.rustc_info.json
 splat_walk/Cargo.lock
 
-# Chainlink - ignore local database
+# Chainlink - ignore local database and changelog
 .chainlink/issues.db
 .chainlink/
+CHANGELOG.md
 
 # Forgejo - ignore local runner configuration
 .forgejo/runner.local.yml
