@@ -204,6 +204,37 @@ The old `backrooms_infinite/` WFC crate was deleted — do not recreate it.
 
 **Milestone #10: Video → Walkable Gaussian Splat** — see `PLAN.md` for issue table and build order.
 
+### Environment Setup (run once before any front-end pipeline work)
+
+The front-end pipeline requires four tools not in the conda env: **GLOMAP**, **Brush**, **VGGT**, **SuGaR**.
+COLMAP 3.10 and Python/PyTorch deps are already in the `nerfstudio` conda env.
+
+```bash
+# 1. Enter the Nix dev shell (provides cmake, Rust, C++ deps for GLOMAP/Brush)
+nix develop
+
+# 2. Install all four missing tools (~10–20 min first time)
+./environment/setup-pipeline-tools.sh
+
+# 3. Confirm everything is present before running pipeline scripts
+./environment/setup-pipeline-tools.sh status
+```
+
+Individual installs if only one tool is missing:
+```bash
+./environment/setup-pipeline-tools.sh install-glomap   # C++ build from source
+./environment/setup-pipeline-tools.sh install-brush    # cargo install brush-app
+./environment/setup-pipeline-tools.sh install-vggt     # git clone + conda pip
+./environment/setup-pipeline-tools.sh install-sugar    # git clone + conda pip
+```
+
+Binaries land in `$HOME/.local/bin/`. The Nix shell and `setup-pipeline-tools.sh`
+both prepend this to `PATH` automatically.
+
+**Video resolution requirement:** pipeline scripts require 1080p+ input. All current
+captures in `data/videos/` are 720p and will be rejected at Stage A validation.
+New captures must be shot at 1080p minimum before INT-4 (#109) can run end-to-end.
+
 ### Asset Pipeline
 
 ```
