@@ -348,13 +348,19 @@ echo "  - Co-registration: verify ONE transform aligns both mesh + splat at Step
 # Integration — Asset copy + alignment
 # ---------------------------------------------------------------------------
 
-echo "--- Integration (subissue #113 / #114) ---"
-echo "NOT YET IMPLEMENTED."
-echo "After all stages complete, copy assets to:"
-echo "  splat_walk/assets/splats/$SCENE_NAME/"
-echo "Expected files: scene.ply, collision.glb, alignment.toml"
-echo "See: splat-handoff/handoff_contract.md, splat-handoff/integ5_full.md"
 echo
+echo "--- Integration: Stage assets ---"
 
+if [[ -x "$SCRIPT_DIR/stage_assets.sh" ]]; then
+    "$SCRIPT_DIR/stage_assets.sh" "$SCENE_DIR"
+else
+    echo "FAIL: stage_assets.sh not found or not executable." >&2
+    echo "Expected: $SCRIPT_DIR/stage_assets.sh" >&2
+    echo "(Integration stage is required to make assets available to the Bevy runtime.)" >&2
+    exit 1
+fi
+
+echo
 echo "=== Pipeline complete ==="
-echo "Stages A–D are implemented. Run the integration stage to copy assets."
+echo "All stages finished. Assets staged in splat_walk/assets/splats/$SCENE_NAME/"
+echo "Next: cd splat_walk && cargo run"
