@@ -43,6 +43,8 @@
             sqlite
             gflags
             glog
+            cgal
+            openimageio
 
             # ------------------------------------------------------------------
             # Rust toolchain — cargo install brush-app
@@ -75,8 +77,8 @@
             export PATH="$PIPELINE_TOOLS_PREFIX/bin:$PATH"
 
             # Default roots — scripts honour these env vars.
-            export VGGT_ROOT="''${VGGT_ROOT:-$HOME/vggt}"
-            export SUGAR_ROOT="''${SUGAR_ROOT:-$HOME/SuGaR}"
+            export VGGT_ROOT="''${VGGT_ROOT:-/home/user/backrooms-workspace/build/vggt}"
+            export SUGAR_ROOT="''${SUGAR_ROOT:-/home/user/backrooms-workspace/build/SuGaR}"
 
             echo ""
             echo "=== backrooms-pipeline dev shell ==="
@@ -95,7 +97,7 @@
             [[ -f "$VGGT_ROOT/demo_colmap.py" ]] \
               && _ok  vggt    "$VGGT_ROOT" \
               || _miss vggt    "run: ./environment/setup-pipeline-tools.sh install-vggt"
-            [[ -f "$SUGAR_ROOT/train.py" ]] \
+            [[ -f "$SUGAR_ROOT/extract_mesh.py" ]] \
               && _ok  sugar   "$SUGAR_ROOT" \
               || _miss sugar   "run: ./environment/setup-pipeline-tools.sh install-sugar"
             command -v ffmpeg >/dev/null 2>&1 \
