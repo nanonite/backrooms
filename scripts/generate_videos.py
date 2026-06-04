@@ -140,7 +140,7 @@ def submit(image_uri: str, prompt: str) -> tuple[str, str]:
         "model": MODEL_ID,
         "prompt": prompt,
         "duration": 5,
-        "resolution": "720p",
+        "resolution": "1080p",
         "aspect_ratio": "16:9",
         "generate_audio": False,  # audio out of scope
         "frame_images": [
