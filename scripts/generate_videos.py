@@ -165,7 +165,7 @@ def submit(image_uri: str, prompt: str) -> tuple[str, str]:
     payload = json.dumps({
         "model": MODEL_ID,
         "prompt": prompt,
-        "duration": 5,
+        "duration": 4,
         "resolution": "1080p",
         "aspect_ratio": "16:9",
         "generate_audio": False,  # audio out of scope
