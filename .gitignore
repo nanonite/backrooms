@@ -35,10 +35,7 @@ __pycache__/
 spindle.db*
 
 # Local data and environment sandboxes
-data/nerfstudio/
-data/videos/
-data/frames/
-data/colmap_output/
+data/
 splat_walk/assets/splats/*
 !splat_walk/assets/splats/_template/
 environment/
