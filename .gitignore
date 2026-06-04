@@ -63,3 +63,4 @@ opencode.json
 
 
 build/
+.env
