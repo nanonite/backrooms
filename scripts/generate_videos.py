@@ -55,7 +55,7 @@ if not API_KEY:
 
 SEED_IMAGE = Path(__file__).parent.parent / "Backrooms_model.jpg"
 OUTPUT_DIR = Path(__file__).parent.parent / "data" / "videos"
-MODEL_ID   = "bytedance/seedance-2.0"
+MODEL_ID   = "google/veo-3.1-lite"
 BASE_URL   = "https://openrouter.ai/api/v1"
 
 # ---------------------------------------------------------------------------
@@ -131,6 +131,32 @@ def image_data_uri(path: Path) -> str:
     mime = "image/jpeg" if path.suffix.lower() in (".jpg", ".jpeg") else "image/png"
     return f"data:{mime};base64,{b64}"
 
+RETRY_STATUSES = {429, 500, 502, 503, 504}
+MAX_RETRIES    = 5
+RETRY_BACKOFF  = [5, 10, 20, 40, 60]  # seconds between attempts
+
+
+def _urlopen_with_retry(req: urllib.request.Request, label: str) -> bytes:
+    """urlopen with retry on transient HTTP errors. Returns response bytes."""
+    for attempt in range(MAX_RETRIES):
+        try:
+            with urllib.request.urlopen(req) as resp:
+                return resp.read()
+        except urllib.error.HTTPError as exc:
+            body_preview = exc.read(512).decode(errors="replace")
+            print(
+                f"  HTTP {exc.code} on {label} (attempt {attempt + 1}/{MAX_RETRIES}): "
+                f"{exc.reason} — {body_preview}",
+                flush=True,
+            )
+            if exc.code not in RETRY_STATUSES or attempt == MAX_RETRIES - 1:
+                raise
+            delay = RETRY_BACKOFF[attempt]
+            print(f"  retrying in {delay}s...", flush=True)
+            time.sleep(delay)
+    raise RuntimeError("unreachable")
+
+
 def submit(image_uri: str, prompt: str) -> tuple[str, str]:
     """
     POST /api/v1/videos
@@ -158,8 +184,7 @@ def submit(image_uri: str, prompt: str) -> tuple[str, str]:
         headers=headers(),
         method="POST",
     )
-    with urllib.request.urlopen(req) as resp:
-        body = json.loads(resp.read())
+    body = json.loads(_urlopen_with_retry(req, "submit"))
 
     generation_id = body["id"]
     polling_url   = body["polling_url"]
@@ -169,8 +194,7 @@ def poll(polling_url: str, generation_id: str) -> None:
     """Poll until status == 'completed'. Raises on failure."""
     while True:
         req = urllib.request.Request(polling_url, headers=headers())
-        with urllib.request.urlopen(req) as resp:
-            body = json.loads(resp.read())
+        body = json.loads(_urlopen_with_retry(req, "poll"))
 
         status = body.get("status", "unknown")
         print(f"  [{generation_id[:12]}] {status}", flush=True)
