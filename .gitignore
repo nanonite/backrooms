@@ -60,3 +60,6 @@ assets/audio/
 .claude/settings.local.json
 .opencode/
 opencode.json
+
+
+build/
