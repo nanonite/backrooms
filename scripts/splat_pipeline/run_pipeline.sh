@@ -168,6 +168,7 @@ if [[ -x "$SCRIPT_DIR/pose_colmap.sh" ]]; then
         echo "Trying VGGT fallback (Path 2) ..."
 
         if [[ -x "$SCRIPT_DIR/pose_vggt.sh" ]]; then
+            STAGE_B_STATUS=0
             "$SCRIPT_DIR/pose_vggt.sh" "$SCENE_DIR" || STAGE_B_STATUS=$?
         else
             echo "FAIL: POSE_FAILED but pose_vggt.sh not found/executable." >&2
