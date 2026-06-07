@@ -163,8 +163,8 @@ if [[ -x "$SCRIPT_DIR/pose_colmap.sh" ]]; then
 
     if [[ "$STAGE_B_STATUS" -eq 0 ]]; then
         echo "Stage B (COLMAP) succeeded."
-    elif [[ "$STAGE_B_STATUS" -eq 5 ]] || [[ "$STAGE_B_STATUS" -eq 6 ]] || [[ -f "$SCENE_DIR/POSE_FAILED" ]]; then
-        echo "COLMAP failed or POSE_FAILED (exit $STAGE_B_STATUS)."
+    elif [[ "$STAGE_B_STATUS" -eq 2 ]] || [[ "$STAGE_B_STATUS" -eq 5 ]] || [[ "$STAGE_B_STATUS" -eq 6 ]] || [[ -f "$SCENE_DIR/POSE_FAILED" ]]; then
+        echo "COLMAP/GLOMAP unavailable or POSE_FAILED (exit $STAGE_B_STATUS)."
         echo "Trying VGGT fallback (Path 2) ..."
 
         if [[ -x "$SCRIPT_DIR/pose_vggt.sh" ]]; then
