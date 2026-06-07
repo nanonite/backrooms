@@ -313,7 +313,7 @@ def main_blender(args: argparse.Namespace) -> None:
 
     # Clear default scene objects (cube, camera, light)
     bpy.ops.object.select_all(action='SELECT')
-    bpy.ops.object.delete(use_confirm=False)
+    bpy.ops.object.delete()
 
     _import_mesh(input_mesh, log_file)
 
