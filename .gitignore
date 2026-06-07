@@ -61,3 +61,6 @@ opencode.json
 
 build/
 .env
+
+# Pipeline build artifacts (per-scene working directories)
+scripts/splat_pipeline/scenes/
