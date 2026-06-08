@@ -87,7 +87,7 @@ def test_copies_scene_ply_and_collision_glb(tmp_path):
     dest = splats_root / "scene_work"
     assert dest.is_dir()
     assert (dest / "scene.ply").read_text() == "fake ply content"
-    assert (dest / "collision.glb").read_text() == "fake glb content"
+    assert (dest / "collision.mesh.glb").read_text() == "fake glb content"
 
 
 # ---------------------------------------------------------------------------
@@ -148,7 +148,7 @@ def test_rerun_overwrites_scene_ply_and_collision_glb(tmp_path):
     dest = splats_root / "my_scene"
     dest.mkdir(parents=True)
     (dest / "scene.ply").write_text("old ply")
-    (dest / "collision.glb").write_text("old glb")
+    (dest / "collision.mesh.glb").write_text("old glb")
     (dest / "alignment.toml").write_text("scale = 9.9\n")
 
     scene_dir = tmp_path / "my_scene"
@@ -160,7 +160,7 @@ def test_rerun_overwrites_scene_ply_and_collision_glb(tmp_path):
 
     assert result.returncode == 0
     assert (dest / "scene.ply").read_text() == "new ply"
-    assert (dest / "collision.glb").read_text() == "new glb"
+    assert (dest / "collision.mesh.glb").read_text() == "new glb"
     assert (dest / "alignment.toml").read_text() == "scale = 9.9\n"
 
 
