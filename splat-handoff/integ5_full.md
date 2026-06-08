@@ -1,5 +1,5 @@
 ## Goal (Integration Step 5 — full end-to-end: walk inside the real splat)
-Load the REAL `scene.ply` + `collision.glb`, perform the per-scene alignment ritual,
+Load the REAL `scene.ply` + `collision.mesh.glb`, perform the per-scene alignment ritual,
 and walk around inside the reconstructed place. This closes the loop end-to-end.
 
 ## Prereqs / Blockers
@@ -8,7 +8,7 @@ and walk around inside the reconstructed place. This closes the loop end-to-end.
 
 ## Procedure (the alignment ritual on real assets — Section 3.2)
 1. Point the Bevy app at `splat_walk/assets/splats/<scene_name>/`.
-2. Spawn splat entity (`scene.ply`) + collider entity (`collision.glb` as a
+2. Spawn splat entity (`scene.ply`) + collider entity (`collision.mesh.glb` as a
    `RigidBody::Static` trimesh, `Visibility::Hidden`) — BOTH with `align(&SceneAlignment)`.
 3. Load `alignment.toml` (identity-ish defaults) and iterate the ritual:
    - Rotate so the floor is horizontal (gravity −Y). Usually −90° about X.
@@ -24,7 +24,7 @@ The mesh has no material / `Visibility::Hidden`, so it never draws.
 commands.spawn((
     RigidBody::Static,
     ColliderConstructor::TrimeshFromMesh,                 // names are version-specific
-    Mesh3d(assets.load("splats/<scene>/collision.glb#Mesh0/Primitive0")),
+    Mesh3d(assets.load("splats/<scene>/collision.mesh.glb")),
     Visibility::Hidden,
     align(&alignment),                                    // SAME transform as the splat
 ));

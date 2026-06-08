@@ -16,18 +16,18 @@ scripts/splat_pipeline/run_pipeline.sh /abs/path/to/scene_dir
 #   Stage A: extract + cull frames
 #   Stage B: COLMAP/GLOMAP; on POSE_FAILED -> VGGT
 #   Stage C: Brush -> scene.ply
-#   Stage D: SuGaR -> collision.glb (+ Blender decimate)
+#   Stage D: SuGaR -> collision.glb (+ Blender decimate; staged as collision.mesh.glb)
 ```
 Then copy assets into the Bevy app:
 ```bash
 mkdir -p splat_walk/assets/splats/<scene_name>
 cp scene_dir/scene.ply        splat_walk/assets/splats/<scene_name>/
-cp scene_dir/collision.glb    splat_walk/assets/splats/<scene_name>/
+cp scene_dir/collision.glb    splat_walk/assets/splats/<scene_name>/collision.mesh.glb
 cp splat_walk/assets/splats/_template/alignment.toml splat_walk/assets/splats/<scene_name>/
 ```
 
 ## Acceptance criteria
-- `splat_walk/assets/splats/<scene_name>/` contains `scene.ply`, `collision.glb`, and
+- `splat_walk/assets/splats/<scene_name>/` contains `scene.ply`, `collision.mesh.glb`, and
   a (placeholder) `alignment.toml`.
 - `scene.ply` opens in Brush's viewer and resembles the real place.
 - `collision.glb` opens in Blender with a continuous floor, <200k tris.

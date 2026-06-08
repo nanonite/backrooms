@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # stage_assets.sh — Copy pipeline outputs into the Bevy app assets tree.
 #
-# Copies scene.ply + collision.glb from a completed scene_dir into
+# Copies scene.ply + collision.mesh.glb from a completed scene_dir into
 # splat_walk/assets/splats/<scene_name>/, creates alignment.toml from the
 # _template only if missing (preserving any hand-tuned values), and updates
 # splat_walk/assets/splats/current_scene.txt so the runtime picks up the new scene.
@@ -9,7 +9,7 @@
 # Usage:
 #   scripts/splat_pipeline/stage_assets.sh <scene_dir>
 #
-# Idempotent: rerun replaces scene.ply and collision.glb but keeps a tuned
+# Idempotent: rerun replaces scene.ply and collision.mesh.glb but keeps a tuned
 # alignment.toml. When run from run_pipeline.sh, scene_dir is the argument
 # passed to the pipeline driver.
 
@@ -73,8 +73,8 @@ mkdir -p "$DEST_DIR"
 cp "$SCENE_DIR/scene.ply" "$DEST_DIR/scene.ply"
 echo "Copied scene.ply -> $DEST_DIR/scene.ply"
 
-cp "$SCENE_DIR/collision.glb" "$DEST_DIR/collision.glb"
-echo "Copied collision.glb -> $DEST_DIR/collision.glb"
+cp "$SCENE_DIR/collision.glb" "$DEST_DIR/collision.mesh.glb"
+echo "Copied collision.glb -> $DEST_DIR/collision.mesh.glb"
 
 if [[ ! -f "$DEST_DIR/alignment.toml" ]]; then
     if [[ ! -f "$TEMPLATE" ]]; then
