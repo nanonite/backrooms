@@ -243,13 +243,20 @@ def _decimate_mesh(target_triangles: int, log_file: Path) -> int:
 
 
 def _export_glb(output_path: Path, log_file: Path) -> None:
-    """Export selected mesh objects as GLB."""
+    """Join all mesh objects into one, then export as single-primitive GLB."""
     import bpy
 
     mesh_objects = _select_mesh_objects()
     if not mesh_objects:
         write_log(log_file, "ERROR: no mesh objects to export.")
         raise RuntimeError("No mesh objects to export")
+
+    if len(mesh_objects) > 1:
+        write_log(log_file, f"JOIN: merging {len(mesh_objects)} mesh objects into single mesh.")
+        bpy.ops.object.join()
+        mesh_objects = _select_mesh_objects()
+        mesh_objects[0].name = "collision"
+        write_log(log_file, f"JOIN: result has {_count_triangles(mesh_objects[0])} triangles.")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
 

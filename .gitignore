@@ -38,6 +38,8 @@ spindle.db*
 data/
 splat_walk/assets/splats/*
 !splat_walk/assets/splats/_template/
+!splat_walk/assets/splats/corridor_straight/
+!splat_walk/assets/splats/current_scene.txt
 environment/
 
 # IDE / Editor

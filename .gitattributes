@@ -1,0 +1,4 @@
+*.ply filter=lfs diff=lfs merge=lfs -text
+*.glb filter=lfs diff=lfs merge=lfs -text
+# Existing small demo file is non-LFS — override to avoid pointer conversion
+splat_walk/assets/demo/demo.ply -filter -diff -merge text

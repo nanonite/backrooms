@@ -23,7 +23,26 @@
         rustToolchain = pkgs.rust-bin.stable.latest.default;
 
       in {
-        devShells.default = pkgs.mkShell {
+        devShells.default = let
+          # Libraries needed at runtime for dlopen (xkbcommon, vulkan, etc.)
+          runtimeLibs = with pkgs; [
+            wayland
+            systemdLibs
+            alsa-lib
+            xorg.libX11
+            xorg.libXcursor
+            xorg.libXrandr
+            xorg.libXi
+            libxkbcommon
+            libGL
+            vulkan-loader
+            stdenv.cc.cc.lib
+            zlib
+          ];
+
+          runtimeLibPath = pkgs.lib.makeLibraryPath runtimeLibs;
+
+        in pkgs.mkShell {
           name = "backrooms-pipeline";
 
           packages = with pkgs; [
@@ -58,14 +77,13 @@
 
             # Python headers available; actual packages live in the conda env.
             python3
-
-          ] ++ lib.optionals stdenv.isLinux [
-            stdenv.cc.cc.lib
-            zlib
-            libGL
-          ];
+          ] ++ runtimeLibs;
 
           shellHook = ''
+            # Make dlopen-able libraries discoverable at runtime.
+            export LD_LIBRARY_PATH=${runtimeLibPath}''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+            export LIBRARY_PATH=${runtimeLibPath}''${LIBRARY_PATH:+:$LIBRARY_PATH}
+          '' + ''
             # Prepend conda nerfstudio env so colmap 3.10 / ns-* resolve first.
             CONDA_ENV_BIN="$HOME/anaconda3/envs/nerfstudio/bin"
             if [[ -d "$CONDA_ENV_BIN" ]]; then
