@@ -4,11 +4,11 @@
       "args": [
         "mcp-stdio",
         "--role",
-        "reviewer",
+        "root",
         "--name",
-        "backrooms-workspace"
+        "root"
       ],
-      "command": "exomonad",
+      "command": "/home/user/.cargo/bin/exomonad",
       "type": "stdio"
     }
   }
