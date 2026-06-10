@@ -75,6 +75,12 @@
             # ------------------------------------------------------------------
             ffmpeg        # Stage A frame extraction
 
+            # ------------------------------------------------------------------
+            # Godot 4 — v1 walkable runtime (Forward+; GDScript, no -mono).
+            # Reuses the Vulkan/xkb/GL runtimeLibs above for Forward+ + headless.
+            # ------------------------------------------------------------------
+            godot_4       # godot4 binary; headless import for the G-track
+
             # Python headers available; actual packages live in the conda env.
             python3
           ] ++ runtimeLibs;
@@ -121,6 +127,9 @@
             command -v ffmpeg >/dev/null 2>&1 \
               && _ok  ffmpeg  "$(ffmpeg -version 2>&1 | head -1 | cut -d' ' -f1-3)" \
               || _miss ffmpeg  "not found"
+            command -v godot4 >/dev/null 2>&1 \
+              && _ok  godot   "$(godot4 --version 2>&1 | head -1)" \
+              || _miss godot   "not found — godot_4 should be in packages"
 
             echo ""
             echo "Missing tools? Run: ./environment/setup-pipeline-tools.sh"
