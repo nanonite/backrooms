@@ -40,7 +40,19 @@ splat_walk/assets/splats/*
 !splat_walk/assets/splats/_template/
 !splat_walk/assets/splats/corridor_straight/
 !splat_walk/assets/splats/current_scene.txt
-environment/
+# environment/ is a local sandbox, but track the Meshroom acquisition doc (Stage M fallback).
+environment/*
+!environment/meshroom.md
+
+# Archived Bevy effort (splat_walk + old plans) — 24G local backup, never commit.
+archive/
+
+# Godot per-machine import cache (also covered by godot_walk/.gitignore)
+godot_walk/.godot/
+
+# Nix build result symlinks
+/result
+/result-*
 
 # IDE / Editor
 .vscode/
