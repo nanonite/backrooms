@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player_scene"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(20.0, 20.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(20.0, 0.1, 20.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_obstacle"]
+size = Vector3(1.0, 1.0, 1.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_obstacle"]
+size = Vector3(1.0, 1.0, 1.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall"]
+size = Vector3(4.0, 2.0, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall"]
+size = Vector3(4.0, 2.0, 0.5)
+
+[node name="Sandbox" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 10.0, 0.0)
+rotation = Vector3(-0.785398, 0.523599, 0.0)
+
+[node name="GroundMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ground")
+
+[node name="GroundBody" type="StaticBody3D" parent="."]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, -0.05, 0.0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundBody"]
+shape = SubResource("BoxShape3D_ground")
+
+[node name="ObstacleBox" type="Node3D" parent="."]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 4.0, 0.5, 0.0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ObstacleBox"]
+mesh = SubResource("BoxMesh_obstacle")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ObstacleBox"]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ObstacleBox/StaticBody3D"]
+shape = SubResource("BoxShape3D_obstacle")
+
+[node name="ObstacleWall" type="Node3D" parent="."]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -2.0, 1.0, 3.0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ObstacleWall"]
+mesh = SubResource("BoxMesh_wall")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ObstacleWall"]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ObstacleWall/StaticBody3D"]
+shape = SubResource("BoxShape3D_wall")
+
+[node name="Player" parent="." instance=ExtResource("1_player_scene")]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0)
