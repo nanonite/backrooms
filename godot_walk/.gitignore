@@ -1,0 +1,7 @@
+# Godot 4 import cache and per-machine artifacts — never commit.
+.godot/
+*.translation
+
+# Exported binaries
+/build/
+export_presets.cfg
