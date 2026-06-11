@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 # mesh_photogrammetry.sh — Stage M: photogrammetry textured mesh (the v1 deliverable).
 #
-# CONTRACT / STUB ONLY. This file defines the interface and dependency contract
-# for Stage M; the stage bodies are NOT implemented here. Implementation is the
-# job of chainlink #43 (M1) and its subissues:
-#   - M1a (#51): COLMAP dense path body (the DEFAULT below).
-#   - M1b (#52): Meshroom fallback body (--fallback meshroom).
-#   - M1c (#53): Blender cleanup (Y-up, metric, fill non-manifold, decimate) — separate step.
-#   - M1d (#54): glTF export + scene_transform.txt — separate step.
-#
 # Architectural rule (see fable-plan.md §0): the textured mesh IS the world — it
 # is BOTH the visual and the collider. DO NOT extract this mesh from a Gaussian
 # splat (the entire Bevy failure mode). This stage consumes the sparse model's
@@ -29,20 +21,21 @@
 #   image_undistorter -> patch_match_stereo -> stereo_fusion -> poisson_mesher
 #   (CUDA MVS; verified present in the flake's pkgs.colmap — RTX 4070 Ti.)
 #
-# Output (contract — produced by the full M1 chain, not this stub):
+# Output (contract):
 #   $scene_dir/mesh_raw.ply        dense MVS mesh, arbitrary frame/scale (M1a/M1b)
 #   $scene_dir/scene.glb           cleaned, Y-up, metric, textured (M1c/M1d)
 #   $scene_dir/scene_transform.txt rotation+scale baked in Blender, for v2 splat (M1d)
 #
 # Exit codes:
-#   0  Success (full implementation only).
+#   0  Success.
 #   1  Usage error.
-#   2  Missing dependencies (colmap, or meshroom AppImage for --fallback).
+#   2  Missing dependencies (colmap, blender, or meshroom AppImage for --fallback).
 #   3  Input validation failed (no images/ or sparse/0/).
-#   7  STUB — stage body not yet implemented (this file). M1 replaces this.
+#   4  Photogrammetry step failed (COLMAP dense or Meshroom pipeline).
+#   5  Blender cleanup/export failed.
 #
 # Requirements:
-#   - COLMAP with CUDA MVS (flake pkgs.colmap provides patch_match_stereo,
+#   - COLMAP with CUDA MVS (pkgs.colmap provides patch_match_stereo,
 #     stereo_fusion, poisson_mesher, delaunay_mesher, image_undistorter).
 #   - Meshroom is NOT in nixpkgs — the fallback uses an AppImage. See
 #     environment/meshroom.md for acquisition + the MESHROOM_BIN env var.
@@ -62,9 +55,12 @@ Options:
 Environment:
   MESHROOM_BIN           Path to Meshroom_*.AppImage (required for --fallback).
                          See environment/meshroom.md.
+  TEXTURES_DIR           Optional override for external texture directory
+                         (<scene>_{ceiling,floor,front,side}.jpg or .png).
+                         Mesh keeps vertex colors when textures are absent.
 
-Exit codes:
-  0 success  1 usage  2 missing deps  3 bad input  7 STUB (not implemented)
+  Exit codes:
+  0 success  1 usage  2 missing deps  3 bad input  4 pipeline failed  5 blender failed
 EOF
     exit 0
 }
@@ -100,13 +96,13 @@ SCENE_DIR="$(realpath "$SCENE_DIR")"
 IMAGES_DIR="$SCENE_DIR/images"
 SPARSE_MODEL_DIR="$SCENE_DIR/sparse/0"
 
-echo "=== Stage M: photogrammetry textured mesh (CONTRACT/STUB) ==="
+echo "=== Stage M: photogrammetry textured mesh ==="
 echo "Scene:    $SCENE_DIR"
 echo "Backend:  $BACKEND"
 echo
 
 # ---------------------------------------------------------------------------
-# Dependency + input contract (these checks ARE active in the stub)
+# Dependency + input contract
 # ---------------------------------------------------------------------------
 
 if [[ "$BACKEND" == "colmap" ]]; then
@@ -125,31 +121,301 @@ fi
 [[ -f "$SPARSE_MODEL_DIR/cameras.bin" ]] \
     || die 3 "sparse/0/cameras.bin not found. Run pose_colmap.sh (Stage B) first."
 
+BLENDER_BIN="${BLENDER_BIN:-blender}"
+command -v "$BLENDER_BIN" >/dev/null 2>&1 \
+    || die 2 "blender not in PATH. Set BLENDER_BIN=/path/to/blender."
+
+# Resolve textures directory for Blender cleanup (optional — mesh keeps
+# vertex colors when external textures are absent).
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+TEXTURES_DIR="${TEXTURES_DIR:-$REPO_ROOT/data/textures}"
+
 echo "Dependency + input contract satisfied."
 echo
 
 # ---------------------------------------------------------------------------
-# Stage bodies — NOT IMPLEMENTED (M1 fills these in)
+# Stage body
 # ---------------------------------------------------------------------------
 
 if [[ "$BACKEND" == "colmap" ]]; then
-    cat <<'PLAN'
-[STUB] COLMAP dense path to implement in M1a (#51):
-  colmap image_undistorter  --image_path images --input_path sparse/0 \
-                            --output_path dense --output_type COLMAP
-  colmap patch_match_stereo --workspace_path dense
-  colmap stereo_fusion      --workspace_path dense --output_path dense/fused.ply
-  colmap poisson_mesher     --input_path dense/fused.ply \
-                            --output_path mesh_raw.ply
-  # then hand mesh_raw.ply to Blender cleanup (M1c) + glTF export (M1d).
-PLAN
+    DENSE_DIR="$SCENE_DIR/dense"
+    DATABASE_PATH="$SCENE_DIR/database.db"
+
+    echo "--- Build COLMAP database (features + matches for neighbor info) ---"
+    if [[ -s "$DATABASE_PATH" ]]; then
+        echo "Using existing database: $DATABASE_PATH"
+    else
+        colmap feature_extractor \
+            --database_path "$DATABASE_PATH" \
+            --image_path "$IMAGES_DIR" \
+            --ImageReader.single_camera 1 \
+            || die 4 "feature_extractor failed."
+
+        colmap exhaustive_matcher \
+            --database_path "$DATABASE_PATH" \
+            || die 4 "exhaustive_matcher failed."
+    fi
+
+    echo "--- Image undistortion ---"
+    colmap image_undistorter \
+        --image_path "$IMAGES_DIR" \
+        --input_path "$SPARSE_MODEL_DIR" \
+        --output_path "$DENSE_DIR" \
+        --output_type COLMAP \
+        || die 4 "image_undistorter failed."
+
+    echo "--- Build patch-match.cfg from database matches ---"
+    python3 - "$DENSE_DIR" "$DATABASE_PATH" <<'PYEOF' || die 4 "Failed to build patch-match.cfg."
+import sys, sqlite3, os
+dense_stereo = os.path.join(sys.argv[1], 'stereo')
+db = sqlite3.connect(sys.argv[2])
+img_map = {}
+for row in db.execute("SELECT image_id, name FROM images ORDER BY image_id"):
+    img_map[row[0]] = row[1]
+BASE = 2147483647
+neighbors = {name: [] for name in img_map.values()}
+for row in db.execute("SELECT pair_id, rows FROM two_view_geometries"):
+    pid, num = row
+    i2 = pid % BASE
+    i1 = pid // BASE
+    if i1 in img_map and i2 in img_map:
+        n1, n2 = img_map[i1], img_map[i2]
+        neighbors[n1].append((n2, num))
+        neighbors[n2].append((n1, num))
+MAX_NBR = 10
+with open(os.path.join(dense_stereo, 'patch-match.cfg'), 'w') as f:
+    for img_name in sorted(neighbors.keys()):
+        nbrs = sorted(neighbors[img_name], key=lambda x: -x[1])[:MAX_NBR]
+        if not nbrs:
+            continue
+        f.write(f"{img_name}\n")
+        f.write(", ".join(n[0] for n in nbrs) + "\n")
+db.close()
+PYEOF
+    echo "  patch-match.cfg written with explicit neighbors."
+
+    echo "--- Patch match stereo ---"
+    colmap patch_match_stereo \
+        --workspace_path "$DENSE_DIR" \
+        --PatchMatchStereo.window_radius 5 \
+        --PatchMatchStereo.window_step 2 \
+        --PatchMatchStereo.geom_consistency true \
+        --PatchMatchStereo.filter true \
+        --PatchMatchStereo.write_consistency_graph true \
+        || die 4 "patch_match_stereo failed."
+
+    echo "--- Stereo fusion ---"
+    colmap stereo_fusion \
+        --workspace_path "$DENSE_DIR" \
+        --output_path "$DENSE_DIR/fused_full.ply" \
+        --StereoFusion.min_num_pixels 1 \
+        --StereoFusion.max_reproj_error 100 \
+        --StereoFusion.max_depth_error 0.1 \
+        --StereoFusion.max_normal_error 30 \
+        --StereoFusion.check_num_images 1 \
+        || die 4 "stereo_fusion failed."
+
+    echo "--- Subsampling fused cloud (~500k points for Poisson) ---"
+    python3 - "$DENSE_DIR" <<'PYEOF' || die 4 "Subsampling failed."
+import sys, struct, os, numpy as np
+dense = sys.argv[1]
+fused = os.path.join(dense, 'fused_full.ply')
+output = os.path.join(dense, 'fused.ply')
+if not os.path.exists(fused):
+    sys.exit(1)
+with open(fused, 'rb') as f:
+    header = b''
+    while True:
+        line = f.readline()
+        header += line
+        if line.strip() == b'end_header':
+            break
+total = 0
+for line in header.decode().split('\n'):
+    if 'element vertex' in line:
+        total = int(line.split()[-1])
+if total == 0:
+    sys.exit(1)
+sample_rate = min(1.0, 500000.0 / total)
+vertex_size = 4*3 + 4*3 + 3  # xyz + nxyz + rgb
+rng = np.random.RandomState(42)
+kept = []
+with open(fused, 'rb') as f:
+    f.seek(len(header))
+    for i in range(total):
+        data = f.read(vertex_size)
+        if rng.random() < sample_rate:
+            kept.append(data)
+with open(output, 'wb') as f:
+    f.write(b'ply\nformat binary_little_endian 1.0\n')
+    f.write(f'element vertex {len(kept)}\n'.encode())
+    f.write(b'property float x\nproperty float y\nproperty float z\n')
+    f.write(b'property float nx\nproperty float ny\nproperty float nz\n')
+    f.write(b'property uchar red\nproperty uchar green\nproperty uchar blue\n')
+    f.write(b'end_header\n')
+    for v in kept:
+        f.write(v)
+PYEOF
+
+    echo "--- Poisson meshing ---"
+    colmap poisson_mesher \
+        --input_path "$DENSE_DIR/fused.ply" \
+        --output_path "$SCENE_DIR/mesh_raw.ply" \
+        --PoissonMeshing.depth 10 \
+        --PoissonMeshing.trim 7 \
+        || die 4 "poisson_mesher failed."
+
+    echo "COLMAP dense complete: $SCENE_DIR/mesh_raw.ply"
+
+    echo
+    echo "--- Blender cleanup + glTF export ---"
+    "$BLENDER_BIN" --background \
+        --python "$SCRIPT_DIR/blender_cleanup_mesh.py" -- \
+        --scene-dir "$SCENE_DIR" \
+        --textures-dir "$TEXTURES_DIR" \
+        --target-tris "${MESH_TARGET_TRIS:-500000}" \
+        || die 5 "Blender cleanup failed. See $SCENE_DIR/blender_cleanup.log"
+
+    if [[ ! -f "$SCENE_DIR/scene.glb" ]]; then
+        die 5 "Blender exited 0 but scene.glb not found at $SCENE_DIR/scene.glb"
+    fi
+    GLB_SIZE=$(stat -c%s "$SCENE_DIR/scene.glb" 2>/dev/null || echo "0")
+    if [[ "$GLB_SIZE" -eq 0 ]]; then
+        die 5 "scene.glb is empty (0 bytes)"
+    fi
+    echo "scene.glb produced ($GLB_SIZE bytes)."
+
+    if [[ ! -f "$SCENE_DIR/scene_transform.txt" ]]; then
+        die 5 "scene_transform.txt not found"
+    fi
+    echo "scene_transform.txt written."
+
+    if ! $KEEP_DENSE; then
+        rm -rf "$DENSE_DIR"
+        echo "Removed dense workspace."
+    fi
 else
-    cat <<'PLAN'
-[STUB] Meshroom fallback to implement in M1b (#52):
-  "$MESHROOM_BIN" --input images --output meshroom_out \
-      # Meshroom re-runs its own SfM; export textured mesh, then Blender cleanup.
-PLAN
+    # --- Meshroom (AliceVision) path ---
+    MESHROOM_OUT="$SCENE_DIR/meshroom_out"
+
+    echo "--- Running Meshroom (AliceVision) pipeline ---"
+    echo "Input:  $IMAGES_DIR"
+    echo "Output: $MESHROOM_OUT"
+
+    "$MESHROOM_BIN" \
+        --input "$IMAGES_DIR" \
+        --output "$MESHROOM_OUT" \
+        || die 4 "Meshroom pipeline failed. See MeshroomCache/ logs under $MESHROOM_OUT"
+
+    echo "Meshroom pipeline complete. Locating output mesh..."
+
+    # Meshroom's Texturing node writes texturedMesh.obj into
+    # MeshroomCache/Texturing/<hash>/; fall back to Meshing node's mesh.obj.
+    # Prefer texturedMesh.obj first (has textures), then mesh.obj.
+    # Use -print -quit instead of piping through head -1: under pipefail,
+    # head exiting after first line can SIGPIPE find and abort the script.
+    MESHROOM_MESH=$(find "$MESHROOM_OUT" -type f \
+        -name "texturedMesh.obj" -print -quit 2>/dev/null)
+    if [[ -z "$MESHROOM_MESH" ]]; then
+        MESHROOM_MESH=$(find "$MESHROOM_OUT" -type f \
+            -name "mesh.obj" -print -quit 2>/dev/null)
+    fi
+
+    if [[ -z "$MESHROOM_MESH" ]]; then
+        die 4 "Meshroom completed (exit 0) but no output mesh found. Looked for texturedMesh.obj / mesh.obj under $MESHROOM_OUT/MeshroomCache/"
+    fi
+
+    echo "Found: $MESHROOM_MESH"
+
+    # Pass the OBJ (with its .mtl + texture images) directly to Blender so
+    # materials, UVs, and textures survive into scene.glb. Copy the OBJ's
+    # directory to a stable location since meshroom_out may be cleaned up.
+    MESHROOM_IMPORT_DIR="$SCENE_DIR/meshroom_import"
+    if [[ "$MESHROOM_MESH" == *.obj ]]; then
+        MESHROOM_SRC_DIR="$(dirname "$MESHROOM_MESH")"
+        MESHROOM_OBJ_BASENAME="$(basename "$MESHROOM_MESH")"
+        rm -rf "$MESHROOM_IMPORT_DIR"
+        mkdir -p "$MESHROOM_IMPORT_DIR"
+        cp "$MESHROOM_SRC_DIR"/* "$MESHROOM_IMPORT_DIR"/ 2>/dev/null || true
+        BLENDER_INPUT_MESH="$MESHROOM_IMPORT_DIR/$MESHROOM_OBJ_BASENAME"
+        echo "Meshroom OBJ + companion files staged at $MESHROOM_IMPORT_DIR"
+        echo "Blender input: $BLENDER_INPUT_MESH"
+
+        # Produce mesh_raw.ply (geometry-only, no textures) for contract.
+        # Blender gets the OBJ directly to preserve materials; this PLY is
+        # the intermediate artifact (M1a/M1b) for downstream consumers.
+        echo "Writing mesh_raw.ply (contract artifact)..."
+        python3 - "$MESHROOM_MESH" "$SCENE_DIR/mesh_raw.ply" <<'PYEOF' || die 4 "OBJ to PLY conversion for mesh_raw.ply failed."
+import sys
+inp, outp = sys.argv[1], sys.argv[2]
+verts, faces = [], []
+with open(inp) as f:
+    for line in f:
+        p = line.strip().split()
+        if not p:
+            continue
+        if p[0] == 'v':
+            verts.append([float(x) for x in p[1:4]])
+        elif p[0] == 'f':
+            face = []
+            for v in p[1:]:
+                vidx = int(v.split('/')[0])
+                face.append(vidx - 1 if vidx > 0 else len(verts) + vidx)
+            if len(face) >= 3:
+                faces.append(face)
+if not verts:
+    sys.exit(1)
+with open(outp, 'w') as f:
+    f.write("ply\nformat ascii 1.0\n")
+    f.write(f"element vertex {len(verts)}\n")
+    f.write("property float x\nproperty float y\nproperty float z\n")
+    f.write(f"element face {len(faces)}\n")
+    f.write("property list uchar int vertex_indices\n")
+    f.write("end_header\n")
+    for v in verts:
+        f.write(f"{v[0]:.6f} {v[1]:.6f} {v[2]:.6f}\n")
+    for face in faces:
+        f.write(f"{len(face)} {' '.join(str(i) for i in face)}\n")
+PYEOF
+        echo "mesh_raw.ply written."
+    else
+        cp "$MESHROOM_MESH" "$SCENE_DIR/mesh_raw.ply"
+        BLENDER_INPUT_MESH="$SCENE_DIR/mesh_raw.ply"
+    fi
+
+    echo
+    echo "--- Blender cleanup + glTF export ---"
+    "$BLENDER_BIN" --background \
+        --python "$SCRIPT_DIR/blender_cleanup_mesh.py" -- \
+        --scene-dir "$SCENE_DIR" \
+        --input-mesh "$BLENDER_INPUT_MESH" \
+        --textures-dir "$TEXTURES_DIR" \
+        --target-tris "${MESH_TARGET_TRIS:-500000}" \
+        || die 5 "Blender cleanup failed. See $SCENE_DIR/blender_cleanup.log"
+
+    if [[ ! -f "$SCENE_DIR/scene.glb" ]]; then
+        die 5 "Blender exited 0 but scene.glb not found at $SCENE_DIR/scene.glb"
+    fi
+    GLB_SIZE=$(stat -c%s "$SCENE_DIR/scene.glb" 2>/dev/null || echo "0")
+    if [[ "$GLB_SIZE" -eq 0 ]]; then
+        die 5 "scene.glb is empty (0 bytes)"
+    fi
+    echo "scene.glb produced ($GLB_SIZE bytes)."
+
+    if [[ ! -f "$SCENE_DIR/scene_transform.txt" ]]; then
+        die 5 "scene_transform.txt not found"
+    fi
+    echo "scene_transform.txt written."
+
+    if ! $KEEP_DENSE; then
+        rm -rf "$MESHROOM_OUT"
+        echo "Removed meshroom_out workspace."
+    fi
 fi
 
 echo
-die 7 "STUB: Stage M body not implemented — owned by chainlink #43 (M1)."
+echo "=== Stage M complete ==="
+echo "Mesh:    $SCENE_DIR/mesh_raw.ply"
+echo "glTF:    $SCENE_DIR/scene.glb"
+echo "Transform: $SCENE_DIR/scene_transform.txt"
