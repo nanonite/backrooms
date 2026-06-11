@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player_scene"]
+[ext_resource type="PackedScene" path="res://assets/corridor_straight/scene.glb" id="2_corridor"]
+
+[node name="Corridor" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 10.0, 0.0)
+rotation = Vector3(-0.785398, 0.523599, 0.0)
+
+[node name="CorridorMesh" parent="." instance=ExtResource("2_corridor")]
+
+[node name="Player" parent="." instance=ExtResource("1_player_scene")]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.116, 0.9, 0.041)
