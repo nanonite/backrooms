@@ -1,5 +1,6 @@
 # Godot 4 import cache and per-machine artifacts — never commit.
 .godot/
+.exo/
 *.translation
 
 # Exported binaries

@@ -1,4 +1,4 @@
 # scene_transform.txt — recorded during Blender cleanup (Stage M)
 # Z-up -> Y-up conversion handled by Blender glTF exporter (no manual rotation).
 # Scale factor applied to match metric doorway height.
-scale: 0.682339
+scale: 0.800977
