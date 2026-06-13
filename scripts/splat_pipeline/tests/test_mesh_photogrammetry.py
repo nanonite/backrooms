@@ -194,6 +194,33 @@ class TestColmapMesherSelection:
         assert "delaunay_mesher" not in log
         assert "Mesher:   poisson" in stdout
 
+    def test_stereo_fusion_uses_tightened_defaults(self, tmp_path):
+        scene_dir = _make_scene_dir(tmp_path)
+        env = _make_stub_env(tmp_path)
+        rc, stdout, stderr = _run(scene_dir, env=env)
+        assert rc == 0, stderr
+        log = _colmap_log(env)
+        assert "--StereoFusion.min_num_pixels 3" in log
+        assert "--StereoFusion.max_reproj_error 2" in log
+        assert "--StereoFusion.max_depth_error 0.01" in log
+        assert "--StereoFusion.max_normal_error 30" in log
+        assert "--StereoFusion.check_num_images 3" in log
+
+    def test_stereo_fusion_env_overrides(self, tmp_path):
+        scene_dir = _make_scene_dir(tmp_path)
+        env = _make_stub_env(tmp_path)
+        env["FUSION_MIN_PIXELS"] = "2"
+        env["FUSION_MAX_REPROJ_ERROR"] = "4"
+        env["FUSION_MAX_DEPTH_ERROR"] = "0.02"
+        env["FUSION_CHECK_NUM_IMAGES"] = "2"
+        rc, stdout, stderr = _run(scene_dir, env=env)
+        assert rc == 0, stderr
+        log = _colmap_log(env)
+        assert "--StereoFusion.min_num_pixels 2" in log
+        assert "--StereoFusion.max_reproj_error 4" in log
+        assert "--StereoFusion.max_depth_error 0.02" in log
+        assert "--StereoFusion.check_num_images 2" in log
+
     def test_missing_delaunay_routes_to_meshroom_escalation(self, tmp_path):
         scene_dir = _make_scene_dir(tmp_path)
         env = _make_stub_env(tmp_path)
