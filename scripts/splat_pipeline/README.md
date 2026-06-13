@@ -93,10 +93,14 @@ to VGGT (Path 2). Output: `sparse/0/` in COLMAP binary format.
 
 **Stage M (#68/#70):** Optional photogrammetry mesh path for workstation validation.
 Default COLMAP path runs dense MVS and uses `delaunay_mesher` because it is
-free-space aware and avoids ballooning interiors. `--mesher poisson` keeps the
-previous Poisson path available for comparison. If the local COLMAP build lacks
-`delaunay_mesher`, route validation to #71 (Meshroom/AliceVision fallback) instead
-of attempting #70 on that build.
+free-space aware and avoids ballooning interiors. Stage M also defaults to tighter
+`stereo_fusion` filters (min pixels 3, reprojection error 2, depth error 0.01,
+check images 3) to drop floaters before meshing. If the floor develops holes,
+relax `FUSION_MIN_PIXELS` toward 2 or tune the other `FUSION_*` overrides for
+the workstation sweep. `--mesher poisson` keeps the previous Poisson path
+available for comparison. If the local COLMAP build lacks `delaunay_mesher`,
+route validation to #71 (Meshroom/AliceVision fallback) instead of attempting
+#70 on that build.
 
 
 ### Stage B — Usage
@@ -292,6 +296,15 @@ scripts/splat_pipeline/mesh_photogrammetry.sh <scene_dir> --mesher poisson
 # Fallback path when COLMAP dense remains blobby or lacks Delaunay
 scripts/splat_pipeline/mesh_photogrammetry.sh <scene_dir> --fallback meshroom
 ```
+
+**Stereo fusion overrides:**
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `FUSION_MIN_PIXELS` | `3` | Minimum support pixels; lower toward `2` if floors get holes |
+| `FUSION_MAX_REPROJ_ERROR` | `2` | Maximum reprojection error before dropping noisy points |
+| `FUSION_MAX_DEPTH_ERROR` | `0.01` | Maximum relative depth disagreement |
+| `FUSION_CHECK_NUM_IMAGES` | `3` | Minimum agreeing source images |
 
 **COLMAP mesher selection:**
 

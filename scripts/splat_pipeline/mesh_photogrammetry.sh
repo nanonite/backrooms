@@ -228,15 +228,20 @@ PYEOF
         --PatchMatchStereo.write_consistency_graph true \
         || die 4 "patch_match_stereo failed."
 
+    FUSION_MIN_PIXELS="${FUSION_MIN_PIXELS:-3}"
+    FUSION_MAX_REPROJ_ERROR="${FUSION_MAX_REPROJ_ERROR:-2}"
+    FUSION_MAX_DEPTH_ERROR="${FUSION_MAX_DEPTH_ERROR:-0.01}"
+    FUSION_CHECK_NUM_IMAGES="${FUSION_CHECK_NUM_IMAGES:-3}"
+
     echo "--- Stereo fusion ---"
     colmap stereo_fusion \
         --workspace_path "$DENSE_DIR" \
         --output_path "$DENSE_DIR/fused_full.ply" \
-        --StereoFusion.min_num_pixels 1 \
-        --StereoFusion.max_reproj_error 100 \
-        --StereoFusion.max_depth_error 0.1 \
+        --StereoFusion.min_num_pixels "$FUSION_MIN_PIXELS" \
+        --StereoFusion.max_reproj_error "$FUSION_MAX_REPROJ_ERROR" \
+        --StereoFusion.max_depth_error "$FUSION_MAX_DEPTH_ERROR" \
         --StereoFusion.max_normal_error 30 \
-        --StereoFusion.check_num_images 1 \
+        --StereoFusion.check_num_images "$FUSION_CHECK_NUM_IMAGES" \
         || die 4 "stereo_fusion failed."
 
     if [[ "$MESHER" == "delaunay" ]]; then
