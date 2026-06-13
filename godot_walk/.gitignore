@@ -6,3 +6,7 @@
 # Exported binaries
 /build/
 export_presets.cfg
+
+# Screenshot harness output
+/screenshots/*
+!/screenshots/.gitkeep
