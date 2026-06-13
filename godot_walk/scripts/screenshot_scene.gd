@@ -16,14 +16,21 @@ func _init() -> void:
 		return
 
 	root.add_child(instance)
+	await process_frame
 	if not _ensure_screenshot_dir():
 		quit(1)
 		return
 
+	var bounds := _scene_bounds(instance)
+	var center := bounds.get_center()
+	var size := bounds.size
+	var radius = max(size.x, max(size.y, size.z))
+	radius = max(radius, 4.0)
+
 	var cameras := [
-		_create_perspective_camera("overhead_orbit", Vector3(4.0, 3.0, 4.0), Vector3(0.0, 0.8, 0.0), 60.0),
-		_create_perspective_camera("player_pov", PLAYER_SPAWN + Vector3(0.0, 1.45, 0.0), PLAYER_SPAWN + Vector3(0.0, 1.2, -5.0), 70.0),
-		_create_top_down_camera("top_down", Vector3(0.0, 8.0, 0.0), 10.0),
+		_create_perspective_camera("overhead_orbit", center + Vector3(radius, radius * 0.7, radius), center, 60.0),
+		_create_perspective_camera("player_pov", PLAYER_SPAWN + Vector3(0.0, 1.45, 0.0), center, 70.0),
+		_create_top_down_camera("top_down", center + Vector3(0.0, radius * 1.6, 0.0), center, radius * 1.5),
 	]
 
 	for camera in cameras:
@@ -68,22 +75,48 @@ func _ensure_screenshot_dir() -> bool:
 	return true
 
 
+func _scene_bounds(node: Node) -> AABB:
+	var meshes: Array[MeshInstance3D] = []
+	_collect_meshes(node, meshes)
+	if meshes.is_empty():
+		return AABB(Vector3(-2.0, 0.0, -2.0), Vector3(4.0, 2.0, 4.0))
+
+	var bounds := _mesh_bounds(meshes[0])
+	for index in range(1, meshes.size()):
+		bounds = bounds.merge(_mesh_bounds(meshes[index]))
+	return bounds
+
+
+func _collect_meshes(node: Node, meshes: Array[MeshInstance3D]) -> void:
+	if node is MeshInstance3D:
+		meshes.append(node as MeshInstance3D)
+	for child in node.get_children():
+		_collect_meshes(child, meshes)
+
+
+func _mesh_bounds(mesh_instance: MeshInstance3D) -> AABB:
+	var local_bounds := mesh_instance.get_aabb()
+	var first_point := mesh_instance.global_transform * local_bounds.get_endpoint(0)
+	var bounds := AABB(first_point, Vector3.ZERO)
+	for index in range(1, 8):
+		bounds = bounds.expand(mesh_instance.global_transform * local_bounds.get_endpoint(index))
+	return bounds
+
+
 func _create_perspective_camera(name: String, position: Vector3, target: Vector3, fov: float) -> Camera3D:
 	var camera := Camera3D.new()
 	camera.name = name
-	camera.position = position
 	camera.fov = fov
-	camera.look_at(target, Vector3.UP)
+	camera.look_at_from_position(position, target, Vector3.UP)
 	return camera
 
 
-func _create_top_down_camera(name: String, position: Vector3, size: float) -> Camera3D:
+func _create_top_down_camera(name: String, position: Vector3, target: Vector3, size: float) -> Camera3D:
 	var camera := Camera3D.new()
 	camera.name = name
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	camera.size = size
-	camera.position = position
-	camera.look_at(Vector3.ZERO, Vector3.FORWARD)
+	camera.look_at_from_position(position, target, Vector3.FORWARD)
 	return camera
 
 
