@@ -7,7 +7,8 @@
 # images + poses and runs multi-view stereo.
 #
 # Usage:
-#   mesh_photogrammetry.sh <scene_dir> [--fallback meshroom] [--keep-dense]
+#   mesh_photogrammetry.sh <scene_dir> [--fallback meshroom]
+#       [--mesher delaunay|poisson] [--keep-dense]
 #
 #   scene_dir         Per-scene directory. Must contain images/ and sparse/0/
 #                     (cameras,images,points3D).bin from Stage B (pose_colmap.sh).
@@ -15,10 +16,12 @@
 #                     Use the Meshroom (AliceVision) path instead of COLMAP dense.
 #                     Meshroom re-runs its own robust SfM (ignore — it is robust).
 #                     Use when COLMAP dense leaves floor holes / blobby geometry.
+#   --mesher delaunay|poisson
+#                     Select the COLMAP dense mesher. Default: delaunay.
 #   --keep-dense      Keep the intermediate dense/ workspace (default: delete).
 #
-# Default backend: COLMAP dense + Poisson
-#   image_undistorter -> patch_match_stereo -> stereo_fusion -> poisson_mesher
+# Default backend: COLMAP dense + Delaunay
+#   image_undistorter -> patch_match_stereo -> stereo_fusion -> delaunay_mesher
 #   (CUDA MVS; verified present in the flake's pkgs.colmap — RTX 4070 Ti.)
 #
 # Output (contract):
@@ -44,12 +47,14 @@ set -euo pipefail
 
 usage() {
     cat <<'EOF'
-Usage: mesh_photogrammetry.sh <scene_dir> [--fallback meshroom] [--keep-dense]
+Usage: mesh_photogrammetry.sh <scene_dir> [--fallback meshroom] [--mesher delaunay|poisson] [--keep-dense]
 
   scene_dir              Per-scene dir with images/ + sparse/0/ from Stage B.
 
 Options:
   --fallback meshroom    Use Meshroom (AliceVision) AppImage instead of COLMAP dense.
+  --mesher delaunay      Use COLMAP Delaunay meshing (default; free-space aware).
+  --mesher poisson       Use COLMAP Poisson meshing on fused.ply.
   --keep-dense           Keep the intermediate dense/ workspace.
 
 Environment:
@@ -76,6 +81,7 @@ die() { local code="$1"; shift; echo "ERROR: $*" >&2; exit "$code"; }
 
 SCENE_DIR="$1"; shift
 BACKEND="colmap"
+MESHER="delaunay"
 KEEP_DENSE=false
 
 while [[ $# -gt 0 ]]; do
@@ -84,6 +90,13 @@ while [[ $# -gt 0 ]]; do
             shift
             [[ "${1:-}" == "meshroom" ]] || die 1 "--fallback expects 'meshroom'."
             BACKEND="meshroom"
+            ;;
+        --mesher)
+            shift
+            case "${1:-}" in
+                delaunay|poisson) MESHER="$1" ;;
+                *) die 1 "--mesher expects 'delaunay' or 'poisson'." ;;
+            esac
             ;;
         --keep-dense) KEEP_DENSE=true ;;
         --help|-h) usage ;;
@@ -99,6 +112,9 @@ SPARSE_MODEL_DIR="$SCENE_DIR/sparse/0"
 echo "=== Stage M: photogrammetry textured mesh ==="
 echo "Scene:    $SCENE_DIR"
 echo "Backend:  $BACKEND"
+if [[ "$BACKEND" == "colmap" ]]; then
+    echo "Mesher:   $MESHER"
+fi
 echo
 
 # ---------------------------------------------------------------------------
@@ -108,9 +124,16 @@ echo
 if [[ "$BACKEND" == "colmap" ]]; then
     command -v colmap >/dev/null 2>&1 \
         || die 2 "colmap not in PATH. Enter the nix dev shell (flake pkgs.colmap)."
-    for sub in image_undistorter patch_match_stereo stereo_fusion poisson_mesher; do
-        colmap -h 2>&1 | grep -q "$sub" \
-            || die 2 "colmap lacks '$sub' (no CUDA MVS build?). See E2 / flake."
+    REQUIRED_COLMAP_SUBCOMMANDS=(image_undistorter patch_match_stereo stereo_fusion)
+    if [[ "$MESHER" == "delaunay" ]]; then
+        REQUIRED_COLMAP_SUBCOMMANDS+=(delaunay_mesher)
+    else
+        REQUIRED_COLMAP_SUBCOMMANDS+=(poisson_mesher)
+    fi
+    COLMAP_HELP="$(colmap -h 2>&1 || true)"
+    for sub in "${REQUIRED_COLMAP_SUBCOMMANDS[@]}"; do
+        grep -Fq "$sub" <<<"$COLMAP_HELP" \
+            || die 2 "colmap lacks '$sub' (no CUDA MVS build?). If delaunay_mesher is unavailable, route to #71 Meshroom."
     done
 else
     [[ -n "${MESHROOM_BIN:-}" && -x "${MESHROOM_BIN:-}" ]] \
@@ -216,8 +239,16 @@ PYEOF
         --StereoFusion.check_num_images 1 \
         || die 4 "stereo_fusion failed."
 
-    echo "--- Subsampling fused cloud (~500k points for Poisson) ---"
-    python3 - "$DENSE_DIR" <<'PYEOF' || die 4 "Subsampling failed."
+    if [[ "$MESHER" == "delaunay" ]]; then
+        echo "--- Delaunay meshing ---"
+        colmap delaunay_mesher \
+            --input_path "$DENSE_DIR" \
+            --input_type dense \
+            --output_path "$SCENE_DIR/mesh_raw.ply" \
+            || die 4 "delaunay_mesher failed."
+    else
+        echo "--- Subsampling fused cloud (~500k points for Poisson) ---"
+        python3 - "$DENSE_DIR" <<'PYEOF' || die 4 "Subsampling failed."
 import sys, struct, os, numpy as np
 dense = sys.argv[1]
 fused = os.path.join(dense, 'fused_full.ply')
@@ -258,13 +289,14 @@ with open(output, 'wb') as f:
         f.write(v)
 PYEOF
 
-    echo "--- Poisson meshing ---"
-    colmap poisson_mesher \
-        --input_path "$DENSE_DIR/fused.ply" \
-        --output_path "$SCENE_DIR/mesh_raw.ply" \
-        --PoissonMeshing.depth 10 \
-        --PoissonMeshing.trim 7 \
-        || die 4 "poisson_mesher failed."
+        echo "--- Poisson meshing ---"
+        colmap poisson_mesher \
+            --input_path "$DENSE_DIR/fused.ply" \
+            --output_path "$SCENE_DIR/mesh_raw.ply" \
+            --PoissonMeshing.depth 10 \
+            --PoissonMeshing.trim 7 \
+            || die 4 "poisson_mesher failed."
+    fi
 
     echo "COLMAP dense complete: $SCENE_DIR/mesh_raw.ply"
 

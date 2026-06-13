@@ -65,6 +65,7 @@ fundamental limitation of Gaussian splatting from posed video, not a bug.
 | B — Pose | `pose_colmap.sh` / `pose_vggt.sh` | #108 | `images/` | `sparse/0/*.bin` |
 | C — Splat | `train_brush.sh` | #109 | `images/` + `sparse/` | `scene.ply` |
 | D — Mesh | `extract_mesh.sh` + `decimate_to_glb.py` | #111 | `scene.ply` checkpoint | `collision.glb` |
+| M — Photogrammetry mesh | `mesh_photogrammetry.sh` | #68/#70 | `images/` + `sparse/0/` | `mesh_raw.ply` + `scene.glb` |
 | Integration | Asset copy + alignment | #113/#114 | all above | `splat_walk/assets/splats/` |
 
 ### Stage details
@@ -89,6 +90,14 @@ env var) with ffmpeg, then cull the blurriest ~18% by variance-of-Laplacian usin
 **Stage B (#108):** COLMAP feature extraction + exhaustive/sequential matching, then
 GLOMAP global mapping. Default path. On failure (few images registered), auto-fallback
 to VGGT (Path 2). Output: `sparse/0/` in COLMAP binary format.
+
+**Stage M (#68/#70):** Optional photogrammetry mesh path for workstation validation.
+Default COLMAP path runs dense MVS and uses `delaunay_mesher` because it is
+free-space aware and avoids ballooning interiors. `--mesher poisson` keeps the
+previous Poisson path available for comparison. If the local COLMAP build lacks
+`delaunay_mesher`, route validation to #71 (Meshroom/AliceVision fallback) instead
+of attempting #70 on that build.
+
 
 ### Stage B — Usage
 
@@ -267,6 +276,33 @@ the PLY header and reports the splat count, with VRAM advisory at 5M and 10M thr
 using SuGaR or 2DGS. The mesh is CO-REGISTERED with `scene.ply` automatically —
 they come from the same Gaussian reconstruction, so one transform fixes both
 at Back-end Step 4. Decimate to <200k tris via Blender headless. Output: `collision.glb`.
+
+### Stage M — Photogrammetry mesh usage
+
+```bash
+# Default: COLMAP dense MVS + Delaunay meshing
+scripts/splat_pipeline/mesh_photogrammetry.sh <scene_dir>
+
+# Keep dense workspace for workstation debugging
+scripts/splat_pipeline/mesh_photogrammetry.sh <scene_dir> --keep-dense
+
+# Comparison path: previous Poisson mesher
+scripts/splat_pipeline/mesh_photogrammetry.sh <scene_dir> --mesher poisson
+
+# Fallback path when COLMAP dense remains blobby or lacks Delaunay
+scripts/splat_pipeline/mesh_photogrammetry.sh <scene_dir> --fallback meshroom
+```
+
+**COLMAP mesher selection:**
+
+| Option | Input | Output | Use when |
+|--------|-------|--------|----------|
+| `--mesher delaunay` | Dense COLMAP workspace | `mesh_raw.ply` | Default for interiors; free-space aware |
+| `--mesher poisson` | `dense/fused.ply` | `mesh_raw.ply` | Comparison with the previous reconstruction path |
+
+#70 must run on a GPU/display workstation because it re-runs or reuses COLMAP MVS
+and validates screenshots. If `colmap -h` does not list `delaunay_mesher`, skip
+#70 for that build and use #71 (Meshroom/AliceVision fallback).
 
 ### Stage D — Usage
 
