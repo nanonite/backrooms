@@ -8,9 +8,13 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixgl = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, rust-overlay }:
+  outputs = { self, nixpkgs, flake-utils, rust-overlay, nixgl }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         overlays = [ (import rust-overlay) ];
@@ -21,6 +25,16 @@
 
         # Stable Rust — brush-app requires stable.
         rustToolchain = pkgs.rust-bin.stable.latest.default;
+
+        # nixGL wrappers bridge nix-built godot4's GL/Vulkan loading to the
+        # host's proprietary NVIDIA driver on non-NixOS. They are intentionally
+        # NOT pulled into the devShell `packages` below: nixGL's NVIDIA wrapper
+        # auto-detects the driver version via an impure derivation that is
+        # incompatible with the pinned nixpkgs and aborts evaluation with
+        # "cannot coerce null to a string", which previously blocked shell entry
+        # entirely. The wrapper is instead invoked lazily inside `godot4-gl`
+        # (see shellHook), so a broken nixGL can never stop the shell from
+        # opening. `nixgl` stays an input only for that on-demand `nix run`.
 
       in {
         devShells.default = let
@@ -80,6 +94,8 @@
             # Reuses the Vulkan/xkb/GL runtimeLibs above for Forward+ + headless.
             # ------------------------------------------------------------------
             godot_4       # godot4 binary; headless import for the G-track
+            # nixGL NVIDIA wrappers deliberately omitted — invoked lazily in
+            # godot4-gl so their broken impure eval can't block shell entry.
 
             # Python headers available; actual packages live in the conda env.
             python3
@@ -130,6 +146,26 @@
             command -v godot4 >/dev/null 2>&1 \
               && _ok  godot   "$(godot4 --version 2>&1 | head -1)" \
               || _miss godot   "not found — godot_4 should be in packages"
+
+            # Wrapper for GUI/GPU runs (--editor, etc.) on non-NixOS hosts:
+            # routes GL + Vulkan through the host's proprietary NVIDIA driver.
+            # nixGL is evaluated LAZILY here and only if it actually builds —
+            # its NVIDIA wrapper currently fails to evaluate against the pinned
+            # nixpkgs, so we fall back to plain godot4 (the host Vulkan ICD works
+            # directly for headless capture and most GPU runs on this machine).
+            godot4-gl() {
+              local nixgl_ref="github:nix-community/nixGL#nixGLNvidia"
+              if NIXGL_NVIDIA_VERSION="$(cat /sys/module/nvidia/version 2>/dev/null)" \
+                 nix build --impure --no-link "$nixgl_ref" >/dev/null 2>&1; then
+                NIXGL_NVIDIA_VERSION="$(cat /sys/module/nvidia/version 2>/dev/null)" \
+                  nix run --impure "$nixgl_ref" -- godot4 "$@"
+              else
+                echo "godot4-gl: nixGL NVIDIA wrapper unavailable (impure eval failed);" >&2
+                echo "           running plain godot4 — host Vulkan/GL is used directly." >&2
+                godot4 "$@"
+              fi
+            }
+            export -f godot4-gl
 
             echo ""
             echo "Missing tools? Run: ./environment/setup-pipeline-tools.sh"
