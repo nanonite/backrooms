@@ -76,30 +76,42 @@ func _ensure_screenshot_dir() -> bool:
 
 
 func _scene_bounds(node: Node) -> AABB:
-	var meshes: Array[MeshInstance3D] = []
-	_collect_meshes(node, meshes)
-	if meshes.is_empty():
-		return AABB(Vector3(-2.0, 0.0, -2.0), Vector3(4.0, 2.0, 4.0))
+	# Collect every VisualInstance3D, not just MeshInstance3D, so camera framing
+	# works for Gaussian-splat scenes (GaussianSplatNode is a VisualInstance3D
+	# that exposes a valid AABB via _get_aabb()), not only textured meshes.
+	var visuals: Array[VisualInstance3D] = []
+	_collect_visuals(node, visuals)
 
-	var bounds := _mesh_bounds(meshes[0])
-	for index in range(1, meshes.size()):
-		bounds = bounds.merge(_mesh_bounds(meshes[index]))
+	var bounds := AABB()
+	var have_bounds := false
+	for visual in visuals:
+		var visual_aabb := _visual_bounds(visual)
+		# Skip degenerate/unpopulated AABBs so they don't drag bounds to origin.
+		if visual_aabb.size == Vector3.ZERO:
+			continue
+		if not have_bounds:
+			bounds = visual_aabb
+			have_bounds = true
+		else:
+			bounds = bounds.merge(visual_aabb)
+	if not have_bounds:
+		return AABB(Vector3(-2.0, 0.0, -2.0), Vector3(4.0, 2.0, 4.0))
 	return bounds
 
 
-func _collect_meshes(node: Node, meshes: Array[MeshInstance3D]) -> void:
-	if node is MeshInstance3D:
-		meshes.append(node as MeshInstance3D)
+func _collect_visuals(node: Node, visuals: Array[VisualInstance3D]) -> void:
+	if node is VisualInstance3D:
+		visuals.append(node as VisualInstance3D)
 	for child in node.get_children():
-		_collect_meshes(child, meshes)
+		_collect_visuals(child, visuals)
 
 
-func _mesh_bounds(mesh_instance: MeshInstance3D) -> AABB:
-	var local_bounds := mesh_instance.get_aabb()
-	var first_point := mesh_instance.global_transform * local_bounds.get_endpoint(0)
+func _visual_bounds(visual: VisualInstance3D) -> AABB:
+	var local_bounds := visual.get_aabb()
+	var first_point := visual.global_transform * local_bounds.get_endpoint(0)
 	var bounds := AABB(first_point, Vector3.ZERO)
 	for index in range(1, 8):
-		bounds = bounds.expand(mesh_instance.global_transform * local_bounds.get_endpoint(index))
+		bounds = bounds.expand(visual.global_transform * local_bounds.get_endpoint(index))
 	return bounds
 
 
