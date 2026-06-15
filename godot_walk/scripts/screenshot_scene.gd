@@ -29,9 +29,34 @@ func _init() -> void:
 	var radius = max(size.x, max(size.y, size.z))
 	radius = max(radius, 4.0)
 
+	# Recreate the original video camera path: travel THROUGH the corridor from
+	# inside. Y is up/height (PLY header: Vertical axis = y); the corridor LENGTH
+	# is whichever of X/Z has the larger extent. Derive the interior POV from the
+	# splat AABB at runtime instead of the dead-mesh PLAYER_SPAWN.
+	var length_is_z := size.z >= size.x
+	var pov_eye: Vector3
+	var pov_target: Vector3
+	var pov_eye_reverse: Vector3
+	var pov_target_reverse: Vector3
+	if length_is_z:
+		var near_z := bounds.position.z + size.z * 0.05
+		var far_z := bounds.position.z + size.z * 0.95
+		pov_eye = Vector3(center.x, center.y, near_z)
+		pov_target = Vector3(center.x, center.y, far_z)
+		pov_eye_reverse = Vector3(center.x, center.y, far_z)
+		pov_target_reverse = Vector3(center.x, center.y, near_z)
+	else:
+		var near_x := bounds.position.x + size.x * 0.05
+		var far_x := bounds.position.x + size.x * 0.95
+		pov_eye = Vector3(near_x, center.y, center.z)
+		pov_target = Vector3(far_x, center.y, center.z)
+		pov_eye_reverse = Vector3(far_x, center.y, center.z)
+		pov_target_reverse = Vector3(near_x, center.y, center.z)
+
 	var cameras := [
 		_create_perspective_camera("overhead_orbit", center + Vector3(radius, radius * 0.7, radius), center, 60.0),
-		_create_perspective_camera("player_pov", PLAYER_SPAWN + Vector3(0.0, 1.45, 0.0), center, 70.0),
+		_create_perspective_camera("player_pov", pov_eye, pov_target, 75.0),
+		_create_perspective_camera("player_pov_reverse", pov_eye_reverse, pov_target_reverse, 75.0),
 		_create_top_down_camera("top_down", center + Vector3(0.0, radius * 1.6, 0.0), center, radius * 1.5),
 	]
 
