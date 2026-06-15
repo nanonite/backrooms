@@ -1,15 +1,23 @@
 ; Engine configuration file.
-; Godot 4.6 — v1 walkable scene project (Forward+, GDScript).
-; Hand-edited skeleton (E3 / chainlink #40). Scenes are added by G1/G2/G3.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
 
 config_version=5
 
 [application]
 
 config/name="godot_walk"
-config/features=PackedStringArray("4.6", "Forward Plus")
 config/description="Video -> walkable scene. v1: photogrammetry mesh is visual + collider."
 run/main_scene="res://scenes/corridor.tscn"
+config/features=PackedStringArray("4.5", "Forward Plus")
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdgs/plugin.cfg")
 
 [input]
 
@@ -41,5 +49,4 @@ jump={
 
 [rendering]
 
-renderer/rendering_method="forward_plus"
 renderer/rendering_method.mobile="forward_plus"
