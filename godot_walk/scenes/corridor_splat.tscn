@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Resource" path="res://assets/corridor_splat/corridor.ply" id="1_corridor_gaussian"]
+[ext_resource type="Script" path="res://addons/gdgs/runtime/nodes/gaussian_splat_node.gd" id="2_splat_script"]
+[ext_resource type="Script" path="res://addons/gdgs/runtime/compositor/gaussian_compositor_effect.gd" id="3_compositor_script"]
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_corridor"]
+script = ExtResource("3_compositor_script")
+
+[sub_resource type="Compositor" id="Compositor_corridor"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_corridor")])
+
+[sub_resource type="Environment" id="Environment_corridor"]
+background_mode = 1
+background_color = Color(0.03, 0.035, 0.04, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.45, 0.48, 0.55, 1)
+ambient_light_energy = 0.45
+
+[node name="CorridorSplat" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_corridor")
+compositor = SubResource("Compositor_corridor")
+
+[node name="CorridorSplatNode" type="VisualInstance3D" parent="."]
+script = ExtResource("2_splat_script")
+gaussian = ExtResource("1_corridor_gaussian")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.1, 4)
+current = true
+fov = 55.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 4, 4)
+rotation = Vector3(-0.785398, 0.0, 0.0)

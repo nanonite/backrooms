@@ -21,6 +21,8 @@ func _init() -> void:
 		quit(1)
 		return
 
+	_print_splat_aabbs(instance)
+
 	var bounds := _scene_bounds(instance)
 	var center := bounds.get_center()
 	var size := bounds.size
@@ -97,6 +99,21 @@ func _scene_bounds(node: Node) -> AABB:
 	if not have_bounds:
 		return AABB(Vector3(-2.0, 0.0, -2.0), Vector3(4.0, 2.0, 4.0))
 	return bounds
+
+
+func _print_splat_aabbs(node: Node) -> void:
+	# Print the world-space AABB of every VisualInstance3D so the operator can
+	# read the splat's true orientation + metric scale straight off stdout/log.
+	# Format is machine-greppable: SPLAT_AABB: name=<node> pos=(x,y,z) size=(x,y,z)
+	var visuals: Array[VisualInstance3D] = []
+	_collect_visuals(node, visuals)
+	for visual in visuals:
+		var aabb := _visual_bounds(visual)
+		print("SPLAT_AABB: name=%s pos=(%.4f, %.4f, %.4f) size=(%.4f, %.4f, %.4f)" % [
+			visual.name,
+			aabb.position.x, aabb.position.y, aabb.position.z,
+			aabb.size.x, aabb.size.y, aabb.size.z,
+		])
 
 
 func _collect_visuals(node: Node, visuals: Array[VisualInstance3D]) -> void:
