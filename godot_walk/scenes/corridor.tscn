@@ -1,62 +1,98 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player_scene"]
-[ext_resource type="PackedScene" path="res://assets/corridor_straight/scene.glb" id="2_corridor"]
+[ext_resource type="Script" path="res://addons/gdgs/runtime/nodes/gaussian_splat_node.gd" id="2_splat_script"]
+[ext_resource type="Script" path="res://addons/gdgs/runtime/compositor/gaussian_compositor_effect.gd" id="3_compositor_script"]
+[ext_resource type="Resource" path="res://assets/corridor_splat/corridor.ply" id="4_corridor_gaussian"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_corridor_floor"]
-size = Vector3(1.82, 0.1, 0.43)
+[sub_resource type="CompositorEffect" id="CompositorEffect_corridor"]
+script = ExtResource("3_compositor_script")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_corridor_wall"]
-size = Vector3(1.82, 2.0, 0.08)
+[sub_resource type="Compositor" id="Compositor_corridor"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_corridor")])
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_corridor_ceiling"]
-size = Vector3(1.82, 0.1, 0.43)
+[sub_resource type="Environment" id="Environment_corridor"]
+background_mode = 1
+background_color = Color(0.03, 0.035, 0.04, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.45, 0.48, 0.55, 1)
+ambient_light_energy = 0.45
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_corridor_safety_net"]
-size = Vector3(2.2, 0.1, 0.8)
+[sub_resource type="BoxShape3D" id="Box_floor"]
+size = Vector3(12.4, 0.2, 5.8)
+
+[sub_resource type="BoxShape3D" id="Box_safetynet"]
+size = Vector3(18.0, 0.2, 9.0)
+
+[sub_resource type="BoxShape3D" id="Box_sidewall"]
+size = Vector3(12.4, 2.8, 0.1)
+
+[sub_resource type="BoxShape3D" id="Box_endwall"]
+size = Vector3(0.1, 2.8, 5.8)
+
+[sub_resource type="BoxShape3D" id="Box_ceiling"]
+size = Vector3(12.4, 0.2, 5.8)
 
 [node name="Corridor" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_corridor")
+compositor = SubResource("Compositor_corridor")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 10.0, 0.0)
 rotation = Vector3(-0.785398, 0.523599, 0.0)
 
-[node name="CorridorMesh" parent="." instance=ExtResource("2_corridor")]
+[node name="CorridorSplatNode" type="VisualInstance3D" parent="."]
+script = ExtResource("2_splat_script")
+gaussian = ExtResource("4_corridor_gaussian")
 
 [node name="FittedCollider" type="Node3D" parent="."]
 
 [node name="Floor" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.081, 0.362, 0.012)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 0.43, 0.25)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/Floor"]
-shape = SubResource("BoxShape3D_corridor_floor")
-
-[node name="LeftWall" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.081, 1.412, -0.234)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/LeftWall"]
-shape = SubResource("BoxShape3D_corridor_wall")
-
-[node name="RightWall" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.081, 1.412, 0.259)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/RightWall"]
-shape = SubResource("BoxShape3D_corridor_wall")
-
-[node name="Ceiling" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.081, 2.462, 0.012)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/Ceiling"]
-shape = SubResource("BoxShape3D_corridor_ceiling")
+shape = SubResource("Box_floor")
 
 [node name="SafetyNet" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.081, 0.262, 0.012)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, -1.5, 0.25)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/SafetyNet"]
-shape = SubResource("BoxShape3D_corridor_safety_net")
+shape = SubResource("Box_safetynet")
+
+[node name="LeftWall" type="StaticBody3D" parent="FittedCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 1.9, -2.0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/LeftWall"]
+shape = SubResource("Box_sidewall")
+
+[node name="RightWall" type="StaticBody3D" parent="FittedCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 1.9, 3.4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/RightWall"]
+shape = SubResource("Box_sidewall")
+
+[node name="EndWallNeg" type="StaticBody3D" parent="FittedCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3, 1.9, 0.25)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/EndWallNeg"]
+shape = SubResource("Box_endwall")
+
+[node name="EndWallPos" type="StaticBody3D" parent="FittedCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7, 1.9, 0.25)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/EndWallPos"]
+shape = SubResource("Box_endwall")
+
+[node name="Ceiling" type="StaticBody3D" parent="FittedCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 3.35, 0.25)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/Ceiling"]
+shape = SubResource("Box_ceiling")
 
 [node name="PlayerSpawn" type="Marker3D" parent="."]
-transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.116, 0.912, 0.041)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 1.15, 0.25)
 
 [node name="Player" parent="." instance=ExtResource("1_player_scene")]
-transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.116, 0.912, 0.041)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 1.15, 0.25)
