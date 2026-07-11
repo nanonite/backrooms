@@ -78,3 +78,8 @@ build/
 
 # Pipeline build artifacts (per-scene working directories)
 scripts/splat_pipeline/scenes/
+
+# Nerfstudio training outputs and exports (large, regeneratable from pipeline)
+outputs/
+exports/
+splat_logs/

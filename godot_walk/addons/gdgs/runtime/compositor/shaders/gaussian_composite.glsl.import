@@ -11,3 +11,4 @@ source_file="res://addons/gdgs/runtime/compositor/shaders/gaussian_composite.gls
 dest_files=["res://.godot/imported/gaussian_composite.glsl-e2ac8bbb31b7cfa9498576a303b81d8e.res"]
 
 [params]
+
