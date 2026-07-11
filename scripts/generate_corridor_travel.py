@@ -79,15 +79,16 @@ ASPECT      = "16:9"
 # ---------------------------------------------------------------------------
 
 PROMPT = (
-    "First-person camera travels forward through a yellow backrooms corridor while "
-    "drifting from one wall to the other, passing within arm's reach of the walls, a "
-    "door frame, and wall fixtures so nearby textured surfaces fill much of the frame, "
-    "then rounding a corner into a connecting hallway. The camera stays close to the "
-    "walls and never lingers on a distant empty vanishing point. Smooth steady gimbal "
-    "motion, moist carpet tiles underfoot, buzzing fluorescent strip lights overhead, "
-    "drop ceiling, no windows, no people. Consistent rigid geometry, stable lighting, "
-    "sharp focus, no motion blur, no flicker, photorealistic, fixed camera lens, "
-    "liminal and eerie."
+    "First-person camera orbits a single square structural column in a backrooms open room, "
+    "circling it continuously at a fixed distance of one to one-and-a-half metres. The column "
+    "stays centred in frame throughout as the camera arcs around it, revealing each face and "
+    "edge in turn: front face, then the right edge, then the side face, then the left edge "
+    "returning. The column's four vertical edges are the primary features — each edge is a "
+    "distinct 3D line visible from multiple angles during the orbit. Beige square column with "
+    "baseboard trim. Yellow-green patterned backrooms wallpaper on the surrounding walls. "
+    "Beige carpet tiles, drop ceiling with fluorescent panels. Fixed room geometry, no "
+    "surfaces appear or change. No windows, no people. Smooth steady circular motion, "
+    "photorealistic, sharp focus, no motion blur, stable lighting, liminal backrooms."
 )
 
 # ---------------------------------------------------------------------------
@@ -181,8 +182,10 @@ def main():
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     if OUTPUT_PATH.exists():
-        print(f"[SKIP] {OUTPUT_PATH} already exists — move/delete it to regenerate.")
-        return
+        ts = time.strftime("%Y%m%d_%H%M%S")
+        archive = OUTPUT_PATH.parent / f"video_{ts}.mp4"
+        OUTPUT_PATH.rename(archive)
+        print(f"[ARCHIVE] previous video → {archive}")
 
     print(f"Encoding seed image: {SEED_IMAGE.name}")
     image_uri = image_data_uri(SEED_IMAGE)

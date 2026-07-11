@@ -11,3 +11,4 @@ source_file="res://addons/gdgs/runtime/render/shaders/compute/gsplat_render.glsl
 dest_files=["res://.godot/imported/gsplat_render.glsl-96c2d77d537c583d6640edf155d87235.res"]
 
 [params]
+

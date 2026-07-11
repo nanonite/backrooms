@@ -38,14 +38,15 @@ echo "extracted $N frames -> $IMAGES"
 [[ "$N" -ge 2 ]] || { echo "ERROR: too few frames extracted"; exit 3; }
 
 echo "=== Stage B.1: COLMAP feature_extractor ==="
+# use_gpu 0: GPU SIFT hits CuTexImage texture-memory errors on 192x1080p frames
 colmap feature_extractor \
   --database_path "$DB" \
   --image_path "$IMAGES" \
   --ImageReader.single_camera 1 \
-  --SiftExtraction.use_gpu 1
+  --SiftExtraction.use_gpu 0
 
 echo "=== Stage B.2: COLMAP exhaustive_matcher ==="
-colmap exhaustive_matcher --database_path "$DB" --SiftMatching.use_gpu 1
+colmap exhaustive_matcher --database_path "$DB" --SiftMatching.use_gpu 0
 
 echo "=== Stage B.3: COLMAP mapper ==="
 mkdir -p "$SPARSE"

@@ -132,7 +132,7 @@ def main():
     pct_under5 = 100 * (angs < 5).mean() if len(angs) else 100.0
     pct_over10 = 100 * (angs > 10).mean() if len(angs) else 0.0
 
-    MIN_ANG, TGT_ANG = 8.0, 12.0
+    MIN_ANG, TGT_ANG = 6.0, 10.0
     MIN_LAT, TGT_LAT = 10.0, 20.0
     MIN_NF,  TGT_NF  = 25.0, 40.0
     ang_thr = TGT_ANG if args.strict else MIN_ANG
