@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player_scene"]
 [ext_resource type="Script" path="res://addons/gdgs/runtime/nodes/gaussian_splat_node.gd" id="2_splat_script"]
@@ -19,19 +19,22 @@ ambient_light_color = Color(0.45, 0.48, 0.55, 1)
 ambient_light_energy = 0.45
 
 [sub_resource type="BoxShape3D" id="Box_floor"]
-size = Vector3(12.4, 0.2, 5.8)
+size = Vector3(5.0, 0.2, 2.4)
 
 [sub_resource type="BoxShape3D" id="Box_safetynet"]
-size = Vector3(18.0, 0.2, 9.0)
+size = Vector3(7.0, 0.2, 4.0)
 
-[sub_resource type="BoxShape3D" id="Box_sidewall"]
-size = Vector3(12.4, 2.8, 0.1)
+[sub_resource type="BoxShape3D" id="Box_zwall"]
+size = Vector3(5.0, 3.6, 0.2)
 
-[sub_resource type="BoxShape3D" id="Box_endwall"]
-size = Vector3(0.1, 2.8, 5.8)
+[sub_resource type="BoxShape3D" id="Box_xwall"]
+size = Vector3(0.2, 3.6, 2.4)
 
 [sub_resource type="BoxShape3D" id="Box_ceiling"]
-size = Vector3(12.4, 0.2, 5.8)
+size = Vector3(5.0, 0.2, 2.4)
+
+[sub_resource type="BoxShape3D" id="Box_column"]
+size = Vector3(0.4, 3.6, 0.4)
 
 [node name="Corridor" type="Node3D"]
 
@@ -50,49 +53,55 @@ gaussian = ExtResource("4_corridor_gaussian")
 [node name="FittedCollider" type="Node3D" parent="."]
 
 [node name="Floor" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 0.43, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, -1.5, 0.0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/Floor"]
 shape = SubResource("Box_floor")
 
 [node name="SafetyNet" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, -1.5, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, -2.8, 0.0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/SafetyNet"]
 shape = SubResource("Box_safetynet")
 
 [node name="LeftWall" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 1.9, -2.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, 0.3, -1.2)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/LeftWall"]
-shape = SubResource("Box_sidewall")
+shape = SubResource("Box_zwall")
 
 [node name="RightWall" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 1.9, 3.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, 0.3, 1.2)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/RightWall"]
-shape = SubResource("Box_sidewall")
+shape = SubResource("Box_zwall")
 
 [node name="EndWallNeg" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3, 1.9, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.3, 0.0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/EndWallNeg"]
-shape = SubResource("Box_endwall")
+shape = SubResource("Box_xwall")
 
 [node name="EndWallPos" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7, 1.9, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.3, 0.0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/EndWallPos"]
-shape = SubResource("Box_endwall")
+shape = SubResource("Box_xwall")
 
 [node name="Ceiling" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 3.35, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, 2.1, 0.0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/Ceiling"]
 shape = SubResource("Box_ceiling")
 
+[node name="Column" type="StaticBody3D" parent="FittedCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.3, 0.02)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/Column"]
+shape = SubResource("Box_column")
+
 [node name="PlayerSpawn" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 1.15, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.75, 0.02)
 
 [node name="Player" parent="." instance=ExtResource("1_player_scene")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 1.15, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.75, 0.02)
