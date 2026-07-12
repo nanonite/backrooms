@@ -9,10 +9,22 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity") a
 
 @onready var head: Node3D = $Head
 
+var _pos_label: Label
+
 
 func _ready() -> void:
 	floor_snap_length = 0.3
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	var cl := CanvasLayer.new()
+	add_child(cl)
+	_pos_label = Label.new()
+	_pos_label.position = Vector2(10, 10)
+	cl.add_child(_pos_label)
+
+
+func _process(_delta: float) -> void:
+	var p := global_position
+	_pos_label.text = "pos  X:%.2f  Y:%.2f  Z:%.2f" % [p.x, p.y, p.z]
 
 
 func _physics_process(delta: float) -> void:
