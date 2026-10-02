@@ -290,9 +290,17 @@ anything to check a number in this document:
 
 | Artifact | Contents |
 |---|---|
+| `budgets/rtx4070ti/README.md` | how to verify every claim here, and which claim was wrong |
+| `budgets/rtx4070ti/pytest_new_tests.txt` | raw pytest output for the 7 test files this task added — **134 passed, 1 skipped** |
+| `budgets/rtx4070ti/pytest_full_suite.txt` | raw pytest output for the full suite at this commit — **18 failed, 315 passed, 1 skipped** |
+| `budgets/rtx4070ti/pytest_baseline_before_task.txt` | raw pytest output at the previous commit — **18 failed, 181 passed**, proving the 18 failures pre-date this task |
 | `budgets/rtx4070ti/measurements.json` | every stage attempted: exact argv, interpreter, exit code, peak VRAM/RAM, elapsed, splat count, fps, and for failures the log tail |
 | `budgets/rtx4070ti/preflight.json` | hardware snapshot, three capability probes, four stage verdicts, budgets |
 | `budgets/rtx4070ti/splatfacto_failed.log` | full Splatfacto failure |
+
+**This task adds 135 tests and breaks nothing.** 181 passing before + 134 new =
+315 passing after. The 18 failures are byte-identical in both runs
+(`test_train_brush` 12, `test_cull_blurry` 4, `test_stage_assets` 2).
 
 `splat_logs/measurements.json` and `splat_logs/preflight.json` are the working
 copies the tools write (that directory is gitignored); the files under

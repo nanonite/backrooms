@@ -580,4 +580,4 @@ the full table and for what could not be measured:
 | `splat-handoff/fe_stageC_brush.md` | Stage C splat training |
 | `splat-handoff/fe_stageD_mesh.md` | Stage D collision mesh |
 | `scripts/splat_pipeline/HARDWARE_BUDGET.md` | Measured hardware, pinned versions and published budgets (#89) |
-| `scripts/splat_pipeline/budgets/rtx4070ti/` | Frozen measurement JSON and logs behind those budgets |
+| `scripts/splat_pipeline/budgets/rtx4070ti/` | Frozen measurement JSON, logs and raw pytest output behind those budgets |

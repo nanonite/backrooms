@@ -1,0 +1,313 @@
+# pytest output: full splat_pipeline test suite at the task-89 commit
+# tree:        git archive HEAD (commit a513d88) exported to a clean directory
+# working dir: /tmp/opencode/verify_head
+# date:        2026-10-02T23:32:17Z
+# python:      Python 3.12.3
+# command:     python3 -m pytest scripts/splat_pipeline/tests/ -q
+#
+...................s.................................................... [ 21%]
+.FFFF................................................................... [ 43%]
+........................................................................ [ 64%]
+.....................................................................FF. [ 86%]
+.........................FFFFFFFF...FFF......F                           [100%]
+=================================== FAILURES ===================================
+_____________ TestIdempotency.test_idempotent_rerun_does_not_crash _____________
+
+self = <test_cull_blurry.TestIdempotency object at 0x7047971e0b90>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_idempotent_rerun_does_not0')
+
+    def test_idempotent_rerun_does_not_crash(self, tmp_path):
+>       import cv2
+E       ModuleNotFoundError: No module named 'cv2'
+
+scripts/splat_pipeline/tests/test_cull_blurry.py:124: ModuleNotFoundError
+_______________ TestIdempotency.test_dry_run_preserves_all_files _______________
+
+self = <test_cull_blurry.TestIdempotency object at 0x7047971e0e90>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_dry_run_preserves_all_fil0')
+
+    def test_dry_run_preserves_all_files(self, tmp_path):
+        images_dir = tmp_path / "images"
+        images_dir.mkdir()
+    
+        for i in range(5):
+>           self._make_image(images_dir / f"frame_{i:04d}.jpg", blur_sigma=0.5)
+
+scripts/splat_pipeline/tests/test_cull_blurry.py:151: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_cull_blurry.TestIdempotency object at 0x7047971e0e90>
+path = PosixPath('/tmp/pytest-of-user/pytest-751/test_dry_run_preserves_all_fil0/images/frame_0000.jpg')
+blur_sigma = 0.5
+
+    def _make_image(self, path: Path, blur_sigma: float):
+>       import cv2
+E       ModuleNotFoundError: No module named 'cv2'
+
+scripts/splat_pipeline/tests/test_cull_blurry.py:114: ModuleNotFoundError
+___________________ TestIdempotency.test_no_images_dir_exits ___________________
+
+self = <test_cull_blurry.TestIdempotency object at 0x7047971e1190>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_no_images_dir_exits0')
+
+    def test_no_images_dir_exits(self, tmp_path):
+        from cull_blurry import main
+    
+        with pytest.raises(SystemExit) as exc:
+            main([str(tmp_path)])
+>       assert exc.value.code == 1
+E       assert 2 == 1
+E        +  where 2 = SystemExit(2).code
+E        +    where SystemExit(2) = <ExceptionInfo SystemExit(2) tblen=3>.value
+
+scripts/splat_pipeline/tests/test_cull_blurry.py:164: AssertionError
+----------------------------- Captured stderr call -----------------------------
+FAIL: opencv-python (cv2) not installed. Install with: pip install opencv-python numpy
+_________________ TestIdempotency.test_empty_images_dir_exits __________________
+
+self = <test_cull_blurry.TestIdempotency object at 0x7047971e1490>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_empty_images_dir_exits0')
+
+    def test_empty_images_dir_exits(self, tmp_path):
+        (tmp_path / "images").mkdir()
+        from cull_blurry import main
+    
+        with pytest.raises(SystemExit) as exc:
+            main([str(tmp_path)])
+>       assert exc.value.code == 3
+E       assert 2 == 3
+E        +  where 2 = SystemExit(2).code
+E        +    where SystemExit(2) = <ExceptionInfo SystemExit(2) tblen=3>.value
+
+scripts/splat_pipeline/tests/test_cull_blurry.py:172: AssertionError
+----------------------------- Captured stderr call -----------------------------
+FAIL: opencv-python (cv2) not installed. Install with: pip install opencv-python numpy
+____________________________ test_help_shows_usage _____________________________
+
+    def test_help_shows_usage():
+        result = subprocess.run(
+            ["bash", str(SCRIPT), "--help"],
+            capture_output=True,
+            text=True,
+        )
+>       assert result.returncode == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/tmp/opencode/verify_head/scripts/splat_pipeline/stage_assets.sh', '--help'], returnco... 21: cd: /tmp/opencode/verify_head/scripts/splat_pipeline/../../splat_walk/assets/splats: No such file or directory\n').returncode
+
+scripts/splat_pipeline/tests/test_stage_assets.py:46: AssertionError
+_________________________ test_missing_scene_dir_fails _________________________
+
+    def test_missing_scene_dir_fails():
+        result = subprocess.run(
+            ["bash", str(SCRIPT)],
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode != 0
+>       assert "scene_dir" in result.stderr.lower()
+E       AssertionError: assert 'scene_dir' in '/tmp/opencode/verify_head/scripts/splat_pipeline/stage_assets.sh: line 21: cd: /tmp/opencode/verify_head/scripts/splat_pipeline/../../splat_walk/assets/splats: no such file or directory\n'
+E        +  where '/tmp/opencode/verify_head/scripts/splat_pipeline/stage_assets.sh: line 21: cd: /tmp/opencode/verify_head/scripts/splat_pipeline/../../splat_walk/assets/splats: no such file or directory\n' = <built-in method lower of str object at 0x704796af2880>()
+E        +    where <built-in method lower of str object at 0x704796af2880> = '/tmp/opencode/verify_head/scripts/splat_pipeline/stage_assets.sh: line 21: cd: /tmp/opencode/verify_head/scripts/splat_pipeline/../../splat_walk/assets/splats: No such file or directory\n'.lower
+E        +      where '/tmp/opencode/verify_head/scripts/splat_pipeline/stage_assets.sh: line 21: cd: /tmp/opencode/verify_head/scripts/splat_pipeline/../../splat_walk/assets/splats: No such file or directory\n' = CompletedProcess(args=['bash', '/tmp/opencode/verify_head/scripts/splat_pipeline/stage_assets.sh'], returncode=1, stdo... 21: cd: /tmp/opencode/verify_head/scripts/splat_pipeline/../../splat_walk/assets/splats: No such file or directory\n').stderr
+
+scripts/splat_pipeline/tests/test_stage_assets.py:57: AssertionError
+_____________________ TestSuccessPath.test_default_success _____________________
+
+self = <test_train_brush.TestSuccessPath object at 0x704796a5e030>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_default_success1')
+
+    def test_default_success(self, tmp_path):
+        _make_images(tmp_path, 5)
+        _make_sparse(tmp_path)
+        env = _make_stub_env(tmp_path)
+        rc, stdout, stderr = _run(tmp_path, env=env)
+>       assert rc == 0
+E       assert 4 == 0
+
+scripts/splat_pipeline/tests/test_train_brush.py:363: AssertionError
+__________________ TestSuccessPath.test_splat_count_extracted __________________
+
+self = <test_train_brush.TestSuccessPath object at 0x704796a5e330>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_splat_count_extracted0')
+
+    def test_splat_count_extracted(self, tmp_path):
+        _make_images(tmp_path, 5)
+        _make_sparse(tmp_path)
+        env = _make_stub_env(tmp_path)
+        rc, stdout, stderr = _run(tmp_path, env=env)
+>       assert rc == 0
+E       assert 4 == 0
+
+scripts/splat_pipeline/tests/test_train_brush.py:375: AssertionError
+_________________ TestSuccessPath.test_total_steps_flag_passed _________________
+
+self = <test_train_brush.TestSuccessPath object at 0x704796a5eab0>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_total_steps_flag_passed0')
+
+    def test_total_steps_flag_passed(self, tmp_path):
+        _make_images(tmp_path, 5)
+        _make_sparse(tmp_path)
+        env = _make_stub_env(tmp_path)
+        rc, stdout, stderr = _run(tmp_path, extra_args=["--total-steps", "5000"], env=env)
+>       assert rc == 0
+E       assert 4 == 0
+
+scripts/splat_pipeline/tests/test_train_brush.py:383: AssertionError
+___________________ TestSuccessPath.test_total_steps_env_var ___________________
+
+self = <test_train_brush.TestSuccessPath object at 0x704796a5ef60>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_total_steps_env_var0')
+
+    def test_total_steps_env_var(self, tmp_path):
+        _make_images(tmp_path, 5)
+        _make_sparse(tmp_path)
+        env = _make_stub_env(tmp_path)
+        env["BRUSH_TOTAL_STEPS"] = "7000"
+        rc, stdout, stderr = _run(tmp_path, env=env)
+>       assert rc == 0
+E       assert 4 == 0
+
+scripts/splat_pipeline/tests/test_train_brush.py:392: AssertionError
+_________________ TestSuccessPath.test_max_splats_flag_passed __________________
+
+self = <test_train_brush.TestSuccessPath object at 0x704796a5f440>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_max_splats_flag_passed0')
+
+    def test_max_splats_flag_passed(self, tmp_path):
+        _make_images(tmp_path, 5)
+        _make_sparse(tmp_path)
+        env = _make_stub_env(tmp_path)
+        rc, stdout, stderr = _run(tmp_path, extra_args=["--max-splats", "500000"], env=env)
+>       assert rc == 0
+E       assert 4 == 0
+
+scripts/splat_pipeline/tests/test_train_brush.py:400: AssertionError
+___________________ TestSuccessPath.test_max_splats_env_var ____________________
+
+self = <test_train_brush.TestSuccessPath object at 0x704796afe120>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_max_splats_env_var0')
+
+    def test_max_splats_env_var(self, tmp_path):
+        _make_images(tmp_path, 5)
+        _make_sparse(tmp_path)
+        env = _make_stub_env(tmp_path)
+        env["BRUSH_MAX_SPLATS"] = "800000"
+        rc, stdout, stderr = _run(tmp_path, env=env)
+>       assert rc == 0
+E       assert 4 == 0
+
+scripts/splat_pipeline/tests/test_train_brush.py:409: AssertionError
+______________ TestSuccessPath.test_max_splats_cli_overrides_env _______________
+
+self = <test_train_brush.TestSuccessPath object at 0x704796afe930>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_max_splats_cli_overrides_0')
+
+    def test_max_splats_cli_overrides_env(self, tmp_path):
+        _make_images(tmp_path, 5)
+        _make_sparse(tmp_path)
+        env = _make_stub_env(tmp_path)
+        env["BRUSH_MAX_SPLATS"] = "800000"
+        rc, stdout, stderr = _run(
+            tmp_path, extra_args=["--max-splats", "600000"], env=env
+        )
+>       assert rc == 0
+E       assert 4 == 0
+
+scripts/splat_pipeline/tests/test_train_brush.py:420: AssertionError
+_______________ TestSuccessPath.test_max_splats_shown_in_header ________________
+
+self = <test_train_brush.TestSuccessPath object at 0x704796aff980>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_max_splats_shown_in_heade0')
+
+    def test_max_splats_shown_in_header(self, tmp_path):
+        _make_images(tmp_path, 5)
+        _make_sparse(tmp_path)
+        env = _make_stub_env(tmp_path)
+        rc, stdout, stderr = _run(tmp_path, extra_args=["--max-splats", "999"], env=env)
+>       assert rc == 0
+E       assert 4 == 0
+
+scripts/splat_pipeline/tests/test_train_brush.py:428: AssertionError
+_____________ TestSplatThresholdWarnings.test_critical_count_warns _____________
+
+self = <test_train_brush.TestSplatThresholdWarnings object at 0x704796a53920>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_critical_count_warns0')
+
+    def test_critical_count_warns(self, tmp_path):
+        _make_images(tmp_path, 5)
+        _make_sparse(tmp_path)
+        env = _make_stub_env(tmp_path)
+        env["BRUSH_SPLAT_COUNT"] = "12000000"
+        rc, stdout, stderr = _run(tmp_path, env=env)
+>       assert rc == 0
+E       assert 4 == 0
+
+scripts/splat_pipeline/tests/test_train_brush.py:515: AssertionError
+_____________ TestSplatThresholdWarnings.test_warning_count_warns ______________
+
+self = <test_train_brush.TestSplatThresholdWarnings object at 0x704796a53c20>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_warning_count_warns0')
+
+    def test_warning_count_warns(self, tmp_path):
+        _make_images(tmp_path, 5)
+        _make_sparse(tmp_path)
+        env = _make_stub_env(tmp_path)
+        env["BRUSH_SPLAT_COUNT"] = "6000000"
+        rc, stdout, stderr = _run(tmp_path, env=env)
+>       assert rc == 0
+E       assert 4 == 0
+
+scripts/splat_pipeline/tests/test_train_brush.py:524: AssertionError
+__________ TestSplatThresholdWarnings.test_comfortable_count_no_warn ___________
+
+self = <test_train_brush.TestSplatThresholdWarnings object at 0x704796a53f50>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_comfortable_count_no_warn0')
+
+    def test_comfortable_count_no_warn(self, tmp_path):
+        _make_images(tmp_path, 5)
+        _make_sparse(tmp_path)
+        env = _make_stub_env(tmp_path)
+        env["BRUSH_SPLAT_COUNT"] = "1500000"
+        rc, stdout, stderr = _run(tmp_path, env=env)
+>       assert rc == 0
+E       assert 4 == 0
+
+scripts/splat_pipeline/tests/test_train_brush.py:533: AssertionError
+_______________ TestPipelineIntegration.test_stage_c_invocation ________________
+
+self = <test_train_brush.TestPipelineIntegration object at 0x704796aff740>
+tmp_path = PosixPath('/tmp/pytest-of-user/pytest-751/test_stage_c_invocation0')
+
+    def test_stage_c_invocation(self, tmp_path):
+        """train_brush.sh is a valid executable script that produces scene.ply."""
+        scene_dir = tmp_path / "scene"
+        scene_dir.mkdir()
+        _make_images(scene_dir, 3)
+        _make_sparse(scene_dir)
+    
+        env = _make_stub_env(tmp_path)
+        rc, stdout, stderr = _run(scene_dir, env=env)
+>       assert rc == 0
+E       assert 4 == 0
+
+scripts/splat_pipeline/tests/test_train_brush.py:625: AssertionError
+=========================== short test summary info ============================
+FAILED scripts/splat_pipeline/tests/test_cull_blurry.py::TestIdempotency::test_idempotent_rerun_does_not_crash
+FAILED scripts/splat_pipeline/tests/test_cull_blurry.py::TestIdempotency::test_dry_run_preserves_all_files
+FAILED scripts/splat_pipeline/tests/test_cull_blurry.py::TestIdempotency::test_no_images_dir_exits
+FAILED scripts/splat_pipeline/tests/test_cull_blurry.py::TestIdempotency::test_empty_images_dir_exits
+FAILED scripts/splat_pipeline/tests/test_stage_assets.py::test_help_shows_usage
+FAILED scripts/splat_pipeline/tests/test_stage_assets.py::test_missing_scene_dir_fails
+FAILED scripts/splat_pipeline/tests/test_train_brush.py::TestSuccessPath::test_default_success
+FAILED scripts/splat_pipeline/tests/test_train_brush.py::TestSuccessPath::test_splat_count_extracted
+FAILED scripts/splat_pipeline/tests/test_train_brush.py::TestSuccessPath::test_total_steps_flag_passed
+FAILED scripts/splat_pipeline/tests/test_train_brush.py::TestSuccessPath::test_total_steps_env_var
+FAILED scripts/splat_pipeline/tests/test_train_brush.py::TestSuccessPath::test_max_splats_flag_passed
+FAILED scripts/splat_pipeline/tests/test_train_brush.py::TestSuccessPath::test_max_splats_env_var
+FAILED scripts/splat_pipeline/tests/test_train_brush.py::TestSuccessPath::test_max_splats_cli_overrides_env
+FAILED scripts/splat_pipeline/tests/test_train_brush.py::TestSuccessPath::test_max_splats_shown_in_header
+FAILED scripts/splat_pipeline/tests/test_train_brush.py::TestSplatThresholdWarnings::test_critical_count_warns
+FAILED scripts/splat_pipeline/tests/test_train_brush.py::TestSplatThresholdWarnings::test_warning_count_warns
+FAILED scripts/splat_pipeline/tests/test_train_brush.py::TestSplatThresholdWarnings::test_comfortable_count_no_warn
+FAILED scripts/splat_pipeline/tests/test_train_brush.py::TestPipelineIntegration::test_stage_c_invocation
+18 failed, 315 passed, 1 skipped in 5.83s

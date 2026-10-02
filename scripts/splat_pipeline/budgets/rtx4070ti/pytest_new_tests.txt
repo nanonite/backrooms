@@ -1,0 +1,11 @@
+# pytest output: the 7 test files added by chainlink task 89
+# tree:        git archive HEAD (commit a513d88) exported to a clean directory
+# working dir: /tmp/opencode/verify_head
+# date:        2026-10-02T23:32:10Z
+# python:      Python 3.12.3
+# pytest:      pytest 9.1.1
+# command:     python3 -m pytest scripts/splat_pipeline/tests/test_resource_probe.py scripts/splat_pipeline/tests/test_resource_sampler.py scripts/splat_pipeline/tests/test_resource_budget.py scripts/splat_pipeline/tests/test_published_budget.py scripts/splat_pipeline/tests/test_colmap_dataset.py scripts/splat_pipeline/tests/test_benchmark_reconstruction.py scripts/splat_pipeline/tests/test_preflight_hardware.py -q
+#
+........................................................................ [ 53%]
+........................s......................................          [100%]
+134 passed, 1 skipped in 2.36s
