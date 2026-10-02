@@ -1,0 +1,156 @@
+{
+  "capabilities": {
+    "cuda": {
+      "available": true,
+      "compute_capability": "8.9",
+      "device_name": "NVIDIA GeForce RTX 4070 Ti",
+      "error": "",
+      "free_vram_bytes": 6242107392,
+      "probe_peak_bytes": 17078272,
+      "torch_cuda_version": "12.1",
+      "torch_version": "2.3.1+cu121",
+      "total_vram_bytes": 12445417472,
+      "trained": true,
+      "usable": true
+    },
+    "vulkan": {
+      "api_version": "1.4.329",
+      "available": true,
+      "device_name": "NVIDIA GeForce RTX 4070 Ti",
+      "error": "",
+      "rendering_method": "Forward+",
+      "source": "godot",
+      "vendor": "NVIDIA"
+    },
+    "webgpu": {
+      "adapter_name": "",
+      "available": false,
+      "backend": "",
+      "error": "ModuleNotFoundError: No module named 'wgpu'; navigator.gpu is undefined",
+      "host": "none"
+    }
+  },
+  "hardware": {
+    "cpu_model": "AMD Ryzen 9 7900X 12-Core Processor",
+    "cpu_threads": 24,
+    "cuda": {
+      "cuda_available": "yes",
+      "torch": "2.3.1",
+      "torch_cuda": "12.1"
+    },
+    "driver_version": "595.91.07",
+    "filesystems": [
+      {
+        "free_bytes": 3677433757696,
+        "path": "/mnt/sharedOs",
+        "total_bytes": 3862234136576
+      },
+      {
+        "free_bytes": 737502105600,
+        "path": "/home",
+        "total_bytes": 1770593513472
+      }
+    ],
+    "gpu": {
+      "count": 1,
+      "free_vram_bytes": 6441402368,
+      "name": "NVIDIA GeForce RTX 4070 Ti",
+      "total_vram_bytes": 12878610432,
+      "used_vram_bytes": 6005194752,
+      "utilization_percent": 0
+    },
+    "hostname": "user-linux",
+    "interpreter": "/usr/bin/python3",
+    "kernel": "6.8.0-142-generic",
+    "memory": {
+      "available_bytes": 35130507264,
+      "total_bytes": 67058544640
+    },
+    "os_release": "Ubuntu 24.04.5 LTS",
+    "tools": {
+      "blender": "5.2.2",
+      "brush": "brush-cli 0.3.0",
+      "colmap": "unavailable: FileNotFoundError",
+      "ffmpeg": "6.1.1-3ubuntu5",
+      "glomap": "unavailable: FileNotFoundError",
+      "godot": "4.6.3.stable.official.7d41c59c4",
+      "nerfstudio": "1.1.5",
+      "nvidia-smi": "595.91.07",
+      "python3": "Python 3.12.3"
+    },
+    "vram_holders": [
+      {
+        "name": "/home/user/anaconda3/envs/sot/bin/python",
+        "pid": 2674337,
+        "used_bytes": 583008256
+      },
+      {
+        "name": "python",
+        "pid": 1040741,
+        "used_bytes": 3705667584
+      }
+    ]
+  },
+  "runtime_budget": {
+    "fps": 60.12,
+    "frame_rate_is_vsync_limited": true,
+    "gpu_name": "NVIDIA GeForce RTX 4070 Ti",
+    "marginal_bytes_per_splat": 506.0733749569081,
+    "notes": [
+      "All 3 runtime probes ran with the viewpoint orbiting, not static.",
+      "60.12 fps is at the display's 60 Hz refresh, so this shows the renderer keeps up; it does not show how much headroom is left."
+    ],
+    "resolution": "measured at 1280x720",
+    "splat_count": 182569,
+    "stage_vram_bytes": 306184192
+  },
+  "training_budget": null,
+  "usable_vram_bytes": 6242107392,
+  "verdicts": [
+    {
+      "actions": [
+        "See splat_logs/budget_splatfacto.log. Fix that failure before scheduling splatfacto."
+      ],
+      "blockers": [
+        "splatfacto was attempted here and failed: splatfacto exited non-zero",
+        "/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before \u2018)\u2019 token | 42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>> | |                                                                                                          ^ | ninja: build stopped: subcommand failed."
+      ],
+      "compute_api": "cuda",
+      "fits": false,
+      "required_vram_bytes": 4294967296,
+      "stage": "splatfacto",
+      "usable_vram_bytes": 6242107392
+    },
+    {
+      "actions": [
+        "Run the WebGPU collision probe's remediation before starting collision."
+      ],
+      "blockers": [
+        "webgpu is unavailable on this host (ModuleNotFoundError: No module named 'wgpu'; navigator.gpu is undefined)"
+      ],
+      "compute_api": "webgpu",
+      "fits": false,
+      "required_vram_bytes": 2147483648,
+      "stage": "collision",
+      "usable_vram_bytes": 6242107392
+    },
+    {
+      "actions": [],
+      "blockers": [],
+      "compute_api": "vulkan",
+      "fits": true,
+      "required_vram_bytes": 2147483648,
+      "stage": "import",
+      "usable_vram_bytes": 6242107392
+    },
+    {
+      "actions": [],
+      "blockers": [],
+      "compute_api": "vulkan",
+      "fits": true,
+      "required_vram_bytes": 2147483648,
+      "stage": "render",
+      "usable_vram_bytes": 6242107392
+    }
+  ]
+}

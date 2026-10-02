@@ -453,12 +453,119 @@ Exit codes:
 - `2` — ffprobe not installed
 - `3` — hard failure (sub-1080p, non-video, probe failure)
 
+## Hardware preflight and resource budgets (#89)
+
+Run this **before** any GPU stage. It measures the machine rather than trusting
+the notes about it, probes each compute API the pipeline needs independently, and
+publishes a budget from whatever has actually been measured.
+
+**Measured results, pinned versions and the two stages that cannot run on this
+workstation are in [`HARDWARE_BUDGET.md`](HARDWARE_BUDGET.md).**
+
+```bash
+python3 scripts/splat_pipeline/preflight_hardware.py \
+    --scene <scene_name> --measurements splat_logs/measurements.json \
+    --json splat_logs/preflight.json
+```
+
+| Exit | Meaning |
+|------|---------|
+| `0` | every required capability passed and the measured default budget fits |
+| `1` | usage error |
+| `2` | CUDA training unusable — reconstruction cannot run here at all |
+| `3` | Vulkan unusable — nothing can be rendered or walked |
+| `4` | WebGPU unavailable — reconstruction is fine, collision is not |
+| `5` | the measured default budget exceeds the headroom-adjusted VRAM |
+
+A non-zero exit is a refusal with a stated cause and a specific next action, not
+a crash. Every failure line names the fix rather than restating the symptom.
+
+### What it measures
+
+| Property | Source |
+|---|---|
+| GPU, driver, **usable** VRAM, VRAM held by other jobs | `nvidia-smi` (`--query-gpu`, `--query-compute-apps`) |
+| RAM total / available | `/proc/meminfo` |
+| Disk free on each output filesystem | `statvfs` |
+| Pinned tool versions | the exact query per tool, recorded alongside the version |
+| CUDA training | one real forward/backward/SGD step in the pinned interpreter |
+| Vulkan rendering | boots the shipped renderer against a throwaway project, reads its device banner |
+| WebGPU collision | probes `wgpu`, Node and Deno in turn |
+
+**Usable VRAM, never total.** The budget is `min(card free, torch free)` minus
+20% headroom. A display server and any other job already hold part of the card —
+during one sampling window this machine was at 96% load with 10.4 GiB held, which
+would block a stage that the 12 GiB total happily admits.
+
+**A missing compute API blocks its stage regardless of free memory.** Collision is
+blocked on this host despite 9.2 GiB free, because without a WebGPU adapter it
+would not run slowly — it would not run.
+
+**A stage that was attempted here and failed is not reported as runnable.** The
+resource verdict answers "is there space"; only a measured attempt answers "does
+it work". A recorded failure in `splat_logs/measurements.json` re-issues that
+stage's verdict as BLOCKED, carrying the log line that explains it.
+
+### Benchmarking a stage
+
+Every stage is priced by the same sampler, so the numbers are comparable.
+
+```bash
+# Default Splatfacto through the pinned interpreter
+python3 scripts/splat_pipeline/benchmark_reconstruction.py splatfacto \
+    --data <scene_dir> --staging-dir outputs/<scene>_ns \
+    --output-dir outputs/<scene>/splatfacto --log splat_logs/splatfacto.log
+
+# Runtime render: VRAM, wall time and fps at a stated resolution
+python3 scripts/splat_pipeline/benchmark_reconstruction.py render \
+    --project godot_walk --scene res://scenes/corridor_splat.tscn \
+    --resolution 1280x720 --frames 300 --warmup 60 --orbit-radius 1.0 \
+    --splat godot_walk/assets/corridor_splat/corridor.ply
+
+# Anything else (collision, import, ...)
+python3 scripts/splat_pipeline/benchmark_reconstruction.py command \
+    --label collision --input-dir <in> --output-dir <out> -- <command...>
+```
+
+Each record keeps the exact argv, the interpreter, the exit code, peak VRAM and
+RAM, elapsed time, disk written, splat count and — for render — fps. **Failed
+stages are recorded too**, with the tail of their log: a stage that was attempted
+and could not run is a different fact from one nobody tried, and the error line is
+what the next attempt has to address.
+
+`--orbit-radius` moves the viewpoint during a render probe. Measuring one fixed
+camera measures one lucky culling result; a walkthrough always changes what the
+splat is asked to draw.
+
+### Bounded inputs
+
+nerfstudio 1.1.5's Splatfacto has **no hard cap on Gaussian count** — there is no
+`--cap-max-num-splats`. The levers that exist are `--pipeline.model.stop-split-at`
+(default `15000`, freeze densification earlier) and the dataparser's
+`--downscale-factor`. Any bound must be stated as a *measured* splat count from a
+run that used the lever, never as a configured cap.
+
+`colmap_dataset.py` stages a capture for an unattended run: symlinked read-only
+inputs so the capture is never modified, and pre-rendered `images_2` so nerfstudio
+does not prompt for downscaling (an automated run otherwise dies on `EOFError`).
+The model is passed as `--colmap-path sparse/0`, because nerfstudio defaults to
+`colmap/sparse/0` and this repo's COLMAP 3.10 + GLOMAP output is at `sparse/0`.
+
 ## GPU workstation environment
 
-- GPU: NVIDIA RTX 4070 Ti (12 GB VRAM)
-- 12 GB VRAM is the binding constraint — watch splat count and mesh density
-- Stage C: 1–3M splats comfortable; 10M+ strains Bevy at runtime
-- Stage D: skip texture baking; use `--low_poly` to avoid OOM
+Measured on this workstation — see [`HARDWARE_BUDGET.md`](HARDWARE_BUDGET.md) for
+the full table and for what could not be measured:
+
+- GPU: NVIDIA RTX 4070 Ti, 11.99 GiB VRAM total, **9.2 GiB usable** at last check
+- Host RAM: 62.5 GiB total, 45.5 GiB available
+- Vulkan: **1.4.329**, Forward+, working (probed by booting Godot 4.6.3)
+- CUDA training: **working** (RTX 4070 Ti cc 8.9, torch 2.3.1+cu121)
+- WebGPU / wgpu: **no adapter on this host** — blocks the collision stage, and
+  blocks Brush (a wgpu trainer) entirely
+- `colmap` and `glomap` are **not installed**, so the pose stages cannot run here
+- Runtime: 182,569 splats hold 60.12 fps at 1280x720 for 0.29 GiB of VRAM — but
+  that is the display's refresh rate, so it shows the renderer keeps up, not how
+  much headroom is left
 
 ## Related docs
 
@@ -472,3 +579,5 @@ Exit codes:
 | `splat-handoff/fe_stageB_vggt.md` | Stage B VGGT fallback |
 | `splat-handoff/fe_stageC_brush.md` | Stage C splat training |
 | `splat-handoff/fe_stageD_mesh.md` | Stage D collision mesh |
+| `scripts/splat_pipeline/HARDWARE_BUDGET.md` | Measured hardware, pinned versions and published budgets (#89) |
+| `scripts/splat_pipeline/budgets/rtx4070ti/` | Frozen measurement JSON and logs behind those budgets |

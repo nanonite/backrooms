@@ -1,0 +1,877 @@
+
+$ /home/user/anaconda3/envs/nerfstudio/bin/python -m nerfstudio.scripts.train splatfacto --data /workspace/backrooms-workspace/outputs/budget_probe/corridor_walk_v2_ns --output-dir /workspace/backrooms-workspace/outputs/budget_probe/splatfacto_default --vis tensorboard --experiment-name budget_probe --max-num-iterations 30000 colmap --colmap-path sparse/0
+[17:43:32] Using --data alias for --data.pipeline.datamanager.data                                          train.py:230
+──────────────────────────────────────────────────────── Config ────────────────────────────────────────────────────────
+TrainerConfig(
+    _target=<class 'nerfstudio.engine.trainer.Trainer'>,
+    output_dir=PosixPath('/workspace/backrooms-workspace/outputs/budget_probe/splatfacto_default'),
+    method_name='splatfacto',
+    experiment_name='budget_probe',
+    project_name='nerfstudio-project',
+    timestamp='2026-10-02_174332',
+    machine=MachineConfig(seed=42, num_devices=1, num_machines=1, machine_rank=0, dist_url='auto', device_type='cuda'),
+    logging=LoggingConfig(
+        relative_log_dir=PosixPath('.'),
+        steps_per_log=10,
+        max_buffer_size=20,
+        local_writer=LocalWriterConfig(
+            _target=<class 'nerfstudio.utils.writer.LocalWriter'>,
+            enable=True,
+            stats_to_track=(
+                <EventName.ITER_TRAIN_TIME: 'Train Iter (time)'>,
+                <EventName.TRAIN_RAYS_PER_SEC: 'Train Rays / Sec'>,
+                <EventName.CURR_TEST_PSNR: 'Test PSNR'>,
+                <EventName.VIS_RAYS_PER_SEC: 'Vis Rays / Sec'>,
+                <EventName.TEST_RAYS_PER_SEC: 'Test Rays / Sec'>,
+                <EventName.ETA: 'ETA (time)'>
+            ),
+            max_log_size=10
+        ),
+        profiler='basic'
+    ),
+    viewer=ViewerConfig(
+        relative_log_filename='viewer_log_filename.txt',
+        websocket_port=None,
+        websocket_port_default=7007,
+        websocket_host='0.0.0.0',
+        num_rays_per_chunk=32768,
+        max_num_display_images=512,
+        quit_on_train_completion=False,
+        image_format='jpeg',
+        jpeg_quality=75,
+        make_share_url=False,
+        camera_frustum_scale=0.1,
+        default_composite_depth=True
+    ),
+    pipeline=VanillaPipelineConfig(
+        _target=<class 'nerfstudio.pipelines.base_pipeline.VanillaPipeline'>,
+        datamanager=FullImageDatamanagerConfig(
+            _target=<class 'nerfstudio.data.datamanagers.full_images_datamanager.FullImageDatamanager'>,
+            data=PosixPath('/workspace/backrooms-workspace/outputs/budget_probe/corridor_walk_v2_ns'),
+            masks_on_gpu=False,
+            images_on_gpu=False,
+            dataparser=ColmapDataParserConfig(
+                _target=<class 'nerfstudio.data.dataparsers.colmap_dataparser.ColmapDataParser'>,
+                data=PosixPath('.'),
+                scale_factor=1.0,
+                downscale_factor=None,
+                downscale_rounding_mode='floor',
+                scene_scale=1.0,
+                orientation_method='up',
+                center_method='poses',
+                auto_scale_poses=True,
+                assume_colmap_world_coordinate_convention=True,
+                eval_mode='interval',
+                train_split_fraction=0.9,
+                eval_interval=8,
+                depth_unit_scale_factor=0.001,
+                images_path=PosixPath('images'),
+                masks_path=None,
+                depths_path=None,
+                colmap_path=PosixPath('sparse/0'),
+                load_3D_points=True,
+                max_2D_matches_per_3D_point=0
+            ),
+            camera_res_scale_factor=1.0,
+            eval_num_images_to_sample_from=-1,
+            eval_num_times_to_repeat_images=-1,
+            eval_image_indices=(0,),
+            cache_images='gpu',
+            cache_images_type='uint8',
+            max_thread_workers=None,
+            train_cameras_sampling_strategy='random',
+            train_cameras_sampling_seed=42,
+            fps_reset_every=100
+        ),
+        model=SplatfactoModelConfig(
+            _target=<class 'nerfstudio.models.splatfacto.SplatfactoModel'>,
+            enable_collider=True,
+            collider_params={'near_plane': 2.0, 'far_plane': 6.0},
+            loss_coefficients={'rgb_loss_coarse': 1.0, 'rgb_loss_fine': 1.0},
+            eval_num_rays_per_chunk=4096,
+            prompt=None,
+            warmup_length=500,
+            refine_every=100,
+            resolution_schedule=3000,
+            background_color='random',
+            num_downscales=2,
+            cull_alpha_thresh=0.1,
+            cull_scale_thresh=0.5,
+            reset_alpha_every=30,
+            densify_grad_thresh=0.0008,
+            use_absgrad=True,
+            densify_size_thresh=0.01,
+            n_split_samples=2,
+            sh_degree_interval=1000,
+            cull_screen_size=0.15,
+            split_screen_size=0.05,
+            stop_screen_size_at=4000,
+            random_init=False,
+            num_random=50000,
+            random_scale=10.0,
+            ssim_lambda=0.2,
+            stop_split_at=15000,
+            sh_degree=3,
+            use_scale_regularization=False,
+            max_gauss_ratio=10.0,
+            output_depth_during_training=False,
+            rasterize_mode='classic',
+            camera_optimizer=CameraOptimizerConfig(
+                _target=<class 'nerfstudio.cameras.camera_optimizers.CameraOptimizer'>,
+                mode='off',
+                trans_l2_penalty=0.01,
+                rot_l2_penalty=0.001,
+                optimizer=None,
+                scheduler=None
+            ),
+            use_bilateral_grid=False,
+            grid_shape=(16, 16, 8),
+            color_corrected_metrics=False
+        )
+    ),
+    optimizers={
+        'means': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.00016,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': ExponentialDecaySchedulerConfig(
+                _target=<class 'nerfstudio.engine.schedulers.ExponentialDecayScheduler'>,
+                lr_pre_warmup=1e-08,
+                lr_final=1.6e-06,
+                warmup_steps=0,
+                max_steps=30000,
+                ramp='cosine'
+            )
+        },
+        'features_dc': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.0025,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': None
+        },
+        'features_rest': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.000125,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': None
+        },
+        'opacities': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.05,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': None
+        },
+        'scales': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.005,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': None
+        },
+        'quats': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.001,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': None
+        },
+        'camera_opt': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.0001,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': ExponentialDecaySchedulerConfig(
+                _target=<class 'nerfstudio.engine.schedulers.ExponentialDecayScheduler'>,
+                lr_pre_warmup=0,
+                lr_final=5e-07,
+                warmup_steps=1000,
+                max_steps=30000,
+                ramp='cosine'
+            )
+        },
+        'bilateral_grid': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.002,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': ExponentialDecaySchedulerConfig(
+                _target=<class 'nerfstudio.engine.schedulers.ExponentialDecayScheduler'>,
+                lr_pre_warmup=0,
+                lr_final=0.0001,
+                warmup_steps=1000,
+                max_steps=30000,
+                ramp='cosine'
+            )
+        }
+    },
+    vis='tensorboard',
+    data=PosixPath('/workspace/backrooms-workspace/outputs/budget_probe/corridor_walk_v2_ns'),
+    prompt=None,
+    relative_model_dir=PosixPath('nerfstudio_models'),
+    load_scheduler=True,
+    steps_per_save=2000,
+    steps_per_eval_batch=0,
+    steps_per_eval_image=100,
+    steps_per_eval_all_images=1000,
+    max_num_iterations=30000,
+    mixed_precision=False,
+    use_grad_scaler=False,
+    save_only_latest_checkpoint=True,
+    load_dir=None,
+    load_step=None,
+    load_config=None,
+    load_checkpoint=None,
+    log_gradients=False,
+    gradient_accumulation_steps={},
+    start_paused=False
+)
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+           Saving config to:                                                                    experiment_config.py:136
+           /workspace/backrooms-workspace/outputs/budget_probe/splatfacto_default/budget_pro                         
+           be/splatfacto/2026-10-02_174332/config.yml                                                                   
+           Saving checkpoints to:                                                                         trainer.py:142
+           /workspace/backrooms-workspace/outputs/budget_probe/splatfacto_default/budget_probe/splatfa               
+           cto/2026-10-02_174332/nerfstudio_models                                                                      
+           Using image downscale factor of 2                                                    colmap_dataparser.py:533
+No Nerfstudio checkpoint to load, so training from scratch.
+logging events to: 
+/workspace/backrooms-workspace/outputs/budget_probe/splatfacto_default/budget_probe/splatfacto/2026-10-02_174332
+[17:43:33] Caching / undistorting train images                                            full_images_datamanager.py:230
+
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/_inductor/compile_fx.py:124: UserWarning: TensorFloat32 tensor cores for float32 matrix multiplication available but not enabled. Consider setting `torch.set_float32_matmul_precision('high')` for better performance.
+  warnings.warn(
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/utils/cpp_extension.py:1967: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+Printing profiling stats, from longest to shortest duration in seconds
+Trainer.train_iteration: 58.1063             
+VanillaPipeline.get_train_loss_dict: 58.1059             
+Traceback (most recent call last):
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/_backend.py", line 83, in <module>
+    from gsplat import csrc as _C
+ImportError: cannot import name 'csrc' from 'gsplat' (/home/user/.local/lib/python3.10/site-packages/gsplat/__init__.py)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2107, in _run_ninja_build
+    subprocess.run(
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['ninja', '-v', '-j', '10']' returned non-zero exit status 1.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/scripts/train.py", line 271, in <module>
+    entrypoint()
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/scripts/train.py", line 262, in entrypoint
+    main(
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/scripts/train.py", line 247, in main
+    launch(
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/scripts/train.py", line 189, in launch
+    main_func(local_rank=0, world_size=world_size, config=config)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/scripts/train.py", line 100, in train_loop
+    trainer.train()
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/engine/trainer.py", line 266, in train
+    loss, loss_dict, metrics_dict = self.train_iteration(step)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/utils/profiler.py", line 111, in inner
+    out = func(*args, **kwargs)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/engine/trainer.py", line 502, in train_iteration
+    _, loss_dict, metrics_dict = self.pipeline.get_train_loss_dict(step=step)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/utils/profiler.py", line 111, in inner
+    out = func(*args, **kwargs)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/pipelines/base_pipeline.py", line 300, in get_train_loss_dict
+    model_outputs = self._model(ray_bundle)  # train distributed data parallel model if world_size > 1
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/models/base_model.py", line 143, in forward
+    return self.get_outputs(ray_bundle)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/models/splatfacto.py", line 599, in get_outputs
+    render, alpha, self.info = rasterization(
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/rendering.py", line 297, in rasterization
+    proj_results = fully_fused_projection(
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/_wrapper.py", line 306, in fully_fused_projection
+    return _FullyFusedProjection.apply(
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/autograd/function.py", line 598, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/_wrapper.py", line 778, in forward
+    camera_model_type = _make_lazy_cuda_obj(
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/_wrapper.py", line 21, in _make_lazy_cuda_obj
+    from ._backend import _C
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/_backend.py", line 130, in <module>
+    _C = load_extension(
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/_backend.py", line 42, in load_extension
+    return load(
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1309, in load
+    return _jit_compile(
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1719, in _jit_compile
+    _write_ninja_file_and_build_library(
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1832, in _write_ninja_file_and_build_library
+    _run_ninja_build(
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2123, in _run_ninja_build
+    raise RuntimeError(message) from e
+RuntimeError: Error building extension 'gsplat_cuda': [1/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output compute_sh_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/compute_sh_fwd.cu -o compute_sh_fwd.cuda.o 
+FAILED: [code=1] compute_sh_fwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output compute_sh_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/compute_sh_fwd.cu -o compute_sh_fwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[2/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output fully_fused_projection_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/fully_fused_projection_fwd.cu -o fully_fused_projection_fwd.cuda.o 
+FAILED: [code=1] fully_fused_projection_fwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output fully_fused_projection_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/fully_fused_projection_fwd.cu -o fully_fused_projection_fwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[3/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output fully_fused_projection_2dgs_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/fully_fused_projection_2dgs_bwd.cu -o fully_fused_projection_2dgs_bwd.cuda.o 
+FAILED: [code=1] fully_fused_projection_2dgs_bwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output fully_fused_projection_2dgs_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/fully_fused_projection_2dgs_bwd.cu -o fully_fused_projection_2dgs_bwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[4/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output quat_scale_to_covar_preci_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/quat_scale_to_covar_preci_bwd.cu -o quat_scale_to_covar_preci_bwd.cuda.o 
+FAILED: [code=1] quat_scale_to_covar_preci_bwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output quat_scale_to_covar_preci_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/quat_scale_to_covar_preci_bwd.cu -o quat_scale_to_covar_preci_bwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[5/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_indices_in_range_2dgs.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_indices_in_range_2dgs.cu -o rasterize_to_indices_in_range_2dgs.cuda.o 
+FAILED: [code=1] rasterize_to_indices_in_range_2dgs.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_indices_in_range_2dgs.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_indices_in_range_2dgs.cu -o rasterize_to_indices_in_range_2dgs.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[6/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output fully_fused_projection_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/fully_fused_projection_bwd.cu -o fully_fused_projection_bwd.cuda.o 
+FAILED: [code=1] fully_fused_projection_bwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output fully_fused_projection_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/fully_fused_projection_bwd.cu -o fully_fused_projection_bwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[7/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output proj_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/proj_bwd.cu -o proj_bwd.cuda.o 
+FAILED: [code=1] proj_bwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output proj_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/proj_bwd.cu -o proj_bwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[8/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_pixels_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_fwd.cu -o rasterize_to_pixels_fwd.cuda.o 
+FAILED: [code=1] rasterize_to_pixels_fwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_pixels_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_fwd.cu -o rasterize_to_pixels_fwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[9/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_pixels_2dgs_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_2dgs_fwd.cu -o rasterize_to_pixels_2dgs_fwd.cuda.o 
+FAILED: [code=1] rasterize_to_pixels_2dgs_fwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_pixels_2dgs_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_2dgs_fwd.cu -o rasterize_to_pixels_2dgs_fwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[10/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_pixels_2dgs_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_2dgs_bwd.cu -o rasterize_to_pixels_2dgs_bwd.cuda.o 
+FAILED: [code=1] rasterize_to_pixels_2dgs_bwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_pixels_2dgs_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_2dgs_bwd.cu -o rasterize_to_pixels_2dgs_bwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+ninja: build stopped: subcommand failed.
+
+
+$ /home/user/anaconda3/envs/nerfstudio/bin/python -m nerfstudio.scripts.train splatfacto --data outputs/budget_probe/corridor_walk_v2_ns --output-dir outputs/budget_probe/splatfacto_default --vis tensorboard --experiment-name budget_probe --max-num-iterations 30000 colmap --colmap-path sparse/0
+[17:51:29] Using --data alias for --data.pipeline.datamanager.data                                          train.py:230
+──────────────────────────────────────────────────────── Config ────────────────────────────────────────────────────────
+TrainerConfig(
+    _target=<class 'nerfstudio.engine.trainer.Trainer'>,
+    output_dir=PosixPath('outputs/budget_probe/splatfacto_default'),
+    method_name='splatfacto',
+    experiment_name='budget_probe',
+    project_name='nerfstudio-project',
+    timestamp='2026-10-02_175129',
+    machine=MachineConfig(seed=42, num_devices=1, num_machines=1, machine_rank=0, dist_url='auto', device_type='cuda'),
+    logging=LoggingConfig(
+        relative_log_dir=PosixPath('.'),
+        steps_per_log=10,
+        max_buffer_size=20,
+        local_writer=LocalWriterConfig(
+            _target=<class 'nerfstudio.utils.writer.LocalWriter'>,
+            enable=True,
+            stats_to_track=(
+                <EventName.ITER_TRAIN_TIME: 'Train Iter (time)'>,
+                <EventName.TRAIN_RAYS_PER_SEC: 'Train Rays / Sec'>,
+                <EventName.CURR_TEST_PSNR: 'Test PSNR'>,
+                <EventName.VIS_RAYS_PER_SEC: 'Vis Rays / Sec'>,
+                <EventName.TEST_RAYS_PER_SEC: 'Test Rays / Sec'>,
+                <EventName.ETA: 'ETA (time)'>
+            ),
+            max_log_size=10
+        ),
+        profiler='basic'
+    ),
+    viewer=ViewerConfig(
+        relative_log_filename='viewer_log_filename.txt',
+        websocket_port=None,
+        websocket_port_default=7007,
+        websocket_host='0.0.0.0',
+        num_rays_per_chunk=32768,
+        max_num_display_images=512,
+        quit_on_train_completion=False,
+        image_format='jpeg',
+        jpeg_quality=75,
+        make_share_url=False,
+        camera_frustum_scale=0.1,
+        default_composite_depth=True
+    ),
+    pipeline=VanillaPipelineConfig(
+        _target=<class 'nerfstudio.pipelines.base_pipeline.VanillaPipeline'>,
+        datamanager=FullImageDatamanagerConfig(
+            _target=<class 'nerfstudio.data.datamanagers.full_images_datamanager.FullImageDatamanager'>,
+            data=PosixPath('outputs/budget_probe/corridor_walk_v2_ns'),
+            masks_on_gpu=False,
+            images_on_gpu=False,
+            dataparser=ColmapDataParserConfig(
+                _target=<class 'nerfstudio.data.dataparsers.colmap_dataparser.ColmapDataParser'>,
+                data=PosixPath('.'),
+                scale_factor=1.0,
+                downscale_factor=None,
+                downscale_rounding_mode='floor',
+                scene_scale=1.0,
+                orientation_method='up',
+                center_method='poses',
+                auto_scale_poses=True,
+                assume_colmap_world_coordinate_convention=True,
+                eval_mode='interval',
+                train_split_fraction=0.9,
+                eval_interval=8,
+                depth_unit_scale_factor=0.001,
+                images_path=PosixPath('images'),
+                masks_path=None,
+                depths_path=None,
+                colmap_path=PosixPath('sparse/0'),
+                load_3D_points=True,
+                max_2D_matches_per_3D_point=0
+            ),
+            camera_res_scale_factor=1.0,
+            eval_num_images_to_sample_from=-1,
+            eval_num_times_to_repeat_images=-1,
+            eval_image_indices=(0,),
+            cache_images='gpu',
+            cache_images_type='uint8',
+            max_thread_workers=None,
+            train_cameras_sampling_strategy='random',
+            train_cameras_sampling_seed=42,
+            fps_reset_every=100
+        ),
+        model=SplatfactoModelConfig(
+            _target=<class 'nerfstudio.models.splatfacto.SplatfactoModel'>,
+            enable_collider=True,
+            collider_params={'near_plane': 2.0, 'far_plane': 6.0},
+            loss_coefficients={'rgb_loss_coarse': 1.0, 'rgb_loss_fine': 1.0},
+            eval_num_rays_per_chunk=4096,
+            prompt=None,
+            warmup_length=500,
+            refine_every=100,
+            resolution_schedule=3000,
+            background_color='random',
+            num_downscales=2,
+            cull_alpha_thresh=0.1,
+            cull_scale_thresh=0.5,
+            reset_alpha_every=30,
+            densify_grad_thresh=0.0008,
+            use_absgrad=True,
+            densify_size_thresh=0.01,
+            n_split_samples=2,
+            sh_degree_interval=1000,
+            cull_screen_size=0.15,
+            split_screen_size=0.05,
+            stop_screen_size_at=4000,
+            random_init=False,
+            num_random=50000,
+            random_scale=10.0,
+            ssim_lambda=0.2,
+            stop_split_at=15000,
+            sh_degree=3,
+            use_scale_regularization=False,
+            max_gauss_ratio=10.0,
+            output_depth_during_training=False,
+            rasterize_mode='classic',
+            camera_optimizer=CameraOptimizerConfig(
+                _target=<class 'nerfstudio.cameras.camera_optimizers.CameraOptimizer'>,
+                mode='off',
+                trans_l2_penalty=0.01,
+                rot_l2_penalty=0.001,
+                optimizer=None,
+                scheduler=None
+            ),
+            use_bilateral_grid=False,
+            grid_shape=(16, 16, 8),
+            color_corrected_metrics=False
+        )
+    ),
+    optimizers={
+        'means': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.00016,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': ExponentialDecaySchedulerConfig(
+                _target=<class 'nerfstudio.engine.schedulers.ExponentialDecayScheduler'>,
+                lr_pre_warmup=1e-08,
+                lr_final=1.6e-06,
+                warmup_steps=0,
+                max_steps=30000,
+                ramp='cosine'
+            )
+        },
+        'features_dc': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.0025,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': None
+        },
+        'features_rest': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.000125,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': None
+        },
+        'opacities': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.05,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': None
+        },
+        'scales': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.005,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': None
+        },
+        'quats': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.001,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': None
+        },
+        'camera_opt': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.0001,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': ExponentialDecaySchedulerConfig(
+                _target=<class 'nerfstudio.engine.schedulers.ExponentialDecayScheduler'>,
+                lr_pre_warmup=0,
+                lr_final=5e-07,
+                warmup_steps=1000,
+                max_steps=30000,
+                ramp='cosine'
+            )
+        },
+        'bilateral_grid': {
+            'optimizer': AdamOptimizerConfig(
+                _target=<class 'torch.optim.adam.Adam'>,
+                lr=0.002,
+                eps=1e-15,
+                max_norm=None,
+                weight_decay=0
+            ),
+            'scheduler': ExponentialDecaySchedulerConfig(
+                _target=<class 'nerfstudio.engine.schedulers.ExponentialDecayScheduler'>,
+                lr_pre_warmup=0,
+                lr_final=0.0001,
+                warmup_steps=1000,
+                max_steps=30000,
+                ramp='cosine'
+            )
+        }
+    },
+    vis='tensorboard',
+    data=PosixPath('outputs/budget_probe/corridor_walk_v2_ns'),
+    prompt=None,
+    relative_model_dir=PosixPath('nerfstudio_models'),
+    load_scheduler=True,
+    steps_per_save=2000,
+    steps_per_eval_batch=0,
+    steps_per_eval_image=100,
+    steps_per_eval_all_images=1000,
+    max_num_iterations=30000,
+    mixed_precision=False,
+    use_grad_scaler=False,
+    save_only_latest_checkpoint=True,
+    load_dir=None,
+    load_step=None,
+    load_config=None,
+    load_checkpoint=None,
+    log_gradients=False,
+    gradient_accumulation_steps={},
+    start_paused=False
+)
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+           Saving config to:                                                                    experiment_config.py:136
+           outputs/budget_probe/splatfacto_default/budget_probe/splatfacto/2026-10-02_175129/co                         
+           nfig.yml                                                                                                     
+           Saving checkpoints to:                                                                         trainer.py:142
+           outputs/budget_probe/splatfacto_default/budget_probe/splatfacto/2026-10-02_175129/nerfstudio_m               
+           odels                                                                                                        
+           Using image downscale factor of 2                                                    colmap_dataparser.py:533
+No Nerfstudio checkpoint to load, so training from scratch.
+logging events to: outputs/budget_probe/splatfacto_default/budget_probe/splatfacto/2026-10-02_175129
+[17:51:30] Caching / undistorting train images                                            full_images_datamanager.py:230
+
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/_inductor/compile_fx.py:124: UserWarning: TensorFloat32 tensor cores for float32 matrix multiplication available but not enabled. Consider setting `torch.set_float32_matmul_precision('high')` for better performance.
+  warnings.warn(
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/utils/cpp_extension.py:1967: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+Printing profiling stats, from longest to shortest duration in seconds
+Trainer.train_iteration: 55.9798             
+VanillaPipeline.get_train_loss_dict: 55.9793             
+Traceback (most recent call last):
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/_backend.py", line 83, in <module>
+    from gsplat import csrc as _C
+ImportError: cannot import name 'csrc' from 'gsplat' (/home/user/.local/lib/python3.10/site-packages/gsplat/__init__.py)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2107, in _run_ninja_build
+    subprocess.run(
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['ninja', '-v', '-j', '10']' returned non-zero exit status 1.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/scripts/train.py", line 271, in <module>
+    entrypoint()
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/scripts/train.py", line 262, in entrypoint
+    main(
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/scripts/train.py", line 247, in main
+    launch(
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/scripts/train.py", line 189, in launch
+    main_func(local_rank=0, world_size=world_size, config=config)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/scripts/train.py", line 100, in train_loop
+    trainer.train()
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/engine/trainer.py", line 266, in train
+    loss, loss_dict, metrics_dict = self.train_iteration(step)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/utils/profiler.py", line 111, in inner
+    out = func(*args, **kwargs)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/engine/trainer.py", line 502, in train_iteration
+    _, loss_dict, metrics_dict = self.pipeline.get_train_loss_dict(step=step)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/utils/profiler.py", line 111, in inner
+    out = func(*args, **kwargs)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/pipelines/base_pipeline.py", line 300, in get_train_loss_dict
+    model_outputs = self._model(ray_bundle)  # train distributed data parallel model if world_size > 1
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/models/base_model.py", line 143, in forward
+    return self.get_outputs(ray_bundle)
+  File "/home/user/.local/lib/python3.10/site-packages/nerfstudio/models/splatfacto.py", line 599, in get_outputs
+    render, alpha, self.info = rasterization(
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/rendering.py", line 297, in rasterization
+    proj_results = fully_fused_projection(
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/_wrapper.py", line 306, in fully_fused_projection
+    return _FullyFusedProjection.apply(
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/autograd/function.py", line 598, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/_wrapper.py", line 778, in forward
+    camera_model_type = _make_lazy_cuda_obj(
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/_wrapper.py", line 21, in _make_lazy_cuda_obj
+    from ._backend import _C
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/_backend.py", line 130, in <module>
+    _C = load_extension(
+  File "/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/_backend.py", line 42, in load_extension
+    return load(
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1309, in load
+    return _jit_compile(
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1719, in _jit_compile
+    _write_ninja_file_and_build_library(
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1832, in _write_ninja_file_and_build_library
+    _run_ninja_build(
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2123, in _run_ninja_build
+    raise RuntimeError(message) from e
+RuntimeError: Error building extension 'gsplat_cuda': [1/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output compute_sh_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/compute_sh_fwd.cu -o compute_sh_fwd.cuda.o 
+FAILED: [code=1] compute_sh_fwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output compute_sh_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/compute_sh_fwd.cu -o compute_sh_fwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[2/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_indices_in_range_2dgs.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_indices_in_range_2dgs.cu -o rasterize_to_indices_in_range_2dgs.cuda.o 
+FAILED: [code=1] rasterize_to_indices_in_range_2dgs.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_indices_in_range_2dgs.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_indices_in_range_2dgs.cu -o rasterize_to_indices_in_range_2dgs.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[3/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output fully_fused_projection_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/fully_fused_projection_fwd.cu -o fully_fused_projection_fwd.cuda.o 
+FAILED: [code=1] fully_fused_projection_fwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output fully_fused_projection_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/fully_fused_projection_fwd.cu -o fully_fused_projection_fwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[4/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output proj_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/proj_bwd.cu -o proj_bwd.cuda.o 
+FAILED: [code=1] proj_bwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output proj_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/proj_bwd.cu -o proj_bwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[5/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output fully_fused_projection_2dgs_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/fully_fused_projection_2dgs_bwd.cu -o fully_fused_projection_2dgs_bwd.cuda.o 
+FAILED: [code=1] fully_fused_projection_2dgs_bwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output fully_fused_projection_2dgs_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/fully_fused_projection_2dgs_bwd.cu -o fully_fused_projection_2dgs_bwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[6/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output quat_scale_to_covar_preci_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/quat_scale_to_covar_preci_bwd.cu -o quat_scale_to_covar_preci_bwd.cuda.o 
+FAILED: [code=1] quat_scale_to_covar_preci_bwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output quat_scale_to_covar_preci_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/quat_scale_to_covar_preci_bwd.cu -o quat_scale_to_covar_preci_bwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[7/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output fully_fused_projection_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/fully_fused_projection_bwd.cu -o fully_fused_projection_bwd.cuda.o 
+FAILED: [code=1] fully_fused_projection_bwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output fully_fused_projection_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/fully_fused_projection_bwd.cu -o fully_fused_projection_bwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[8/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_pixels_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_fwd.cu -o rasterize_to_pixels_fwd.cuda.o 
+FAILED: [code=1] rasterize_to_pixels_fwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_pixels_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_fwd.cu -o rasterize_to_pixels_fwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[9/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_pixels_2dgs_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_2dgs_fwd.cu -o rasterize_to_pixels_2dgs_fwd.cuda.o 
+FAILED: [code=1] rasterize_to_pixels_2dgs_fwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_pixels_2dgs_fwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_2dgs_fwd.cu -o rasterize_to_pixels_2dgs_fwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+[10/26] /usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_pixels_2dgs_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_2dgs_bwd.cu -o rasterize_to_pixels_2dgs_bwd.cuda.o 
+FAILED: [code=1] rasterize_to_pixels_2dgs_bwd.cuda.o 
+/usr/local/cuda-12.4/bin/nvcc --generate-dependencies-with-compile --dependency-output rasterize_to_pixels_2dgs_bwd.cuda.o.d -DTORCH_EXTENSION_NAME=gsplat_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_2dgs_bwd.cu -o rasterize_to_pixels_2dgs_bwd.cuda.o 
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before ‘>’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                       ^
+/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before ‘)’ token
+   42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
+      |                                                                                                          ^
+ninja: build stopped: subcommand failed.
+

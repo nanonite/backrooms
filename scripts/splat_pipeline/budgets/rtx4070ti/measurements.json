@@ -1,0 +1,313 @@
+{
+  "schema_version": 1,
+  "stages": [
+    {
+      "command": [
+        "/home/user/Downloads/Godot_v4.6.3-stable_linux.x86_64",
+        "--path",
+        "godot_walk",
+        "--resolution",
+        "1280x720",
+        "--script",
+        "res://scripts/measure_fps.gd",
+        "--",
+        "--scene=res://scenes/_budget_corridor_prev.tscn",
+        "--frames=300",
+        "--warmup=60",
+        "--orbit-radius=1.0"
+      ],
+      "elapsed_seconds": 6.879,
+      "exit_code": 0,
+      "extras": {
+        "fps": 60.16
+      },
+      "input_bytes": 0,
+      "interpreter": "/home/user/Downloads/Godot_v4.6.3-stable_linux.x86_64",
+      "label": "render_corridor_prev",
+      "log_path": "splat_logs/benchmark_render.log",
+      "output_bytes": 0,
+      "peak": {
+        "baseline_ram_used_bytes": 18045628416,
+        "baseline_vram_used_bytes": 2358247424,
+        "duration_seconds": 6.879,
+        "missed_samples": 0,
+        "peak_gpu_utilization_percent": 29,
+        "peak_ram_used_bytes": 18079940608,
+        "peak_vram_used_bytes": 2598371328,
+        "samples_taken": 7,
+        "stage_ram_bytes": 34312192,
+        "stage_vram_bytes": 240123904
+      },
+      "schema_version": 1,
+      "settings": {
+        "frames": "300",
+        "orbit-radius": "1.0",
+        "resolution": "1280x720",
+        "scene": "res://scenes/_budget_corridor_prev.tscn",
+        "warmup": "60"
+      },
+      "splat_count": 52034,
+      "succeeded": true,
+      "tool_versions": {
+        "blender": "5.2.2",
+        "brush": "brush-cli 0.3.0",
+        "colmap": "unavailable: FileNotFoundError",
+        "ffmpeg": "6.1.1-3ubuntu5",
+        "glomap": "unavailable: FileNotFoundError",
+        "godot": "4.6.3.stable.official.7d41c59c4",
+        "nerfstudio": "1.1.5",
+        "nvidia-smi": "595.91.07",
+        "python3": "Python 3.12.3"
+      }
+    },
+    {
+      "command": [
+        "/home/user/Downloads/Godot_v4.6.3-stable_linux.x86_64",
+        "--path",
+        "godot_walk",
+        "--resolution",
+        "1280x720",
+        "--script",
+        "res://scripts/measure_fps.gd",
+        "--",
+        "--scene=res://scenes/_budget_corridor_squeeze96.tscn",
+        "--frames=300",
+        "--warmup=60",
+        "--orbit-radius=1.0"
+      ],
+      "elapsed_seconds": 6.923,
+      "exit_code": 0,
+      "extras": {
+        "fps": 60.14
+      },
+      "input_bytes": 0,
+      "interpreter": "/home/user/Downloads/Godot_v4.6.3-stable_linux.x86_64",
+      "label": "render_corridor_squeeze96",
+      "log_path": "splat_logs/benchmark_render.log",
+      "output_bytes": 0,
+      "peak": {
+        "baseline_ram_used_bytes": 17640022016,
+        "baseline_vram_used_bytes": 2370830336,
+        "duration_seconds": 6.923,
+        "missed_samples": 0,
+        "peak_gpu_utilization_percent": 43,
+        "peak_ram_used_bytes": 18091425792,
+        "peak_vram_used_bytes": 2748317696,
+        "samples_taken": 7,
+        "stage_ram_bytes": 451403776,
+        "stage_vram_bytes": 377487360
+      },
+      "schema_version": 1,
+      "settings": {
+        "frames": "300",
+        "orbit-radius": "1.0",
+        "resolution": "1280x720",
+        "scene": "res://scenes/_budget_corridor_squeeze96.tscn",
+        "warmup": "60"
+      },
+      "splat_count": 100824,
+      "succeeded": true,
+      "tool_versions": {
+        "blender": "5.2.2",
+        "brush": "brush-cli 0.3.0",
+        "colmap": "unavailable: FileNotFoundError",
+        "ffmpeg": "6.1.1-3ubuntu5",
+        "glomap": "unavailable: FileNotFoundError",
+        "godot": "4.6.3.stable.official.7d41c59c4",
+        "nerfstudio": "1.1.5",
+        "nvidia-smi": "595.91.07",
+        "python3": "Python 3.12.3"
+      }
+    },
+    {
+      "command": [
+        "/home/user/Downloads/Godot_v4.6.3-stable_linux.x86_64",
+        "--path",
+        "godot_walk",
+        "--resolution",
+        "1280x720",
+        "--script",
+        "res://scripts/measure_fps.gd",
+        "--",
+        "--scene=res://scenes/_budget_corridor.tscn",
+        "--frames=300",
+        "--warmup=60",
+        "--orbit-radius=1.0"
+      ],
+      "elapsed_seconds": 7.021,
+      "exit_code": 0,
+      "extras": {
+        "fps": 60.12
+      },
+      "input_bytes": 0,
+      "interpreter": "/home/user/Downloads/Godot_v4.6.3-stable_linux.x86_64",
+      "label": "render_corridor",
+      "log_path": "splat_logs/benchmark_render.log",
+      "output_bytes": 0,
+      "peak": {
+        "baseline_ram_used_bytes": 17643958272,
+        "baseline_vram_used_bytes": 2369781760,
+        "duration_seconds": 7.021,
+        "missed_samples": 0,
+        "peak_gpu_utilization_percent": 26,
+        "peak_ram_used_bytes": 18204549120,
+        "peak_vram_used_bytes": 2675965952,
+        "samples_taken": 7,
+        "stage_ram_bytes": 560590848,
+        "stage_vram_bytes": 306184192
+      },
+      "schema_version": 1,
+      "settings": {
+        "frames": "300",
+        "orbit-radius": "1.0",
+        "resolution": "1280x720",
+        "scene": "res://scenes/_budget_corridor.tscn",
+        "warmup": "60"
+      },
+      "splat_count": 182569,
+      "succeeded": true,
+      "tool_versions": {
+        "blender": "5.2.2",
+        "brush": "brush-cli 0.3.0",
+        "colmap": "unavailable: FileNotFoundError",
+        "ffmpeg": "6.1.1-3ubuntu5",
+        "glomap": "unavailable: FileNotFoundError",
+        "godot": "4.6.3.stable.official.7d41c59c4",
+        "nerfstudio": "1.1.5",
+        "nvidia-smi": "595.91.07",
+        "python3": "Python 3.12.3"
+      }
+    },
+    {
+      "command": [
+        "/home/user/anaconda3/envs/nerfstudio/bin/python",
+        "-m",
+        "nerfstudio.scripts.train",
+        "splatfacto",
+        "--data",
+        "outputs/budget_probe/corridor_walk_v2_ns",
+        "--output-dir",
+        "outputs/budget_probe/splatfacto_default",
+        "--vis",
+        "tensorboard",
+        "--experiment-name",
+        "budget_probe",
+        "--max-num-iterations",
+        "30000",
+        "colmap",
+        "--colmap-path",
+        "sparse/0"
+      ],
+      "elapsed_seconds": 60.15,
+      "exit_code": 1,
+      "extras": {
+        "dataset": {
+          "downscale_factor": 2,
+          "frame_count": 96,
+          "input_resolution": "1920x1080",
+          "source_dir": "data/scenes/corridor_walk_v2",
+          "staging_dir": "outputs/budget_probe/corridor_walk_v2_ns",
+          "training_resolution": "960x540"
+        },
+        "failure": "splatfacto exited non-zero",
+        "log_tail": "TORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\\\"_gcc\\\" -DPYBIND11_STDLIB=\\\"_libstdcpp\\\" -DPYBIND11_BUILD_ABI=\\\"_cxxabi1011\\\" -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc -I/home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/third_party/glm -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-12.4/include -isystem /home/user/anaconda3/envs/nerfstudio/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /home/user/.local/lib/python3.10/site-packages/gsplat/cuda/csrc/rasterize_to_pixels_2dgs_bwd.cu -o rasterize_to_pixels_2dgs_bwd.cuda.o | /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103: error: expected primary-expression before \u2018>\u2019 token | 42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>> | |                                                                                                       ^ | /home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:106: error: expected primary-expression before \u2018)\u2019 token | 42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>> | |                                                                                                          ^ | ninja: build stopped: subcommand failed."
+      },
+      "input_bytes": 8454225,
+      "interpreter": "/home/user/anaconda3/envs/nerfstudio/bin/python",
+      "label": "splatfacto",
+      "log_path": "splat_logs/budget_splatfacto.log",
+      "output_bytes": 8608,
+      "peak": {
+        "baseline_ram_used_bytes": 17797132288,
+        "baseline_vram_used_bytes": 2295332864,
+        "duration_seconds": 60.15,
+        "missed_samples": 0,
+        "peak_gpu_utilization_percent": 40,
+        "peak_ram_used_bytes": 46618849280,
+        "peak_vram_used_bytes": 2572156928,
+        "samples_taken": 59,
+        "stage_ram_bytes": 28821716992,
+        "stage_vram_bytes": 276824064
+      },
+      "schema_version": 1,
+      "settings": {
+        "colmap-path": "sparse/0",
+        "downscale-factor": "2",
+        "input-resolution": "1920x1080",
+        "max-num-iterations": "30000",
+        "mixed-precision": "False",
+        "pipeline.datamanager.dataparser.downscale-factor": "None (max dimension < 1600px)",
+        "pipeline.model.num-random": "50000",
+        "pipeline.model.sh-degree": "3",
+        "pipeline.model.stop-split-at": "15000",
+        "training-resolution": "960x540"
+      },
+      "splat_count": null,
+      "succeeded": false,
+      "tool_versions": {
+        "blender": "5.2.2",
+        "brush": "brush-cli 0.3.0",
+        "colmap": "unavailable: FileNotFoundError",
+        "ffmpeg": "6.1.1-3ubuntu5",
+        "glomap": "unavailable: FileNotFoundError",
+        "godot": "4.6.3.stable.official.7d41c59c4",
+        "nerfstudio": "1.1.5",
+        "nvidia-smi": "595.91.07",
+        "python3": "Python 3.12.3"
+      }
+    },
+    {
+      "command": [
+        "brush",
+        "data/scenes/corridor_walk_v2",
+        "--total-train-iters",
+        "300",
+        "--export-path",
+        "/tmp/opencode/brush_out/",
+        "--export-name",
+        "brush.ply"
+      ],
+      "elapsed_seconds": 0.02,
+      "exit_code": 101,
+      "extras": {
+        "failure": "brush_train exited 101",
+        "log_tail": "for _ in range(200): a = a @ a.T / 1000.0 | torch.cuda.synchronize(); print('\"'\"'ok'\"'\"', torch.cuda.max_memory_allocated()//1024**2, '\"'\"'MiB'\"'\"') | ' | ok 200 MiB | $ brush data/scenes/corridor_walk_v2 --total-train-iters 300 --export-path /tmp/opencode/brush_out/ --export-name brush.ply | thread 'main' (904416) panicked at /home/user/.cargo/git/checkouts/cubecl-058c47895211d464/1d628d7/crates/cubecl-wgpu/src/runtime.rs:524:10: | No possible adapter available for backend. Falling back to first available.: NotFound { active_backends: Backends(0x0), requested_backends: Backends(VULKAN), supported_backends: Backends(VULKAN | GL), no_fallback_backends: Backends(0x0), no_adapter_backends: Backends(0x0), incompatible_surface_backends: Backends(0x0) } | note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace | $ brush data/scenes/corridor_walk_v2 --total-train-iters 300 --export-path /tmp/opencode/brush_out/ --export-name brush.ply | thread 'main' (906029) panicked at /home/user/.cargo/git/checkouts/cubecl-058c47895211d464/1d628d7/crates/cubecl-wgpu/src/runtime.rs:524:10: | No possible adapter available for backend. Falling back to first available.: NotFound { active_backends: Backends(0x0), requested_backends: Backends(VULKAN), supported_backends: Backends(VULKAN | GL), no_fallback_backends: Backends(0x0), no_adapter_backends: Backends(0x0), incompatible_surface_backends: Backends(0x0) } | note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace"
+      },
+      "input_bytes": 0,
+      "interpreter": "brush",
+      "label": "brush_train",
+      "log_path": "splat_logs/benchmark.log",
+      "output_bytes": 0,
+      "peak": {
+        "baseline_ram_used_bytes": 17649909760,
+        "baseline_vram_used_bytes": 2297430016,
+        "duration_seconds": 0.02,
+        "missed_samples": 0,
+        "peak_gpu_utilization_percent": 0,
+        "peak_ram_used_bytes": 17652613120,
+        "peak_vram_used_bytes": 2297430016,
+        "samples_taken": 1,
+        "stage_ram_bytes": 2703360,
+        "stage_vram_bytes": 0
+      },
+      "schema_version": 1,
+      "settings": {
+        "tool": "brush-cli",
+        "total-train-iters": "300"
+      },
+      "splat_count": null,
+      "succeeded": false,
+      "tool_versions": {
+        "blender": "5.2.2",
+        "brush": "brush-cli 0.3.0",
+        "colmap": "unavailable: FileNotFoundError",
+        "ffmpeg": "6.1.1-3ubuntu5",
+        "glomap": "unavailable: FileNotFoundError",
+        "godot": "4.6.3.stable.official.7d41c59c4",
+        "nerfstudio": "1.1.5",
+        "nvidia-smi": "595.91.07",
+        "python3": "Python 3.12.3"
+      }
+    }
+  ]
+}
