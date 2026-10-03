@@ -1,11 +1,23 @@
 #!/usr/bin/env python3
 """
-validate_input.py — Conforming-video intake check for the splat pipeline.
+validate_input.py — Fast intake check for the splat pipeline.
 
-Checks a video file against the requirements for Gaussian-splat reconstruction:
-resolution, duration, frame rate (hard checks via ffprobe) and blur / parallax
-proxies via OpenCV (soft checks). Prints a manual static-scene checklist that
-cannot be verified automatically.
+Cheap container-level checks that can be answered before decoding a single frame:
+frame size, frame rate, duration, and whether the file is a video at all. Blur and
+parallax proxies run when OpenCV is available and only ever warn.
+
+This is a *fast* check, not the full judgement. It cannot see whether the scene
+persists between frames, whether the camera translated, or how much of the walk
+ends up reconstructed. For that, run ``capture_gate.py``, which samples the clip
+boundedly and reports registered-versus-excluded coverage. This script points at
+it when resolution is merely below the recommendation.
+
+On resolution: the only hard floor is a frame too small to carry matchable
+texture (320x240). Below the 1080p *recommendation* the input is accepted and
+reported with what the lower resolution costs. 720p is enough to match features
+reliably; it loses detail at distance, which shows up as a softer
+reconstruction rather than as a failure to register, so rejecting it here threw
+away usable captures.
 
 Usage:
     python3 scripts/splat_pipeline/validate_input.py <video.mp4>
@@ -14,7 +26,7 @@ Exit codes:
     0  — all hard checks passed (soft warnings may still appear)
     1  — usage / argument error
     2  — missing prerequisites (ffprobe not found)
-    3  — hard failure (sub-1080p, non-video, probe failure)
+    3  — hard failure (unmatchably small frame, non-video, probe failure)
 """
 
 import json
@@ -26,7 +38,17 @@ from pathlib import Path
 # Constants
 # ---------------------------------------------------------------------------
 
-MIN_HEIGHT = 1080
+#: Below this a frame does not carry enough texture for features to be matched
+#: twice, so nothing registers. This is the only resolution limit that is
+#: hard: 720p is *not* too small to reconstruct from and is not rejected here.
+#: 720p matches features reliably and costs detail at distance, which shows up as
+#: a softer reconstruction rather than as a failure to register.
+MIN_WIDTH = 320
+MIN_HEIGHT = 240
+
+#: Advisory only, printed with the resolution so the operator can weigh it.
+RECOMMENDED_HEIGHT = 1080
+
 MIN_FPS = 1
 MAX_FPS = 120
 BLUR_THRESHOLD = 100.0
@@ -81,14 +103,33 @@ def find_video_stream(streams: list) -> dict:
 
 
 def check_resolution(stream: dict) -> tuple[int, int]:
-    """Return (width, height) or exit if height < MIN_HEIGHT."""
+    """Return ``(width, height)``, exiting only if the frame cannot match features.
+
+    The floor is a feature budget, not a fidelity one: below roughly 320x240
+    there is not enough texture for a feature to be found in one frame and
+    matched in another, so the reconstruction cannot register at any quality
+    setting. Resolution *above* that floor is reported and never rejected, and
+    the recommended height is printed as an advisory -- conflating resolution
+    with reconstruction quality is what made 720p captures unusable here.
+    """
     width = stream.get("width", 0)
     height = stream.get("height", 0)
-    if height < MIN_HEIGHT:
+    if width < MIN_WIDTH or height < MIN_HEIGHT:
         sys.stderr.write(
-            f"FAIL: input is {height}p, minimum required is {MIN_HEIGHT}p.\n"
+            f"FAIL: input is {width}x{height}; a frame this small does not carry\n"
+            f"      enough texture for features to be matched twice. Minimum is\n"
+            f"      {MIN_WIDTH}x{MIN_HEIGHT}. Re-capture at 1280x720 or higher.\n"
         )
         sys.exit(3)
+    if height < RECOMMENDED_HEIGHT:
+        print(
+            f"NOTE: {width}x{height} is below the {RECOMMENDED_HEIGHT}p recommendation.\n"
+            f"      It is enough to match features on nearby surfaces; it costs detail\n"
+            f"      at distance, which softens the reconstruction rather than stopping\n"
+            f"      it from registering. Proceed, and re-shoot only if the result is\n"
+            f"      soft at range. For a full account of this capture, run:\n"
+            f"        python3 scripts/splat_pipeline/capture_gate.py <video>\n"
+        )
     return width, height
 
 

@@ -36,7 +36,14 @@ set -euo pipefail
 # Configurable defaults
 # ---------------------------------------------------------------------------
 
+# Fixed-fps extraction rate for the legacy path (SPLAT_EXTRACT_FPS=0). Set to 0
+# to take that path instead of the capture gate.
 EXTRACT_FPS="${SPLAT_EXTRACT_FPS:-3}"
+
+# Frames to select for reconstruction. 150 sits inside the 100-200 small-room
+# hypothesis -- a starting point, not a guarantee; the gate reports which side of
+# it a capture lands on rather than clamping the number.
+TARGET_FRAMES="${SPLAT_TARGET_FRAMES:-150}"
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -53,8 +60,12 @@ Usage: run_pipeline.sh <scene_dir>
 
 Stages:
   validate   Intake check (resolution, blur, parallax proxies)
-  Stage A    Frame extraction at ${EXTRACT_FPS} fps + blur culling  [subissue #107]
-              (Override fps: SPLAT_EXTRACT_FPS=2 run_pipeline.sh ...)
+  Stage A    Bounded sampling: capture_gate.py judges the capture and selects the
+              frames worth reconstructing, then sample_frames.py writes only those
+              at source resolution. Frames target ${TARGET_FRAMES} (small-room
+              hypothesis 100-200).
+              (Override: SPLAT_TARGET_FRAMES=200 run_pipeline.sh ...)
+              (Legacy fixed-fps path: SPLAT_EXTRACT_FPS=0 run_pipeline.sh ...)
   Stage B    Pose estimation (COLMAP → VGGT fallback) [subissue #108]
   Stage C    Splat training (Brush)                [subissue #109]
   Stage D    Collision mesh (SuGaR → decimate)     [subissue #111]
@@ -109,11 +120,21 @@ python3 "$SCRIPT_DIR/validate_input.py" "$VIDEO_PATH" || {
 }
 
 # ---------------------------------------------------------------------------
-# Stage A — Frame extraction + blur culling
+# Stage A — Bounded capture gate + selective frame extraction
+#
+# Stage A used to extract every frame at a fixed fps and cull the blurry ones
+# afterwards. That decodes and stores the whole clip, which is exactly the
+# unbounded work the sampling budget exists to avoid: the gate decodes a bounded
+# sample, picks the frames worth reconstructing, and extraction writes only those,
+# one seek each. It also refuses a capture that cannot support a coherent
+# walkable scene, naming the capture change that would fix it.
+#
+# Set SPLAT_EXTRACT_FPS=0 to skip the gate and keep the old fixed-fps path, which
+# is useful when debugging downstream stages against a known frame set.
 # ---------------------------------------------------------------------------
 
 echo
-echo "--- Stage A: Frame extraction ---"
+echo "--- Stage A: Bounded sampling and frame extraction ---"
 
 ffmpeg_bin="$(command -v ffmpeg || true)"
 if [[ -z "$ffmpeg_bin" ]]; then
@@ -121,32 +142,72 @@ if [[ -z "$ffmpeg_bin" ]]; then
     exit 2
 fi
 
-echo "Extracting frames at ${EXTRACT_FPS} fps from $VIDEO_PATH ..."
+if [[ "${EXTRACT_FPS}" == "0" ]]; then
+    echo "SPLAT_EXTRACT_FPS=0: skipping the capture gate, extracting every 3rd frame."
+    find "$SCENE_DIR/images" -maxdepth 1 -type f \( -iname 'frame_*.jpg' -o -iname 'frame_*.jpeg' -o -iname 'frame_*.png' \) -delete
 
-# Clear stale frames from previous extractions so downstream stages only
-# see frames from the current video/settings.
-find "$SCENE_DIR/images" -maxdepth 1 -type f \( -iname 'frame_*.jpg' -o -iname 'frame_*.jpeg' -o -iname 'frame_*.png' \) -delete
+    "$ffmpeg_bin" -y \
+        -i "$VIDEO_PATH" \
+        -vf "fps=3" \
+        -q:v 2 \
+        "$SCENE_DIR/images/frame_%04d.jpg"
 
-"$ffmpeg_bin" -y \
-    -i "$VIDEO_PATH" \
-    -vf "fps=${EXTRACT_FPS}" \
-    -q:v 2 \
-    "$SCENE_DIR/images/frame_%04d.jpg"
+    extracted_count=$(find "$SCENE_DIR/images" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | wc -l)
+    if [[ "$extracted_count" -eq 0 ]]; then
+        echo "FAIL: ffmpeg extracted zero frames. Check the video file." >&2
+        exit 3
+    fi
+    echo "Extracted $extracted_count frames."
 
-extracted_count=$(find "$SCENE_DIR/images" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | wc -l)
-if [[ "$extracted_count" -eq 0 ]]; then
-    echo "FAIL: ffmpeg extracted zero frames. Check the video file." >&2
-    exit 3
+    echo
+    echo "Culling blurry frames ..."
+    python3 "$SCRIPT_DIR/cull_blurry.py" "$SCENE_DIR" || {
+        echo "FAIL: blur culling failed (see above). Aborting." >&2
+        exit 1
+    }
+    echo
+else
+    GATE_REPORT="$SCENE_DIR/capture_gate.json"
+
+    set +e
+    python3 "$SCRIPT_DIR/capture_gate.py" "$VIDEO_PATH" \
+        --target-frames "$TARGET_FRAMES" \
+        --staging-dir "$SCENE_DIR" \
+        --json "$GATE_REPORT"
+    gate_status=$?
+    set -e
+
+    # Exit 3 is a rejection, which is a different outcome from a crash: the gate
+    # ran, measured the capture, and printed what to change about it.
+    if [[ "$gate_status" -eq 3 ]]; then
+        echo >&2
+        echo "FAIL: this capture cannot support a coherent walkable scene." >&2
+        echo "The findings above name both the measurement and the capture change" >&2
+        echo "that would fix it. Nothing downstream can recover geometry the" >&2
+        echo "capture does not contain; re-shoot and re-run." >&2
+        exit 3
+    fi
+    if [[ "$gate_status" -ne 0 ]]; then
+        echo "FAIL: the capture gate could not evaluate the video (exit $gate_status)." >&2
+        exit "$gate_status"
+    fi
+
+    echo
+    echo "Extracting the selected frames at source resolution ..."
+    python3 "$SCRIPT_DIR/sample_frames.py" "$VIDEO_PATH" "$GATE_REPORT" \
+        --out "$SCENE_DIR/images" || {
+        echo "FAIL: frame extraction failed (see above). Aborting." >&2
+        exit 1
+    }
+
+    extracted_count=$(find "$SCENE_DIR/images" -maxdepth 1 -type f -iname 'frame_*' | wc -l)
+    if [[ "$extracted_count" -eq 0 ]]; then
+        echo "FAIL: extraction produced zero frames. Check the video file." >&2
+        exit 3
+    fi
+    echo "Extracted $extracted_count selected frames into $SCENE_DIR/images."
+    echo
 fi
-echo "Extracted $extracted_count frames."
-
-echo
-echo "Culling blurry frames ..."
-python3 "$SCRIPT_DIR/cull_blurry.py" "$SCENE_DIR" || {
-    echo "FAIL: blur culling failed (see above). Aborting." >&2
-    exit 1
-}
-echo
 
 # ---------------------------------------------------------------------------
 # Stage B — Pose estimation (COLMAP default, VGGT fallback)
@@ -194,6 +255,25 @@ if [[ -x "$SCRIPT_DIR/pose_colmap.sh" ]]; then
 else
     echo "WARN: pose_colmap.sh not found or not executable. Skipping Stage B." >&2
     echo "Expected: $SCENE_DIR/sparse/0/{cameras,images,points3D}.bin" >&2
+fi
+
+# The capture gate measures what the *camera* covered; this measures what the
+# *model* covers. The gap between them is the part of the walk with no geometry,
+# and it is invisible from COLMAP's exit code: a disconnected or under-registered
+# reconstruction still reports success. A floor below 1.0 does not fail the run --
+# a partial reconstruction is usable, but its limits have to be stated before
+# Stage C trains on it.
+if [[ -d "$SCENE_DIR/sparse" ]]; then
+    echo
+    echo "--- Registration coverage ---"
+    coverage_status=0
+    python3 "$SCRIPT_DIR/model_coverage.py" "$SCENE_DIR" \
+        --frames-dir "$SCENE_DIR/images" || coverage_status=$?
+    if [[ "$coverage_status" -eq 2 ]]; then
+        echo "WARN: registration coverage is below the floor (see above)." >&2
+        echo "The walkable volume is limited to the registered frames; a walk" >&2
+        echo "through the excluded ones leaves the reconstruction." >&2
+    fi
 fi
 
 echo

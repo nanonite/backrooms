@@ -1,0 +1,10 @@
+=== SPARSE MODEL ===
+model used: /tmp/opencode/mc/sparse/0 (150 registered images)
+  other model: /tmp/opencode/mc/sparse/1 (10 registered images) -- NOT used
+cameras: 1, model SIMPLE_PINHOLE, resolution 640x360
+pose extent: 149.000 x 0.000 x 0.000 COLMAP units (arbitrary scale)
+
+=== REGISTRATION ===
+extracted 150 frames, registered 150, excluded 0 (100.0% coverage)
+coverage floor 80%: met
+warn: a second model at /tmp/opencode/mc/sparse/1 holds 10 registered image(s) and was not used; those frames are not in the reported coverage

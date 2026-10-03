@@ -1,0 +1,61 @@
+=== INPUT ===
+file:      fixtures/clips/long_walkthrough.mp4
+resolution: 640x360 (0.23 MP) h264 yuv420p
+duration:  37.50s at 24.00 fps, 900 frames
+
+=== BUDGET ===
+target frames 150 (small-room hypothesis 100-200, a starting point not a guarantee)
+max candidates 240, analysis pixels 230400, sample ceiling 120s
+min translation 0.5% of frame width, cut limit 0.15 histogram distance
+
+=== BOUNDED WORK ===
+motion probe:  12 frames kept, 826 visited, 0.11s (single pass keeping every 75th frame)
+candidate pass: stride 5, 180 kept of 900 (20.0%), 896 frames visited, 0.14s
+burst probe:   24 contiguous frames for temporal consistency
+total sampling: 2.14s (ceiling 120s)
+
+=== MEASURED ===
+sharpness:     median 85, 10th percentile 81 (variance of Laplacian at 640x360)
+translation:   median 2.04% of frame width over 2 candidate gaps (1.03 px per source frame)
+scene cuts:    0 detected among 180 candidates
+temporal consistency: temporal_geometry_consistent -- adjacent frames leave 0.1% of pixels changed after a global translation, and 0.0% of 24px blocks still differ (worst window 0.0%) -- one rigid scene accounts for the change
+burst residuals: median 0.001 of pixels, 90th percentile 0.000 of blocks still changing
+
+=== SELECTION ===
+selected 150 of 180 eligible (scored 180) frames
+excluded: 2 above_frame_target, 28 below_minimum_translation
+note: frame target 150, selected 150 (hypothesis 100-200 frames for a small room -- a starting point, not a guarantee).
+note: resolution is reported, never used as a rejection: 720p matches features, it only softens distance
+
+=== COVERAGE ===
+camera travel 1.65 frame widths (retained frames: 1.65)
+viewpoints: 10 distinct bins of 0.25 frame widths across 150 frames, 4 directions of travel
+retained span 37.3s of 37.5s (99%)
+the walkable volume cannot exceed this coverage; the splat is only reliable inside it
+
+=== BOUNDED MATCHING ===
+retrieval: 3300 pairs vs 11175 exhaustive (3.4x fewer)
+retrieval matching against 24 keyframes costs 3300 pairs against 11175 exhaustive (29.5%); the sequential window alone would cost 1445 pairs and find no revisits
+limit: sequential matching compares only the 10 nearest temporal neighbours, so any two views more than 10 samples apart are not matched by it; on this walk the largest such gap is 75 samples
+limit: retrieval matching compares each frame against 24 keyframes, so a revisit matches only if one of its frames is near a keyframe in appearance; a short revisit in a visually distinct part of the room can still be missed
+limit: a loop closure missed here shows up as two disconnected reconstructions, not as a bad one: check the registration report before treating a sparse model as a single room
+command: colmap sequential_matcher <scene_dir>/database.db --SequentialMatching.overlap=10 --SiftExtraction.use_gpu 0 --SiftMatching.use_gpu 0
+command: colmap vocab_tree_matcher <scene_dir>/database.db --SiftExtraction.use_gpu 0 --SiftMatching.use_gpu 0 --VocabTreeMatching.overlap=10
+
+=== RESOURCE ESTIMATE (before reconstruction) ===
+150 frames at 640x360: 4 MiB frames, 59 MiB COLMAP database, 43 MiB sparse model
+total 132 MiB with headroom; free 3425.4 GiB disk, 18.5 GiB RAM
+matching 3300 pairs ~= 14 min CPU; sampling ~= 272s
+
+=== VERDICT: ACCEPTED ===
+[info] resolution_below_recommended
+    measured: 640x360 (0.23 MP)
+    against:  >= 1080p recommended, not required
+    why:      0.23 MP is enough to match features on surfaces close to the camera; it costs detail on distant surfaces, which softens the reconstruction rather than preventing registration
+    do:       proceed; if the result is soft at distance, re-shoot at 1080p or move closer to the surfaces
+--- not measured ---
+limit: sharpness, cut distance and translation are measured on 230400 analysed pixels per frame; the features COLMAP later extracts come from the full 640x360 source, which this scan does not measure
+limit: residual statistics come from 3 contiguous windows of 8 frames; something that walks through one of the other windows is not seen
+limit: translation is one global shift per pair; camera rotation about the view axis is counted as unexplained change, not as measured rotation
+limit: displacements below about 0.5% of the analysis frame width fall under the alignment search's resolution and are reported as zero, so a very slow camera can measure as still; translations are therefore measured over 2 candidate gaps
+limit: candidates are 5 source frames apart, so anything that happens only between two candidates -- including a cut shorter than the stride -- is not examined
