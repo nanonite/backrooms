@@ -43,24 +43,25 @@
     "collision_node_3x4": [
       [
         0.0,
-        -5.128384,
+        -1.0,
         0.0,
         -0.977009
       ],
       [
         0.0,
         0.0,
-        5.128384,
+        1.0,
         -0.117991
       ],
       [
-        -5.128384,
+        -1.0,
         0.0,
         0.0,
         3.591775
       ]
     ],
-    "note": "basis = the splat node basis composed with the 180-degree z engine-frame rotation; translation is non-zero because Godot's glTF importer applies no centroid subtraction"
+    "note": "basis = the contract's rotation composed with the 180-degree z engine-frame rotation, with no scale; translation is non-zero because Godot's glTF importer applies no centroid subtraction",
+    "correction": "the basis here was 5.128384x too large in #84's first record. The tool is handed a splat the contract has already multiplied by metres_per_unit, so the engine frame it writes is in metres and the node transform must be a pure rotation composed with the 180-degree z engine rotation. The translation is unchanged and still non-zero because Godot's glTF importer subtracts no centroid. Found by #85: the two mappings in collision_params.py disagreed, and only the point mapping (engine_frame_to_world) had ever been checked, so the scale error survived a passing suite. This report is #84's run re-emitted by the corrected code; every check, every measurement and the verdict are otherwise identical to the first record, and the collision GLB is byte-identical (md5 c8f7a46effade8002a9bc51f74e3b11e)."
   },
   "tool_run": {
     "argv": [
@@ -75,7 +76,7 @@
       "0.25,0.999,0.1",
       "--seed-pos",
       "0.704,-0.326,-0.528",
-      "/tmp/opencode/st-bench/work/final/corridor_splat.voxel.json",
+      "/tmp/opencode/st-bench/verify/corridor_splat.voxel.json",
       "--voxel-size",
       "0.05",
       "--voxel-opacity",
@@ -88,8 +89,8 @@
       "smooth"
     ],
     "version": "3.9.0",
-    "elapsed_s": 3.288,
-    "peak_cpu_bytes": 544315801,
+    "elapsed_s": 5.351,
+    "peak_cpu_bytes": 581015961,
     "peak_gpu_bytes": 34812723,
     "gaussians_in": 182600,
     "gaussians_out": 95700,
@@ -1563,9 +1564,9 @@
         "metrics": {
           "triangles": 10178,
           "max_triangles": 200000,
-          "peak_cpu_bytes": 544315801,
+          "peak_cpu_bytes": 581015961,
           "peak_gpu_bytes": 34812723,
-          "elapsed_s": 3.288
+          "elapsed_s": 5.351
         }
       }
     ]

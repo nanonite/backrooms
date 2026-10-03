@@ -1,0 +1,103 @@
+traversal plan: res://assets/corridor_splat/traversal_manifest.json
+  collision res://assets/corridor_splat/collision/corridor_splat.collision.glb
+    10178 triangles, md5 c8f7a46effade8002a9bc51f74e3b11e
+  player capsule radius 0.30 m height 1.20 m, controller speed 4.0 m/s
+  required clearance 1.250 m (capsule height + 0.05 m margin)
+  spawn marker (-0.651325, -0.77099, 2.887547) (the contract's, #83)
+  spawn floor surface -1.1430 m, ceiling 1.0070 m, headroom 2.150 m
+  safety net top -2.7430 m -- a failsafe, never floor support
+  floor plan 61 rows x 41 cols of 0.25 m: 1368 tested, 812 open at 1.00 m, 412 walkable
+  tolerances from the plan:
+    position 0.18 m, step 0.20 m, block stop 0.12 m
+    floor support >= 95%, floor surface 0.05 m, spawn drop <= 1.00 m
+  #84 collision benchmark passed=false
+    FAILED walkway_covers_camera_path: 153 of 192 camera positions are inside solid collision at 1.00 m above the floor (20.3% traversable, need 90%): the generated walls block the route that was actually walked
+    the failing check is coverage of the reconstruction camera path, and this capture's manifest records walls_measured: false -- no wall plane was ever resolved, so no collision stage can recover one. The plan's route is inside the region the generated collision does leave navigable, and the walk test measures that region directly: floor support, blocking, headroom and the safety net. A pass here is a statement about the collision that exists, not a claim that it reconstructs the corridor somebody filmed. #91 owns the end-to-end gate on real footage.
+  physics: 60 ticks/s, 60 to settle, 150 probe push budget
+
+== as_built: the corridor as authored
+    spawn: floor -1.1430 m, capsule bottom -1.1430 m, drop -0.0000 m
+    spawn: headroom 2.150 m (required 1.250 m)
+    route_outbound: 15 legs, 6.60 m, floor support 100.0%, max step 0.067 m, y -0.543..-0.542
+    boundary_out: 15 legs, 6.99 m, floor support 100.0%, max step 0.072 m, y -0.544..-0.488
+    low_clearance: cell [28.0, 27.0], plan headroom 1.900 m, floor support 100.0% over 60 ticks
+    boundary_back: 15 legs, 6.88 m, floor support 100.0%, max step 0.073 m, y -0.543..-0.490
+    route_inbound: 15 legs, 6.44 m, floor support 100.0%, max step 0.067 m, y -0.543..-0.542
+    probe column: ran 1.09 m, stopped 0.067 m from the planned face at [0.305514, -0.180831] (tolerance 0.12 m)
+    probe wall: ran 1.40 m, stopped 0.119 m from the planned face at [1.305514, -2.590831] (tolerance 0.12 m)
+
+== missing_collision: the collision mesh is removed entirely
+    spawn: floor -2.7430 m, capsule bottom -2.7428 m, drop -0.0002 m
+  OK   [negative missing_collision] rejected for 'GeneratedCollision', and for these too:
+         - GeneratedCollision is not in the scene
+         - measured floor -2.7430 m differs from the plan's -1.1430 m by more than 0.05 m
+         - no ceiling above the spawn
+         - route_outbound: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=100 floor=100% path=6.60 m max_step=0.067 m y=-2.143..-2.143 net=false support=true)
+         - boundary_out: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=105 floor=100% path=6.93 m max_step=0.067 m y=-2.143..-2.143 net=false support=true)
+         - low_clearance: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=60 floor=100% path=0.00 m max_step=0.000 m y=-2.143..-2.143 net=false support=true)
+         - boundary_back: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=104 floor=100% path=6.87 m max_step=0.067 m y=-2.143..-2.143 net=false support=true)
+         - route_inbound: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=97 floor=100% path=6.40 m max_step=0.067 m y=-2.143..-2.143 net=false support=true)
+         - probe column came to rest 7.248 m from the planned stop, tolerance 0.12 m (ticks=125 floor=100% path=8.27 m max_step=0.067 m y=-2.148..-2.143 net=true support=true)
+         - probe column: SafetyNet contact -- the net is a failsafe, never floor support (ticks=125 floor=100% path=8.27 m max_step=0.067 m y=-2.148..-2.143 net=true support=true)
+         - probe column: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=125 floor=100% path=8.27 m max_step=0.067 m y=-2.148..-2.143 net=true support=true)
+         - probe wall came to rest 2.116 m from the planned stop, tolerance 0.12 m (ticks=53 floor=100% path=3.47 m max_step=0.070 m y=-2.170..-2.143 net=true support=true)
+         - probe wall: SafetyNet contact -- the net is a failsafe, never floor support (ticks=53 floor=100% path=3.47 m max_step=0.070 m y=-2.170..-2.143 net=true support=true)
+         - probe wall: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=53 floor=100% path=3.47 m max_step=0.070 m y=-2.170..-2.143 net=true support=true)
+
+== wrong_transform: the collision node is scaled by metres_per_unit
+    spawn: floor -2.7430 m, capsule bottom -2.7428 m, drop -0.0002 m
+  OK   [negative wrong_transform] rejected for 'floor', and for these too:
+         - measured floor -2.7430 m differs from the plan's -1.1430 m by more than 0.05 m
+         - no ceiling above the spawn
+         - route_outbound: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=100 floor=100% path=6.60 m max_step=0.067 m y=-2.143..-2.143 net=false support=true)
+         - boundary_out: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=105 floor=100% path=6.93 m max_step=0.067 m y=-2.143..-2.143 net=false support=true)
+         - low_clearance: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=60 floor=100% path=0.00 m max_step=0.000 m y=-2.143..-2.143 net=false support=true)
+         - boundary_back: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=104 floor=100% path=6.87 m max_step=0.067 m y=-2.143..-2.143 net=false support=true)
+         - route_inbound: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=97 floor=100% path=6.40 m max_step=0.067 m y=-2.143..-2.143 net=false support=true)
+         - probe column came to rest 7.248 m from the planned stop, tolerance 0.12 m (ticks=125 floor=100% path=8.27 m max_step=0.067 m y=-2.148..-2.143 net=true support=true)
+         - probe column: SafetyNet contact -- the net is a failsafe, never floor support (ticks=125 floor=100% path=8.27 m max_step=0.067 m y=-2.148..-2.143 net=true support=true)
+         - probe column: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=125 floor=100% path=8.27 m max_step=0.067 m y=-2.148..-2.143 net=true support=true)
+         - probe wall came to rest 2.116 m from the planned stop, tolerance 0.12 m (ticks=53 floor=100% path=3.47 m max_step=0.070 m y=-2.170..-2.143 net=true support=true)
+         - probe wall: SafetyNet contact -- the net is a failsafe, never floor support (ticks=53 floor=100% path=3.47 m max_step=0.070 m y=-2.170..-2.143 net=true support=true)
+         - probe wall: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=53 floor=100% path=3.47 m max_step=0.070 m y=-2.170..-2.143 net=true support=true)
+
+== blocked_opening: a box is dropped across the opening the route threads
+    spawn: floor -1.1430 m, capsule bottom -1.1430 m, drop -0.0000 m
+    spawn: headroom 2.150 m (required 1.250 m)
+    low_clearance: cell [28.0, 27.0], plan headroom 1.900 m, floor support 100.0% over 91 ticks
+    boundary_back: 15 legs, 6.88 m, floor support 100.0%, max step 0.073 m, y -0.543..-0.491
+  OK   [negative blocked_opening] rejected for 'did not reach', and for these too:
+         - route_outbound: did not reach waypoint [34.0, 19.0] after 2.19 m of route (ticks=124 floor=100% path=2.19 m max_step=0.067 m y=-0.544..-0.543 net=false support=false)
+         - boundary_out: did not reach waypoint [44.0, 10.0] after 0.17 m of route (ticks=95 floor=100% path=0.17 m max_step=0.043 m y=-0.542..-0.542 net=false support=false)
+         - route_inbound: did not reach waypoint [36.0, 17.0] after 2.78 m of route (ticks=134 floor=100% path=2.78 m max_step=0.067 m y=-0.543..-0.542 net=false support=false)
+         - probe column came to rest 5.499 m from the planned stop, tolerance 0.12 m (ticks=149 floor=100% path=3.80 m max_step=0.072 m y=-0.543..-0.491 net=false support=false)
+         - probe wall only covered 0.000 m, short of the plan's 0.250 m minimum
+         - probe wall came to rest 4.578 m from the planned stop, tolerance 0.12 m (ticks=90 floor=100% path=0.00 m max_step=0.000 m y=-0.542..-0.542 net=false support=false)
+
+== safety_net_landing: the net is raised into the player's capsule
+    spawn: floor -1.0430 m, capsule bottom -1.0437 m, drop 0.0007 m
+    spawn: headroom 2.051 m (required 1.250 m)
+  OK   [negative safety_net_landing] rejected for 'SafetyNet', and for these too:
+         - measured floor -1.0430 m differs from the plan's -1.1430 m by more than 0.05 m
+         - route_outbound: did not reach waypoint [34.0, 28.0] after 0.00 m of route (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - route_outbound: SafetyNet contact -- the net is a failsafe, never floor support (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - route_outbound: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - boundary_out: did not reach waypoint [44.0, 10.0] after 0.00 m of route (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - boundary_out: SafetyNet contact -- the net is a failsafe, never floor support (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - boundary_out: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - low_clearance: did not reach cell [28.0, 27.0] (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - low_clearance: SafetyNet contact -- the net is a failsafe, never floor support (ticks=61 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - low_clearance: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=61 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - boundary_back: did not reach waypoint [28.0, 27.0] after 0.00 m of route (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - boundary_back: SafetyNet contact -- the net is a failsafe, never floor support (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - boundary_back: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - route_inbound: did not reach waypoint [44.0, 10.0] after 0.00 m of route (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - route_inbound: SafetyNet contact -- the net is a failsafe, never floor support (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - route_inbound: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - probe column only covered 0.067 m, short of the plan's 0.250 m minimum
+         - probe column came to rest 2.414 m from the planned stop, tolerance 0.12 m (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - probe column: SafetyNet contact -- the net is a failsafe, never floor support (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - probe column: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
+         - probe wall came to rest 4.513 m from the planned stop, tolerance 0.12 m (ticks=105 floor=100% path=0.51 m max_step=0.061 m y=-0.442..-0.442 net=false support=true)
+         - probe wall: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=105 floor=100% path=0.51 m max_step=0.061 m y=-0.442..-0.442 net=false support=true)
+OK: traversal verified -- route both directions, blocking, openings, corners, clearance, spawn and safety net all hold

@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player_scene"]
 [ext_resource type="Script" path="res://addons/gdgs/runtime/nodes/gaussian_splat_node.gd" id="2_splat_script"]
 [ext_resource type="Script" path="res://addons/gdgs/runtime/compositor/gaussian_compositor_effect.gd" id="3_compositor_script"]
 [ext_resource type="Resource" path="res://assets/corridor_splat/corridor.ply" id="4_corridor_gaussian"]
+[ext_resource type="Script" path="res://scripts/generated_collision.gd" id="5_generated_collision"]
 
 [sub_resource type="CompositorEffect" id="CompositorEffect_corridor"]
 script = ExtResource("3_compositor_script")
@@ -18,23 +19,28 @@ ambient_light_source = 2
 ambient_light_color = Color(0.45, 0.48, 0.55, 1)
 ambient_light_energy = 0.45
 
-[sub_resource type="BoxShape3D" id="Box_floor"]
-size = Vector3(5.0, 0.2, 2.4)
-
 [sub_resource type="BoxShape3D" id="Box_safetynet"]
-size = Vector3(7.0, 0.2, 4.0)
+size = Vector3(12.0, 0.05, 11.6)
 
-[sub_resource type="BoxShape3D" id="Box_zwall"]
-size = Vector3(5.0, 3.6, 0.2)
-
-[sub_resource type="BoxShape3D" id="Box_xwall"]
-size = Vector3(0.2, 3.6, 2.4)
-
-[sub_resource type="BoxShape3D" id="Box_ceiling"]
-size = Vector3(5.0, 0.2, 2.4)
-
-[sub_resource type="BoxShape3D" id="Box_column"]
-size = Vector3(0.4, 3.6, 0.4)
+; Collision comes from the mesh #84 generated, not from boxes fitted by eye.
+; Every transform below is emitted by
+;   python3 scripts/splat_pipeline/traversal_plan.py \
+;       --manifest godot_walk/assets/corridor_splat/alignment_manifest.json \
+;       --report scripts/splat_pipeline/collision_benchmark.json \
+;       --glb godot_walk/assets/corridor_splat/collision/corridor_splat.collision.glb \
+;       --out godot_walk/assets/corridor_splat/traversal_manifest.json
+; which prints this file's node lines, so a diff here is a real geometry change.
+;
+; GeneratedCollision  transform = the contract's mapping composed with the 180
+;   degree z rotation splat-transform writes its output in.  The translation is
+;   non-zero because Godot's glTF importer subtracts no centroid, unlike GDGS.
+; SafetyNet  a diagnostic failsafe 1.2 m below the lowest surface the generated
+;   collision reaches.  It is never floor support: any contact is a walk failure.
+; PlayerSpawn  the contract's marker, 0.5 m above the contract's floor plane.  It
+;   is a drop-in reference, not a capsule centre.
+; Player  the generated collision's own floor surface under that marker
+;   (-1.1430 m) plus half the 1.2 m capsule, so the capsule's lower hemisphere
+;   rests on the floor instead of starting 0.1 m inside it.
 
 [node name="Corridor" type="Node3D"]
 
@@ -47,61 +53,22 @@ transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 10.0, 
 rotation = Vector3(-0.785398, 0.523599, 0.0)
 
 [node name="CorridorSplatNode" type="VisualInstance3D" parent="."]
+transform = Transform3D(0.0, 5.1283836, 0.0, 0.0, 0.0, 5.1283836, 5.1283836, 0.0, 0.0, 0.0, 0.0, 0.0)
 script = ExtResource("2_splat_script")
 gaussian = ExtResource("4_corridor_gaussian")
 
-[node name="FittedCollider" type="Node3D" parent="."]
+[node name="GeneratedCollision" type="StaticBody3D" parent="."]
+transform = Transform3D(0.0, -1.0, 0.0, 0.0, 0.0, 1.0, -1.0, 0.0, 0.0, -0.97700894, -0.11799125, 3.5917745)
+script = ExtResource("5_generated_collision")
 
-[node name="Floor" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, -1.5, 0.0)
+[node name="SafetyNet" type="StaticBody3D" parent="."]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.247991, -2.767991, 1.216775)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/Floor"]
-shape = SubResource("Box_floor")
-
-[node name="SafetyNet" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, -2.8, 0.0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/SafetyNet"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SafetyNet"]
 shape = SubResource("Box_safetynet")
 
-[node name="LeftWall" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, 0.3, -1.2)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/LeftWall"]
-shape = SubResource("Box_zwall")
-
-[node name="RightWall" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, 0.3, 1.2)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/RightWall"]
-shape = SubResource("Box_zwall")
-
-[node name="EndWallNeg" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.3, 0.0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/EndWallNeg"]
-shape = SubResource("Box_xwall")
-
-[node name="EndWallPos" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.3, 0.0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/EndWallPos"]
-shape = SubResource("Box_xwall")
-
-[node name="Ceiling" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, 2.1, 0.0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/Ceiling"]
-shape = SubResource("Box_ceiling")
-
-[node name="Column" type="StaticBody3D" parent="FittedCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.3, 0.02)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FittedCollider/Column"]
-shape = SubResource("Box_column")
-
 [node name="PlayerSpawn" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.75, 0.02)
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -0.651325, -0.77099, 2.887547)
 
 [node name="Player" parent="." instance=ExtResource("1_player_scene")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.75, 0.02)
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -0.651325, -0.542991, 2.887547)

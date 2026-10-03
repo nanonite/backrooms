@@ -286,11 +286,75 @@ def test_world_and_engine_frames_round_trip(contract, settings):
     assert np.allclose(world_to_engine_frame(world, contract), seed, atol=1e-9)
 
 
-def test_collision_node_basis_is_the_splat_node_basis_composed_with_the_engine_rotation(contract):
+def test_collision_node_basis_is_a_pure_rotation_of_the_engine_frame(contract):
+    """The collision basis carries no scale: the tool's output is already metric.
+
+    ``build_argv`` hands ``splat-transform`` a splat the contract has already
+    multiplied by ``metres_per_unit``, so the engine frame it writes is in metres.
+    The old assertion here composed the basis with the *splat node's* basis, which
+    includes that scale, and so passed for a matrix that stretches the collision
+    by 5.128x on this scene -- putting the generated floor metres below the room
+    and leaving the player nothing to stand on.  ``test_collision.py`` now
+    cross-checks the matrix against the independent point mapping, which is what
+    caught it.
+    """
+    collision = collision_node_transform(contract)
+    rotation = contract.ply_to_world.rotation()
+    assert np.allclose(collision[:, :3], rotation @ ENGINE_FRAME_ROTATION.T)
+    assert np.linalg.det(collision[:, :3]) == pytest.approx(1.0)
+    # A rotation times a uniform scale has orthogonal columns of equal length; a
+    # scaled one has columns of length metres_per_unit, which is 5.128 here.
+    lengths = np.linalg.norm(collision[:, :3], axis=0)
+    assert np.allclose(lengths, 1.0), lengths
+
+
+def test_collision_node_matrix_agrees_with_the_independent_point_mapping(contract):
+    """The matrix form and the point mapping must be the same transform.
+
+    They were written separately and disagreed: ``collision_node_transform``
+    multiplied by ``metres_per_unit`` while ``engine_frame_to_world`` did not.
+    Only one of the two was ever checked against the other, so the scale error
+    survived a passing suite.
+    """
+    collision = collision_node_transform(contract)
+    rotation = collision[:, :3]
+    translation = collision[:, 3]
+    for point in (np.array([0.0, 0.0, 0.0]), np.array([2.5, -3.25, 1.75]), np.array([-6.0, 4.0, 0.5])):
+        assert np.allclose(rotation @ point + translation, engine_frame_to_world(point, contract))
+
+
+def test_collision_node_places_the_seed_in_the_carved_capsule(contract, settings):
+    """The transform has to put the tool's carve seed back where the tool found it.
+
+    This is the check that fails loudly if the basis is scaled: the seed is a
+    known point inside the carved navigable volume, so a stretched basis lands it
+    outside the room entirely.
+    """
+    collision = collision_node_transform(contract)
+    seed = np.asarray(settings.seed_engine_frame_m)
+    world = collision[:, :3] @ seed + collision[:, 3]
+    expected = engine_frame_to_world(seed, contract)
+    assert np.allclose(world, expected)
+    assert world[1] == pytest.approx(
+        contract.collider.floor_height + 0.5 * settings.capsule_height_m, abs=1e-3
+    )
+
+
+def test_collision_node_basis_is_not_the_scaled_splat_node_basis(contract):
+    """The negative form of the old assertion, so the bug cannot be reintroduced.
+
+    Written explicitly because the mistake was reasonable-looking: the collision
+    does come from the same frame as the splat, so composing with the splat node's
+    *rotation* is right, and only the scale is wrong.
+    """
     collision = collision_node_transform(contract)
     splat = contract.ply_to_world.node_transform_matrix()
-    assert np.allclose(collision[:, :3], splat[:, :3] @ ENGINE_FRAME_ROTATION)
-    assert np.linalg.det(collision[:, :3]) == pytest.approx(np.linalg.det(splat[:, :3]) * np.linalg.det(ENGINE_FRAME_ROTATION))
+    assert not np.allclose(collision[:, :3], splat[:, :3] @ ENGINE_FRAME_ROTATION)
+    # ...while still sharing the splat's rotation.
+    assert np.allclose(
+        collision[:, :3] @ collision[:, :3].T,
+        splat[:, :3] @ splat[:, :3].T / contract.ply_to_world.metres_per_unit ** 2,
+    )
 
 
 def test_collision_node_carries_the_centroid_translation_the_splat_node_omits(contract):

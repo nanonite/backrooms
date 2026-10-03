@@ -175,16 +175,36 @@ clear height** — the contract's floor and ceiling are the only statement of it
 
 `collision_benchmark.json` → `expected_geometry`:
 
-* collision node `Transform3D` basis = splat node basis composed with the 180° z
-  engine-frame rotation; translation **non-zero**
+* collision node `Transform3D` basis = the contract's **rotation** composed with
+  the 180° z engine-frame rotation, with **no scale**; translation **non-zero**
   (`-0.977009, -0.117991, 3.591775` m) because Godot's glTF importer applies no
   centroid subtraction, unlike the GDGS splat builder. Reusing the splat node's
   zero translation would place the collision one room-length away.
+
+  The first record of this field carried `metres_per_unit` (5.128×) in the basis.
+  It was wrong: `build_argv` hands the tool a splat the contract has already
+  multiplied by `metres_per_unit`, so the engine frame it writes is already metric
+  and a second scale puts the generated floor metres away from the room. #85 found
+  it because `collision_params.py` held two mappings that disagreed —
+  `collision_node_transform` scaled, `engine_frame_to_world` did not — and only
+  the point mapping had ever been cross-checked. The report has been re-emitted
+  with the corrected basis and a `correction` note; every check, every
+  measurement and the verdict are unchanged, and the GLB is byte-identical.
+
 * blocked and open floor-plan column runs at 1.00 m above the floor, 0.25 m
   columns, origin `(-10.069, -4.306)` m, 76 × 58 cells. Expressed as spans rather
   than as boxes because the manifest records `walls_measured: false` — **no wall
   offset can be quoted for this capture**, only which columns block.
 * player capsule 0.3 m radius / 1.2 m height; carve capsule 0.35 / 1.25 m.
+
+#85 consumed all of it: see `godot_walk/assets/corridor_splat/TRAVERSAL.md` and
+`scripts/splat_pipeline/traversal_plan.py`, which turn the geometry above into a
+walkable route, two blocking probes, a spawn on the collision's own floor, and
+the tolerances `godot_walk/scripts/verify_traversal.gd` checks them against. The
+`walkway_covers_camera_path` FAIL above is carried into the traversal manifest and
+printed by the walk test rather than dropped: the walk measures the region this
+collision does leave navigable, which is not the same claim as reconstructing the
+route the cameras walked.
 
 ## Second input — the real-room capture
 
