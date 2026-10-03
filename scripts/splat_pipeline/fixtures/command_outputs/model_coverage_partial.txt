@@ -1,0 +1,21 @@
+=== SPARSE MODEL ===
+model used: /tmp/opencode/mp/sparse/0 (60 registered images)
+cameras: 1, model SIMPLE_PINHOLE, resolution 640x360
+pose extent: 59.000 x 0.000 x 0.000 COLMAP units (arbitrary scale)
+
+=== REGISTRATION ===
+extracted 150 frames, registered 60, excluded 90 (40.0% coverage)
+  no geometry: frame_0061.jpg
+  no geometry: frame_0062.jpg
+  no geometry: frame_0063.jpg
+  no geometry: frame_0064.jpg
+  no geometry: frame_0065.jpg
+  no geometry: frame_0066.jpg
+  no geometry: frame_0067.jpg
+  no geometry: frame_0068.jpg
+  no geometry: frame_0069.jpg
+  no geometry: frame_0070.jpg
+  ... and 80 more
+coverage floor 80%: NOT MET
+warn: only 40% of the extracted frames registered, below the 80% default; treat the reconstruction as partial
+note: the walkable volume is limited to the registered frames; a walk through the excluded ones leaves the reconstruction

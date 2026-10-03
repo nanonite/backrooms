@@ -1,0 +1,65 @@
+=== INPUT ===
+file:      fixtures/clips/moving_content.mp4
+resolution: 640x360 (0.23 MP) h264 yuv420p
+duration:  4.00s at 24.00 fps, 96 frames
+
+=== BUDGET ===
+target frames 150 (small-room hypothesis 100-200, a starting point not a guarantee)
+max candidates 240, analysis pixels 230400, sample ceiling 120s
+min translation 0.5% of frame width, cut limit 0.15 histogram distance
+
+=== BOUNDED WORK ===
+motion probe:  12 frames kept, 89 visited, 0.07s (single pass keeping every 8th frame)
+candidate pass: stride 1, 96 kept of 96 (100.0%), 96 frames visited, 0.09s
+burst probe:   24 contiguous frames for temporal consistency
+total sampling: 1.75s (ceiling 120s)
+
+=== MEASURED ===
+sharpness:     median 112, 10th percentile 100 (variance of Laplacian at 640x360)
+translation:   median 3.92% of frame width over 2 candidate gaps (10.11 px per source frame)
+scene cuts:    0 detected among 96 candidates
+temporal consistency: moving_content_dominant -- adjacent frames leave 4.3% of pixels changed after a global translation, and 8.7% of 24px blocks still differ (worst window 11.0%) -- part of the frame moves, which is a person or a door, not the room
+burst residuals: median 0.043 of pixels, 90th percentile 0.087 of blocks still changing
+
+=== SELECTION ===
+selected 86 of 96 eligible (scored 96) frames
+excluded: 10 below_minimum_translation
+note: frame target 150, selected 86 (hypothesis 100-200 frames for a small room -- a starting point, not a guarantee).
+note: resolution is reported, never used as a rejection: 720p matches features, it only softens distance
+
+=== COVERAGE ===
+camera travel 1.66 frame widths (retained frames: 1.66)
+viewpoints: 12 distinct bins of 0.25 frame widths across 86 frames, 2 directions of travel
+retained span 4.0s of 4.0s (99%)
+the walkable volume cannot exceed this coverage; the splat is only reliable inside it
+
+=== BOUNDED MATCHING ===
+retrieval: 1575 pairs vs 3655 exhaustive (2.3x fewer)
+retrieval matching against 21 keyframes costs 1575 pairs against 3655 exhaustive (43.1%); the sequential window alone would cost 805 pairs and find no revisits
+limit: sequential matching compares only the 10 nearest temporal neighbours, so any two views more than 10 samples apart are not matched by it; on this walk the largest such gap is 43 samples
+limit: retrieval matching compares each frame against 21 keyframes, so a revisit matches only if one of its frames is near a keyframe in appearance; a short revisit in a visually distinct part of the room can still be missed
+limit: a loop closure missed here shows up as two disconnected reconstructions, not as a bad one: check the registration report before treating a sparse model as a single room
+command: colmap sequential_matcher <scene_dir>/database.db --SequentialMatching.overlap=10 --SiftExtraction.use_gpu 0 --SiftMatching.use_gpu 0
+command: colmap vocab_tree_matcher <scene_dir>/database.db --SiftExtraction.use_gpu 0 --SiftMatching.use_gpu 0 --VocabTreeMatching.overlap=10
+
+=== RESOURCE ESTIMATE (before reconstruction) ===
+86 frames at 640x360: 2 MiB frames, 34 MiB COLMAP database, 25 MiB sparse model
+total 76 MiB with headroom; free 3425.4 GiB disk, 37.9 GiB RAM
+matching 1575 pairs ~= 7 min CPU; sampling ~= 17s
+
+=== VERDICT: ACCEPTED_WITH_WARNINGS ===
+[warn] geometry_moving_content_dominant
+    measured: adjacent frames leave 4.3% of pixels changed after a global translation, and 8.7% of 24px blocks still differ (worst window 11.0%) -- part of the frame moves, which is a person or a door, not the room
+    against:  static scene: one translation plus parallax explains adjacent frames
+    why:      content that moves occupies enough of the frame to corrupt the static surfaces behind it
+    do:       shoot an empty room, or one without people, pets, traffic or anything that moves during the take
+[info] resolution_below_recommended
+    measured: 640x360 (0.23 MP)
+    against:  >= 1080p recommended, not required
+    why:      0.23 MP is enough to match features on surfaces close to the camera; it costs detail on distant surfaces, which softens the reconstruction rather than preventing registration
+    do:       proceed; if the result is soft at distance, re-shoot at 1080p or move closer to the surfaces
+--- not measured ---
+limit: sharpness, cut distance and translation are measured on 230400 analysed pixels per frame; the features COLMAP later extracts come from the full 640x360 source, which this scan does not measure
+limit: residual statistics come from 3 contiguous windows of 8 frames; something that walks through one of the other windows is not seen
+limit: translation is one global shift per pair; camera rotation about the view axis is counted as unexplained change, not as measured rotation
+limit: displacements below about 0.5% of the analysis frame width fall under the alignment search's resolution and are reported as zero, so a very slow camera can measure as still; translations are therefore measured over 2 candidate gaps

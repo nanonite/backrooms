@@ -39,17 +39,25 @@ Final assets are copied to `splat_walk/assets/splats/<scene_name>/` at integrati
 
 ## Conforming video requirements
 
-The reconstruction quality is dominated by the input. These are **hard requirements**
-for v1:
+The reconstruction quality is dominated by the input. These are what the gate
+checks, and how it treats each:
 
 | Requirement | Check | Rationale |
 |------------|-------|-----------|
-| Static scene | Manual checklist | Moving content corrupts geometry |
-| Real parallax | Motion proxy (soft) | Pure pan = zero parallax = nothing to reconstruct |
+| Static scene | Burst probe (hard) | Moving content corrupts geometry |
+| Real parallax | Measured translation (hard) | Pure pan = zero baseline = nothing to reconstruct |
+| One continuous take | Cut detection (hard) | Frames across a cut share no geometry |
 | Even lighting | Manual checklist | Auto-exposure swings confuse feature matching |
-| Low motion blur | Blur proxy (soft) | Blur destroys features needed for pose estimation |
-| Resolution ≥ 1080p | ffprobe (hard) | Minimum detail for reliable reconstruction |
-| Coverage: 2–3 angles per surface | Manual checklist | Surfaces seen from one angle cannot be triangulated |
+| Low motion blur | Sharpness (warn) | Blur destroys features needed for pose estimation |
+| Resolution ≥ 320×240 | ffprobe (hard) | Below this a frame cannot carry matchable texture |
+| Resolution ≥ 1080p | ffprobe (**advisory**) | Costs detail at distance; does not prevent registration |
+| Coverage: 2–3 angles per surface | Coverage report (warn) | Surfaces seen from one angle cannot be triangulated |
+
+**720p is accepted.** It is enough to match features reliably; it costs detail on
+distant surfaces, which shows up as a softer reconstruction rather than as a
+failure to register. `validate_input.py` used to reject anything under 1080p,
+which discarded usable captures. Resolution is now reported with its cost, never
+used as a refusal.
 
 **Design rule:** The splat looks correct ONLY from viewpoints near where the real
 camera went. Confine the player to roughly the captured camera path volume. Straying
@@ -61,23 +69,68 @@ fundamental limitation of Gaussian splatting from posed video, not a bug.
 | Stage | Script (when implemented) | Subissue | Input | Output |
 |-------|--------------------------|----------|-------|--------|
 | Validate | `validate_input.py` | #106 | `video.mp4` | PASS / FAIL |
-| A — Frames | `run_pipeline.sh Stage A` + `cull_blurry.py` | #107 | `video.mp4` | `images/*.jpg` |
+| A — Sample + extract | `capture_gate.py` + `sample_frames.py` | #90 | `video.mp4` | `capture_gate.json` + `images/*.jpg` |
+| A′ — Blur cull | `cull_blurry.py` (legacy fixed-fps path only) | #107 | `images/` | `images/*.jpg` |
+| Registration report | `model_coverage.py` | #90 | `sparse/` + `images/` | registered vs excluded frames |
 | B — Pose | `pose_colmap.sh` / `pose_vggt.sh` | #108 | `images/` | `sparse/0/*.bin` |
 | C — Splat | `train_brush.sh` | #109 | `images/` + `sparse/` | `scene.ply` |
 | D — Mesh | `extract_mesh.sh` + `decimate_to_glb.py` | #111 | `scene.ply` checkpoint | `collision.glb` |
 | M — Photogrammetry mesh | `mesh_photogrammetry.sh` | #68/#70 | `images/` + `sparse/0/` | `mesh_raw.ply` + `scene.glb` |
 | Integration | Asset copy + alignment | #113/#114 | all above | `splat_walk/assets/splats/` |
+| Frame contract | `measure_splat_frame.py` + `emit_scene_contract.py` | #83 | `scene.ply` + `sparse/0/` + dataparser transform | `alignment_manifest.json` |
 
 ### Stage details
 
-**Validate (this issue, #106):** Runs hard checks (resolution, frame rate, codec probe
-via ffprobe) that exit non-zero on failure. Runs soft checks (blur proxy, motion proxy
-via OpenCV optical flow) that warn but do not block. Always prints a manual
-static-scene checklist that the operator must verify.
+**Validate (#106):** A fast intake check on container metadata alone — frame size,
+frame rate, duration — so a non-video or an unmatchably small frame is refused
+before anything decodes. Blur and parallax proxies run when OpenCV is available
+and only warn. Prints a manual checklist for what cannot be measured. For the
+full judgement see Stage A.
 
-**Stage A (#107):** Extract frames at 3 fps (configurable via `SPLAT_EXTRACT_FPS`
-env var) with ffmpeg, then cull the blurriest ~18% by variance-of-Laplacian using
-`cull_blurry.py`. Output: `images/` containing only sharp frames.
+**Stage A — bounded sampling and selection (#90):** Replaces fixed-fps extraction
+with a bounded sample, a selection, and a verdict.
+
+```bash
+python3 scripts/splat_pipeline/capture_gate.py scenes/my_room/video.mp4 \
+    --target-frames 150 --json scenes/my_room/capture_gate.json
+python3 scripts/splat_pipeline/sample_frames.py \
+    scenes/my_room/video.mp4 scenes/my_room/capture_gate.json \
+    --out scenes/my_room/images
+```
+
+`capture_gate.py` decodes a bounded sample — never the whole clip — and measures
+sharpness, inter-sample translation, scene cuts, moving content, temporal
+geometry consistency and view coverage. It selects the frames worth
+reconstructing, reports why every other frame was dropped, estimates the disk/RAM
+cost of the selection against this host before spending any of it, and prints one
+verdict. **Every rejection names the capture change that fixes it**, because
+"fail" is not something an operator can act on.
+
+`sample_frames.py` writes only the selected frames, one ffmpeg seek each, at
+**source** resolution. The gate measures on downscaled analysis frames — the
+right place to measure, the wrong place to reconstruct from — and the written
+frames are at the resolution COLMAP extracts features from. A `frames.json`
+manifest maps each written file back to its source frame index.
+
+- **Frame budget**: configurable, default 150, inside a 100–200 *hypothesis* for a
+  small room. It is a starting point, not a guarantee: a long corridor needs more
+  views and a still photo needs none. A run outside the hypothesis is flagged, not
+  clamped, because a target that silently resets itself teaches nothing about why
+  the number was wrong.
+- **Matching**: bounded retrieval matching against spread keyframes, plus a
+  sequential window for the local chain. Exhaustive all-pairs is 11,175 pairs at
+  150 frames; the plan reports its own pair count, the reduction, and what it
+  gives up — a missed loop closure shows up as two disconnected reconstructions,
+  not as a bad one.
+- **Exit codes**: 0 = accepted (possibly with warnings), 1 = usage, 2 = missing
+  ffmpeg/ffprobe, 3 = rejected, 4 = unreadable input.
+- **Fixtures**: `fixtures/README.md` documents the accepted/rejected clip pairs,
+  the measured basis for each threshold, and the recorded command outputs.
+
+**Legacy Stage A path (#107):** `SPLAT_EXTRACT_FPS=0 run_pipeline.sh <scene_dir>`
+extracts at a fixed 3 fps and culls the blurriest ~18% by variance-of-Laplacian
+with `cull_blurry.py`. Useful when debugging downstream stages against a known
+frame set; not the default, because it decodes and stores the whole clip.
 - **Usage**: `scripts/splat_pipeline/cull_blurry.py <scene_dir> [--percentile 18] [--dry-run]`
 - **Exit codes**: 0 = ok, 1 = usage error, 2 = missing opencv/numpy, 3 = no readable frames
 - **Idempotent**: re-running on an already-culled directory does not crash
@@ -87,9 +140,23 @@ env var) with ffmpeg, then cull the blurriest ~18% by variance-of-Laplacian usin
   then use the brightened video as input. Also consider lowering `--percentile` or raising
   `SPLAT_EXTRACT_FPS` to retain more frames for pose estimation.
 
-**Stage B (#108):** COLMAP feature extraction + exhaustive/sequential matching, then
+**Stage B (#108):** COLMAP feature extraction + bounded matching, then
 GLOMAP global mapping. Default path. On failure (few images registered), auto-fallback
 to VGGT (Path 2). Output: `sparse/0/` in COLMAP binary format.
+
+**Registration report (#90):** After Stage B, `model_coverage.py` reads the model
+COLMAP actually wrote and reports which extracted frames registered, which did
+not, and by name. COLMAP exits 0 on a reconstruction that registered 41 of 150
+frames, and a downstream stage will happily train a splat over the room that
+reconstructed and nothing else — so the gap between what the camera covered and
+what the model covers has to be stated. Where a disconnected reconstruction split
+across `sparse/0` and `sparse/1`, the report names the component it used *and* the
+one it left out rather than silently keeping the largest.
+
+```bash
+python3 scripts/splat_pipeline/model_coverage.py scenes/my_room
+# Exit 2 = coverage below the floor (default 80%); a warning, not a failure.
+```
 
 **Stage M (#68/#70):** Optional photogrammetry mesh path for workstation validation.
 Default COLMAP path runs dense MVS and uses `delaunay_mesher` because it is
@@ -411,6 +478,103 @@ snap/flatpak Blender may suppress stdout/stderr.
 **Integration (#113/#114):** Copy `scene.ply` + `collision.glb` to
 `splat_walk/assets/splats/<scene_name>/`. Run the alignment ritual (Back-end Step 4)
 to populate `alignment.toml`. Walk end-to-end in Bevy.
+
+## Frame and metric-scale contract (#83)
+
+A splat is not self-describing: it has no up axis, no units, and the renderer
+adds transforms of its own. Two scenes can serialise identical transforms and
+still disagree, because the *effective* mapping differs. Stage F fixes that by
+producing one explicit manifest per scene, which the Godot runtime reads and
+verifies.
+
+| Script | Role |
+|---|---|
+| `splat_ply.py` | Read a 3DGS PLY verbatim — no axis or unit correction |
+| `colmap_model.py` | Read COLMAP poses; the record of which axis points at the floor |
+| `splat_geometry.py` | Measure floor/ceiling/wall planes from Gaussian covariances |
+| `frame_axes.py` | Compose the frame → Godot rotation (always a proper rotation) |
+| `splat_frame.py` | The `FrameContract` record and its invariants |
+| `manifest_rules.py` | The hand-maintained table of automatic addon transforms |
+| `measure_splat_frame.py` | CLI: measure a scene and write its manifest |
+| `emit_scene_contract.py` | Print the manifest-derived Godot transforms |
+
+Measure a scene, then check what changed:
+
+```bash
+python3 scripts/splat_pipeline/measure_splat_frame.py \
+    --ply godot_walk/assets/corridor_splat/corridor.ply \
+    --colmap-model data/scenes/corridor_travel/sparse/0 \
+    --dataparser-transforms outputs/<run>/dataparser_transforms.json \
+    --scene-id corridor_splat --target-clear-height 2.40 \
+    --out godot_walk/assets/corridor_splat/alignment_manifest.json
+
+python3 scripts/splat_pipeline/emit_scene_contract.py \
+    --manifest godot_walk/assets/corridor_splat/alignment_manifest.json
+```
+
+`--target-clear-height` applies to **synthetic** footage, where no real-world
+reference exists and the scale is therefore a documented *choice*. For real
+footage use `--footage-kind real --measured-reference <metres>`; the manifest
+then records `kind: "measured_reference"`. The two are never conflated.
+
+Two things this deliberately refuses to invent:
+
+- **Wall planes.** A surface is only accepted above an 8× density-contrast
+  threshold. On `corridor_straight` the floor/ceiling reach 17× and 24× while the
+  horizontal axes peak at 2–7× and are blobs. A capture that fails the bar records
+  `walls_measured: false` and falls back to observation bounds.
+- **Surface sign.** A Gaussian covariance encodes an axis, not a facing, so
+  floor and ceiling are found as the two dominant mode *pairs* along the up axis.
+  Splitting on sign finds the same sheet twice and reports a zero-height room.
+
+The manifest also records **where the reconstruction cameras land**, mapped
+through the same `ply_to_world` as everything else. That record matters because
+it is the only one not derived from the room: the splat node, the collider and
+the spawn are hand-authored in `.tscn` files, so without it the contract only ever
+checks the authored things against each other. Requiring the cameras to sit inside
+the room — at a plausible walking eye height — is what catches a wrong up axis or
+a wrong scale independently of the room's own geometry.
+
+Verify both halves:
+
+```bash
+python3 -m pytest scripts/splat_pipeline/tests/test_splat_frame.py -v
+cd godot_walk
+godot4 --headless --script res://scripts/verify_alignment.gd   # both scenes
+godot4 --headless --script res://scripts/test_splat_alignment.gd  # the reader
+```
+
+The manifest also records **where the reconstruction cameras land**, mapped
+through the same `ply_to_world` as everything else. That record matters because
+it is the only one not derived from the room: the splat node, the collider and
+the spawn are hand-authored in `.tscn` files, so without it the contract only ever
+checks the authored things against each other. Requiring the cameras to sit inside
+the room — at a plausible walking eye height — is what catches a wrong up axis or
+a wrong scale independently of the room's own geometry. For `corridor_splat` that
+is 192 cameras with a mean height 1.153 m above the floor, which is what a person
+walking records.
+
+Verify both halves:
+
+```bash
+python3 -m pytest scripts/splat_pipeline/tests/test_splat_frame.py -v
+cd godot_walk
+godot4 --headless --script res://scripts/verify_alignment.gd      # both scenes
+godot4 --headless --script res://scripts/test_splat_alignment.gd  # the reader
+```
+
+The second script is not redundant with the first. Every check in
+`verify_alignment.gd` passes on the shipped scenes, so a check that *cannot* fail
+is indistinguishable from a working one — and one did: the GDGS correction
+constant declared a z axis of `(1,0,0)`, giving determinant 0, which made the
+"the addon did not rotate the room" assertion unsatisfiable and permanently
+green. `test_splat_alignment.gd` asserts the reader's negative cases, and
+re-introducing that exact bug fails 5 of its 27 checks.
+
+See `godot_walk/assets/corridor_splat/README.md` for the worked example,
+including the measured up axis, the chosen 5.128384 m/unit scale, and the
+automatic GDGS transforms recorded as applied exactly once (or zero times, for
+the identity-basis correction the scenes neutralise).
 
 ### Dependency graph
 

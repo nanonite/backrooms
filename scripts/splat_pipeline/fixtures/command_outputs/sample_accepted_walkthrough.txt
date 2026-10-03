@@ -1,0 +1,8 @@
+=== EXTRACTION ===
+video:    fixtures/clips/accepted_walkthrough.mp4
+output:   /tmp/opencode/img_accepted_walkthrough
+frames:   86 of 86 selected, written as frame_NNNN.jpg
+resolution: 640x360 (source, preserved) -- measurements were made on 640x360 analysis frames at 1x
+work:     86 ffmpeg invocation(s), one seek per kept frame, 6.2s; no other frame of the clip was decoded
+source frame indices: 0..95 (first 12: 0, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14)
+manifest: frames.json maps each written file back to its source frame index

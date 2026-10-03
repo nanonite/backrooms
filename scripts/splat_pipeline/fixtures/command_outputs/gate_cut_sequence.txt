@@ -1,0 +1,81 @@
+=== INPUT ===
+file:      fixtures/clips/cut_sequence.mp4
+resolution: 640x360 (0.23 MP) h264 yuv420p
+duration:  4.00s at 24.00 fps, 96 frames
+
+=== BUDGET ===
+target frames 150 (small-room hypothesis 100-200, a starting point not a guarantee)
+max candidates 240, analysis pixels 230400, sample ceiling 120s
+min translation 0.5% of frame width, cut limit 0.15 histogram distance
+
+=== BOUNDED WORK ===
+motion probe:  12 frames kept, 89 visited, 0.07s (single pass keeping every 8th frame)
+candidate pass: stride 1, 96 kept of 96 (100.0%), 96 frames visited, 0.09s
+burst probe:   24 contiguous frames for temporal consistency
+total sampling: 1.34s (ceiling 120s)
+
+=== MEASURED ===
+sharpness:     median 92, 10th percentile 84 (variance of Laplacian at 640x360)
+translation:   median 0.00% of frame width over 2 candidate gaps (0.00 px per source frame)
+scene cuts:    4 detected among 96 candidates
+temporal consistency: temporal_geometry_consistent -- adjacent frames leave 0.0% of pixels changed after a global translation, and 0.0% of 24px blocks still differ (worst window 0.0%) -- one rigid scene accounts for the change
+burst residuals: median 0.000 of pixels, 90th percentile 0.000 of blocks still changing
+
+=== SELECTION ===
+selected 1 of 88 eligible (scored 96) frames
+excluded: 8 adjacent_to_scene_cut, 87 below_minimum_translation
+note: frame target 150, selected 1 (hypothesis 100-200 frames for a small room -- a starting point, not a guarantee).
+note: resolution is reported, never used as a rejection: 720p matches features, it only softens distance
+
+=== COVERAGE ===
+camera travel 0.00 frame widths (retained frames: 0.00)
+viewpoints: 1 distinct bins of 0.25 frame widths across 1 frames, 0 directions of travel
+retained span 0.0s of 4.0s (0%)
+the walkable volume cannot exceed this coverage; the splat is only reliable inside it
+
+=== BOUNDED MATCHING ===
+sequential: 0 pairs vs 0 exhaustive (0.0x fewer)
+fewer than two frames: there is nothing to match
+limit: no pair is matched; the reconstruction has no baseline
+
+=== RESOURCE ESTIMATE (before reconstruction) ===
+1 frames at 640x360: 0 MiB frames, 0 MiB COLMAP database, 0 MiB sparse model
+total 1 MiB with headroom; free 3425.4 GiB disk, 38.0 GiB RAM
+matching 0 pairs ~= 0 min CPU; sampling ~= 0s
+
+=== VERDICT: REJECTED ===
+[block] no_parallax_baseline
+    measured: median 0.00% of frame width over 2 candidate gaps (0.00 px per source frame)
+    against:  >= 0.5% of frame width between candidates
+    why:      the view barely changes between samples, so there is no triangulation baseline and the reconstruction has no depth to recover
+    do:       re-capture while walking the camera body through the room; turning the view in place adds no baseline
+[block] scene_cuts
+    measured: 4 cut(s) among 96 candidates, first at frame 32 (73% of pixels unalignable, over 45%)
+    against:  histogram distance <= 0.15 and unalignable pixels <= 45% between consecutive samples
+    why:      frames on opposite sides of a cut share no geometry, so they cannot be registered into one sparse model
+    do:       shoot one continuous take, or split the clip into one scene per file and reconstruct them separately
+[block] camera_path_too_short
+    measured: 0.00 frame widths of camera travel
+    against:  >= 0.25 frame widths
+    why:      the walkable volume a splat can support is the volume the camera passed through
+    do:       re-shoot walking the length of the space you want to walk in
+[warn] too_few_frames
+    measured: 1 usable frames selected
+    against:  >= 30 for a small room
+    why:      a small room needs enough views to triangulate; frame target 150, selected 1 (hypothesis 100-200 frames for a small room -- a starting point, not a guarantee).
+    do:       capture a longer walk, or accept a smaller reconstruction volume
+[info] resolution_below_recommended
+    measured: 640x360 (0.23 MP)
+    against:  >= 1080p recommended, not required
+    why:      0.23 MP is enough to match features on surfaces close to the camera; it costs detail on distant surfaces, which softens the reconstruction rather than preventing registration
+    do:       proceed; if the result is soft at distance, re-shoot at 1080p or move closer to the surfaces
+[info] partial_clip_used
+    measured: selected frames span 0% of the clip
+    against:  selection spread across the whole take
+    why:      frames outside the selected span contribute nothing, so the room is reconstructed from part of the walk only
+    do:       no action needed if the omitted part is redundant; re-shoot if it covered different geometry
+--- not measured ---
+limit: sharpness, cut distance and translation are measured on 230400 analysed pixels per frame; the features COLMAP later extracts come from the full 640x360 source, which this scan does not measure
+limit: residual statistics come from 3 contiguous windows of 8 frames; something that walks through one of the other windows is not seen
+limit: translation is one global shift per pair; camera rotation about the view axis is counted as unexplained change, not as measured rotation
+limit: displacements below about 0.5% of the analysis frame width fall under the alignment search's resolution and are reported as zero, so a very slow camera can measure as still; translations are therefore measured over 2 candidate gaps

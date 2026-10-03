@@ -79,6 +79,13 @@ build/
 # Pipeline build artifacts (per-scene working directories)
 scripts/splat_pipeline/scenes/
 
+# Generated capture fixtures. Regenerate deterministically with
+#   python3 scripts/splat_pipeline/fixtures/make_capture_fixtures.py
+# The generator, the fixture README and the recorded command outputs are tracked;
+# the encoded clips are not (7 MB of H.264 that any machine with ffmpeg rebuilds
+# byte-comparable from a fixed seed).
+scripts/splat_pipeline/fixtures/clips/
+
 # Nerfstudio training outputs and exports (large, regeneratable from pipeline)
 outputs/
 exports/
