@@ -1,0 +1,1573 @@
+{
+  "scene_id": "corridor_splat",
+  "contract_scene_id": "corridor_splat",
+  "tool": {
+    "package": "@playcanvas/splat-transform",
+    "pinned_version": "3.9.0",
+    "installed_version": "3.9.0",
+    "gpu_adapters": [
+      "NVIDIA GeForce RTX 4070 Ti",
+      "llvmpipe (LLVM 20.1.2, 256 bits)"
+    ],
+    "cli": "/tmp/opencode/st-bench/node_modules/@playcanvas/splat-transform/bin/cli.mjs"
+  },
+  "inputs": {
+    "manifest": "godot_walk/assets/corridor_splat/alignment_manifest.json",
+    "ply": "exports/corridor_travel_v1/splat.ply",
+    "ply_md5": "2f6c2fd5417ffe771ef4147e369d80c5",
+    "footage_kind": "synthetic",
+    "contract_splat_count": 182569
+  },
+  "settings": {
+    "voxel_size_m": 0.05,
+    "voxel_opacity": 0.1,
+    "cluster_resolution_m": 0.25,
+    "cluster_opacity": 0.999,
+    "cluster_min_contribution": 0.1,
+    "exterior_fill_radius_m": 1.2,
+    "capsule_height_m": 1.25,
+    "capsule_radius_m": 0.35,
+    "clearance_margin_m": 0.05,
+    "seed_engine_frame_m": [
+      0.704,
+      -0.326,
+      -0.528
+    ],
+    "mesh_shape": "smooth",
+    "max_triangles": 200000,
+    "max_peak_cpu_bytes": 4294967296,
+    "max_peak_gpu_bytes": 2147483648,
+    "voxel_size_ply_units": 0.009749660218494714
+  },
+  "godot_transform": {
+    "collision_node_3x4": [
+      [
+        0.0,
+        -5.128384,
+        0.0,
+        -0.977009
+      ],
+      [
+        0.0,
+        0.0,
+        5.128384,
+        -0.117991
+      ],
+      [
+        -5.128384,
+        0.0,
+        0.0,
+        3.591775
+      ]
+    ],
+    "note": "basis = the splat node basis composed with the 180-degree z engine-frame rotation; translation is non-zero because Godot's glTF importer applies no centroid subtraction"
+  },
+  "tool_run": {
+    "argv": [
+      "/home/user/.nvm/versions/node/v22.5.1/bin/node",
+      "/tmp/opencode/st-bench/node_modules/@playcanvas/splat-transform/bin/cli.mjs",
+      "--memory",
+      "-w",
+      "exports/corridor_travel_v1/splat.ply",
+      "-s",
+      "5.1283838492291256",
+      "--filter-cluster",
+      "0.25,0.999,0.1",
+      "--seed-pos",
+      "0.704,-0.326,-0.528",
+      "/tmp/opencode/st-bench/work/final/corridor_splat.voxel.json",
+      "--voxel-size",
+      "0.05",
+      "--voxel-opacity",
+      "0.1",
+      "--voxel-external-fill",
+      "1.2",
+      "--voxel-carve",
+      "1.25,0.35",
+      "--collision-mesh",
+      "smooth"
+    ],
+    "version": "3.9.0",
+    "elapsed_s": 3.288,
+    "peak_cpu_bytes": 544315801,
+    "peak_gpu_bytes": 34812723,
+    "gaussians_in": 182600,
+    "gaussians_out": 95700,
+    "gaussians_removed": 86900,
+    "cluster_blocks": [
+      302,
+      547
+    ],
+    "collision_mesh": {
+      "pre_merge_triangles": 19200,
+      "pre_merge_vertices": 9610,
+      "triangles": 10200,
+      "vertices": 5090
+    },
+    "octree_depth": 6,
+    "mixed_leaves": 3,
+    "seed_was_unoccupied": true,
+    "exterior_fill_skipped": false,
+    "carve_skipped": false,
+    "warnings": [
+      "seed (0.70, -0.33, -0.53) unoccupied; resolved to nearest at (-0.13, -1.13, -1.15)"
+    ],
+    "files": {
+      "corridor_splat.voxel.json": 647,
+      "corridor_splat.voxel.bin": 74244,
+      "corridor_splat.collision.glb": 183896
+    }
+  },
+  "voxel": {
+    "format_version": "1.1",
+    "generator": "splat-transform v3.9.0",
+    "voxel_resolution_m": 0.05,
+    "grid_min_m": [
+      -2.2,
+      -6.0,
+      -1.4
+    ],
+    "grid_max_m": [
+      7.0,
+      3.6,
+      1.6
+    ],
+    "grid_shape": [
+      184,
+      192,
+      60
+    ],
+    "tree_depth": 6,
+    "node_count": 11679,
+    "mixed_leaves": 3441
+  },
+  "collision_mesh": {
+    "triangles": 10178,
+    "vertices": 5091,
+    "bounds_min_m": [
+      -2.225,
+      -6.025,
+      -1.425
+    ],
+    "bounds_max_m": [
+      6.975,
+      3.575,
+      1.575
+    ],
+    "edges": {
+      "boundary": 0,
+      "manifold": 15267,
+      "non_manifold": 0
+    },
+    "signed_volume_m3": 158.732,
+    "carries_vertex_normals": false
+  },
+  "splat_columns": {
+    "column_size_m": 0.25,
+    "cells": 4408,
+    "floor_supported_cells": 4408,
+    "obstructed_supported_cells": 441,
+    "open_supported_cells": 3967
+  },
+  "determinism": {
+    "tested": true,
+    "runs": 2,
+    "byte_identical": true,
+    "files": {
+      "voxel.json": {
+        "matched": true,
+        "md5": "bdd96bfb46142009c0462c5f02a661b2"
+      },
+      "voxel.bin": {
+        "matched": true,
+        "md5": "f4899c41f531ace8e9a01d8275864024"
+      },
+      "collision.glb": {
+        "matched": true,
+        "md5": "c8f7a46effade8002a9bc51f74e3b11e"
+      }
+    },
+    "note": "splat-transform has no seedable sampling in these stages, so identical settings must give byte-identical output; a mismatch means the stages are order- or floating-point-dependent and the numbers are only reproducible within tolerance"
+  },
+  "expected_geometry": {
+    "columns_are_measured_planes": false,
+    "why": "the alignment manifest records walls_measured: false for this capture, so no wall offset can be quoted; what is reported is which observed columns the collision blocks",
+    "test_height_m": 1.0,
+    "column_size_m": 0.25,
+    "column_origin_world_m": [
+      -10.06948558789596,
+      -4.30583065565776
+    ],
+    "blocked_column_runs": [
+      {
+        "row": 0,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 1,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 2,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 3,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 4,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 5,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 6,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 7,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 8,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 9,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 10,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 11,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 12,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 13,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 14,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 15,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 16,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 17,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 18,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 19,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 20,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 21,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 22,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 23,
+        "spans": [
+          [
+            0,
+            28
+          ],
+          [
+            32,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 24,
+        "spans": [
+          [
+            0,
+            28
+          ],
+          [
+            32,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 25,
+        "spans": [
+          [
+            0,
+            28
+          ],
+          [
+            32,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 26,
+        "spans": [
+          [
+            0,
+            15
+          ],
+          [
+            33,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 27,
+        "spans": [
+          [
+            0,
+            15
+          ],
+          [
+            34,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 28,
+        "spans": [
+          [
+            0,
+            15
+          ],
+          [
+            34,
+            36
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 29,
+        "spans": [
+          [
+            0,
+            15
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 30,
+        "spans": [
+          [
+            0,
+            14
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 31,
+        "spans": [
+          [
+            0,
+            9
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 32,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 33,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 34,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 35,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 36,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            20,
+            21
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 37,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            19,
+            22
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 38,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            18,
+            22
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 39,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            18,
+            22
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 40,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            18,
+            21
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 41,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            18,
+            19
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 42,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 43,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 44,
+        "spans": [
+          [
+            0,
+            5
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 45,
+        "spans": [
+          [
+            0,
+            6
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 46,
+        "spans": [
+          [
+            0,
+            7
+          ],
+          [
+            39,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 47,
+        "spans": [
+          [
+            0,
+            7
+          ],
+          [
+            33,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 48,
+        "spans": [
+          [
+            0,
+            8
+          ],
+          [
+            32,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 49,
+        "spans": [
+          [
+            0,
+            9
+          ],
+          [
+            30,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 50,
+        "spans": [
+          [
+            0,
+            10
+          ],
+          [
+            29,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 51,
+        "spans": [
+          [
+            0,
+            10
+          ],
+          [
+            27,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 52,
+        "spans": [
+          [
+            0,
+            11
+          ],
+          [
+            26,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 53,
+        "spans": [
+          [
+            0,
+            12
+          ],
+          [
+            24,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 54,
+        "spans": [
+          [
+            0,
+            12
+          ],
+          [
+            23,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 55,
+        "spans": [
+          [
+            0,
+            12
+          ],
+          [
+            21,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 56,
+        "spans": [
+          [
+            0,
+            13
+          ],
+          [
+            20,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 57,
+        "spans": [
+          [
+            0,
+            14
+          ],
+          [
+            19,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 58,
+        "spans": [
+          [
+            0,
+            14
+          ],
+          [
+            19,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 59,
+        "spans": [
+          [
+            0,
+            14
+          ],
+          [
+            17,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 60,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 61,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 62,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 63,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 64,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 65,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 66,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 67,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 68,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 69,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 70,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 71,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 72,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 73,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 74,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      },
+      {
+        "row": 75,
+        "spans": [
+          [
+            0,
+            58
+          ]
+        ]
+      }
+    ],
+    "open_column_runs": [
+      {
+        "row": 23,
+        "spans": [
+          [
+            28,
+            32
+          ]
+        ]
+      },
+      {
+        "row": 24,
+        "spans": [
+          [
+            28,
+            32
+          ]
+        ]
+      },
+      {
+        "row": 25,
+        "spans": [
+          [
+            28,
+            32
+          ]
+        ]
+      },
+      {
+        "row": 26,
+        "spans": [
+          [
+            15,
+            33
+          ]
+        ]
+      },
+      {
+        "row": 27,
+        "spans": [
+          [
+            15,
+            34
+          ]
+        ]
+      },
+      {
+        "row": 28,
+        "spans": [
+          [
+            15,
+            34
+          ],
+          [
+            36,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 29,
+        "spans": [
+          [
+            15,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 30,
+        "spans": [
+          [
+            14,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 31,
+        "spans": [
+          [
+            9,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 32,
+        "spans": [
+          [
+            5,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 33,
+        "spans": [
+          [
+            5,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 34,
+        "spans": [
+          [
+            5,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 35,
+        "spans": [
+          [
+            5,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 36,
+        "spans": [
+          [
+            5,
+            20
+          ],
+          [
+            21,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 37,
+        "spans": [
+          [
+            5,
+            19
+          ],
+          [
+            22,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 38,
+        "spans": [
+          [
+            5,
+            18
+          ],
+          [
+            22,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 39,
+        "spans": [
+          [
+            5,
+            18
+          ],
+          [
+            22,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 40,
+        "spans": [
+          [
+            5,
+            18
+          ],
+          [
+            21,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 41,
+        "spans": [
+          [
+            5,
+            18
+          ],
+          [
+            19,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 42,
+        "spans": [
+          [
+            5,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 43,
+        "spans": [
+          [
+            5,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 44,
+        "spans": [
+          [
+            5,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 45,
+        "spans": [
+          [
+            6,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 46,
+        "spans": [
+          [
+            7,
+            39
+          ]
+        ]
+      },
+      {
+        "row": 47,
+        "spans": [
+          [
+            7,
+            33
+          ]
+        ]
+      },
+      {
+        "row": 48,
+        "spans": [
+          [
+            8,
+            32
+          ]
+        ]
+      },
+      {
+        "row": 49,
+        "spans": [
+          [
+            9,
+            30
+          ]
+        ]
+      },
+      {
+        "row": 50,
+        "spans": [
+          [
+            10,
+            29
+          ]
+        ]
+      },
+      {
+        "row": 51,
+        "spans": [
+          [
+            10,
+            27
+          ]
+        ]
+      },
+      {
+        "row": 52,
+        "spans": [
+          [
+            11,
+            26
+          ]
+        ]
+      },
+      {
+        "row": 53,
+        "spans": [
+          [
+            12,
+            24
+          ]
+        ]
+      },
+      {
+        "row": 54,
+        "spans": [
+          [
+            12,
+            23
+          ]
+        ]
+      },
+      {
+        "row": 55,
+        "spans": [
+          [
+            12,
+            21
+          ]
+        ]
+      },
+      {
+        "row": 56,
+        "spans": [
+          [
+            13,
+            20
+          ]
+        ]
+      },
+      {
+        "row": 57,
+        "spans": [
+          [
+            14,
+            19
+          ]
+        ]
+      },
+      {
+        "row": 58,
+        "spans": [
+          [
+            14,
+            19
+          ]
+        ]
+      },
+      {
+        "row": 59,
+        "spans": [
+          [
+            14,
+            17
+          ]
+        ]
+      }
+    ],
+    "navigable_bounds_engine_frame_m": [
+      [
+        -2.2,
+        -6.0,
+        -1.4
+      ],
+      [
+        7.0,
+        3.6,
+        1.6
+      ]
+    ],
+    "floor_height_m": -1.2709904916293824,
+    "ceiling_height_m": 1.1290095083706178,
+    "spawn_m": [
+      -0.651325,
+      -0.77099,
+      2.887547
+    ],
+    "player_capsule_m": {
+      "radius": 0.3,
+      "height": 1.2
+    },
+    "carve_capsule_m": {
+      "radius": 0.35,
+      "height": 1.25
+    }
+  },
+  "verdict": {
+    "scene_id": "corridor_splat",
+    "passed": false,
+    "checks": [
+      {
+        "name": "stages_applied",
+        "passed": true,
+        "detail": "exterior fill and carve both ran",
+        "metrics": {
+          "exterior_fill_skipped": false,
+          "carve_skipped": false,
+          "seed_was_unoccupied": true
+        }
+      },
+      {
+        "name": "room_not_filled",
+        "passed": true,
+        "detail": "navigable volume is 16.3% of the observed room",
+        "metrics": {
+          "navigable_m3": 106.222,
+          "room_m3": 650.384,
+          "navigable_fraction": 0.1633,
+          "navigable_clear_height_m": 2.5,
+          "contract_clear_height_m": 2.4
+        }
+      },
+      {
+        "name": "floor_supported",
+        "passed": true,
+        "detail": "collision floor is present under all 192 camera positions",
+        "metrics": {
+          "cameras": 192,
+          "floor_supported": 192,
+          "floor_support_fraction": 1.0
+        }
+      },
+      {
+        "name": "walkway_covers_camera_path",
+        "passed": false,
+        "detail": "153 of 192 camera positions are inside solid collision at 1.00 m above the floor (20.3% traversable, need 90%): the generated walls block the route that was actually walked",
+        "metrics": {
+          "cameras": 192,
+          "navigable": 39,
+          "traversable_fraction": 0.2031,
+          "test_height_m": 1.0
+        }
+      },
+      {
+        "name": "walls_block",
+        "passed": true,
+        "detail": "383 of 441 splat-obstructed columns are solid in the collision (86.8%, need 80%)",
+        "metrics": {
+          "obstructed_columns": 441,
+          "solid": 383,
+          "recall": 0.8685
+        }
+      },
+      {
+        "name": "openings_preserved",
+        "passed": true,
+        "detail": "757 of 815 navigable columns are columns the splat saw as open (92.9% precision, need 60%); 19.1% of splat-open columns survived",
+        "metrics": {
+          "open_columns": 3967,
+          "navigable_columns": 815,
+          "both": 757,
+          "precision": 0.9288,
+          "recall": 0.1908
+        }
+      },
+      {
+        "name": "capsule_clearance",
+        "passed": true,
+        "detail": "the carve capsule fits at the spawn with 1.800 m of clear height above it",
+        "metrics": {
+          "capsule_radius_m": 0.35,
+          "capsule_height_m": 1.25,
+          "samples": 48,
+          "blocked": 0,
+          "clear_height_above_spawn_m": 1.8,
+          "clear_height_limit_m": 2.2
+        }
+      },
+      {
+        "name": "mesh_watertight",
+        "passed": true,
+        "detail": "0 boundary edges, 0 edges shared by three or more faces, 8 degenerate triangles",
+        "metrics": {
+          "boundary": 0,
+          "manifold": 15267,
+          "non_manifold": 0,
+          "degenerate_triangles": 8,
+          "triangles": 10178
+        }
+      },
+      {
+        "name": "mesh_normals_face_walkable",
+        "passed": true,
+        "detail": "8324 of 10178 triangles face out of the solid into navigable space (81.8%, need 80%); the mesh carries no vertex normals, so this is a winding check",
+        "metrics": {
+          "triangles": 10178,
+          "facing_navigable": 8324,
+          "fraction": 0.8178,
+          "signed_volume_m3": 158.732
+        }
+      },
+      {
+        "name": "within_budget",
+        "passed": true,
+        "detail": "triangle, CPU-memory and GPU-memory budgets all met",
+        "metrics": {
+          "triangles": 10178,
+          "max_triangles": 200000,
+          "peak_cpu_bytes": 544315801,
+          "peak_gpu_bytes": 34812723,
+          "elapsed_s": 3.288
+        }
+      }
+    ]
+  }
+}

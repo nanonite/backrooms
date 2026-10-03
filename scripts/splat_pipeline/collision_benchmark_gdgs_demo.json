@@ -1,0 +1,177 @@
+{
+  "scene_id": "demo.compressed",
+  "contract_scene_id": "corridor_splat",
+  "tool": {
+    "package": "@playcanvas/splat-transform",
+    "pinned_version": "3.9.0",
+    "installed_version": "3.9.0",
+    "gpu_adapters": [
+      "NVIDIA GeForce RTX 4070 Ti",
+      "llvmpipe (LLVM 20.1.2, 256 bits)"
+    ],
+    "cli": "/tmp/opencode/st-bench/node_modules/@playcanvas/splat-transform/bin/cli.mjs"
+  },
+  "inputs": {
+    "manifest": "godot_walk/assets/corridor_splat/alignment_manifest.json",
+    "ply": "godot_walk/assets/gdgs_demo/demo.compressed.ply",
+    "ply_md5": "041ea0fb77d369a151135801c3c96abf",
+    "footage_kind": "synthetic",
+    "contract_splat_count": 182569
+  },
+  "settings": {
+    "voxel_size_m": 0.05,
+    "voxel_opacity": 0.1,
+    "cluster_resolution_m": 0.25,
+    "cluster_opacity": 0.999,
+    "cluster_min_contribution": 0.1,
+    "exterior_fill_radius_m": 1.2,
+    "capsule_height_m": 1.25,
+    "capsule_radius_m": 0.35,
+    "clearance_margin_m": 0.05,
+    "seed_engine_frame_m": [
+      0.704,
+      -0.326,
+      -0.528
+    ],
+    "mesh_shape": "smooth",
+    "max_triangles": 200000,
+    "max_peak_cpu_bytes": 4294967296,
+    "max_peak_gpu_bytes": 2147483648,
+    "voxel_size_ply_units": 0.009749660218494714
+  },
+  "godot_transform": {
+    "collision_node_3x4": [
+      [
+        0.0,
+        -5.128384,
+        0.0,
+        -0.977009
+      ],
+      [
+        0.0,
+        0.0,
+        5.128384,
+        -0.117991
+      ],
+      [
+        -5.128384,
+        0.0,
+        0.0,
+        3.591775
+      ]
+    ],
+    "note": "basis = the splat node basis composed with the 180-degree z engine-frame rotation; translation is non-zero because Godot's glTF importer applies no centroid subtraction"
+  },
+  "tool_run": {
+    "argv": [
+      "/home/user/.nvm/versions/node/v22.5.1/bin/node",
+      "/tmp/opencode/st-bench/node_modules/@playcanvas/splat-transform/bin/cli.mjs",
+      "--memory",
+      "-w",
+      "godot_walk/assets/gdgs_demo/demo.compressed.ply",
+      "-s",
+      "5.1283838492291256",
+      "--filter-cluster",
+      "0.25,0.999,0.1",
+      "--seed-pos",
+      "0.704,-0.326,-0.528",
+      "/tmp/opencode/st-bench/work/final/gdgs_demo.voxel.json",
+      "--voxel-size",
+      "0.05",
+      "--voxel-opacity",
+      "0.1",
+      "--voxel-external-fill",
+      "1.2",
+      "--voxel-carve",
+      "1.25,0.35",
+      "--collision-mesh",
+      "smooth"
+    ],
+    "version": "3.9.0",
+    "elapsed_s": 2.28,
+    "peak_cpu_bytes": 675387801,
+    "peak_gpu_bytes": 50751078,
+    "gaussians_in": 271000,
+    "gaussians_out": 125000,
+    "gaussians_removed": 146000,
+    "cluster_blocks": [
+      338,
+      675
+    ],
+    "collision_mesh": {
+      "pre_merge_triangles": 640000,
+      "pre_merge_vertices": 319000,
+      "triangles": 355000,
+      "vertices": 176000
+    },
+    "octree_depth": 7,
+    "mixed_leaves": 14,
+    "seed_was_unoccupied": true,
+    "exterior_fill_skipped": true,
+    "carve_skipped": true,
+    "warnings": [
+      "seed (0.70, -0.33, -0.53) unoccupied; resolved to nearest at (0.88, -6.13, 6.63)",
+      "seed (0.704, -0.326, -0.528) outside grid, skipping carve"
+    ],
+    "files": {
+      "gdgs_demo.voxel.json": 591,
+      "gdgs_demo.voxel.bin": 196792,
+      "gdgs_demo.collision.glb": 6381616
+    }
+  },
+  "voxel": {
+    "format_version": "1.1",
+    "generator": "splat-transform v3.9.0",
+    "voxel_resolution_m": 0.05,
+    "grid_min_m": [
+      -8.8,
+      -15.8,
+      3.6
+    ],
+    "grid_max_m": [
+      15.0,
+      -1.0,
+      22.8
+    ],
+    "grid_shape": [
+      476,
+      296,
+      384
+    ],
+    "tree_depth": 7,
+    "node_count": 20378,
+    "mixed_leaves": 14410
+  },
+  "collision_mesh": {
+    "triangles": 355254,
+    "vertices": 176493,
+    "bounds_min_m": [
+      -6.875,
+      -14.225,
+      5.075
+    ],
+    "bounds_max_m": [
+      8.575,
+      -5.075,
+      20.375
+    ],
+    "edges": {
+      "boundary": 0,
+      "manifold": 532779,
+      "non_manifold": 51
+    },
+    "signed_volume_m3": 66.0011,
+    "carries_vertex_normals": false
+  },
+  "verdict": {
+    "scene_id": "demo.compressed",
+    "passed": false,
+    "checks": [],
+    "not_validated": "the tool ran, but this asset has no alignment contract: there is no calibrated frame, no camera path and no metric scale, so floor continuity, wall blocking, doorway preservation and capsule clearance cannot be scored. The measurements recorded above are the tool's own and the mesh's topology, and nothing here should be read as a walkable result."
+  },
+  "blocking_stage": {
+    "exterior_fill_skipped": true,
+    "carve_skipped": true,
+    "detail": "seed (0.70, -0.33, -0.53) unoccupied; resolved to nearest at (0.88, -6.13, 6.63); seed (0.704, -0.326, -0.528) outside grid, skipping carve"
+  }
+}

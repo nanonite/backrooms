@@ -744,4 +744,30 @@ the full table and for what could not be measured:
 | `splat-handoff/fe_stageC_brush.md` | Stage C splat training |
 | `splat-handoff/fe_stageD_mesh.md` | Stage D collision mesh |
 | `scripts/splat_pipeline/HARDWARE_BUDGET.md` | Measured hardware, pinned versions and published budgets (#89) |
+| `scripts/splat_pipeline/COLLISION.md` | Generated collision geometry: pinned splat-transform benchmark, calibrations and measured acceptance verdicts (#84) |
 | `scripts/splat_pipeline/budgets/rtx4070ti/` | Frozen measurement JSON, logs and raw pytest output behind those budgets |
+
+## Collision geometry from splats (#84)
+
+`generate_collision.py` runs the pinned `@playcanvas/splat-transform@3.9.0`
+collision pipeline over a splat, maps the result into a #83 alignment contract's
+calibrated frame, and scores it before writing anything down:
+
+```bash
+cd scripts/splat_pipeline && npm install @playcanvas/splat-transform@3.9.0
+SPLAT_TRANSFORM_NODE_MODULES=$PWD/node_modules python3 generate_collision.py \
+    --manifest ../../godot_walk/assets/corridor_splat/alignment_manifest.json \
+    --ply ../../exports/corridor_travel_v1/splat.ply \
+    --out ../../outputs/collision/corridor_splat \
+    --report collision_benchmark.json
+```
+
+Two things to know before reading its output. The tool writes voxel and mesh data
+in the PlayCanvas **engine frame** — the PLY frame rotated 180 degrees about z —
+and one `--seed-pos` in that frame drives every navigation stage. And its collision
+features are WebGPU-only, so this stage is blocked wherever
+`splat-transform --list-gpus` finds no adapter.
+
+Measured verdicts, settings sweeps and the collision transform #85 needs are in
+[`COLLISION.md`](COLLISION.md); the machine-readable runs are
+`collision_benchmark.json` and `collision_benchmark_gdgs_demo.json`.
