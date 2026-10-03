@@ -3,7 +3,8 @@ extends SceneTree
 const DEFAULT_SCENE_PATH := "res://scenes/corridor.tscn"
 const SCREENSHOT_DIR := "res://screenshots"
 const CAPTURE_FRAME_COUNT := 5
-const PLAYER_SPAWN := Vector3(0.116, 0.9, 0.041)
+const ALIGNMENT_MANIFEST := "res://assets/corridor_splat/alignment_manifest.json"
+const SPLAT_ALIGNMENT := preload("res://scripts/splat_alignment.gd")
 
 var target_scene_path := DEFAULT_SCENE_PATH
 
@@ -23,16 +24,27 @@ func _init() -> void:
 
 	_print_splat_aabbs(instance)
 
-	var bounds := _scene_bounds(instance)
+	# Frame on the alignment contract's measured room, not on the raw splat AABB.
+	# The AABB is dominated by far-field floaters reaching ~140 m from the room, so
+	# framing on it puts every camera outside the geometry and the shots show
+	# nothing useful. The manifest's observed room is the frame of reference the
+	# contract is about; fall back to the AABB only when no manifest is present.
+	var bounds := _framing_bounds(instance)
 	var center := bounds.get_center()
 	var size := bounds.size
 	var radius = max(size.x, max(size.y, size.z))
 	radius = max(radius, 4.0)
 
+	# Eye height is a fraction of the clear height rather than the box centre, so
+	# the POV sits inside the room rather than halfway up a wall.
+	var eye_height := bounds.position.y + size.y * 0.5
+	var alignment = SPLAT_ALIGNMENT.new(ALIGNMENT_MANIFEST)
+	if alignment.is_valid() and size.y > 0.0:
+		eye_height = 0.5 * (alignment.floor_height() + alignment.ceiling_height())
+
 	# Recreate the original video camera path: travel THROUGH the corridor from
-	# inside. Y is up/height (PLY header: Vertical axis = y); the corridor LENGTH
-	# is whichever of X/Z has the larger extent. Derive the interior POV from the
-	# splat AABB at runtime instead of the dead-mesh PLAYER_SPAWN.
+	# inside. Godot's Y is up; the corridor LENGTH is whichever of X/Z has the
+	# larger extent.
 	var length_is_z := size.z >= size.x
 	var pov_eye: Vector3
 	var pov_target: Vector3
@@ -41,17 +53,17 @@ func _init() -> void:
 	if length_is_z:
 		var near_z := bounds.position.z + size.z * 0.05
 		var far_z := bounds.position.z + size.z * 0.95
-		pov_eye = Vector3(center.x, center.y, near_z)
-		pov_target = Vector3(center.x, center.y, far_z)
-		pov_eye_reverse = Vector3(center.x, center.y, far_z)
-		pov_target_reverse = Vector3(center.x, center.y, near_z)
+		pov_eye = Vector3(center.x, eye_height, near_z)
+		pov_target = Vector3(center.x, eye_height, far_z)
+		pov_eye_reverse = Vector3(center.x, eye_height, far_z)
+		pov_target_reverse = Vector3(center.x, eye_height, near_z)
 	else:
 		var near_x := bounds.position.x + size.x * 0.05
 		var far_x := bounds.position.x + size.x * 0.95
-		pov_eye = Vector3(near_x, center.y, center.z)
-		pov_target = Vector3(far_x, center.y, center.z)
-		pov_eye_reverse = Vector3(far_x, center.y, center.z)
-		pov_target_reverse = Vector3(near_x, center.y, center.z)
+		pov_eye = Vector3(near_x, eye_height, center.z)
+		pov_target = Vector3(far_x, eye_height, center.z)
+		pov_eye_reverse = Vector3(far_x, eye_height, center.z)
+		pov_target_reverse = Vector3(near_x, eye_height, center.z)
 
 	var cameras := [
 		_create_perspective_camera("overhead_orbit", center + Vector3(radius, radius * 0.7, radius), center, 60.0),
@@ -100,6 +112,20 @@ func _ensure_screenshot_dir() -> bool:
 		printerr("FAIL: could not create %s (error %d)" % [SCREENSHOT_DIR, error])
 		return false
 	return true
+
+
+func _framing_bounds(instance: Node) -> AABB:
+	## Return the region the screenshot cameras should frame.
+	##
+	## Prefers the alignment manifest's measured room. The raw splat AABB includes
+	## far-field floaters that extend roughly 140 m beyond the room on this asset,
+	## so framing on it places every camera in empty space.
+	var alignment = SPLAT_ALIGNMENT.new(ALIGNMENT_MANIFEST)
+	if alignment.is_valid():
+		var room: AABB = alignment.observed_bounds()
+		if room.size != Vector3.ZERO:
+			return room
+	return _scene_bounds(instance)
 
 
 func _scene_bounds(node: Node) -> AABB:

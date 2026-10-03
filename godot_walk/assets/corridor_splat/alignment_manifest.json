@@ -1,0 +1,313 @@
+{
+  "schema_version": 2,
+  "scene_id": "corridor_splat",
+  "ply_to_world": {
+    "basis_columns": [
+      [
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "metres_per_unit": 5.128383849229126,
+    "origin_ply_units": [
+      -0.7003716216251055,
+      0.19051010788102454,
+      0.02300749166011915
+    ],
+    "frame_name": "nerfstudio_export",
+    "up_axis": "z",
+    "up_sign": 1,
+    "handedness": "right"
+  },
+  "scale_reference": {
+    "kind": "chosen",
+    "quantity": "floor_to_ceiling_clear_height",
+    "raw_units": 0.4679836904877463,
+    "raw_units_spread": 0.009370879906034676,
+    "raw_units_spread_samples": 12,
+    "target_metres": 2.4,
+    "reason": "Synthetic footage (data/scenes/corridor_travel/video.mp4): generated frames contain no real-world reference, so this is an explicit choice, not a measurement. The reconstructed floor-to-ceiling height is 0.46798 reconstruction units (spread 0.00937 over 12 corridor stations) and the corridor is declared to have a 2.40 m clear height. Re-decide it when real footage lands; never inherit a factor from a retired mesh."
+  },
+  "automatic_transforms": [
+    {
+      "stage": "import",
+      "source": "addons/gdgs/importers/decoders/standard_ply_decoder.gd",
+      "summary": "Centres, exp(scale_N) extents and (rot_1..3, rot_0) quaternions are stored verbatim. No axis swap, no handedness flip, no unit change: a z-up PLY reaches the renderer still z-up.",
+      "basis": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "neutralised": false,
+      "neutralised_by": ""
+    },
+    {
+      "stage": "import",
+      "source": "addons/gdgs/importers/builders/gaussian_resource_builder.gd",
+      "summary": "Subtracts the mean Gaussian centre. A pure translation, so Gaussian orientations, covariances and extents are untouched and stay correct.",
+      "basis": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "neutralised": false,
+      "neutralised_by": "Applied once by the addon and accounted for explicitly: the contract is expressed relative to the PLY origin, and the runtime verifier predicts the world AABB from the raw PLY bounds and the recorded centroid."
+    },
+    {
+      "stage": "node_enter_tree",
+      "source": "addons/gdgs/runtime/nodes/gaussian_splat_node.gd:_apply_default_orientation_if_needed",
+      "summary": "When a node's basis is identity, right-multiplies by a -180 degree z rotation. It leaves the up axis alone, so it cannot make a z-up splat stand up in Godot's y-up world -- which is why an earlier fix that relied on it silently did nothing.",
+      "basis": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "neutralised": true,
+      "neutralised_by": "Splat nodes now carry this contract's explicit non-identity basis, so the identity test cannot fire. verify_alignment.gd proves the effective transform equals the manifest and fails loudly if a future addon changes that rule."
+    },
+    {
+      "stage": "render",
+      "source": "addons/gdgs/runtime/render/gaussian_scene_registry.gd + render/shaders/compute/gsplat_projection.glsl",
+      "summary": "world = node.global_transform * centre and covariance_world = M3 * covariance * M3^T, so orientations, covariances and splat extents are transformed along with centres.",
+      "basis": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "neutralised": false,
+      "neutralised_by": ""
+    }
+  ],
+  "landmarks": {
+    "floor": [
+      -0.6513254730710469,
+      -1.2709904916293824,
+      2.8875470743979488
+    ],
+    "ceiling": [
+      -0.6513254730710469,
+      1.1290095083706178,
+      2.8875470743979488
+    ],
+    "room_centre": [
+      -0.6513254730710472,
+      -0.07099049162938231,
+      2.8875470743979483
+    ]
+  },
+  "collider": {
+    "min_corner": [
+      -10.06948558789596,
+      -1.2709904916293824,
+      -4.30583065565776
+    ],
+    "max_corner": [
+      8.766834641753865,
+      1.1290095083706178,
+      10.080924804453657
+    ],
+    "floor_height": -1.2709904916293824,
+    "ceiling_height": 1.1290095083706178,
+    "derivation": "Floor/ceiling from the measured sheet offsets; horizontal extents from the opaque splats inside the camera-path window; all mapped through ply_to_world."
+  },
+  "splat_bounds": {
+    "observed_min": [
+      -10.06948558789596,
+      -1.2709904916293824,
+      -4.30583065565776
+    ],
+    "observed_max": [
+      8.766834641753865,
+      1.1290095083706178,
+      10.080924804453657
+    ],
+    "core_min": [
+      -10.06948558789596,
+      -3.2563624995796223,
+      -4.30583065565776
+    ],
+    "core_max": [
+      8.766834641753865,
+      2.9879719803659683,
+      10.080924804453657
+    ],
+    "full_min": [
+      -97.78751047932367,
+      -62.10608191384467,
+      -101.8175010239831
+    ],
+    "full_max": [
+      41.68209021461876,
+      34.900015242514634,
+      32.70692059616686
+    ],
+    "splat_count": 182569
+  },
+  "cameras": {
+    "count": 192,
+    "world_min": [
+      -5.454341118849889,
+      -0.17960502708016832,
+      0.30959938325640407
+    ],
+    "world_max": [
+      4.151375152628631,
+      -0.08497656639639747,
+      5.526584374056296
+    ],
+    "height_min_m": -0.17960502708016832,
+    "height_mean_m": -0.11799124870823052,
+    "height_max_m": -0.08497656639639747,
+    "source": "192 registered cameras mapped through the nerfstudio dataparser transform (data/scenes/corridor_travel/sparse/0) then through ply_to_world"
+  },
+  "spawn": [
+    -0.6513254730710472,
+    -0.7709904916293824,
+    2.8875470743979483
+  ],
+  "spawn_clearance_m": 0.5,
+  "asset": {
+    "resource_path": "res://assets/corridor_splat/corridor.ply",
+    "source_path": "exports/corridor_travel_v1/splat.ply",
+    "md5": "2f6c2fd5417ffe771ef4147e369d80c5",
+    "splat_count": 182569,
+    "ply_header": {
+      "generated": "by Nerstudio 1.1.5",
+      "vertical": "Axis: z"
+    },
+    "builder_centroid_ply": [
+      -0.7003716216251055,
+      0.19051010788102454,
+      0.02300749166011915
+    ],
+    "up_axis_evidence": {
+      "colmap_up": [
+        1.8485343479976524e-05,
+        -0.9999892261645773,
+        0.00464189757125689
+      ],
+      "ply_frame_up": [
+        -1.2518326302849793e-08,
+        -3.145050521275943e-06,
+        0.9999999999950542
+      ],
+      "principal_axis": "z",
+      "principal_share": 0.9999999999950542,
+      "registered_images": 192,
+      "method": "mean registered-camera up axis mapped through the nerfstudio dataparser transform (COLMAP y-down world -> exported frame)"
+    }
+  },
+  "capture": {
+    "footage_kind": "synthetic",
+    "video": "data/scenes/corridor_travel/video.mp4",
+    "colmap_model": "data/scenes/corridor_travel/sparse/0",
+    "nerfstudio_dataparser_transforms": "outputs/corridor_travel_v1/splatfacto/2026-07-10_163955/dataparser_transforms.json",
+    "core_window_splats": 91907,
+    "core_bounds_ply_units": [
+      [
+        -1.539979338645935,
+        -1.7729711532592773,
+        -0.6119610667228699
+      ],
+      [
+        1.2653402090072632,
+        1.899983286857605,
+        0.6056417226791382
+      ]
+    ],
+    "walls_measured": false,
+    "width_note": "Wall planes were NOT resolved: no horizontal axis showed two surfaces above the 8.0x density-contrast threshold (see splat_geometry.MIN_MODE_CONTRAST). The room's horizontal extents therefore come from the measured splat extent inside the camera-path window, not from measured wall offsets. Treat them as observation bounds, not as a measured room."
+  },
+  "rejected_scales": [
+    {
+      "value": "0.800977",
+      "source": "data/scenes/corridor_straight/scene_transform.txt",
+      "why": "Computed as 2.0 m divided by the Z extent of the retired COLMAP-dense Poisson mesh (scripts/splat_pipeline/blender_cleanup_mesh.py:estimate_scale). That mesh is a different asset, from a reconstruction path proven non-viable for these captures (PLAN_pipeline_visual_feedback.md). It is not the splat any scene loads, so the number carries an assumption with no evidence behind it."
+    },
+    {
+      "value": "1.0",
+      "source": "implicit (loading the PLY unscaled)",
+      "why": "COLMAP and nerfstudio normalise a similarity transform, so one reconstruction unit is not one metre. Unscaled loading is the defect this contract removes."
+    }
+  ],
+  "notes": "ply_to_world.matrix() maps raw PLY coordinates to world metres and includes the centroid subtraction. node_transform_matrix() is what a Godot node carries: identical except the translation is ZERO, because the GDGS resource builder has already subtracted the mean Gaussian centre at import. Reapplying the centroid on the node would double-subtract it and shift the room while still importing and rendering. The mapping is a pure rotation times one uniform scale, so Gaussian orientations, covariances and extents all stay correct under the renderer's M3 * covariance * M3^T; nothing is baked into the PLY. The exported frame's up axis and Godot's differ by a -90 degree rotation about x, and both scenes must apply this basis explicitly: equal serialised transforms are not evidence of equal effective world mapping."
+}

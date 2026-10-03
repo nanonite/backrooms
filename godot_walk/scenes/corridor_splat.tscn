@@ -24,6 +24,7 @@ environment = SubResource("Environment_corridor")
 compositor = SubResource("Compositor_corridor")
 
 [node name="CorridorSplatNode" type="VisualInstance3D" parent="."]
+transform = Transform3D(0.0, 5.1283836, 0.0, 0.0, 0.0, 5.1283836, 5.1283836, 0.0, 0.0, 0.0, 0.0, 0.0)
 script = ExtResource("2_splat_script")
 gaussian = ExtResource("1_corridor_gaussian")
 
@@ -35,3 +36,12 @@ fov = 55.0
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 4, 4)
 rotation = Vector3(-0.785398, 0.0, 0.0)
+
+[node name="FloorMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36231017, -1.2709905, 3.5917745)
+
+[node name="CeilingMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36231017, 1.1290095, 3.5917745)
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6513255, -0.7709905, 2.887547)
