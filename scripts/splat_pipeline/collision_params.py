@@ -245,12 +245,25 @@ def world_to_engine_frame(point_world, contract: FrameContract) -> np.ndarray:
 
 
 def engine_frame_to_world(point_engine, contract: FrameContract) -> np.ndarray:
-    """Map a collision-mesh point from the engine frame back into Godot world metres."""
-    engine = np.asarray(point_engine, dtype=np.float64)
-    if engine.shape != (3,):
-        raise CollisionError("expected a 3-component point, got %r" % (engine.shape,))
-    frame_units = ENGINE_FRAME_ROTATION.T @ engine / contract.ply_to_world.metres_per_unit
-    return contract.ply_to_world.world_point(frame_units)
+    """Map collision-mesh points from the engine frame back into Godot world metres.
+
+    Accepts a single point or an ``(N, 3)`` block, because the callers that need
+    every triangle of the mesh at once are the ones that would otherwise loop
+    over ten thousand of them.
+    """
+    engine = np.atleast_2d(np.asarray(point_engine, dtype=np.float64))
+    if engine.ndim != 2 or engine.shape[1] != 3:
+        raise CollisionError("expected (3,) or (N, 3) points, got %r" % (engine.shape,))
+    ply_to_world = contract.ply_to_world
+    # world = rotation * (R180 * engine - origin) * metres_per_unit, written out
+    # so a whole mesh maps in one call.  ``test_collision.py`` asserts this equals
+    # ``PlyToWorld.world_point`` per point.
+    rotated = ENGINE_FRAME_ROTATION.T @ engine.T
+    offset = (ply_to_world.rotation() @ np.asarray(ply_to_world.origin_ply_units, dtype=np.float64)) * (
+        ply_to_world.metres_per_unit
+    )
+    world = (ply_to_world.rotation() @ rotated).T - offset
+    return world[0] if np.ndim(point_engine) == 1 else world
 
 
 def collision_node_transform(contract: FrameContract) -> np.ndarray:
@@ -258,12 +271,24 @@ def collision_node_transform(contract: FrameContract) -> np.ndarray:
 
     Unlike the splat node this transform is **not** translation-free: Godot's
     glTF importer applies no centroid subtraction, so the contract's
-    ``origin_ply_units`` has to be carried here.  Its basis is the splat node's
-    basis composed with :data:`ENGINE_FRAME_ROTATION`, which is what makes the
-    collision and the splat agree on where a point is.
+    ``origin_ply_units`` has to be carried here.
+
+    Its basis is a **pure rotation**: the contract's rotation composed with
+    :data:`ENGINE_FRAME_ROTATION`.  The tool voxelizes a splat that has already
+    been scaled into metres (``tool.build_argv`` multiplies the PLY by
+    ``metres_per_unit`` before writing it), so the engine frame is already
+    metric and multiplying again would stretch the collision by
+    ``metres_per_unit`` -- 5.128x on this scene, which lands the floor metres
+    below the room and leaves nothing for the player to stand on.  The
+    translation keeps ``metres_per_unit`` because it converts the contract's raw
+    PLY offset into metres.
+
+    This is the same mapping as :func:`engine_frame_to_world` written as a
+    matrix, and ``test_collision.py`` asserts the two agree, because they were
+    once derived independently and disagreed.
     """
     ply_to_world = contract.ply_to_world
-    basis = ply_to_world.linear_matrix() @ ENGINE_FRAME_ROTATION
+    basis = ply_to_world.rotation() @ ENGINE_FRAME_ROTATION.T
     translation = -(ply_to_world.rotation() @ np.asarray(ply_to_world.origin_ply_units)) * (
         ply_to_world.metres_per_unit
     )

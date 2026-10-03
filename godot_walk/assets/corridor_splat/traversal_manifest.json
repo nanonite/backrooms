@@ -1,0 +1,703 @@
+{
+  "schema_version": 1,
+  "scene_id": "corridor_splat",
+  "generated_by": "scripts/splat_pipeline/traversal_plan.py",
+  "why": "the route, the spawn and every tolerance are derived from the collision mesh #84 generated and the #83 contract, so a reviewer can recompute them instead of taking a coordinate on trust",
+  "sources": {
+    "alignment_manifest": "../../godot_walk/assets/corridor_splat/alignment_manifest.json",
+    "collision_report": "collision_benchmark.json",
+    "collision_glb": "../../godot_walk/assets/corridor_splat/collision/corridor_splat.collision.glb",
+    "collision_glb_md5": "c8f7a46effade8002a9bc51f74e3b11e",
+    "collision_triangles": 10178,
+    "collision_report_triangles": 10178,
+    "collision_report_passed": false
+  },
+  "collision_node": {
+    "transform_3x4": [
+      [
+        0.0,
+        -1.0,
+        0.0,
+        -0.977009
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        -0.117991
+      ],
+      [
+        -1.0,
+        0.0,
+        0.0,
+        3.591775
+      ]
+    ],
+    "transform_godot": "Transform3D(0.0, -1.0, 0.0, 0.0, 0.0, 1.0, -1.0, 0.0, 0.0, -0.9770089387893677, -0.11799124628305435, 3.5917744636535645)",
+    "world_bounds_min_m": [
+      -4.552,
+      -1.543,
+      -3.3832
+    ],
+    "world_bounds_max_m": [
+      5.048,
+      1.457,
+      5.8168
+    ]
+  },
+  "player": {
+    "capsule_radius_m": 0.3,
+    "capsule_height_m": 1.2,
+    "half_height_m": 0.6,
+    "speed_mps": 4.0
+  },
+  "clearance": {
+    "margin_m": 0.05,
+    "required_m": 1.25,
+    "test_height_m": 1.0,
+    "min_free_run_cells": 4
+  },
+  "spawn": {
+    "marker_m": [
+      -0.651325,
+      -0.77099,
+      2.887547
+    ],
+    "cell": [
+      37,
+      28
+    ],
+    "contract_floor_m": -1.2709904916293824,
+    "contract_clearance_m": 0.5,
+    "floor_surface_m": -1.142991,
+    "ceiling_surface_m": 1.007009,
+    "clear_m": 2.15,
+    "drop_m": 0.372001,
+    "player_origin_m": [
+      -0.651325,
+      -0.542991,
+      2.887547
+    ],
+    "derivation": "the contract's spawn marker is 0.5 m above the contract's floor plane, which is a drop-in clearance and not the capsule centre: the production capsule is 1.2 m tall, so a CharacterBody3D placed at the marker would put its lower hemisphere inside any floor at the contract height. The player's origin is therefore the generated collision's own floor surface under the marker plus half the capsule height, which is the same rule #84 used to place its carve seed."
+  },
+  "safety_net": {
+    "top_m": -2.742991,
+    "centre_m": -2.767991,
+    "centre_xz_m": [
+      0.247991,
+      1.216775
+    ],
+    "thickness_m": 0.05,
+    "size_m": [
+      12.0,
+      0.05,
+      11.6
+    ],
+    "drop_below_collision_m": 1.2,
+    "why": "a diagnostic failsafe, never floor support. It sits 1.2 m below the lowest surface the generated collision reaches, so nothing that walks on the generated floor can reach it; a contact is a walk failure, and the report says so."
+  },
+  "columns": {
+    "size_m": 0.25,
+    "origin_world_m": [
+      -10.06948558789596,
+      -4.30583065565776
+    ],
+    "rows": 61,
+    "cols": 41,
+    "tested_cells": 1368,
+    "open_at_test_cells": 812,
+    "capsule_fits_cells": 412,
+    "walkable_cells": 412,
+    "reachable_from_spawn_cells": 255,
+    "untested_outside_mesh_cells": 1133,
+    "why_reachable_matters": "probing the mesh with the real capsule leaves several disconnected pockets; every route and boundary target is restricted to the spawn's own component so the walk test never has to teleport to reach one"
+  },
+  "waypoints": [
+    {
+      "name": "spawn_37_28",
+      "role": "spawn",
+      "cell": [
+        37,
+        28
+      ],
+      "x_m": -0.694486,
+      "z_m": 2.819169,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 1.007009,
+      "clear_m": 2.15
+    },
+    {
+      "name": "opening_approach_34_19",
+      "role": "opening_approach",
+      "cell": [
+        34,
+        19
+      ],
+      "x_m": -1.444486,
+      "z_m": 0.569169,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 0.907009,
+      "clear_m": 2.05
+    },
+    {
+      "name": "opening_pinch_35_19",
+      "role": "opening_pinch",
+      "cell": [
+        35,
+        19
+      ],
+      "x_m": -1.194486,
+      "z_m": 0.569169,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 0.907009,
+      "clear_m": 2.05
+    },
+    {
+      "name": "opening_exit_35_18",
+      "role": "opening_exit",
+      "cell": [
+        35,
+        18
+      ],
+      "x_m": -1.194486,
+      "z_m": 0.319169,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 0.907009,
+      "clear_m": 2.05
+    },
+    {
+      "name": "route_far_44_10",
+      "role": "route_far",
+      "cell": [
+        44,
+        10
+      ],
+      "x_m": 1.055514,
+      "z_m": -1.680831,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 1.007009,
+      "clear_m": 2.15
+    },
+    {
+      "name": "corner_34_28",
+      "role": "corner",
+      "cell": [
+        34,
+        28
+      ],
+      "x_m": -1.444486,
+      "z_m": 2.819169,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 0.857009,
+      "clear_m": 2.0
+    },
+    {
+      "name": "corner_35_17",
+      "role": "corner",
+      "cell": [
+        35,
+        17
+      ],
+      "x_m": -1.194486,
+      "z_m": 0.069169,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 0.957009,
+      "clear_m": 2.1
+    },
+    {
+      "name": "corner_36_17",
+      "role": "corner",
+      "cell": [
+        36,
+        17
+      ],
+      "x_m": -0.944486,
+      "z_m": 0.069169,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 0.957009,
+      "clear_m": 2.1
+    },
+    {
+      "name": "corner_36_16",
+      "role": "corner",
+      "cell": [
+        36,
+        16
+      ],
+      "x_m": -0.944486,
+      "z_m": -0.180831,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 0.957009,
+      "clear_m": 2.1
+    },
+    {
+      "name": "corner_37_16",
+      "role": "corner",
+      "cell": [
+        37,
+        16
+      ],
+      "x_m": -0.694486,
+      "z_m": -0.180831,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 1.007009,
+      "clear_m": 2.15
+    },
+    {
+      "name": "corner_37_15",
+      "role": "corner",
+      "cell": [
+        37,
+        15
+      ],
+      "x_m": -0.694486,
+      "z_m": -0.430831,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 1.007009,
+      "clear_m": 2.15
+    },
+    {
+      "name": "corner_38_15",
+      "role": "corner",
+      "cell": [
+        38,
+        15
+      ],
+      "x_m": -0.444486,
+      "z_m": -0.430831,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 1.007009,
+      "clear_m": 2.15
+    },
+    {
+      "name": "corner_38_13",
+      "role": "corner",
+      "cell": [
+        38,
+        13
+      ],
+      "x_m": -0.444486,
+      "z_m": -0.930831,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 1.007009,
+      "clear_m": 2.15
+    },
+    {
+      "name": "corner_40_13",
+      "role": "corner",
+      "cell": [
+        40,
+        13
+      ],
+      "x_m": 0.055514,
+      "z_m": -0.930831,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 1.057009,
+      "clear_m": 2.2
+    },
+    {
+      "name": "corner_40_12",
+      "role": "corner",
+      "cell": [
+        40,
+        12
+      ],
+      "x_m": 0.055514,
+      "z_m": -1.180831,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 1.057009,
+      "clear_m": 2.2
+    },
+    {
+      "name": "corner_44_12",
+      "role": "corner",
+      "cell": [
+        44,
+        12
+      ],
+      "x_m": 1.055514,
+      "z_m": -1.180831,
+      "floor_y_m": -1.142991,
+      "ceiling_y_m": 1.057009,
+      "clear_m": 2.2
+    },
+    {
+      "name": "low_ceiling_28_27",
+      "role": "low_ceiling",
+      "cell": [
+        28,
+        27
+      ],
+      "x_m": -2.944486,
+      "z_m": 2.569169,
+      "floor_y_m": -1.092991,
+      "ceiling_y_m": 0.807009,
+      "clear_m": 1.9
+    }
+  ],
+  "route_cells": [
+    [
+      37,
+      28
+    ],
+    [
+      34,
+      28
+    ],
+    [
+      34,
+      19
+    ],
+    [
+      35,
+      19
+    ],
+    [
+      35,
+      17
+    ],
+    [
+      36,
+      17
+    ],
+    [
+      36,
+      16
+    ],
+    [
+      37,
+      16
+    ],
+    [
+      37,
+      15
+    ],
+    [
+      38,
+      15
+    ],
+    [
+      38,
+      13
+    ],
+    [
+      40,
+      13
+    ],
+    [
+      40,
+      12
+    ],
+    [
+      44,
+      12
+    ],
+    [
+      44,
+      10
+    ]
+  ],
+  "access_cells": [
+    [
+      44,
+      10
+    ],
+    [
+      42,
+      10
+    ],
+    [
+      42,
+      11
+    ],
+    [
+      39,
+      11
+    ],
+    [
+      39,
+      12
+    ],
+    [
+      38,
+      12
+    ],
+    [
+      38,
+      13
+    ],
+    [
+      32,
+      13
+    ],
+    [
+      32,
+      15
+    ],
+    [
+      30,
+      15
+    ],
+    [
+      30,
+      16
+    ],
+    [
+      29,
+      16
+    ],
+    [
+      29,
+      23
+    ],
+    [
+      28,
+      23
+    ],
+    [
+      28,
+      27
+    ]
+  ],
+  "opening_cells": [
+    [
+      34,
+      19
+    ],
+    [
+      35,
+      19
+    ],
+    [
+      35,
+      18
+    ]
+  ],
+  "opening_note": "the tightest point on the route the capsule can actually walk, measured as width: how many of a cell's eight neighbours the capsule also fits into. Headroom was tried first and is the wrong measure -- the least headroom on this route is 2.0 m in open floor, which is not a passage and cannot be blocked. Probing this capture with the real capsule finds no through-opening at all: the 1.0 m gap the voxel grid resolves at cells 24-25 leads to a pocket the route cannot enter. These three cells are on the route and are walked in both directions, and the engine test's blocked-opening case fills them, so the passage is load-bearing rather than decorative. No separate blocking probe is aimed at it: a probe needs a dead-end face to push into, and beside this pinch the mesh is open again 0.35 m past the first solid cross-section, which is exactly the lip the capsule walks through.",
+  "low_clearance_cell": [
+    28,
+    27
+  ],
+  "low_clearance_m": 1.9,
+  "low_clearance_band_m": [
+    -1.092991,
+    0.807009
+  ],
+  "collision_report": {
+    "passed": false,
+    "failed_checks": [
+      "walkway_covers_camera_path: 153 of 192 camera positions are inside solid collision at 1.00 m above the floor (20.3% traversable, need 90%): the generated walls block the route that was actually walked"
+    ],
+    "why_this_still_supports_a_walk": "the failing check is coverage of the reconstruction camera path, and this capture's manifest records walls_measured: false -- no wall plane was ever resolved, so no collision stage can recover one. The plan's route is inside the region the generated collision does leave navigable, and the walk test measures that region directly: floor support, blocking, headroom and the safety net. A pass here is a statement about the collision that exists, not a claim that it reconstructs the corridor somebody filmed. #91 owns the end-to-end gate on real footage."
+  },
+  "probes": [
+    {
+      "name": "column",
+      "approach_cell": [
+        41,
+        11
+      ],
+      "approach_m": [
+        0.3055144121040403,
+        -1.4308306556577604
+      ],
+      "cross_section_heights_m": [
+        -0.963,
+        -0.723,
+        -0.543,
+        -0.363,
+        -0.123
+      ],
+      "blocked_cell": [
+        41,
+        18
+      ],
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "measured_face_distance_m": 1.55,
+      "blocked_at_y_m": -0.963,
+      "blocked_face_m": [
+        0.305514,
+        0.119169
+      ],
+      "expected_stop_m": [
+        0.305514,
+        -0.180831
+      ],
+      "stop_tolerance_m": 0.12,
+      "min_displacement_m": 0.25,
+      "derivation": "marched along the aim direction asking whether any of the capsule's cross-sections is inside solid, then one capsule radius back from that surface: where move_and_slide leaves the centre when a contact arrests it",
+      "approach_cells": [
+        [
+          37,
+          28
+        ],
+        [
+          34,
+          28
+        ],
+        [
+          34,
+          19
+        ],
+        [
+          35,
+          19
+        ],
+        [
+          35,
+          17
+        ],
+        [
+          36,
+          17
+        ],
+        [
+          36,
+          16
+        ],
+        [
+          37,
+          16
+        ],
+        [
+          37,
+          15
+        ],
+        [
+          38,
+          15
+        ],
+        [
+          38,
+          13
+        ],
+        [
+          40,
+          13
+        ],
+        [
+          40,
+          12
+        ],
+        [
+          41,
+          12
+        ],
+        [
+          41,
+          11
+        ]
+      ],
+      "approach_length_m": 7.0
+    },
+    {
+      "name": "wall",
+      "approach_cell": [
+        45,
+        12
+      ],
+      "approach_m": [
+        1.3055144121040403,
+        -1.1808306556577604
+      ],
+      "cross_section_heights_m": [
+        -0.963,
+        -0.723,
+        -0.543,
+        -0.363,
+        -0.123
+      ],
+      "blocked_cell": [
+        45,
+        10
+      ],
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "measured_face_distance_m": 1.71,
+      "blocked_at_y_m": -0.963,
+      "blocked_face_m": [
+        1.305514,
+        -2.890831
+      ],
+      "expected_stop_m": [
+        1.305514,
+        -2.590831
+      ],
+      "stop_tolerance_m": 0.12,
+      "min_displacement_m": 0.25,
+      "derivation": "marched along the aim direction asking whether any of the capsule's cross-sections is inside solid, then one capsule radius back from that surface: where move_and_slide leaves the centre when a contact arrests it",
+      "approach_cells": [
+        [
+          37,
+          28
+        ],
+        [
+          34,
+          28
+        ],
+        [
+          34,
+          19
+        ],
+        [
+          35,
+          19
+        ],
+        [
+          35,
+          17
+        ],
+        [
+          36,
+          17
+        ],
+        [
+          36,
+          16
+        ],
+        [
+          37,
+          16
+        ],
+        [
+          37,
+          15
+        ],
+        [
+          38,
+          15
+        ],
+        [
+          38,
+          13
+        ],
+        [
+          40,
+          13
+        ],
+        [
+          40,
+          12
+        ],
+        [
+          45,
+          12
+        ]
+      ],
+      "approach_length_m": 7.75
+    }
+  ],
+  "tolerances": {
+    "position_m": 0.18,
+    "max_step_m": 0.2,
+    "block_stop_m": 0.12,
+    "min_floor_support_fraction": 0.95,
+    "floor_surface_m": 0.05,
+    "max_spawn_drop_m": 1.0
+  }
+}
