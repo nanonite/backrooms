@@ -125,12 +125,20 @@ if [[ " ${EXTRA_ARGS[*]} " == *" --dry-run "* ]]; then
     exec "$SCRIPT_DIR/run_pipeline.sh" "$SCENE_DIR" "${EXTRA_ARGS[@]+"${EXTRA_ARGS[@]}"}"
 fi
 
-# Guard: refuse to silently overwrite an existing scene's video.mp4.
+# Guard: warn when an existing scene's video.mp4 would be overwritten.
+# If the existing file is byte-identical to the input, proceed silently.
+# --force explicitly overwrites a different file.
 if [[ -f "$SCENE_DIR/video.mp4" ]]; then
-    echo "FAIL: $SCENE_DIR/video.mp4 already exists." >&2
-    echo "This scene name is already in use. Choose a different name or remove" >&2
-    echo "the existing scene directory first." >&2
-    exit 1
+    if cmp -s "$SCENE_DIR/video.mp4" "$VIDEO_PATH"; then
+        echo "Note: $SCENE_DIR/video.mp4 is identical to the input; keeping it."
+    elif [[ " ${EXTRA_ARGS[*]} " == *" --force "* ]]; then
+        echo "Note: --force set; overwriting $SCENE_DIR/video.mp4."
+    else
+        echo "FAIL: $SCENE_DIR/video.mp4 already exists and differs from the input." >&2
+        echo "This scene name is already in use. Choose a different name, use" >&2
+        echo "--force to overwrite, or remove the existing scene directory first." >&2
+        exit 1
+    fi
 fi
 
 mkdir -p "$SCENE_DIR"

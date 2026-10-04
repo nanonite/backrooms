@@ -84,14 +84,31 @@ for i in range(1, 16):
 sys.exit(0)
 """)
 
-    # Stub pose_colmap.sh — create sparse/0/ with dummy files
+    # Stub pose_colmap.sh — create sparse/0/ with a minimal but *valid* COLMAP
+    # model, so colmap_model.read_images (used to select the model) can parse it.
     _write_stub(bin_dir, "pose_colmap.sh", """#!/usr/bin/env bash
 set -euo pipefail
 SCENE_DIR="$1"
 mkdir -p "$SCENE_DIR/sparse/0"
-echo "dummy" > "$SCENE_DIR/sparse/0/cameras.bin"
-echo "dummy" > "$SCENE_DIR/sparse/0/images.bin"
-echo "dummy" > "$SCENE_DIR/sparse/0/points3D.bin"
+python3 - "$SCENE_DIR/sparse/0" << 'PYEOF'
+import struct, sys
+model = sys.argv[1]
+with open(model + "/cameras.bin", "wb") as f:
+    f.write(struct.pack("<Q", 1))
+    f.write(struct.pack("<iiQQ", 1, 1, 1920, 1080))  # SIMPLE_PINHOLE
+    f.write(struct.pack("<3d", 1000.0, 960.0, 540.0))
+with open(model + "/images.bin", "wb") as f:
+    f.write(struct.pack("<Q", 10))
+    for i in range(1, 11):
+        f.write(struct.pack("<i", i))
+        f.write(struct.pack("<4d", 1.0, 0.0, 0.0, 0.0))
+        f.write(struct.pack("<3d", 0.0, 0.0, 0.0))
+        f.write(struct.pack("<i", 1))
+        f.write(("frame_%04d.jpg" % i).encode("ascii") + b"\\x00")
+        f.write(struct.pack("<Q", 0))
+with open(model + "/points3D.bin", "wb") as f:
+    f.write(struct.pack("<Q", 0))
+PYEOF
 exit 0
 """)
 
@@ -129,9 +146,16 @@ echo '{"transform": [[1,0,0,0],[0,1,0,0],[0,0,1,0]]}' > "$SCENE_DIR/splatfacto_o
 exit 0
 """)
 
-    # Stub measure_splat_frame.py — create a minimal alignment manifest
+    # Stub measure_splat_frame.py — create a minimal alignment manifest.
+    # It is also imported by generate_collision.camera_positions; the real module
+    # exposes cameras_in_ply_frame/load_dataparser, which this stub does not, so
+    # an import must fail as ImportError (the caller falls back to the contract).
     _write_stub(bin_dir, "measure_splat_frame.py", """#!/usr/bin/env python3
 import json, sys
+
+if __name__ != "__main__":
+    raise ImportError("stub measure_splat_frame is not importable")
+
 out = sys.argv[sys.argv.index('--out') + 1]
 manifest = {
     "schema_version": 2,
@@ -162,151 +186,33 @@ json.dump(manifest, open(out, 'w'))
 sys.exit(0)
 """)
 
-    # Stub generate_collision.py — create a minimal collision.glb
-    # Use the REAL generate_collision.py — copy it to the stub dir
-    # This ensures the real script is exercised, not a stub
-    shutil.copy2(REPO_ROOT / "scripts" / "splat_pipeline" / "generate_collision.py", bin_dir / "generate_collision.py")
-    _make_executable(bin_dir / "generate_collision.py")
-    # Copy the modules that generate_collision.py imports
-    for module in ["collision_params.py", "glb_mesh.py", "splat_columns.py", "traversability.py", "voxel_octree.py", "splat_frame.py", "splat_ply.py", "colmap_model.py"]:
-        src = REPO_ROOT / "scripts" / "splat_pipeline" / module
-        if src.exists():
-            shutil.copy2(src, bin_dir / module)
-    # Stub splat_transform_cli — the real one requires @playcanvas/splat-transform
-    _write_stub(bin_dir, "splat_transform_cli.py", """#!/usr/bin/env python3
-\"\"\"Stub splat_transform_cli for testing.\"\"\"
-import os, sys, json, hashlib
-from pathlib import Path
-from dataclasses import dataclass, field
+    # Stub generate_collision.py — the real collision generator is covered by
+    # test_collision.py with proper fixtures. The integration test only needs the
+    # pipeline contract here: a non-empty collision GLB, a benchmark report
+    # carrying the pinned tool version, and exit 0.
+    _write_stub(bin_dir, "generate_collision.py", """#!/usr/bin/env python3
+import json
+import struct
+import sys
 
-PINNED_PACKAGE = "@playcanvas/splat-transform"
-PINNED_VERSION = "3.9.0"
+argv = sys.argv[1:]
+stem = argv[argv.index("--out") + 1]
+report_path = argv[argv.index("--report") + 1]
 
-class SplatTransformUnavailable(RuntimeError):
-    pass
-
-class CollisionStageFailed(RuntimeError):
-    pass
-
-@dataclass(frozen=True)
-class ToolRun:
-    argv: tuple
-    version: str
-    elapsed_s: float
-    peak_cpu_bytes: int
-    peak_gpu_bytes: int
-    gaussians_in: int
-    gaussians_out: int
-    gaussians_removed: int
-    cluster_blocks_kept: int
-    cluster_blocks_total: int
-    pre_merge_triangles: int
-    pre_merge_vertices: int
-    triangles: int
-    vertices: int
-    octree_depth: int
-    mixed_leaves: int
-    seed_was_unoccupied: bool
-    exterior_fill_skipped: bool
-    carve_skipped: bool
-    warnings: tuple
-    files: dict
-
-    def to_json(self):
-        return {
-            "argv": list(self.argv),
-            "version": self.version,
-            "elapsed_s": self.elapsed_s,
-            "peak_cpu_bytes": self.peak_cpu_bytes,
-            "peak_gpu_bytes": self.peak_gpu_bytes,
-            "gaussians_in": self.gaussians_in,
-            "gaussians_out": self.gaussians_out,
-            "gaussians_removed": self.gaussians_removed,
-            "cluster_blocks_kept": self.cluster_blocks_kept,
-            "cluster_blocks_total": self.cluster_blocks_total,
-            "pre_merge_triangles": self.pre_merge_triangles,
-            "pre_merge_vertices": self.pre_merge_vertices,
-            "triangles": self.triangles,
-            "vertices": self.vertices,
-            "octree_depth": self.octree_depth,
-            "mixed_leaves": self.mixed_leaves,
-            "seed_was_unoccupied": self.seed_was_unoccupied,
-            "exterior_fill_skipped": self.exterior_fill_skipped,
-            "carve_skipped": self.carve_skipped,
-            "warnings": list(self.warnings),
-            "files": self.files,
-        }
-
-def resolve_cli(node_modules=None):
-    return "/usr/local/bin/splat-transform"
-
-def installed_version(cli):
-    return PINNED_VERSION
-
-def probe_adapters(cli):
-    return []
-
-def build_argv(cli, ply_path, stem, settings, metres_per_unit):
-    return [cli, "--ply", str(ply_path), "--out", str(stem)]
-
-def run_collision(cli, ply_path, stem, settings, metres_per_unit):
-    # Write the output files
-    # GLB format: 12-byte header (magic, version, total), then chunks
-    import struct
-    json_chunk = json.dumps({"asset": {"generator": "stub"}, "meshes": [{"primitives": [{"attributes": {"POSITION": 0}, "indices": 1}]}], "accessors": [{"bufferView": 0, "componentType": 5126, "count": 3, "type": "VEC3", "min": [0,0,0], "max": [1,1,1]}, {"bufferView": 1, "componentType": 5125, "count": 3, "type": "SCALAR"}], "bufferViews": [{"buffer": 0, "byteOffset": 0, "byteLength": 36}, {"buffer": 0, "byteOffset": 36, "byteLength": 12}], "buffers": [{"byteLength": 48}]}).encode('utf-8')
-    bin_chunk = struct.pack('<9f', 0,0,0, 1,0,0, 0,1,0) + struct.pack('<3I', 0, 1, 2)
-    # Pad json_chunk to 4-byte boundary
-    json_padding = (4 - len(json_chunk) % 4) % 4
-    json_chunk += b' ' * json_padding
-    bin_padding = (4 - len(bin_chunk) % 4) % 4
-    bin_chunk += b'\\x00' * bin_padding
-    json_header = struct.pack('<II', len(json_chunk), 0x4E4F534A)  # JSON
-    bin_header = struct.pack('<II', len(bin_chunk), 0x004E4942)  # BIN
-    total = 12 + 8 + len(json_chunk) + 8 + len(bin_chunk)
-    glb = struct.pack('<III', 0x46546C67, 2, total) + json_header + json_chunk + bin_header + bin_chunk
-    with open(str(stem) + '.collision.glb', 'wb') as f:
-        f.write(glb)
-    with open(str(stem) + '.voxel.json', 'w') as f:
-        json.dump({
-            "version": "1.1",
-            "asset": {"generator": "stub"},
-            "voxelResolution": 0.05,
-            "leafSize": 4,
-            "gridBounds": {"min": [0,0,0], "max": [1,1,1]},
-            "sceneBounds": {"min": [0,0,0], "max": [1,1,1]},
-            "treeDepth": 1,
-            "numInteriorNodes": 0,
-            "numMixedLeaves": 0,
-            "nodeCount": 1,
-            "leafDataCount": 0,
-        }, f)
-    # Write the binary payload (4 bytes per entry: nodeCount + leafDataCount)
-    with open(str(stem) + '.voxel.bin', 'wb') as f:
-        f.write(b'\\x00' * 4 * (1 + 0))  # nodeCount=1, leafDataCount=0
-    return ToolRun(
-        argv=(cli, "--ply", str(ply_path), "--out", str(stem)),
-        version=PINNED_VERSION,
-        elapsed_s=1.0,
-        peak_cpu_bytes=1000,
-        peak_gpu_bytes=100,
-        gaussians_in=100,
-        gaussians_out=100,
-        gaussians_removed=0,
-        cluster_blocks_kept=1,
-        cluster_blocks_total=1,
-        pre_merge_triangles=100,
-        pre_merge_vertices=100,
-        triangles=100,
-        vertices=100,
-        octree_depth=1,
-        mixed_leaves=0,
-        seed_was_unoccupied=False,
-        exterior_fill_skipped=False,
-        carve_skipped=False,
-        warnings=(),
-        files={},
-    )
+# Minimal but structurally valid GLB: 12-byte header + one empty JSON chunk.
+glb = struct.pack("<III", 0x46546C67, 2, 20) + struct.pack("<II", 0, 0x4E4F534A)
+with open(stem + ".collision.glb", "wb") as handle:
+    handle.write(glb)
+with open(report_path, "w") as handle:
+    json.dump({
+        "tool": {"package": "@playcanvas/splat-transform", "installed_version": "3.9.0"},
+        "verdict": {"passed": True, "checks": []},
+    }, handle)
+sys.exit(0)
 """)
+
+    # run_pipeline.sh's sparse-model selection imports colmap_model.
+    shutil.copy2(REPO_ROOT / "scripts" / "splat_pipeline" / "colmap_model.py", bin_dir / "colmap_model.py")
 
     # Stub traversal_plan.py — create a minimal traversal manifest
     _write_stub(bin_dir, "traversal_plan.py", """#!/usr/bin/env python3
@@ -377,6 +283,7 @@ def test_pipeline_executes_end_to_end(tmp_path):
         capture_output=True,
         text=True,
         env=env,
+        check=False,
         cwd=str(REPO_ROOT),
     )
 
@@ -392,9 +299,15 @@ def test_pipeline_executes_end_to_end(tmp_path):
     assert (scene_dir / "sparse" / "0" / "images.bin").exists(), "Stage B should create sparse model"
     assert (scene_dir / "sparse" / "0" / "points3D.bin").exists(), "Stage B should create sparse model"
     assert (scene_dir / "scene.ply").exists(), "Stage C should create scene.ply"
-    assert (scene_dir / "collision.collision.glb").exists(), "Stage D should create collision.glb"
-    assert (scene_dir / "alignment_manifest.json").exists(), "Stage E should create alignment_manifest.json"
+    assert (scene_dir / "alignment_manifest.json").exists(), "Stage D should create alignment_manifest.json"
+    assert (scene_dir / "collision.collision.glb").exists(), "Stage E should create collision.glb"
     assert (scene_dir / "traversal_manifest.json").exists(), "Stage E should create traversal_manifest.json"
+
+    # The selected COLMAP model is recorded explicitly, not assumed to be sparse/0.
+    selection = json.loads((scene_dir / "sparse_model.json").read_text())
+    assert selection["selected"] == "sparse/0"
+    assert selection["registered_images"] == 10
+    assert selection["rule"] == "most_registered_images"
 
     # Verify that pipeline_state.json was created with all stages
     state = json.loads((scene_dir / "pipeline_state.json").read_text())
@@ -408,8 +321,32 @@ def test_pipeline_executes_end_to_end(tmp_path):
         assert log_file.exists(), f"Per-stage log should exist: {log_file}"
 
 
+#: Assets whose bytes must be identical between a fresh run and a resumed run.
+#: Stage C is stubbed deterministically here, so every asset is byte-comparable;
+#: on a real GPU host only the Stage C outputs would differ, and the documented
+#: tolerance (splat count within 5%, camera positions within 0.01 m) applies.
+_RESUMED_ASSETS = [
+    "scene.ply",
+    "alignment_manifest.json",
+    "collision.collision.glb",
+    "collision_benchmark.json",
+    "traversal_manifest.json",
+]
+
+
+def _asset_hashes(scene_dir: Path) -> dict:
+    import hashlib
+
+    hashes = {}
+    for name in _RESUMED_ASSETS:
+        path = scene_dir / name
+        assert path.is_file(), f"expected asset missing: {path}"
+        hashes[name] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashes
+
+
 def test_pipeline_resumability(tmp_path):
-    """Run the pipeline twice and verify that the second run skips all stages."""
+    """A resumed run skips every stage and reproduces equivalent assets."""
     scene_dir = tmp_path / "test_scene"
     scene_dir.mkdir()
     (scene_dir / "video.mp4").write_text("fake video content")
@@ -423,9 +360,11 @@ def test_pipeline_resumability(tmp_path):
         capture_output=True,
         text=True,
         env=env,
+        check=False,
         cwd=str(REPO_ROOT),
     )
     assert result1.returncode == 0, f"First run failed: {result1.stderr[-1000:]}"
+    fresh_hashes = _asset_hashes(scene_dir)
 
     # Second run — should skip all stages
     result2 = subprocess.run(
@@ -433,10 +372,60 @@ def test_pipeline_resumability(tmp_path):
         capture_output=True,
         text=True,
         env=env,
+        check=False,
         cwd=str(REPO_ROOT),
     )
     assert result2.returncode == 0, f"Second run failed: {result2.stderr[-1000:]}"
-    assert "skipped" in result2.stdout.lower(), "Second run should skip unchanged stages"
+
+    # Every stage must be skipped on the resumed run. The pipeline prints the
+    # stable token "SKIP: <stage_name>" for each skipped stage.
+    for stage in ["stage_a", "stage_b", "stage_c", "stage_d", "stage_e", "stage_f"]:
+        assert f"skip: {stage}" in result2.stdout.lower(), (
+            f"Second run should skip {stage} (unchanged).\n{result2.stdout[-2000:]}"
+        )
+
+    # Fresh vs resumed: the validated assets are byte-identical.
+    assert _asset_hashes(scene_dir) == fresh_hashes, (
+        "A resumed run must reproduce the same validated assets as a fresh run."
+    )
+
+
+def test_pipeline_invalidates_on_input_change(tmp_path):
+    """Changing the input video invalidates Stage A and everything downstream."""
+    scene_dir = tmp_path / "test_scene"
+    scene_dir.mkdir()
+    (scene_dir / "video.mp4").write_text("fake video content")
+
+    env, stub_dir = _make_stub_env(tmp_path)
+    stub_pipeline = stub_dir / "run_pipeline.sh"
+
+    first = subprocess.run(
+        ["bash", str(stub_pipeline), str(scene_dir)],
+        capture_output=True,
+        text=True,
+        env=env,
+        check=False,
+        cwd=str(REPO_ROOT),
+    )
+    assert first.returncode == 0, f"First run failed: {first.stderr[-1000:]}"
+
+    # Re-run with a different video: no stage may be skipped.
+    (scene_dir / "video.mp4").write_text("a different capture")
+    second = subprocess.run(
+        ["bash", str(stub_pipeline), str(scene_dir)],
+        capture_output=True,
+        text=True,
+        env=env,
+        check=False,
+        cwd=str(REPO_ROOT),
+    )
+    assert second.returncode == 0, f"Second run failed: {second.stderr[-1000:]}"
+    # Stage A's input hash includes the video bytes, so it must re-run. Stages
+    # downstream are content-addressed on Stage A's outputs; here the stub
+    # regenerates identical frames, so only the entry stage is required to change.
+    assert "skip: stage_a" not in second.stdout.lower(), (
+        "Stage A should re-run when the video changes."
+    )
 
 
 def test_pipeline_dry_run_does_not_mutate(tmp_path):
@@ -454,6 +443,7 @@ def test_pipeline_dry_run_does_not_mutate(tmp_path):
         capture_output=True,
         text=True,
         env=env,
+        check=False,
         cwd=str(REPO_ROOT),
     )
 
@@ -461,3 +451,9 @@ def test_pipeline_dry_run_does_not_mutate(tmp_path):
     assert not (scene_dir / "images").exists(), "Dry run should not create images/"
     assert not (scene_dir / "logs").exists(), "Dry run should not create logs/"
     assert not (scene_dir / "pipeline_state.json").exists(), "Dry run should not create pipeline_state.json"
+
+    # The plan states the real dependency order (alignment before collision) and
+    # includes the preflight tool report.
+    assert "Stage D: Alignment contract" in result.stdout
+    assert "Stage E: Collision mesh + traversal plan" in result.stdout
+    assert "Preflight: tool availability" in result.stdout

@@ -2,7 +2,8 @@
 # train_splatfacto.sh — Stage C: Gaussian-splat training with Nerfstudio Splatfacto.
 #
 # Trains a Gaussian splat from the COLMAP-format dataset produced by Stage B
-# (images/ + sparse/0/). Outputs scene_dir/scene.ply — the VISUAL asset.
+# (images/ + the selected sparse model). Outputs scene_dir/scene.ply — the
+# VISUAL asset.
 #
 # This is the DEFAULT training path. Brush (train_brush.sh) is the fallback
 # for hosts where nerfstudio is unavailable.
@@ -10,11 +11,13 @@
 # Usage:
 #   train_splatfacto.sh <scene_dir> [--max-steps N] [--eval-mode MODE]
 #
-#   scene_dir      Per-scene working directory containing images/ and sparse/0/.
+#   scene_dir      Per-scene working directory containing images/ and a COLMAP
+#                  sparse model (the sub-model run_pipeline.sh selected).
 #   --max-steps    Maximum training iterations (default: 30000).
 #   --eval-mode    Evaluation mode: all | few | none (default: all).
 #
 # Environment:
+#   SPARSE_MODEL_DIR   Selected COLMAP model dir (default: <scene_dir>/sparse/0).
 #   NS_BIN             Path to the ns-train binary (default: ns-train).
 #   NS_MAX_STEPS       Default --max-steps (overridable by CLI; default: 30000).
 #   NS_EVAL_MODE       Default --eval-mode (overridable by CLI; default: all).
@@ -32,7 +35,7 @@
 #   - GPU with CUDA (Splatfacto uses gsplat, which requires CUDA).
 #
 # The output PLY is written to <scene_dir>/scene.ply. The nerfstudio output
-# directory contains the dataparser_transforms.json needed by Stage E.
+# directory contains the dataparser_transforms.json needed by Stage D.
 
 set -euo pipefail
 
@@ -56,13 +59,15 @@ usage() {
     cat <<'EOF'
 Usage: train_splatfacto.sh <scene_dir> [--max-steps N] [--eval-mode MODE]
 
-  scene_dir      Per-scene working directory containing images/ and sparse/0/.
+  scene_dir      Per-scene working directory containing images/ and a COLMAP
+                 sparse model.
 
 Options:
   --max-steps N    Maximum training iterations (default: 30000).
   --eval-mode MODE Evaluation mode: all | few | none (default: all).
 
 Environment:
+  SPARSE_MODEL_DIR   Selected COLMAP model dir (default: <scene_dir>/sparse/0).
   NS_BIN             Path to the ns-train binary (default: ns-train).
   NS_MAX_STEPS       Default max steps (overridable by --max-steps).
   NS_EVAL_MODE       Default eval mode (overridable by --eval-mode).
@@ -132,7 +137,10 @@ done
 
 SCENE_DIR="$(realpath "$SCENE_DIR")"
 IMAGES_DIR="$SCENE_DIR/images"
-SPARSE_MODEL_DIR="$SCENE_DIR/sparse/0"
+# The selected COLMAP model. run_pipeline.sh sets SPARSE_MODEL_DIR after
+# colmap_model.find_sparse_model picks the sub-model with the most registered
+# cameras; default to the conventional sparse/0 when invoked directly.
+SPARSE_MODEL_DIR="${SPARSE_MODEL_DIR:-$SCENE_DIR/sparse/0}"
 PLY_OUT="$SCENE_DIR/$SCENE_PLY"
 OUTPUT_DIR="${NS_OUTPUT_DIR:-$SCENE_DIR/splatfacto_output}"
 
@@ -178,7 +186,7 @@ fi
 echo "Input images: $IMAGE_COUNT"
 
 if [[ ! -d "$SPARSE_MODEL_DIR" ]]; then
-    die 3 "sparse/0 directory not found: '$SPARSE_MODEL_DIR'. Run Stage B first."
+    die 3 "selected COLMAP model directory not found: '$SPARSE_MODEL_DIR'. Run Stage B first."
 fi
 
 CAMERAS_BIN="$SPARSE_MODEL_DIR/cameras.bin"
@@ -195,7 +203,10 @@ if [[ ! -f "$POINTS_BIN" ]]; then
     die 3 "points3D.bin not found: '$POINTS_BIN'. Stage B output incomplete."
 fi
 
-echo "COLMAP model: $SPARSE_MODEL_DIR"
+# nerfstudio's colmap dataparser resolves --colmap-path relative to --data.
+COLMAP_REL_PATH="${SPARSE_MODEL_DIR#"$SCENE_DIR"/}"
+
+echo "COLMAP model: $SPARSE_MODEL_DIR (--colmap-path $COLMAP_REL_PATH)"
 echo
 
 # ---------------------------------------------------------------------------
@@ -217,21 +228,6 @@ GSPLAT_VERSION="$(python3 -c "import gsplat; print(gsplat.__version__)" 2>/dev/n
 echo "nerfstudio version: $NS_VERSION"
 echo "gsplat version: $GSPLAT_VERSION"
 
-# Write tool_versions.json for stage_godot.sh to read.
-python3 - "$SCENE_DIR" "$NS_VERSION" "$GSPLAT_VERSION" "$PINNED_NERFSTUDIO_VERSION" "$PINNED_GSPLAT_VERSION" << 'PYEOF'
-import json, sys
-scene_dir, ns_version, gsplat_version, pinned_ns, pinned_gsplat = sys.argv[1:6]
-versions = {
-    "nerfstudio": ns_version,
-    "gsplat": gsplat_version,
-    "pinned_nerfstudio": pinned_ns,
-    "pinned_gsplat": pinned_gsplat,
-}
-with open(scene_dir + "/tool_versions.json", "w") as f:
-    json.dump(versions, f, indent=2)
-    f.write("\n")
-PYEOF
-
 # nerfstudio's ns-train command. The --data flag points at the scene directory
 # (which contains images/ and sparse/0/). The --output-dir flag controls where
 # the training outputs (including dataparser_transforms.json) are written.
@@ -242,12 +238,18 @@ PYEOF
 #
 # The --max-num-iterations flag controls the training duration.
 
+# Argument order matters: nerfstudio binds a positional group after each
+# subcommand. Method options go before the `colmap` dataparser name; dataparser
+# options (--colmap-path) go after it. The proven Splatfacto experiment uses the
+# `colmap` dataparser explicitly; omitting it makes ns-train fall back to a
+# dataparser that does not read this COLMAP model.
 NS_TRAIN_ARGS=(
     "splatfacto"
     "--data" "$SCENE_DIR"
     "--output-dir" "$OUTPUT_DIR"
     "--pipeline.model.eval-mode" "$NS_EVAL_MODE_VAL"
     "--max-num-iterations" "$NS_MAX_STEPS_VAL"
+    "colmap" "--colmap-path" "$COLMAP_REL_PATH"
 )
 
 echo "Command: $NS_PATH ${NS_TRAIN_ARGS[*]}"
@@ -375,10 +377,89 @@ else
     echo "Splat count: could not determine (PLY header parse failed)."
 fi
 
+# ---------------------------------------------------------------------------
+# Provenance — pinned versions, selected model identity, checkpoint identity
+# ---------------------------------------------------------------------------
+# tool_versions.json is read by stage_godot.sh and surfaced in scene_manifest.json.
+
+COLMAP_VERSION="$(command -v colmap >/dev/null 2>&1 && colmap --version 2>/dev/null | head -n 1 || echo unknown)"
+GLOMAP_VERSION="$(command -v glomap >/dev/null 2>&1 && glomap --version 2>/dev/null | head -n 1 || echo unknown)"
+
+# Locate the nerfstudio config and dataparser transform actually produced.
+CONFIG_YAML=""
+for candidate in "$OUTPUT_DIR"/config.yml "$OUTPUT_DIR"/*/config.yml; do
+    if [[ -f "$candidate" ]]; then CONFIG_YAML="$candidate"; break; fi
+done
+DATAPARSER_JSON=""
+for candidate in \
+    "$OUTPUT_DIR"/dataparser_transforms.json \
+    "$OUTPUT_DIR"/*/dataparser_transforms.json; do
+    if [[ -f "$candidate" ]]; then DATAPARSER_JSON="$candidate"; break; fi
+done
+
+python3 - "$SCENE_DIR" "$NS_VERSION" "$GSPLAT_VERSION" "$PINNED_NERFSTUDIO_VERSION" \
+    "$PINNED_GSPLAT_VERSION" "$COLMAP_VERSION" "$GLOMAP_VERSION" \
+    "$SPARSE_MODEL_DIR" "$CONFIG_YAML" "$DATAPARSER_JSON" << 'PYEOF'
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+(scene_dir, ns_version, gsplat_version, pinned_ns, pinned_gsplat, colmap_version,
+ glomap_version, sparse_model_dir, config_yaml, dataparser_json) = sys.argv[1:11]
+
+scene = Path(scene_dir)
+model = Path(sparse_model_dir)
+
+
+def sha256(path):
+    if not path or not Path(path).is_file():
+        return ""
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def relative(path):
+    if not path:
+        return ""
+    candidate = Path(path)
+    return str(candidate.relative_to(scene)) if candidate.is_relative_to(scene) else str(candidate)
+
+
+provenance = {
+    "nerfstudio": ns_version,
+    "gsplat": gsplat_version,
+    "pinned_nerfstudio": pinned_ns,
+    "pinned_gsplat": pinned_gsplat,
+    "colmap": colmap_version,
+    "glomap": glomap_version,
+    "sparse_model": {
+        "path": relative(model),
+        "sha256": {
+            name: sha256(model / name)
+            for name in ("cameras.bin", "images.bin", "points3D.bin")
+        },
+    },
+    "checkpoint": {
+        "config": relative(config_yaml),
+        "config_sha256": sha256(config_yaml),
+        "dataparser_transforms": relative(dataparser_json),
+        "dataparser_transforms_sha256": sha256(dataparser_json),
+    },
+}
+with open(scene / "tool_versions.json", "w") as handle:
+    json.dump(provenance, handle, indent=2)
+    handle.write("\n")
+print("Provenance written to %s" % (scene / "tool_versions.json"))
+PYEOF
+
 echo
 echo "=== Stage C (Splatfacto) complete ==="
 echo "Visual asset: $PLY_OUT"
 echo
-echo "Next: Stage D — generate collision mesh (generate_collision.py)."
+echo "Next: Stage D — measure the alignment contract (measure_splat_frame.py)."
 
 exit 0

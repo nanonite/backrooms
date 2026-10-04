@@ -18,7 +18,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Allow override for testing (defaults to resolution relative to script location).
-SPLATS_ROOT="${SPLAT_SPLATS_ROOT:-$(cd "$SCRIPT_DIR/../../splat_walk/assets/splats" && pwd)}"
+# Computed without `cd` so --help and usage errors still work when the retired
+# Bevy asset tree (splat_walk/) is absent.
+SPLATS_ROOT="${SPLAT_SPLATS_ROOT:-$SCRIPT_DIR/../../splat_walk/assets/splats}"
 
 usage() {
     cat <<'EOF'
