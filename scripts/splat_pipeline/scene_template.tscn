@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player_scene"]
+[ext_resource type="Script" path="res://addons/gdgs/runtime/nodes/gaussian_splat_node.gd" id="2_splat_script"]
+[ext_resource type="Script" path="res://addons/gdgs/runtime/compositor/gaussian_compositor_effect.gd" id="3_compositor_script"]
+[ext_resource type="Resource" path="@PLY_PATH@" id="4_gaussian"]
+[ext_resource type="Script" path="res://scripts/generated_collision.gd" id="5_generated_collision"]
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_@SCENE_NAME@"]
+script = ExtResource("3_compositor_script")
+
+[sub_resource type="Compositor" id="Compositor_@SCENE_NAME@"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_@SCENE_NAME@")])
+
+[sub_resource type="Environment" id="Environment_@SCENE_NAME@"]
+background_mode = 1
+background_color = Color(0.03, 0.035, 0.04, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.45, 0.48, 0.55, 1)
+ambient_light_energy = 0.45
+
+[sub_resource type="BoxShape3D" id="Box_safetynet"]
+size = Vector3(12.0, 0.05, 11.6)
+
+[node name="@SCENE_NAME@" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_@SCENE_NAME@")
+compositor = SubResource("Compositor_@SCENE_NAME@")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 10.0, 0.0)
+rotation = Vector3(-0.785398, 0.523599, 0.0)
+
+[node name="CorridorSplatNode" type="VisualInstance3D" parent="."]
+transform = @SPLAT_TRANSFORM@
+script = ExtResource("2_splat_script")
+gaussian = ExtResource("4_gaussian")
+
+[node name="GeneratedCollision" type="StaticBody3D" parent="."]
+transform = @COLLISION_TRANSFORM@
+script = ExtResource("5_generated_collision")
+mesh_path = "@COLLISION_GLB_PATH@"
+
+[node name="SafetyNet" type="StaticBody3D" parent="."]
+transform = @SAFETY_NET_TRANSFORM@
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SafetyNet"]
+shape = SubResource("Box_safetynet")
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+transform = @PLAYER_SPAWN_TRANSFORM@
+
+[node name="Player" parent="." instance=ExtResource("1_player_scene")]
+transform = @PLAYER_TRANSFORM@

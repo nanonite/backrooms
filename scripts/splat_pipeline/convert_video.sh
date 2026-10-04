@@ -1,20 +1,22 @@
 #!/usr/bin/env bash
-# convert_video.sh — One-shot entrypoint: video file → staged splat scene.
+# convert_video.sh — One-shot entrypoint: video file → staged Godot scene.
 #
 # Takes any video file path, derives a safe scene name, creates the per-scene
 # working directory under scenes/<scene_name>/, copies the video as video.mp4,
-# and drives the full pipeline (Stages A → D + staging).
+# and drives the full pipeline (Stages A → F + Godot staging).
 #
 # Usage:
-#   scripts/splat_pipeline/convert_video.sh <video_path> [scene_name]
+#   scripts/splat_pipeline/convert_video.sh <video_path> [scene_name] [--dry-run] [--force]
 #
 #   video_path   Path to the input video file (any format ffmpeg can read).
 #   scene_name   Optional. Derived from the video filename if omitted.
 #                Must be a safe identifier — no slashes, dots, or traversal.
+#   --dry-run    Print the pipeline plan and exit without executing.
+#   --force      Re-run all stages, ignoring previous successful results.
 #
 # After the pipeline completes, the scene is staged under
-# splat_walk/assets/splats/<scene_name>/ and current_scene.txt is updated.
-# The operator can then: cd splat_walk && cargo run
+# godot_walk/assets/<scene_name>/ and current_scene.txt is updated.
+# The operator can then: cd godot_walk && godot4 --headless --script res://scripts/verify_scene.gd
 
 set -euo pipefail
 
@@ -25,18 +27,20 @@ SCENES_ROOT="${CONVERT_SCENES_ROOT:-$SCRIPT_DIR/scenes}"
 
 usage() {
     cat <<'EOF'
-Usage: convert_video.sh <video_path> [scene_name]
+Usage: convert_video.sh <video_path> [scene_name] [--dry-run] [--force]
 
   video_path   Path to the input video file (e.g. ~/Videos/capture.mp4).
   scene_name   Optional name for the scene. Derived from the video filename
                if omitted. Must be a safe identifier — no slashes, dots,
                or path traversal.
+  --dry-run    Print the pipeline plan and exit without executing.
+  --force      Re-run all stages, ignoring previous successful results.
 
 Pipeline:
   1. Validate the input video exists.
   2. Derive a safe scene name.
   3. Create scenes/<scene_name>/ and copy video.mp4.
-  4. Run run_pipeline.sh (Stages A–D + staging).
+  4. Run run_pipeline.sh (Stages A–F + Godot staging).
 EOF
     exit 0
 }
@@ -52,6 +56,34 @@ if [[ $# -lt 1 ]]; then
 fi
 
 VIDEO_PATH="$1"
+shift
+
+# Parse optional scene_name and flags.
+SCENE_NAME=""
+EXTRA_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --dry-run|--force)
+            EXTRA_ARGS+=("$1")
+            shift
+            ;;
+        -*)
+            echo "ERROR: Unknown option: $1" >&2
+            echo "Use --help for usage." >&2
+            exit 1
+            ;;
+        *)
+            if [[ -z "$SCENE_NAME" ]]; then
+                SCENE_NAME="$1"
+            else
+                echo "ERROR: Unexpected argument: $1" >&2
+                exit 1
+            fi
+            shift
+            ;;
+    esac
+done
 
 # Validate the file exists BEFORE realpath, so error messages reflect the
 # user's original argument rather than an empty or mangled path.
@@ -63,9 +95,7 @@ fi
 VIDEO_PATH="$(realpath "$VIDEO_PATH")"
 
 # Derive scene name from optional argument or video filename (strip extension).
-if [[ -n "${2:-}" ]]; then
-    SCENE_NAME="$2"
-else
+if [[ -z "$SCENE_NAME" ]]; then
     SCENE_NAME="$(basename "$VIDEO_PATH" | sed 's/\.[^.]*$//')"
 fi
 
@@ -84,6 +114,16 @@ fi
 
 SCENE_DIR="$SCENES_ROOT/$SCENE_NAME"
 
+# Dry-run: print the plan without creating directories or copying the video.
+if [[ " ${EXTRA_ARGS[*]} " == *" --dry-run "* ]]; then
+    echo "=== Convert video (dry run) ==="
+    echo "Video:     $VIDEO_PATH"
+    echo "Scene:     $SCENE_NAME"
+    echo "Scene dir: $SCENE_DIR (not created)"
+    echo
+    exec "$SCRIPT_DIR/run_pipeline.sh" "$SCENE_DIR" "${EXTRA_ARGS[@]+"${EXTRA_ARGS[@]}"}"
+fi
+
 mkdir -p "$SCENE_DIR"
 cp "$VIDEO_PATH" "$SCENE_DIR/video.mp4"
 
@@ -93,4 +133,4 @@ echo "Scene:     $SCENE_NAME"
 echo "Scene dir: $SCENE_DIR"
 echo
 
-exec "$SCRIPT_DIR/run_pipeline.sh" "$SCENE_DIR"
+exec "$SCRIPT_DIR/run_pipeline.sh" "$SCENE_DIR" "${EXTRA_ARGS[@]+"${EXTRA_ARGS[@]}"}"

@@ -405,37 +405,20 @@ class TestPipelineIntegration:
     def test_stage_d_section_present(self):
         pipeline_src = PIPELINE_SCRIPT.read_text()
         assert "Stage D: Collision mesh" in pipeline_src
-        assert "extract_mesh.sh" in pipeline_src
-        assert "decimate_to_glb.py" in pipeline_src
+        assert "generate_collision.py" in pipeline_src
         assert "collision.glb" in pipeline_src
-
-    def test_co_registration_warning_present(self):
-        pipeline_src = PIPELINE_SCRIPT.read_text()
-        assert "CO-REGISTRATION CONTRACT" in pipeline_src
-        assert "collision.glb MUST share the coordinate frame" in pipeline_src
 
     def test_no_old_placeholder(self):
         pipeline_src = PIPELINE_SCRIPT.read_text()
         assert "NOT YET IMPLEMENTED. Will call" not in pipeline_src
 
-    def test_extract_mesh_invoked_with_scene_dir(self):
+    def test_generate_collision_invoked(self):
         pipeline_src = PIPELINE_SCRIPT.read_text()
-        assert '"$SCRIPT_DIR/extract_mesh.sh" "$SCENE_DIR"' in pipeline_src
+        assert 'generate_collision.py' in pipeline_src
+        assert '--manifest' in pipeline_src
+        assert '--ply' in pipeline_src
 
     def test_post_stage_d_verification(self):
         pipeline_src = PIPELINE_SCRIPT.read_text()
         assert 'collision.glb is missing' in pipeline_src
         assert 'collision.glb is empty' in pipeline_src
-
-    def test_blender_called_in_stage_d(self):
-        pipeline_src = PIPELINE_SCRIPT.read_text()
-        assert '$BLENDER_PATH" --background' in pipeline_src
-        assert 'decimate_to_glb.py' in pipeline_src
-
-    def test_blender_bin_env_var(self):
-        pipeline_src = PIPELINE_SCRIPT.read_text()
-        assert 'BLENDER_BIN="${BLENDER_BIN:-blender}"' in pipeline_src
-
-    def test_decimate_target_tris_env_var(self):
-        pipeline_src = PIPELINE_SCRIPT.read_text()
-        assert 'DECIMATE_TARGET_TRIS' in pipeline_src
