@@ -482,9 +482,8 @@ class TestStubBlender:
         assert "TRIANGLES:" in log_content
         assert "EXPORT:" in log_content
 
-    def test_blender_not_found_error(self, tmp_path):
-        """Pipeline source has an error message for missing Blender."""
+    def test_collision_tool_not_found_error(self, tmp_path):
+        """Pipeline source has an error message for missing collision tool."""
         pipeline_script = SCRIPT.parent / "run_pipeline.sh"
         content = pipeline_script.read_text()
-        assert "not found in PATH" in content
-        assert "BLENDER_BIN" in content
+        assert "generate_collision.py" in content

@@ -112,6 +112,9 @@ echo "Copied collision.glb -> $COLLISION_DIR/$SCENE_NAME.collision.glb"
 cp "$SCENE_DIR/alignment_manifest.json" "$DEST_DIR/alignment_manifest.json"
 echo "Copied alignment_manifest.json -> $DEST_DIR/alignment_manifest.json"
 
+cp "$SCENE_DIR/traversal_manifest.json" "$DEST_DIR/traversal_manifest.json"
+echo "Copied traversal_manifest.json -> $DEST_DIR/traversal_manifest.json"
+
 # ---------------------------------------------------------------------------
 # Generate scene file from template
 # ---------------------------------------------------------------------------
@@ -264,6 +267,28 @@ if manifest_path.is_file():
     except (json.JSONDecodeError, OSError):
         pass
 
+
+def _tool_versions(scene_dir, manifest):
+    """Read tool versions from tool_versions.json, falling back to manifest/unknown."""
+    tool_versions_path = scene_dir / "tool_versions.json"
+    if tool_versions_path.is_file():
+        try:
+            versions = json.loads(tool_versions_path.read_text())
+            return {
+                "splat_transform": versions.get("splat_transform", "unknown"),
+                "colmap": versions.get("colmap", "unknown"),
+                "nerfstudio": versions.get("nerfstudio", "unknown"),
+                "gsplat": versions.get("gsplat", "unknown"),
+            }
+        except (json.JSONDecodeError, OSError):
+            pass
+    return {
+        "splat_transform": manifest.get("tool", {}).get("pinned_version", "unknown"),
+        "colmap": "unknown",
+        "nerfstudio": "unknown",
+        "gsplat": "unknown",
+    }
+
 scene_manifest = {
     "scene_name": scene_name,
     "source_video": str(scene_dir / "video.mp4"),
@@ -283,12 +308,7 @@ scene_manifest = {
             "md5": md5(dest_dir / "alignment_manifest.json"),
         },
     },
-    "tools": {
-        "splat_transform": manifest.get("tool", {}).get("pinned_version", "unknown"),
-        "colmap": "3.10",
-        "nerfstudio": "1.1.5",
-        "gsplat": "1.5.1",
-    },
+    "tools": _tool_versions(scene_dir, manifest),
     "stages": {
         name: {
             "status": record.get("status", "unknown"),

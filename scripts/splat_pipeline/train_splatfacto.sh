@@ -210,9 +210,27 @@ rm -f "$PLY_OUT"
 
 echo "--- Stage C: Nerfstudio Splatfacto training ---"
 
-# Record pinned tool versions for provenance.
-echo "Pinned nerfstudio version: $PINNED_NERFSTUDIO_VERSION"
-echo "Pinned gsplat version: $PINNED_GSPLAT_VERSION"
+# Record tool versions for provenance. Query the actual installed versions
+# rather than asserting the pinned constants.
+NS_VERSION="$("$NS_PATH" --version 2>/dev/null || echo "unknown")"
+GSPLAT_VERSION="$(python3 -c "import gsplat; print(gsplat.__version__)" 2>/dev/null || echo "unknown")"
+echo "nerfstudio version: $NS_VERSION"
+echo "gsplat version: $GSPLAT_VERSION"
+
+# Write tool_versions.json for stage_godot.sh to read.
+python3 - "$SCENE_DIR" "$NS_VERSION" "$GSPLAT_VERSION" "$PINNED_NERFSTUDIO_VERSION" "$PINNED_GSPLAT_VERSION" << 'PYEOF'
+import json, sys
+scene_dir, ns_version, gsplat_version, pinned_ns, pinned_gsplat = sys.argv[1:6]
+versions = {
+    "nerfstudio": ns_version,
+    "gsplat": gsplat_version,
+    "pinned_nerfstudio": pinned_ns,
+    "pinned_gsplat": pinned_gsplat,
+}
+with open(scene_dir + "/tool_versions.json", "w") as f:
+    json.dump(versions, f, indent=2)
+    f.write("\n")
+PYEOF
 
 # nerfstudio's ns-train command. The --data flag points at the scene directory
 # (which contains images/ and sparse/0/). The --output-dir flag controls where

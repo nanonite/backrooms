@@ -114,17 +114,23 @@ fi
 
 SCENE_DIR="$SCENES_ROOT/$SCENE_NAME"
 
-# Dry-run: create the scene dir and a placeholder video.mp4 so run_pipeline.sh
-# can realpath it, but skip the actual video copy.
+# Dry-run: print the plan without creating directories or copying the video.
+# run_pipeline.sh tolerates a missing video.mp4 under --dry-run.
 if [[ " ${EXTRA_ARGS[*]} " == *" --dry-run "* ]]; then
-    mkdir -p "$SCENE_DIR"
-    touch "$SCENE_DIR/video.mp4"
     echo "=== Convert video (dry run) ==="
     echo "Video:     $VIDEO_PATH"
     echo "Scene:     $SCENE_NAME"
-    echo "Scene dir: $SCENE_DIR (placeholder video.mp4)"
+    echo "Scene dir: $SCENE_DIR (not created)"
     echo
     exec "$SCRIPT_DIR/run_pipeline.sh" "$SCENE_DIR" "${EXTRA_ARGS[@]+"${EXTRA_ARGS[@]}"}"
+fi
+
+# Guard: refuse to silently overwrite an existing scene's video.mp4.
+if [[ -f "$SCENE_DIR/video.mp4" ]]; then
+    echo "FAIL: $SCENE_DIR/video.mp4 already exists." >&2
+    echo "This scene name is already in use. Choose a different name or remove" >&2
+    echo "the existing scene directory first." >&2
+    exit 1
 fi
 
 mkdir -p "$SCENE_DIR"

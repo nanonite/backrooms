@@ -134,7 +134,7 @@ echo
 # Pre-flight
 # ---------------------------------------------------------------------------
 
-if [[ ! -f "$VIDEO_PATH" ]]; then
+if [[ ! -f "$VIDEO_PATH" ]] && [[ "$DRY_RUN" != true ]]; then
     echo "FAIL: video.mp4 not found at '$VIDEO_PATH'." >&2
     echo "Place a conforming capture video at that path and re-run." >&2
     exit 1
@@ -254,7 +254,7 @@ if [[ "$DRY_RUN" == true ]]; then
     echo
     echo "Stage E: Alignment contract + traversal plan"
     echo "  python3 $SCRIPT_DIR/measure_splat_frame.py --ply $SCENE_DIR/scene.ply --colmap-model $SCENE_DIR/sparse/0 --dataparser-transforms $SCENE_DIR/splatfacto_output/dataparser_transforms.json --scene-id $SCENE_NAME --out $SCENE_DIR/alignment_manifest.json"
-    echo "  python3 $SCRIPT_DIR/traversal_plan.py --manifest $SCENE_DIR/alignment_manifest.json --report $SCENE_DIR/collision_benchmark.json --glb $SCENE_DIR/collision/collision.glb --out $SCENE_DIR/traversal_manifest.json"
+    echo "  python3 $SCRIPT_DIR/traversal_plan.py --manifest $SCENE_DIR/alignment_manifest.json --report $SCENE_DIR/collision_benchmark.json --glb $SCENE_DIR/collision.collision.glb --out $SCENE_DIR/traversal_manifest.json"
     echo
     echo "Stage F: Godot staging"
     echo "  $SCRIPT_DIR/stage_godot.sh $SCENE_DIR"
@@ -582,6 +582,9 @@ echo "--- Stage D: Collision mesh ---" | tee "$STAGE_D_LOG"
 
 STAGE_D_INPUT_HASH="$(file_hash "$SCENE_DIR/scene.ply")"
 STAGE_D_INPUT_HASH="$(settings_hash "$STAGE_D_INPUT_HASH" "${VOXEL_SIZE_M:-0.05}" "${EXTERIOR_FILL_M:-1.2}" "${CLUSTER_RESOLUTION_M:-0.25}")"
+# Include alignment_manifest.json: generate_collision.py consumes it and validates
+# its metres_per_unit/scale reference.
+STAGE_D_INPUT_HASH="$(settings_hash "$STAGE_D_INPUT_HASH" "$(file_hash "$SCENE_DIR/alignment_manifest.json")")"
 
 if should_skip_stage "stage_d" "$STAGE_D_INPUT_HASH"; then
     echo "Stage D skipped (unchanged)." | tee -a "$STAGE_D_LOG"
@@ -661,6 +664,8 @@ STAGE_E_INPUT_HASH="$(file_hash "$SCENE_DIR/scene.ply")"
 STAGE_E_INPUT_HASH="$(settings_hash "$STAGE_E_INPUT_HASH" "$SCENE_NAME" "${TARGET_CLEAR_HEIGHT:-2.4}" "${FOOTAGE_KIND:-synthetic}")"
 # Include collision.glb and Stage D settings so a collision change invalidates the traversal plan.
 STAGE_E_INPUT_HASH="$(settings_hash "$STAGE_E_INPUT_HASH" "$(file_hash "$SCENE_DIR/collision.collision.glb")" "${VOXEL_SIZE_M:-0.05}" "${EXTERIOR_FILL_M:-1.2}" "${CLUSTER_RESOLUTION_M:-0.25}")"
+# Include the COLMAP sparse model and dataparser_transforms.json that measure_splat_frame.py consumes.
+STAGE_E_INPUT_HASH="$(settings_hash "$STAGE_E_INPUT_HASH" "$(file_hash "$SCENE_DIR/sparse/0/cameras.bin")" "$(file_hash "$SCENE_DIR/sparse/0/images.bin")" "$(file_hash "$SCENE_DIR/sparse/0/points3D.bin")" "$(file_hash "$DATAPARSER_TRANSFORMS")")"
 
 if should_skip_stage "stage_e" "$STAGE_E_INPUT_HASH"; then
     echo "Stage E skipped (unchanged)." | tee -a "$STAGE_E_LOG"
@@ -768,7 +773,7 @@ echo
 echo "--- Stage F: Godot staging ---" | tee "$STAGE_F_LOG"
 
 STAGE_F_INPUT_HASH="$(file_hash "$SCENE_DIR/scene.ply")"
-STAGE_F_INPUT_HASH="$(settings_hash "$STAGE_F_INPUT_HASH" "$(file_hash "$SCENE_DIR/collision.collision.glb")" "$(file_hash "$SCENE_DIR/alignment_manifest.json")")"
+STAGE_F_INPUT_HASH="$(settings_hash "$STAGE_F_INPUT_HASH" "$(file_hash "$SCENE_DIR/collision.collision.glb")" "$(file_hash "$SCENE_DIR/alignment_manifest.json")" "$(file_hash "$SCENE_DIR/traversal_manifest.json")")"
 
 if should_skip_stage "stage_f" "$STAGE_F_INPUT_HASH"; then
     echo "Stage F skipped (unchanged)." | tee -a "$STAGE_F_LOG"
