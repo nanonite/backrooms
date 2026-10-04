@@ -58,8 +58,10 @@ The pipeline is **deterministic** for stages that depend only on their inputs:
   scene file.
 
 A fresh run and a resumed run produce **equivalent** validated assets within these
-tolerances. The `test_pipeline_equivalence` test verifies this by comparing the
-outputs of a fresh scene and an interrupted-then-resumed scene.
+tolerances. Resumability is verified by `test_pipeline_resumability`, which runs
+the pipeline twice and asserts that the second run skips all stages. A full
+fresh-vs-resumed equivalence check (comparing validated assets between a fresh
+scene and an interrupted-then-resumed scene) is not yet implemented.
 
 ## Per-scene layout
 
@@ -411,7 +413,7 @@ python3 scripts/splat_pipeline/measure_splat_frame.py \
 python3 scripts/splat_pipeline/traversal_plan.py \
     --manifest <scene_dir>/alignment_manifest.json \
     --report <scene_dir>/collision_benchmark.json \
-    --glb <scene_dir>/collision/collision.glb \
+    --glb <scene_dir>/collision.collision.glb \
     --out <scene_dir>/traversal_manifest.json
 ```
 
