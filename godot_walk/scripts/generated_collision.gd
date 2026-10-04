@@ -14,15 +14,19 @@ extends StaticBody3D
 ## `verify_traversal.gd` in particular asserts what the walker stands on rather
 ## than that a node is present.
 
+## The collision mesh path, set by the scene file.  Each scene's .tscn carries
+## its own path as a node property, so one script serves every scene.
+@export var mesh_path: String = ""
+
 ## The collision mesh #84's benchmark produced.  Reproduce with
 ## `scripts/splat_pipeline/generate_collision.py`; the expected triangle count is
 ## what distinguishes "the mesh is here" from "a shape exists".
-const MESH_PATH := "res://assets/corridor_splat/collision/corridor_splat.collision.glb"
+const MESH_PATH_FALLBACK := "res://assets/corridor_splat/collision/corridor_splat.collision.glb"
 
-## Triangles the recorded run produced.  Only a warning when it does not match:
-## a re-voxelised capture legitimately differs, and the walk test's own
+## Triangles the corridor_splat run produced.  Only a warning when it does not
+## match: a re-voxelised capture legitimately differs, and the walk test's own
 ## assertions are the real gate.
-const EXPECTED_TRIANGLES := 10178
+const REFERENCE_TRIANGLES := 10178
 
 var triangle_count: int = 0
 var load_error: String = ""
@@ -39,7 +43,7 @@ func _ready() -> void:
 		return
 	var shape := mesh.create_trimesh_shape()
 	if shape == null:
-		load_error = "%s produced no triangle mesh" % MESH_PATH
+		load_error = "%s produced no triangle mesh" % _mesh_path()
 		push_error("GeneratedCollision: %s" % load_error)
 		return
 	# The generated shell is a boolean difference -- outer surface minus carved
@@ -54,10 +58,10 @@ func _ready() -> void:
 	node.shape = shape
 	add_child(node)
 	triangle_count = _triangle_count(mesh)
-	if triangle_count != EXPECTED_TRIANGLES:
+	if triangle_count != REFERENCE_TRIANGLES:
 		push_warning(
-			"GeneratedCollision: %s has %d triangles, the recorded run produced %d"
-			% [MESH_PATH, triangle_count, EXPECTED_TRIANGLES]
+			"GeneratedCollision: %s has %d triangles, the corridor_splat reference produced %d"
+			% [_mesh_path(), triangle_count, REFERENCE_TRIANGLES]
 		)
 
 
@@ -67,19 +71,27 @@ func has_collision() -> bool:
 
 
 func _load_mesh() -> ArrayMesh:
-	var scene: PackedScene = load(MESH_PATH)
+	var path := _mesh_path()
+	var scene: PackedScene = load(path)
 	if scene == null:
-		load_error = "could not load %s; run the Godot import pass first" % MESH_PATH
+		load_error = "could not load %s; run the Godot import pass first" % path
 		return null
 	var instance := scene.instantiate()
 	if instance == null:
-		load_error = "could not instantiate %s" % MESH_PATH
+		load_error = "could not instantiate %s" % path
 		return null
 	var mesh := _first_mesh(instance)
 	instance.free()
 	if mesh == null:
-		load_error = "%s contains no MeshInstance3D" % MESH_PATH
+		load_error = "%s contains no MeshInstance3D" % path
 	return mesh
+
+
+func _mesh_path() -> String:
+	## The collision mesh path: the scene's own property, or the fallback.
+	if mesh_path != "":
+		return mesh_path
+	return MESH_PATH_FALLBACK
 
 
 func _first_mesh(node: Node) -> ArrayMesh:

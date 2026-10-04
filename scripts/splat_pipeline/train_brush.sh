@@ -245,7 +245,7 @@ echo "--- Stage C: Brush training ---"
 BRUSH_ARGS=(
     "$SCENE_DIR"
     "--total-train-iters" "$BRUSH_TOTAL_STEPS_VAL"
-    "--export-path" "./{dataset}/"
+    "--export-path" "$SCENE_DIR"
     "--export-name" "$SPLINE_SCENE_PLY"
 )
 

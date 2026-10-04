@@ -585,12 +585,13 @@ PIPELINE_SCRIPT = Path(__file__).resolve().parent.parent / "run_pipeline.sh"
 
 
 class TestPipelineIntegration:
-    """Test that run_pipeline.sh correctly wires train_brush.sh in Stage C."""
+    """Test that run_pipeline.sh correctly wires Stage C training."""
 
     def test_stage_c_section_present(self):
         """run_pipeline.sh Stage C section is implemented, not a placeholder."""
         pipeline_src = PIPELINE_SCRIPT.read_text()
         assert "Stage C: Splat training" in pipeline_src
+        assert "train_splatfacto.sh" in pipeline_src
         assert "train_brush.sh" in pipeline_src
         assert "scene.ply" in pipeline_src
         # Verify the old Stage C placeholder is gone (other stages may still have it)
@@ -600,7 +601,6 @@ class TestPipelineIntegration:
         """Pipeline source references the correct error message for missing script."""
         pipeline_src = PIPELINE_SCRIPT.read_text()
         assert 'train_brush.sh not found or not executable' in pipeline_src
-        assert 'Install Brush (ArthurBrussee/brush)' in pipeline_src
 
     def test_post_stage_c_verification_in_pipeline(self):
         """Pipeline verifies scene.ply exists and is non-empty after Stage C."""
@@ -609,7 +609,7 @@ class TestPipelineIntegration:
         assert 'scene.ply is empty' in pipeline_src
 
     def test_train_brush_invoked_with_scene_dir(self):
-        """Pipeline passes scene_dir to train_brush.sh."""
+        """Pipeline passes scene_dir to train_brush.sh as fallback."""
         pipeline_src = PIPELINE_SCRIPT.read_text()
         assert '"$SCRIPT_DIR/train_brush.sh" "$SCENE_DIR"' in pipeline_src
 

@@ -7,16 +7,37 @@ on the GPU workstation.
 ## Quick start
 
 ```bash
-# 1. Place your conforming video in a scene directory
-mkdir -p scenes/my_room
-cp /path/to/capture.mp4 scenes/my_room/video.mp4
+# One command: video → walkable Godot scene
+scripts/splat_pipeline/convert_video.sh /path/to/capture.mp4
 
-# 2. Validate the input
-python3 scripts/splat_pipeline/validate_input.py scenes/my_room/video.mp4
+# Or with an explicit scene name
+scripts/splat_pipeline/convert_video.sh /path/to/capture.mp4 my_room
 
-# 3. Run the pipeline (Stages A–D implemented; integration pending #113/#114)
-bash scripts/splat_pipeline/run_pipeline.sh scenes/my_room
+# Dry-run: print the plan without executing
+scripts/splat_pipeline/convert_video.sh /path/to/capture.mp4 --dry-run
+
+# Force re-run of all stages (ignore previous results)
+scripts/splat_pipeline/convert_video.sh /path/to/capture.mp4 --force
 ```
+
+The pipeline is **resumable**: after an interruption, re-run the same command
+and unchanged stages are skipped. Changing the video or any setting changes
+the stage's input hash, so that stage (and everything downstream) re-runs.
+
+## Resumability and dry-run
+
+Each stage records its input hash, output hash, and status in
+`<scene_dir>/pipeline_state.json`. Before running a stage, the pipeline checks
+whether a previous successful record exists with a matching input hash:
+
+- **Match** — the stage is skipped (resumability after interruption).
+- **Mismatch** — the stage re-runs (invalidation on input/settings change).
+- **Failed** — the stage re-runs (a failure never causes a skip).
+
+`--dry-run` prints the plan and exits without executing. `--force` re-runs all
+stages, ignoring previous results.
+
+Per-stage logs are written to `<scene_dir>/logs/<stage_name>.log`.
 
 ## Per-scene layout
 
@@ -31,11 +52,13 @@ bash scripts/splat_pipeline/run_pipeline.sh scenes/my_room
     points3D.bin           # Sparse point cloud
   scene.ply              # Stage C output — VISUAL asset (Gaussian splat)
   collision.glb          # Stage D output — PHYSICS asset (collision mesh)
-  alignment.toml         # Filled during Back-end Step 4 alignment ritual
+  alignment_manifest.json # Stage E output — calibration contract
+  traversal_manifest.json # Stage E output — traversal plan
+  pipeline_state.json    # Resumability state (input/output hashes per stage)
+  logs/                  # Per-stage logs
 ```
 
-Final assets are copied to `splat_walk/assets/splats/<scene_name>/` at integration
-(subissue #113/#114).
+Final assets are copied to `godot_walk/assets/<scene_name>/` at Stage F.
 
 ## Conforming video requirements
 
@@ -66,18 +89,18 @@ fundamental limitation of Gaussian splatting from posed video, not a bug.
 
 ## Pipeline stages
 
-| Stage | Script (when implemented) | Subissue | Input | Output |
-|-------|--------------------------|----------|-------|--------|
-| Validate | `validate_input.py` | #106 | `video.mp4` | PASS / FAIL |
-| A — Sample + extract | `capture_gate.py` + `sample_frames.py` | #90 | `video.mp4` | `capture_gate.json` + `images/*.jpg` |
-| A′ — Blur cull | `cull_blurry.py` (legacy fixed-fps path only) | #107 | `images/` | `images/*.jpg` |
-| Registration report | `model_coverage.py` | #90 | `sparse/` + `images/` | registered vs excluded frames |
-| B — Pose | `pose_colmap.sh` / `pose_vggt.sh` | #108 | `images/` | `sparse/0/*.bin` |
-| C — Splat | `train_brush.sh` | #109 | `images/` + `sparse/` | `scene.ply` |
-| D — Mesh | `extract_mesh.sh` + `decimate_to_glb.py` | #111 | `scene.ply` checkpoint | `collision.glb` |
-| M — Photogrammetry mesh | `mesh_photogrammetry.sh` | #68/#70 | `images/` + `sparse/0/` | `mesh_raw.ply` + `scene.glb` |
-| Integration | Asset copy + alignment | #113/#114 | all above | `splat_walk/assets/splats/` |
-| Frame contract | `measure_splat_frame.py` + `emit_scene_contract.py` | #83 | `scene.ply` + `sparse/0/` + dataparser transform | `alignment_manifest.json` |
+| Stage | Script | Input | Output |
+|-------|--------|-------|--------|
+| Validate | `validate_input.py` | `video.mp4` | PASS / FAIL |
+| A — Sample + extract | `capture_gate.py` + `sample_frames.py` | `video.mp4` | `capture_gate.json` + `images/*.jpg` |
+| A′ — Blur cull | `cull_blurry.py` (legacy fixed-fps path only) | `images/` | `images/*.jpg` |
+| Registration report | `model_coverage.py` | `sparse/` + `images/` | registered vs excluded frames |
+| B — Pose | `pose_colmap.sh` / `pose_vggt.sh` | `images/` | `sparse/0/*.bin` |
+| C — Splat | `train_splatfacto.sh` (default) / `train_brush.sh` (fallback) | `images/` + `sparse/` | `scene.ply` |
+| D — Collision | `generate_collision.py` | `scene.ply` + `alignment_manifest.json` | `collision.glb` |
+| E — Alignment + traversal | `measure_splat_frame.py` + `traversal_plan.py` | `scene.ply` + `sparse/0/` + dataparser | `alignment_manifest.json` + `traversal_manifest.json` |
+| F — Godot staging | `stage_godot.sh` | all above | `godot_walk/assets/<scene>/` |
+| M — Photogrammetry mesh | `mesh_photogrammetry.sh` | `images/` + `sparse/0/` | `mesh_raw.ply` + `scene.glb` |
 
 ### Stage details
 
@@ -279,9 +302,9 @@ vastly more robust. Less metric precision means a fiddlier alignment ritual
 **Output:** `<scene_dir>/sparse/0/{cameras.bin, images.bin, points3D.bin}` in COLMAP
 binary format — identical contract to Path 1. Consumed by Stage C (Brush).
 
-**Stage C (#109):** Train the Gaussian splat with Brush (`ArthurBrussee/brush`), a
-Rust+wgpu trainer. Monitor in Brush viewer; stop when quality plateaus. Output:
-`scene.ply`.
+**Stage C (#109):** Train the Gaussian splat. The default backend is Nerfstudio
+Splatfacto (`train_splatfacto.sh`); Brush (`train_brush.sh`) is the fallback for
+hosts where nerfstudio is unavailable. Output: `scene.ply`.
 
 ### Stage C — Usage
 
@@ -343,10 +366,41 @@ the PLY header and reports the splat count, with VRAM advisory at 5M and 10M thr
 | VRAM blowout during training | Too many Gaussians | Cap with `--max-splats`, lower resolution |
 | Brush fails to find COLMAP data | Sparse dir structure wrong | Verify `sparse/0/{cameras,images,points3D}.bin` exist |
 
-**Stage D (#111):** Extract a surface-aligned collision mesh from the trained splat
-using SuGaR or 2DGS. The mesh is CO-REGISTERED with `scene.ply` automatically —
-they come from the same Gaussian reconstruction, so one transform fixes both
-at Back-end Step 4. Decimate to <200k tris via Blender headless. Output: `collision.glb`.
+**Stage D (#111):** Generate collision geometry from the trained splat using the
+pinned `@playcanvas/splat-transform@3.9.0` tool (`generate_collision.py`). The
+collision mesh is CO-REGISTERED with `scene.ply` automatically — they come from
+the same Gaussian reconstruction, so one transform fixes both. Output: `collision.glb`.
+
+**Stage E (#83 + #85):** Measure the alignment contract and derive the traversal plan.
+`measure_splat_frame.py` reads the trained splat, the COLMAP model, and the
+nerfstudio dataparser transform to produce `alignment_manifest.json` — the single
+source of truth for the PLY→Godot-world mapping, landmarks, and camera path.
+`traversal_plan.py` reads the collision mesh and the contract to produce
+`traversal_manifest.json` — the walk route, probes, and tolerances.
+
+```bash
+python3 scripts/splat_pipeline/measure_splat_frame.py \
+    --ply <scene_dir>/scene.ply \
+    --colmap-model <scene_dir>/sparse/0 \
+    --dataparser-transforms <scene_dir>/splatfacto_output/dataparser_transforms.json \
+    --scene-id <scene_name> \
+    --out <scene_dir>/alignment_manifest.json
+
+python3 scripts/splat_pipeline/traversal_plan.py \
+    --manifest <scene_dir>/alignment_manifest.json \
+    --report <scene_dir>/collision_benchmark.json \
+    --glb <scene_dir>/collision/collision.glb \
+    --out <scene_dir>/traversal_manifest.json
+```
+
+**Stage F (#88):** Stage the scene for Godot. `stage_godot.sh` copies the assets
+to `godot_walk/assets/<scene_name>/`, generates the `.tscn` scene file from a
+template, writes `scene_manifest.json` with provenance hashes, and updates
+`current_scene.txt`.
+
+```bash
+scripts/splat_pipeline/stage_godot.sh <scene_dir>
+```
 
 ### Stage M — Photogrammetry mesh usage
 
@@ -582,9 +636,10 @@ the identity-basis correction the scenes neutralise).
 #106 (validate scaffold)
   ├── #107 (Stage A)  ← Frame extraction + blur culling implemented
   ├── #108 (Stage B)  ← COLMAP pose + VGGT fallback implemented
-  ├── #109 (Stage C)  ← Brush splat training implemented
-  ├── #111 (Stage D)  ← SuGaR mesh extraction + decimation implemented
-  └── #113/#114 (Integration) ← depends on #107-#111 + back-end steps
+  ├── #109 (Stage C)  ← Splatfacto training (Brush fallback) implemented
+  ├── #111 (Stage D)  ← Collision generation via splat-transform implemented
+  ├── #83 (Stage E)   ← Alignment contract + traversal plan implemented
+  └── #88 (Stage F)   ← Godot staging implemented
 ```
 
 ## Validator output reference
