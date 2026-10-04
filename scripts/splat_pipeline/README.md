@@ -34,8 +34,18 @@ whether a previous successful record exists with a matching input hash:
 - **Mismatch** — the stage re-runs (invalidation on input/settings change).
 - **Failed** — the stage re-runs (a failure never causes a skip).
 
+Stages run in dependency order, so each stage's declared inputs already exist
+when its input hash is computed: **D — alignment contract** runs before
+**E — collision + traversal**, because `generate_collision.py` consumes
+`alignment_manifest.json`. This is what lets a resumed run skip every unchanged
+stage instead of re-running the pair.
+
 `--dry-run` prints the plan and exits without executing. `--force` re-runs all
 stages, ignoring previous results.
+
+Before any stage, a preflight report lists which external tools are on PATH
+(`ffmpeg`, `colmap`, `glomap`, `ns-train`, `node`, `godot4`, ...). It is
+informational; the per-stage dependency checks remain authoritative.
 
 Per-stage logs are written to `<scene_dir>/logs/<stage_name>.log`.
 
@@ -46,22 +56,28 @@ The pipeline is **deterministic** for stages that depend only on their inputs:
 - **Stage A** (frame selection): deterministic — the capture gate selects the same
   frames for the same video and settings.
 - **Stage B** (pose estimation): deterministic — COLMAP/GLOMAP produce the same
-  sparse model for the same images.
+  sparse model for the same images. The sub-model with the most registered cameras
+  is selected explicitly and recorded in `sparse_model.json`.
 - **Stage C** (Splatfacto training): **nondeterministic** — GPU floating-point
   nondeterminism means two runs with the same seed produce slightly different
   splats. The tolerance is: splat count within 5%, camera positions within 0.01 m.
-- **Stage D** (collision generation): deterministic — `splat-transform` has no
+  The trained config and dataparser transform are hashed into `tool_versions.json`.
+- **Stage D** (alignment contract): deterministic — derived from the splat, the
+  selected COLMAP model, and the dataparser transform.
+- **Stage E** (collision + traversal): deterministic — `splat-transform` has no
   seedable sampling, so identical settings give byte-identical output.
-- **Stage E** (alignment + traversal): deterministic — derived from the splat and
-  collision mesh.
 - **Stage F** (Godot staging): deterministic — copies assets and generates the
   scene file.
 
 A fresh run and a resumed run produce **equivalent** validated assets within these
-tolerances. Resumability is verified by `test_pipeline_resumability`, which runs
-the pipeline twice and asserts that the second run skips all stages. A full
-fresh-vs-resumed equivalence check (comparing validated assets between a fresh
-scene and an interrupted-then-resumed scene) is not yet implemented.
+tolerances. This is verified by `test_pipeline_resumability`, which runs the
+pipeline twice, asserts the second run reports every stage as skipped, and compares
+the SHA-256 of `scene.ply`, `alignment_manifest.json`, `collision.collision.glb`,
+`collision_benchmark.json`, and `traversal_manifest.json` between the two runs.
+Because the test's training backend is deterministic, those bytes must match
+exactly; on a GPU host only the Stage C outputs differ, and the Stage C tolerance
+above applies. `test_pipeline_invalidates_on_input_change` additionally checks that
+changing the video re-runs Stage A.
 
 ## Per-scene layout
 
@@ -74,9 +90,12 @@ scene and an interrupted-then-resumed scene) is not yet implemented.
     cameras.bin            # Camera intrinsics
     images.bin             # Camera extrinsics
     points3D.bin           # Sparse point cloud
+  sparse_model.json      # Stage B output — selected COLMAP model + candidates
   scene.ply              # Stage C output — VISUAL asset (Gaussian splat)
-  collision.collision.glb # Stage D output — PHYSICS asset (collision mesh)
-  alignment_manifest.json # Stage E output — calibration contract
+  tool_versions.json     # Stage C output — tool/model/checkpoint identity
+  alignment_manifest.json # Stage D output — calibration contract
+  collision.collision.glb # Stage E output — PHYSICS asset (collision mesh)
+  collision_benchmark.json # Stage E output — collision verdict/provenance
   traversal_manifest.json # Stage E output — traversal plan
   pipeline_state.json    # Resumability state (input/output hashes per stage)
   logs/                  # Per-stage logs
@@ -119,10 +138,10 @@ fundamental limitation of Gaussian splatting from posed video, not a bug.
 | A — Sample + extract | `capture_gate.py` + `sample_frames.py` | `video.mp4` | `capture_gate.json` + `images/*.jpg` |
 | A′ — Blur cull | `cull_blurry.py` (legacy fixed-fps path only) | `images/` | `images/*.jpg` |
 | Registration report | `model_coverage.py` | `sparse/` + `images/` | registered vs excluded frames |
-| B — Pose | `pose_colmap.sh` / `pose_vggt.sh` | `images/` | `sparse/0/*.bin` |
-| C — Splat | `train_splatfacto.sh` (default) / `train_brush.sh` (fallback) | `images/` + `sparse/` | `scene.ply` |
-| D — Collision | `generate_collision.py` | `scene.ply` + `alignment_manifest.json` | `collision.collision.glb` |
-| E — Alignment + traversal | `measure_splat_frame.py` + `traversal_plan.py` | `scene.ply` + `sparse/0/` + dataparser | `alignment_manifest.json` + `traversal_manifest.json` |
+| B — Pose | `pose_colmap.sh` / `pose_vggt.sh` | `images/` | `sparse/<n>/*.bin` |
+| C — Splat | `train_splatfacto.sh` (default) / `train_brush.sh` (fallback) | `images/` + selected `sparse/<n>/` | `scene.ply` |
+| D — Alignment | `measure_splat_frame.py` | `scene.ply` + selected `sparse/<n>/` + dataparser | `alignment_manifest.json` |
+| E — Collision + traversal | `generate_collision.py` + `traversal_plan.py` | `scene.ply` + `alignment_manifest.json` | `collision.collision.glb` + `collision_benchmark.json` + `traversal_manifest.json` |
 | F — Godot staging | `stage_godot.sh` | all above | `godot_walk/assets/<scene>/` |
 | M — Photogrammetry mesh | `mesh_photogrammetry.sh` | `images/` + `sparse/0/` | `mesh_raw.ply` + `scene.glb` |
 
@@ -390,25 +409,36 @@ the PLY header and reports the splat count, with VRAM advisory at 5M and 10M thr
 | VRAM blowout during training | Too many Gaussians | Cap with `--max-splats`, lower resolution |
 | Brush fails to find COLMAP data | Sparse dir structure wrong | Verify `sparse/0/{cameras,images,points3D}.bin` exist |
 
-**Stage D (#111):** Generate collision geometry from the trained splat using the
-pinned `@playcanvas/splat-transform@3.9.0` tool (`generate_collision.py`). The
-collision mesh is CO-REGISTERED with `scene.ply` automatically — they come from
-the same Gaussian reconstruction, so one transform fixes both. Output: `collision.glb`.
-
-**Stage E (#83 + #85):** Measure the alignment contract and derive the traversal plan.
-`measure_splat_frame.py` reads the trained splat, the COLMAP model, and the
-nerfstudio dataparser transform to produce `alignment_manifest.json` — the single
-source of truth for the PLY→Godot-world mapping, landmarks, and camera path.
-`traversal_plan.py` reads the collision mesh and the contract to produce
-`traversal_manifest.json` — the walk route, probes, and tolerances.
+**Stage D (#83):** Measure the alignment contract. `measure_splat_frame.py` reads
+the trained splat, the selected COLMAP model, and the nerfstudio dataparser
+transform to produce `alignment_manifest.json` — the single source of truth for
+the PLY→Godot-world mapping, landmarks, camera path, and player spawn. The
+selected model is whichever sub-model `colmap_model.find_sparse_model` chose
+(most registered cameras), recorded in `sparse_model.json`.
 
 ```bash
 python3 scripts/splat_pipeline/measure_splat_frame.py \
     --ply <scene_dir>/scene.ply \
-    --colmap-model <scene_dir>/sparse/0 \
+    --colmap-model <scene_dir>/sparse/<n> \
     --dataparser-transforms <scene_dir>/splatfacto_output/dataparser_transforms.json \
     --scene-id <scene_name> \
     --out <scene_dir>/alignment_manifest.json
+```
+
+**Stage E (#111 + #85):** Generate collision geometry from the trained splat using
+the pinned `@playcanvas/splat-transform@3.9.0` tool (`generate_collision.py`), then
+derive the traversal plan. The collision mesh is CO-REGISTERED with `scene.ply`
+automatically — they come from the same Gaussian reconstruction, so the contract's
+transform fixes both. `traversal_plan.py` reads the collision mesh and the contract
+to produce `traversal_manifest.json` — the walk route, probes, tolerances, and the
+safe spawn.
+
+```bash
+python3 scripts/splat_pipeline/generate_collision.py \
+    --manifest <scene_dir>/alignment_manifest.json \
+    --ply <scene_dir>/scene.ply \
+    --out <scene_dir>/collision \
+    --report <scene_dir>/collision_benchmark.json
 
 python3 scripts/splat_pipeline/traversal_plan.py \
     --manifest <scene_dir>/alignment_manifest.json \
@@ -462,7 +492,12 @@ scripts/splat_pipeline/mesh_photogrammetry.sh <scene_dir> --fallback meshroom
 and validates screenshots. If `colmap -h` does not list `delaunay_mesher`, skip
 #70 for that build and use #71 (Meshroom/AliceVision fallback).
 
-### Stage D — Usage
+### Legacy mesh extraction (SuGaR) — retired
+
+> The SuGaR + Blender collision path below is **not** wired into
+> `run_pipeline.sh`. The pipeline generates collision with
+> `generate_collision.py` (pinned `@playcanvas/splat-transform@3.9.0`) in Stage E.
+> These scripts remain for reference and manual comparison only.
 
 ```bash
 # Step D1: Extract mesh from splat (SuGaR)
@@ -474,8 +509,6 @@ scripts/splat_pipeline/extract_mesh.sh <scene_dir> --checkpoint <ckpt_dir>
 # Step D2: Decimate and export collision.glb (headless Blender)
 blender --background --python scripts/splat_pipeline/decimate_to_glb.py -- \\
     --scene-dir <scene_dir> [--target-triangles 150000]
-
-# Both steps are run automatically by run_pipeline.sh in sequence.
 ```
 
 **Prerequisites:**
@@ -661,8 +694,8 @@ the identity-basis correction the scenes neutralise).
   ├── #107 (Stage A)  ← Frame extraction + blur culling implemented
   ├── #108 (Stage B)  ← COLMAP pose + VGGT fallback implemented
   ├── #109 (Stage C)  ← Splatfacto training (Brush fallback) implemented
-  ├── #111 (Stage D)  ← Collision generation via splat-transform implemented
-  ├── #83 (Stage E)   ← Alignment contract + traversal plan implemented
+  ├── #83 (Stage D)   ← Alignment contract implemented
+  ├── #111 (Stage E)  ← Collision generation + traversal plan implemented
   └── #88 (Stage F)   ← Godot staging implemented
 ```
 
@@ -791,8 +824,10 @@ run that used the lever, never as a configured cap.
 `colmap_dataset.py` stages a capture for an unattended run: symlinked read-only
 inputs so the capture is never modified, and pre-rendered `images_2` so nerfstudio
 does not prompt for downscaling (an automated run otherwise dies on `EOFError`).
-The model is passed as `--colmap-path sparse/0`, because nerfstudio defaults to
-`colmap/sparse/0` and this repo's COLMAP 3.10 + GLOMAP output is at `sparse/0`.
+The model is passed as `--colmap-path <selected>`, because nerfstudio defaults to
+`colmap/sparse/0` while this repo's COLMAP 3.10 + GLOMAP output lives under
+`sparse/`. `train_splatfacto.sh` passes the sub-model selected by
+`colmap_model.find_sparse_model` (most registered cameras).
 
 ## GPU workstation environment
 

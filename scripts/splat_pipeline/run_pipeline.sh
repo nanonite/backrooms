@@ -26,10 +26,12 @@
 #     video.mp4              # input
 #     images/                # Stage A output
 #     database.db            # Stage B (COLMAP)
-#     sparse/0/              # Stage B output (COLMAP format)
+#     sparse/<n>/            # Stage B output (COLMAP format; <n> selected)
+#     sparse_model.json      # Stage B model-selection record
 #     scene.ply              # Stage C output (VISUAL)
-#     collision.glb          # Stage D output (PHYSICS)
-#     alignment_manifest.json # Stage E output (CALIBRATION)
+#     alignment_manifest.json # Stage D output (CALIBRATION)
+#     collision.collision.glb # Stage E output (PHYSICS)
+#     collision_benchmark.json # Stage E output (collision verdict)
 #     traversal_manifest.json # Stage E output (TRAVERSAL)
 #     pipeline_state.json    # Resumability state
 #     logs/                  # Per-stage logs
@@ -80,8 +82,8 @@ Stages:
               hypothesis 100-200).
   Stage B    Pose estimation (COLMAP → VGGT fallback)
   Stage C    Splat training (Nerfstudio Splatfacto, Brush fallback)
-  Stage D    Collision mesh (generate_collision.py via @playcanvas/splat-transform)
-  Stage E    Alignment contract + traversal plan (measure_splat_frame.py, traversal_plan.py)
+  Stage D    Alignment contract (measure_splat_frame.py)
+  Stage E    Collision mesh + traversal plan (generate_collision.py, traversal_plan.py)
   Stage F    Godot staging (stage_godot.sh)
 
 Design rule: the splat is reliable ONLY near the captured camera path.
@@ -100,7 +102,8 @@ if [[ $# -lt 1 ]]; then
     exit 1
 fi
 
-SCENE_DIR="$(realpath "$1")"
+# -m allows a scene directory that does not exist yet (dry-run on a new scene).
+SCENE_DIR="$(realpath -m "$1")"
 shift
 
 DRY_RUN=false
@@ -134,6 +137,25 @@ echo
 # Pre-flight
 # ---------------------------------------------------------------------------
 
+# Report which external tools are on PATH. Informational only: the per-stage
+# dependency checks remain authoritative, so a host that satisfies a stage
+# through a wrapper (e.g. a stubbed pose_colmap.sh) is not blocked here.
+preflight_tools() {
+    local missing=0
+    local tool
+    echo "--- Preflight: tool availability ---"
+    for tool in ffmpeg ffprobe python3 node colmap glomap ns-train godot godot4; do
+        if command -v "$tool" >/dev/null 2>&1; then
+            echo "  [ok]      $tool"
+        else
+            echo "  [missing] $tool"
+            missing=$((missing + 1))
+        fi
+    done
+    echo "Preflight: $missing tool(s) not on PATH (per-stage checks decide pass/fail)."
+    echo
+}
+
 if [[ ! -f "$VIDEO_PATH" ]] && [[ "$DRY_RUN" != true ]]; then
     echo "FAIL: video.mp4 not found at '$VIDEO_PATH'." >&2
     echo "Place a conforming capture video at that path and re-run." >&2
@@ -145,6 +167,8 @@ if [[ "$DRY_RUN" != true ]]; then
     mkdir -p "$SCENE_DIR/images"
     mkdir -p "$SCENE_DIR/logs"
 fi
+
+preflight_tools
 
 # ---------------------------------------------------------------------------
 # Resumability helper
@@ -249,11 +273,11 @@ if [[ "$DRY_RUN" == true ]]; then
         echo "  $SCRIPT_DIR/train_brush.sh $SCENE_DIR"
     fi
     echo
-    echo "Stage D: Collision mesh"
-    echo "  python3 $SCRIPT_DIR/generate_collision.py --manifest $SCENE_DIR/alignment_manifest.json --ply $SCENE_DIR/scene.ply --out $SCENE_DIR/collision --report $SCENE_DIR/collision_benchmark.json"
+    echo "Stage D: Alignment contract"
+    echo "  python3 $SCRIPT_DIR/measure_splat_frame.py --ply $SCENE_DIR/scene.ply --colmap-model $SCENE_DIR/sparse/<selected> --dataparser-transforms $SCENE_DIR/splatfacto_output/dataparser_transforms.json --scene-id $SCENE_NAME --out $SCENE_DIR/alignment_manifest.json"
     echo
-    echo "Stage E: Alignment contract + traversal plan"
-    echo "  python3 $SCRIPT_DIR/measure_splat_frame.py --ply $SCENE_DIR/scene.ply --colmap-model $SCENE_DIR/sparse/0 --dataparser-transforms $SCENE_DIR/splatfacto_output/dataparser_transforms.json --scene-id $SCENE_NAME --out $SCENE_DIR/alignment_manifest.json"
+    echo "Stage E: Collision mesh + traversal plan"
+    echo "  python3 $SCRIPT_DIR/generate_collision.py --manifest $SCENE_DIR/alignment_manifest.json --ply $SCENE_DIR/scene.ply --out $SCENE_DIR/collision --report $SCENE_DIR/collision_benchmark.json"
     echo "  python3 $SCRIPT_DIR/traversal_plan.py --manifest $SCENE_DIR/alignment_manifest.json --report $SCENE_DIR/collision_benchmark.json --glb $SCENE_DIR/collision.collision.glb --out $SCENE_DIR/traversal_manifest.json"
     echo
     echo "Stage F: Godot staging"
@@ -400,9 +424,11 @@ print(h.hexdigest())
 " "$SCENE_DIR/images")"
 STAGE_B_INPUT_HASH="$(settings_hash "$STAGE_B_INPUT_HASH" "${POSE_MATCHER_MODE:-exhaustive}")"
 
+STAGE_B_RAN=false
 if should_skip_stage "stage_b" "$STAGE_B_INPUT_HASH"; then
     echo "Stage B skipped (unchanged)." | tee -a "$STAGE_B_LOG"
 else
+    STAGE_B_RAN=true
     STAGE_B_STATUS=0
 
     if [[ -x "$SCRIPT_DIR/pose_colmap.sh" ]]; then
@@ -432,7 +458,7 @@ else
                 record_stage "stage_b" "$STAGE_B_INPUT_HASH" "" "failed" "both pose methods failed"
                 exit 1
             fi
-        elif [[ -f "$SCENE_DIR/sparse/0/images.bin" ]]; then
+        elif compgen -G "$SCENE_DIR/sparse/*/images.bin" >/dev/null; then
             echo "Stage B produced a sparse model (non-zero exit $STAGE_B_STATUS)." | tee -a "$STAGE_B_LOG"
             echo "Continuing with available model — inspect registration count." | tee -a "$STAGE_B_LOG"
             STAGE_B_STATUS=0
@@ -443,8 +469,10 @@ else
             exit 1
         fi
     else
-        echo "WARN: pose_colmap.sh not found or not executable. Skipping Stage B." >&2 | tee -a "$STAGE_B_LOG"
-        echo "Expected: $SCENE_DIR/sparse/0/{cameras,images,points3D}.bin" >&2 | tee -a "$STAGE_B_LOG"
+        echo "FAIL: pose_colmap.sh not found or not executable." >&2 | tee -a "$STAGE_B_LOG"
+        echo "Expected: $SCENE_DIR/sparse/<n>/{cameras,images,points3D}.bin" >&2 | tee -a "$STAGE_B_LOG"
+        record_stage "stage_b" "$STAGE_B_INPUT_HASH" "" "failed" "pose_colmap.sh not executable"
+        exit 1
     fi
 
     # The capture gate measures what the *camera* covered; this measures what the
@@ -467,7 +495,67 @@ else
     fi
 
     echo
+fi
 
+# ---------------------------------------------------------------------------
+# Select the COLMAP sparse model explicitly
+# ---------------------------------------------------------------------------
+# COLMAP/GLOMAP may write several disjoint sub-models (sparse/0, sparse/1, ...).
+# colmap_model.find_sparse_model picks the one with the most registered cameras
+# (the LESSONS_LEARNED 2.4 rule). The choice is recorded once so Stage C, Stage D
+# and the scene manifest all refer to the same model instead of assuming 0.
+
+SPARSE_MODEL_SELECTION="$SCENE_DIR/sparse_model.json"
+SPARSE_MODEL_DIR="$(PYTHONPATH="$SCRIPT_DIR" python3 -c "
+import json
+import sys
+from pathlib import Path
+
+import colmap_model
+
+scene_dir = Path(sys.argv[1])
+out_path = Path(sys.argv[2])
+sparse_root = scene_dir / 'sparse'
+
+try:
+    model = colmap_model.find_sparse_model(sparse_root)
+except (FileNotFoundError, ValueError):
+    print('')
+    sys.exit(0)
+
+candidates = []
+for child in sorted(p for p in sparse_root.rglob('*') if p.is_dir()):
+    if not ((child / 'cameras.bin').is_file() and (child / 'images.bin').is_file()):
+        continue
+    try:
+        candidates.append({
+            'relative_path': str(child.relative_to(scene_dir)),
+            'registered_images': len(colmap_model.read_images(child)),
+        })
+    except (OSError, ValueError):
+        continue
+
+selection = {
+    'selected': str(model.relative_to(scene_dir)),
+    'registered_images': len(colmap_model.read_images(model)),
+    'candidates': candidates,
+    'rule': 'most_registered_images',
+}
+out_path.write_text(json.dumps(selection, indent=2) + '\n')
+print(model)
+" "$SCENE_DIR" "$SPARSE_MODEL_SELECTION")"
+
+if [[ -z "$SPARSE_MODEL_DIR" ]]; then
+    echo "FAIL: no readable COLMAP sparse model under $SCENE_DIR/sparse." >&2 | tee -a "$STAGE_B_LOG"
+    echo "Stage B must produce cameras.bin + images.bin before training can run." >&2 | tee -a "$STAGE_B_LOG"
+    record_stage "stage_b" "$STAGE_B_INPUT_HASH" "" "failed" "no sparse model selected"
+    exit 1
+fi
+
+echo "Selected COLMAP model: $SPARSE_MODEL_DIR"
+echo "Model selection recorded: $SPARSE_MODEL_SELECTION"
+
+if [[ "$STAGE_B_RAN" == true ]]; then
     STAGE_B_OUTPUT_HASH="$(PYTHONPATH="$SCRIPT_DIR" python3 -c "
 import sys, hashlib
 from pathlib import Path
@@ -480,8 +568,8 @@ for name in ['cameras.bin', 'images.bin', 'points3D.bin']:
     h.update(pipeline_state.file_hash(f).encode())
     h.update(b'\x00')
 print(h.hexdigest())
-" "$SCENE_DIR/sparse/0")"
-    record_stage "stage_b" "$STAGE_B_INPUT_HASH" "$STAGE_B_OUTPUT_HASH" "success" "COLMAP model produced"
+" "$SPARSE_MODEL_DIR")"
+    record_stage "stage_b" "$STAGE_B_INPUT_HASH" "$STAGE_B_OUTPUT_HASH" "success" "COLMAP model produced ($SPARSE_MODEL_DIR)"
 fi
 
 echo
@@ -507,7 +595,7 @@ for name in ['cameras.bin', 'images.bin', 'points3D.bin']:
     h.update(pipeline_state.file_hash(f).encode())
     h.update(b'\x00')
 print(h.hexdigest())
-" "$SCENE_DIR/sparse/0")"
+" "$SPARSE_MODEL_DIR")"
 STAGE_C_INPUT_HASH="$(settings_hash "$STAGE_C_INPUT_HASH" "$TRAIN_BACKEND" "${NS_MAX_STEPS:-30000}")"
 
 if should_skip_stage "stage_c" "$STAGE_C_INPUT_HASH"; then
@@ -515,11 +603,11 @@ if should_skip_stage "stage_c" "$STAGE_C_INPUT_HASH"; then
 else
     if [[ "$TRAIN_BACKEND" == "splatfacto" ]]; then
         if [[ -x "$SCRIPT_DIR/train_splatfacto.sh" ]]; then
-            "$SCRIPT_DIR/train_splatfacto.sh" "$SCENE_DIR" 2>&1 | tee -a "$STAGE_C_LOG" || {
+            SPARSE_MODEL_DIR="$SPARSE_MODEL_DIR" "$SCRIPT_DIR/train_splatfacto.sh" "$SCENE_DIR" 2>&1 | tee -a "$STAGE_C_LOG" || {
                 echo "FAIL: Stage C (Splatfacto training) failed (see above)." >&2 | tee -a "$STAGE_C_LOG"
                 echo "Falling back to Brush..." >&2 | tee -a "$STAGE_C_LOG"
                 if [[ -x "$SCRIPT_DIR/train_brush.sh" ]]; then
-                    "$SCRIPT_DIR/train_brush.sh" "$SCENE_DIR" 2>&1 | tee -a "$STAGE_C_LOG" || {
+                    SPARSE_MODEL_DIR="$SPARSE_MODEL_DIR" "$SCRIPT_DIR/train_brush.sh" "$SCENE_DIR" 2>&1 | tee -a "$STAGE_C_LOG" || {
                         echo "FAIL: Brush fallback also failed." >&2 | tee -a "$STAGE_C_LOG"
                         record_stage "stage_c" "$STAGE_C_INPUT_HASH" "" "failed" "both training backends failed"
                         exit 1
@@ -538,7 +626,7 @@ else
         fi
     else
         if [[ -x "$SCRIPT_DIR/train_brush.sh" ]]; then
-            "$SCRIPT_DIR/train_brush.sh" "$SCENE_DIR" 2>&1 | tee -a "$STAGE_C_LOG" || {
+            SPARSE_MODEL_DIR="$SPARSE_MODEL_DIR" "$SCRIPT_DIR/train_brush.sh" "$SCENE_DIR" 2>&1 | tee -a "$STAGE_C_LOG" || {
                 echo "FAIL: Stage C (Brush training) failed (see above)." >&2 | tee -a "$STAGE_C_LOG"
                 record_stage "stage_c" "$STAGE_C_INPUT_HASH" "" "failed" "Brush training failed"
                 exit 1
@@ -572,77 +660,19 @@ fi
 echo
 
 # ---------------------------------------------------------------------------
-# Stage D — Collision mesh (generate_collision.py)
+# Stage D — Alignment contract (measure_splat_frame.py)
 # ---------------------------------------------------------------------------
+# The alignment contract is measured BEFORE collision because
+# generate_collision.py consumes it: it needs the calibrated metres_per_unit
+# and origin to map the voxel mesh into the Godot frame. Ordering the two the
+# other way forced collision to depend on a file a later stage had not written
+# yet, which broke resumability (the recorded input hash used a "missing file"
+# sentinel that changed on the next run).
 
 STAGE_D_LOG="$SCENE_DIR/logs/stage_d.log"
 
 echo
-echo "--- Stage D: Collision mesh ---" | tee "$STAGE_D_LOG"
-
-STAGE_D_INPUT_HASH="$(file_hash "$SCENE_DIR/scene.ply")"
-STAGE_D_INPUT_HASH="$(settings_hash "$STAGE_D_INPUT_HASH" "${VOXEL_SIZE_M:-0.05}" "${EXTERIOR_FILL_M:-1.2}" "${CLUSTER_RESOLUTION_M:-0.25}")"
-# Include alignment_manifest.json: generate_collision.py consumes it and validates
-# its metres_per_unit/scale reference.
-STAGE_D_INPUT_HASH="$(settings_hash "$STAGE_D_INPUT_HASH" "$(file_hash "$SCENE_DIR/alignment_manifest.json")")"
-
-if should_skip_stage "stage_d" "$STAGE_D_INPUT_HASH"; then
-    echo "Stage D skipped (unchanged)." | tee -a "$STAGE_D_LOG"
-else
-    # Check that the alignment manifest exists (needed by generate_collision.py).
-    if [[ ! -f "$SCENE_DIR/alignment_manifest.json" ]]; then
-        echo "WARN: alignment_manifest.json not found. Running Stage E first..." >&2 | tee -a "$STAGE_D_LOG"
-        # Stage E will be run below; we'll come back to Stage D after.
-        :
-    else
-        echo "Generating collision mesh via @playcanvas/splat-transform..." | tee -a "$STAGE_D_LOG"
-
-        # generate_collision.py --out is a STEM, not a directory.
-        # It writes <stem>.collision.glb, <stem>.voxel.json, <stem>.voxel.bin.
-        COLLISION_STEM="$SCENE_DIR/collision"
-        COLLISION_GLB="$COLLISION_STEM.collision.glb"
-        COLLISION_REPORT="$SCENE_DIR/collision_benchmark.json"
-
-        python3 "$SCRIPT_DIR/generate_collision.py" \
-            --manifest "$SCENE_DIR/alignment_manifest.json" \
-            --ply "$SCENE_DIR/scene.ply" \
-            --out "$COLLISION_STEM" \
-            --report "$COLLISION_REPORT" 2>&1 | tee -a "$STAGE_D_LOG" || {
-            echo "FAIL: collision generation failed (see above)." >&2 | tee -a "$STAGE_D_LOG"
-            record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "collision generation failed"
-            exit 1
-        }
-
-        if [[ ! -f "$COLLISION_GLB" ]]; then
-            echo "FAIL: generate_collision.py exited 0 but collision.glb is missing at $COLLISION_GLB." >&2 | tee -a "$STAGE_D_LOG"
-            record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "collision.glb missing"
-            exit 1
-        fi
-
-        GLB_SIZE=$(stat -c%s "$COLLISION_GLB" 2>/dev/null || echo "0")
-        if [[ "$GLB_SIZE" -eq 0 ]]; then
-            echo "FAIL: collision.glb is empty (0 bytes)." >&2 | tee -a "$STAGE_D_LOG"
-            record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "collision.glb empty"
-            exit 1
-        fi
-
-        echo "Stage D complete — collision.glb ($GLB_SIZE bytes)." | tee -a "$STAGE_D_LOG"
-
-        STAGE_D_OUTPUT_HASH="$(file_hash "$COLLISION_GLB")"
-        record_stage "stage_d" "$STAGE_D_INPUT_HASH" "$STAGE_D_OUTPUT_HASH" "success" "collision.glb produced"
-    fi
-fi
-
-echo
-
-# ---------------------------------------------------------------------------
-# Stage E — Alignment contract + traversal plan
-# ---------------------------------------------------------------------------
-
-STAGE_E_LOG="$SCENE_DIR/logs/stage_e.log"
-
-echo
-echo "--- Stage E: Alignment contract + traversal plan ---" | tee "$STAGE_E_LOG"
+echo "--- Stage D: Alignment contract ---" | tee "$STAGE_D_LOG"
 
 # Find the dataparser transforms JSON (produced by Stage C).
 DATAPARSER_TRANSFORMS=""
@@ -656,25 +686,24 @@ for candidate in \
 done
 
 if [[ -z "$DATAPARSER_TRANSFORMS" ]]; then
-    echo "WARN: dataparser_transforms.json not found. Stage E may fail." >&2 | tee -a "$STAGE_E_LOG"
-    echo "Expected: $SCENE_DIR/splatfacto_output/dataparser_transforms.json" >&2 | tee -a "$STAGE_E_LOG"
+    echo "WARN: dataparser_transforms.json not found; measuring without it." >&2 | tee -a "$STAGE_D_LOG"
+    echo "Expected: $SCENE_DIR/splatfacto_output/dataparser_transforms.json" >&2 | tee -a "$STAGE_D_LOG"
 fi
 
-STAGE_E_INPUT_HASH="$(file_hash "$SCENE_DIR/scene.ply")"
-STAGE_E_INPUT_HASH="$(settings_hash "$STAGE_E_INPUT_HASH" "$SCENE_NAME" "${TARGET_CLEAR_HEIGHT:-2.4}" "${FOOTAGE_KIND:-synthetic}")"
-# Include collision.glb and Stage D settings so a collision change invalidates the traversal plan.
-STAGE_E_INPUT_HASH="$(settings_hash "$STAGE_E_INPUT_HASH" "$(file_hash "$SCENE_DIR/collision.collision.glb")" "${VOXEL_SIZE_M:-0.05}" "${EXTERIOR_FILL_M:-1.2}" "${CLUSTER_RESOLUTION_M:-0.25}")"
-# Include the COLMAP sparse model and dataparser_transforms.json that measure_splat_frame.py consumes.
-STAGE_E_INPUT_HASH="$(settings_hash "$STAGE_E_INPUT_HASH" "$(file_hash "$SCENE_DIR/sparse/0/cameras.bin")" "$(file_hash "$SCENE_DIR/sparse/0/images.bin")" "$(file_hash "$SCENE_DIR/sparse/0/points3D.bin")" "$(file_hash "$DATAPARSER_TRANSFORMS")")"
+STAGE_D_INPUT_HASH="$(file_hash "$SCENE_DIR/scene.ply")"
+STAGE_D_INPUT_HASH="$(settings_hash "$STAGE_D_INPUT_HASH" "$SCENE_NAME" "${TARGET_CLEAR_HEIGHT:-2.4}" "${FOOTAGE_KIND:-synthetic}")"
+# The selected COLMAP model and the nerfstudio dataparser transform define the
+# camera convention this contract preserves, so both are stage inputs.
+STAGE_D_INPUT_HASH="$(settings_hash "$STAGE_D_INPUT_HASH" "$(file_hash "$SPARSE_MODEL_DIR/cameras.bin")" "$(file_hash "$SPARSE_MODEL_DIR/images.bin")" "$(file_hash "$SPARSE_MODEL_DIR/points3D.bin")" "$(file_hash "$DATAPARSER_TRANSFORMS")")"
 
-if should_skip_stage "stage_e" "$STAGE_E_INPUT_HASH"; then
-    echo "Stage E skipped (unchanged)." | tee -a "$STAGE_E_LOG"
+if should_skip_stage "stage_d" "$STAGE_D_INPUT_HASH"; then
+    echo "Stage D skipped (unchanged)." | tee -a "$STAGE_D_LOG"
 else
-    echo "Measuring alignment contract..." | tee -a "$STAGE_E_LOG"
+    echo "Measuring alignment contract..." | tee -a "$STAGE_D_LOG"
 
     python3 "$SCRIPT_DIR/measure_splat_frame.py" \
         --ply "$SCENE_DIR/scene.ply" \
-        --colmap-model "$SCENE_DIR/sparse/0" \
+        --colmap-model "$SPARSE_MODEL_DIR" \
         --dataparser-transforms "$DATAPARSER_TRANSFORMS" \
         --scene-id "$SCENE_NAME" \
         --asset-path "res://assets/$SCENE_NAME/scene.ply" \
@@ -682,59 +711,85 @@ else
         --video "$VIDEO_PATH" \
         --footage-kind "${FOOTAGE_KIND:-synthetic}" \
         --target-clear-height "${TARGET_CLEAR_HEIGHT:-2.4}" \
-        --out "$SCENE_DIR/alignment_manifest.json" 2>&1 | tee -a "$STAGE_E_LOG" || {
-        echo "FAIL: alignment contract measurement failed (see above)." >&2 | tee -a "$STAGE_E_LOG"
-        record_stage "stage_e" "$STAGE_E_INPUT_HASH" "" "failed" "alignment measurement failed"
+        --out "$SCENE_DIR/alignment_manifest.json" 2>&1 | tee -a "$STAGE_D_LOG" || {
+        echo "FAIL: alignment contract measurement failed (see above)." >&2 | tee -a "$STAGE_D_LOG"
+        record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "alignment measurement failed"
         exit 1
     }
 
     if [[ ! -f "$SCENE_DIR/alignment_manifest.json" ]]; then
-        echo "FAIL: measure_splat_frame.py exited 0 but alignment_manifest.json is missing." >&2 | tee -a "$STAGE_E_LOG"
+        echo "FAIL: measure_splat_frame.py exited 0 but alignment_manifest.json is missing." >&2 | tee -a "$STAGE_D_LOG"
+        record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "alignment_manifest.json missing"
+        exit 1
+    fi
+
+    echo "Alignment contract written to $SCENE_DIR/alignment_manifest.json" | tee -a "$STAGE_D_LOG"
+
+    STAGE_D_OUTPUT_HASH="$(file_hash "$SCENE_DIR/alignment_manifest.json")"
+    record_stage "stage_d" "$STAGE_D_INPUT_HASH" "$STAGE_D_OUTPUT_HASH" "success" "alignment contract produced"
+fi
+
+echo
+
+# ---------------------------------------------------------------------------
+# Stage E — Collision mesh + traversal plan
+# ---------------------------------------------------------------------------
+# Collision needs the alignment contract from Stage D; the traversal plan needs
+# both the collision mesh and the contract. This is the only order in which each
+# stage's declared inputs already exist when its input hash is computed, which
+# is what lets a resumed run skip every unchanged stage.
+
+STAGE_E_LOG="$SCENE_DIR/logs/stage_e.log"
+
+echo
+echo "--- Stage E: Collision mesh + traversal plan ---" | tee "$STAGE_E_LOG"
+
+STAGE_E_INPUT_HASH="$(file_hash "$SCENE_DIR/scene.ply")"
+STAGE_E_INPUT_HASH="$(settings_hash "$STAGE_E_INPUT_HASH" "$(file_hash "$SCENE_DIR/alignment_manifest.json")" "${VOXEL_SIZE_M:-0.05}" "${EXTERIOR_FILL_M:-1.2}" "${CLUSTER_RESOLUTION_M:-0.25}")"
+
+if should_skip_stage "stage_e" "$STAGE_E_INPUT_HASH"; then
+    echo "Stage E skipped (unchanged)." | tee -a "$STAGE_E_LOG"
+else
+    if [[ ! -f "$SCENE_DIR/alignment_manifest.json" ]]; then
+        echo "FAIL: alignment_manifest.json is missing; Stage D must run before Stage E." >&2 | tee -a "$STAGE_E_LOG"
         record_stage "stage_e" "$STAGE_E_INPUT_HASH" "" "failed" "alignment_manifest.json missing"
         exit 1
     fi
 
-    echo "Alignment contract written to $SCENE_DIR/alignment_manifest.json" | tee -a "$STAGE_E_LOG"
+    echo "Generating collision mesh via @playcanvas/splat-transform..." | tee -a "$STAGE_E_LOG"
 
-    # Now that the alignment manifest exists, run Stage D if it was skipped.
-    COLLISION_GLB="$SCENE_DIR/collision.collision.glb"
+    # generate_collision.py --out is a STEM, not a directory.
+    # It writes <stem>.collision.glb, <stem>.voxel.json, <stem>.voxel.bin.
+    COLLISION_STEM="$SCENE_DIR/collision"
+    COLLISION_GLB="$COLLISION_STEM.collision.glb"
+    COLLISION_REPORT="$SCENE_DIR/collision_benchmark.json"
+
+    python3 "$SCRIPT_DIR/generate_collision.py" \
+        --manifest "$SCENE_DIR/alignment_manifest.json" \
+        --ply "$SCENE_DIR/scene.ply" \
+        --out "$COLLISION_STEM" \
+        --report "$COLLISION_REPORT" 2>&1 | tee -a "$STAGE_E_LOG" || {
+        echo "FAIL: collision generation failed (see above)." >&2 | tee -a "$STAGE_E_LOG"
+        record_stage "stage_e" "$STAGE_E_INPUT_HASH" "" "failed" "collision generation failed"
+        exit 1
+    }
+
     if [[ ! -f "$COLLISION_GLB" ]]; then
-        echo
-        echo "Running Stage D (collision generation) now that the alignment manifest exists..." | tee -a "$STAGE_E_LOG"
-
-        COLLISION_STEM="$SCENE_DIR/collision"
-        COLLISION_REPORT="$SCENE_DIR/collision_benchmark.json"
-
-        python3 "$SCRIPT_DIR/generate_collision.py" \
-            --manifest "$SCENE_DIR/alignment_manifest.json" \
-            --ply "$SCENE_DIR/scene.ply" \
-            --out "$COLLISION_STEM" \
-            --report "$COLLISION_REPORT" 2>&1 | tee -a "$STAGE_E_LOG" || {
-            echo "FAIL: collision generation failed (see above)." >&2 | tee -a "$STAGE_E_LOG"
-            record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "collision generation failed (in Stage E)"
-            exit 1
-        }
-
-        if [[ ! -f "$COLLISION_GLB" ]]; then
-            echo "FAIL: generate_collision.py exited 0 but collision.glb is missing at $COLLISION_GLB." >&2 | tee -a "$STAGE_E_LOG"
-            record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "collision.glb missing (in Stage E)"
-            exit 1
-        fi
-
-        GLB_SIZE=$(stat -c%s "$COLLISION_GLB" 2>/dev/null || echo "0")
-        if [[ "$GLB_SIZE" -eq 0 ]]; then
-            echo "FAIL: collision.glb is empty (0 bytes)." >&2 | tee -a "$STAGE_E_LOG"
-            record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "collision.glb empty (in Stage E)"
-            exit 1
-        fi
-
-        echo "Stage D complete — collision.glb ($GLB_SIZE bytes)." | tee -a "$STAGE_E_LOG"
-
-        STAGE_D_OUTPUT_HASH="$(file_hash "$COLLISION_GLB")"
-        record_stage "stage_d" "$STAGE_D_INPUT_HASH" "$STAGE_D_OUTPUT_HASH" "success" "collision.glb produced"
+        echo "FAIL: generate_collision.py exited 0 but collision.glb is missing at $COLLISION_GLB." >&2 | tee -a "$STAGE_E_LOG"
+        record_stage "stage_e" "$STAGE_E_INPUT_HASH" "" "failed" "collision.glb missing"
+        exit 1
     fi
 
-    # Derive the traversal plan.
+    GLB_SIZE=$(stat -c%s "$COLLISION_GLB" 2>/dev/null || echo "0")
+    if [[ "$GLB_SIZE" -eq 0 ]]; then
+        echo "FAIL: collision.glb is empty (0 bytes)." >&2 | tee -a "$STAGE_E_LOG"
+        record_stage "stage_e" "$STAGE_E_INPUT_HASH" "" "failed" "collision.glb empty"
+        exit 1
+    fi
+
+    echo "Collision mesh complete — collision.glb ($GLB_SIZE bytes)." | tee -a "$STAGE_E_LOG"
+
+    # Derive the traversal plan from the contract + the collision mesh.
     echo
     echo "Deriving traversal plan..." | tee -a "$STAGE_E_LOG"
 
@@ -756,9 +811,9 @@ else
 
     echo "Traversal plan written to $SCENE_DIR/traversal_manifest.json" | tee -a "$STAGE_E_LOG"
 
-    STAGE_E_OUTPUT_HASH="$(file_hash "$SCENE_DIR/alignment_manifest.json")"
+    STAGE_E_OUTPUT_HASH="$(file_hash "$COLLISION_GLB")"
     STAGE_E_OUTPUT_HASH="$(settings_hash "$STAGE_E_OUTPUT_HASH" "$(file_hash "$SCENE_DIR/traversal_manifest.json")")"
-    record_stage "stage_e" "$STAGE_E_INPUT_HASH" "$STAGE_E_OUTPUT_HASH" "success" "alignment + traversal manifests produced"
+    record_stage "stage_e" "$STAGE_E_INPUT_HASH" "$STAGE_E_OUTPUT_HASH" "success" "collision + traversal produced"
 fi
 
 echo

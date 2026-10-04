@@ -400,11 +400,14 @@ PIPELINE_SCRIPT = Path(__file__).resolve().parent.parent / "run_pipeline.sh"
 
 
 class TestPipelineIntegration:
-    """Test that run_pipeline.sh correctly wires Stage D."""
+    """Test that run_pipeline.sh correctly wires the collision stage."""
 
-    def test_stage_d_section_present(self):
+    def test_collision_stage_present(self):
         pipeline_src = PIPELINE_SCRIPT.read_text()
-        assert "Stage D: Collision mesh" in pipeline_src
+        # Stage E runs collision + traversal, after the Stage D alignment contract
+        # that generate_collision.py consumes.
+        assert "Stage E: Collision mesh + traversal plan" in pipeline_src
+        assert "Stage D: Alignment contract" in pipeline_src
         assert "generate_collision.py" in pipeline_src
         assert "collision.glb" in pipeline_src
 

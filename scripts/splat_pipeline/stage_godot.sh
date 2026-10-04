@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # stage_godot.sh — Copy pipeline outputs into the Godot project assets tree.
 #
-# Copies scene.ply + collision.glb + alignment_manifest.json from a completed
-# scene_dir into godot_walk/assets/<scene_name>/, generates the .tscn scene
+# Copies scene.ply + collision.collision.glb + alignment_manifest.json +
+# traversal_manifest.json from a completed scene_dir into
+# godot_walk/assets/<scene_name>/, generates the .tscn scene
 # file from a template, writes a scene manifest with provenance hashes, and
 # updates godot_walk/current_scene.txt so the runtime picks up the new scene.
 #
@@ -10,7 +11,8 @@
 #   scripts/splat_pipeline/stage_godot.sh <scene_dir>
 #
 #   scene_dir    Path to the per-scene working directory (same as run_pipeline.sh).
-#                Must contain scene.ply, collision.glb, and alignment_manifest.json.
+#                Must contain scene.ply, collision.collision.glb,
+#                alignment_manifest.json, and traversal_manifest.json.
 #
 # Environment:
 #   GODOT_ASSETS_ROOT    Destination root (default: ../../godot_walk/assets).
@@ -18,10 +20,12 @@
 #                        in the same directory as this script).
 #
 # The scene manifest (scene_manifest.json) records:
-#   - scene name, source video path, video MD5
-#   - splat MD5, collision MD5, manifest MD5
-#   - tool versions (splat-transform, COLMAP, nerfstudio)
-#   - stage timestamps from pipeline_state.json
+#   - scene name, source video path, video SHA-256
+#   - SHA-256 of the splat, collision, alignment/traversal manifests, benchmark
+#   - the selected COLMAP model and its registered-image count
+#   - tool versions (splat-transform, COLMAP, GLOMAP, nerfstudio, gsplat)
+#   - the nerfstudio config/dataparser identity
+#   - stage timestamps and hashes from pipeline_state.json
 #
 # Idempotent: rerun replaces assets but preserves nothing by default —
 # a re-staged scene is a new scene, not a patch on the old one.
@@ -31,7 +35,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Allow override for testing (defaults to resolution relative to script location).
-GODOT_ASSETS_ROOT="${GODOT_ASSETS_ROOT:-$(cd "$SCRIPT_DIR/../../godot_walk/assets" && pwd)}"
+# Computed without `cd` so --help and usage errors still work when the assets
+# directory does not exist yet.
+GODOT_ASSETS_ROOT="${GODOT_ASSETS_ROOT:-$SCRIPT_DIR/../../godot_walk/assets}"
 GODOT_SCENE_TEMPLATE="${GODOT_SCENE_TEMPLATE:-$SCRIPT_DIR/scene_template.tscn}"
 
 usage() {
@@ -39,7 +45,8 @@ usage() {
 Usage: stage_godot.sh <scene_dir>
 
   scene_dir    Path to the per-scene working directory.
-               Must contain scene.ply, collision.glb, and alignment_manifest.json.
+               Must contain scene.ply, collision.collision.glb,
+               alignment_manifest.json, and traversal_manifest.json.
 
 Copies final assets into godot_walk/assets/<scene_name>/, generates the .tscn
 scene file, writes scene_manifest.json, and updates current_scene.txt.
@@ -80,14 +87,20 @@ if [[ ! -f "$SCENE_DIR/scene.ply" ]]; then
     exit 1
 fi
 
-if [[ ! -f "$SCENE_DIR/collision.collision.glb" ]]; then
-    echo "FAIL: collision.glb not found at '$SCENE_DIR/collision.collision.glb'." >&2
+if [[ ! -f "$SCENE_DIR/alignment_manifest.json" ]]; then
+    echo "FAIL: alignment_manifest.json not found at '$SCENE_DIR/alignment_manifest.json'." >&2
     echo "Run Stage D first (run_pipeline.sh)." >&2
     exit 1
 fi
 
-if [[ ! -f "$SCENE_DIR/alignment_manifest.json" ]]; then
-    echo "FAIL: alignment_manifest.json not found at '$SCENE_DIR/alignment_manifest.json'." >&2
+if [[ ! -f "$SCENE_DIR/collision.collision.glb" ]]; then
+    echo "FAIL: collision.glb not found at '$SCENE_DIR/collision.collision.glb'." >&2
+    echo "Run Stage E first (run_pipeline.sh)." >&2
+    exit 1
+fi
+
+if [[ ! -f "$SCENE_DIR/traversal_manifest.json" ]]; then
+    echo "FAIL: traversal_manifest.json not found at '$SCENE_DIR/traversal_manifest.json'." >&2
     echo "Run Stage E first (run_pipeline.sh)." >&2
     exit 1
 fi
@@ -114,6 +127,13 @@ echo "Copied alignment_manifest.json -> $DEST_DIR/alignment_manifest.json"
 
 cp "$SCENE_DIR/traversal_manifest.json" "$DEST_DIR/traversal_manifest.json"
 echo "Copied traversal_manifest.json -> $DEST_DIR/traversal_manifest.json"
+
+if [[ -f "$SCENE_DIR/collision_benchmark.json" ]]; then
+    cp "$SCENE_DIR/collision_benchmark.json" "$DEST_DIR/collision_benchmark.json"
+    echo "Copied collision_benchmark.json -> $DEST_DIR/collision_benchmark.json"
+else
+    echo "WARN: collision_benchmark.json not found; skipping." >&2
+fi
 
 # ---------------------------------------------------------------------------
 # Generate scene file from template
@@ -239,14 +259,14 @@ dest_dir = Path(sys.argv[2])
 scene_name = sys.argv[3]
 
 
-def md5(path):
+def sha256(path):
     if not path.is_file():
         return ""
-    h = hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(1 << 20), b""):
-            h.update(chunk)
-    return h.hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 # Load pipeline state for stage timestamps.
@@ -267,48 +287,77 @@ if manifest_path.is_file():
     except (json.JSONDecodeError, OSError):
         pass
 
+# Load the selected COLMAP model record (written by run_pipeline.sh after Stage B).
+sparse_selection = {}
+selection_path = scene_dir / "sparse_model.json"
+if selection_path.is_file():
+    try:
+        sparse_selection = json.loads(selection_path.read_text())
+    except (json.JSONDecodeError, OSError):
+        sparse_selection = {}
 
-def _tool_versions(scene_dir, manifest):
-    """Read tool versions from tool_versions.json, falling back to manifest/unknown."""
+
+def _tool_versions(scene_dir):
+    """Collect tool, model, and checkpoint identity for provenance."""
+    versions = {}
     tool_versions_path = scene_dir / "tool_versions.json"
     if tool_versions_path.is_file():
         try:
             versions = json.loads(tool_versions_path.read_text())
-            return {
-                "splat_transform": versions.get("splat_transform", "unknown"),
-                "colmap": versions.get("colmap", "unknown"),
-                "nerfstudio": versions.get("nerfstudio", "unknown"),
-                "gsplat": versions.get("gsplat", "unknown"),
-            }
+        except (json.JSONDecodeError, OSError):
+            versions = {}
+    # splat_transform is recorded by generate_collision.py in collision_benchmark.json.
+    benchmark_path = scene_dir / "collision_benchmark.json"
+    if benchmark_path.is_file():
+        try:
+            benchmark = json.loads(benchmark_path.read_text())
+            installed = benchmark.get("tool", {}).get("installed_version")
+            if installed:
+                versions["splat_transform"] = installed
         except (json.JSONDecodeError, OSError):
             pass
     return {
-        "splat_transform": manifest.get("tool", {}).get("pinned_version", "unknown"),
-        "colmap": "unknown",
-        "nerfstudio": "unknown",
-        "gsplat": "unknown",
+        "splat_transform": versions.get("splat_transform", "unknown"),
+        "colmap": versions.get("colmap", "unknown"),
+        "glomap": versions.get("glomap", "unknown"),
+        "nerfstudio": versions.get("nerfstudio", "unknown"),
+        "gsplat": versions.get("gsplat", "unknown"),
+        "pinned_nerfstudio": versions.get("pinned_nerfstudio", "unknown"),
+        "pinned_gsplat": versions.get("pinned_gsplat", "unknown"),
+        "sparse_model": versions.get("sparse_model", {}),
+        "checkpoint": versions.get("checkpoint", {}),
     }
 
 scene_manifest = {
     "scene_name": scene_name,
+    "hash_algorithm": "sha256",
     "source_video": str(scene_dir / "video.mp4"),
-    "source_video_md5": md5(scene_dir / "video.mp4"),
+    "source_video_sha256": sha256(scene_dir / "video.mp4"),
+    "sparse_model": sparse_selection,
     "assets": {
         "splat": {
             "path": "res://assets/%s/scene.ply" % scene_name,
-            "md5": md5(dest_dir / "scene.ply"),
+            "sha256": sha256(dest_dir / "scene.ply"),
             "splat_count": manifest.get("asset", {}).get("splat_count", 0),
         },
         "collision": {
             "path": "res://assets/%s/collision/%s.collision.glb" % (scene_name, scene_name),
-            "md5": md5(dest_dir / "collision" / ("%s.collision.glb" % scene_name)),
+            "sha256": sha256(dest_dir / "collision" / ("%s.collision.glb" % scene_name)),
         },
         "alignment_manifest": {
             "path": "res://assets/%s/alignment_manifest.json" % scene_name,
-            "md5": md5(dest_dir / "alignment_manifest.json"),
+            "sha256": sha256(dest_dir / "alignment_manifest.json"),
+        },
+        "traversal_manifest": {
+            "path": "res://assets/%s/traversal_manifest.json" % scene_name,
+            "sha256": sha256(dest_dir / "traversal_manifest.json"),
+        },
+        "collision_benchmark": {
+            "path": "res://assets/%s/collision_benchmark.json" % scene_name,
+            "sha256": sha256(dest_dir / "collision_benchmark.json"),
         },
     },
-    "tools": _tool_versions(scene_dir, manifest),
+    "tools": _tool_versions(scene_dir),
     "stages": {
         name: {
             "status": record.get("status", "unknown"),
