@@ -44,6 +44,10 @@ DEFAULT_MAX_STEPS=30000
 DEFAULT_EVAL_MODE="all"
 SCENE_PLY="scene.ply"
 
+# Pinned tool versions (recorded in the scene manifest for provenance).
+PINNED_NERFSTUDIO_VERSION="${PINNED_NERFSTUDIO_VERSION:-1.1.5}"
+PINNED_GSPLAT_VERSION="${PINNED_GSPLAT_VERSION:-1.5.1}"
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -205,6 +209,10 @@ rm -f "$PLY_OUT"
 # ---------------------------------------------------------------------------
 
 echo "--- Stage C: Nerfstudio Splatfacto training ---"
+
+# Record pinned tool versions for provenance.
+echo "Pinned nerfstudio version: $PINNED_NERFSTUDIO_VERSION"
+echo "Pinned gsplat version: $PINNED_GSPLAT_VERSION"
 
 # nerfstudio's ns-train command. The --data flag points at the scene directory
 # (which contains images/ and sparse/0/). The --output-dir flag controls where

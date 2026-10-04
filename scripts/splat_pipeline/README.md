@@ -39,6 +39,28 @@ stages, ignoring previous results.
 
 Per-stage logs are written to `<scene_dir>/logs/<stage_name>.log`.
 
+## Nondeterminism tolerances
+
+The pipeline is **deterministic** for stages that depend only on their inputs:
+
+- **Stage A** (frame selection): deterministic — the capture gate selects the same
+  frames for the same video and settings.
+- **Stage B** (pose estimation): deterministic — COLMAP/GLOMAP produce the same
+  sparse model for the same images.
+- **Stage C** (Splatfacto training): **nondeterministic** — GPU floating-point
+  nondeterminism means two runs with the same seed produce slightly different
+  splats. The tolerance is: splat count within 5%, camera positions within 0.01 m.
+- **Stage D** (collision generation): deterministic — `splat-transform` has no
+  seedable sampling, so identical settings give byte-identical output.
+- **Stage E** (alignment + traversal): deterministic — derived from the splat and
+  collision mesh.
+- **Stage F** (Godot staging): deterministic — copies assets and generates the
+  scene file.
+
+A fresh run and a resumed run produce **equivalent** validated assets within these
+tolerances. The `test_pipeline_equivalence` test verifies this by comparing the
+outputs of a fresh scene and an interrupted-then-resumed scene.
+
 ## Per-scene layout
 
 ```
@@ -51,7 +73,7 @@ Per-stage logs are written to `<scene_dir>/logs/<stage_name>.log`.
     images.bin             # Camera extrinsics
     points3D.bin           # Sparse point cloud
   scene.ply              # Stage C output — VISUAL asset (Gaussian splat)
-  collision.glb          # Stage D output — PHYSICS asset (collision mesh)
+  collision.collision.glb # Stage D output — PHYSICS asset (collision mesh)
   alignment_manifest.json # Stage E output — calibration contract
   traversal_manifest.json # Stage E output — traversal plan
   pipeline_state.json    # Resumability state (input/output hashes per stage)
@@ -97,7 +119,7 @@ fundamental limitation of Gaussian splatting from posed video, not a bug.
 | Registration report | `model_coverage.py` | `sparse/` + `images/` | registered vs excluded frames |
 | B — Pose | `pose_colmap.sh` / `pose_vggt.sh` | `images/` | `sparse/0/*.bin` |
 | C — Splat | `train_splatfacto.sh` (default) / `train_brush.sh` (fallback) | `images/` + `sparse/` | `scene.ply` |
-| D — Collision | `generate_collision.py` | `scene.ply` + `alignment_manifest.json` | `collision.glb` |
+| D — Collision | `generate_collision.py` | `scene.ply` + `alignment_manifest.json` | `collision.collision.glb` |
 | E — Alignment + traversal | `measure_splat_frame.py` + `traversal_plan.py` | `scene.ply` + `sparse/0/` + dataparser | `alignment_manifest.json` + `traversal_manifest.json` |
 | F — Godot staging | `stage_godot.sh` | all above | `godot_walk/assets/<scene>/` |
 | M — Photogrammetry mesh | `mesh_photogrammetry.sh` | `images/` + `sparse/0/` | `mesh_raw.ply` + `scene.glb` |

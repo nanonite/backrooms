@@ -80,8 +80,8 @@ if [[ ! -f "$SCENE_DIR/scene.ply" ]]; then
     exit 1
 fi
 
-if [[ ! -f "$SCENE_DIR/collision.glb" ]]; then
-    echo "FAIL: collision.glb not found at '$SCENE_DIR/collision.glb'." >&2
+if [[ ! -f "$SCENE_DIR/collision.collision.glb" ]]; then
+    echo "FAIL: collision.glb not found at '$SCENE_DIR/collision.collision.glb'." >&2
     echo "Run Stage D first (run_pipeline.sh)." >&2
     exit 1
 fi
@@ -106,7 +106,7 @@ mkdir -p "$COLLISION_DIR"
 cp "$SCENE_DIR/scene.ply" "$DEST_DIR/scene.ply"
 echo "Copied scene.ply -> $DEST_DIR/scene.ply"
 
-cp "$SCENE_DIR/collision.glb" "$COLLISION_DIR/$SCENE_NAME.collision.glb"
+cp "$SCENE_DIR/collision.collision.glb" "$COLLISION_DIR/$SCENE_NAME.collision.glb"
 echo "Copied collision.glb -> $COLLISION_DIR/$SCENE_NAME.collision.glb"
 
 cp "$SCENE_DIR/alignment_manifest.json" "$DEST_DIR/alignment_manifest.json"
@@ -286,7 +286,8 @@ scene_manifest = {
     "tools": {
         "splat_transform": manifest.get("tool", {}).get("pinned_version", "unknown"),
         "colmap": "3.10",
-        "nerfstudio": manifest.get("asset", {}).get("ply_header", {}).get("generated", "unknown"),
+        "nerfstudio": "1.1.5",
+        "gsplat": "1.5.1",
     },
     "stages": {
         name: {
