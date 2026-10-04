@@ -295,6 +295,9 @@ else
         exit 2
     fi
 
+    # Initialize GATE_REPORT for the legacy path (SPLAT_EXTRACT_FPS=0).
+    GATE_REPORT=""
+
     if [[ "${EXTRACT_FPS}" == "0" ]]; then
         echo "SPLAT_EXTRACT_FPS=0: skipping the capture gate, extracting every 3rd frame." | tee -a "$STAGE_A_LOG"
         find "$SCENE_DIR/images" -maxdepth 1 -type f \( -iname 'frame_*.jpg' -o -iname 'frame_*.jpeg' -o -iname 'frame_*.png' \) -delete
@@ -591,26 +594,29 @@ else
     else
         echo "Generating collision mesh via @playcanvas/splat-transform..." | tee -a "$STAGE_D_LOG"
 
-        COLLISION_OUT="$SCENE_DIR/collision"
+        # generate_collision.py --out is a STEM, not a directory.
+        # It writes <stem>.collision.glb, <stem>.voxel.json, <stem>.voxel.bin.
+        COLLISION_STEM="$SCENE_DIR/collision"
+        COLLISION_GLB="$COLLISION_STEM.collision.glb"
         COLLISION_REPORT="$SCENE_DIR/collision_benchmark.json"
 
         python3 "$SCRIPT_DIR/generate_collision.py" \
             --manifest "$SCENE_DIR/alignment_manifest.json" \
             --ply "$SCENE_DIR/scene.ply" \
-            --out "$COLLISION_OUT" \
+            --out "$COLLISION_STEM" \
             --report "$COLLISION_REPORT" 2>&1 | tee -a "$STAGE_D_LOG" || {
             echo "FAIL: collision generation failed (see above)." >&2 | tee -a "$STAGE_D_LOG"
             record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "collision generation failed"
             exit 1
         }
 
-        if [[ ! -f "$COLLISION_OUT/collision.glb" ]]; then
-            echo "FAIL: generate_collision.py exited 0 but collision.glb is missing." >&2 | tee -a "$STAGE_D_LOG"
+        if [[ ! -f "$COLLISION_GLB" ]]; then
+            echo "FAIL: generate_collision.py exited 0 but collision.glb is missing at $COLLISION_GLB." >&2 | tee -a "$STAGE_D_LOG"
             record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "collision.glb missing"
             exit 1
         fi
 
-        GLB_SIZE=$(stat -c%s "$COLLISION_OUT/collision.glb" 2>/dev/null || echo "0")
+        GLB_SIZE=$(stat -c%s "$COLLISION_GLB" 2>/dev/null || echo "0")
         if [[ "$GLB_SIZE" -eq 0 ]]; then
             echo "FAIL: collision.glb is empty (0 bytes)." >&2 | tee -a "$STAGE_D_LOG"
             record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "collision.glb empty"
@@ -619,7 +625,7 @@ else
 
         echo "Stage D complete — collision.glb ($GLB_SIZE bytes)." | tee -a "$STAGE_D_LOG"
 
-        STAGE_D_OUTPUT_HASH="$(file_hash "$COLLISION_OUT/collision.glb")"
+        STAGE_D_OUTPUT_HASH="$(file_hash "$COLLISION_GLB")"
         record_stage "stage_d" "$STAGE_D_INPUT_HASH" "$STAGE_D_OUTPUT_HASH" "success" "collision.glb produced"
     fi
 fi
@@ -653,6 +659,8 @@ fi
 
 STAGE_E_INPUT_HASH="$(file_hash "$SCENE_DIR/scene.ply")"
 STAGE_E_INPUT_HASH="$(settings_hash "$STAGE_E_INPUT_HASH" "$SCENE_NAME" "${TARGET_CLEAR_HEIGHT:-2.4}" "${FOOTAGE_KIND:-synthetic}")"
+# Include collision.glb and Stage D settings so a collision change invalidates the traversal plan.
+STAGE_E_INPUT_HASH="$(settings_hash "$STAGE_E_INPUT_HASH" "$(file_hash "$SCENE_DIR/collision.collision.glb")" "${VOXEL_SIZE_M:-0.05}" "${EXTERIOR_FILL_M:-1.2}" "${CLUSTER_RESOLUTION_M:-0.25}")"
 
 if should_skip_stage "stage_e" "$STAGE_E_INPUT_HASH"; then
     echo "Stage E skipped (unchanged)." | tee -a "$STAGE_E_LOG"
@@ -684,30 +692,31 @@ else
     echo "Alignment contract written to $SCENE_DIR/alignment_manifest.json" | tee -a "$STAGE_E_LOG"
 
     # Now that the alignment manifest exists, run Stage D if it was skipped.
-    if [[ ! -f "$SCENE_DIR/collision/collision.glb" ]]; then
+    COLLISION_GLB="$SCENE_DIR/collision.collision.glb"
+    if [[ ! -f "$COLLISION_GLB" ]]; then
         echo
         echo "Running Stage D (collision generation) now that the alignment manifest exists..." | tee -a "$STAGE_E_LOG"
 
-        COLLISION_OUT="$SCENE_DIR/collision"
+        COLLISION_STEM="$SCENE_DIR/collision"
         COLLISION_REPORT="$SCENE_DIR/collision_benchmark.json"
 
         python3 "$SCRIPT_DIR/generate_collision.py" \
             --manifest "$SCENE_DIR/alignment_manifest.json" \
             --ply "$SCENE_DIR/scene.ply" \
-            --out "$COLLISION_OUT" \
+            --out "$COLLISION_STEM" \
             --report "$COLLISION_REPORT" 2>&1 | tee -a "$STAGE_E_LOG" || {
             echo "FAIL: collision generation failed (see above)." >&2 | tee -a "$STAGE_E_LOG"
             record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "collision generation failed (in Stage E)"
             exit 1
         }
 
-        if [[ ! -f "$COLLISION_OUT/collision.glb" ]]; then
-            echo "FAIL: generate_collision.py exited 0 but collision.glb is missing." >&2 | tee -a "$STAGE_E_LOG"
+        if [[ ! -f "$COLLISION_GLB" ]]; then
+            echo "FAIL: generate_collision.py exited 0 but collision.glb is missing at $COLLISION_GLB." >&2 | tee -a "$STAGE_E_LOG"
             record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "collision.glb missing (in Stage E)"
             exit 1
         fi
 
-        GLB_SIZE=$(stat -c%s "$COLLISION_OUT/collision.glb" 2>/dev/null || echo "0")
+        GLB_SIZE=$(stat -c%s "$COLLISION_GLB" 2>/dev/null || echo "0")
         if [[ "$GLB_SIZE" -eq 0 ]]; then
             echo "FAIL: collision.glb is empty (0 bytes)." >&2 | tee -a "$STAGE_E_LOG"
             record_stage "stage_d" "$STAGE_D_INPUT_HASH" "" "failed" "collision.glb empty (in Stage E)"
@@ -716,7 +725,7 @@ else
 
         echo "Stage D complete — collision.glb ($GLB_SIZE bytes)." | tee -a "$STAGE_E_LOG"
 
-        STAGE_D_OUTPUT_HASH="$(file_hash "$COLLISION_OUT/collision.glb")"
+        STAGE_D_OUTPUT_HASH="$(file_hash "$COLLISION_GLB")"
         record_stage "stage_d" "$STAGE_D_INPUT_HASH" "$STAGE_D_OUTPUT_HASH" "success" "collision.glb produced"
     fi
 
@@ -727,7 +736,7 @@ else
     python3 "$SCRIPT_DIR/traversal_plan.py" \
         --manifest "$SCENE_DIR/alignment_manifest.json" \
         --report "$SCENE_DIR/collision_benchmark.json" \
-        --glb "$SCENE_DIR/collision/collision.glb" \
+        --glb "$COLLISION_GLB" \
         --out "$SCENE_DIR/traversal_manifest.json" 2>&1 | tee -a "$STAGE_E_LOG" || {
         echo "FAIL: traversal plan derivation failed (see above)." >&2 | tee -a "$STAGE_E_LOG"
         record_stage "stage_e" "$STAGE_E_INPUT_HASH" "" "failed" "traversal plan failed"
@@ -759,7 +768,7 @@ echo
 echo "--- Stage F: Godot staging ---" | tee "$STAGE_F_LOG"
 
 STAGE_F_INPUT_HASH="$(file_hash "$SCENE_DIR/scene.ply")"
-STAGE_F_INPUT_HASH="$(settings_hash "$STAGE_F_INPUT_HASH" "$(file_hash "$SCENE_DIR/collision/collision.glb")" "$(file_hash "$SCENE_DIR/alignment_manifest.json")")"
+STAGE_F_INPUT_HASH="$(settings_hash "$STAGE_F_INPUT_HASH" "$(file_hash "$SCENE_DIR/collision.collision.glb")" "$(file_hash "$SCENE_DIR/alignment_manifest.json")")"
 
 if should_skip_stage "stage_f" "$STAGE_F_INPUT_HASH"; then
     echo "Stage F skipped (unchanged)." | tee -a "$STAGE_F_LOG"

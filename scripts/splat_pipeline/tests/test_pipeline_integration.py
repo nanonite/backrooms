@@ -95,19 +95,35 @@ echo "dummy" > "$SCENE_DIR/sparse/0/points3D.bin"
 exit 0
 """)
 
-    # Stub train_splatfacto.sh — create a minimal scene.ply
+    # Stub train_splatfacto.sh — create a minimal scene.ply with vertex data
     _write_stub(bin_dir, "train_splatfacto.sh", """#!/usr/bin/env bash
 set -euo pipefail
 SCENE_DIR="$1"
-cat > "$SCENE_DIR/scene.ply" << 'PLYEOF'
-ply
-format binary_little_endian 1.0
-element vertex 100
-property float x
-property float y
-property float z
-end_header
-PLYEOF
+python3 - "$SCENE_DIR/scene.ply" << 'PYEOF'
+import struct, sys
+path = sys.argv[1]
+header = (
+    "ply\\n"
+    "format binary_little_endian 1.0\\n"
+    "element vertex 100\\n"
+    "property float x\\n"
+    "property float y\\n"
+    "property float z\\n"
+    "property float opacity\\n"
+    "property float scale_0\\n"
+    "property float scale_1\\n"
+    "property float scale_2\\n"
+    "property float rot_0\\n"
+    "property float rot_1\\n"
+    "property float rot_2\\n"
+    "property float rot_3\\n"
+    "end_header\\n"
+)
+with open(path, 'wb') as f:
+    f.write(header.encode('ascii'))
+    for i in range(100):
+        f.write(struct.pack('<11f', 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0))
+PYEOF
 mkdir -p "$SCENE_DIR/splatfacto_output"
 echo '{"transform": [[1,0,0,0],[0,1,0,0],[0,0,1,0]]}' > "$SCENE_DIR/splatfacto_output/dataparser_transforms.json"
 exit 0
@@ -122,14 +138,14 @@ manifest = {
     "scene_id": "test_scene",
     "ply_to_world": {
         "basis_columns": [[1,0,0],[0,1,0],[0,0,1]],
-        "metres_per_unit": 1.0,
+        "metres_per_unit": 2.4,
         "origin_ply_units": [0,0,0],
         "frame_name": "test",
         "up_axis": "y",
         "up_sign": 1,
         "handedness": "right"
     },
-    "scale_reference": {"kind": "chosen", "quantity": "test", "raw_units": 1.0, "raw_units_spread": 0.01, "target_metres": 2.4, "reason": "test"},
+    "scale_reference": {"kind": "chosen", "quantity": "test", "raw_units": 1.0, "raw_units_spread": 0.01, "raw_units_spread_samples": 12, "target_metres": 2.4, "reason": "test"},
     "automatic_transforms": [],
     "landmarks": {"floor": [0,0,0], "ceiling": [0,2.4,0], "room_centre": [0,1.2,0]},
     "collider": {"min_corner": [-5,0,-5], "max_corner": [5,2.4,5], "floor_height": 0.0, "ceiling_height": 2.4, "derivation": "test"},
@@ -147,14 +163,149 @@ sys.exit(0)
 """)
 
     # Stub generate_collision.py — create a minimal collision.glb
-    _write_stub(bin_dir, "generate_collision.py", """#!/usr/bin/env python3
-import sys, os, json
-out_dir = sys.argv[sys.argv.index('--out') + 1]
-os.makedirs(out_dir, exist_ok=True)
-with open(os.path.join(out_dir, 'collision.glb'), 'wb') as f:
-    f.write(b'glTF\\x02\\x00\\x00\\x00' + b'\\x00' * 100)
-json.dump({"header": {"version": 1, "generator": "test", "resolution": 0.05, "grid_min": [0,0,0], "grid_max": [1,1,1], "grid_shape": [20,20,20], "tree_depth": 1, "node_count": 1, "num_mixed_leaves": 0}}, open(os.path.join(out_dir, 'voxel.json'), 'w'))
-sys.exit(0)
+    # Use the REAL generate_collision.py — copy it to the stub dir
+    # This ensures the real script is exercised, not a stub
+    shutil.copy2(REPO_ROOT / "scripts" / "splat_pipeline" / "generate_collision.py", bin_dir / "generate_collision.py")
+    _make_executable(bin_dir / "generate_collision.py")
+    # Copy the modules that generate_collision.py imports
+    for module in ["collision_params.py", "glb_mesh.py", "splat_columns.py", "traversability.py", "voxel_octree.py", "splat_frame.py", "splat_ply.py", "colmap_model.py"]:
+        src = REPO_ROOT / "scripts" / "splat_pipeline" / module
+        if src.exists():
+            shutil.copy2(src, bin_dir / module)
+    # Stub splat_transform_cli — the real one requires @playcanvas/splat-transform
+    _write_stub(bin_dir, "splat_transform_cli.py", """#!/usr/bin/env python3
+\"\"\"Stub splat_transform_cli for testing.\"\"\"
+import os, sys, json, hashlib
+from pathlib import Path
+from dataclasses import dataclass, field
+
+PINNED_PACKAGE = "@playcanvas/splat-transform"
+PINNED_VERSION = "3.9.0"
+
+class SplatTransformUnavailable(RuntimeError):
+    pass
+
+class CollisionStageFailed(RuntimeError):
+    pass
+
+@dataclass(frozen=True)
+class ToolRun:
+    argv: tuple
+    version: str
+    elapsed_s: float
+    peak_cpu_bytes: int
+    peak_gpu_bytes: int
+    gaussians_in: int
+    gaussians_out: int
+    gaussians_removed: int
+    cluster_blocks_kept: int
+    cluster_blocks_total: int
+    pre_merge_triangles: int
+    pre_merge_vertices: int
+    triangles: int
+    vertices: int
+    octree_depth: int
+    mixed_leaves: int
+    seed_was_unoccupied: bool
+    exterior_fill_skipped: bool
+    carve_skipped: bool
+    warnings: tuple
+    files: dict
+
+    def to_json(self):
+        return {
+            "argv": list(self.argv),
+            "version": self.version,
+            "elapsed_s": self.elapsed_s,
+            "peak_cpu_bytes": self.peak_cpu_bytes,
+            "peak_gpu_bytes": self.peak_gpu_bytes,
+            "gaussians_in": self.gaussians_in,
+            "gaussians_out": self.gaussians_out,
+            "gaussians_removed": self.gaussians_removed,
+            "cluster_blocks_kept": self.cluster_blocks_kept,
+            "cluster_blocks_total": self.cluster_blocks_total,
+            "pre_merge_triangles": self.pre_merge_triangles,
+            "pre_merge_vertices": self.pre_merge_vertices,
+            "triangles": self.triangles,
+            "vertices": self.vertices,
+            "octree_depth": self.octree_depth,
+            "mixed_leaves": self.mixed_leaves,
+            "seed_was_unoccupied": self.seed_was_unoccupied,
+            "exterior_fill_skipped": self.exterior_fill_skipped,
+            "carve_skipped": self.carve_skipped,
+            "warnings": list(self.warnings),
+            "files": self.files,
+        }
+
+def resolve_cli(node_modules=None):
+    return "/usr/local/bin/splat-transform"
+
+def installed_version(cli):
+    return PINNED_VERSION
+
+def probe_adapters(cli):
+    return []
+
+def build_argv(cli, ply_path, stem, settings, metres_per_unit):
+    return [cli, "--ply", str(ply_path), "--out", str(stem)]
+
+def run_collision(cli, ply_path, stem, settings, metres_per_unit):
+    # Write the output files
+    # GLB format: 12-byte header (magic, version, total), then chunks
+    import struct
+    json_chunk = json.dumps({"asset": {"generator": "stub"}, "meshes": [{"primitives": [{"attributes": {"POSITION": 0}, "indices": 1}]}], "accessors": [{"bufferView": 0, "componentType": 5126, "count": 3, "type": "VEC3", "min": [0,0,0], "max": [1,1,1]}, {"bufferView": 1, "componentType": 5125, "count": 3, "type": "SCALAR"}], "bufferViews": [{"buffer": 0, "byteOffset": 0, "byteLength": 36}, {"buffer": 0, "byteOffset": 36, "byteLength": 12}], "buffers": [{"byteLength": 48}]}).encode('utf-8')
+    bin_chunk = struct.pack('<9f', 0,0,0, 1,0,0, 0,1,0) + struct.pack('<3I', 0, 1, 2)
+    # Pad json_chunk to 4-byte boundary
+    json_padding = (4 - len(json_chunk) % 4) % 4
+    json_chunk += b' ' * json_padding
+    bin_padding = (4 - len(bin_chunk) % 4) % 4
+    bin_chunk += b'\\x00' * bin_padding
+    json_header = struct.pack('<II', len(json_chunk), 0x4E4F534A)  # JSON
+    bin_header = struct.pack('<II', len(bin_chunk), 0x004E4942)  # BIN
+    total = 12 + 8 + len(json_chunk) + 8 + len(bin_chunk)
+    glb = struct.pack('<III', 0x46546C67, 2, total) + json_header + json_chunk + bin_header + bin_chunk
+    with open(str(stem) + '.collision.glb', 'wb') as f:
+        f.write(glb)
+    with open(str(stem) + '.voxel.json', 'w') as f:
+        json.dump({
+            "version": "1.1",
+            "asset": {"generator": "stub"},
+            "voxelResolution": 0.05,
+            "leafSize": 4,
+            "gridBounds": {"min": [0,0,0], "max": [1,1,1]},
+            "sceneBounds": {"min": [0,0,0], "max": [1,1,1]},
+            "treeDepth": 1,
+            "numInteriorNodes": 0,
+            "numMixedLeaves": 0,
+            "nodeCount": 1,
+            "leafDataCount": 0,
+        }, f)
+    # Write the binary payload (4 bytes per entry: nodeCount + leafDataCount)
+    with open(str(stem) + '.voxel.bin', 'wb') as f:
+        f.write(b'\\x00' * 4 * (1 + 0))  # nodeCount=1, leafDataCount=0
+    return ToolRun(
+        argv=(cli, "--ply", str(ply_path), "--out", str(stem)),
+        version=PINNED_VERSION,
+        elapsed_s=1.0,
+        peak_cpu_bytes=1000,
+        peak_gpu_bytes=100,
+        gaussians_in=100,
+        gaussians_out=100,
+        gaussians_removed=0,
+        cluster_blocks_kept=1,
+        cluster_blocks_total=1,
+        pre_merge_triangles=100,
+        pre_merge_vertices=100,
+        triangles=100,
+        vertices=100,
+        octree_depth=1,
+        mixed_leaves=0,
+        seed_was_unoccupied=False,
+        exterior_fill_skipped=False,
+        carve_skipped=False,
+        warnings=(),
+        files={},
+    )
 """)
 
     # Stub traversal_plan.py — create a minimal traversal manifest
@@ -166,19 +317,12 @@ json.dump(plan, open(out, 'w'))
 sys.exit(0)
 """)
 
-    # Stub stage_godot.sh — create the staged assets
-    _write_stub(bin_dir, "stage_godot.sh", """#!/usr/bin/env bash
-set -euo pipefail
-SCENE_DIR="$1"
-SCENE_NAME="$(basename "$SCENE_DIR")"
-DEST_DIR="$SCENE_DIR/../godot_assets/$SCENE_NAME"
-mkdir -p "$DEST_DIR/collision"
-cp "$SCENE_DIR/scene.ply" "$DEST_DIR/scene.ply"
-cp "$SCENE_DIR/collision/collision.glb" "$DEST_DIR/collision/$SCENE_NAME.collision.glb"
-cp "$SCENE_DIR/alignment_manifest.json" "$DEST_DIR/alignment_manifest.json"
-echo "$SCENE_NAME" > "$SCENE_DIR/../godot_assets/current_scene.txt"
-exit 0
-""")
+    # Use the REAL stage_godot.sh — copy it to the stub dir
+    # This ensures the real script is exercised, not a stub
+    shutil.copy2(REPO_ROOT / "scripts" / "splat_pipeline" / "stage_godot.sh", bin_dir / "stage_godot.sh")
+    _make_executable(bin_dir / "stage_godot.sh")
+    # Copy the scene template that stage_godot.sh needs
+    shutil.copy2(REPO_ROOT / "scripts" / "splat_pipeline" / "scene_template.tscn", bin_dir / "scene_template.tscn")
 
     # Stub model_coverage.py — just exit 0
     _write_stub(bin_dir, "model_coverage.py", "#!/usr/bin/env python3\nimport sys\nsys.exit(0)\n")
@@ -213,6 +357,8 @@ exit 0
 
     env = os.environ.copy()
     env["PATH"] = f"{bin_dir}:{env.get('PATH', '')}"
+    # Set GODOT_ASSETS_ROOT so stage_godot.sh can find the assets root
+    env["GODOT_ASSETS_ROOT"] = str(tmp_path / "godot_assets")
     return env, bin_dir
 
 
@@ -246,7 +392,7 @@ def test_pipeline_executes_end_to_end(tmp_path):
     assert (scene_dir / "sparse" / "0" / "images.bin").exists(), "Stage B should create sparse model"
     assert (scene_dir / "sparse" / "0" / "points3D.bin").exists(), "Stage B should create sparse model"
     assert (scene_dir / "scene.ply").exists(), "Stage C should create scene.ply"
-    assert (scene_dir / "collision" / "collision.glb").exists(), "Stage D should create collision.glb"
+    assert (scene_dir / "collision.collision.glb").exists(), "Stage D should create collision.glb"
     assert (scene_dir / "alignment_manifest.json").exists(), "Stage E should create alignment_manifest.json"
     assert (scene_dir / "traversal_manifest.json").exists(), "Stage E should create traversal_manifest.json"
 

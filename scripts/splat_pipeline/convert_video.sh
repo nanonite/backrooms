@@ -114,12 +114,15 @@ fi
 
 SCENE_DIR="$SCENES_ROOT/$SCENE_NAME"
 
-# Dry-run: print the plan without creating directories or copying the video.
+# Dry-run: create the scene dir and a placeholder video.mp4 so run_pipeline.sh
+# can realpath it, but skip the actual video copy.
 if [[ " ${EXTRA_ARGS[*]} " == *" --dry-run "* ]]; then
+    mkdir -p "$SCENE_DIR"
+    touch "$SCENE_DIR/video.mp4"
     echo "=== Convert video (dry run) ==="
     echo "Video:     $VIDEO_PATH"
     echo "Scene:     $SCENE_NAME"
-    echo "Scene dir: $SCENE_DIR (not created)"
+    echo "Scene dir: $SCENE_DIR (placeholder video.mp4)"
     echo
     exec "$SCRIPT_DIR/run_pipeline.sh" "$SCENE_DIR" "${EXTRA_ARGS[@]+"${EXTRA_ARGS[@]}"}"
 fi
