@@ -81,14 +81,14 @@ Two synthetic fixtures were run through `pose_vggt.sh` with real VGGT:
 
 ### corridor_x_e2e (31 frames)
 
-- **Attempt 1**: 24 frames (capped from 31) → OOM at ~11.6 GiB peak
+- **Attempt 1**: 24 frames (capped from 31) → OOM (peak not sampled)
 - **Attempt 2**: 12 frames (backoff halving) → **SUCCESS**
-- Peak GPU: 11643 MiB (12 frames)
+- Peak GPU: 11643 MiB (12 frames, measured)
 - Output: `sparse/0/{cameras,images,points3D}.bin` produced
 
 ### room_large_e2e (50 frames)
 
-- **Attempt 1**: 24 frames (capped from 50) → OOM at ~11.6 GiB peak
+- **Attempt 1**: 24 frames (capped from 50) → OOM (peak not sampled)
 - **Attempt 2**: 12 frames (backoff halving) → **SUCCESS**
 - Output: `sparse/0/{cameras,images,points3D}.bin` produced
 
