@@ -1,0 +1,41 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+manifest schema
+  ok   manifest loads and validates
+  ok   schema_version 2 manifest carries a reconstruction camera path
+load errors
+  ok   a missing manifest is invalid
+  ok   a missing manifest explains itself
+GDGS default correction
+  ok   GDGS_DEFAULT_CORRECTION is a proper rotation (det 1.000000)
+  ok   GDGS_DEFAULT_CORRECTION equals Basis.from_euler(0, 0, -PI)
+  ok   it leaves the z axis alone (z = (0.0, 0.0, 1.0))
+  ok   it flips x and y, as a z-180 rotation must
+correction predicate: positive case
+  ok   a node carrying exactly the correction is detected
+correction predicate: negative case
+  ok   a node carrying the contract's mapping is not mistaken for a corrected node
+  ok   the contract's basis orthonormalises to a proper rotation
+correction predicate: scaled basis
+  ok   a scaled correction is still detected
+manifest basis reading
+  ok   the image of the frame's z axis is world +Y (got (0.0, 5.128384, 0.0))
+  ok   the mapping is a proper rotation, not a mirror
+  ok   frame_up_in_world() reports +Y
+node transform
+  ok   expected_node_transform() carries no translation (got (0.0, 0.0, 0.0))
+  ok   ply_to_world() is also centroid-relative for the node case
+  ok   metres_per_unit is positive (5.128384)
+up axis
+  ok   frame_up_in_world() is +Y
+  ok   ceiling 1.1290 is above floor -1.2710
+reconstruction cameras
+  ok   the manifest records 192 cameras
+  ok   camera bounds are non-degenerate ([P: (-5.454341, -0.179605, 0.309599), S: (9.605717, 0.094628, 5.216985)])
+  ok   cameras sit above the floor (min -0.180 vs floor -1.271)
+  ok   mean camera height above the floor is plausible (1.153 m)
+missing keys
+  ok   the manifest names at least the three required landmarks
+  ok   an unknown landmark is reported absent rather than defaulting
+  ok   the floor landmark's y equals the collider floor height
+27 passed, 0 failed

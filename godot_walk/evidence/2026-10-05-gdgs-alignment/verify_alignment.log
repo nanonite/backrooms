@@ -1,0 +1,26 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+OK: manifest scene_id=corridor_splat scale=5.128384 m/unit (chosen)
+  reference: 0.4680 +/- 0.0094 reconstruction units -> 2.40 m (tolerance 0.240 m)
+  walls measured: no -- horizontal extents are observed bounds, not measured walls
+  AUTO[import] applied once by addon
+        addons/gdgs/importers/decoders/standard_ply_decoder.gd
+  AUTO[import] applied once by addon
+        addons/gdgs/importers/builders/gaussian_resource_builder.gd
+  AUTO[node_enter_tree] neutralised by scene (applied zero times)
+        addons/gdgs/runtime/nodes/gaussian_splat_node.gd:_apply_default_orientation_if_needed
+  AUTO[render] applied once by addon
+        addons/gdgs/runtime/render/gaussian_scene_registry.gd + render/shaders/compute/gsplat_projection.glsl
+OK: walkable reconstruction cameras 192 land inside the room, eye height 1.153 m
+OK: walkable landmarks floor=(-0.651325, -1.27099, 2.887547) ceiling=(-0.651325, 1.129009, 2.887547) height=2.4000 m, up axis correct
+    rendered splat AABB [P: (-97.78751, -62.10608, -101.8175), S: (139.4696, 97.00609, 134.5244)]
+    observed room      [P: (-10.06949, -1.27099, -4.30583), S: (18.83632, 2.4, 14.38675)]
+    camera-path core   [P: (-10.06949, -3.256362, -4.30583), S: (18.83632, 6.244334, 14.38675)]
+OK: walkable spawn (-0.651325, -0.77099, 2.887547) is 0.500 m above the floor at -1.2710 m
+OK: inspection reconstruction cameras 192 land inside the room, eye height 1.153 m
+OK: inspection landmarks floor=(-0.651325, -1.27099, 2.887547) ceiling=(-0.651325, 1.129009, 2.887547) height=2.4000 m, up axis correct
+    rendered splat AABB [P: (-97.78751, -62.10608, -101.8175), S: (139.4696, 97.00609, 134.5244)]
+    observed room      [P: (-10.06949, -1.27099, -4.30583), S: (18.83632, 2.4, 14.38675)]
+    camera-path core   [P: (-10.06949, -3.256362, -4.30583), S: (18.83632, 6.244334, 14.38675)]
+OK: inspection spawn (-0.651326, -0.77099, 2.887547) is 0.500 m above the floor at -1.2710 m
+OK: alignment contract verified across 2 scenes
