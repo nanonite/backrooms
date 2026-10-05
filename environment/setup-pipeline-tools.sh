@@ -65,8 +65,12 @@ install_glomap() {
     info "Installing GLOMAP $GLOMAP_VERSION …"
 
     if has_cmd glomap; then
-        ok "glomap already in PATH — skipping."
-        return 0
+        if glomap --help >/dev/null 2>&1; then
+            ok "glomap already in PATH — skipping."
+            return 0
+        else
+            echo "WARN: glomap is in PATH but cannot execute — rebuilding." >&2
+        fi
     fi
 
     # Ensure build deps present (must be inside nix develop or have cmake etc.)
@@ -99,6 +103,8 @@ install_glomap() {
         -DCUDA_ENABLED=OFF \
         -DCOLMAP_DIR="$CONDA_COLMAP_DIR/share/colmap" \
         -DCMAKE_PREFIX_PATH="$CONDA_COLMAP_DIR" \
+        -DCMAKE_INSTALL_RPATH="$CONDA_COLMAP_DIR/lib" \
+        -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON \
         > "$CMAKE_LOG" 2>&1; then
         echo "ERROR: cmake configure failed. The full log is at $CMAKE_LOG." >&2
         echo "Common causes and their fixes:" >&2

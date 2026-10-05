@@ -162,6 +162,22 @@ class TestFailureClassification:
     def test_empty_output_is_not_an_oom(self):
         assert classify_failure("") == "other"
 
+    def test_a_missing_module_is_an_env_failure(self):
+        output = "ModuleNotFoundError: No module named 'torch'"
+
+        assert classify_failure(output) == "env"
+
+    def test_an_import_error_is_an_env_failure(self):
+        assert classify_failure("ImportError: cannot import name 'x'") == "env"
+
+    def test_a_missing_shared_library_is_an_env_failure(self):
+        output = "error while loading shared libraries: libgmpxx.so.4: cannot open shared object file"
+
+        assert classify_failure(output) == "env"
+
+    def test_env_matching_is_case_insensitive(self):
+        assert classify_failure("MODULENOTFOUNDERROR") == "env"
+
 
 # ---------------------------------------------------------------------------
 # Bounded refusal

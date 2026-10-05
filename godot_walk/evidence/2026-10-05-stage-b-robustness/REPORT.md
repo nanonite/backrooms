@@ -1,7 +1,7 @@
 # Stage B robustness (#99) — report
 
 **Task:** #99 Fix local pose reconstruction fallback and environment setup
-**Date:** 2026-10-05 · **Worker:** Chainlink agent, workflow `chainlink_01nn3`, attempt 1/8
+**Date:** 2026-10-05 · **Worker:** Chainlink agent, workflow `chainlink_01nn3`
 **Verdict:** **COMPLETE.** GLOMAP builds and installs; VGGT metadata filtering,
 frame cap, OOM backoff, and bounded refusal all verified on real fixtures.
 
@@ -52,7 +52,7 @@ The manifest stays in `images/` (accepted #88 semantics preserved).
 peak) on the 12 GB RTX 4070 Ti.
 
 **Fix:** Deterministic frame cap + OOM backoff + bounded refusal:
-- `VGGT_MAX_FRAMES` (default 24): caps the frame count, subsampled evenly.
+- `VGGT_MAX_FRAMES` (default 12): caps the frame count, subsampled evenly.
 - OOM backoff: on OOM, retry with half the frames, down to `VGGT_MIN_FRAMES` (default 4).
 - Bounded refusal: if all attempts OOM, write `POSE_REFUSED` (naming budget +
   suggested settings) and exit 7.
@@ -84,7 +84,7 @@ peak) on the 12 GB RTX 4070 Ti.
   This is intentional: the pipeline standardizes on COLMAP 3.10, and the
   nixpkgs COLMAP 4.0.4 is incompatible with GLOMAP 1.2.0. The conda env is
   self-consistent (all deps present).
-- The VGGT frame cap (24) is derived from the #91 measurements (31 frames OOMs
+- The VGGT frame cap (12) is derived from the #91 measurements (31 frames OOMs
   at 11805 MiB). The measured peak at 12 frames is 11643 MiB, confirming that
   12 frames is near the limit. The cap could be tuned further with more
   measurements.

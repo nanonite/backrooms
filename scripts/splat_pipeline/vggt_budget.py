@@ -211,7 +211,7 @@ def main(argv: list[str] | None = None) -> int:
     select.add_argument("frame_count", type=int)
     select.set_defaults(func=_cmd_select)
 
-    classify = sub.add_parser("classify", help="classify a failed run's output as oom or other")
+    classify = sub.add_parser("classify", help="classify a failed run's output as oom, env, or other")
     classify.add_argument("log_file")
     classify.set_defaults(func=_cmd_classify)
 
