@@ -1,0 +1,71 @@
+=== INPUT ===
+file:      data/videos/corridor_corner.mp4
+resolution: 1920x1080 (2.07 MP) h264 yuv420p
+duration:  4.00s at 24.00 fps, 96 frames
+
+=== BUDGET ===
+target frames 150 (small-room hypothesis 100-200, a starting point not a guarantee)
+max candidates 240, analysis pixels 230400, sample ceiling 120s
+min translation 0.5% of frame width, cut limit 0.15 histogram distance
+
+=== BOUNDED WORK ===
+motion probe:  12 frames kept, 89 visited, 0.19s (single pass keeping every 8th frame)
+candidate pass: stride 4, 24 kept of 96 (25.0%), 93 frames visited, 0.20s
+burst probe:   24 contiguous frames for temporal consistency
+total sampling: 1.49s (ceiling 120s)
+
+=== MEASURED ===
+sharpness:     median 162, 10th percentile 85 (variance of Laplacian at 640x360)
+translation:   median 0.94% of frame width over 2 candidate gaps (1.41 px per source frame)
+scene cuts:    0 detected among 24 candidates
+temporal consistency: temporal_geometry_consistent -- adjacent frames leave 4.1% of pixels changed after a global translation, and 0.5% of 24px blocks still differ (worst window 0.8%) -- one rigid scene accounts for the change
+burst residuals: median 0.041 of pixels, 90th percentile 0.005 of blocks still changing
+
+=== SELECTION ===
+selected 12 of 23 eligible (scored 24) frames
+excluded: 11 below_minimum_translation, 1 below_relative_sharpness
+note: frame target 150, selected 12 (hypothesis 100-200 frames for a small room -- a starting point, not a guarantee).
+note: resolution is reported, never used as a rejection: 720p matches features, it only softens distance
+
+=== COVERAGE ===
+camera travel 0.11 frame widths (retained frames: 0.11)
+viewpoints: 2 distinct bins of 0.25 frame widths across 12 frames, 2 directions of travel
+retained span 3.8s of 4.0s (96%)
+the walkable volume cannot exceed this coverage; the splat is only reliable inside it
+
+=== BOUNDED MATCHING ===
+retrieval: 30 pairs vs 66 exhaustive (2.2x fewer)
+retrieval matching against 3 keyframes costs 30 pairs against 66 exhaustive (45.5%); the sequential window alone would cost 65 pairs and find no revisits
+limit: sequential matching compares only the 10 nearest temporal neighbours, so any two views more than 10 samples apart are not matched by it; on this walk the largest such gap is 6 samples
+limit: retrieval matching compares each frame against 3 keyframes, so a revisit matches only if one of its frames is near a keyframe in appearance; a short revisit in a visually distinct part of the room can still be missed
+limit: a loop closure missed here shows up as two disconnected reconstructions, not as a bad one: check the registration report before treating a sparse model as a single room
+command: colmap sequential_matcher <scene_dir>/database.db --SequentialMatching.overlap=10 --SiftExtraction.use_gpu 0 --SiftMatching.use_gpu 0
+command: colmap vocab_tree_matcher <scene_dir>/database.db --SiftExtraction.use_gpu 0 --SiftMatching.use_gpu 0 --VocabTreeMatching.overlap=10
+
+=== RESOURCE ESTIMATE (before reconstruction) ===
+12 frames at 1920x1080: 3 MiB frames, 5 MiB COLMAP database, 3 MiB sparse model
+total 14 MiB with headroom; free 9.7 GiB disk, 39.8 GiB RAM
+matching 30 pairs ~= 0 min CPU; sampling ~= 2s
+
+=== VERDICT: REJECTED ===
+[block] camera_path_too_short
+    measured: 0.11 frame widths of camera travel
+    against:  >= 0.25 frame widths
+    why:      the walkable volume a splat can support is the volume the camera passed through
+    do:       re-shoot walking the length of the space you want to walk in
+[warn] rotation_dominant
+    measured: median global translation explains 0% of the frame change
+    against:  >= 25% explained by one global translation
+    why:      the picture changes without the camera translating, which is a pan, a zoom or a handheld wobble; those give no depth
+    do:       keep translating while turning; translate the camera body, not just the view
+[warn] too_few_frames
+    measured: 12 usable frames selected
+    against:  >= 30 for a small room
+    why:      a small room needs enough views to triangulate; frame target 150, selected 12 (hypothesis 100-200 frames for a small room -- a starting point, not a guarantee).
+    do:       capture a longer walk, or accept a smaller reconstruction volume
+--- not measured ---
+limit: sharpness, cut distance and translation are measured on 230400 analysed pixels per frame; the features COLMAP later extracts come from the full 1920x1080 source, which this scan does not measure
+limit: residual statistics come from 3 contiguous windows of 8 frames; something that walks through one of the other windows is not seen
+limit: translation is one global shift per pair; camera rotation about the view axis is counted as unexplained change, not as measured rotation
+limit: displacements below about 0.5% of the analysis frame width fall under the alignment search's resolution and are reported as zero, so a very slow camera can measure as still; translations are therefore measured over 2 candidate gaps
+limit: candidates are 4 source frames apart, so anything that happens only between two candidates -- including a cut shorter than the stride -- is not examined

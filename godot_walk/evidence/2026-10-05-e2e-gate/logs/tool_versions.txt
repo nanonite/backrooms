@@ -1,0 +1,28 @@
+## Host
+date_utc: 2026-10-05T06:00:34Z
+os: Ubuntu 24.04.5 LTS
+kernel: 6.8.0-142-generic
+cpu: AMD Ryzen 9 7900X 12-Core Processor
+ram_total: 62.5 GiB
+display: DISPLAY=:1 (real X11 desktop, not xvfb)
+
+## GPU
+NVIDIA GeForce RTX 4070 Ti, 595.91.07, 12282 MiB, 8.9
+2380 MiB
+
+## Engine
+4.6.3.stable.official.7d41c59c4
+godot_binary: /home/user/.local/bin/godot4
+
+## Tools
+ffmpeg: ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
+node: v22.5.1
+npm: 10.8.2
+splat-transform: splat-transform v3.9.0 (435b972)
+conda_colmap: COLMAP 3.10-dev -- Structure-from-Motion and Multi-View Stereo   colmap [command] [options] 
+glomap: MISSING
+python_system: Python 3.12.3
+python_conda: Python 3.10.20
+ns-train: Traceback (most recent call last):
+brush: brush-cli 0.3.0
+vggt_repo: /home/user/vggt (demo_colmap.py present)

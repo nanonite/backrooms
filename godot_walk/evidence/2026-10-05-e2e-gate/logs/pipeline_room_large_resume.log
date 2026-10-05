@@ -1,0 +1,140 @@
+=== RESUME START 2026-10-05T06:00:25Z ===
+workaround: data/scenes/room_large_e2e/images/frames.json -> ../frames_manifest.json
+=== Splat pipeline ===
+Scene:    room_large_e2e
+Dir:      /workspace/backrooms-workspace/data/scenes/room_large_e2e
+Dry-run:  false
+Force:    false
+
+--- Preflight: tool availability ---
+  [ok]      ffmpeg
+  [ok]      ffprobe
+  [ok]      python3
+  [ok]      node
+  [ok]      colmap
+  [missing] glomap
+  [ok]      ns-train
+  [missing] godot
+  [ok]      godot4
+Preflight: 2 tool(s) not on PATH (per-stage checks decide pass/fail).
+
+--- Validate ---
+File:     /workspace/backrooms-workspace/data/scenes/room_large_e2e/video.mp4
+Codec:    h264
+Res:      1920x1080
+FPS:      24.0
+Duration: 4.0s
+Frames:   96
+Pix fmt:  yuv420p
+
+Blur proxy (mean Laplacian variance): 194.3
+Motion proxy (mean optical-flow magnitude): 6.08
+
++-------------------------------------------------------------+
+|  MANUAL CHECKLIST — verify BEFORE running the pipeline:     |
+|                                                             |
+|  [ ] STATIC SCENE — no people, no cars, no wind/water.      |
+|      Moving content will corrupt the reconstruction.        |
+|                                                             |
+|  [ ] REAL PARALLAX — camera TRANSLATED through space, not   |
+|      just panned/rotated in place. Walk-through or orbit.   |
+|                                                             |
+|  [ ] EVEN LIGHTING — no auto-exposure swings, no flashing   |
+|      lights, no abrupt brightness changes.                  |
+|                                                             |
+|  [ ] LOW MOTION BLUR — slow, smooth camera movement.        |
+|      Fast whip-pans produce unrecoverable blur.             |
+|                                                             |
+|  [ ] COVERAGE — every surface the player will see appears   |
+|      from at least 2–3 distinct angles in the video.        |
+|                                                             |
+|  [ ] DESIGN RULE — the splat is reliable ONLY near where    |
+|      the real camera went. Confine the player to roughly    |
+|      the captured camera path volume.                       |
++-------------------------------------------------------------+
+
+Hard checks passed.
+
+--- Stage A: Bounded sampling and frame extraction ---
+SKIP: stage_a (previous successful run at 2026-10-05T05:56:11.797124+00:00)
+Stage A skipped (unchanged).
+
+--- Stage B: Pose estimation ---
+Path 1 (default): COLMAP/GLOMAP
+=== COLMAP/GLOMAP pose estimation (Path 1) ===
+Scene:    /workspace/backrooms-workspace/data/scenes/room_large_e2e
+Matcher:  exhaustive
+Cleanup:  true
+Min reg:  0.5 (fraction of input images)
+
+ERROR: glomap not found in PATH. Install GLOMAP and re-run.
+COLMAP/GLOMAP unavailable or POSE_FAILED (exit 2).
+Trying VGGT fallback (Path 2) ...
+=== VGGT pose estimation (Path 2 — FALLBACK) ===
+Scene:       /workspace/backrooms-workspace/data/scenes/room_large_e2e
+VGGT root:   /home/user/vggt
+Use BA:      false
+Python:      python3
+
+python:   /home/user/anaconda3/envs/nerfstudio/bin/python3
+git:      /usr/bin/git
+
+Input images: 50
+
+--- VGGT clone/install ---
+VGGT repo found at /home/user/vggt (demo_colmap.py present). Skipping clone.
+VGGT dependencies already installed (/home/user/vggt/.vggt_deps_ok exists). Skipping install.
+
+--- VGGT pose estimation ---
+Bundle adjustment: DISABLED. Set VGGT_USE_BA=1 to enable.
+Running VGGT demo_colmap.py ...
+This requires a GPU with sufficient VRAM (target: RTX 4070 Ti, 12 GB).
+
+Arguments: {'scene_dir': '/workspace/backrooms-workspace/data/scenes/room_large_e2e', 'seed': 42, 'use_ba': False, 'max_reproj_error': 8.0, 'shared_camera': False, 'camera_type': 'SIMPLE_PINHOLE', 'vis_thresh': 0.2, 'query_frame_num': 8, 'max_query_pts': 4096, 'fine_tracking': True, 'conf_thres_value': 5.0}
+Setting seed as: 42
+Using device: cuda
+Using dtype: torch.bfloat16
+Model loaded
+Loaded 50 images from /workspace/backrooms-workspace/data/scenes/room_large_e2e/images
+Traceback (most recent call last):
+  File "/home/user/vggt/demo_colmap.py", line 298, in <module>
+    demo_fn(args)
+  File "/home/user/vggt/demo_colmap.py", line 139, in demo_fn
+    extrinsic, intrinsic, depth_map, depth_conf = run_VGGT(model, images, dtype, vggt_fixed_resolution)
+  File "/home/user/vggt/demo_colmap.py", line 77, in run_VGGT
+    aggregated_tokens_list, ps_idx = model.aggregator(images)
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/user/vggt/vggt/models/aggregator.py", line 244, in forward
+    tokens, frame_idx, frame_intermediates = self._process_frame_attention(
+  File "/home/user/vggt/vggt/models/aggregator.py", line 285, in _process_frame_attention
+    tokens = self.frame_blocks[frame_idx](tokens, pos=pos)
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/user/vggt/vggt/layers/block.py", line 96, in forward
+    x = x + attn_residual_func(x, pos=pos)
+  File "/home/user/vggt/vggt/layers/block.py", line 79, in attn_residual_func
+    return self.ls1(self.attn(self.norm1(x), pos=pos))
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/user/vggt/vggt/layers/attention.py", line 57, in forward
+    q = self.rope(q, pos)
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/user/vggt/vggt/layers/rope.py", line 188, in forward
+    return torch.cat((vertical_features, horizontal_features), dim=-1)
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 270.00 MiB. GPU 
+ERROR: VGGT demo_colmap.py failed.
+FAIL: both COLMAP and VGGT failed. Pipeline cannot continue.
+
+=== RESUME END 2026-10-05T06:00:42Z exit=1 elapsed_s=17 ===
+peak_gpu_used_mib=11757
+peak_ram_used_mib=29033

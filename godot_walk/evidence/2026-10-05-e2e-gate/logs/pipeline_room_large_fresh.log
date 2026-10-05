@@ -1,0 +1,191 @@
+=== RUN START 2026-10-05T05:55:55Z ===
+command: convert_video.sh data/videos/room_large.mp4 room_large_e2e
+PATH=/home/user/anaconda3/envs/nerfstudio/bin:/home/user/.local/bin:/home/user/.nvm/versions/node/v22.5.1/bin:/home/user/.elan/bin:/home/user/.local/bin:/home/user/.codex/packages/app-server-daemon/releases/0.160.0-x86_64-unknown-linux-musl/codex-path:/home/user/.elan/bin:/home/user/.local/bin:/home/user/.codex/tmp/arg0/codex-arg0JM8qd1:/home/user/.codex/packages/app-server-daemon/releases/0.160.0-x86_64-unknown-linux-musl/codex-path:/home/user/.codex/tmp/arg0/codex-arg077C08f:/home/user/.nvm/versions/node/v22.5.1/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path:/home/user/.bun/bin:/home/user/.opencode/bin:/home/user/.nvm/versions/node/v22.5.1/bin:/usr/local/cuda-12.4/bin:/home/user/anaconda3/condabin:/home/user/.elan/bin:/home/user/.atuin/bin:/home/user/.cargo/bin:/home/user/.local/bin:/home/user/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/user/Android/Sdk/platform-tools:/home/user/Android/Sdk/platform-tools:/home/user/Android/Sdk/platform-tools
+PYTHONNOUSERSITE=1 TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
+
+=== Convert video ===
+Video:     /workspace/backrooms-workspace/data/videos/room_large.mp4
+Scene:     room_large_e2e
+Scene dir: /workspace/backrooms-workspace/data/scenes/room_large_e2e
+
+=== Splat pipeline ===
+Scene:    room_large_e2e
+Dir:      /workspace/backrooms-workspace/data/scenes/room_large_e2e
+Dry-run:  false
+Force:    false
+
+--- Preflight: tool availability ---
+  [ok]      ffmpeg
+  [ok]      ffprobe
+  [ok]      python3
+  [ok]      node
+  [ok]      colmap
+  [missing] glomap
+  [ok]      ns-train
+  [missing] godot
+  [ok]      godot4
+Preflight: 2 tool(s) not on PATH (per-stage checks decide pass/fail).
+
+--- Validate ---
+File:     /workspace/backrooms-workspace/data/scenes/room_large_e2e/video.mp4
+Codec:    h264
+Res:      1920x1080
+FPS:      24.0
+Duration: 4.0s
+Frames:   96
+Pix fmt:  yuv420p
+
+Blur proxy (mean Laplacian variance): 194.3
+Motion proxy (mean optical-flow magnitude): 6.08
+
++-------------------------------------------------------------+
+|  MANUAL CHECKLIST — verify BEFORE running the pipeline:     |
+|                                                             |
+|  [ ] STATIC SCENE — no people, no cars, no wind/water.      |
+|      Moving content will corrupt the reconstruction.        |
+|                                                             |
+|  [ ] REAL PARALLAX — camera TRANSLATED through space, not   |
+|      just panned/rotated in place. Walk-through or orbit.   |
+|                                                             |
+|  [ ] EVEN LIGHTING — no auto-exposure swings, no flashing   |
+|      lights, no abrupt brightness changes.                  |
+|                                                             |
+|  [ ] LOW MOTION BLUR — slow, smooth camera movement.        |
+|      Fast whip-pans produce unrecoverable blur.             |
+|                                                             |
+|  [ ] COVERAGE — every surface the player will see appears   |
+|      from at least 2–3 distinct angles in the video.        |
+|                                                             |
+|  [ ] DESIGN RULE — the splat is reliable ONLY near where    |
+|      the real camera went. Confine the player to roughly    |
+|      the captured camera path volume.                       |
++-------------------------------------------------------------+
+
+Hard checks passed.
+
+--- Stage A: Bounded sampling and frame extraction ---
+=== INPUT ===
+file:      /workspace/backrooms-workspace/data/scenes/room_large_e2e/video.mp4
+resolution: 1920x1080 (2.07 MP) h264 yuv420p
+duration:  4.00s at 24.00 fps, 96 frames
+
+=== BUDGET ===
+target frames 150 (small-room hypothesis 100-200, a starting point not a guarantee)
+max candidates 240, analysis pixels 230400, sample ceiling 120s
+min translation 0.5% of frame width, cut limit 0.15 histogram distance
+
+=== BOUNDED WORK ===
+motion probe:  12 frames kept, 89 visited, 0.27s (single pass keeping every 8th frame)
+candidate pass: stride 1, 96 kept of 96 (100.0%), 96 frames visited, 0.27s
+burst probe:   24 contiguous frames for temporal consistency
+total sampling: 1.97s (ceiling 120s)
+
+=== MEASURED ===
+sharpness:     median 137, 10th percentile 127 (variance of Laplacian at 640x360)
+translation:   median 1.25% of frame width over 2 candidate gaps (4.50 px per source frame)
+scene cuts:    0 detected among 96 candidates
+temporal consistency: temporal_geometry_consistent -- adjacent frames leave 3.6% of pixels changed after a global translation, and 0.0% of 24px blocks still differ (worst window 0.0%) -- one rigid scene accounts for the change
+burst residuals: median 0.036 of pixels, 90th percentile 0.000 of blocks still changing
+
+=== SELECTION ===
+selected 50 of 96 eligible (scored 96) frames
+excluded: 46 below_minimum_translation
+note: frame target 150, selected 50 (hypothesis 100-200 frames for a small room -- a starting point, not a guarantee).
+note: resolution is reported, never used as a rejection: 720p matches features, it only softens distance
+
+=== COVERAGE ===
+camera travel 0.57 frame widths (retained frames: 0.57)
+viewpoints: 6 distinct bins of 0.25 frame widths across 50 frames, 1 directions of travel
+retained span 3.9s of 4.0s (98%)
+the walkable volume cannot exceed this coverage; the splat is only reliable inside it
+
+=== BOUNDED MATCHING ===
+retrieval: 522 pairs vs 1225 exhaustive (2.3x fewer)
+retrieval matching against 12 keyframes costs 522 pairs against 1225 exhaustive (42.6%); the sequential window alone would cost 445 pairs and find no revisits
+limit: sequential matching compares only the 10 nearest temporal neighbours, so any two views more than 10 samples apart are not matched by it; on this walk the largest such gap is 25 samples
+limit: retrieval matching compares each frame against 12 keyframes, so a revisit matches only if one of its frames is near a keyframe in appearance; a short revisit in a visually distinct part of the room can still be missed
+limit: a loop closure missed here shows up as two disconnected reconstructions, not as a bad one: check the registration report before treating a sparse model as a single room
+command: colmap sequential_matcher <scene_dir>/database.db --SequentialMatching.overlap=10 --SiftExtraction.use_gpu 0 --SiftMatching.use_gpu 0
+command: colmap vocab_tree_matcher <scene_dir>/database.db --SiftExtraction.use_gpu 0 --SiftMatching.use_gpu 0 --VocabTreeMatching.overlap=10
+
+=== RESOURCE ESTIMATE (before reconstruction) ===
+50 frames at 1920x1080: 12 MiB frames, 20 MiB COLMAP database, 14 MiB sparse model
+total 57 MiB with headroom; free 3427.0 GiB disk, 40.5 GiB RAM
+matching 522 pairs ~= 2 min CPU; sampling ~= 10s
+
+=== VERDICT: ACCEPTED_WITH_WARNINGS ===
+[warn] single_direction_walk
+    measured: camera travelled in 1 direction(s) over 0.57 frame widths
+    against:  >= 2 directions of travel
+    why:      a one-way walk sees every surface from one side, and a surface seen from one angle cannot be triangulated
+    do:       weave the walk: pass close to one wall then cross to the other, or round a corner
+--- not measured ---
+limit: sharpness, cut distance and translation are measured on 230400 analysed pixels per frame; the features COLMAP later extracts come from the full 1920x1080 source, which this scan does not measure
+limit: residual statistics come from 3 contiguous windows of 8 frames; something that walks through one of the other windows is not seen
+limit: translation is one global shift per pair; camera rotation about the view axis is counted as unexplained change, not as measured rotation
+limit: displacements below about 0.5% of the analysis frame width fall under the alignment search's resolution and are reported as zero, so a very slow camera can measure as still; translations are therefore measured over 2 candidate gaps
+
+Extracting the selected frames at source resolution ...
+=== EXTRACTION ===
+video:    /workspace/backrooms-workspace/data/scenes/room_large_e2e/video.mp4
+output:   /workspace/backrooms-workspace/data/scenes/room_large_e2e/images
+frames:   50 of 50 selected, written as frame_NNNN.jpg
+resolution: 1920x1080 (source, preserved) -- measurements were made on 640x360 analysis frames at 0.3333x
+work:     50 ffmpeg invocation(s), one seek per kept frame, 11.1s; no other frame of the clip was decoded
+source frame indices: 0..94 (first 12: 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22)
+manifest: frames.json maps each written file back to its source frame index
+Extracted 50 selected frames into /workspace/backrooms-workspace/data/scenes/room_large_e2e/images.
+
+
+--- Stage B: Pose estimation ---
+Path 1 (default): COLMAP/GLOMAP
+=== COLMAP/GLOMAP pose estimation (Path 1) ===
+Scene:    /workspace/backrooms-workspace/data/scenes/room_large_e2e
+Matcher:  exhaustive
+Cleanup:  true
+Min reg:  0.5 (fraction of input images)
+
+ERROR: glomap not found in PATH. Install GLOMAP and re-run.
+COLMAP/GLOMAP unavailable or POSE_FAILED (exit 2).
+Trying VGGT fallback (Path 2) ...
+=== VGGT pose estimation (Path 2 — FALLBACK) ===
+Scene:       /workspace/backrooms-workspace/data/scenes/room_large_e2e
+VGGT root:   /home/user/vggt
+Use BA:      false
+Python:      python3
+
+python:   /home/user/anaconda3/envs/nerfstudio/bin/python3
+git:      /usr/bin/git
+
+Input images: 50
+
+--- VGGT clone/install ---
+VGGT repo found at /home/user/vggt (demo_colmap.py present). Skipping clone.
+VGGT dependencies already installed (/home/user/vggt/.vggt_deps_ok exists). Skipping install.
+
+--- VGGT pose estimation ---
+Bundle adjustment: DISABLED. Set VGGT_USE_BA=1 to enable.
+Running VGGT demo_colmap.py ...
+This requires a GPU with sufficient VRAM (target: RTX 4070 Ti, 12 GB).
+
+Arguments: {'scene_dir': '/workspace/backrooms-workspace/data/scenes/room_large_e2e', 'seed': 42, 'use_ba': False, 'max_reproj_error': 8.0, 'shared_camera': False, 'camera_type': 'SIMPLE_PINHOLE', 'vis_thresh': 0.2, 'query_frame_num': 8, 'max_query_pts': 4096, 'fine_tracking': True, 'conf_thres_value': 5.0}
+Setting seed as: 42
+Using device: cuda
+Using dtype: torch.bfloat16
+Model loaded
+Traceback (most recent call last):
+  File "/home/user/vggt/demo_colmap.py", line 298, in <module>
+    demo_fn(args)
+  File "/home/user/vggt/demo_colmap.py", line 132, in demo_fn
+    images, original_coords = load_and_preprocess_images_square(image_path_list, img_load_resolution)
+  File "/home/user/vggt/vggt/utils/load_fn.py", line 41, in load_and_preprocess_images_square
+    img = Image.open(image_path)
+  File "/home/user/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/PIL/Image.py", line 3711, in open
+    raise UnidentifiedImageError(msg)
+PIL.UnidentifiedImageError: cannot identify image file '/workspace/backrooms-workspace/data/scenes/room_large_e2e/images/frames.json'
+ERROR: VGGT demo_colmap.py failed.
+FAIL: both COLMAP and VGGT failed. Pipeline cannot continue.
+
+=== RUN END 2026-10-05T05:56:26Z exit=1 elapsed_s=31 ===
+peak_gpu_used_mib=7428
+peak_ram_used_mib=31644808
