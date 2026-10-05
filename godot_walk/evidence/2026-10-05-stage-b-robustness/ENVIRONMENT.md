@@ -107,11 +107,15 @@ Two synthetic fixtures were run through `pose_vggt.sh` with real VGGT:
 
 | Run | Frames | Peak GPU (MiB) | Result |
 |---|---|---|---|
-| corridor_x_e2e | 24 (capped from 31) | ~11643 | OOM |
-| corridor_x_e2e | 12 (backoff) | 11643 | SUCCESS |
-| room_large_e2e | 24 (capped from 50) | ~11643 | OOM |
-| room_large_e2e | 12 (backoff) | ~11643 | SUCCESS |
-| corridor_x_e2e (refusal) | 24 (min==max) | ~11643 | POSE_REFUSED |
+| corridor_x_e2e | 12 (backoff) | 11643 (measured) | SUCCESS |
+| corridor_x_e2e | 24 (capped from 31) | not sampled | OOM |
+| room_large_e2e | 24 (capped from 50) | not sampled | OOM |
+| room_large_e2e | 12 (backoff) | not sampled | SUCCESS |
+| corridor_x_e2e (refusal) | 24 (min==max) | not sampled | POSE_REFUSED |
+
+Only the 12-frame corridor_x_e2e run has a resource log
+(`logs/vggt_corridor_x_12frames_resources.log`). The 24-frame OOM peaks
+were not sampled; the OOM is reported by VGGT's own error output.
 
 ## Fallback decisions
 

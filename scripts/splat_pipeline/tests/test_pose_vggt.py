@@ -390,6 +390,10 @@ if os.environ.get("VGGT_STUB_FAIL_OOM"):
     print("torch.cuda.OutOfMemoryError: CUDA out of memory.", file=sys.stderr)
     sys.exit(1)
 
+if os.environ.get("VGGT_STUB_FAIL_ENV"):
+    print("ModuleNotFoundError: No module named 'torch'", file=sys.stderr)
+    sys.exit(1)
+
 sparse_dir = os.path.join(args.scene_dir, "sparse")
 os.makedirs(sparse_dir, exist_ok=True)
 count = len(seen)
@@ -519,6 +523,39 @@ class TestOomBackoff:
         rc, stdout, stderr = _run(tmp_path, env=env)
         assert rc == 5
         assert "non-OOM" in stderr
+
+
+# ---------------------------------------------------------------------------
+# Environment failures — a broken interpreter is not a capture problem
+# ---------------------------------------------------------------------------
+
+
+class TestEnvironmentFailure:
+    def test_a_missing_module_is_reported_as_env_not_capture(self, tmp_path):
+        _make_images(tmp_path, 5)
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub_with_probes(vggt_root)
+        env = _make_env(tmp_path, vggt_root)
+        env["VGGT_STUB_FAIL_ENV"] = "1"
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 5
+        assert "environment failure" in stderr
+        assert "not a capture problem" in stderr
+
+    def test_env_failure_is_not_retried_with_fewer_frames(self, tmp_path):
+        _make_images(tmp_path, 30)
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub_with_probes(vggt_root)
+        record = tmp_path / "seen_counts.txt"
+        env = _make_env(tmp_path, vggt_root)
+        env["VGGT_MAX_FRAMES"] = "24"
+        env["VGGT_MIN_FRAMES"] = "4"
+        env["VGGT_STUB_FAIL_ENV"] = "1"
+        env["VGGT_STUB_RECORD"] = str(record)
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 5
+        # Only one attempt — env failures are not retried.
+        assert record.read_text().split() == ["24"]
 
 
 # ---------------------------------------------------------------------------
