@@ -195,6 +195,34 @@ def record_failure(
     return record
 
 
+def record_refusal(
+    scene_dir: Path,
+    stage_name: str,
+    input_hash: str,
+    detail: str = "",
+) -> StageRecord:
+    """Record a bounded resource refusal and persist the state.
+
+    A refusal is distinct from a failure: the stage did not crash, it
+    deterministically exhausted its resource budget and issued a bounded
+    refusal. Persisting ``"refused"`` (not ``"failed"``) lets a resumed run
+    distinguish the two.
+    """
+    record = StageRecord(
+        stage=stage_name,
+        input_hash=input_hash,
+        output_hash="",
+        timestamp=datetime.now(timezone.utc).isoformat(),
+        status="refused",
+        log_path="",
+        detail=detail,
+    )
+    records = load_state(scene_dir)
+    records[stage_name] = record
+    save_state(scene_dir, records)
+    return record
+
+
 def stage_log_path(scene_dir: Path, stage_name: str) -> Path:
     """Return the log file path for a stage."""
     return scene_dir / "logs" / ("%s.log" % stage_name)

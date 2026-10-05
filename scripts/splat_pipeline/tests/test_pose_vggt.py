@@ -341,3 +341,232 @@ class TestEnvVarConfig:
         rc, stdout, stderr = _run(tmp_path, env=env)
         assert rc == 0
         assert "FALLBACK" in stdout
+
+
+# ---------------------------------------------------------------------------
+# Metadata filtering — VGGT must never see pipeline metadata as an image
+# ---------------------------------------------------------------------------
+
+
+def _make_vggt_stub_with_probes(vggt_root: Path) -> Path:
+    """Stub VGGT that records what it sees and can be told to fail with OOM.
+
+    The stub fails if any non-image file is visible in its images directory —
+    the real VGGT's loader crashes on those, so the stub crashing means the
+    staging step let metadata through.
+    """
+    vggt_root.mkdir(parents=True, exist_ok=True)
+
+    demo_colmap = vggt_root / "demo_colmap.py"
+    demo_colmap.write_text(
+        """#!/usr/bin/env python3
+import argparse, glob, os, struct, sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--scene_dir", required=True)
+parser.add_argument("--use_ba", action="store_true")
+args = parser.parse_args()
+
+images_dir = os.path.join(args.scene_dir, "images")
+seen = sorted(os.path.basename(p) for p in glob.glob(os.path.join(images_dir, "*")))
+
+# Metadata guard: the real VGGT calls PIL.Image.open on every file here.
+non_images = [p for p in seen if not p.lower().endswith((".jpg", ".jpeg", ".png"))]
+if non_images:
+    print(f"VGGT stub: non-image file presented to VGGT: {non_images}", file=sys.stderr)
+    sys.exit(1)
+
+record = os.environ.get("VGGT_STUB_RECORD", "")
+if record:
+    with open(record, "a") as f:
+        f.write(f"{len(seen)}\\n")
+
+oom_above = os.environ.get("VGGT_STUB_OOM_ABOVE")
+if oom_above and len(seen) > int(oom_above):
+    print(f"torch.cuda.OutOfMemoryError: CUDA out of memory at {len(seen)} frames", file=sys.stderr)
+    sys.exit(1)
+
+if os.environ.get("VGGT_STUB_FAIL_OOM"):
+    print("torch.cuda.OutOfMemoryError: CUDA out of memory.", file=sys.stderr)
+    sys.exit(1)
+
+sparse_dir = os.path.join(args.scene_dir, "sparse")
+os.makedirs(sparse_dir, exist_ok=True)
+count = len(seen)
+for fname, val in [("cameras.bin", 1), ("images.bin", count), ("points3D.bin", 100)]:
+    with open(os.path.join(sparse_dir, fname), "wb") as f:
+        f.write(struct.pack("<Q", val))
+print(f"VGGT stub: wrote sparse model from {count} image(s)")
+"""
+    )
+    _make_executable(demo_colmap)
+
+    (vggt_root / ".vggt_deps_ok").touch()
+
+    return demo_colmap
+
+
+class TestMetadataFiltering:
+    def test_frames_json_is_never_presented_to_vggt(self, tmp_path):
+        """The pipeline manifest in images/ must not reach VGGT's loader."""
+        _make_images(tmp_path, 5)
+        (tmp_path / "images" / "frames.json").write_text('{"frames": []}')
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub_with_probes(vggt_root)
+        env = _make_env(tmp_path, vggt_root)
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 0
+        assert "POSE_OK" in stdout
+
+    def test_other_metadata_is_never_presented_to_vggt(self, tmp_path):
+        _make_images(tmp_path, 3)
+        (tmp_path / "images" / "frames.json").write_text("{}")
+        (tmp_path / "images" / "notes.txt").write_text("not an image")
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub_with_probes(vggt_root)
+        env = _make_env(tmp_path, vggt_root)
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 0
+        assert "POSE_OK" in stdout
+
+    def test_the_manifest_stays_in_images(self, tmp_path):
+        """Filtering happens at the staging boundary, not by moving the manifest.
+
+        The accepted Stage A contract writes frames.json into images/; the
+        fallback must cope with it there rather than require it moved.
+        """
+        _make_images(tmp_path, 3)
+        (tmp_path / "images" / "frames.json").write_text("{}")
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub_with_probes(vggt_root)
+        env = _make_env(tmp_path, vggt_root)
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 0
+        assert (tmp_path / "images" / "frames.json").is_file()
+
+
+# ---------------------------------------------------------------------------
+# Frame cap — a large selection is subsampled evenly, never truncated
+# ---------------------------------------------------------------------------
+
+
+class TestFrameCap:
+    def test_a_selection_over_the_cap_is_subsampled_to_the_cap(self, tmp_path):
+        _make_images(tmp_path, 30)
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub_with_probes(vggt_root)
+        record = tmp_path / "seen_counts.txt"
+        env = _make_env(tmp_path, vggt_root)
+        env["VGGT_MAX_FRAMES"] = "10"
+        env["VGGT_STUB_RECORD"] = str(record)
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 0
+        assert record.read_text().strip() == "10"
+
+    def test_a_selection_under_the_cap_is_used_whole(self, tmp_path):
+        _make_images(tmp_path, 6)
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub_with_probes(vggt_root)
+        record = tmp_path / "seen_counts.txt"
+        env = _make_env(tmp_path, vggt_root)
+        env["VGGT_MAX_FRAMES"] = "10"
+        env["VGGT_STUB_RECORD"] = str(record)
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 0
+        assert record.read_text().strip() == "6"
+
+    def test_the_cap_never_exceeds_the_input(self, tmp_path):
+        _make_images(tmp_path, 3)
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub_with_probes(vggt_root)
+        record = tmp_path / "seen_counts.txt"
+        env = _make_env(tmp_path, vggt_root)
+        env["VGGT_MAX_FRAMES"] = "24"
+        env["VGGT_STUB_RECORD"] = str(record)
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 0
+        assert record.read_text().strip() == "3"
+
+
+# ---------------------------------------------------------------------------
+# OOM backoff — an OOM is answered with a smaller attempt, deterministically
+# ---------------------------------------------------------------------------
+
+
+class TestOomBackoff:
+    def test_an_oom_is_retried_with_fewer_frames(self, tmp_path):
+        _make_images(tmp_path, 30)
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub_with_probes(vggt_root)
+        record = tmp_path / "seen_counts.txt"
+        env = _make_env(tmp_path, vggt_root)
+        env["VGGT_MAX_FRAMES"] = "24"
+        env["VGGT_MIN_FRAMES"] = "4"
+        env["VGGT_STUB_OOM_ABOVE"] = "12"
+        env["VGGT_STUB_RECORD"] = str(record)
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 0
+        # 24 OOMs (>12), 12 succeeds — the schedule halved once.
+        assert record.read_text().split() == ["24", "12"]
+        assert "OOM" in stderr
+
+    def test_a_non_oom_failure_is_not_retried(self, tmp_path):
+        _make_images(tmp_path, 30)
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub(vggt_root)
+        env = _make_env(tmp_path, vggt_root)
+        env["VGGT_STUB_FAIL"] = "1"
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 5
+        assert "non-OOM" in stderr
+
+
+# ---------------------------------------------------------------------------
+# Bounded refusal — below the floor the run is refused, not crashed
+# ---------------------------------------------------------------------------
+
+
+class TestBoundedRefusal:
+    def test_persistent_oom_exits_with_the_refusal_code(self, tmp_path):
+        _make_images(tmp_path, 30)
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub_with_probes(vggt_root)
+        env = _make_env(tmp_path, vggt_root)
+        env["VGGT_MAX_FRAMES"] = "8"
+        env["VGGT_MIN_FRAMES"] = "4"
+        env["VGGT_STUB_FAIL_OOM"] = "1"
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 7
+        assert "POSE_REFUSED" in stderr
+
+    def test_the_refusal_names_the_budget_and_the_setting(self, tmp_path):
+        _make_images(tmp_path, 30)
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub_with_probes(vggt_root)
+        env = _make_env(tmp_path, vggt_root)
+        env["VGGT_MAX_FRAMES"] = "8"
+        env["VGGT_MIN_FRAMES"] = "4"
+        env["VGGT_STUB_FAIL_OOM"] = "1"
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 7
+        refusal = tmp_path / "POSE_REFUSED"
+        assert refusal.is_file()
+        text = refusal.read_text()
+        assert "budget:" in text
+        assert "suggested:" in text
+        assert "VGGT_MAX_FRAMES" in text
+
+    def test_the_refusal_records_every_attempt(self, tmp_path):
+        _make_images(tmp_path, 30)
+        vggt_root = tmp_path / "vggt_stub"
+        _make_vggt_stub_with_probes(vggt_root)
+        record = tmp_path / "seen_counts.txt"
+        env = _make_env(tmp_path, vggt_root)
+        env["VGGT_MAX_FRAMES"] = "8"
+        env["VGGT_MIN_FRAMES"] = "4"
+        env["VGGT_STUB_FAIL_OOM"] = "1"
+        env["VGGT_STUB_RECORD"] = str(record)
+        rc, stdout, stderr = _run(tmp_path, env=env)
+        assert rc == 7
+        # 8 -> 4: two attempts, both OOM, then the refusal.
+        assert record.read_text().split() == ["8", "4"]

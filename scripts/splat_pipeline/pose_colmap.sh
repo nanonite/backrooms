@@ -170,7 +170,7 @@ if [[ -z "$COLMAP_BIN" ]]; then
     die 2 "colmap not found in PATH. Install COLMAP 3.10 and re-run."
 fi
 if [[ -z "$GLOMAP_BIN" ]]; then
-    die 2 "glomap not found in PATH. Install GLOMAP and re-run."
+    die 2 "glomap not found in PATH. Install it with: ./environment/setup-pipeline-tools.sh install-glomap (inside 'nix develop'), or set VGGT as the fallback."
 fi
 
 echo "colmap:   $COLMAP_BIN"

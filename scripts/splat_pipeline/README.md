@@ -320,6 +320,7 @@ by a `.vggt_deps_ok` marker file to avoid re-installing on every run.
 | 3 | No `images/` directory or no frames | Run Stage A first |
 | 4 | VGGT clone or pip install failed | Check network, git, pip |
 | 5 | VGGT ran but produced no output | Re-capture (violates requirements) |
+| 7 | `POSE_REFUSED` — bounded resource refusal | See `POSE_REFUSED` file for budget + suggested setting |
 
 **Environment variables:**
 
@@ -329,12 +330,14 @@ by a `.vggt_deps_ok` marker file to avoid re-installing on every run.
 | `VGGT_REPO_URL` | `https://github.com/facebookresearch/vggt` | Repo URL for cloning |
 | `VGGT_USE_BA` | (empty — disabled) | Set to `1` or `true` to enable bundle adjustment |
 | `VGGT_PYTHON` | `python3` | Python interpreter to use |
+| `VGGT_MAX_FRAMES` | `24` | Frame cap for one attempt. The aggregator's global attention is quadratic in the frame count; 31 frames at 1080p OOMs on the 12 GB target GPU. A larger selection is subsampled evenly, never truncated to its opening. |
+| `VGGT_MIN_FRAMES` | `4` | Floor for the OOM backoff. Below this the run is refused rather than attempted again. |
 
 **Escalation notes:**
 
 | Symptom | Cause | Action |
 |---------|-------|--------|
-| VGGT OOMs | 12 GB VRAM exceeded with `--use_ba` | Drop `VGGT_USE_BA` (faster, slightly less robust) or reduce frame count / resolution |
+| VGGT OOMs | 12 GB VRAM exceeded | The script automatically retries with fewer frames (deterministic halving from `VGGT_MAX_FRAMES` down to `VGGT_MIN_FRAMES`). If every attempt OOMs, it writes `POSE_REFUSED` and exits 7. Lower `VGGT_MAX_FRAMES` to reduce peak VRAM, or raise `VGGT_MIN_FRAMES` to allow smaller attempts. |
 | VGGT produces garbage | Video violates static-scene or parallax requirements | Re-capture is the only fix — do not attempt to salvage dynamic-scene video |
 | VGGT not found | `VGGT_ROOT` points to an empty or wrong directory | Set `VGGT_ROOT` to an empty path and re-run to trigger auto-clone |
 

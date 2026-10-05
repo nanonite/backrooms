@@ -1,0 +1,34 @@
+=== VGGT pose estimation (Path 2 — FALLBACK) ===
+Scene:       $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e
+VGGT root:   $HOME/vggt
+Use BA:      false
+Python:      $HOME/anaconda3/envs/nerfstudio/bin/python3
+Frame cap:   12 (min 4)
+
+python:   $HOME/anaconda3/envs/nerfstudio/bin/python3
+git:      /usr/bin/git
+
+Input images: 31
+
+--- VGGT clone/install ---
+VGGT repo found at $HOME/vggt (demo_colmap.py present). Skipping clone.
+VGGT dependencies already installed ($HOME/vggt/.vggt_deps_ok exists). Skipping install.
+
+--- VGGT pose estimation ---
+Bundle adjustment: DISABLED. Set VGGT_USE_BA=1 to enable.
+This requires a GPU with sufficient VRAM (target: RTX 4070 Ti, 12 GB).
+
+--- Attempt 1: 12 frame(s) ---
+Staged 12 image(s) in $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/.vggt_staging/images (metadata excluded).
+VGGT attempt 1 succeeded.
+VGGT pose estimation complete.
+
+--- Normalize output ---
+VGGT wrote output to $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/.vggt_staging/sparse directly. Normalizing to $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/sparse/0 ...
+Output normalized to $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/sparse/0.
+
+--- Success gate ---
+POSE_OK: $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/sparse/0/{cameras,images,points3D}.bin produced.
+
+=== Stage B (VGGT fallback) complete ===
+Model: $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/sparse/0
