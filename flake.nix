@@ -68,8 +68,17 @@
             pkg-config
             git
 
-            # GLOMAP C++ deps (links against libcolmap)
+            # GLOMAP C++ deps (links against libcolmap). COLMAP 4.x's CMake
+            # config does find_package for each of these, so the dev shell
+            # must provide them even though nixpkgs' colmap does not
+            # propagate them as cmake-discoverable packages.
             colmap
+            poselib
+            faiss
+            glew
+            metis
+            onnxruntime
+            curl
             eigen
             ceres-solver
             boost

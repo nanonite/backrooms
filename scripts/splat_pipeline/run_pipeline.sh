@@ -225,6 +225,8 @@ detail = sys.argv[6]
 
 if status == 'success':
     pipeline_state.record_success(scene_dir, stage_name, input_hash, output_hash, detail=detail)
+elif status == 'refused':
+    pipeline_state.record_refusal(scene_dir, stage_name, input_hash, detail=detail)
 else:
     pipeline_state.record_failure(scene_dir, stage_name, input_hash, detail=detail)
 " "$SCENE_DIR" "$stage_name" "$input_hash" "$output_hash" "$status" "$detail"
@@ -453,6 +455,15 @@ else
 
             if [[ "$STAGE_B_STATUS" -eq 0 ]]; then
                 echo "Stage B (VGGT fallback) succeeded." | tee -a "$STAGE_B_LOG"
+            elif [[ "$STAGE_B_STATUS" -eq 7 ]] && [[ -f "$SCENE_DIR/POSE_REFUSED" ]]; then
+                # A bounded resource refusal is a controlled outcome, not a
+                # crash: VGGT OOM'd at every frame count down to the floor and
+                # named the budget and the setting that would change it.
+                echo "FAIL: VGGT issued a bounded resource refusal. Pipeline cannot continue." >&2 | tee -a "$STAGE_B_LOG"
+                echo "Refusal (budget and suggested setting):" >&2 | tee -a "$STAGE_B_LOG"
+                cat "$SCENE_DIR/POSE_REFUSED" >&2 | tee -a "$STAGE_B_LOG"
+                record_stage "stage_b" "$STAGE_B_INPUT_HASH" "" "refused" "$(head -1 "$SCENE_DIR/POSE_REFUSED")"
+                exit 1
             else
                 echo "FAIL: both COLMAP and VGGT failed. Pipeline cannot continue." >&2 | tee -a "$STAGE_B_LOG"
                 record_stage "stage_b" "$STAGE_B_INPUT_HASH" "" "failed" "both pose methods failed"

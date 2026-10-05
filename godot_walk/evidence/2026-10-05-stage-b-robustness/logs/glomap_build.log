@@ -1,0 +1,368 @@
+[1/348] Building CXX object _deps/colmap-build/src/colmap/util/CMakeFiles/colmap_util.dir/version.cc.o
+[2/348] Building CXX object _deps/colmap-build/src/colmap/util/CMakeFiles/colmap_util.dir/timer.cc.o
+[3/348] Building CXX object _deps/colmap-build/src/colmap/util/CMakeFiles/colmap_util.dir/logging.cc.o
+[4/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/aib.c.o
+[5/348] Building CXX object _deps/colmap-build/src/colmap/math/CMakeFiles/colmap_math.dir/math.cc.o
+[6/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/array.c.o
+[7/348] Building CXX object _deps/colmap-build/src/colmap/util/CMakeFiles/colmap_util.dir/opengl_utils.cc.o
+[8/348] Building CXX object _deps/colmap-build/src/colmap/util/CMakeFiles/colmap_util.dir/base_controller.cc.o
+[9/348] Building CXX object _deps/colmap-build/src/colmap/math/CMakeFiles/colmap_math.dir/random.cc.o
+[10/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/generic.c.o
+[11/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/getopt_long.c.o
+[12/348] Building CXX object _deps/colmap-build/src/colmap/util/CMakeFiles/colmap_util.dir/misc.cc.o
+[13/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/dsift.c.o
+[14/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/fisher.c.o
+[15/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/hikmeans.c.o
+[16/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/homkermap.c.o
+[17/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/host.c.o
+[18/348] Building CXX object _deps/colmap-build/src/colmap/util/CMakeFiles/colmap_util.dir/endian.cc.o
+[19/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/lbp.c.o
+[20/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/covdet.c.o
+[21/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/kdtree.c.o
+[22/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/hog.c.o
+[23/348] Building CXX object _deps/colmap-build/src/colmap/geometry/CMakeFiles/colmap_geometry.dir/pose_prior.cc.o
+[24/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/ikmeans.c.o
+[25/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/mser.c.o
+[26/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/random.c.o
+[27/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/gmm.c.o
+[28/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/quickshift.c.o
+[29/348] Building CXX object _deps/colmap-build/src/colmap/util/CMakeFiles/colmap_util.dir/threading.cc.o
+[30/348] Building CXX object _deps/colmap-build/src/colmap/util/CMakeFiles/colmap_util.dir/string.cc.o
+[31/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/pgm.c.o
+[32/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/liop.c.o
+[33/348] Building CXX object _deps/colmap-build/src/colmap/geometry/CMakeFiles/colmap_geometry.dir/normalization.cc.o
+[34/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/rodrigues.c.o
+[35/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/mathop.c.o
+[36/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/stringop.c.o
+[37/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/scalespace.c.o
+[38/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/svmdataset.c.o
+[39/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/svm.c.o
+[40/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/slic.c.o
+[41/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/vlad.c.o
+[42/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/imopv_sse2.c.o
+[43/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/imopv.c.o
+[44/348] Building CXX object _deps/colmap-build/src/colmap/geometry/CMakeFiles/colmap_geometry.dir/gps.cc.o
+[45/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/mathop_sse2.c.o
+[46/348] Building CXX object _deps/colmap-build/src/colmap/geometry/CMakeFiles/colmap_geometry.dir/sim3.cc.o
+[47/348] Building CXX object _deps/colmap-build/src/colmap/sensor/CMakeFiles/colmap_sensor.dir/database.cc.o
+[48/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/sift.c.o
+[49/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/mathop_avx.c.o
+[50/348] Building C object _deps/colmap-build/src/thirdparty/VLFeat/CMakeFiles/colmap_vlfeat.dir/kmeans.c.o
+[51/348] Building CXX object _deps/colmap-build/src/colmap/util/CMakeFiles/colmap_util.dir/ply.cc.o
+[52/348] Linking C static library _deps/colmap-build/src/thirdparty/VLFeat/libcolmap_vlfeat.a
+[53/348] Building CXX object _deps/colmap-build/src/colmap/util/CMakeFiles/colmap_util.dir/file.cc.o
+[54/348] Linking CXX static library _deps/colmap-build/src/colmap/util/libcolmap_util.a
+[55/348] Building CXX object _deps/colmap-build/src/colmap/feature/CMakeFiles/colmap_feature_types.dir/types.cc.o
+[56/348] Linking CXX static library _deps/colmap-build/src/colmap/feature/libcolmap_feature_types.a
+[57/348] Building CXX object _deps/colmap-build/src/colmap/geometry/CMakeFiles/colmap_geometry.dir/rigid3.cc.o
+[58/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/point2d.cc.o
+[59/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/point3d.cc.o
+[60/348] Building CXX object _deps/colmap-build/src/colmap/math/CMakeFiles/colmap_math.dir/graph_cut.cc.o
+In file included from /nix/store/7p0nrcgqa1qfgznany6indj0xlcrs375-boost-1.89.0-dev/include/boost/tuple/tuple.hpp:28,
+                 from /nix/store/7p0nrcgqa1qfgznany6indj0xlcrs375-boost-1.89.0-dev/include/boost/graph/graph_traits.hpp:16,
+                 from /nix/store/7p0nrcgqa1qfgznany6indj0xlcrs375-boost-1.89.0-dev/include/boost/graph/adjacency_list.hpp:24,
+                 from /home/user/src/glomap/build/_deps/colmap-src/src/colmap/math/graph_cut.h:37,
+                 from /home/user/src/glomap/build/_deps/colmap-src/src/colmap/math/graph_cut.cc:30:
+In constructor ‘boost::tuples::cons<HT, boost::tuples::null_type>::cons(T1&, const boost::tuples::null_type&, const boost::tuples::null_type&, const boost::tuples::null_type&, const boost::tuples::null_type&, const boost::tuples::null_type&, const boost::tuples::null_type&, const boost::tuples::null_type&, const boost::tuples::null_type&, const boost::tuples::null_type&) [with T1 = const int; HT = int]’,
+    inlined from ‘boost::tuples::cons<HT, TT>::cons(T1&, T2&, T3&, T4&, T5&, T6&, T7&, T8&, T9&, T10&) [with T1 = const long unsigned int; T2 = const int; T3 = const boost::tuples::null_type; T4 = const boost::tuples::null_type; T5 = const boost::tuples::null_type; T6 = const boost::tuples::null_type; T7 = const boost::tuples::null_type; T8 = const boost::tuples::null_type; T9 = const boost::tuples::null_type; T10 = const boost::tuples::null_type; HT = long unsigned int; TT = boost::tuples::cons<int, boost::tuples::null_type>]’ at /nix/store/7p0nrcgqa1qfgznany6indj0xlcrs375-boost-1.89.0-dev/include/boost/tuple/detail/tuple_basic.hpp:304:7,
+    inlined from ‘boost::tuples::cons<HT, TT>::cons(T1&, T2&, T3&, T4&, T5&, T6&, T7&, T8&, T9&, T10&) [with T1 = const long unsigned int; T2 = const long unsigned int; T3 = const int; T4 = const boost::tuples::null_type; T5 = const boost::tuples::null_type; T6 = const boost::tuples::null_type; T7 = const boost::tuples::null_type; T8 = const boost::tuples::null_type; T9 = const boost::tuples::null_type; T10 = const boost::tuples::null_type; HT = long unsigned int; TT = boost::tuples::cons<long unsigned int, boost::tuples::cons<int, boost::tuples::null_type> >]’ at /nix/store/7p0nrcgqa1qfgznany6indj0xlcrs375-boost-1.89.0-dev/include/boost/tuple/detail/tuple_basic.hpp:304:7,
+    inlined from ‘boost::tuples::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>::tuple(typename boost::tuples::access_traits<T0>::parameter_type, typename boost::tuples::access_traits<TT>::parameter_type, typename boost::tuples::access_traits<T2>::parameter_type) [with T0 = long unsigned int; T1 = long unsigned int; T2 = int; T3 = boost::tuples::null_type; T4 = boost::tuples::null_type; T5 = boost::tuples::null_type; T6 = boost::tuples::null_type; T7 = boost::tuples::null_type; T8 = boost::tuples::null_type; T9 = boost::tuples::null_type]’ at /nix/store/7p0nrcgqa1qfgznany6indj0xlcrs375-boost-1.89.0-dev/include/boost/tuple/detail/tuple_basic.hpp:509:49,
+    inlined from ‘typename boost::tuples::detail::make_tuple_mapper<T0, T1, T2>::type boost::tuples::make_tuple(const T0&, const T1&, const T2&) [with T0 = long unsigned int; T1 = long unsigned int; T2 = int]’ at /nix/store/7p0nrcgqa1qfgznany6indj0xlcrs375-boost-1.89.0-dev/include/boost/tuple/detail/tuple_basic.hpp:765:22,
+    inlined from ‘boost::tuples::tuple<typename boost::graph_traits<G>::vertex_descriptor, typename boost::graph_traits<G>::vertex_descriptor, typename boost::property_traits<WeightMap>::value_type> boost::detail::stoer_wagner_phase(const UndirectedGraph&, VertexAssignmentMap, const std::set<typename boost::graph_traits<G>::vertex_descriptor>&, WeightMap, KeyedUpdatablePriorityQueue&) [with UndirectedGraph = boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS, boost::no_property, boost::property<boost::edge_weight_t, int> >; VertexAssignmentMap = boost::shared_array_property_map<long unsigned int, boost::vec_adj_list_vertex_id_map<boost::no_property, long unsigned int> >; WeightMap = boost::adj_list_edge_property_map<boost::undirected_tag, int, const int&, long unsigned int, const boost::property<boost::edge_weight_t, int>, boost::edge_weight_t>; KeyedUpdatablePriorityQueue = boost::d_ary_heap_indirect<long unsigned int, 4, boost::shared_array_property_map<long unsigned int, boost::vec_adj_list_vertex_id_map<boost::no_property, long unsigned int> >, boost::shared_array_property_map<int, boost::vec_adj_list_vertex_id_map<boost::no_property, long unsigned int> >, std::greater<int>, std::vector<long unsigned int> >]’ at /nix/store/7p0nrcgqa1qfgznany6indj0xlcrs375-boost-1.89.0-dev/include/boost/graph/stoer_wagner_min_cut.hpp:154:41:
+/nix/store/7p0nrcgqa1qfgznany6indj0xlcrs375-boost-1.89.0-dev/include/boost/tuple/detail/tuple_basic.hpp:387:5: warning: ‘w’ may be used uninitialized [-Wmaybe-uninitialized]
+  387 |   : head (t1) {}
+      |     ^~~~~~~~~
+In file included from /home/user/src/glomap/build/_deps/colmap-src/src/colmap/math/graph_cut.cc:34:
+/nix/store/7p0nrcgqa1qfgznany6indj0xlcrs375-boost-1.89.0-dev/include/boost/graph/stoer_wagner_min_cut.hpp: In function ‘boost::tuples::tuple<typename boost::graph_traits<G>::vertex_descriptor, typename boost::graph_traits<G>::vertex_descriptor, typename boost::property_traits<WeightMap>::value_type> boost::detail::stoer_wagner_phase(const UndirectedGraph&, VertexAssignmentMap, const std::set<typename boost::graph_traits<G>::vertex_descriptor>&, WeightMap, KeyedUpdatablePriorityQueue&) [with UndirectedGraph = boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS, boost::no_property, boost::property<boost::edge_weight_t, int> >; VertexAssignmentMap = boost::shared_array_property_map<long unsigned int, boost::vec_adj_list_vertex_id_map<boost::no_property, long unsigned int> >; WeightMap = boost::adj_list_edge_property_map<boost::undirected_tag, int, const int&, long unsigned int, const boost::property<boost::edge_weight_t, int>, boost::edge_weight_t>; KeyedUpdatablePriorityQueue = boost::d_ary_heap_indirect<long unsigned int, 4, boost::shared_array_property_map<long unsigned int, boost::vec_adj_list_vertex_id_map<boost::no_property, long unsigned int> >, boost::shared_array_property_map<int, boost::vec_adj_list_vertex_id_map<boost::no_property, long unsigned int> >, std::greater<int>, std::vector<long unsigned int> >]’:
+/nix/store/7p0nrcgqa1qfgznany6indj0xlcrs375-boost-1.89.0-dev/include/boost/graph/stoer_wagner_min_cut.hpp:102:21: note: ‘w’ was declared here
+  102 |         weight_type w;
+      |                     ^
+[61/348] Building CXX object _deps/colmap-build/src/colmap/sensor/CMakeFiles/colmap_sensor.dir/models.cc.o
+[62/348] Building CXX object _deps/colmap-build/src/colmap/sensor/CMakeFiles/colmap_sensor.dir/rig.cc.o
+[63/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/camera.cc.o
+[64/348] Building CXX object _deps/colmap-build/src/colmap/geometry/CMakeFiles/colmap_geometry.dir/homography_matrix.cc.o
+[65/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/frame.cc.o
+[66/348] Building CXX object _deps/colmap-build/src/colmap/geometry/CMakeFiles/colmap_geometry.dir/essential_matrix.cc.o
+[67/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/track.cc.o
+[68/348] Building CXX object _deps/colmap-build/src/colmap/sensor/CMakeFiles/colmap_sensor.dir/specs.cc.o
+[69/348] Building CXX object _deps/colmap-build/src/colmap/sensor/CMakeFiles/colmap_sensor.dir/bitmap.cc.o
+[70/348] Building C object _deps/colmap-build/src/thirdparty/LSD/CMakeFiles/colmap_lsd.dir/lsd.c.o
+[71/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/correspondence_graph.cc.o
+[72/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/image.cc.o
+[73/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/database.cc.o
+[74/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/visibility_pyramid.cc.o
+[75/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/projection.cc.o
+[76/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/reconstruction_io_utils.cc.o
+[77/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/two_view_geometry.cc.o
+[78/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/database_cache.cc.o
+[79/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/gp3p.cc.o
+[80/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/p1p2ll.cc.o
+[81/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/reconstruction_pruning.cc.o
+[82/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/p2p1ll.cc.o
+[83/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/reconstruction_manager.cc.o
+[84/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/p3ll.cc.o
+[85/348] Building CXX object _deps/colmap-build/src/colmap/geometry/CMakeFiles/colmap_geometry.dir/triangulation.cc.o
+[86/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/database_sqlite.cc.o
+[87/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/p3p.cc.o
+[88/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/reconstruction_io_binary.cc.o
+[89/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/reconstruction_io.cc.o
+[90/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/reconstruction_io_text.cc.o
+[91/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/p3p_lambdatwist.cc.o
+[92/348] Building CXX object _deps/colmap-build/src/colmap/math/CMakeFiles/colmap_math.dir/polynomial.cc.o
+[93/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/gp4ps.cc.o
+[94/348] Linking CXX static library _deps/colmap-build/src/colmap/math/libcolmap_math.a
+[95/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/p6lp.cc.o
+[96/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/ugp2p.cc.o
+[97/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/up4pl.cc.o
+[98/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/ugp4pl.cc.o
+[99/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/relpose_upright_planar_2pt.cc.o
+[100/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/reconstruction.cc.o
+[101/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/up1p2pl.cc.o
+[102/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/gen_relpose_upright_4pt.cc.o
+[103/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/gen_relpose_5p1pt.cc.o
+[104/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/scene_clustering.cc.o
+[105/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/ugp3ps.cc.o
+[106/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/homography_4pt.cc.o
+[107/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/misc/univariate.cc.o
+[108/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/rig.cc.o
+[109/348] Building CXX object _deps/colmap-build/src/colmap/geometry/CMakeFiles/colmap_geometry.dir/pose.cc.o
+[110/348] Linking CXX static library _deps/colmap-build/src/colmap/geometry/libcolmap_geometry.a
+[111/348] Linking CXX static library _deps/colmap-build/src/colmap/sensor/libcolmap_sensor.a
+[112/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/relpose_7pt.cc.o
+[113/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/misc/colmap_models.cc.o
+[114/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/misc/essential.cc.o
+[115/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/robust/sampling.cc.o
+[116/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/robust/utils.cc.o
+[117/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/robust/ransac.cc.o
+[118/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/robust/estimators/hybrid_pose.cc.o
+[119/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/robust/estimators/absolute_pose.cc.o
+[120/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/robust.cc.o
+[121/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/robust/estimators/homography.cc.o
+[122/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/up2p.cc.o
+[123/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/robust/estimators/relative_pose.cc.o
+[124/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/p5lp_radial.cc.o
+[125/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/misc/re3q3.cc.o
+[126/348] Linking C static library _deps/colmap-build/src/thirdparty/LSD/libcolmap_lsd.a
+[127/348] Building CXX object _deps/colmap-build/src/colmap/image/CMakeFiles/colmap_image.dir/line.cc.o
+[128/348] Building CXX object _deps/colmap-build/src/colmap/optim/CMakeFiles/colmap_optim.dir/combination_sampler.cc.o
+[129/348] Building CXX object _deps/colmap-build/src/colmap/optim/CMakeFiles/colmap_optim.dir/sprt.cc.o
+[130/348] Building CXX object _deps/colmap-build/src/colmap/optim/CMakeFiles/colmap_optim.dir/progressive_sampler.cc.o
+[131/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/relpose_upright_planar_3pt.cc.o
+[132/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/p4pf.cc.o
+[133/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/up1p1ll.cc.o
+[134/348] Building CXX object _deps/colmap-build/src/colmap/optim/CMakeFiles/colmap_optim.dir/support_measurement.cc.o
+[135/348] Building CXX object _deps/colmap-build/src/colmap/optim/CMakeFiles/colmap_optim.dir/random_sampler.cc.o
+[136/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/relpose_upright_3pt.cc.o
+[137/348] Building CXX object _deps/colmap-build/src/colmap/scene/CMakeFiles/colmap_scene.dir/synthetic.cc.o
+[138/348] Linking CXX static library _deps/colmap-build/src/colmap/scene/libcolmap_scene.a
+[139/348] Building CXX object _deps/colmap-build/src/colmap/image/CMakeFiles/colmap_image.dir/warp.cc.o
+[140/348] Building CXX object _deps/colmap-build/src/colmap/optim/CMakeFiles/colmap_optim.dir/least_absolute_deviations.cc.o
+[141/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/generalized_absolute_pose.cc.o
+[142/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/relpose_8pt.cc.o
+[143/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/relpose_5pt.cc.o
+[144/348] Linking CXX static library _deps/colmap-build/src/colmap/optim/libcolmap_optim.a
+[145/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/utils.cc.o
+[146/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/alignment.cc.o
+[147/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/AutoTune.cpp.o
+[148/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/Clustering.cpp.o
+[149/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/Index.cpp.o
+[150/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/Index2Layer.cpp.o
+[151/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IVFlib.cpp.o
+[152/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/misc/qep.cc.o
+[153/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexBinary.cpp.o
+[154/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/triangulation.cc.o
+[155/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexBinaryFlat.cpp.o
+[156/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/relpose_6pt_focal.cc.o
+[157/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexBinaryFromFloat.cpp.o
+[158/348] Building CXX object _deps/colmap-build/src/colmap/image/CMakeFiles/colmap_image.dir/undistortion.cc.o
+[159/348] Linking CXX static library _deps/colmap-build/src/colmap/image/libcolmap_image.a
+[160/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexAdditiveQuantizer.cpp.o
+[161/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexFlat.cpp.o
+[162/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexBinaryHNSW.cpp.o
+[163/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/similarity_transform.cc.o
+[164/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexIDMap.cpp.o
+[165/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexIVFAdditiveQuantizer.cpp.o
+[166/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexHNSW.cpp.o
+[167/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexBinaryHash.cpp.o
+[168/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/two_view_geometry.cc.o
+[169/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/p2p2pl.cc.o
+[170/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexIVF.cpp.o
+[171/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexIVFFlat.cpp.o
+[172/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexIVFPQFastScan.cpp.o
+[173/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexIVFRaBitQ.cpp.o
+[174/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexIVFAdditiveQuantizerFastScan.cpp.o
+[175/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexIVFPQR.cpp.o
+[176/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexLSH.cpp.o
+[177/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexLattice.cpp.o
+[178/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexIVFSpectralHash.cpp.o
+[179/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexNNDescent.cpp.o
+[180/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/covariance.cc.o
+[181/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexPQFastScan.cpp.o
+[182/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexNSG.cpp.o
+[183/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexAdditiveQuantizerFastScan.cpp.o
+[184/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/coordinate_frame.cc.o
+[185/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexIVFIndependentQuantizer.cpp.o
+[186/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexBinaryIVF.cpp.o
+[187/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexPreTransform.cpp.o
+[188/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexRefine.cpp.o
+[189/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexRowwiseMinMax.cpp.o
+[190/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexPQ.cpp.o
+[191/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexFastScan.cpp.o
+[192/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/homography_matrix.cc.o
+[193/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/generalized_relative_pose.cc.o
+[194/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/affine_transform.cc.o
+[195/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexFlatCodes.cpp.o
+[196/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexIVFFastScan.cpp.o
+[197/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/CodePacker.cpp.o
+[198/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexScalarQuantizer.cpp.o
+[199/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexNeuralNetCodec.cpp.o
+[200/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexShardsIVF.cpp.o
+[201/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/solvers/gen_relpose_6pt.cc.o
+[202/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/MatrixStats.cpp.o
+[203/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/AuxIndexStructures.cpp.o
+[204/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/FaissException.cpp.o
+[205/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexShards.cpp.o
+[206/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexReplicas.cpp.o
+[207/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/IDSelector.cpp.o
+[208/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/misc/decompositions.cc.o
+[209/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/MetaIndexes.cpp.o
+[210/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/generalized_pose.cc.o
+[211/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/RaBitQuantizer.cpp.o
+[212/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexRaBitQ.cpp.o
+[213/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/pose.cc.o
+[214/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/ResidualQuantizer.cpp.o
+[215/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/PolysemousTraining.cpp.o
+[216/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/ProductAdditiveQuantizer.cpp.o
+[217/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/ProductQuantizer.cpp.o
+[218/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/io.cpp.o
+[219/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/HNSW.cpp.o
+[220/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/NSG.cpp.o
+[221/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/AdditiveQuantizer.cpp.o
+[222/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/mapped_io.cpp.o
+[223/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/VectorTransform.cpp.o
+[224/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/kmeans1d.cpp.o
+[225/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/clone_index.cpp.o
+[226/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/zerocopy_io.cpp.o
+[227/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/pq4_fast_scan.cpp.o
+[228/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/LocalSearchQuantizer.cpp.o
+[229/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/lattice_Zn.cpp.o
+[230/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/invlists/BlockInvertedLists.cpp.o
+[231/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/invlists/InvertedListsIOHook.cpp.o
+[232/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/invlists/DirectMap.cpp.o
+[233/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/NeuralNet.cpp.o
+[234/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/distances_simd.cpp.o
+[235/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/WorkerThread.cpp.o
+[236/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/Heap.cpp.o
+[237/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/invlists/InvertedLists.cpp.o
+[238/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/NNDescent.cpp.o
+[239/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/quantize_lut.cpp.o
+[240/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/partitioning.cpp.o
+[241/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/random.cpp.o
+[242/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/fundamental_matrix.cc.o
+[243/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/distances_fused/distances_fused.cpp.o
+[244/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/distances_fused/avx512.cpp.o
+[245/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/extra_distances.cpp.o
+[246/348] Building CXX object _deps/colmap-build/src/thirdparty/PoissonRecon/CMakeFiles/colmap_poisson_recon.dir/CmdLineParser.cpp.o
+[247/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/distances_fused/simdlib_based.cpp.o
+[248/348] Building CXX object _deps/colmap-build/src/thirdparty/PoissonRecon/CMakeFiles/colmap_poisson_recon.dir/Factor.cpp.o
+[249/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/residual_quantizer_encode_steps.cpp.o
+[250/348] Building CXX object _deps/colmap-build/src/thirdparty/PoissonRecon/CMakeFiles/colmap_poisson_recon.dir/Geometry.cpp.o
+[251/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/sorting.cpp.o
+[252/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o
+[253/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/absolute_pose.cc.o
+[254/348] Building CXX object _deps/colmap-build/src/thirdparty/PoissonRecon/CMakeFiles/colmap_poisson_recon.dir/MarchingCubes.cpp.o
+[255/348] Building CXX object _deps/colmap-build/src/thirdparty/PoissonRecon/CMakeFiles/colmap_poisson_recon.dir/PlyFile.cpp.o
+[256/348] Building CXX object _deps/colmap-build/src/colmap/retrieval/CMakeFiles/colmap_retrieval.dir/geometry.cc.o
+[257/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/ScalarQuantizer.cpp.o
+[258/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/invlists/OnDiskInvertedLists.cpp.o
+[259/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/index_factory.cpp.o
+[260/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/distances.cpp.o
+[261/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/index_write.cpp.o
+[262/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/index_read.cpp.o
+[263/348] Building CXX object _deps/colmap-build/src/colmap/feature/CMakeFiles/colmap_feature.dir/types.cc.o
+[264/348] Building CXX object _deps/colmap-build/src/colmap/retrieval/CMakeFiles/colmap_retrieval.dir/vote_and_verify.cc.o
+[265/348] Building CXX object _deps/colmap-build/src/colmap/mvs/CMakeFiles/colmap_mvs.dir/consistency_graph.cc.o
+[266/348] Building CXX object _deps/colmap-build/src/thirdparty/PoissonRecon/CMakeFiles/colmap_poisson_recon.dir/SurfaceTrimmer.cpp.o
+[267/348] Building CXX object _deps/colmap-build/src/colmap/feature/CMakeFiles/colmap_feature.dir/utils.cc.o
+[268/348] Building CXX object _deps/colmap-build/src/colmap/mvs/CMakeFiles/colmap_mvs.dir/mat.cc.o
+[269/348] Building CXX object _deps/colmap-build/src/colmap/mvs/CMakeFiles/colmap_mvs.dir/patch_match_options.cc.o
+[270/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/essential_matrix.cc.o
+[271/348] Building CXX object _deps/colmap-build/src/colmap/mvs/CMakeFiles/colmap_mvs.dir/depth_map.cc.o
+[272/348] Building CXX object _deps/colmap-build/src/colmap/feature/CMakeFiles/colmap_feature.dir/extractor.cc.o
+[273/348] Building CXX object _deps/colmap-build/src/colmap/feature/CMakeFiles/colmap_feature.dir/index.cc.o
+[274/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/utils/hamming.cpp.o
+[275/348] Building CXX object _deps/colmap-build/src/colmap/mvs/CMakeFiles/colmap_mvs.dir/normal_map.cc.o
+[276/348] Building CXX object _deps/colmap-build/src/colmap/mvs/CMakeFiles/colmap_mvs.dir/workspace.cc.o
+[277/348] Building CXX object _deps/colmap-build/src/colmap/mvs/CMakeFiles/colmap_mvs.dir/fusion.cc.o
+[278/348] Building CXX object _deps/colmap-build/src/colmap/mvs/CMakeFiles/colmap_mvs.dir/image.cc.o
+[279/348] Building CXX object _deps/colmap-build/src/colmap/feature/CMakeFiles/colmap_feature.dir/matcher.cc.o
+[280/348] Building CXX object _deps/colmap-build/src/colmap/feature/CMakeFiles/colmap_feature.dir/sift.cc.o
+[281/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/IndexIVFPQ.cpp.o
+[282/348] Building CXX object _deps/colmap-build/src/colmap/feature/CMakeFiles/colmap_feature.dir/pairing.cc.o
+[283/348] Building CXX object _deps/colmap-build/src/colmap/sfm/CMakeFiles/colmap_sfm.dir/incremental_triangulator.cc.o
+[284/348] Building CXX object _deps/colmap-build/src/colmap/sfm/CMakeFiles/colmap_sfm.dir/observation_manager.cc.o
+[285/348] Building CXX object _deps/colmap-build/src/colmap/mvs/CMakeFiles/colmap_mvs.dir/model.cc.o
+[286/348] Building CXX object _deps/colmap-build/src/colmap/sfm/CMakeFiles/colmap_sfm.dir/incremental_mapper_impl.cc.o
+[287/348] Building CXX object _deps/colmap-build/src/colmap/controllers/CMakeFiles/colmap_controllers.dir/bundle_adjustment.cc.o
+[288/348] Building CXX object _deps/colmap-build/src/colmap/sfm/CMakeFiles/colmap_sfm.dir/incremental_mapper.cc.o
+[289/348] Building CXX object _deps/colmap-build/src/colmap/controllers/CMakeFiles/colmap_controllers.dir/automatic_reconstruction.cc.o
+[290/348] Building CXX object _deps/colmap-build/src/colmap/controllers/CMakeFiles/colmap_controllers.dir/feature_matching_utils.cc.o
+[291/348] Building CXX object _deps/colmap-build/src/colmap/controllers/CMakeFiles/colmap_controllers.dir/feature_extraction.cc.o
+[292/348] Building CXX object _deps/colmap-build/src/colmap/controllers/CMakeFiles/colmap_controllers.dir/image_reader.cc.o
+[293/348] Building CXX object _deps/colmap-build/src/colmap/controllers/CMakeFiles/colmap_controllers.dir/hierarchical_pipeline.cc.o
+[294/348] Building CXX object _deps/colmap-build/src/colmap/estimators/CMakeFiles/colmap_estimators.dir/bundle_adjustment.cc.o
+[295/348] Building CXX object _deps/colmap-build/src/colmap/controllers/CMakeFiles/colmap_controllers.dir/incremental_pipeline.cc.o
+[296/348] Building CXX object _deps/colmap-build/src/colmap/controllers/CMakeFiles/colmap_controllers.dir/feature_matching.cc.o
+[297/348] Building CXX object _deps/colmap-build/src/colmap/retrieval/CMakeFiles/colmap_retrieval.dir/visual_index.cc.o
+[298/348] Building CXX object glomap/CMakeFiles/glomap.dir/controllers/global_mapper.cc.o
+[299/348] Building CXX object _deps/colmap-build/src/colmap/exe/CMakeFiles/colmap_exe.dir/feature.cc.o
+[300/348] Building CXX object glomap/CMakeFiles/glomap.dir/controllers/rotation_averager.cc.o
+[301/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/pq4_fast_scan_search_1.cpp.o
+[302/348] Building CXX object glomap/CMakeFiles/glomap.dir/controllers/track_retriangulation.cc.o
+[303/348] Building CXX object glomap/CMakeFiles/glomap.dir/controllers/track_establishment.cc.o
+[304/348] Building CXX object _deps/colmap-build/src/colmap/exe/CMakeFiles/colmap_exe.dir/sfm.cc.o
+[305/348] Building CXX object glomap/CMakeFiles/glomap.dir/estimators/rotation_initializer.cc.o
+[306/348] Building CXX object _deps/colmap-build/src/colmap/controllers/CMakeFiles/colmap_controllers.dir/option_manager.cc.o
+[307/348] Building CXX object glomap/CMakeFiles/glomap.dir/controllers/option_manager.cc.o
+[308/348] Building CXX object glomap/CMakeFiles/glomap.dir/io/colmap_io.cc.o
+[309/348] Building CXX object glomap/CMakeFiles/glomap.dir/estimators/relpose_estimation.cc.o
+[310/348] Building CXX object glomap/CMakeFiles/glomap.dir/math/rigid3d.cc.o
+[311/348] Building CXX object glomap/CMakeFiles/glomap.dir/io/colmap_converter.cc.o
+[312/348] Building CXX object glomap/CMakeFiles/glomap.dir/io/pose_io.cc.o
+[313/348] Building CXX object glomap/CMakeFiles/glomap.dir/estimators/gravity_refinement.cc.o
+[314/348] Building CXX object glomap/CMakeFiles/glomap.dir/estimators/view_graph_calibration.cc.o
+[315/348] Building CXX object glomap/CMakeFiles/glomap.dir/estimators/global_positioning.cc.o
+[316/348] Building CXX object glomap/CMakeFiles/glomap.dir/processors/image_pair_inliers.cc.o
+[317/348] Building CXX object glomap/CMakeFiles/glomap.dir/processors/image_undistorter.cc.o
+[318/348] Building CXX object glomap/CMakeFiles/glomap.dir/math/tree.cc.o
+[319/348] Building CXX object glomap/CMakeFiles/glomap.dir/processors/reconstruction_pruning.cc.o
+[320/348] Building CXX object glomap/CMakeFiles/glomap.dir/processors/reconstruction_normalizer.cc.o
+[321/348] Building CXX object glomap/CMakeFiles/glomap.dir/processors/relpose_filter.cc.o
+[322/348] Building CXX object glomap/CMakeFiles/glomap.dir/math/two_view_geometry.cc.o
+[323/348] Building CXX object glomap/CMakeFiles/glomap.dir/estimators/global_rotation_averaging.cc.o
+[324/348] Building CXX object glomap/CMakeFiles/glomap.dir/scene/view_graph.cc.o
+[325/348] Building CXX object _deps/colmap-build/src/colmap/exe/CMakeFiles/colmap_exe.dir/model.cc.o
+[326/348] Building CXX object glomap/CMakeFiles/glomap.dir/processors/track_filter.cc.o
+[327/348] Building CXX object glomap/CMakeFiles/glomap.dir/processors/view_graph_manipulation.cc.o
+[328/348] Building CXX object glomap/CMakeFiles/glomap_main.dir/glomap.cc.o
+[329/348] Building CXX object glomap/CMakeFiles/glomap_main.dir/exe/global_mapper.cc.o
+[330/348] Building CXX object _deps/colmap-build/src/colmap/mvs/CMakeFiles/colmap_mvs.dir/meshing.cc.o
+[331/348] Building CXX object glomap/CMakeFiles/glomap_main.dir/exe/rotation_averager.cc.o
+[332/348] Building CXX object glomap/CMakeFiles/glomap.dir/math/gravity.cc.o
+[333/348] Building CXX object glomap/CMakeFiles/glomap.dir/estimators/bundle_adjustment.cc.o
+[334/348] Building CXX object _deps/poselib-build/PoseLib/CMakeFiles/PoseLib.dir/robust/bundle.cc.o
+[335/348] Linking CXX static library _deps/poselib-build/PoseLib/libPoseLib.a
+[336/348] Linking CXX static library _deps/colmap-build/src/colmap/estimators/libcolmap_estimators.a
+[337/348] Linking CXX static library _deps/colmap-build/src/colmap/sfm/libcolmap_sfm.a
+[338/348] Building CXX object _deps/colmap-build/src/thirdparty/PoissonRecon/CMakeFiles/colmap_poisson_recon.dir/PoissonRecon.cpp.o
+[339/348] Linking CXX static library _deps/colmap-build/src/thirdparty/PoissonRecon/libcolmap_poisson_recon.a
+[340/348] Linking CXX static library _deps/colmap-build/src/colmap/mvs/libcolmap_mvs.a
+[341/348] Building CXX object _deps/faiss-build/faiss/CMakeFiles/faiss.dir/impl/pq4_fast_scan_search_qbs.cpp.o
+[342/348] Linking CXX static library _deps/faiss-build/faiss/libfaiss.a
+[343/348] Linking CXX static library _deps/colmap-build/src/colmap/retrieval/libcolmap_retrieval.a
+[344/348] Linking CXX static library _deps/colmap-build/src/colmap/feature/libcolmap_feature.a
+[345/348] Linking CXX static library _deps/colmap-build/src/colmap/controllers/libcolmap_controllers.a
+[346/348] Linking CXX static library _deps/colmap-build/src/colmap/exe/libcolmap_exe.a
+[347/348] Linking CXX static library glomap/libglomap.a
+[348/348] Linking CXX executable glomap/glomap
+BUILD EXIT: 0
