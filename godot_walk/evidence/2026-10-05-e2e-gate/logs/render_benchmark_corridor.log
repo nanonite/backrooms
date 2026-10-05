@@ -1,0 +1,9 @@
+[render] exit=0
+  elapsed            7.6 s
+  peak VRAM (total)  2.62 GiB
+  peak VRAM (stage)  0.28 GiB
+  peak RAM (stage)   0.63 GiB
+  disk written       0.000 GiB
+  splats             182,569
+  fps                58.94 at 1280x720
+recorded in splat_logs/measurements.json

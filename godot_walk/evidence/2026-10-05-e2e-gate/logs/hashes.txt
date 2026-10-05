@@ -1,0 +1,14 @@
+=== hashes ===
+d03e2fd75126ee4a0c556f54a3edbb28  data/videos/room_large.mp4
+86b00a4bda235562388d17cdce0a4371  data/videos/corridor_x.mp4
+425959981cc0a24a9bf7fc9fe3c9ebe4  data/videos/corridor_straight.mp4
+9eaf58d86bb64820132f55b3335b5a43  data/videos/corridor_corner.mp4
+f66c7106765840360fedea0dd43b9520  data/videos/corridor_t.mp4
+0b8674299aacfc5cc97997074ad906fd  data/videos/dead_end.mp4
+413beb2be958fb572f008aafa13d7adb  data/scenes/corridor_travel/video.mp4
+2f6c2fd5417ffe771ef4147e369d80c5  exports/corridor_travel_v1/splat.ply
+2f6c2fd5417ffe771ef4147e369d80c5  godot_walk/assets/corridor_splat/corridor.ply
+c8f7a46effade8002a9bc51f74e3b11e  godot_walk/assets/corridor_splat/collision/corridor_splat.collision.glb
+bf0f58e86ab0685c5f374aaeeede43d1  godot_walk/assets/corridor_splat/alignment_manifest.json
+aff59d408c0b9fd605751d09b0b7bda2  godot_walk/assets/corridor_splat/traversal_manifest.json
+041ea0fb77d369a151135801c3c96abf  godot_walk/assets/gdgs_demo/demo.compressed.ply
