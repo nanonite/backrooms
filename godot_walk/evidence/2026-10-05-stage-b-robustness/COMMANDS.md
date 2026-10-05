@@ -9,13 +9,18 @@ All commands run from `/workspace/backrooms-workspace` on 2026-10-05 (UTC).
 nix develop
 
 # Configure GLOMAP against conda COLMAP 3.10
+# The RPATH flags are required: without them the installed binary cannot find
+# its shared libraries (libgmpxx, libmetis, libceres, libglog, libcholmod, ...)
+# and fails with "error while loading shared libraries".
 cmake -S $HOME/src/glomap -B $HOME/src/glomap/build \
     -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=$HOME/.local \
     -DCUDA_ENABLED=OFF \
     -DCOLMAP_DIR=$HOME/anaconda3/envs/nerfstudio/share/colmap \
-    -DCMAKE_PREFIX_PATH=$HOME/anaconda3/envs/nerfstudio
+    -DCMAKE_PREFIX_PATH=$HOME/anaconda3/envs/nerfstudio \
+    -DCMAKE_INSTALL_RPATH=$HOME/anaconda3/envs/nerfstudio/lib \
+    -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON
 
 # Build (uses all cores)
 cmake --build $HOME/src/glomap/build --parallel $(nproc)
