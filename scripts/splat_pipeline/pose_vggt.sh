@@ -22,9 +22,9 @@
 #                 robust poses — but watch for OOM on 12 GB GPUs.
 #   VGGT_PYTHON   Python interpreter (default: python3).
 #   VGGT_MAX_FRAMES  Frame cap for one attempt (default: 12). The aggregator's
-#                 global attention is quadratic in the frame count; measured on
-#                 this host, 24 frames at 1080p OOMs (~11.6 GiB peak) and 12
-#                 frames is the largest selection that fits (11643 MiB peak).
+#                 global attention is quadratic in the frame count. Measured on
+#                 this host: 24 frames at 1080p OOMs; 12 frames succeeds at a
+#                 11643 MiB sampled peak. Frame counts 13–23 were not attempted.
 #                 A larger selection is subsampled evenly, never truncated to
 #                 its opening.
 #   VGGT_MIN_FRAMES  Floor for the OOM backoff (default: 4). Below this the

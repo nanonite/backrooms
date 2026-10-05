@@ -45,8 +45,8 @@ IMAGE_EXTENSIONS = frozenset({".jpg", ".jpeg", ".png"})
 
 #: Default frame cap for one VGGT attempt on the target GPU (RTX 4070 Ti,
 #: 12 GiB). The aggregator's global attention is quadratic in the frame
-#: count; measured on this host, 24 frames at 1080p OOM (~11.6 GiB peak)
-#: and 12 frames is the largest selection that fits (11643 MiB peak).
+#: count. Measured on this host: 24 frames at 1080p OOMs; 12 frames succeeds
+#: at a 11643 MiB sampled peak. Frame counts 13–23 were not attempted.
 DEFAULT_MAX_FRAMES = 12
 
 #: Floor for the OOM backoff. Below this a refusal is issued instead of
