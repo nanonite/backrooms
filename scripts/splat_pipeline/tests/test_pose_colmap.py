@@ -37,6 +37,10 @@ esac
 
 _GLOMAP_STUB = """#!/bin/bash
 set -euo pipefail
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    echo "GLOMAP stub help"
+    exit 0
+fi
 if [[ -n "${GLOMAP_FAIL:-}" ]]; then
     echo "glomap stub: forced failure" >&2
     exit 1
@@ -101,13 +105,13 @@ def _write_stub(bin_dir: Path, name: str, content: str) -> Path:
 
 
 def _make_stub_env(tmp_path: Path) -> dict:
-    """Create stub colmap/glomap in a temp bin dir and return env with PATH set."""
+    """Create stub colmap/glomap in a temp bin dir and return env with hermetic PATH."""
     bin_dir = tmp_path / "stub_bin"
     bin_dir.mkdir()
     _write_stub(bin_dir, "colmap", _COLMAP_STUB)
     _write_stub(bin_dir, "glomap", _GLOMAP_STUB)
     env = os.environ.copy()
-    env["PATH"] = f"{bin_dir}:{env.get('PATH', '')}"
+    env["PATH"] = f"{bin_dir}:{os.defpath}"
     return env
 
 
@@ -173,7 +177,7 @@ class TestDependencyChecks:
         glomap.write_text("#!/bin/bash\nexit 0\n")
         _make_executable(glomap)
         env = os.environ.copy()
-        env["PATH"] = f"{bin_dir}:{env['PATH']}"
+        env["PATH"] = f"{bin_dir}:{os.defpath}"
         rc, stdout, stderr = _run(tmp_path, env=env)
         assert rc == 2
         assert "colmap not found" in stderr
@@ -186,7 +190,7 @@ class TestDependencyChecks:
         colmap.write_text("#!/bin/bash\nexit 0\n")
         _make_executable(colmap)
         env = os.environ.copy()
-        env["PATH"] = f"{bin_dir}:{env['PATH']}"
+        env["PATH"] = f"{bin_dir}:{os.defpath}"
         rc, stdout, stderr = _run(tmp_path, env=env)
         assert rc == 2
         assert "glomap not found" in stderr

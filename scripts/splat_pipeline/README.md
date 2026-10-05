@@ -330,7 +330,7 @@ by a `.vggt_deps_ok` marker file to avoid re-installing on every run.
 | `VGGT_REPO_URL` | `https://github.com/facebookresearch/vggt` | Repo URL for cloning |
 | `VGGT_USE_BA` | (empty — disabled) | Set to `1` or `true` to enable bundle adjustment |
 | `VGGT_PYTHON` | `python3` | Python interpreter to use |
-| `VGGT_MAX_FRAMES` | `24` | Frame cap for one attempt. The aggregator's global attention is quadratic in the frame count; 31 frames at 1080p OOMs on the 12 GB target GPU. A larger selection is subsampled evenly, never truncated to its opening. |
+| `VGGT_MAX_FRAMES` | `12` | Frame cap for one attempt. The aggregator's global attention is quadratic in the frame count; measured on this host, 24 frames at 1080p OOMs (~11.6 GiB peak) and 12 frames is the largest selection that fits (11643 MiB peak). A larger selection is subsampled evenly, never truncated to its opening. |
 | `VGGT_MIN_FRAMES` | `4` | Floor for the OOM backoff. Below this the run is refused rather than attempted again. |
 
 **Escalation notes:**

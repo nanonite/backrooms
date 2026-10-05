@@ -172,6 +172,9 @@ fi
 if [[ -z "$GLOMAP_BIN" ]]; then
     die 2 "glomap not found in PATH. Install it with: ./environment/setup-pipeline-tools.sh install-glomap (inside 'nix develop'), or set VGGT as the fallback."
 fi
+if ! "$GLOMAP_BIN" --help >/dev/null 2>&1; then
+    die 2 "glomap is installed at $GLOMAP_BIN but cannot execute — missing shared libraries. Re-run: ./environment/setup-pipeline-tools.sh install-glomap (inside 'nix develop')."
+fi
 
 echo "colmap:   $COLMAP_BIN"
 echo "glomap:   $GLOMAP_BIN"

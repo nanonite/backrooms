@@ -1,0 +1,25 @@
+=== VGGT pose estimation (Path 2 — FALLBACK) ===
+Scene:       /workspace/backrooms-workspace/data/scenes/corridor_x_e2e
+VGGT root:   /home/user/vggt
+Use BA:      false
+Python:      /home/user/anaconda3/envs/nerfstudio/bin/python3
+Frame cap:   24 (min 24)
+
+python:   /home/user/anaconda3/envs/nerfstudio/bin/python3
+git:      /usr/bin/git
+
+Input images: 31
+
+--- VGGT clone/install ---
+VGGT repo found at /home/user/vggt (demo_colmap.py present). Skipping clone.
+VGGT dependencies already installed (/home/user/vggt/.vggt_deps_ok exists). Skipping install.
+
+--- VGGT pose estimation ---
+Bundle adjustment: DISABLED. Set VGGT_USE_BA=1 to enable.
+This requires a GPU with sufficient VRAM (target: RTX 4070 Ti, 12 GB).
+
+--- Attempt 1: 24 frame(s) ---
+Staged 24 image(s) in /workspace/backrooms-workspace/data/scenes/corridor_x_e2e/.vggt_staging/images (metadata excluded).
+WARN: VGGT OOM at 24 frame(s). See /workspace/backrooms-workspace/data/scenes/corridor_x_e2e/.vggt_staging/vggt_attempt_1.log.
+ERROR: every VGGT attempt OOM'd down to 24 frames.
+Bounded refusal written to /workspace/backrooms-workspace/data/scenes/corridor_x_e2e/POSE_REFUSED.
