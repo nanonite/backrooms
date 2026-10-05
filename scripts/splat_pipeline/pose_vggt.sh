@@ -21,10 +21,12 @@
 #                 Disabled by default (lower VRAM, faster). Enable for more
 #                 robust poses — but watch for OOM on 12 GB GPUs.
 #   VGGT_PYTHON   Python interpreter (default: python3).
-#   VGGT_MAX_FRAMES  Frame cap for one attempt (default: 24). The aggregator's
-#                 global attention is quadratic in the frame count; 31 frames
-#                 at 1080p OOMs on the 12 GB target GPU. A larger selection is
-#                 subsampled evenly, never truncated to its opening.
+#   VGGT_MAX_FRAMES  Frame cap for one attempt (default: 12). The aggregator's
+#                 global attention is quadratic in the frame count; measured on
+#                 this host, 24 frames at 1080p OOMs (~11.6 GiB peak) and 12
+#                 frames is the largest selection that fits (11643 MiB peak).
+#                 A larger selection is subsampled evenly, never truncated to
+#                 its opening.
 #   VGGT_MIN_FRAMES  Floor for the OOM backoff (default: 4). Below this the
 #                 run is refused rather than attempted again.
 #
@@ -72,7 +74,7 @@ Environment:
   VGGT_REPO_URL URL for cloning VGGT (default: facebookresearch/vggt).
   VGGT_USE_BA   Set to "1" or "true" to enable bundle adjustment
                 (disabled by default).
-  VGGT_MAX_FRAMES  Frame cap for one attempt (default: 24).
+  VGGT_MAX_FRAMES  Frame cap for one attempt (default: 12).
   VGGT_MIN_FRAMES  Floor for the OOM backoff (default: 4).
   VGGT_PYTHON   Python interpreter (default: python3).
 
@@ -123,7 +125,7 @@ VGGT_ROOT="${VGGT_ROOT:-$HOME/vggt}"
 VGGT_REPO_URL="${VGGT_REPO_URL:-$VGGT_REPO_URL_DEFAULT}"
 VGGT_PYTHON="${VGGT_PYTHON:-python3}"
 VGGT_USE_BA="${VGGT_USE_BA:-}"
-VGGT_MAX_FRAMES="${VGGT_MAX_FRAMES:-24}"
+VGGT_MAX_FRAMES="${VGGT_MAX_FRAMES:-12}"
 VGGT_MIN_FRAMES="${VGGT_MIN_FRAMES:-4}"
 VGGT_DEMO="$VGGT_ROOT/demo_colmap.py"
 VGGT_READY_PATH="$VGGT_ROOT/$VGGT_READY_FILE"
