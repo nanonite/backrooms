@@ -45,9 +45,9 @@ IMAGE_EXTENSIONS = frozenset({".jpg", ".jpeg", ".png"})
 
 #: Default frame cap for one VGGT attempt on the target GPU (RTX 4070 Ti,
 #: 12 GiB). The aggregator's global attention is quadratic in the frame
-#: count; measured on this host, 31 frames at 1080p peak at ~11.8 GB and
-#: OOM. 24 frames is the largest selection that fits with headroom.
-DEFAULT_MAX_FRAMES = 24
+#: count; measured on this host, 24 frames at 1080p OOM (~11.6 GiB peak)
+#: and 12 frames is the largest selection that fits (11643 MiB peak).
+DEFAULT_MAX_FRAMES = 12
 
 #: Floor for the OOM backoff. Below this a refusal is issued instead of
 #: another attempt: a reconstruction from fewer frames is not a pose stage.
@@ -61,6 +61,17 @@ OOM_MARKERS = (
     "out of memory",
     "cudnn_status_alloc_failed",
     "cublas_status_alloc_failed",
+)
+
+#: Markers for interpreter/import/driver failures — the Python environment is
+#: broken, not the capture. These must never be reported as a capture problem.
+ENV_MARKERS = (
+    "modulenotfounderror",
+    "importerror",
+    "libgmpxx.so",
+    "libstdc++.so",
+    "cannot open shared object file",
+    "error while loading shared libraries",
 )
 
 #: Marker file written beside the scene when VGGT refuses to attempt the
@@ -121,14 +132,20 @@ def plan_attempts(frame_count: int, max_frames: int, min_frames: int) -> list[in
 
 
 def classify_failure(output: str) -> str:
-    """``"oom"`` when ``output`` shows a CUDA out-of-memory failure, else ``"other"``.
+    """``"oom"``, ``"env"``, or ``"other"``.
 
-    Only an OOM is answered with a smaller attempt. Any other failure (bad
-    input, model download, scene geometry) would fail identically at every
+    An OOM is answered with a smaller attempt. An environment failure
+    (missing module, broken interpreter, missing shared library) is an
+    operator problem, not a capture problem — it must never be reported as
+    a capture issue. Any other failure would fail identically at every
     frame count, so retrying would waste the operator's time.
     """
     lowered = output.lower()
-    return "oom" if any(marker in lowered for marker in OOM_MARKERS) else "other"
+    if any(marker in lowered for marker in OOM_MARKERS):
+        return "oom"
+    if any(marker in lowered for marker in ENV_MARKERS):
+        return "env"
+    return "other"
 
 
 def format_refusal(reason: str, budget: str, suggested: str) -> str:

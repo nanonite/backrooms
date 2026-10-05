@@ -218,9 +218,15 @@ print_status() {
         && _ok  colmap  "$(colmap --version 2>&1 | head -1)" \
         || _miss colmap "not in PATH — activate conda env 'nerfstudio'"
 
-    has_cmd glomap \
-        && _ok  glomap  found \
-        || _miss glomap "run: $0 install-glomap"
+    if has_cmd glomap; then
+        if glomap --help >/dev/null 2>&1; then
+            _ok  glomap  found
+        else
+            _miss glomap "installed but cannot execute — missing shared libraries"
+        fi
+    else
+        _miss glomap "run: $0 install-glomap"
+    fi
 
     has_cmd brush \
         && _ok  brush   found \

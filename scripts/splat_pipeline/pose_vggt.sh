@@ -186,6 +186,7 @@ echo
 
 rm -rf "$SPARSE_DIR"
 rm -rf "$STAGING_DIR"
+rm -f "$SCENE_DIR/POSE_REFUSED"
 mkdir -p "$SPARSE_DIR"
 
 # ---------------------------------------------------------------------------
@@ -301,6 +302,10 @@ print(vggt_budget.classify_failure(Path(sys.argv[1]).read_text(encoding='utf-8',
         if [[ "$FRAMES_THIS_ATTEMPT" -gt "$VGGT_MIN_FRAMES" ]]; then
             echo "Retrying with fewer frames (OOM backoff)."
         fi
+    elif [[ "$FAILURE_KIND" == "env" ]]; then
+        die 5 "VGGT environment failure (see $RUN_LOG)." \
+              "The Python interpreter or its dependencies are broken — this is not a capture problem." \
+              "Set VGGT_PYTHON to the conda env's Python (e.g. \$HOME/anaconda3/envs/nerfstudio/bin/python3) and re-run."
     else
         die 5 "VGGT demo_colmap.py failed (non-OOM, see $RUN_LOG)." \
               "Capture may violate static-scene or parallax requirements; re-capture is the only fix."

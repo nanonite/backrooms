@@ -9,12 +9,12 @@ frame cap, OOM backoff, and bounded refusal all verified on real fixtures.
 
 | Question | Answer |
 |---|---|
-| GLOMAP builds and installs? | **Yes** — built against conda COLMAP 3.10, installed to `~/.local/bin/glomap`. |
+| GLOMAP builds and installs? | **Yes** — built against conda COLMAP 3.10, installed to `~/.local/bin/glomap`. `glomap --help` verified. |
 | VGGT ignores non-image metadata? | **Yes** — staging symlink dir excludes frames.json; verified by tests. |
-| VGGT OOM is controlled? | **Yes** — deterministic frame cap (24), OOM backoff (halving), bounded refusal (exit 7). |
-| Fixture reaches usable pose stage? | **Yes** — corridor_x_e2e (31 frames) and room_large_e2e (50 frames) both succeed at 12 frames after OOM backoff. |
+| VGGT OOM is controlled? | **Yes** — deterministic frame cap (12), OOM backoff (halving), bounded refusal (exit 7). |
+| Fixture reaches usable pose stage? | **Yes** — corridor_x_e2e (31 frames) and room_large_e2e (50 frames) both succeed at 12 frames after OOM backoff from 24. |
 | Bounded refusal verified? | **Yes** — VGGT_MAX_FRAMES=24 VGGT_MIN_FRAMES=24 triggers POSE_REFUSED + exit 7. |
-| Tests pass? | **Yes** — 65/65 in the two touched test files; full suite 669 passed. |
+| Tests pass? | **Yes** — 95/95 in the three touched test files; full suite 700 passed, 6 failed (all pre-existing unrelated: cull_blurry cv2, train_brush.sh). |
 
 ## GLOMAP build
 
