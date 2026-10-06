@@ -1,0 +1,7 @@
+# uncapped (--disable-vsync) to price the cleanup and the PSX pass
+== corridor_psx.tscn  ==
+FPS_JSON {"scene":"res://scenes/corridor_psx.tscn","frames":300,"elapsed_seconds":0.339,"fps":884.96,"warmup_frames":60}
+== corridor_psx.tscn --no-psx ==
+FPS_JSON {"scene":"res://scenes/corridor_psx.tscn","frames":300,"elapsed_seconds":0.349,"fps":859.60,"warmup_frames":60}
+== corridor.tscn (source) ==
+FPS_JSON {"scene":"res://scenes/corridor.tscn","frames":300,"elapsed_seconds":0.382,"fps":785.34,"warmup_frames":60}

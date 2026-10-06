@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "stages": [
+    {
+      "command": [
+        "/home/user/Downloads/Godot_v4.6.3-stable_linux.x86_64",
+        "--path",
+        "godot_walk",
+        "--resolution",
+        "1280x720",
+        "--script",
+        "res://scripts/measure_fps.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx.tscn",
+        "--frames=300",
+        "--warmup=60",
+        "--orbit-radius=1.0"
+      ],
+      "elapsed_seconds": 7.069,
+      "exit_code": 0,
+      "extras": {
+        "fps": 60.14
+      },
+      "input_bytes": 0,
+      "interpreter": "/home/user/Downloads/Godot_v4.6.3-stable_linux.x86_64",
+      "label": "render_psx_clean",
+      "log_path": "/tmp/opencode/bench_psx.log",
+      "output_bytes": 0,
+      "peak": {
+        "baseline_ram_used_bytes": 52595064832,
+        "baseline_vram_used_bytes": 2447376384,
+        "duration_seconds": 7.069,
+        "missed_samples": 0,
+        "peak_gpu_utilization_percent": 36,
+        "peak_ram_used_bytes": 53157294080,
+        "peak_vram_used_bytes": 2821718016,
+        "samples_taken": 7,
+        "stage_ram_bytes": 562229248,
+        "stage_vram_bytes": 374341632
+      },
+      "schema_version": 1,
+      "settings": {
+        "frames": "300",
+        "orbit-radius": "1.0",
+        "resolution": "1280x720",
+        "scene": "res://scenes/corridor_psx.tscn",
+        "warmup": "60"
+      },
+      "splat_count": 124564,
+      "succeeded": true,
+      "tool_versions": {
+        "blender": "5.2.2",
+        "brush": "brush-cli 0.3.0",
+        "colmap": "3.10-dev",
+        "ffmpeg": "8.1.1",
+        "glomap": "mapper",
+        "godot": "4.6.3.stable.official.7d41c59c4",
+        "nerfstudio": "1.1.5",
+        "nvidia-smi": "595.91.07",
+        "python3": "Python 3.10.20"
+      }
+    },
+    {
+      "command": [
+        "/home/user/Downloads/Godot_v4.6.3-stable_linux.x86_64",
+        "--path",
+        "godot_walk",
+        "--resolution",
+        "1280x720",
+        "--script",
+        "res://scripts/measure_fps.gd",
+        "--",
+        "--scene=res://scenes/corridor.tscn",
+        "--frames=300",
+        "--warmup=60",
+        "--orbit-radius=1.0"
+      ],
+      "elapsed_seconds": 6.982,
+      "exit_code": 0,
+      "extras": {
+        "fps": 60.11
+      },
+      "input_bytes": 0,
+      "interpreter": "/home/user/Downloads/Godot_v4.6.3-stable_linux.x86_64",
+      "label": "render_source",
+      "log_path": "/tmp/opencode/bench_source.log",
+      "output_bytes": 0,
+      "peak": {
+        "baseline_ram_used_bytes": 52899319808,
+        "baseline_vram_used_bytes": 2447376384,
+        "duration_seconds": 6.982,
+        "missed_samples": 0,
+        "peak_gpu_utilization_percent": 28,
+        "peak_ram_used_bytes": 53707460608,
+        "peak_vram_used_bytes": 2754609152,
+        "samples_taken": 7,
+        "stage_ram_bytes": 808140800,
+        "stage_vram_bytes": 307232768
+      },
+      "schema_version": 1,
+      "settings": {
+        "frames": "300",
+        "orbit-radius": "1.0",
+        "resolution": "1280x720",
+        "scene": "res://scenes/corridor.tscn",
+        "warmup": "60"
+      },
+      "splat_count": 182569,
+      "succeeded": true,
+      "tool_versions": {
+        "blender": "5.2.2",
+        "brush": "brush-cli 0.3.0",
+        "colmap": "3.10-dev",
+        "ffmpeg": "8.1.1",
+        "glomap": "mapper",
+        "godot": "4.6.3.stable.official.7d41c59c4",
+        "nerfstudio": "1.1.5",
+        "nvidia-smi": "595.91.07",
+        "python3": "Python 3.10.20"
+      }
+    }
+  ]
+}

@@ -71,6 +71,7 @@ func _init() -> void:
 		_create_perspective_camera("player_pov_reverse", pov_eye_reverse, pov_target_reverse, 75.0),
 		_create_top_down_camera("top_down", center + Vector3(0.0, radius * 1.6, 0.0), center, radius * 1.5),
 	]
+	cameras.append_array(_spawn_pov_cameras(instance, eye_height))
 
 	for camera in cameras:
 		instance.add_child(camera)
@@ -126,6 +127,25 @@ func _framing_bounds(instance: Node) -> AABB:
 		if room.size != Vector3.ZERO:
 			return room
 	return _scene_bounds(instance)
+
+
+func _spawn_pov_cameras(instance: Node, eye_height: float) -> Array:
+	## The true first-person view: from the contract's PlayerSpawn at eye height.
+	##
+	## `player_pov` above stands at the room's extreme, which is outside the
+	## reconstructed camera path and therefore floater-dominated. It is kept
+	## because it is the #74/#91 pose and before/after must be comparable. This
+	## pair stands where the player actually spawns. The corridor runs along
+	## world X for this asset: the manifest's corridor axis is the export frame's
+	## Y, and `frame_axis_in_world("y")` maps it to world X.
+	var spawn := instance.get_node_or_null("PlayerSpawn") as Node3D
+	if spawn == null:
+		return []
+	var eye := Vector3(spawn.global_position.x, eye_height, spawn.global_position.z)
+	return [
+		_create_perspective_camera("spawn_pov", eye, eye + Vector3(1.0, 0.0, 0.0), 75.0),
+		_create_perspective_camera("spawn_pov_reverse", eye, eye - Vector3(1.0, 0.0, 0.0), 75.0),
+	]
 
 
 func _scene_bounds(node: Node) -> AABB:

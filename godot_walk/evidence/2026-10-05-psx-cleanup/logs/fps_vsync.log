@@ -1,0 +1,5 @@
+# vsync-capped, identical to the #91 harness
+== res://scenes/corridor.tscn ==
+FPS_JSON {"scene":"res://scenes/corridor.tscn","frames":300,"elapsed_seconds":4.986,"fps":60.17,"warmup_frames":60}
+== res://scenes/corridor_psx.tscn ==
+FPS_JSON {"scene":"res://scenes/corridor_psx.tscn","frames":300,"elapsed_seconds":4.988,"fps":60.14,"warmup_frames":60}

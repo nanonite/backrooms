@@ -1,0 +1,8 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+OK: import_test mesh=7 static=7 shape=8
+OK: GeneratedCollision 10178 triangles, trimesh 30534 face vertices
+OK: Player capsule radius 0.30 m height 1.20 m (matches player.tscn)
+OK: PlayerSpawn capsule bottom -1.1430 m clears the generated floor -1.1430 m by -0.0000 m
+    marker is the contract's spawn (-0.651325, -0.77099, 2.887547), 0.3720 m above the floor surface
+OK: corridor collision bodies=["GeneratedCollision", "SafetyNet"] spawn=(-0.651325, -0.77099, 2.887547)

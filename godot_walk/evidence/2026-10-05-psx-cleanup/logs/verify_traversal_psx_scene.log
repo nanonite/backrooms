@@ -1,4 +1,6 @@
-scene: res://scenes/corridor.tscn
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+scene: res://scenes/corridor_psx.tscn
 traversal plan: res://assets/corridor_splat/traversal_manifest.json
   collision res://assets/corridor_splat/collision/corridor_splat.collision.glb
     10178 triangles, md5 c8f7a46effade8002a9bc51f74e3b11e
@@ -101,4 +103,5 @@ traversal plan: res://assets/corridor_splat/traversal_manifest.json
          - probe column: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=1 floor=100% path=0.00 m max_step=0.000 m y=-0.444..-0.444 net=true support=true)
          - probe wall came to rest 4.513 m from the planned stop, tolerance 0.12 m (ticks=105 floor=100% path=0.51 m max_step=0.061 m y=-0.442..-0.442 net=false support=true)
          - probe wall: stood on the SafetyNet -- a walk that used the net as floor is not a walk (ticks=105 floor=100% path=0.51 m max_step=0.061 m y=-0.442..-0.442 net=false support=true)
+
 OK: traversal verified -- route both directions, blocking, openings, corners, clearance, spawn and safety net all hold

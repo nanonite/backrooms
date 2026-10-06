@@ -1,0 +1,5 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+OK: presentation splat AABB [P: (-10.56595, -1.770826, -4.805409), S: (19.83243, 3.399802, 15.38583)], node translation (0.2404, 0.008164, 1.560468)
+OK: collision, safety net, spawn and player identical to the accepted review scene
+OK: PSX presentation scene inherits the contract mapping and the accepted collision

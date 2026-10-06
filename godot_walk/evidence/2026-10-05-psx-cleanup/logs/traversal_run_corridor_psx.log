@@ -1,4 +1,4 @@
-scene: res://scenes/corridor.tscn
+scene: res://scenes/corridor_psx.tscn
 traversal plan: res://assets/corridor_splat/traversal_manifest.json
   collision res://assets/corridor_splat/collision/corridor_splat.collision.glb
     10178 triangles, md5 c8f7a46effade8002a9bc51f74e3b11e
