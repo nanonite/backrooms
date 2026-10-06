@@ -29,6 +29,19 @@ const PLAN_PATH := "res://assets/corridor_splat/traversal_manifest.json"
 const LOG_PATH := "res://assets/corridor_splat/traversal_run.log"
 const SCENE_PATH := "res://scenes/corridor.tscn"
 
+## Optional override so the same battery can be run on the #100 presentation
+## scene, which renders a filtered splat but carries byte-identical collision,
+## SafetyNet and spawn. The default is unchanged, so the accepted #85 run is
+## unaffected; passing `--scene=res://scenes/corridor_psx.tscn` is how the
+## visual-cleanup change proves it did not move the world under the player.
+const SCENE_ARG_PREFIX := "--scene="
+var _scene_path := SCENE_PATH
+
+## Where this run's log is written. The accepted scene keeps the committed
+## `traversal_run.log`; an overridden scene writes a sibling file so a
+## presentation-scene run can never overwrite #85's evidence.
+var _log_path := LOG_PATH
+
 ## Loaded by path rather than by `class_name`: the global class cache is only
 ## rebuilt when the editor scans the project, so a CI run of this script would
 ## otherwise fail to resolve the name on a fresh checkout.
@@ -81,6 +94,8 @@ var _speed_mps := 4.0
 
 
 func _initialize() -> void:
+	_scene_path = _scene_argument()
+	_log_path = _log_path_for(_scene_path)
 	_plan = TRAVERSAL_PLAN.new(PLAN_PATH)
 	if not _plan.is_valid():
 		printerr("FAIL: %s" % _plan.load_error())
@@ -149,6 +164,7 @@ func _load_tolerances() -> void:
 func _report_settings() -> void:
 	## Print the settings, tolerances and the benchmark verdict every assertion
 	## below is measured against, so a reviewer never has to reconstruct them.
+	_emit("scene: %s" % _scene_path)
 	_emit("traversal plan: %s" % PLAN_PATH)
 	_emit("  collision %s" % _plan.collision_glb_path())
 	_emit("    %d triangles, md5 %s" % [_plan.collision_triangles(), _plan.collision_md5()])
@@ -188,9 +204,9 @@ func _emit(line: String) -> void:
 
 func _finish(passed: bool) -> void:
 	## Write the run log next to the plan, where it is committed as evidence.
-	var file := FileAccess.open(LOG_PATH, FileAccess.WRITE)
+	var file := FileAccess.open(_log_path, FileAccess.WRITE)
 	if file == null:
-		printerr("could not write %s (error %d)" % [LOG_PATH, FileAccess.get_open_error()])
+		printerr("could not write %s (error %d)" % [_log_path, FileAccess.get_open_error()])
 		return
 	file.store_string("\n".join(_lines) + "\n")
 	file.close()
@@ -207,7 +223,7 @@ func _run_case(label: String, description: String, mutation: String) -> Array:
 	_emit("== %s: %s" % [label, description])
 	var instance := _instantiate()
 	if instance == null:
-		_emit("  could not instantiate %s" % SCENE_PATH)
+		_emit("  could not instantiate %s" % _scene_path)
 		return ["instantiate"]
 	root.add_child(instance)
 	await process_frame
@@ -222,10 +238,29 @@ func _run_case(label: String, description: String, mutation: String) -> Array:
 
 
 func _instantiate() -> Node:
-	var scene: PackedScene = load(SCENE_PATH)
+	var scene: PackedScene = load(_scene_path)
 	if scene == null:
 		return null
 	return scene.instantiate()
+
+
+func _scene_argument() -> String:
+	## Read `--scene=res://...` from the command line, defaulting to corridor.tscn.
+	for argument in OS.get_cmdline_user_args() + OS.get_cmdline_args():
+		if argument.begins_with(SCENE_ARG_PREFIX):
+			var value := argument.trim_prefix(SCENE_ARG_PREFIX).strip_edges()
+			if value != "":
+				return value
+	return SCENE_PATH
+
+
+func _log_path_for(scene_path: String) -> String:
+	## The accepted scene keeps the committed log; any override gets its own
+	## sibling file so a presentation-scene run cannot clobber #85's evidence.
+	if scene_path == SCENE_PATH:
+		return LOG_PATH
+	var stem := scene_path.get_file().get_basename()
+	return "%s_%s.log" % [LOG_PATH.get_basename(), stem]
 
 
 func _mutate(instance: Node, mutation: String) -> void:

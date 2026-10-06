@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://bqc1vt6sjfuwa"
+path="res://.godot/imported/psx_post.glsl-c11d3262c08dd027f83e0fd43c08cf34.res"
+
+[deps]
+
+source_file="res://scripts/psx/shaders/psx_post.glsl"
+dest_files=["res://.godot/imported/psx_post.glsl-c11d3262c08dd027f83e0fd43c08cf34.res"]
+
+[params]
+

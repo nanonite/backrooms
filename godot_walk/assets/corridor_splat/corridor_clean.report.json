@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "source": {
+    "path": "godot_walk/assets/corridor_splat/corridor.ply",
+    "splat_count": 182569,
+    "digests": {
+      "md5": "2f6c2fd5417ffe771ef4147e369d80c5",
+      "sha256": "1602f159aa7910a105dd2eff913a8bbccec1cb50cca9f974c9f82dfda297929c"
+    }
+  },
+  "output": {
+    "path": "godot_walk/assets/corridor_splat/corridor_clean.ply",
+    "splat_count": 124564,
+    "digests": {
+      "md5": "c5ac214d8cbc77880aaaa5d65fc9a8f5",
+      "sha256": "88a20a95dd4df4dde98203f7fb934d17db93a9cb5d98f9e8c1625d478e9d7af0"
+    }
+  },
+  "contract": {
+    "manifest": "godot_walk/assets/corridor_splat/alignment_manifest.json",
+    "scene_id": "corridor_splat",
+    "metres_per_unit": 5.128383849229126,
+    "origin_ply_units": [
+      -0.7003716216251055,
+      0.19051010788102454,
+      0.02300749166011915
+    ]
+  },
+  "params": {
+    "bounds_min": [
+      -10.56948558789596,
+      -1.7709904916293824,
+      -4.80583065565776
+    ],
+    "bounds_max": [
+      9.266834641753865,
+      1.6290095083706178,
+      10.580924804453657
+    ],
+    "max_extent_m": 0.3,
+    "min_opacity": 0.0
+  },
+  "removed": {
+    "per_stage": {
+      "bounds": 56437,
+      "extent": 1568,
+      "opacity": 0
+    },
+    "total": 58005
+  },
+  "kept_bounds_world": {
+    "min": [
+      -10.56595578354331,
+      -1.7708258910564683,
+      -4.805402846254808
+    ],
+    "max": [
+      9.266478971768349,
+      1.6289757047486706,
+      10.580424244282277
+    ]
+  },
+  "filtered_centroid_ply": [
+    -0.3960909066971628,
+    0.2373864996348474,
+    0.024599473898517896
+  ],
+  "node_translation_world": [
+    0.2404001303804425,
+    0.008164295999663767,
+    1.560468304068353
+  ],
+  "note": "GDGS subtracts the mean of the loaded PLY at import, so the presentation node must carry node_translation_world on top of the contract's zero-translation basis to keep the world fixed."
+}
