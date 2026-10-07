@@ -1,0 +1,27 @@
+{
+  "issue": 107,
+  "purpose": "coverage-complete source clip shared by the Gaussian and textured-mesh tracks",
+  "generation_id": "gen-vid-1791408274-CRIWF6kH2IpI3DWS4e7Y",
+  "generated_at_utc": "2026-10-07T21:24:34Z",
+  "settings": {
+    "model_id": "google/veo-3.1-lite",
+    "duration_seconds": 8,
+    "resolution": "1080p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "seed_image": "Backrooms_model.jpg",
+    "prompt": "Continuous single-take first-person walk through one bounded backrooms room, eight seconds, one unbroken shot, no cuts, no teleports. The camera body physically walks forward at a steady pace across the open carpet floor, then turns smoothly and keeps walking sideways across the room to the opposite side, so the camera travels in two different directions. While walking it deliberately faces the far wall of the room and holds it in frame, showing the whole wall surface including the clean horizontal join where the wall meets the carpeted floor and the join where the wall meets the drop ceiling. The camera passes within arm's reach of the side walls and a structural column, so nearby textured surfaces fill the frame and shift with parallax. Yellow patterned wallpaper, moist carpet tiles, drop ceiling with recessed fluorescent light panels. One rigid consistent room, fixed geometry, stable lighting, sharp focus, no motion blur, no flicker, no people, no windows, fixed camera lens, photorealistic, liminal backrooms."
+  },
+  "seed_image": {
+    "path": "/workspace/backrooms-workspace/Backrooms_model.jpg",
+    "sha256": "e5c1ead98a13683b4a2a8a06c075006692f9243ff91d97a95e28e0af6ad82a18",
+    "md5": "4e4bf97b6b3483531b213ec92710cc9a",
+    "bytes": 389396
+  },
+  "video": {
+    "path": "data/scenes/backrooms_coverage_v1/video.mp4",
+    "sha256": "d50f6770cb5767109202e1bcae41e4e412035ff4852c8a6b86d9e28aeae55f06",
+    "md5": "1324eba0b8c2b968cd63b4f897d739ad",
+    "bytes": 16463899
+  }
+}

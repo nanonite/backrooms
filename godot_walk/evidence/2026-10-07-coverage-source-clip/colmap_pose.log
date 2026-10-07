@@ -1,0 +1,11 @@
+=== feature_extractor ===
+I20261007 16:44:18.137264 138186630074368 feature_extraction.cc:292]   Focal Length:    2304.00px
+I20261007 16:44:18.137271 138186630074368 feature_extraction.cc:296]   Features:        4527
+I20261007 16:44:18.193378 138187395465216 timer.cc:91] Elapsed time: 0.173 [minutes]
+=== sequential_matcher overlap=20 ===
+I20261007 16:44:56.742782 134790990692352 feature_matching.cc:46]  in 0.000s
+I20261007 16:44:56.742785 134790990692352 timer.cc:91] Elapsed time: 0.642 [minutes]
+=== mapper ===
+I20261007 16:46:15.690339 128170103595008 incremental_mapper.cc:378] => Image sees 536 / 830 points
+I20261007 16:46:16.051210 128170103595008 incremental_mapper.cc:41] Retriangulation and Global bundle adjustment
+I20261007 16:46:16.597603 128170103595008 timer.cc:91] Elapsed time: 1.330 [minutes]

@@ -1,0 +1,27 @@
+{
+  "issue": 107,
+  "purpose": "coverage-complete source clip shared by the Gaussian and textured-mesh tracks",
+  "generation_id": "gen-vid-1791408723-f3bioTlWYlViRyRodANO",
+  "generated_at_utc": "2026-10-07T21:32:02Z",
+  "settings": {
+    "model_id": "google/veo-3.1-lite",
+    "duration_seconds": 8,
+    "resolution": "1080p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "seed_image": "Backrooms_model.jpg",
+    "prompt": "Continuous single-take first-person walk through a small enclosed backrooms alcove, eight seconds, one unbroken shot, no cuts, no teleports. The camera stays within one metre of the nearest surface at all times. It slides sideways at close range past a large square structural column and along the wallpaper wall, keeping that near wall and column large and centred in frame, then walks forward to the corner and turns onto the adjacent wall, so the camera body physically travels in two different directions while the nearest textured surfaces stay close and shift with strong parallax. It deliberately turns to face the far wall of the alcove and holds the whole wall in frame, including the clean horizontal join where the wall meets the carpeted floor and the join where the wall meets the drop ceiling. Yellow patterned wallpaper, moist carpet tiles, drop ceiling with recessed fluorescent light panels. Small bounded room, one rigid consistent space, fixed geometry, stable lighting, sharp focus, no motion blur, no flicker, no people, no windows, fixed camera lens, photorealistic, liminal backrooms."
+  },
+  "seed_image": {
+    "path": "/workspace/backrooms-workspace/Backrooms_model.jpg",
+    "sha256": "e5c1ead98a13683b4a2a8a06c075006692f9243ff91d97a95e28e0af6ad82a18",
+    "md5": "4e4bf97b6b3483531b213ec92710cc9a",
+    "bytes": 389396
+  },
+  "video": {
+    "path": "data/scenes/backrooms_coverage_v1/video.mp4",
+    "sha256": "431d7f8a9f6b3a89b98a1559a7905d3db369d3c31340a6da460eba448571bf74",
+    "md5": "51a0b66fe5aea19f4454c6098b997922",
+    "bytes": 18218349
+  }
+}

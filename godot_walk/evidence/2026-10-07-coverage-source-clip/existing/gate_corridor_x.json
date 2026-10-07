@@ -1,0 +1,892 @@
+{
+  "metadata": {
+    "path": "data/videos/corridor_x.mp4",
+    "width": 1920,
+    "height": 1080,
+    "total_pixels": 2073600,
+    "megapixels": 2.074,
+    "fps": 24.0,
+    "duration_seconds": 4.0,
+    "frame_count": 96,
+    "frame_count_is_exact": true,
+    "codec": "h264",
+    "pixel_format": "yuv420p"
+  },
+  "budget": {
+    "target_frames": 150,
+    "max_candidates": 240,
+    "analysis_max_pixels": 230400,
+    "max_sample_seconds": 120.0,
+    "target_shift_fraction": 0.008,
+    "probe_count": 12,
+    "burst_count": 3,
+    "burst_length": 8,
+    "min_sharpness_ratio": 0.35,
+    "min_shift_fraction": 0.005,
+    "cut_distance_limit": 0.15,
+    "cut_residual_limit": 0.45,
+    "sequential_window": 10,
+    "retrieval_keyframes": 24,
+    "decode_mode": "auto"
+  },
+  "stage": "scanned",
+  "scan": {
+    "metadata": {
+      "path": "data/videos/corridor_x.mp4",
+      "width": 1920,
+      "height": 1080,
+      "total_pixels": 2073600,
+      "megapixels": 2.074,
+      "fps": 24.0,
+      "duration_seconds": 4.0,
+      "frame_count": 96,
+      "frame_count_is_exact": true,
+      "codec": "h264",
+      "pixel_format": "yuv420p"
+    },
+    "analysis_size": {
+      "width": 640,
+      "height": 360,
+      "source_width": 1920,
+      "source_height": 1080,
+      "scale": 0.3333
+    },
+    "stride": 2,
+    "parallax_gap": 2,
+    "motion_px_per_frame": 3.0414,
+    "candidates": [
+      {
+        "index": 0,
+        "timestamp_seconds": 0.0,
+        "sharpness": 172.12,
+        "luma": 142.9,
+        "cut_distance": 0.0,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": null,
+        "translation_fraction": null,
+        "explained_fraction": null
+      },
+      {
+        "index": 2,
+        "timestamp_seconds": 0.083,
+        "sharpness": 183.25,
+        "luma": 143.19,
+        "cut_distance": 0.022,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": null,
+        "translation_fraction": null,
+        "explained_fraction": null
+      },
+      {
+        "index": 4,
+        "timestamp_seconds": 0.167,
+        "sharpness": 216.58,
+        "luma": 143.21,
+        "cut_distance": 0.0252,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.216
+      },
+      {
+        "index": 6,
+        "timestamp_seconds": 0.25,
+        "sharpness": 193.27,
+        "luma": 143.51,
+        "cut_distance": 0.017,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.231
+      },
+      {
+        "index": 8,
+        "timestamp_seconds": 0.333,
+        "sharpness": 191.6,
+        "luma": 143.83,
+        "cut_distance": 0.0261,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.24
+      },
+      {
+        "index": 10,
+        "timestamp_seconds": 0.417,
+        "sharpness": 191.58,
+        "luma": 144.21,
+        "cut_distance": 0.0239,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.236
+      },
+      {
+        "index": 12,
+        "timestamp_seconds": 0.5,
+        "sharpness": 222.66,
+        "luma": 144.15,
+        "cut_distance": 0.0134,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.198
+      },
+      {
+        "index": 14,
+        "timestamp_seconds": 0.583,
+        "sharpness": 193.25,
+        "luma": 144.51,
+        "cut_distance": 0.0176,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.211
+      },
+      {
+        "index": 16,
+        "timestamp_seconds": 0.667,
+        "sharpness": 190.87,
+        "luma": 144.86,
+        "cut_distance": 0.0243,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.23
+      },
+      {
+        "index": 18,
+        "timestamp_seconds": 0.75,
+        "sharpness": 189.43,
+        "luma": 145.09,
+        "cut_distance": 0.021,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.241
+      },
+      {
+        "index": 20,
+        "timestamp_seconds": 0.833,
+        "sharpness": 215.7,
+        "luma": 144.94,
+        "cut_distance": 0.0174,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.223
+      },
+      {
+        "index": 22,
+        "timestamp_seconds": 0.917,
+        "sharpness": 190.2,
+        "luma": 145.21,
+        "cut_distance": 0.0145,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.234
+      },
+      {
+        "index": 24,
+        "timestamp_seconds": 1.0,
+        "sharpness": 186.12,
+        "luma": 145.56,
+        "cut_distance": 0.032,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.25
+      },
+      {
+        "index": 26,
+        "timestamp_seconds": 1.083,
+        "sharpness": 179.1,
+        "luma": 145.78,
+        "cut_distance": 0.0211,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.263
+      },
+      {
+        "index": 28,
+        "timestamp_seconds": 1.167,
+        "sharpness": 200.66,
+        "luma": 145.61,
+        "cut_distance": 0.0151,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.327
+      },
+      {
+        "index": 30,
+        "timestamp_seconds": 1.25,
+        "sharpness": 184.09,
+        "luma": 145.68,
+        "cut_distance": 0.0141,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.33
+      },
+      {
+        "index": 32,
+        "timestamp_seconds": 1.333,
+        "sharpness": 181.97,
+        "luma": 145.92,
+        "cut_distance": 0.0319,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.326
+      },
+      {
+        "index": 34,
+        "timestamp_seconds": 1.417,
+        "sharpness": 178.44,
+        "luma": 146.1,
+        "cut_distance": 0.0155,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.34
+      },
+      {
+        "index": 36,
+        "timestamp_seconds": 1.5,
+        "sharpness": 201.2,
+        "luma": 145.92,
+        "cut_distance": 0.0141,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.332
+      },
+      {
+        "index": 38,
+        "timestamp_seconds": 1.583,
+        "sharpness": 184.39,
+        "luma": 146.03,
+        "cut_distance": 0.016,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.342
+      },
+      {
+        "index": 40,
+        "timestamp_seconds": 1.667,
+        "sharpness": 184.43,
+        "luma": 146.14,
+        "cut_distance": 0.0249,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.305
+      },
+      {
+        "index": 42,
+        "timestamp_seconds": 1.75,
+        "sharpness": 179.52,
+        "luma": 146.23,
+        "cut_distance": 0.0094,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.312
+      },
+      {
+        "index": 44,
+        "timestamp_seconds": 1.833,
+        "sharpness": 198.79,
+        "luma": 145.88,
+        "cut_distance": 0.0211,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.33
+      },
+      {
+        "index": 46,
+        "timestamp_seconds": 1.917,
+        "sharpness": 177.86,
+        "luma": 145.83,
+        "cut_distance": 0.0163,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 9.0,
+        "translation_fraction": 0.01406,
+        "explained_fraction": 0.334
+      },
+      {
+        "index": 48,
+        "timestamp_seconds": 2.0,
+        "sharpness": 174.06,
+        "luma": 145.87,
+        "cut_distance": 0.0247,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 9.0,
+        "translation_fraction": 0.01406,
+        "explained_fraction": 0.334
+      },
+      {
+        "index": 50,
+        "timestamp_seconds": 2.083,
+        "sharpness": 169.12,
+        "luma": 145.97,
+        "cut_distance": 0.0092,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 9.06,
+        "translation_fraction": 0.01415,
+        "explained_fraction": 0.299
+      },
+      {
+        "index": 52,
+        "timestamp_seconds": 2.167,
+        "sharpness": 188.23,
+        "luma": 145.64,
+        "cut_distance": 0.0236,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.345
+      },
+      {
+        "index": 54,
+        "timestamp_seconds": 2.25,
+        "sharpness": 170.36,
+        "luma": 145.57,
+        "cut_distance": 0.0089,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.36
+      },
+      {
+        "index": 56,
+        "timestamp_seconds": 2.333,
+        "sharpness": 169.2,
+        "luma": 145.57,
+        "cut_distance": 0.0181,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 9.06,
+        "translation_fraction": 0.01415,
+        "explained_fraction": 0.303
+      },
+      {
+        "index": 58,
+        "timestamp_seconds": 2.417,
+        "sharpness": 164.3,
+        "luma": 145.57,
+        "cut_distance": 0.0099,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.2,
+        "translation_fraction": 0.01593,
+        "explained_fraction": 0.253
+      },
+      {
+        "index": 60,
+        "timestamp_seconds": 2.5,
+        "sharpness": 185.34,
+        "luma": 145.23,
+        "cut_distance": 0.0255,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.05,
+        "translation_fraction": 0.0157,
+        "explained_fraction": 0.307
+      },
+      {
+        "index": 62,
+        "timestamp_seconds": 2.583,
+        "sharpness": 173.92,
+        "luma": 145.1,
+        "cut_distance": 0.0123,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.0,
+        "translation_fraction": 0.02187,
+        "explained_fraction": 0.219
+      },
+      {
+        "index": 64,
+        "timestamp_seconds": 2.667,
+        "sharpness": 184.59,
+        "luma": 145.5,
+        "cut_distance": 0.0467,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.14,
+        "translation_fraction": 0.0221,
+        "explained_fraction": 0.15
+      },
+      {
+        "index": 66,
+        "timestamp_seconds": 2.75,
+        "sharpness": 182.33,
+        "luma": 145.43,
+        "cut_distance": 0.0154,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.14,
+        "translation_fraction": 0.0221,
+        "explained_fraction": 0.141
+      },
+      {
+        "index": 68,
+        "timestamp_seconds": 2.833,
+        "sharpness": 217.06,
+        "luma": 145.0,
+        "cut_distance": 0.0259,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.0,
+        "translation_fraction": 0.02187,
+        "explained_fraction": 0.206
+      },
+      {
+        "index": 70,
+        "timestamp_seconds": 2.917,
+        "sharpness": 189.81,
+        "luma": 144.87,
+        "cut_distance": 0.0134,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 13.04,
+        "translation_fraction": 0.02037,
+        "explained_fraction": 0.228
+      },
+      {
+        "index": 72,
+        "timestamp_seconds": 3.0,
+        "sharpness": 184.88,
+        "luma": 144.77,
+        "cut_distance": 0.0255,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.04,
+        "translation_fraction": 0.02193,
+        "explained_fraction": 0.203
+      },
+      {
+        "index": 74,
+        "timestamp_seconds": 3.083,
+        "sharpness": 179.89,
+        "luma": 144.64,
+        "cut_distance": 0.0189,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.04,
+        "translation_fraction": 0.02193,
+        "explained_fraction": 0.222
+      },
+      {
+        "index": 76,
+        "timestamp_seconds": 3.167,
+        "sharpness": 211.69,
+        "luma": 144.16,
+        "cut_distance": 0.0246,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 13.04,
+        "translation_fraction": 0.02037,
+        "explained_fraction": 0.22
+      },
+      {
+        "index": 78,
+        "timestamp_seconds": 3.25,
+        "sharpness": 182.4,
+        "luma": 143.87,
+        "cut_distance": 0.0158,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 13.04,
+        "translation_fraction": 0.02037,
+        "explained_fraction": 0.227
+      },
+      {
+        "index": 80,
+        "timestamp_seconds": 3.333,
+        "sharpness": 187.09,
+        "luma": 143.65,
+        "cut_distance": 0.0222,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.04,
+        "translation_fraction": 0.02193,
+        "explained_fraction": 0.24
+      },
+      {
+        "index": 82,
+        "timestamp_seconds": 3.417,
+        "sharpness": 188.55,
+        "luma": 143.43,
+        "cut_distance": 0.017,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.04,
+        "translation_fraction": 0.02193,
+        "explained_fraction": 0.245
+      },
+      {
+        "index": 84,
+        "timestamp_seconds": 3.5,
+        "sharpness": 225.6,
+        "luma": 143.04,
+        "cut_distance": 0.0136,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.04,
+        "translation_fraction": 0.02193,
+        "explained_fraction": 0.204
+      },
+      {
+        "index": 86,
+        "timestamp_seconds": 3.583,
+        "sharpness": 195.15,
+        "luma": 142.71,
+        "cut_distance": 0.0161,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.04,
+        "translation_fraction": 0.02193,
+        "explained_fraction": 0.217
+      },
+      {
+        "index": 88,
+        "timestamp_seconds": 3.667,
+        "sharpness": 201.39,
+        "luma": 142.65,
+        "cut_distance": 0.0226,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.04,
+        "translation_fraction": 0.02193,
+        "explained_fraction": 0.219
+      },
+      {
+        "index": 90,
+        "timestamp_seconds": 3.75,
+        "sharpness": 206.59,
+        "luma": 142.43,
+        "cut_distance": 0.0101,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 12.04,
+        "translation_fraction": 0.01881,
+        "explained_fraction": 0.204
+      },
+      {
+        "index": 92,
+        "timestamp_seconds": 3.833,
+        "sharpness": 255.46,
+        "luma": 141.93,
+        "cut_distance": 0.0203,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.04,
+        "translation_fraction": 0.02193,
+        "explained_fraction": 0.147
+      },
+      {
+        "index": 94,
+        "timestamp_seconds": 3.917,
+        "sharpness": 212.22,
+        "luma": 141.82,
+        "cut_distance": 0.0115,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 14.04,
+        "translation_fraction": 0.02193,
+        "explained_fraction": 0.148
+      }
+    ],
+    "bursts": {
+      "pairs": 21,
+      "windows": 3,
+      "median_residual_fraction": 0.0341,
+      "p90_residual_fraction": 0.0613,
+      "median_hot_block_fraction": 0.0,
+      "p90_hot_block_fraction": 0.0,
+      "max_hot_block_fraction": 0.0,
+      "median_shift_fraction": 0.00313
+    },
+    "decode": {
+      "probe": {
+        "mode": "stream",
+        "reason": "single pass keeping every 8th frame",
+        "clip_frames": 96,
+        "requested": 12,
+        "retained": 12,
+        "visited": 89,
+        "seconds": 0.254,
+        "retained_fraction": 0.125
+      },
+      "candidates": {
+        "mode": "stream",
+        "reason": "single pass keeping every 2th frame",
+        "clip_frames": 96,
+        "requested": 48,
+        "retained": 48,
+        "visited": 95,
+        "seconds": 0.268,
+        "retained_fraction": 0.5
+      },
+      "burst_frames_decoded": 24
+    },
+    "seconds": 1.781,
+    "limits": [
+      "sharpness, cut distance and translation are measured on 230400 analysed pixels per frame; the features COLMAP later extracts come from the full 1920x1080 source, which this scan does not measure",
+      "residual statistics come from 3 contiguous windows of 8 frames; something that walks through one of the other windows is not seen",
+      "translation is one global shift per pair; camera rotation about the view axis is counted as unexplained change, not as measured rotation",
+      "displacements below about 0.5% of the analysis frame width fall under the alignment search's resolution and are reported as zero, so a very slow camera can measure as still; translations are therefore measured over 2 candidate gaps",
+      "candidates are 2 source frames apart, so anything that happens only between two candidates -- including a cut shorter than the stride -- is not examined"
+    ]
+  },
+  "selection": {
+    "selected": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      28,
+      32,
+      36,
+      40,
+      44,
+      48,
+      52,
+      56,
+      60,
+      62,
+      64,
+      66,
+      68,
+      70,
+      72,
+      74,
+      76,
+      78,
+      80,
+      82,
+      84,
+      86,
+      88,
+      92
+    ],
+    "selected_count": 31,
+    "eligible": 48,
+    "sharpness_reference": 215.7,
+    "min_shift_fraction": 0.005,
+    "excluded_by_reason": {
+      "below_minimum_translation": 17
+    },
+    "exclusions": [
+      {
+        "index": 2,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 6,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 10,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 14,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 18,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 22,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 26,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 30,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 34,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 38,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 42,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 46,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 50,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.1px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 54,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.1px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 58,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 2.2px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 90,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 3.2px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 94,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 3.2px since the last kept frame, under the 3.2px minimum"
+      }
+    ]
+  },
+  "coverage": {
+    "selected_count": 31,
+    "analysed_count": 48,
+    "path_length_widths": 0.396,
+    "retained_path_length_widths": 0.391,
+    "viewpoint_bins": 4,
+    "distinct_directions": 2,
+    "extent_x_widths": 0.764,
+    "extent_y_widths": 0.019,
+    "selected_span_seconds": 3.833,
+    "clip_span_seconds": 4.0,
+    "span_fraction": 0.9583,
+    "viewpoint_efficiency": 0.129
+  },
+  "consistency": {
+    "classification": "temporal_geometry_consistent",
+    "median_residual_fraction": 0.0341,
+    "p90_hot_block_fraction": 0.0,
+    "max_hot_block_fraction": 0.0,
+    "rejected": false,
+    "warned": false,
+    "evidence": "adjacent frames leave 3.4% of pixels changed after a global translation, and 0.0% of 24px blocks still differ (worst window 0.0%) -- one rigid scene accounts for the change"
+  },
+  "matching": {
+    "frames": 31,
+    "strategy": "retrieval",
+    "window": 10,
+    "keyframes": 7,
+    "pairs": 189,
+    "exhaustive_pairs": 465,
+    "reduction_factor": 2.5,
+    "reason": "retrieval matching against 7 keyframes costs 189 pairs against 465 exhaustive (40.6%); the sequential window alone would cost 255 pairs and find no revisits",
+    "unmatched_notes": [
+      "sequential matching compares only the 10 nearest temporal neighbours, so any two views more than 10 samples apart are not matched by it; on this walk the largest such gap is 15 samples",
+      "retrieval matching compares each frame against 7 keyframes, so a revisit matches only if one of its frames is near a keyframe in appearance; a short revisit in a visually distinct part of the room can still be missed",
+      "a loop closure missed here shows up as two disconnected reconstructions, not as a bad one: check the registration report before treating a sparse model as a single room"
+    ]
+  },
+  "matching_commands": [
+    "colmap sequential_matcher <scene_dir>/database.db --SequentialMatching.overlap=10 --SiftExtraction.use_gpu 0 --SiftMatching.use_gpu 0",
+    "colmap vocab_tree_matcher <scene_dir>/database.db --SiftExtraction.use_gpu 0 --SiftMatching.use_gpu 0 --VocabTreeMatching.overlap=10"
+  ],
+  "resource_estimate": {
+    "frames": 31,
+    "source_resolution": "1920x1080",
+    "frame_files_bytes": 7713792,
+    "database_bytes": 12697600,
+    "sparse_model_bytes": 9324800,
+    "total_disk_bytes": 37170240,
+    "working_ram_bytes": 25395200,
+    "matching_pairs": 189,
+    "matching_seconds": 47.2,
+    "sampling_seconds": 6.3
+  },
+  "resource_verdict": {
+    "fits": true,
+    "free_disk_bytes": 3664751362048,
+    "free_ram_bytes": 21470576640,
+    "blockers": [],
+    "actions": []
+  },
+  "verdict": {
+    "status": "accepted_with_warnings",
+    "findings": [
+      {
+        "code": "rotation_dominant",
+        "severity": "warn",
+        "measured": "median global translation explains 24% of the frame change",
+        "threshold": ">= 25% explained by one global translation",
+        "cause": "the picture changes without the camera translating, which is a pan, a zoom or a handheld wobble; those give no depth",
+        "action": "keep translating while turning; translate the camera body, not just the view"
+      }
+    ],
+    "limits": [
+      "sharpness, cut distance and translation are measured on 230400 analysed pixels per frame; the features COLMAP later extracts come from the full 1920x1080 source, which this scan does not measure",
+      "residual statistics come from 3 contiguous windows of 8 frames; something that walks through one of the other windows is not seen",
+      "translation is one global shift per pair; camera rotation about the view axis is counted as unexplained change, not as measured rotation",
+      "displacements below about 0.5% of the analysis frame width fall under the alignment search's resolution and are reported as zero, so a very slow camera can measure as still; translations are therefore measured over 2 candidate gaps",
+      "candidates are 2 source frames apart, so anything that happens only between two candidates -- including a cut shorter than the stride -- is not examined"
+    ],
+    "notes": [
+      "frame target 150, selected 31 (hypothesis 100-200 frames for a small room -- a starting point, not a guarantee).",
+      "resolution is reported, never used as a rejection: 720p matches features, it only softens distance"
+    ]
+  },
+  "seconds": 1.843
+}
