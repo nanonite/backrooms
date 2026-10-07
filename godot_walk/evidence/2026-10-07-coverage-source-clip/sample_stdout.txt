@@ -1,0 +1,9 @@
+=== EXTRACTION ===
+video:    data/scenes/backrooms_coverage_v1/video.mp4
+output:   data/scenes/backrooms_coverage_v1/frames
+frames:   111 of 111 selected, written as frame_NNNN.jpg
+resolution: 1920x1080 (source, preserved) -- measurements were made on 640x360 analysis frames at 0.3333x
+work:     111 ffmpeg invocation(s), one seek per kept frame, 29.8s; no other frame of the clip was decoded
+source frame indices: 0..191 (first 12: 0, 11, 21, 34, 37, 39, 41, 42, 44, 46, 48, 50)
+manifest: frames.json maps each written file back to its source frame index
+note: removed 85 stale frame(s) from a previous extraction

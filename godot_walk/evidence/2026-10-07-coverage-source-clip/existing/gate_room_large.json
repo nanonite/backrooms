@@ -1,0 +1,1622 @@
+{
+  "metadata": {
+    "path": "data/videos/room_large.mp4",
+    "width": 1920,
+    "height": 1080,
+    "total_pixels": 2073600,
+    "megapixels": 2.074,
+    "fps": 24.0,
+    "duration_seconds": 4.0,
+    "frame_count": 96,
+    "frame_count_is_exact": true,
+    "codec": "h264",
+    "pixel_format": "yuv420p"
+  },
+  "budget": {
+    "target_frames": 150,
+    "max_candidates": 240,
+    "analysis_max_pixels": 230400,
+    "max_sample_seconds": 120.0,
+    "target_shift_fraction": 0.008,
+    "probe_count": 12,
+    "burst_count": 3,
+    "burst_length": 8,
+    "min_sharpness_ratio": 0.35,
+    "min_shift_fraction": 0.005,
+    "cut_distance_limit": 0.15,
+    "cut_residual_limit": 0.45,
+    "sequential_window": 10,
+    "retrieval_keyframes": 24,
+    "decode_mode": "auto"
+  },
+  "stage": "scanned",
+  "scan": {
+    "metadata": {
+      "path": "data/videos/room_large.mp4",
+      "width": 1920,
+      "height": 1080,
+      "total_pixels": 2073600,
+      "megapixels": 2.074,
+      "fps": 24.0,
+      "duration_seconds": 4.0,
+      "frame_count": 96,
+      "frame_count_is_exact": true,
+      "codec": "h264",
+      "pixel_format": "yuv420p"
+    },
+    "analysis_size": {
+      "width": 640,
+      "height": 360,
+      "source_width": 1920,
+      "source_height": 1080,
+      "scale": 0.3333
+    },
+    "stride": 1,
+    "parallax_gap": 2,
+    "motion_px_per_frame": 4.5,
+    "candidates": [
+      {
+        "index": 0,
+        "timestamp_seconds": 0.0,
+        "sharpness": 155.99,
+        "luma": 142.82,
+        "cut_distance": 0.0,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": null,
+        "translation_fraction": null,
+        "explained_fraction": null
+      },
+      {
+        "index": 1,
+        "timestamp_seconds": 0.042,
+        "sharpness": 156.11,
+        "luma": 143.01,
+        "cut_distance": 0.0169,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": null,
+        "translation_fraction": null,
+        "explained_fraction": null
+      },
+      {
+        "index": 2,
+        "timestamp_seconds": 0.083,
+        "sharpness": 160.35,
+        "luma": 142.97,
+        "cut_distance": 0.0084,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.38
+      },
+      {
+        "index": 3,
+        "timestamp_seconds": 0.125,
+        "sharpness": 167.07,
+        "luma": 143.15,
+        "cut_distance": 0.0205,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 5.0,
+        "translation_fraction": 0.00781,
+        "explained_fraction": 0.487
+      },
+      {
+        "index": 4,
+        "timestamp_seconds": 0.167,
+        "sharpness": 181.51,
+        "luma": 142.81,
+        "cut_distance": 0.0144,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.417
+      },
+      {
+        "index": 5,
+        "timestamp_seconds": 0.208,
+        "sharpness": 169.67,
+        "luma": 142.85,
+        "cut_distance": 0.0071,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.454
+      },
+      {
+        "index": 6,
+        "timestamp_seconds": 0.25,
+        "sharpness": 167.21,
+        "luma": 142.96,
+        "cut_distance": 0.0088,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.469
+      },
+      {
+        "index": 7,
+        "timestamp_seconds": 0.292,
+        "sharpness": 165.1,
+        "luma": 142.78,
+        "cut_distance": 0.0105,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.468
+      },
+      {
+        "index": 8,
+        "timestamp_seconds": 0.333,
+        "sharpness": 166.48,
+        "luma": 142.89,
+        "cut_distance": 0.0133,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.511
+      },
+      {
+        "index": 9,
+        "timestamp_seconds": 0.375,
+        "sharpness": 162.14,
+        "luma": 143.19,
+        "cut_distance": 0.016,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.506
+      },
+      {
+        "index": 10,
+        "timestamp_seconds": 0.417,
+        "sharpness": 162.45,
+        "luma": 143.2,
+        "cut_distance": 0.0094,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.48
+      },
+      {
+        "index": 11,
+        "timestamp_seconds": 0.458,
+        "sharpness": 165.31,
+        "luma": 143.42,
+        "cut_distance": 0.0153,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.487
+      },
+      {
+        "index": 12,
+        "timestamp_seconds": 0.5,
+        "sharpness": 173.59,
+        "luma": 143.13,
+        "cut_distance": 0.0183,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.482
+      },
+      {
+        "index": 13,
+        "timestamp_seconds": 0.542,
+        "sharpness": 160.71,
+        "luma": 143.23,
+        "cut_distance": 0.0105,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.491
+      },
+      {
+        "index": 14,
+        "timestamp_seconds": 0.583,
+        "sharpness": 156.99,
+        "luma": 143.43,
+        "cut_distance": 0.011,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.461
+      },
+      {
+        "index": 15,
+        "timestamp_seconds": 0.625,
+        "sharpness": 152.47,
+        "luma": 143.33,
+        "cut_distance": 0.0142,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.454
+      },
+      {
+        "index": 16,
+        "timestamp_seconds": 0.667,
+        "sharpness": 152.34,
+        "luma": 143.53,
+        "cut_distance": 0.0139,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.485
+      },
+      {
+        "index": 17,
+        "timestamp_seconds": 0.708,
+        "sharpness": 147.35,
+        "luma": 143.69,
+        "cut_distance": 0.0114,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.494
+      },
+      {
+        "index": 18,
+        "timestamp_seconds": 0.75,
+        "sharpness": 147.58,
+        "luma": 143.5,
+        "cut_distance": 0.0158,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.48
+      },
+      {
+        "index": 19,
+        "timestamp_seconds": 0.792,
+        "sharpness": 150.22,
+        "luma": 143.41,
+        "cut_distance": 0.018,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 6.0,
+        "translation_fraction": 0.00937,
+        "explained_fraction": 0.476
+      },
+      {
+        "index": 20,
+        "timestamp_seconds": 0.833,
+        "sharpness": 158.94,
+        "luma": 142.82,
+        "cut_distance": 0.0315,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.474
+      },
+      {
+        "index": 21,
+        "timestamp_seconds": 0.875,
+        "sharpness": 147.19,
+        "luma": 142.65,
+        "cut_distance": 0.0181,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.481
+      },
+      {
+        "index": 22,
+        "timestamp_seconds": 0.917,
+        "sharpness": 144.01,
+        "luma": 142.55,
+        "cut_distance": 0.0135,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.481
+      },
+      {
+        "index": 23,
+        "timestamp_seconds": 0.958,
+        "sharpness": 139.6,
+        "luma": 142.19,
+        "cut_distance": 0.0234,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.478
+      },
+      {
+        "index": 24,
+        "timestamp_seconds": 1.0,
+        "sharpness": 139.45,
+        "luma": 142.16,
+        "cut_distance": 0.0193,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.489
+      },
+      {
+        "index": 25,
+        "timestamp_seconds": 1.042,
+        "sharpness": 135.83,
+        "luma": 142.2,
+        "cut_distance": 0.0177,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.487
+      },
+      {
+        "index": 26,
+        "timestamp_seconds": 1.083,
+        "sharpness": 138.36,
+        "luma": 142.02,
+        "cut_distance": 0.0147,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.484
+      },
+      {
+        "index": 27,
+        "timestamp_seconds": 1.125,
+        "sharpness": 140.13,
+        "luma": 141.95,
+        "cut_distance": 0.0113,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.482
+      },
+      {
+        "index": 28,
+        "timestamp_seconds": 1.167,
+        "sharpness": 150.49,
+        "luma": 141.42,
+        "cut_distance": 0.0305,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.475
+      },
+      {
+        "index": 29,
+        "timestamp_seconds": 1.208,
+        "sharpness": 140.39,
+        "luma": 141.16,
+        "cut_distance": 0.0211,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.476
+      },
+      {
+        "index": 30,
+        "timestamp_seconds": 1.25,
+        "sharpness": 136.49,
+        "luma": 140.98,
+        "cut_distance": 0.0172,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.454
+      },
+      {
+        "index": 31,
+        "timestamp_seconds": 1.292,
+        "sharpness": 131.4,
+        "luma": 140.67,
+        "cut_distance": 0.0218,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.471
+      },
+      {
+        "index": 32,
+        "timestamp_seconds": 1.333,
+        "sharpness": 133.05,
+        "luma": 140.65,
+        "cut_distance": 0.0145,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.473
+      },
+      {
+        "index": 33,
+        "timestamp_seconds": 1.375,
+        "sharpness": 129.9,
+        "luma": 140.74,
+        "cut_distance": 0.0167,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.465
+      },
+      {
+        "index": 34,
+        "timestamp_seconds": 1.417,
+        "sharpness": 135.38,
+        "luma": 140.6,
+        "cut_distance": 0.012,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.463
+      },
+      {
+        "index": 35,
+        "timestamp_seconds": 1.458,
+        "sharpness": 138.35,
+        "luma": 140.57,
+        "cut_distance": 0.0116,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.459
+      },
+      {
+        "index": 36,
+        "timestamp_seconds": 1.5,
+        "sharpness": 152.41,
+        "luma": 140.05,
+        "cut_distance": 0.0272,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.448
+      },
+      {
+        "index": 37,
+        "timestamp_seconds": 1.542,
+        "sharpness": 137.54,
+        "luma": 139.8,
+        "cut_distance": 0.0189,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.445
+      },
+      {
+        "index": 38,
+        "timestamp_seconds": 1.583,
+        "sharpness": 132.72,
+        "luma": 139.73,
+        "cut_distance": 0.0107,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.439
+      },
+      {
+        "index": 39,
+        "timestamp_seconds": 1.625,
+        "sharpness": 124.49,
+        "luma": 139.75,
+        "cut_distance": 0.0095,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.446
+      },
+      {
+        "index": 40,
+        "timestamp_seconds": 1.667,
+        "sharpness": 129.01,
+        "luma": 140.11,
+        "cut_distance": 0.022,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.439
+      },
+      {
+        "index": 41,
+        "timestamp_seconds": 1.708,
+        "sharpness": 126.72,
+        "luma": 140.54,
+        "cut_distance": 0.0256,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.443
+      },
+      {
+        "index": 42,
+        "timestamp_seconds": 1.75,
+        "sharpness": 131.05,
+        "luma": 140.65,
+        "cut_distance": 0.0116,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.437
+      },
+      {
+        "index": 43,
+        "timestamp_seconds": 1.792,
+        "sharpness": 134.2,
+        "luma": 140.89,
+        "cut_distance": 0.0186,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.442
+      },
+      {
+        "index": 44,
+        "timestamp_seconds": 1.833,
+        "sharpness": 147.72,
+        "luma": 140.59,
+        "cut_distance": 0.0184,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.44
+      },
+      {
+        "index": 45,
+        "timestamp_seconds": 1.875,
+        "sharpness": 135.98,
+        "luma": 140.57,
+        "cut_distance": 0.012,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.447
+      },
+      {
+        "index": 46,
+        "timestamp_seconds": 1.917,
+        "sharpness": 131.22,
+        "luma": 140.62,
+        "cut_distance": 0.0145,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.452
+      },
+      {
+        "index": 47,
+        "timestamp_seconds": 1.958,
+        "sharpness": 124.04,
+        "luma": 140.52,
+        "cut_distance": 0.0155,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.454
+      },
+      {
+        "index": 48,
+        "timestamp_seconds": 2.0,
+        "sharpness": 127.91,
+        "luma": 140.82,
+        "cut_distance": 0.0244,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.458
+      },
+      {
+        "index": 49,
+        "timestamp_seconds": 2.042,
+        "sharpness": 126.01,
+        "luma": 141.2,
+        "cut_distance": 0.0216,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.458
+      },
+      {
+        "index": 50,
+        "timestamp_seconds": 2.083,
+        "sharpness": 131.28,
+        "luma": 141.39,
+        "cut_distance": 0.0163,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.466
+      },
+      {
+        "index": 51,
+        "timestamp_seconds": 2.125,
+        "sharpness": 134.37,
+        "luma": 141.72,
+        "cut_distance": 0.0182,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.42
+      },
+      {
+        "index": 52,
+        "timestamp_seconds": 2.167,
+        "sharpness": 146.29,
+        "luma": 141.58,
+        "cut_distance": 0.0141,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.471
+      },
+      {
+        "index": 53,
+        "timestamp_seconds": 2.208,
+        "sharpness": 134.98,
+        "luma": 141.66,
+        "cut_distance": 0.0108,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.416
+      },
+      {
+        "index": 54,
+        "timestamp_seconds": 2.25,
+        "sharpness": 132.94,
+        "luma": 141.86,
+        "cut_distance": 0.0149,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.427
+      },
+      {
+        "index": 55,
+        "timestamp_seconds": 2.292,
+        "sharpness": 125.04,
+        "luma": 141.99,
+        "cut_distance": 0.0102,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.423
+      },
+      {
+        "index": 56,
+        "timestamp_seconds": 2.333,
+        "sharpness": 128.27,
+        "luma": 142.49,
+        "cut_distance": 0.0262,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.435
+      },
+      {
+        "index": 57,
+        "timestamp_seconds": 2.375,
+        "sharpness": 126.28,
+        "luma": 143.03,
+        "cut_distance": 0.0235,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.433
+      },
+      {
+        "index": 58,
+        "timestamp_seconds": 2.417,
+        "sharpness": 130.93,
+        "luma": 143.36,
+        "cut_distance": 0.0161,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.414
+      },
+      {
+        "index": 59,
+        "timestamp_seconds": 2.458,
+        "sharpness": 132.78,
+        "luma": 143.89,
+        "cut_distance": 0.0236,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.426
+      },
+      {
+        "index": 60,
+        "timestamp_seconds": 2.5,
+        "sharpness": 143.96,
+        "luma": 144.0,
+        "cut_distance": 0.011,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.475
+      },
+      {
+        "index": 61,
+        "timestamp_seconds": 2.542,
+        "sharpness": 133.17,
+        "luma": 144.04,
+        "cut_distance": 0.0112,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.396
+      },
+      {
+        "index": 62,
+        "timestamp_seconds": 2.583,
+        "sharpness": 134.6,
+        "luma": 144.15,
+        "cut_distance": 0.0093,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.376
+      },
+      {
+        "index": 63,
+        "timestamp_seconds": 2.625,
+        "sharpness": 130.38,
+        "luma": 144.14,
+        "cut_distance": 0.0109,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.37
+      },
+      {
+        "index": 64,
+        "timestamp_seconds": 2.667,
+        "sharpness": 140.96,
+        "luma": 144.7,
+        "cut_distance": 0.0281,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.374
+      },
+      {
+        "index": 65,
+        "timestamp_seconds": 2.708,
+        "sharpness": 140.77,
+        "luma": 145.01,
+        "cut_distance": 0.0157,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.2,
+        "translation_fraction": 0.01593,
+        "explained_fraction": 0.128
+      },
+      {
+        "index": 66,
+        "timestamp_seconds": 2.75,
+        "sharpness": 145.65,
+        "luma": 145.03,
+        "cut_distance": 0.0094,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.338
+      },
+      {
+        "index": 67,
+        "timestamp_seconds": 2.792,
+        "sharpness": 148.75,
+        "luma": 145.4,
+        "cut_distance": 0.0184,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.344
+      },
+      {
+        "index": 68,
+        "timestamp_seconds": 2.833,
+        "sharpness": 169.14,
+        "luma": 145.15,
+        "cut_distance": 0.0164,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.408
+      },
+      {
+        "index": 69,
+        "timestamp_seconds": 2.875,
+        "sharpness": 148.68,
+        "luma": 144.99,
+        "cut_distance": 0.0141,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.431
+      },
+      {
+        "index": 70,
+        "timestamp_seconds": 2.917,
+        "sharpness": 147.03,
+        "luma": 145.02,
+        "cut_distance": 0.0113,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 9.0,
+        "translation_fraction": 0.01406,
+        "explained_fraction": 0.385
+      },
+      {
+        "index": 71,
+        "timestamp_seconds": 2.958,
+        "sharpness": 135.89,
+        "luma": 144.91,
+        "cut_distance": 0.0138,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 9.0,
+        "translation_fraction": 0.01406,
+        "explained_fraction": 0.387
+      },
+      {
+        "index": 72,
+        "timestamp_seconds": 3.0,
+        "sharpness": 134.34,
+        "luma": 145.12,
+        "cut_distance": 0.0219,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 9.0,
+        "translation_fraction": 0.01406,
+        "explained_fraction": 0.397
+      },
+      {
+        "index": 73,
+        "timestamp_seconds": 3.042,
+        "sharpness": 127.89,
+        "luma": 145.45,
+        "cut_distance": 0.0132,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.385
+      },
+      {
+        "index": 74,
+        "timestamp_seconds": 3.083,
+        "sharpness": 133.05,
+        "luma": 145.56,
+        "cut_distance": 0.0103,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 10.0,
+        "translation_fraction": 0.01562,
+        "explained_fraction": 0.379
+      },
+      {
+        "index": 75,
+        "timestamp_seconds": 3.125,
+        "sharpness": 136.91,
+        "luma": 145.88,
+        "cut_distance": 0.0164,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 9.0,
+        "translation_fraction": 0.01406,
+        "explained_fraction": 0.405
+      },
+      {
+        "index": 76,
+        "timestamp_seconds": 3.167,
+        "sharpness": 149.9,
+        "luma": 145.61,
+        "cut_distance": 0.0135,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.424
+      },
+      {
+        "index": 77,
+        "timestamp_seconds": 3.208,
+        "sharpness": 132.07,
+        "luma": 145.44,
+        "cut_distance": 0.0172,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.421
+      },
+      {
+        "index": 78,
+        "timestamp_seconds": 3.25,
+        "sharpness": 130.52,
+        "luma": 145.44,
+        "cut_distance": 0.0075,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.421
+      },
+      {
+        "index": 79,
+        "timestamp_seconds": 3.292,
+        "sharpness": 124.29,
+        "luma": 145.28,
+        "cut_distance": 0.0089,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.434
+      },
+      {
+        "index": 80,
+        "timestamp_seconds": 3.333,
+        "sharpness": 126.17,
+        "luma": 145.32,
+        "cut_distance": 0.0147,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.432
+      },
+      {
+        "index": 81,
+        "timestamp_seconds": 3.375,
+        "sharpness": 125.1,
+        "luma": 145.41,
+        "cut_distance": 0.0079,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.434
+      },
+      {
+        "index": 82,
+        "timestamp_seconds": 3.417,
+        "sharpness": 131.51,
+        "luma": 145.29,
+        "cut_distance": 0.0058,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.432
+      },
+      {
+        "index": 83,
+        "timestamp_seconds": 3.458,
+        "sharpness": 134.76,
+        "luma": 145.55,
+        "cut_distance": 0.0141,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.437
+      },
+      {
+        "index": 84,
+        "timestamp_seconds": 3.5,
+        "sharpness": 145.67,
+        "luma": 145.21,
+        "cut_distance": 0.0138,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.439
+      },
+      {
+        "index": 85,
+        "timestamp_seconds": 3.542,
+        "sharpness": 135.11,
+        "luma": 145.0,
+        "cut_distance": 0.0112,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.432
+      },
+      {
+        "index": 86,
+        "timestamp_seconds": 3.583,
+        "sharpness": 132.31,
+        "luma": 145.08,
+        "cut_distance": 0.0106,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.439
+      },
+      {
+        "index": 87,
+        "timestamp_seconds": 3.625,
+        "sharpness": 127.43,
+        "luma": 144.95,
+        "cut_distance": 0.0091,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.445
+      },
+      {
+        "index": 88,
+        "timestamp_seconds": 3.667,
+        "sharpness": 128.05,
+        "luma": 145.01,
+        "cut_distance": 0.013,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.424
+      },
+      {
+        "index": 89,
+        "timestamp_seconds": 3.708,
+        "sharpness": 126.65,
+        "luma": 145.2,
+        "cut_distance": 0.0119,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.428
+      },
+      {
+        "index": 90,
+        "timestamp_seconds": 3.75,
+        "sharpness": 133.49,
+        "luma": 145.12,
+        "cut_distance": 0.0125,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.425
+      },
+      {
+        "index": 91,
+        "timestamp_seconds": 3.792,
+        "sharpness": 135.66,
+        "luma": 145.5,
+        "cut_distance": 0.0189,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.442
+      },
+      {
+        "index": 92,
+        "timestamp_seconds": 3.833,
+        "sharpness": 146.04,
+        "luma": 145.19,
+        "cut_distance": 0.0191,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.438
+      },
+      {
+        "index": 93,
+        "timestamp_seconds": 3.875,
+        "sharpness": 139.15,
+        "luma": 144.93,
+        "cut_distance": 0.0144,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.43
+      },
+      {
+        "index": 94,
+        "timestamp_seconds": 3.917,
+        "sharpness": 136.32,
+        "luma": 145.17,
+        "cut_distance": 0.0128,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 8.0,
+        "translation_fraction": 0.0125,
+        "explained_fraction": 0.417
+      },
+      {
+        "index": 95,
+        "timestamp_seconds": 3.958,
+        "sharpness": 142.08,
+        "luma": 144.9,
+        "cut_distance": 0.0179,
+        "is_cut": false,
+        "cut_signal": "",
+        "translation_px": 7.0,
+        "translation_fraction": 0.01094,
+        "explained_fraction": 0.436
+      }
+    ],
+    "bursts": {
+      "pairs": 21,
+      "windows": 3,
+      "median_residual_fraction": 0.0357,
+      "p90_residual_fraction": 0.0405,
+      "median_hot_block_fraction": 0.0,
+      "p90_hot_block_fraction": 0.0,
+      "max_hot_block_fraction": 0.0,
+      "median_shift_fraction": 0.00625
+    },
+    "decode": {
+      "probe": {
+        "mode": "stream",
+        "reason": "single pass keeping every 8th frame",
+        "clip_frames": 96,
+        "requested": 12,
+        "retained": 12,
+        "visited": 89,
+        "seconds": 0.22,
+        "retained_fraction": 0.125
+      },
+      "candidates": {
+        "mode": "stream",
+        "reason": "single pass keeping every 1th frame",
+        "clip_frames": 96,
+        "requested": 96,
+        "retained": 96,
+        "visited": 96,
+        "seconds": 0.242,
+        "retained_fraction": 1.0
+      },
+      "burst_frames_decoded": 24
+    },
+    "seconds": 1.682,
+    "limits": [
+      "sharpness, cut distance and translation are measured on 230400 analysed pixels per frame; the features COLMAP later extracts come from the full 1920x1080 source, which this scan does not measure",
+      "residual statistics come from 3 contiguous windows of 8 frames; something that walks through one of the other windows is not seen",
+      "translation is one global shift per pair; camera rotation about the view axis is counted as unexplained change, not as measured rotation",
+      "displacements below about 0.5% of the analysis frame width fall under the alignment search's resolution and are reported as zero, so a very slow camera can measure as still; translations are therefore measured over 2 candidate gaps"
+    ]
+  },
+  "selection": {
+    "selected": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      52,
+      54,
+      56,
+      58,
+      60,
+      62,
+      64,
+      66,
+      68,
+      70,
+      72,
+      74,
+      76,
+      78,
+      80,
+      82,
+      84,
+      86,
+      88,
+      90,
+      92,
+      94,
+      95
+    ],
+    "selected_count": 52,
+    "eligible": 96,
+    "sharpness_reference": 162.45,
+    "min_shift_fraction": 0.005,
+    "excluded_by_reason": {
+      "below_minimum_translation": 44
+    },
+    "exclusions": [
+      {
+        "index": 1,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 3,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 5,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 7,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 9,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 11,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 13,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 15,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 17,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 19,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 21,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 23,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 25,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 27,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 29,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 31,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 2.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 33,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 2.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 35,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 2.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 37,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 2.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 39,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 3.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 41,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 3.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 43,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 3.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 51,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 3.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 53,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 55,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 57,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 59,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 61,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 63,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.0px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 65,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.2px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 67,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.2px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 69,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.2px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 71,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.2px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 73,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.2px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 75,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.2px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 77,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.8px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 79,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.8px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 81,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.8px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 83,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.8px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 85,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 0.8px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 87,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.8px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 89,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 1.8px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 91,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 2.8px since the last kept frame, under the 3.2px minimum"
+      },
+      {
+        "index": 93,
+        "reason": "below_minimum_translation",
+        "detail": "camera moved 2.8px since the last kept frame, under the 3.2px minimum"
+      }
+    ]
+  },
+  "coverage": {
+    "selected_count": 52,
+    "analysed_count": 96,
+    "path_length_widths": 0.566,
+    "retained_path_length_widths": 0.566,
+    "viewpoint_bins": 6,
+    "distinct_directions": 1,
+    "extent_x_widths": 1.137,
+    "extent_y_widths": 0.003,
+    "selected_span_seconds": 3.958,
+    "clip_span_seconds": 4.0,
+    "span_fraction": 0.9896,
+    "viewpoint_efficiency": 0.115
+  },
+  "consistency": {
+    "classification": "temporal_geometry_consistent",
+    "median_residual_fraction": 0.0357,
+    "p90_hot_block_fraction": 0.0,
+    "max_hot_block_fraction": 0.0,
+    "rejected": false,
+    "warned": false,
+    "evidence": "adjacent frames leave 3.6% of pixels changed after a global translation, and 0.0% of 24px blocks still differ (worst window 0.0%) -- one rigid scene accounts for the change"
+  },
+  "matching": {
+    "frames": 52,
+    "strategy": "retrieval",
+    "window": 10,
+    "keyframes": 13,
+    "pairs": 585,
+    "exhaustive_pairs": 1326,
+    "reduction_factor": 2.3,
+    "reason": "retrieval matching against 13 keyframes costs 585 pairs against 1326 exhaustive (44.1%); the sequential window alone would cost 465 pairs and find no revisits",
+    "unmatched_notes": [
+      "sequential matching compares only the 10 nearest temporal neighbours, so any two views more than 10 samples apart are not matched by it; on this walk the largest such gap is 26 samples",
+      "retrieval matching compares each frame against 13 keyframes, so a revisit matches only if one of its frames is near a keyframe in appearance; a short revisit in a visually distinct part of the room can still be missed",
+      "a loop closure missed here shows up as two disconnected reconstructions, not as a bad one: check the registration report before treating a sparse model as a single room"
+    ]
+  },
+  "matching_commands": [
+    "colmap sequential_matcher <scene_dir>/database.db --SequentialMatching.overlap=10 --SiftExtraction.use_gpu 0 --SiftMatching.use_gpu 0",
+    "colmap vocab_tree_matcher <scene_dir>/database.db --SiftExtraction.use_gpu 0 --SiftMatching.use_gpu 0 --VocabTreeMatching.overlap=10"
+  ],
+  "resource_estimate": {
+    "frames": 52,
+    "source_resolution": "1920x1080",
+    "frame_files_bytes": 12939264,
+    "database_bytes": 21299200,
+    "sparse_model_bytes": 15641600,
+    "total_disk_bytes": 62350080,
+    "working_ram_bytes": 42598400,
+    "matching_pairs": 585,
+    "matching_seconds": 146.2,
+    "sampling_seconds": 10.5
+  },
+  "resource_verdict": {
+    "fits": true,
+    "free_disk_bytes": 3664751362048,
+    "free_ram_bytes": 21534679040,
+    "blockers": [],
+    "actions": []
+  },
+  "verdict": {
+    "status": "accepted_with_warnings",
+    "findings": [
+      {
+        "code": "single_direction_walk",
+        "severity": "warn",
+        "measured": "camera travelled in 1 direction(s) over 0.57 frame widths",
+        "threshold": ">= 2 directions of travel",
+        "cause": "a one-way walk sees every surface from one side, and a surface seen from one angle cannot be triangulated",
+        "action": "weave the walk: pass close to one wall then cross to the other, or round a corner"
+      }
+    ],
+    "limits": [
+      "sharpness, cut distance and translation are measured on 230400 analysed pixels per frame; the features COLMAP later extracts come from the full 1920x1080 source, which this scan does not measure",
+      "residual statistics come from 3 contiguous windows of 8 frames; something that walks through one of the other windows is not seen",
+      "translation is one global shift per pair; camera rotation about the view axis is counted as unexplained change, not as measured rotation",
+      "displacements below about 0.5% of the analysis frame width fall under the alignment search's resolution and are reported as zero, so a very slow camera can measure as still; translations are therefore measured over 2 candidate gaps"
+    ],
+    "notes": [
+      "frame target 150, selected 52 (hypothesis 100-200 frames for a small room -- a starting point, not a guarantee).",
+      "resolution is reported, never used as a rejection: 720p matches features, it only softens distance"
+    ]
+  },
+  "seconds": 1.745
+}

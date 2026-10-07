@@ -1,0 +1,13 @@
+=== PRE-FLIGHT PARALLAX GATE ===
+  cameras registered:        86
+  3D points:                 6638
+  camera baseline (travel):  12.43 units
+  lateral/forward ratio:     14.7%   (need >= 10%, target 20%)
+  near-field coverage:       51.7%   (need >= 25%, target 40%)
+  median pt depth / baseline:  0.18x (lower is better; >3x = far-field)
+  median triangulation angle:  4.57 deg (need >= 6, target 10)
+  points under 5 deg (poor): 54.4%
+  points over 10 deg (good): 11.9%
+RESULT: FAIL — insufficient parallax to reconstruct surfaces.
+  CAUSE: mixed/low parallax. Increase lateral travel AND keep textured surfaces
+         close to the camera. See VIDEO_CAPTURE_SPEC.md.

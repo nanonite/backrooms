@@ -1,0 +1,2 @@
+d50f6770cb5767109202e1bcae41e4e412035ff4852c8a6b86d9e28aeae55f06  data/scenes/backrooms_coverage_v1/video.mp4
+e5c1ead98a13683b4a2a8a06c075006692f9243ff91d97a95e28e0af6ad82a18  Backrooms_model.jpg
