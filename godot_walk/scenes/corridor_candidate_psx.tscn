@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3]
+
+; PSX-scale presentation scene (#103 cleanup candidate).
+;
+; This scene is the #103 *cleanup candidate* presentation path. It renders
+; corridor_candidate.ply (produced by scripts/splat_pipeline/clean_candidate.py
+; from the #100 corridor_clean.ply; see corridor_candidate.report.json for the
+; provenance check and per-stage counts) with the same PSX pass as
+; corridor_psx.tscn. The two scenes differ only in the splat resource and the
+; splat node's translation, so the fixed-view before/after captures of #103
+; differ only by the cleanup itself. The #100 presentation path stays intact:
+;   res://scenes/corridor_psx.tscn     (presentation, #100 cleanup, with PSX)
+;   res://scenes/corridor.tscn         (walkable, source splat, no PSX)
+;   res://scenes/corridor_splat.tscn   (inspection, source splat, no PSX)
+;
+; The world is NOT moved. The cleanup removes splats; the survivors keep their
+; world positions. GDGS re-centres the loaded PLY at import (it subtracts the
+; mean Gaussian centre), and the filtered mean differs from the source mean, so
+; the splat node carries the report's `node_translation_world` on top of the
+; contract basis. corridor_candidate.report.json records it and verifies the
+; mapping; without it the room would shift ~1.64 m in Z.
+;
+; Collision, SafetyNet, spawn and player are byte-for-byte the accepted #85
+; corridor.tscn values, so the traversal battery and the spawn contract are
+; unchanged.
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player_scene"]
+[ext_resource type="Script" path="res://addons/gdgs/runtime/nodes/gaussian_splat_node.gd" id="2_splat_script"]
+[ext_resource type="Script" path="res://addons/gdgs/runtime/compositor/gaussian_compositor_effect.gd" id="3_compositor_script"]
+[ext_resource type="Resource" path="res://assets/corridor_splat/corridor_candidate.ply" id="4_corridor_gaussian"]
+[ext_resource type="Script" path="res://scripts/generated_collision.gd" id="5_generated_collision"]
+[ext_resource type="Script" path="res://scripts/psx/psx_post_effect.gd" id="6_psx_effect"]
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_corridor"]
+script = ExtResource("3_compositor_script")
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_psx"]
+script = ExtResource("6_psx_effect")
+pixel_size = 4
+color_levels = 16
+dither_strength = 1.0
+
+[sub_resource type="Compositor" id="Compositor_corridor"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_corridor"), SubResource("CompositorEffect_psx")])
+
+[sub_resource type="Environment" id="Environment_corridor"]
+background_mode = 1
+background_color = Color(0.03, 0.035, 0.04, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.45, 0.48, 0.55, 1)
+ambient_light_energy = 0.45
+
+[sub_resource type="BoxShape3D" id="Box_safetynet"]
+size = Vector3(12.0, 0.05, 11.6)
+
+[node name="CorridorPsx" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_corridor")
+compositor = SubResource("Compositor_corridor")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 10.0, 0.0)
+rotation = Vector3(-0.785398, 0.523599, 0.0)
+
+[node name="CorridorSplatNode" type="VisualInstance3D" parent="."]
+transform = Transform3D(0.0, 5.1283836, 0.0, 0.0, 0.0, 5.1283836, 5.1283836, 0.0, 0.0, 0.2630066, 0.0055161, 1.6395417)
+script = ExtResource("2_splat_script")
+gaussian = ExtResource("4_corridor_gaussian")
+
+[node name="GeneratedCollision" type="StaticBody3D" parent="."]
+transform = Transform3D(0.0, -1.0, 0.0, 0.0, 0.0, 1.0, -1.0, 0.0, 0.0, -0.97700894, -0.11799125, 3.5917745)
+script = ExtResource("5_generated_collision")
+
+[node name="SafetyNet" type="StaticBody3D" parent="."]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.247991, -2.767991, 1.216775)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SafetyNet"]
+shape = SubResource("Box_safetynet")
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -0.651325, -0.77099, 2.887547)
+
+[node name="Player" parent="." instance=ExtResource("1_player_scene")]
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -0.651325, -0.542991, 2.887547)

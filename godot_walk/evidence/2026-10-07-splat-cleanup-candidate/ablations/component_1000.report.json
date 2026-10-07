@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "input": {
+    "path": "godot_walk/assets/corridor_splat/corridor_clean.ply",
+    "splat_count": 124564,
+    "digests": {
+      "md5": "c5ac214d8cbc77880aaaa5d65fc9a8f5",
+      "sha256": "88a20a95dd4df4dde98203f7fb934d17db93a9cb5d98f9e8c1625d478e9d7af0"
+    },
+    "provenance": {
+      "checked": true,
+      "baseline_report": "godot_walk/assets/corridor_splat/corridor_clean.report.json",
+      "baseline_report_sha256": "99eaac278cd6114a6348ce2f20557ec008cba6c323ef9b13ba7198173ddb5069",
+      "baseline_output_sha256": "88a20a95dd4df4dde98203f7fb934d17db93a9cb5d98f9e8c1625d478e9d7af0",
+      "input_sha256": "88a20a95dd4df4dde98203f7fb934d17db93a9cb5d98f9e8c1625d478e9d7af0"
+    }
+  },
+  "output": {
+    "path": "godot_walk/assets/corridor_splat/ablation_component_1000.ply",
+    "splat_count": 87380,
+    "digests": {
+      "md5": "5388150f9dfdb4e9751ecbd1dccdcdda",
+      "sha256": "473496071c708c747df417e3696a8c79e5aaed4ab6f4d9a01af442bb506d3818"
+    }
+  },
+  "contract": {
+    "manifest": "godot_walk/assets/corridor_splat/alignment_manifest.json",
+    "scene_id": "corridor_splat",
+    "metres_per_unit": 5.128383849229126,
+    "origin_ply_units": [
+      -0.7003716216251055,
+      0.19051010788102454,
+      0.02300749166011915
+    ]
+  },
+  "params": {
+    "min_views": 0,
+    "voxel_m": 0.08,
+    "min_component_splats": 1000,
+    "min_opacity": 0.0,
+    "min_extent_m": 0.0,
+    "max_extent_m": 0.0,
+    "stages": [
+      "component"
+    ]
+  },
+  "sources": {},
+  "removed": {
+    "per_stage": {
+      "views": 0,
+      "component": 37184,
+      "extent": 0,
+      "opacity": 0
+    },
+    "total": 37184
+  },
+  "view_counts": null,
+  "components": {
+    "component_count": 69883,
+    "largest_splats": 76546,
+    "top_sizes": [
+      76546,
+      7127,
+      2365,
+      1342,
+      358,
+      254,
+      240,
+      234,
+      222,
+      220
+    ],
+    "single_splat_components": 13483
+  },
+  "kept_bounds_world": {
+    "min": [
+      -4.385803070803381,
+      -1.770223098975191,
+      -4.073242780880995
+    ],
+    "max": [
+      5.992948714431173,
+      1.6286344180555945,
+      7.1519608326064406
+    ]
+  },
+  "filtered_centroid_ply": [
+    -0.35336138469892664,
+    0.23597225931677893,
+    0.031554739610229816
+  ],
+  "node_translation_world": [
+    0.2331473631743315,
+    0.0438335683427043,
+    1.7796016945693878
+  ],
+  "note": "GDGS subtracts the mean of the loaded PLY at import, so the presentation node must carry node_translation_world on top of the contract's zero-translation basis to keep the world fixed."
+}
