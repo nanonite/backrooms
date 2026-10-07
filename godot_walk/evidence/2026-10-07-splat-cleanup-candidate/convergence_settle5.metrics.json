@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "before": "evidence/2026-10-07-splat-cleanup-candidate/before",
+  "after": "evidence/2026-10-07-splat-cleanup-candidate/convergence_settle5",
+  "thresholds": {
+    "black": 20,
+    "changed": 32
+  },
+  "headings": {
+    "spawn_e.png": {
+      "black_before_pct": 6.813,
+      "black_after_pct": 6.425,
+      "black_delta_pct": -0.388,
+      "changed_pct": 0.148,
+      "went_dark_pct": 0.001,
+      "went_bright_pct": 0.024,
+      "before_floater_px": 2031,
+      "before_floater_blobs": 2,
+      "before_floater_largest_px": 1305,
+      "after_floater_px": 2269,
+      "after_floater_blobs": 2,
+      "after_floater_largest_px": 1465
+    },
+    "spawn_n.png": {
+      "black_before_pct": 27.356,
+      "black_after_pct": 27.339,
+      "black_delta_pct": -0.017,
+      "changed_pct": 0.0,
+      "went_dark_pct": 0.0,
+      "went_bright_pct": 0.0,
+      "before_floater_px": 2438,
+      "before_floater_blobs": 2,
+      "before_floater_largest_px": 1811,
+      "after_floater_px": 2434,
+      "after_floater_blobs": 2,
+      "after_floater_largest_px": 1807
+    },
+    "spawn_ne.png": {
+      "black_before_pct": 8.141,
+      "black_after_pct": 7.966,
+      "black_delta_pct": -0.175,
+      "changed_pct": 0.0,
+      "went_dark_pct": 0.0,
+      "went_bright_pct": 0.0,
+      "before_floater_px": 779,
+      "before_floater_blobs": 2,
+      "before_floater_largest_px": 559,
+      "after_floater_px": 900,
+      "after_floater_blobs": 3,
+      "after_floater_largest_px": 568
+    },
+    "spawn_nw.png": {
+      "black_before_pct": 19.319,
+      "black_after_pct": 19.32,
+      "black_delta_pct": 0.001,
+      "changed_pct": 0.0,
+      "went_dark_pct": 0.0,
+      "went_bright_pct": 0.0,
+      "before_floater_px": 0,
+      "before_floater_blobs": 0,
+      "before_floater_largest_px": 0,
+      "after_floater_px": 0,
+      "after_floater_blobs": 0,
+      "after_floater_largest_px": 0
+    },
+    "spawn_s.png": {
+      "black_before_pct": 2.62,
+      "black_after_pct": 2.62,
+      "black_delta_pct": 0.0,
+      "changed_pct": 0.0,
+      "went_dark_pct": 0.0,
+      "went_bright_pct": 0.0,
+      "before_floater_px": 0,
+      "before_floater_blobs": 0,
+      "before_floater_largest_px": 0,
+      "after_floater_px": 0,
+      "after_floater_blobs": 0,
+      "after_floater_largest_px": 0
+    },
+    "spawn_se.png": {
+      "black_before_pct": 0.033,
+      "black_after_pct": 0.033,
+      "black_delta_pct": 0.0,
+      "changed_pct": 0.0,
+      "went_dark_pct": 0.0,
+      "went_bright_pct": 0.0,
+      "before_floater_px": 0,
+      "before_floater_blobs": 0,
+      "before_floater_largest_px": 0,
+      "after_floater_px": 0,
+      "after_floater_blobs": 0,
+      "after_floater_largest_px": 0
+    },
+    "spawn_sw.png": {
+      "black_before_pct": 4.089,
+      "black_after_pct": 4.089,
+      "black_delta_pct": 0.0,
+      "changed_pct": 0.0,
+      "went_dark_pct": 0.0,
+      "went_bright_pct": 0.0,
+      "before_floater_px": 0,
+      "before_floater_blobs": 0,
+      "before_floater_largest_px": 0,
+      "after_floater_px": 0,
+      "after_floater_blobs": 0,
+      "after_floater_largest_px": 0
+    },
+    "spawn_w.png": {
+      "black_before_pct": 11.888,
+      "black_after_pct": 11.887,
+      "black_delta_pct": -0.001,
+      "changed_pct": 0.0,
+      "went_dark_pct": 0.0,
+      "went_bright_pct": 0.0,
+      "before_floater_px": 0,
+      "before_floater_blobs": 0,
+      "before_floater_largest_px": 0,
+      "after_floater_px": 0,
+      "after_floater_blobs": 0,
+      "after_floater_largest_px": 0
+    }
+  },
+  "mean": {
+    "black_before_pct": 10.032,
+    "black_after_pct": 9.96,
+    "black_delta_pct": -0.072,
+    "changed_pct": 0.018,
+    "before_floater_px": 656.0,
+    "after_floater_px": 700.375,
+    "before_floater_blobs": 0.75,
+    "after_floater_blobs": 0.875
+  }
+}
