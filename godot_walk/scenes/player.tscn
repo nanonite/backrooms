@@ -13,6 +13,12 @@ script = ExtResource("1_player_script")
 shape = SubResource("CapsuleShape3D_player")
 
 [node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.6, 0.0)
+; Eye 0.5 m above the capsule centre (#101): the capsule is 1.2 m tall with its
+; centre at the Player origin, so the eye sits 0.1 m below the capsule top --
+; a standard FPS eye. The previous 1.6 m legacy value put the production camera
+; a full metre above the player's head, which in this 2.15 m-headroom room is
+; 5 cm ABOVE the generated ceiling: every production viewpoint rendered from
+; inside the ceiling splat. Capsule, origin, spawn and physics are untouched.
+transform = Transform3D(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.5, 0.0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]

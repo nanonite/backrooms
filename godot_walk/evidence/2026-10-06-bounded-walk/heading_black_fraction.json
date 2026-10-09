@@ -1,0 +1,58 @@
+{
+ "spawn_e.png": {
+  "black_void_pct": 6.4,
+  "resolution": [
+   1280,
+   720
+  ]
+ },
+ "spawn_n.png": {
+  "black_void_pct": 27.4,
+  "resolution": [
+   1280,
+   720
+  ]
+ },
+ "spawn_ne.png": {
+  "black_void_pct": 8.0,
+  "resolution": [
+   1280,
+   720
+  ]
+ },
+ "spawn_nw.png": {
+  "black_void_pct": 19.3,
+  "resolution": [
+   1280,
+   720
+  ]
+ },
+ "spawn_s.png": {
+  "black_void_pct": 2.6,
+  "resolution": [
+   1280,
+   720
+  ]
+ },
+ "spawn_se.png": {
+  "black_void_pct": 0.0,
+  "resolution": [
+   1280,
+   720
+  ]
+ },
+ "spawn_sw.png": {
+  "black_void_pct": 4.1,
+  "resolution": [
+   1280,
+   720
+  ]
+ },
+ "spawn_w.png": {
+  "black_void_pct": 11.9,
+  "resolution": [
+   1280,
+   720
+  ]
+ }
+}

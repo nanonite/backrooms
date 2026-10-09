@@ -120,15 +120,39 @@ scene exported 182,569 / 183,246 Gaussians (99.6% kept after NaN/degenerate filt
 GDGS requires **Forward+** renderer. Compatibility and Mobile renderers silently
 produce no output.
 
-### 5.2 Coordinate system — UNSOLVED
-The PLY exported by Nerfstudio and the Godot world coordinate system (Y-up) do
-not trivially align. The GDGS addon may apply an implicit rotation.
-**In-game experience showed the visual room is correctly oriented** (ceiling up,
-floor down) but the axis that corresponds to "toward the floor" in the splat
-does not match the PLY Y axis as measured by percentile analysis.
+### 5.2 Coordinate system — SOLVED (#83)
 
-**Implication:** Manual box collider fitting by guessing from PLY percentile
-bounds is unreliable. A programmatic approach is needed (see §6).
+The exported PLY is **z-up**; Godot is y-up. They differ by a rotation, and GDGS
+does not perform it.
+
+Two false beliefs kept this open:
+
+1. *"The GDGS addon applies an implicit rotation, so maybe it fixes this."* It
+   applies a **-180° Z rotation** when a node's basis is identity
+   (`gaussian_splat_node.gd:_apply_default_orientation_if_needed`). A Z flip
+   leaves the up axis untouched, so it can never stand a z-up splat up in a y-up
+   world. It also fires only on an identity basis, which is why the two corridor
+   scenes — which serialised the *same* identity transform — both got it.
+2. *"The scenes disagreed: one had 180°, the other identity."* Stale. They
+   matched. Equal serialised transforms were never evidence of agreement.
+
+The up axis is now **measured**, not assumed: the mean registered-camera up axis
+from `data/scenes/corridor_travel/sparse/0` (192 images), mapped through the
+nerfstudio `dataparser_transforms.json`, lands 99.99% on +Z of the exported
+frame.
+
+**Why percentile analysis could never settle it.** A Gaussian's covariance encodes
+an axis, not a facing, so "count splats whose normal points down" finds the same
+sheet twice and reports a zero-thickness room. Surfaces must be found as the two
+dominant mode *pairs* along the up axis.
+
+**Implication for colliders:** PLY percentile bounds are still the wrong tool for
+placing a floor. Everything now derives from the measured floor/ceiling planes
+plus one recorded metric scale — see `godot_walk/assets/corridor_splat/README.md`
+and `scripts/splat_pipeline/README.md`. `res://scripts/verify_alignment.gd`
+re-checks the mapping, the landmarks and the rendered AABB numerically after
+runtime init, which is the only kind of check that would have caught this: the
+import check and the screenshots both passed while the room was on its side.
 
 ### 5.3 PLY is gitignored — pipeline is the source of truth
 `godot_walk/assets/corridor_splat/*.ply` is gitignored (large binary).
@@ -136,12 +160,21 @@ Regenerate with the pipeline; the scripts + the seed image are the real artifact
 
 ---
 
-## 6. Collider Fitting — Unsolved, Needs Better Approach
+## 6. Collider Fitting — Floor/Ceiling Measured (#83); Walls Still Open
 
-### 6.1 Manual binary search is too slow
-Hand-tuning box positions (floor Y, wall Z, column XZ) via in-game position
-overlay + file edits is viable for one axis but impractical for all six planes
-at once. Three iterations failed to converge.
+### 6.1 Manual binary search is too slow — and why it could not have worked
+Hand-tuning box positions via in-game position overlay + file edits is viable for
+one axis but impractical for all six planes at once. Three iterations failed to
+converge.
+
+The deeper problem was not the tuning loop: it was that manual fitting was being
+driven by an unmeasured frame. Every number being adjusted by eye was relative to
+an unknown up axis and unknown scale, so a correct box and a wrong box looked the
+same. With the frame fixed, the floor and ceiling are now *measured* (§5.2) and the
+room box follows from them. **The room's horizontal extents remain observation
+bounds, not measured walls** — no horizontal axis resolves two surfaces above the
+density-contrast threshold on this asset — so those boxes are still a fitting
+choice, and #84 replaces them with geometry from the splat.
 
 ### 6.2 Better approaches to investigate
 
@@ -167,12 +200,26 @@ at the estimated floor Y). The NavMesh will only bake over traversable geometry.
 The baked navmesh surface is an implicit floor probe.
 
 ### 6.3 What we know about the scene geometry
-From PLY percentile analysis (5th/95th percentile, floater-filtered):
-- Center of mass: (-0.7, 0.19, 0.02) in Godot world space
-- X span: -3.28 to 1.01 (orbit + room depth)
-- Y span: -2.56 to 2.74 (floor to ceiling + floaters)
-- Z span: -0.76 to 0.84 (narrow — orbit width)
-- Column position: approximately (−0.7, mid, 0.02) — confirmed by in-game collision
+
+Superseded by the measured contract (`godot_walk/assets/corridor_splat/alignment_manifest.json`).
+
+The figures formerly quoted here — "center of mass (-0.7, 0.19, 0.02) in Godot
+world space", X span -3.28…1.01, Y span -2.56…2.74 — were 5th/95th percentiles of
+the raw PLY, labelled as Godot world space. They were in the **reconstruction
+frame**: that centroid is the PLY mean to three decimals, and the spans are the
+raw axis bounds, unrotated and unscaled. Reading them as world metres is how the
+splat came to be believed sideways.
+
+Measured now, in Godot world metres:
+
+| Quantity | Value | How |
+|---|---|---|
+| Clear height (floor→ceiling) | 2.40 m by choice; 0.46798 ± 0.00937 units measured | two density modes, 12 corridor stations |
+| Metres per reconstruction unit | 5.128384 | chosen target ÷ measured height |
+| Observed room | 18.84 × 2.40 × 14.39 m | camera-path window, **observation bounds** |
+| Wall separation | not measured | no horizontal axis clears the contrast threshold |
+| Corridor axis | Y of the exported frame | measured |
+| Column | mid-room, visible in the rendered POV | visual |
 
 ---
 

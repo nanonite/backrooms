@@ -1,0 +1,166 @@
+{
+ "volumes": {
+  "observed_room_m": {
+   "x_min": -10.069,
+   "x_max": 8.767,
+   "y_min": -1.271,
+   "y_max": 1.129,
+   "z_min": -4.306,
+   "z_max": 10.081
+  },
+  "camera_path_m": {
+   "count": 192,
+   "x_min": -5.454,
+   "x_max": 4.151,
+   "y_min": -0.18,
+   "y_max": -0.085,
+   "z_min": 0.31,
+   "z_max": 5.527
+  },
+  "collision_m": {
+   "x_min": -4.552,
+   "x_max": 5.048,
+   "y_min": -1.543,
+   "y_max": 1.457,
+   "z_min": -3.383,
+   "z_max": 5.817
+  }
+ },
+ "walkable": {
+  "walkable_cells": 412,
+  "reachable_from_spawn_cells": 255,
+  "spawn_cell": [
+   37,
+   28
+  ],
+  "bounds": {
+   "x_min": -2.944,
+   "x_max": 1.306,
+   "z_min": -1.681,
+   "z_max": 5.069,
+   "width_x_m": 4.25,
+   "width_z_m": 6.75,
+   "area_m2": 15.94
+  }
+ },
+ "enclosure": {
+  "source": {
+   "cells": 255,
+   "supported": {
+    "floor": 252,
+    "ceiling": 249,
+    "wall_north": 5,
+    "wall_south": 5,
+    "wall_east": 3,
+    "wall_west": 4
+   },
+   "supported_pct": {
+    "floor": 98.8,
+    "ceiling": 97.6,
+    "wall_north": 2.0,
+    "wall_south": 2.0,
+    "wall_east": 1.2,
+    "wall_west": 1.6
+   },
+   "fully_enclosed_cells": 1,
+   "fully_enclosed_pct": 0.4
+  },
+  "clean": {
+   "cells": 255,
+   "supported": {
+    "floor": 252,
+    "ceiling": 249,
+    "wall_north": 5,
+    "wall_south": 5,
+    "wall_east": 3,
+    "wall_west": 4
+   },
+   "supported_pct": {
+    "floor": 98.8,
+    "ceiling": 97.6,
+    "wall_north": 2.0,
+    "wall_south": 2.0,
+    "wall_east": 1.2,
+    "wall_west": 1.6
+   },
+   "fully_enclosed_cells": 1,
+   "fully_enclosed_pct": 0.4
+  }
+ },
+ "visual_enclosure": {
+  "source": {
+   "cells": 255,
+   "supported": {
+    "e": 255,
+    "ne": 255,
+    "n": 253,
+    "nw": 255,
+    "w": 255,
+    "sw": 255,
+    "s": 255,
+    "se": 255
+   },
+   "supported_pct": {
+    "e": 100.0,
+    "ne": 100.0,
+    "n": 99.2,
+    "nw": 100.0,
+    "w": 100.0,
+    "sw": 100.0,
+    "s": 100.0,
+    "se": 100.0
+   },
+   "nearest_surface_median_m": {
+    "e": 1.553,
+    "ne": 1.451,
+    "n": 1.331,
+    "nw": 1.635,
+    "w": 1.581,
+    "sw": 1.616,
+    "s": 1.742,
+    "se": 2.118
+   },
+   "fully_supported_cells": 253,
+   "fully_supported_pct": 99.2
+  },
+  "clean": {
+   "cells": 255,
+   "supported": {
+    "e": 255,
+    "ne": 255,
+    "n": 253,
+    "nw": 255,
+    "w": 255,
+    "sw": 255,
+    "s": 255,
+    "se": 255
+   },
+   "supported_pct": {
+    "e": 100.0,
+    "ne": 100.0,
+    "n": 99.2,
+    "nw": 100.0,
+    "w": 100.0,
+    "sw": 100.0,
+    "s": 100.0,
+    "se": 100.0
+   },
+   "nearest_surface_median_m": {
+    "e": 1.575,
+    "ne": 1.454,
+    "n": 1.344,
+    "nw": 1.65,
+    "w": 1.581,
+    "sw": 1.62,
+    "s": 1.765,
+    "se": 2.118
+   },
+   "fully_supported_cells": 253,
+   "fully_supported_pct": 99.2
+  }
+ },
+ "splat_counts": {
+  "source": 182569,
+  "clean": 124564
+ }
+}

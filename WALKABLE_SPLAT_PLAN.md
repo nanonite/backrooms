@@ -11,15 +11,30 @@ splat walkthroughs all do this). Nothing about the approach is broken. Two
 specific defects are blocking us:
 
 ### Defect 1 — the two scenes disagree about the splat's orientation
-- `godot_walk/scenes/corridor_splat.tscn` renders the splat node with a **180°
-  Z rotation**: `Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 0, 0)`
-  (flips X and Y).
-- `godot_walk/scenes/corridor.tscn` (the walkable scene) renders the same splat
-  with **identity** transform.
-- Colliders were hand-tuned from *raw PLY percentile bounds* while the visual
-  was flipped relative to those numbers. This is the unsolved "floor axis
-  doesn't match PLY Y" mystery in LESSONS_LEARNED §5.2. It's not a GDGS
-  mystery; it's a transform mismatch between our own scenes.
+
+**RESOLVED by #83.** The diagnosis below was wrong in a way that mattered. For the
+record:
+
+- **The scenes did not disagree.** Both serialised the same identity transform. The
+  claimed 180° Z rotation in `corridor_splat.tscn` is no longer in the file.
+- **GDGS did apply a -180° Z rotation — to both.** Its
+  `_apply_default_orientation_if_needed` fires whenever a node basis is identity,
+  which both were.
+- **That correction could not be the bug.** A Z-axis flip leaves the up axis
+  untouched, and the real problem was a z-up PLY in a y-up world.
+
+So "a transform mismatch between our own scenes" pointed the wrong way. Equal
+serialised transforms were never the evidence. What actually needed to match was
+the **effective world mapping**, and that is now checked numerically at runtime by
+`res://scripts/verify_alignment.gd` against one manifest both scenes read.
+
+### Defect 1b — the real defect: an unmeasured frame
+The exported PLY is z-up and in arbitrary reconstruction units. Both scenes loaded
+it unscaled and unrotated, and the collider boxes were fitted against raw PLY
+percentile bounds, so "aligned" meant nothing. #83 measures the up axis from the
+COLMAP poses, records one explicit mapping and one metric scale, and derives the
+room from measured floor/ceiling planes. See
+`godot_walk/assets/corridor_splat/README.md`.
 
 ### Defect 2 — manual box fitting doesn't converge (proven, 3 failed iterations)
 Hand-tuning six planes + a column via in-game position overlay is a dead end
@@ -29,14 +44,23 @@ generate the collision mesh from them programmatically.
 ## The fix (three work items)
 
 ### W1 — Canonical splat transform (fixes Defect 1)
-Pick ONE canonical transform for the splat node (validate right-side-up via the
-screenshot harness), apply it identically in `corridor.tscn` and
-`corridor_splat.tscn`, and put the collider container node under the **same**
-transform. Rule going forward: **colliders are authored/generated in raw PLY
-space; the shared parent transform maps both splat and colliders into world
-space.** Alignment then holds by construction — no eyeballing, ever.
 
-Document the canonical transform in `godot_walk/assets/corridor_splat/README.md`.
+**DONE by #83**, and stronger than "pick one transform":
+
+- One **manifest** (`godot_walk/assets/corridor_splat/alignment_manifest.json`)
+  holds the measured up axis, handedness, metric scale with its uncertainty, the
+  full list of automatic GDGS transforms, landmarks and the room bounds. Both
+  scenes are authored from it.
+- The splat node carries an **explicit non-identity basis**, so GDGS' identity-triggered
+  -180° Z correction cannot fire. It is recorded as applied **zero** times.
+- Both scenes carry the **same effective mapping**, and `verify_alignment.gd`
+  proves it numerically after runtime init — not by comparing serialised transforms,
+  which is what made the original diagnosis wrong.
+- Collider boxes are generated from the manifest's measured floor/ceiling and room
+  bounds by `emit_scene_contract.py`, never by eye.
+
+Remaining: the room's **horizontal extents are observation bounds, not measured
+walls** (`capture.walls_measured: false`). W2's geometry replaces them.
 
 ### W2 — `scripts/splat_pipeline/fit_collider.py` (fixes Defect 2)
 Generate a collision mesh from the splat PLY, entirely in raw PLY coordinates:
