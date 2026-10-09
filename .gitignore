@@ -1,10 +1,3 @@
-# ExoMonad - track config and source, ignore runtime artifacts
-.exo/*
-!.exo/config.toml
-!.exo/roles/
-!.exo/lib/
-!.exo/rules/
-
 # Rust / Bevy - ignore build artifacts and debug files
 splat_walk/target/
 splat_walk/.rustc_info.json
@@ -20,9 +13,6 @@ CHANGELOG.md
 
 # Codex - ignore local session state
 .codex/
-
-# Nested agent runtime state
-splat_walk/.exo/
 
 # Blender - ignore generated logs and backup saves
 *.blend1
@@ -69,10 +59,6 @@ dispatch-postmortem.md
 session-export.json
 assets/audio/
 .claude/settings.local.json
-.opencode/
-opencode.json
-
-
 build/
 .env
 

@@ -1,6 +1,0 @@
-# ExoMonad project config
-# All fields are optional - see CLAUDE.md for full reference.
-
-# Forgejo integration
-forgejo_url = "http://localhost:3000"
-# forgejo_reviewer_token = "..."  # must belong to a different Forgejo user than forgejo_token
