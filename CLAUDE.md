@@ -43,22 +43,6 @@ Not acceptable:
 
 If a change can only be verified visually (e.g., shader effects, rendering pipeline), note it as "requires human visual verification" in the PR description. Do not block the PR on it.
 
-## Issue Tracking
-
-Chainlink is the issue tracker. Before doing anything, read all files in `.chainlink/rules/`:
-
-```bash
-.chainlink/rules/global.md
-.chainlink/rules/tracking-normal.md
-.chainlink/rules/quality.md
-.chainlink/rules/rust.md
-```
-
-## PR Workflow
+## Source Control
 
 There is no GitHub remote. Do NOT use `gh` commands — they will fail.
-
-- PRs are tracked locally in `.exo/prs.json`
-- Workers file PRs via the `file_pr` MCP tool
-- Review feedback is written to `.exo/reviews/pr_{N}.json` via `request_changes` / `approve_pr`
-- The worktree event watcher delivers feedback to workers and notifies the TL automatically
