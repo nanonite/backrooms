@@ -38,11 +38,11 @@ from the start rather than reported from a terminal.
 ### Reproducing
 
 ```bash
-mkdir /tmp/verify && git archive HEAD | tar -x -C /tmp/verify
-cd /tmp/verify && python3 -m pytest scripts/splat_pipeline/tests/ -q
+mkdir ${TMPDIR}/redacted && git archive HEAD | tar -x -C ${TMPDIR}/redacted
+cd ${TMPDIR}/redacted && python3 -m pytest scripts/splat_pipeline/tests/ -q
 
-mkdir /tmp/verify_base && git archive HEAD~1 | tar -x -C /tmp/verify_base
-cd /tmp/verify_base && python3 -m pytest scripts/splat_pipeline/tests/ -q
+mkdir ${TMPDIR}/redacted && git archive HEAD~1 | tar -x -C ${TMPDIR}/redacted
+cd ${TMPDIR}/redacted && python3 -m pytest scripts/splat_pipeline/tests/ -q
 ```
 
 `git archive` is used rather than a working-tree copy so the run sees exactly

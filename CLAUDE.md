@@ -4,7 +4,7 @@ Video-sourced walkable Gaussian splat in Bevy 0.18 (Rust). Pipeline: video → C
 
 ## Crate
 
-`splat_walk/` — lives at the workspace root (`$HOME/backrooms-workspace/splat_walk/`).
+`splat_walk/` — lives at the workspace root.
 
 ## Tech Stack
 

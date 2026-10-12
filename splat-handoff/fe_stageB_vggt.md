@@ -20,8 +20,8 @@ This doc is the context for maintaining it, not for creating it from scratch.
 ### Environment defaults (set in flake.nix + honored by scripts)
 | Variable | Default (in script) | Override in flake.nix shellHook |
 |---|---|---|
-| `VGGT_ROOT` | `$HOME/vggt` | `$HOME/backrooms-workspace/build/vggt` |
-| `SUGAR_ROOT` | `$HOME/SuGaR` | `$HOME/backrooms-workspace/build/SuGaR` |
+| `VGGT_ROOT` | `$HOME/vggt` | `./build/vggt` |
+| `SUGAR_ROOT` | `$HOME/SuGaR` | `./build/SuGaR` |
 | `VGGT_REPO_URL` | `https://github.com/facebookresearch/vggt` | (not overridden) |
 | `VGGT_USE_BA` | empty (disabled) | (not overridden) |
 | `VGGT_PYTHON` | `python3` | (not overridden) |

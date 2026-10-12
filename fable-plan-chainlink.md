@@ -5,7 +5,7 @@ Defines Chainlink **milestone #3** with a root→TL fork-wave structure. Root co
 Phase-0 environment first (DONE — see status); the TL then forks the parallel waves.
 
 > Source of truth for live state is the Chainlink DB
-> (`CHAINLINK_DB=$HOME/backrooms-workspace/.chainlink/issues.db`). This doc is the
+> (`CHAINLINK_DB=<repository-local database path>`). This doc is the
 > human-readable map. Full per-issue scaffolding lives as `--kind plan` comments on each issue.
 
 ## Architecture (why this shape)
@@ -78,7 +78,7 @@ Phase 0 is closed; `chainlink issue ready` now surfaces **#41, #42, #43, #45**. 
 2. After all three merge → G3 (#44) = v1 gate (human walk-test acceptance per fable-plan §5).
 3. After G3 merges → v2 wave: S0 (#45), S1 (#46), G4 (#47).
 
-Every spawned leaf gets `CHAINLINK_DB=$HOME/backrooms-workspace/.chainlink/issues.db` in
+Every spawned leaf gets `CHAINLINK_DB=<repository-local database path>` in
 its spec and a `chainlink_timer_start <id>` on assignment.
 
 ## Verification (end-to-end)

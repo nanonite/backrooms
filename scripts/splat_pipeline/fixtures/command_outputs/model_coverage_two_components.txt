@@ -1,6 +1,6 @@
 === SPARSE MODEL ===
-model used: /tmp/opencode/mc2/sparse/0 (140 registered images)
-  other model: /tmp/opencode/mc2/sparse/1 (10 registered images) -- NOT used
+model used: ${TMPDIR}/redacted (140 registered images)
+  other model: ${TMPDIR}/redacted (10 registered images) -- NOT used
 cameras: 1, model SIMPLE_PINHOLE, resolution 640x360
 pose extent: 139.000 x 0.000 x 0.000 COLMAP units (arbitrary scale)
 
@@ -17,5 +17,5 @@ extracted 150 frames, registered 140, excluded 10 (93.3% coverage)
   no geometry: frame_0149.jpg
   no geometry: frame_0150.jpg
 coverage floor 80%: met
-warn: a second model at /tmp/opencode/mc2/sparse/1 holds 10 registered image(s) and was not used; those frames are not in the reported coverage
+warn: a second model at ${TMPDIR}/redacted holds 10 registered image(s) and was not used; those frames are not in the reported coverage
 note: the walkable volume is limited to the registered frames; a walk through the excluded ones leaves the reconstruction

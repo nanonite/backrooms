@@ -1,5 +1,5 @@
 === SPARSE MODEL ===
-model used: /tmp/opencode/mp/sparse/0 (60 registered images)
+model used: ${TMPDIR}/redacted (60 registered images)
 cameras: 1, model SIMPLE_PINHOLE, resolution 640x360
 pose extent: 59.000 x 0.000 x 0.000 COLMAP units (arbitrary scale)
 

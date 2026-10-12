@@ -1,6 +1,6 @@
 # Exact commands — #100 PSX cleanup
 
-All commands run from `$WORKSPACE/backrooms-workspace` unless stated.
+All commands run from `.` unless stated.
 
 ## 1. Quantify the artifact (no GPU)
 
@@ -80,7 +80,7 @@ DISPLAY=:1 godot4 --path . --disable-vsync --rendering-driver vulkan --resolutio
 ## 6. Peak resources (same harness as #91)
 
 ```bash
-export PATH="$HOME/anaconda3/envs/nerfstudio/bin:/home/user/.local/bin:$PATH"
+export PATH="$HOME/anaconda3/envs/nerfstudio/bin:$HOME/.local/bin:$PATH"
 DISPLAY=:1 python3 scripts/splat_pipeline/benchmark_reconstruction.py render \
     --project godot_walk --scene res://scenes/corridor_psx.tscn \
     --resolution 1280x720 --frames 300 --warmup 60 --orbit-radius 1.0 \

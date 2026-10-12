@@ -1,13 +1,13 @@
 === FRESH START 2026-10-05T06:01:19Z ===
 command: convert_video.sh data/videos/corridor_x.mp4 corridor_x_e2e
 === Convert video ===
-Video:     $WORKSPACE/backrooms-workspace/data/videos/corridor_x.mp4
+Video:     ./data/videos/corridor_x.mp4
 Scene:     corridor_x_e2e
-Scene dir: $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e
+Scene dir: ./data/scenes/corridor_x_e2e
 
 === Splat pipeline ===
 Scene:    corridor_x_e2e
-Dir:      $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e
+Dir:      ./data/scenes/corridor_x_e2e
 Dry-run:  false
 Force:    false
 
@@ -24,7 +24,7 @@ Force:    false
 Preflight: 2 tool(s) not on PATH (per-stage checks decide pass/fail).
 
 --- Validate ---
-File:     $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/video.mp4
+File:     ./data/scenes/corridor_x_e2e/video.mp4
 Codec:    h264
 Res:      1920x1080
 FPS:      24.0
@@ -62,7 +62,7 @@ Hard checks passed.
 
 --- Stage A: Bounded sampling and frame extraction ---
 === INPUT ===
-file:      $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/video.mp4
+file:      ./data/scenes/corridor_x_e2e/video.mp4
 resolution: 1920x1080 (2.07 MP) h264 yuv420p
 duration:  4.00s at 24.00 fps, 96 frames
 
@@ -125,20 +125,20 @@ limit: candidates are 2 source frames apart, so anything that happens only betwe
 
 Extracting the selected frames at source resolution ...
 === EXTRACTION ===
-video:    $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/video.mp4
-output:   $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/images
+video:    ./data/scenes/corridor_x_e2e/video.mp4
+output:   ./data/scenes/corridor_x_e2e/images
 frames:   31 of 31 selected, written as frame_NNNN.jpg
 resolution: 1920x1080 (source, preserved) -- measurements were made on 640x360 analysis frames at 0.3333x
 work:     31 ffmpeg invocation(s), one seek per kept frame, 8.4s; no other frame of the clip was decoded
 source frame indices: 0..92 (first 12: 0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44)
 manifest: frames.json maps each written file back to its source frame index
-Extracted 31 selected frames into $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/images.
+Extracted 31 selected frames into ./data/scenes/corridor_x_e2e/images.
 
 
 --- Stage B: Pose estimation ---
 Path 1 (default): COLMAP/GLOMAP
 === COLMAP/GLOMAP pose estimation (Path 1) ===
-Scene:    $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e
+Scene:    ./data/scenes/corridor_x_e2e
 Matcher:  exhaustive
 Cleanup:  true
 Min reg:  0.5 (fraction of input images)
@@ -147,7 +147,7 @@ ERROR: glomap not found in PATH. Install GLOMAP and re-run.
 COLMAP/GLOMAP unavailable or POSE_FAILED (exit 2).
 Trying VGGT fallback (Path 2) ...
 === VGGT pose estimation (Path 2 — FALLBACK) ===
-Scene:       $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e
+Scene:       ./data/scenes/corridor_x_e2e
 VGGT root:   $HOME/vggt
 Use BA:      false
 Python:      python3
@@ -166,7 +166,7 @@ Bundle adjustment: DISABLED. Set VGGT_USE_BA=1 to enable.
 Running VGGT demo_colmap.py ...
 This requires a GPU with sufficient VRAM (target: RTX 4070 Ti, 12 GB).
 
-Arguments: {'scene_dir': '$WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e', 'seed': 42, 'use_ba': False, 'max_reproj_error': 8.0, 'shared_camera': False, 'camera_type': 'SIMPLE_PINHOLE', 'vis_thresh': 0.2, 'query_frame_num': 8, 'max_query_pts': 4096, 'fine_tracking': True, 'conf_thres_value': 5.0}
+Arguments: {'scene_dir': './data/scenes/corridor_x_e2e', 'seed': 42, 'use_ba': False, 'max_reproj_error': 8.0, 'shared_camera': False, 'camera_type': 'SIMPLE_PINHOLE', 'vis_thresh': 0.2, 'query_frame_num': 8, 'max_query_pts': 4096, 'fine_tracking': True, 'conf_thres_value': 5.0}
 Setting seed as: 42
 Using device: cuda
 Using dtype: torch.bfloat16
@@ -180,7 +180,7 @@ Traceback (most recent call last):
     img = Image.open(image_path)
   File "$HOME/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/PIL/Image.py", line 3711, in open
     raise UnidentifiedImageError(msg)
-PIL.UnidentifiedImageError: cannot identify image file '$WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/images/frames.json'
+PIL.UnidentifiedImageError: cannot identify image file './data/scenes/corridor_x_e2e/images/frames.json'
 ERROR: VGGT demo_colmap.py failed.
 FAIL: both COLMAP and VGGT failed. Pipeline cannot continue.
 === FRESH END exit=1 ===
@@ -189,7 +189,7 @@ workaround: moved images/frames.json -> frames_manifest.json
 === RESUME START 2026-10-05T06:01:44Z ===
 === Splat pipeline ===
 Scene:    corridor_x_e2e
-Dir:      $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e
+Dir:      ./data/scenes/corridor_x_e2e
 Dry-run:  false
 Force:    false
 
@@ -206,7 +206,7 @@ Force:    false
 Preflight: 2 tool(s) not on PATH (per-stage checks decide pass/fail).
 
 --- Validate ---
-File:     $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/video.mp4
+File:     ./data/scenes/corridor_x_e2e/video.mp4
 Codec:    h264
 Res:      1920x1080
 FPS:      24.0
@@ -249,7 +249,7 @@ Stage A skipped (unchanged).
 --- Stage B: Pose estimation ---
 Path 1 (default): COLMAP/GLOMAP
 === COLMAP/GLOMAP pose estimation (Path 1) ===
-Scene:    $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e
+Scene:    ./data/scenes/corridor_x_e2e
 Matcher:  exhaustive
 Cleanup:  true
 Min reg:  0.5 (fraction of input images)
@@ -258,7 +258,7 @@ ERROR: glomap not found in PATH. Install GLOMAP and re-run.
 COLMAP/GLOMAP unavailable or POSE_FAILED (exit 2).
 Trying VGGT fallback (Path 2) ...
 === VGGT pose estimation (Path 2 — FALLBACK) ===
-Scene:       $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e
+Scene:       ./data/scenes/corridor_x_e2e
 VGGT root:   $HOME/vggt
 Use BA:      false
 Python:      python3
@@ -277,12 +277,12 @@ Bundle adjustment: DISABLED. Set VGGT_USE_BA=1 to enable.
 Running VGGT demo_colmap.py ...
 This requires a GPU with sufficient VRAM (target: RTX 4070 Ti, 12 GB).
 
-Arguments: {'scene_dir': '$WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e', 'seed': 42, 'use_ba': False, 'max_reproj_error': 8.0, 'shared_camera': False, 'camera_type': 'SIMPLE_PINHOLE', 'vis_thresh': 0.2, 'query_frame_num': 8, 'max_query_pts': 4096, 'fine_tracking': True, 'conf_thres_value': 5.0}
+Arguments: {'scene_dir': './data/scenes/corridor_x_e2e', 'seed': 42, 'use_ba': False, 'max_reproj_error': 8.0, 'shared_camera': False, 'camera_type': 'SIMPLE_PINHOLE', 'vis_thresh': 0.2, 'query_frame_num': 8, 'max_query_pts': 4096, 'fine_tracking': True, 'conf_thres_value': 5.0}
 Setting seed as: 42
 Using device: cuda
 Using dtype: torch.bfloat16
 Model loaded
-Loaded 31 images from $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/images
+Loaded 31 images from ./data/scenes/corridor_x_e2e/images
 Traceback (most recent call last):
   File "$HOME/vggt/demo_colmap.py", line 298, in <module>
     demo_fn(args)

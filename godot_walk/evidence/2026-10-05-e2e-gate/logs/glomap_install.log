@@ -1,4 +1,4 @@
-warning: Git tree '$WORKSPACE/backrooms-workspace' has uncommitted changes
+warning: Git tree '.' has uncommitted changes
 evaluation warning: The xorg package set has been deprecated, 'xorg.libX11' has been renamed to 'libx11'
 evaluation warning: The xorg package set has been deprecated, 'xorg.libXcursor' has been renamed to 'libxcursor'
 evaluation warning: The xorg package set has been deprecated, 'xorg.libXrandr' has been renamed to 'libxrandr'

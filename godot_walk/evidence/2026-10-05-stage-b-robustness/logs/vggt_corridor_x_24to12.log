@@ -1,5 +1,5 @@
 === VGGT pose estimation (Path 2 — FALLBACK) ===
-Scene:       $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e
+Scene:       ./data/scenes/corridor_x_e2e
 VGGT root:   $HOME/vggt
 Use BA:      false
 Python:      $HOME/anaconda3/envs/nerfstudio/bin/python3
@@ -19,20 +19,20 @@ Bundle adjustment: DISABLED. Set VGGT_USE_BA=1 to enable.
 This requires a GPU with sufficient VRAM (target: RTX 4070 Ti, 12 GB).
 
 --- Attempt 1: 24 frame(s) ---
-Staged 24 image(s) in $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/.vggt_staging/images (metadata excluded).
-WARN: VGGT OOM at 24 frame(s). See $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/.vggt_staging/vggt_attempt_1.log.
+Staged 24 image(s) in ./data/scenes/corridor_x_e2e/.vggt_staging/images (metadata excluded).
+WARN: VGGT OOM at 24 frame(s). See ./data/scenes/corridor_x_e2e/.vggt_staging/vggt_attempt_1.log.
 Retrying with fewer frames (OOM backoff).
 --- Attempt 2: 12 frame(s) ---
-Staged 12 image(s) in $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/.vggt_staging/images (metadata excluded).
+Staged 12 image(s) in ./data/scenes/corridor_x_e2e/.vggt_staging/images (metadata excluded).
 VGGT attempt 2 succeeded.
 VGGT pose estimation complete.
 
 --- Normalize output ---
-VGGT wrote output to $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/.vggt_staging/sparse directly. Normalizing to $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/sparse/0 ...
-Output normalized to $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/sparse/0.
+VGGT wrote output to ./data/scenes/corridor_x_e2e/.vggt_staging/sparse directly. Normalizing to ./data/scenes/corridor_x_e2e/sparse/0 ...
+Output normalized to ./data/scenes/corridor_x_e2e/sparse/0.
 
 --- Success gate ---
-POSE_OK: $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/sparse/0/{cameras,images,points3D}.bin produced.
+POSE_OK: ./data/scenes/corridor_x_e2e/sparse/0/{cameras,images,points3D}.bin produced.
 
 === Stage B (VGGT fallback) complete ===
-Model: $WORKSPACE/backrooms-workspace/data/scenes/corridor_x_e2e/sparse/0
+Model: ./data/scenes/corridor_x_e2e/sparse/0

@@ -60,7 +60,7 @@ the specific next action in the report.
 | Host RAM | 62.5 GiB total, 45.5 GiB available | `/proc/meminfo` |
 | CPU | AMD Ryzen 9 7900X, 24 threads | `/proc/cpuinfo`, `sched_getaffinity` |
 | OS / kernel | Ubuntu 24.04.5 LTS / 6.8.0-142-generic | `/etc/os-release`, `uname` |
-| Disk | `$MOUNT` 3424.9 GiB free · `/home` 686.9 GiB free | `statvfs` |
+| Disk | project filesystem 3424.9 GiB free · `/home` 686.9 GiB free | `statvfs` |
 
 > **The project's provisional figures were right.** "RTX 4070 Ti 12 GB and
 > approximately 64 GB host RAM" matches what is installed (11.99 GiB VRAM,
@@ -88,9 +88,9 @@ the specific next action in the report.
 **Not installed:** `colmap`, `glomap` (`FileNotFoundError` — the front-end pose
 stages cannot run here as configured).
 
-**Pinned interpreter:** `$HOME/anaconda3/envs/nerfstudio/bin/python`. The
-system `python3` has no torch, so measuring with it reports a machine that does
-not exist.
+**Pinned interpreter:** `$CONDA_PREFIX/bin/python`. The
+system `python3` has no torch, so measuring with it reports a machine that
+does not exist.
 
 ---
 
@@ -149,7 +149,7 @@ rasterises through gsplat, which JIT-builds a CUDA extension on first import. Th
 build fails:
 
 ```
-$HOME/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/torch/include/ATen/core/boxing/impl/boxing.h:42:103:
+<temporary build path>
 error: expected primary-expression before '>' token
    42 | struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
 ```

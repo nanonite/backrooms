@@ -12,7 +12,7 @@ A Gaussian splat provides visuals; a co-registered collision mesh provides physi
 
 ## Crate
 
-`splat_walk/` at the workspace root (`$HOME/backrooms-workspace/splat_walk/`).
+`splat_walk/` at the workspace root.
 The old `backrooms_infinite/` WFC crate was deleted — do not recreate it.
 
 ---

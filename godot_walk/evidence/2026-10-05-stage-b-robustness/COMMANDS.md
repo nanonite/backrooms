@@ -1,6 +1,6 @@
 # Commands — Stage B robustness (#99)
 
-All commands run from `$WORKSPACE/backrooms-workspace` on 2026-10-05 (UTC).
+All commands run from `.` on 2026-10-05 (UTC).
 
 ## GLOMAP build (inside nix develop)
 

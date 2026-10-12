@@ -53,7 +53,7 @@
 
 Video-sourced walkable Gaussian splat in Bevy 0.18 (Rust). See `PLAN.md` for the current milestone plan and `splat-handoff/` for per-step scaffolding docs.
 
-**Crate:** `splat_walk/` at workspace root (`$HOME/backrooms-workspace/splat_walk/`).
+**Crate:** `splat_walk/` at the workspace root.
 The old `backrooms_infinite/` WFC crate was deleted — do not recreate it.
 
 ### Current Milestone

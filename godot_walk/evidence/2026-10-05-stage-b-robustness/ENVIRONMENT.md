@@ -2,7 +2,7 @@
 
 Chainlink task #99. All measurements below were taken on this host on
 2026-10-05 (UTC), unattended, from the repository root
-`$WORKSPACE/backrooms-workspace`.
+`.`.
 
 ## Host
 

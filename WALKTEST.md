@@ -3,7 +3,7 @@
 ## 1. Open the project
 
 ```bash
-cd $HOME/backrooms-workspace/godot_walk
+cd godot_walk
 godot4 --editor .
 ```
 (or launch Godot 4.6, open project at `godot_walk/`)

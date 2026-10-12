@@ -208,17 +208,19 @@ class TestValidateArgsMode:
     def test_custom_input_output(self, tmp_path):
         scene_dir = tmp_path / "scene"
         scene_dir.mkdir()
+        input_mesh = tmp_path / "input.ply"
+        output_mesh = tmp_path / "output.glb"
         rc, stdout, stderr = _run_validate_args(
             [
                 "--scene-dir", str(scene_dir),
-                "--input-mesh", "/tmp/custom.obj",
-                "--output", "/tmp/out.glb",
+                "--input-mesh", str(input_mesh),
+                "--output", str(output_mesh),
             ]
         )
         assert rc == 0
         assert "input_mesh:" in stdout
-        assert "/tmp/custom.obj" in stdout
-        assert "/tmp/out.glb" in stdout
+        assert str(input_mesh) in stdout
+        assert str(output_mesh) in stdout
 
     def test_custom_log_file(self, tmp_path):
         scene_dir = tmp_path / "scene"
@@ -296,8 +298,8 @@ class TestParseArgs:
             d2g.parse_args(["--validate-args"])
 
     def test_defaults(self):
-        args = d2g.parse_args(["--scene-dir", "/tmp/scene", "--validate-args"])
-        assert args.scene_dir == "/tmp/scene"
+        args = d2g.parse_args(["--scene-dir", "scene", "--validate-args"])
+        assert args.scene_dir == "scene"
         assert args.input_mesh is None
         assert args.output is None
         assert args.target_triangles == 200000
@@ -307,21 +309,21 @@ class TestParseArgs:
     def test_all_custom(self):
         args = d2g.parse_args(
             [
-                "--scene-dir", "/tmp/scene",
-                "--input-mesh", "/tmp/in.obj",
-                "--output", "/tmp/out.glb",
+                "--scene-dir", "scene",
+                "--input-mesh", "mesh.ply",
+                "--output", "output.glb",
                 "--target-triangles", "50000",
                 "--min-component-faces", "100",
-                "--log-file", "/tmp/diag.log",
+                "--log-file", "run.log",
                 "--validate-args",
             ]
         )
-        assert args.scene_dir == "/tmp/scene"
-        assert args.input_mesh == "/tmp/in.obj"
-        assert args.output == "/tmp/out.glb"
+        assert args.scene_dir == "scene"
+        assert args.input_mesh == "mesh.ply"
+        assert args.output == "output.glb"
         assert args.target_triangles == 50000
         assert args.min_component_faces == 100
-        assert args.log_file == "/tmp/diag.log"
+        assert args.log_file == "run.log"
 
 
 # ---------------------------------------------------------------------------

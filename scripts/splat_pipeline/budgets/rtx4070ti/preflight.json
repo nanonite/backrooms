@@ -42,7 +42,7 @@
     "filesystems": [
       {
         "free_bytes": 3677433757696,
-        "path": "$MOUNT",
+        "path": "${MOUNT_ROOT}/redacted",
         "total_bytes": 3862234136576
       },
       {

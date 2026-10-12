@@ -2,7 +2,7 @@ import os
 
 import bpy
 
-WORKSPACE = '$HOME/backrooms-workspace'
+WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BLEND = WORKSPACE + '/backrooms_infinite/assets/scenes/source/corridor_corner_box.blend'
 TEX = WORKSPACE + '/backrooms_infinite/assets/textures'
 OUT = WORKSPACE + '/backrooms_infinite/assets/scenes/corridor_corner.glb'

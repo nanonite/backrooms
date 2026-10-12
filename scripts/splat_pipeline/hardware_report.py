@@ -37,10 +37,10 @@ from resource_probe import (
     read_memory,
 )
 
-#: The interpreter that owns nerfstudio. Pinned because the system python3 has
-#: no torch: measuring with the wrong interpreter reports a machine that does
-#: not exist.
-NERFSTUDIO_PYTHON = "$HOME/anaconda3/envs/nerfstudio/bin/python"
+#: Derive from the active environment; callers can override the interpreter.
+NERFSTUDIO_PYTHON = os.environ.get(
+    "NERFSTUDIO_PYTHON", str(Path(sys.prefix) / "bin" / "python")
+)
 
 #: Directories searched before PATH. The setup script installs into ~/.local/bin
 #: and the engine binary was downloaded by hand, so neither is on PATH.

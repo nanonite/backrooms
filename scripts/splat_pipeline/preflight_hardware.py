@@ -53,7 +53,7 @@ EXIT_NO_WEBGPU = 4
 EXIT_OVER_BUDGET = 5
 
 DEFAULT_MEASUREMENTS = "splat_logs/measurements.json"
-DEFAULT_FILESYSTEMS = ("$MOUNT", "/home")
+DEFAULT_FILESYSTEMS = (str(Path(__file__).resolve().parents[2]), str(Path.home()))
 
 
 def capability_rows(

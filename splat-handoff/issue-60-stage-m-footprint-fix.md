@@ -66,9 +66,9 @@ Regeneration command:
 ```bash
 blender --background \
   --python scripts/splat_pipeline/blender_cleanup_mesh.py -- \
-  --scene-dir $HOME/backrooms-workspace/data/scenes/corridor_straight \
-  --textures-dir $HOME/backrooms-workspace/data/textures \
-  --input-mesh $HOME/backrooms-workspace/data/scenes/corridor_straight/mesh_export.obj \
+  --scene-dir ./data/scenes/corridor_straight \
+  --textures-dir ./data/textures \
+  --input-mesh ./data/scenes/corridor_straight/mesh_export.obj \
   --target-tris 500000 \
   --doorway-height 2.0 \
   --min-footprint 1.5

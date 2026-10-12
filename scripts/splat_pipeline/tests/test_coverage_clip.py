@@ -77,7 +77,7 @@ def test_settings_report_retains_prompt_and_model():
 
 
 def test_paths_live_in_the_scene_directory():
-    scene = Path("/tmp/scene")
+    scene = Path("scene")
     assert coverage_clip.video_path(scene) == scene / "video.mp4"
     assert coverage_clip.report_path(scene) == scene / "generation.json"
 

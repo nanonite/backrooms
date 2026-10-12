@@ -21,7 +21,7 @@ question is whether this pipeline produces a space you can physically inhabit.
 
 ## WHERE — The Context
 
-- Engine: Bevy 0.18 (Rust), bevy_rapier3d 0.33. Project at `$HOME/backrooms-workspace/backrooms_infinite/`
+- Engine: Bevy 0.18 (Rust), bevy_rapier3d 0.33. Project at the workspace root.
 - Photogrammetry stack: Nerfstudio 1.1.5, COLMAP 3.10, PyTorch 2.6+cu124 in conda env `nerfstudio`
 - GPU: NVIDIA RTX 4070 Ti (12 GB VRAM)
 - Multi-agent orchestration: exomonad TL/leaf architecture. Leaf agents pick up chainlink

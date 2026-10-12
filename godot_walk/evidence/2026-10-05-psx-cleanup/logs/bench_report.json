@@ -24,7 +24,7 @@
       "input_bytes": 0,
       "interpreter": "$HOME/Downloads/Godot_v4.6.3-stable_linux.x86_64",
       "label": "render_psx_clean",
-      "log_path": "/tmp/opencode/bench_psx.log",
+      "log_path": "${TMPDIR}/redacted",
       "output_bytes": 0,
       "peak": {
         "baseline_ram_used_bytes": 52595064832,
@@ -83,7 +83,7 @@
       "input_bytes": 0,
       "interpreter": "$HOME/Downloads/Godot_v4.6.3-stable_linux.x86_64",
       "label": "render_source",
-      "log_path": "/tmp/opencode/bench_source.log",
+      "log_path": "${TMPDIR}/redacted",
       "output_bytes": 0,
       "peak": {
         "baseline_ram_used_bytes": 52899319808,

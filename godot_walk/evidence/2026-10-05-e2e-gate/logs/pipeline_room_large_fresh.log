@@ -1,16 +1,16 @@
 === RUN START 2026-10-05T05:55:55Z ===
 command: convert_video.sh data/videos/room_large.mp4 room_large_e2e
-PATH=$HOME/anaconda3/envs/nerfstudio/bin:/home/user/.local/bin:/home/user/.nvm/versions/node/v22.5.1/bin:/home/user/.elan/bin:/home/user/.local/bin:/home/user/.codex/packages/app-server-daemon/releases/0.160.0-x86_64-unknown-linux-musl/codex-path:/home/user/.elan/bin:/home/user/.local/bin:/home/user/.codex/tmp/arg0/codex-arg0JM8qd1:/home/user/.codex/packages/app-server-daemon/releases/0.160.0-x86_64-unknown-linux-musl/codex-path:/home/user/.codex/tmp/arg0/codex-arg077C08f:/home/user/.nvm/versions/node/v22.5.1/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path:/home/user/.bun/bin:/home/user/.opencode/bin:/home/user/.nvm/versions/node/v22.5.1/bin:/usr/local/cuda-12.4/bin:/home/user/anaconda3/condabin:/home/user/.elan/bin:/home/user/.atuin/bin:/home/user/.cargo/bin:/home/user/.local/bin:/home/user/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/user/Android/Sdk/platform-tools:/home/user/Android/Sdk/platform-tools:/home/user/Android/Sdk/platform-tools
+PATH=$HOME/anaconda3/envs/nerfstudio/bin:$HOME/.local/bin:$HOME/.nvm/versions/node/v22.5.1/bin:$HOME/.elan/bin:$HOME/.local/bin:$HOME/.codex/packages/app-server-daemon/releases/0.160.0-x86_64-unknown-linux-musl/codex-path:$HOME/.elan/bin:$HOME/.local/bin:$HOME/.codex${TMPDIR}/redacted:$HOME/.codex/packages/app-server-daemon/releases/0.160.0-x86_64-unknown-linux-musl/codex-path:$HOME/.codex${TMPDIR}/redacted:$HOME/.nvm/versions/node/v22.5.1/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path:$HOME/.bun/bin:$HOME/.opencode/bin:$HOME/.nvm/versions/node/v22.5.1/bin:/usr/local/cuda-12.4/bin:$HOME/anaconda3/condabin:$HOME/.elan/bin:$HOME/.atuin/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/platform-tools
 PYTHONNOUSERSITE=1 TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
 
 === Convert video ===
-Video:     $WORKSPACE/backrooms-workspace/data/videos/room_large.mp4
+Video:     ./data/videos/room_large.mp4
 Scene:     room_large_e2e
-Scene dir: $WORKSPACE/backrooms-workspace/data/scenes/room_large_e2e
+Scene dir: ./data/scenes/room_large_e2e
 
 === Splat pipeline ===
 Scene:    room_large_e2e
-Dir:      $WORKSPACE/backrooms-workspace/data/scenes/room_large_e2e
+Dir:      ./data/scenes/room_large_e2e
 Dry-run:  false
 Force:    false
 
@@ -27,7 +27,7 @@ Force:    false
 Preflight: 2 tool(s) not on PATH (per-stage checks decide pass/fail).
 
 --- Validate ---
-File:     $WORKSPACE/backrooms-workspace/data/scenes/room_large_e2e/video.mp4
+File:     ./data/scenes/room_large_e2e/video.mp4
 Codec:    h264
 Res:      1920x1080
 FPS:      24.0
@@ -65,7 +65,7 @@ Hard checks passed.
 
 --- Stage A: Bounded sampling and frame extraction ---
 === INPUT ===
-file:      $WORKSPACE/backrooms-workspace/data/scenes/room_large_e2e/video.mp4
+file:      ./data/scenes/room_large_e2e/video.mp4
 resolution: 1920x1080 (2.07 MP) h264 yuv420p
 duration:  4.00s at 24.00 fps, 96 frames
 
@@ -127,20 +127,20 @@ limit: displacements below about 0.5% of the analysis frame width fall under the
 
 Extracting the selected frames at source resolution ...
 === EXTRACTION ===
-video:    $WORKSPACE/backrooms-workspace/data/scenes/room_large_e2e/video.mp4
-output:   $WORKSPACE/backrooms-workspace/data/scenes/room_large_e2e/images
+video:    ./data/scenes/room_large_e2e/video.mp4
+output:   ./data/scenes/room_large_e2e/images
 frames:   50 of 50 selected, written as frame_NNNN.jpg
 resolution: 1920x1080 (source, preserved) -- measurements were made on 640x360 analysis frames at 0.3333x
 work:     50 ffmpeg invocation(s), one seek per kept frame, 11.1s; no other frame of the clip was decoded
 source frame indices: 0..94 (first 12: 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22)
 manifest: frames.json maps each written file back to its source frame index
-Extracted 50 selected frames into $WORKSPACE/backrooms-workspace/data/scenes/room_large_e2e/images.
+Extracted 50 selected frames into ./data/scenes/room_large_e2e/images.
 
 
 --- Stage B: Pose estimation ---
 Path 1 (default): COLMAP/GLOMAP
 === COLMAP/GLOMAP pose estimation (Path 1) ===
-Scene:    $WORKSPACE/backrooms-workspace/data/scenes/room_large_e2e
+Scene:    ./data/scenes/room_large_e2e
 Matcher:  exhaustive
 Cleanup:  true
 Min reg:  0.5 (fraction of input images)
@@ -149,7 +149,7 @@ ERROR: glomap not found in PATH. Install GLOMAP and re-run.
 COLMAP/GLOMAP unavailable or POSE_FAILED (exit 2).
 Trying VGGT fallback (Path 2) ...
 === VGGT pose estimation (Path 2 — FALLBACK) ===
-Scene:       $WORKSPACE/backrooms-workspace/data/scenes/room_large_e2e
+Scene:       ./data/scenes/room_large_e2e
 VGGT root:   $HOME/vggt
 Use BA:      false
 Python:      python3
@@ -168,7 +168,7 @@ Bundle adjustment: DISABLED. Set VGGT_USE_BA=1 to enable.
 Running VGGT demo_colmap.py ...
 This requires a GPU with sufficient VRAM (target: RTX 4070 Ti, 12 GB).
 
-Arguments: {'scene_dir': '$WORKSPACE/backrooms-workspace/data/scenes/room_large_e2e', 'seed': 42, 'use_ba': False, 'max_reproj_error': 8.0, 'shared_camera': False, 'camera_type': 'SIMPLE_PINHOLE', 'vis_thresh': 0.2, 'query_frame_num': 8, 'max_query_pts': 4096, 'fine_tracking': True, 'conf_thres_value': 5.0}
+Arguments: {'scene_dir': './data/scenes/room_large_e2e', 'seed': 42, 'use_ba': False, 'max_reproj_error': 8.0, 'shared_camera': False, 'camera_type': 'SIMPLE_PINHOLE', 'vis_thresh': 0.2, 'query_frame_num': 8, 'max_query_pts': 4096, 'fine_tracking': True, 'conf_thres_value': 5.0}
 Setting seed as: 42
 Using device: cuda
 Using dtype: torch.bfloat16
@@ -182,7 +182,7 @@ Traceback (most recent call last):
     img = Image.open(image_path)
   File "$HOME/anaconda3/envs/nerfstudio/lib/python3.10/site-packages/PIL/Image.py", line 3711, in open
     raise UnidentifiedImageError(msg)
-PIL.UnidentifiedImageError: cannot identify image file '$WORKSPACE/backrooms-workspace/data/scenes/room_large_e2e/images/frames.json'
+PIL.UnidentifiedImageError: cannot identify image file './data/scenes/room_large_e2e/images/frames.json'
 ERROR: VGGT demo_colmap.py failed.
 FAIL: both COLMAP and VGGT failed. Pipeline cannot continue.
 

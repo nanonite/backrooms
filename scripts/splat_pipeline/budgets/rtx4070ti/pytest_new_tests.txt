@@ -1,6 +1,6 @@
 # pytest output: the 7 test files added by chainlink task 89
 # tree:        git archive HEAD (commit a513d88) exported to a clean directory
-# working dir: /tmp/opencode/verify_head
+# working dir: ${TMPDIR}/redacted
 # date:        2026-10-02T23:32:10Z
 # python:      Python 3.12.3
 # pytest:      pytest 9.1.1

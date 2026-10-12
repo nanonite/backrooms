@@ -29,7 +29,7 @@ usage() {
     cat <<'EOF'
 Usage: convert_video.sh <video_path> [scene_name] [--dry-run] [--force]
 
-  video_path   Path to the input video file (e.g. ~/Videos/capture.mp4).
+  video_path   Path to the input video file (e.g. data/videos/capture.mp4).
   scene_name   Optional name for the scene. Derived from the video filename
                if omitted. Must be a safe identifier — no slashes, dots,
                or path traversal.

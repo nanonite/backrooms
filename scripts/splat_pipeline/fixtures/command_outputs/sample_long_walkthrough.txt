@@ -1,6 +1,6 @@
 === EXTRACTION ===
 video:    fixtures/clips/long_walkthrough.mp4
-output:   /tmp/opencode/longimg
+output:   ${TMPDIR}/redacted
 frames:   150 of 150 selected, written as frame_NNNN.jpg
 resolution: 640x360 (source, preserved) -- measurements were made on 640x360 analysis frames at 1x
 work:     150 ffmpeg invocation(s), one seek per kept frame, 10.8s; no other frame of the clip was decoded

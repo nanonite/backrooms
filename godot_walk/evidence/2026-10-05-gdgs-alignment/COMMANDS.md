@@ -1,6 +1,6 @@
 # Repeatable capture commands — task #74
 
-All commands run from the repository root (`$WORKSPACE/backrooms-workspace`).
+All commands run from the repository root (`.`).
 The real-GPU captures require the desktop session: `DISPLAY` set to the real
 X display (here `:1`), an NVIDIA GPU, and the non-snap Godot 4.6.3 binary.
 

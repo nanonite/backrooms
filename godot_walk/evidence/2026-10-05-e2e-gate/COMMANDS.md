@@ -1,10 +1,10 @@
 # Exact commands — end-to-end acceptance gate (#91)
 
-All commands run from `$WORKSPACE/backrooms-workspace` unless stated.
+All commands run from `.` unless stated.
 Environment prepended for every pipeline invocation:
 
 ```bash
-export PATH="$HOME/anaconda3/envs/nerfstudio/bin:/home/user/.local/bin:/home/user/.nvm/versions/node/v22.5.1/bin:$PATH"
+export PATH="$HOME/anaconda3/envs/nerfstudio/bin:$HOME/.local/bin:$HOME/.nvm/versions/node/v22.5.1/bin:$PATH"
 export PYTHONNOUSERSITE=1                     # select conda gsplat prebuilt csrc.so
 export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1     # ns-export on torch 2.6+
 export CONVERT_SCENES_ROOT="$PWD/data/scenes" # one-command scenes root
@@ -15,12 +15,12 @@ export SPLAT_TRANSFORM_NODE_MODULES="$PWD/scripts/splat_pipeline/node_modules"
 
 ```bash
 python3 scripts/splat_pipeline/capture_gate.py data/videos/room_large.mp4 \
-    --target-frames 150 --staging-dir /tmp/opencode/gates/room_large \
-    --json /tmp/opencode/gates/room_large/gate.json
+    --target-frames 150 --staging-dir ${TMPDIR}/redacted \
+    --json ${TMPDIR}/redacted
 # repeat for corridor_x, corridor_straight, corridor_corner, corridor_t, dead_end
 python3 scripts/splat_pipeline/capture_gate.py data/scenes/corridor_travel/video.mp4 \
-    --target-frames 150 --staging-dir /tmp/opencode/gate_corridor_travel \
-    --json /tmp/opencode/gate_corridor_travel/gate.json
+    --target-frames 150 --staging-dir ${TMPDIR}/redacted \
+    --json ${TMPDIR}/redacted
 ```
 
 ## 2. One-command pipeline — synthetic `room_large` (fresh)

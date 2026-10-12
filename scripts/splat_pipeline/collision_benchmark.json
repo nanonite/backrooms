@@ -9,7 +9,7 @@
       "NVIDIA GeForce RTX 4070 Ti",
       "llvmpipe (LLVM 20.1.2, 256 bits)"
     ],
-    "cli": "/tmp/opencode/st-bench/node_modules/@playcanvas/splat-transform/bin/cli.mjs"
+    "cli": "${TMPDIR}/redacted"
   },
   "inputs": {
     "manifest": "godot_walk/assets/corridor_splat/alignment_manifest.json",
@@ -66,7 +66,7 @@
   "tool_run": {
     "argv": [
       "$HOME/.nvm/versions/node/v22.5.1/bin/node",
-      "/tmp/opencode/st-bench/node_modules/@playcanvas/splat-transform/bin/cli.mjs",
+      "${TMPDIR}/redacted",
       "--memory",
       "-w",
       "exports/corridor_travel_v1/splat.ply",
@@ -76,7 +76,7 @@
       "0.25,0.999,0.1",
       "--seed-pos",
       "0.704,-0.326,-0.528",
-      "/tmp/opencode/st-bench/verify/corridor_splat.voxel.json",
+      "${TMPDIR}/redacted",
       "--voxel-size",
       "0.05",
       "--voxel-opacity",

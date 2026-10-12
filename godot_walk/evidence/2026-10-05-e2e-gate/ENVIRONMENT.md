@@ -2,7 +2,7 @@
 
 Chainlink task #91. All measurements below were taken on this host on
 2026-10-05 (UTC), unattended, from the repository root
-`$WORKSPACE/backrooms-workspace`.
+`.`.
 
 ## Host
 
@@ -12,7 +12,7 @@ Chainlink task #91. All measurements below were taken on this host on
 | Kernel | 6.8.0-142-generic | `uname -r` |
 | CPU | AMD Ryzen 9 7900X 12-Core | `/proc/cpuinfo` |
 | RAM | 62.5 GiB total | `/proc/meminfo` |
-| Display | `DISPLAY=:1` — real X11 desktop, not xvfb | shell env, `/tmp/.X11-unix/X1` |
+| Display | `DISPLAY=:1` — real X11 desktop, not xvfb | shell env, `${TMPDIR}/redacted` |
 
 ## GPU
 

@@ -1,6 +1,6 @@
 # Exact commands — #107 coverage-complete source clip
 
-All commands run from `$WORKSPACE/backrooms-workspace` unless stated.
+All commands run from `.` unless stated.
 
 ## 1. Inspect existing candidates (no GPU)
 

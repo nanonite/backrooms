@@ -126,8 +126,8 @@
             export PATH="$PIPELINE_TOOLS_PREFIX/bin:$PATH"
 
             # Default roots — scripts honour these env vars.
-            export VGGT_ROOT="''${VGGT_ROOT:-/home/user/backrooms-workspace/build/vggt}"
-            export SUGAR_ROOT="''${SUGAR_ROOT:-/home/user/backrooms-workspace/build/SuGaR}"
+            export VGGT_ROOT="''${VGGT_ROOT:-$HOME/vggt}"
+            export SUGAR_ROOT="''${SUGAR_ROOT:-$HOME/SuGaR}"
 
             echo ""
             echo "=== backrooms-pipeline dev shell ==="

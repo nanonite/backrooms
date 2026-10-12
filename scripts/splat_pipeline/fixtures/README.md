@@ -78,11 +78,11 @@ difference is that the camera never moved.
 ```bash
 python3 scripts/splat_pipeline/capture_gate.py \
     scripts/splat_pipeline/fixtures/clips/long_walkthrough.mp4 \
-    --json /tmp/long.json
+    --json ${TMPDIR}/redacted
 
 python3 scripts/splat_pipeline/sample_frames.py \
-    scripts/splat_pipeline/fixtures/clips/long_walkthrough.mp4 /tmp/long.json \
-    --out /tmp/long_images
+    scripts/splat_pipeline/fixtures/clips/long_walkthrough.mp4 ${TMPDIR}/redacted \
+    --out ${TMPDIR}/redacted
 ```
 
 The 900-frame clip selects 150 frames — inside the 100–200 small-room
