@@ -1,11 +1,10 @@
 """
 Blender headless cleanup script for Stage M mesh.
 
-Loads a mesh (.ply or .obj), scales to metric, fills non-manifold holes,
-decimates to target triangle count, applies reference textures by face normal
-(for PLY inputs without materials), and exports scene.glb with embedded
-textures. Blender's glTF exporter handles +Z-up -> +Y-up conversion
-automatically — no manual axis rotation needed.
+Loads a mesh (.ply or .obj), scales to metric, optionally fills non-manifold
+holes for untextured PLY inputs, decimates to target triangle count, and exports
+scene.glb. Existing OBJ materials and UVs are preserved. Blender's glTF exporter
+handles +Z-up -> +Y-up conversion automatically — no manual axis rotation needed.
 
 For .obj inputs with materials (e.g. Meshroom texturedMesh.obj + .mtl + textures),
 materials and UVs are preserved through to the exported GLB. External texture
@@ -30,16 +29,16 @@ If --input-mesh is omitted, defaults to <scene-dir>/mesh_raw.ply (COLMAP path).
 The script writes progress and diagnostics to <scene_dir>/blender_cleanup.log
 because snap/flatpak Blender may suppress stdout/stderr.
 
-Textures are expected at <textures-dir>/<scene_name>_<surface>.jpg where
-<scene_name> is the scene_dir basename and <surface> is ceiling/floor/front/side.
-If any required texture is missing the script skips external material assignment
-and keeps existing vertex colors or imported materials.
+Optional reference textures are expected at
+<textures-dir>/<scene_name>_<surface>.jpg where <surface> is ceiling/floor/front/side.
+They are used only for untextured PLY inputs; imported OBJ materials are preserved.
 """
 
 import bpy
 import sys
 import os
 import math
+import json
 import argparse
 from pathlib import Path
 from mathutils import Matrix, Vector
@@ -479,12 +478,30 @@ def export_glb(obj, output_path, target_doorway_height, min_footprint):
     validate_export_bounds(imported, target_doorway_height, min_footprint)
 
 
-def write_scene_transform(output_path, scale_factor):
-    """Write scene_transform.txt recording the scale applied for v2 splat alignment."""
+def source_rotation_for_mesh(input_mesh):
+    """Read the source-to-Y-up rotation emitted alongside a projected OBJ."""
+    report_path = Path(input_mesh).parent / "texture_report.json"
+    if not report_path.is_file():
+        return [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
+    with report_path.open("r", encoding="utf-8") as report_file:
+        report = json.load(report_file)
+    rotation = report.get("source_to_y_up_rotation")
+    if not isinstance(rotation, list) or len(rotation) != 3:
+        raise ValueError(f"invalid source rotation in {report_path}")
+    if any(not isinstance(row, list) or len(row) != 3 for row in rotation):
+        raise ValueError(f"invalid source rotation in {report_path}")
+    if any(not math.isfinite(float(value)) for row in rotation for value in row):
+        raise ValueError(f"non-finite source rotation in {report_path}")
+    return rotation
+
+
+def write_scene_transform(output_path, scale_factor, source_rotation):
+    """Record the baked source-frame rotation and metric scale."""
     with open(output_path, "w") as f:
         f.write("# scene_transform.txt — recorded during Blender cleanup (Stage M)\n")
-        f.write("# Z-up -> Y-up conversion handled by Blender glTF exporter (no manual rotation).\n")
-        f.write("# Scale factor applied to match metric doorway height.\n")
+        f.write("# source_to_y_up is baked into OBJ; Blender import/export converts through internal Z-up.\n")
+        f.write("# Uniform scale matches the cleaned mesh's vertical extent to the doorway-height assumption.\n")
+        f.write("source_to_y_up: " + json.dumps(source_rotation, separators=(",", ":")) + "\n")
         f.write(f"scale: {scale_factor:.6f}\n")
     log(f"  Wrote {output_path}")
 
@@ -513,6 +530,7 @@ def main():
     if not input_mesh.exists():
         log(f"ERROR: input mesh not found at {input_mesh}")
         sys.exit(1)
+    source_rotation = source_rotation_for_mesh(input_mesh)
 
     clear_scene()
 
@@ -524,7 +542,10 @@ def main():
     scale_factor = estimate_scale(obj, doorway_height)
     apply_transform(obj, scale_factor)
 
-    fill_non_manifold(obj)
+    if has_materials:
+        log("Skipping synthetic hole fill to preserve the observed textured boundary.")
+    else:
+        fill_non_manifold(obj)
     decimate(obj, target_tris)
 
     if has_materials:
@@ -543,7 +564,7 @@ def main():
     export_glb(obj, output_glb, doorway_height, min_footprint)
 
     transform_path = scene_dir / "scene_transform.txt"
-    write_scene_transform(transform_path, scale_factor)
+    write_scene_transform(transform_path, scale_factor, source_rotation)
 
     log("=== Done ===")
 

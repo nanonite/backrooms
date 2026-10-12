@@ -2,15 +2,18 @@ extends SceneTree
 
 const DEFAULT_SCENE_PATH := "res://scenes/corridor.tscn"
 const SCREENSHOT_DIR := "res://screenshots"
+const CORRIDOR_PSX_SCENE := "res://scenes/corridor_psx.tscn"
 const CAPTURE_FRAME_COUNT := 5
 const ALIGNMENT_MANIFEST := "res://assets/corridor_splat/alignment_manifest.json"
 const SPLAT_ALIGNMENT := preload("res://scripts/splat_alignment.gd")
 
 var target_scene_path := DEFAULT_SCENE_PATH
+var screenshot_directory := SCREENSHOT_DIR
 
 
 func _init() -> void:
 	target_scene_path = _target_scene_path()
+	screenshot_directory = _target_screenshot_dir()
 	var instance: Node = _load_scene(target_scene_path)
 	if instance == null:
 		quit(1)
@@ -38,9 +41,10 @@ func _init() -> void:
 	# Eye height is a fraction of the clear height rather than the box centre, so
 	# the POV sits inside the room rather than halfway up a wall.
 	var eye_height := bounds.position.y + size.y * 0.5
-	var alignment = SPLAT_ALIGNMENT.new(ALIGNMENT_MANIFEST)
-	if alignment.is_valid() and size.y > 0.0:
-		eye_height = 0.5 * (alignment.floor_height() + alignment.ceiling_height())
+	if _uses_corridor_contract():
+		var alignment = SPLAT_ALIGNMENT.new(ALIGNMENT_MANIFEST)
+		if alignment.is_valid() and size.y > 0.0:
+			eye_height = 0.5 * (alignment.floor_height() + alignment.ceiling_height())
 
 	# Recreate the original video camera path: travel THROUGH the corridor from
 	# inside. Godot's Y is up; the corridor LENGTH is whichever of X/Z has the
@@ -71,6 +75,9 @@ func _init() -> void:
 		_create_perspective_camera("player_pov_reverse", pov_eye_reverse, pov_target_reverse, 75.0),
 		_create_top_down_camera("top_down", center + Vector3(0.0, radius * 1.6, 0.0), center, radius * 1.5),
 	]
+	var source_camera := _source_camera_from_report()
+	if source_camera != null:
+		cameras.append(source_camera)
 	cameras.append_array(_spawn_pov_cameras(instance, eye_height))
 
 	for camera in cameras:
@@ -93,6 +100,17 @@ func _target_scene_path() -> String:
 	return args[0]
 
 
+func _target_screenshot_dir() -> String:
+	var args := OS.get_cmdline_user_args()
+	if args.size() < 2 or args[1].strip_edges() == "":
+		return SCREENSHOT_DIR
+	return args[1]
+
+
+func _uses_corridor_contract() -> bool:
+	return target_scene_path == DEFAULT_SCENE_PATH or target_scene_path == CORRIDOR_PSX_SCENE
+
+
 func _load_scene(scene_path: String) -> Node:
 	var scene: PackedScene = load(scene_path) as PackedScene
 	if scene == null:
@@ -107,10 +125,10 @@ func _load_scene(scene_path: String) -> Node:
 
 
 func _ensure_screenshot_dir() -> bool:
-	var absolute_dir := ProjectSettings.globalize_path(SCREENSHOT_DIR)
+	var absolute_dir := ProjectSettings.globalize_path(screenshot_directory)
 	var error := DirAccess.make_dir_recursive_absolute(absolute_dir)
 	if error != OK:
-		printerr("FAIL: could not create %s (error %d)" % [SCREENSHOT_DIR, error])
+		printerr("FAIL: could not create %s (error %d)" % [screenshot_directory, error])
 		return false
 	return true
 
@@ -121,6 +139,8 @@ func _framing_bounds(instance: Node) -> AABB:
 	## Prefers the alignment manifest's measured room. The raw splat AABB includes
 	## far-field floaters that extend roughly 140 m beyond the room on this asset,
 	## so framing on it places every camera in empty space.
+	if not _uses_corridor_contract():
+		return _scene_bounds(instance)
 	var alignment = SPLAT_ALIGNMENT.new(ALIGNMENT_MANIFEST)
 	if alignment.is_valid():
 		var room: AABB = alignment.observed_bounds()
@@ -138,6 +158,8 @@ func _spawn_pov_cameras(instance: Node, eye_height: float) -> Array:
 	## pair stands where the player actually spawns. The corridor runs along
 	## world X for this asset: the manifest's corridor axis is the export frame's
 	## Y, and `frame_axis_in_world("y")` maps it to world X.
+	if not _uses_corridor_contract():
+		return []
 	var spawn := instance.get_node_or_null("PlayerSpawn") as Node3D
 	if spawn == null:
 		return []
@@ -220,6 +242,33 @@ func _create_top_down_camera(name: String, position: Vector3, target: Vector3, s
 	return camera
 
 
+func _source_camera_from_report() -> Camera3D:
+	if _uses_corridor_contract():
+		return null
+	var path := target_scene_path.get_base_dir().path_join("scene_report.json")
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return null
+	var report: Variant = JSON.parse_string(file.get_as_text())
+	if not report is Dictionary:
+		return null
+	var position := _vector3_from_array(report.get("source_camera_position", []))
+	var forward := _vector3_from_array(report.get("source_camera_forward", []))
+	if forward.length_squared() < 0.9:
+		return null
+	var camera := Camera3D.new()
+	camera.name = "source_camera"
+	camera.fov = 70.0
+	camera.look_at_from_position(position, position + forward, Vector3.UP)
+	return camera
+
+
+func _vector3_from_array(values: Variant) -> Vector3:
+	if values is Array and values.size() == 3:
+		return Vector3(float(values[0]), float(values[1]), float(values[2]))
+	return Vector3.ZERO
+
+
 func _capture(camera: Camera3D) -> bool:
 	camera.current = true
 	for _frame in range(CAPTURE_FRAME_COUNT):
@@ -231,7 +280,7 @@ func _capture(camera: Camera3D) -> bool:
 		printerr("FAIL: empty screenshot for %s" % camera.name)
 		return false
 
-	var path := "%s/%s.png" % [SCREENSHOT_DIR, camera.name]
+	var path := "%s/%s.png" % [screenshot_directory, camera.name]
 	var error := image.save_png(path)
 	if error != OK:
 		printerr("FAIL: could not save %s (error %d)" % [path, error])

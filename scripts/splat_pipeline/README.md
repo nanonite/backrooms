@@ -235,6 +235,26 @@ available for comparison. If the local COLMAP build lacks `delaunay_mesher`,
 route validation to #71 (Meshroom/AliceVision fallback) instead of attempting
 #70 on that build.
 
+PatchMatch neighbors are filtered to images emitted by `image_undistorter`,
+because the source database can include frames absent from the registered sparse
+model. Stereo fusion writes `dense/fused.ply`, which Delaunay consumes directly;
+the Poisson comparison keeps its sampled cloud separate as
+`dense/fused_sampled.ply`. COLMAP 3.10 does not include a mesh texturing command:
+`texture_mesh_from_views.py` therefore projects the registered, undistorted
+source images onto mesh triangles. It uses the dense reconstruction's camera
+poses and intrinsics, rejects occluded projections with ray tests, and chooses
+the most front-facing, image-centered view for each triangle. Faces not observed
+in any registered image are omitted rather than assigned guessed texture; the
+coverage and per-view counts are recorded in `textured_mesh/texture_report.json`.
+The mean registered-camera up direction is used to align source coordinates to
+Y-up before Blender estimates scale; the rotation and camera-up coherence are
+recorded in the report and `scene_transform.txt`. Selected images are copied,
+downscaled to at most 1024 pixels per side, and embedded in the GLB, so it remains
+self-contained after dense intermediates are removed. Blender preserves the UVs
+and materials and skips synthetic hole filling on this textured path, leaving
+unobserved boundaries open. `mesh_raw.ply` remains the geometry-only Delaunay
+artifact.
+
 
 ### Stage B — Usage
 
@@ -490,6 +510,15 @@ scripts/splat_pipeline/mesh_photogrammetry.sh <scene_dir> --fallback meshroom
 |--------|-------|--------|----------|
 | `--mesher delaunay` | Dense COLMAP workspace | `mesh_raw.ply` | Default for interiors; free-space aware |
 | `--mesher poisson` | `dense/fused.ply` | `mesh_raw.ply` | Comparison with the previous reconstruction path |
+
+**Issue #108 result:** the textured Delaunay mesh and separate Godot triangle scene
+were produced from the accepted shared clip, but the candidate is not suitable as
+a walkable scene. Its source-camera render is visibly fragmented, and none of the
+86 registered camera poses have collision-floor support. The locally supported
+Poisson comparison also failed the path-support check. See the [issue #108
+evidence report](../../godot_walk/evidence/2026-10-12-mesh-scene-issue-108/REPORT.md)
+for measurements, commands, and the source-camera render. No Gaussian assets were
+replaced and no unseen geometry was synthesized.
 
 #70 must run on a GPU/display workstation because it re-runs or reuses COLMAP MVS
 and validates screenshots. If `colmap -h` does not list `delaunay_mesher`, skip

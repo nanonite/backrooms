@@ -26,6 +26,7 @@
 #
 # Output (contract):
 #   $scene_dir/mesh_raw.ply        dense MVS mesh, arbitrary frame/scale (M1a/M1b)
+#   $scene_dir/textured_mesh/      source-image textured OBJ + coverage report
 #   $scene_dir/scene.glb           cleaned, Y-up, metric, textured (M1c/M1d)
 #   $scene_dir/scene_transform.txt rotation+scale baked in Blender, for v2 splat (M1d)
 #
@@ -62,7 +63,9 @@ Environment:
                          See environment/meshroom.md.
   TEXTURES_DIR           Optional override for external texture directory
                          (<scene>_{ceiling,floor,front,side}.jpg or .png).
-                         Mesh keeps vertex colors when textures are absent.
+                         Used only by non-photogrammetry inputs without materials.
+  MESH_MIN_FOOTPRINT     Minimum accepted horizontal GLB footprint in metres
+                         (default: 1.5; use a value grounded in the player capsule).
 
   Exit codes:
   0 success  1 usage  2 missing deps  3 bad input  4 pipeline failed  5 blender failed
@@ -152,6 +155,9 @@ command -v "$BLENDER_BIN" >/dev/null 2>&1 \
 # vertex colors when external textures are absent).
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+TEXTURE_MESH_SCRIPT="${TEXTURE_MESH_SCRIPT:-$SCRIPT_DIR/texture_mesh_from_views.py}"
+STAGE_MESH_SCENE_SCRIPT="${STAGE_MESH_SCENE_SCRIPT:-$SCRIPT_DIR/stage_mesh_scene.py}"
+GODOT_PROJECT_DIR="${GODOT_PROJECT_DIR:-$REPO_ROOT/godot_walk}"
 TEXTURES_DIR="${TEXTURES_DIR:-$REPO_ROOT/data/textures}"
 
 echo "Dependency + input contract satisfied."
@@ -189,43 +195,19 @@ if [[ "$BACKEND" == "colmap" ]]; then
         || die 4 "image_undistorter failed."
 
     echo "--- Build patch-match.cfg from database matches ---"
-    python3 - "$DENSE_DIR" "$DATABASE_PATH" <<'PYEOF' || die 4 "Failed to build patch-match.cfg."
-import sys, sqlite3, os
-dense_stereo = os.path.join(sys.argv[1], 'stereo')
-db = sqlite3.connect(sys.argv[2])
-img_map = {}
-for row in db.execute("SELECT image_id, name FROM images ORDER BY image_id"):
-    img_map[row[0]] = row[1]
-BASE = 2147483647
-neighbors = {name: [] for name in img_map.values()}
-for row in db.execute("SELECT pair_id, rows FROM two_view_geometries"):
-    pid, num = row
-    i2 = pid % BASE
-    i1 = pid // BASE
-    if i1 in img_map and i2 in img_map:
-        n1, n2 = img_map[i1], img_map[i2]
-        neighbors[n1].append((n2, num))
-        neighbors[n2].append((n1, num))
-MAX_NBR = 10
-with open(os.path.join(dense_stereo, 'patch-match.cfg'), 'w') as f:
-    for img_name in sorted(neighbors.keys()):
-        nbrs = sorted(neighbors[img_name], key=lambda x: -x[1])[:MAX_NBR]
-        if not nbrs:
-            continue
-        f.write(f"{img_name}\n")
-        f.write(", ".join(n[0] for n in nbrs) + "\n")
-db.close()
-PYEOF
-    echo "  patch-match.cfg written with explicit neighbors."
+    python3 "$SCRIPT_DIR/build_patch_match_config.py" \
+        --dense-dir "$DENSE_DIR" \
+        --database "$DATABASE_PATH" \
+        || die 4 "Failed to build patch-match.cfg."
 
     echo "--- Patch match stereo ---"
     colmap patch_match_stereo \
         --workspace_path "$DENSE_DIR" \
         --PatchMatchStereo.window_radius 5 \
         --PatchMatchStereo.window_step 2 \
-        --PatchMatchStereo.geom_consistency true \
-        --PatchMatchStereo.filter true \
-        --PatchMatchStereo.write_consistency_graph true \
+        --PatchMatchStereo.geom_consistency 1 \
+        --PatchMatchStereo.filter 1 \
+        --PatchMatchStereo.write_consistency_graph 1 \
         || die 4 "patch_match_stereo failed."
 
     FUSION_MIN_PIXELS="${FUSION_MIN_PIXELS:-3}"
@@ -236,7 +218,7 @@ PYEOF
     echo "--- Stereo fusion ---"
     colmap stereo_fusion \
         --workspace_path "$DENSE_DIR" \
-        --output_path "$DENSE_DIR/fused_full.ply" \
+        --output_path "$DENSE_DIR/fused.ply" \
         --StereoFusion.min_num_pixels "$FUSION_MIN_PIXELS" \
         --StereoFusion.max_reproj_error "$FUSION_MAX_REPROJ_ERROR" \
         --StereoFusion.max_depth_error "$FUSION_MAX_DEPTH_ERROR" \
@@ -256,8 +238,8 @@ PYEOF
         python3 - "$DENSE_DIR" <<'PYEOF' || die 4 "Subsampling failed."
 import sys, struct, os, numpy as np
 dense = sys.argv[1]
-fused = os.path.join(dense, 'fused_full.ply')
-output = os.path.join(dense, 'fused.ply')
+fused = os.path.join(dense, 'fused.ply')
+output = os.path.join(dense, 'fused_sampled.ply')
 if not os.path.exists(fused):
     sys.exit(1)
 with open(fused, 'rb') as f:
@@ -296,7 +278,7 @@ PYEOF
 
         echo "--- Poisson meshing ---"
         colmap poisson_mesher \
-            --input_path "$DENSE_DIR/fused.ply" \
+            --input_path "$DENSE_DIR/fused_sampled.ply" \
             --output_path "$SCENE_DIR/mesh_raw.ply" \
             --PoissonMeshing.depth 10 \
             --PoissonMeshing.trim 7 \
@@ -306,12 +288,24 @@ PYEOF
     echo "COLMAP dense complete: $SCENE_DIR/mesh_raw.ply"
 
     echo
+    echo "--- Project registered source images onto visible mesh triangles ---"
+    TEXTURED_MESH_DIR="$SCENE_DIR/textured_mesh"
+    python3 "$TEXTURE_MESH_SCRIPT" \
+        --mesh "$SCENE_DIR/mesh_raw.ply" \
+        --reconstruction "$DENSE_DIR/sparse" \
+        --images "$DENSE_DIR/images" \
+        --output "$TEXTURED_MESH_DIR" \
+        || die 4 "Source-image mesh texturing failed. See $TEXTURED_MESH_DIR/texture_report.json"
+
+    echo
     echo "--- Blender cleanup + glTF export ---"
     "$BLENDER_BIN" --background \
         --python "$SCRIPT_DIR/blender_cleanup_mesh.py" -- \
         --scene-dir "$SCENE_DIR" \
+        --input-mesh "$TEXTURED_MESH_DIR/mesh.obj" \
         --textures-dir "$TEXTURES_DIR" \
-        --target-tris "${MESH_TARGET_TRIS:-500000}" \
+      --target-tris "${MESH_TARGET_TRIS:-500000}" \
+      --min-footprint "${MESH_MIN_FOOTPRINT:-1.5}" \
         || die 5 "Blender cleanup failed. See $SCENE_DIR/blender_cleanup.log"
 
     if [[ ! -f "$SCENE_DIR/scene.glb" ]]; then
@@ -327,6 +321,12 @@ PYEOF
         die 5 "scene_transform.txt not found"
     fi
     echo "scene_transform.txt written."
+
+    python3 "$STAGE_MESH_SCENE_SCRIPT" \
+        --scene-dir "$SCENE_DIR" \
+        --project-dir "$GODOT_PROJECT_DIR" \
+        --scene-name "${GODOT_SCENE_NAME:-$(basename "$SCENE_DIR")}" \
+        || die 5 "Could not stage the distinct Godot mesh scene."
 
     if ! $KEEP_DENSE; then
         rm -rf "$DENSE_DIR"
@@ -429,6 +429,7 @@ PYEOF
         --input-mesh "$BLENDER_INPUT_MESH" \
         --textures-dir "$TEXTURES_DIR" \
         --target-tris "${MESH_TARGET_TRIS:-500000}" \
+        --min-footprint "${MESH_MIN_FOOTPRINT:-1.5}" \
         || die 5 "Blender cleanup failed. See $SCENE_DIR/blender_cleanup.log"
 
     if [[ ! -f "$SCENE_DIR/scene.glb" ]]; then

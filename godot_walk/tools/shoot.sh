@@ -9,6 +9,7 @@ set -euo pipefail
 SCENE_PATH="${1:-res://scenes/corridor.tscn}"
 GODOT_BIN="${GODOT_BIN:-godot4}"
 RESOLUTION="${SHOT_RESOLUTION:-1280x720}"
+SHOT_OUTPUT_DIR="${SHOT_OUTPUT_DIR:-res://screenshots}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 SCREENSHOT_DIR="$PROJECT_DIR/screenshots"
@@ -23,6 +24,7 @@ Usage: shoot.sh [scene_path]
 Environment:
   GODOT_BIN          Godot executable to run (default: godot4)
   SHOT_RESOLUTION    Render resolution, WIDTHxHEIGHT (default: 1280x720)
+  SHOT_OUTPUT_DIR    Godot resource directory for screenshots (default: res://screenshots)
 EOF
 }
 
@@ -42,7 +44,7 @@ run_with_display() {
         --rendering-driver "$driver"
         --resolution "$RESOLUTION"
         --script res://scripts/screenshot_scene.gd
-        -- "$SCENE_PATH"
+        -- "$SCENE_PATH" "$SHOT_OUTPUT_DIR"
     )
 
     if [[ -z "${DISPLAY:-}" ]]; then

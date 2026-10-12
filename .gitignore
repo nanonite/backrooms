@@ -39,6 +39,7 @@ archive/
 
 # Godot per-machine import cache (also covered by godot_walk/.gitignore)
 godot_walk/.godot/
+godot_walk/generated_mesh_scenes/
 
 # Nix build result symlinks
 /result

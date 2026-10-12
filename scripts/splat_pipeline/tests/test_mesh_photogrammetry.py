@@ -42,12 +42,21 @@ value_after() {
 case "$1" in
     feature_extractor)
         db_path="$(value_after --database_path "$@")"
-        python3 - "$db_path" <<'PYEOF'
+        image_path="$(value_after --image_path "$@")"
+        python3 - "$db_path" "$image_path" <<'PYEOF'
 import sqlite3
 import sys
+from pathlib import Path
 conn = sqlite3.connect(sys.argv[1])
 conn.execute("CREATE TABLE IF NOT EXISTS images (image_id INTEGER PRIMARY KEY, name TEXT)")
 conn.execute("CREATE TABLE IF NOT EXISTS two_view_geometries (pair_id INTEGER, rows INTEGER)")
+names = sorted(path.name for path in Path(sys.argv[2]).iterdir())
+conn.executemany(
+    "INSERT INTO images (image_id, name) VALUES (?, ?)",
+    [(index, name) for index, name in enumerate(names, start=1)],
+)
+if len(names) > 1:
+    conn.execute("INSERT INTO two_view_geometries VALUES (?, ?)", (2147483647 + 2, 100))
 conn.commit()
 conn.close()
 PYEOF
@@ -56,7 +65,9 @@ PYEOF
         ;;
     image_undistorter)
         dense_dir="$(value_after --output_path "$@")"
-        mkdir -p "$dense_dir/stereo"
+        image_dir="$(value_after --image_path "$@")"
+        mkdir -p "$dense_dir/stereo" "$dense_dir/images"
+        cp "$image_dir"/* "$dense_dir/images/"
         ;;
     patch_match_stereo)
         ;;
@@ -76,8 +87,16 @@ with open(sys.argv[1], "wb") as handle:
     handle.write(struct.pack("<ffffffBBB", 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 255, 255, 255))
 PYEOF
         ;;
-    delaunay_mesher|poisson_mesher)
+    delaunay_mesher)
         output_path="$(value_after --output_path "$@")"
+        input_path="$(value_after --input_path "$@")"
+        [[ -s "$input_path/fused.ply" ]] || { echo "missing fused.ply" >&2; exit 1; }
+        printf 'ply\n' > "$output_path"
+        ;;
+    poisson_mesher)
+        output_path="$(value_after --output_path "$@")"
+        input_path="$(value_after --input_path "$@")"
+        [[ -s "$input_path" ]] || { echo "missing sampled cloud" >&2; exit 1; }
         printf 'ply\n' > "$output_path"
         ;;
     *)
@@ -90,10 +109,15 @@ esac
 _BLENDER_STUB = r"""#!/bin/bash
 set -euo pipefail
 scene_dir=""
+input_mesh=""
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --scene-dir)
             scene_dir="$2"
+            shift 2
+            ;;
+        --input-mesh)
+            input_mesh="$2"
             shift 2
             ;;
         *)
@@ -105,8 +129,38 @@ if [[ -z "$scene_dir" ]]; then
     echo "blender stub: missing --scene-dir" >&2
     exit 1
 fi
+if [[ -z "$input_mesh" || ! -s "$input_mesh" ]]; then
+    echo "blender stub: missing textured input mesh" >&2
+    exit 1
+fi
 printf 'glb' > "$scene_dir/scene.glb"
 printf 'identity\n' > "$scene_dir/scene_transform.txt"
+"""
+
+_TEXTURE_STUB = r"""import argparse
+from pathlib import Path
+
+parser = argparse.ArgumentParser()
+for option in ("--mesh", "--reconstruction", "--images", "--output"):
+    parser.add_argument(option, required=True)
+args = parser.parse_args()
+output = Path(args.output)
+output.mkdir(parents=True, exist_ok=True)
+(output / "mesh.obj").write_text("mtllib mesh.mtl\nv 0 0 0\n", encoding="utf-8")
+(output / "mesh.mtl").write_text("newmtl view\n", encoding="utf-8")
+"""
+
+_STAGE_SCENE_STUB = r"""import argparse
+from pathlib import Path
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--scene-dir", required=True)
+parser.add_argument("--project-dir", required=True)
+parser.add_argument("--scene-name", required=True)
+args = parser.parse_args()
+output = Path(args.project_dir) / "generated_mesh_scenes" / args.scene_name
+output.mkdir(parents=True, exist_ok=True)
+(output / "scene.tscn").write_text("[gd_scene load_steps=1 format=3]\n", encoding="utf-8")
 """
 
 
@@ -127,17 +181,27 @@ def _make_stub_env(tmp_path: Path) -> dict:
     bin_dir.mkdir()
     _write_stub(bin_dir, "colmap", _COLMAP_STUB)
     blender_bin = _write_stub(bin_dir, "blender", _BLENDER_STUB)
+    texture_stub = tmp_path / "texture_stub.py"
+    texture_stub.write_text(_TEXTURE_STUB)
+    stage_stub = tmp_path / "stage_scene_stub.py"
+    stage_stub.write_text(_STAGE_SCENE_STUB)
     env = os.environ.copy()
     env["PATH"] = f"{bin_dir}:{env.get('PATH', '')}"
     env["BLENDER_BIN"] = str(blender_bin)
+    env["TEXTURE_MESH_SCRIPT"] = str(texture_stub)
+    env["STAGE_MESH_SCENE_SCRIPT"] = str(stage_stub)
+    env["GODOT_PROJECT_DIR"] = str(tmp_path / "godot_walk")
     env["COLMAP_LOG"] = str(tmp_path / "colmap.log")
     return env
 
 
 def _make_scene_dir(tmp_path: Path) -> Path:
     scene_dir = tmp_path / "scene"
-    (scene_dir / "images").mkdir(parents=True)
-    (scene_dir / "images/frame_0001.jpg").write_text("fake image")
+    images_dir = scene_dir / "images"
+    images_dir.mkdir(parents=True)
+    names = ["frame_0001.jpg", "frame_0002.jpg"]
+    for name in names:
+        (images_dir / name).write_text("fake image")
     sparse_dir = scene_dir / "sparse/0"
     sparse_dir.mkdir(parents=True)
     (sparse_dir / "cameras.bin").write_bytes(b"fake cameras")
@@ -183,6 +247,8 @@ class TestColmapMesherSelection:
         assert "delaunay_mesher" in log
         assert "poisson_mesher" not in log
         assert "Mesher:   delaunay" in stdout
+        assert (scene_dir / "textured_mesh/mesh.obj").is_file()
+        assert (tmp_path / "godot_walk/generated_mesh_scenes/scene/scene.tscn").is_file()
 
     def test_poisson_flag_keeps_previous_mesher(self, tmp_path):
         scene_dir = _make_scene_dir(tmp_path)
@@ -193,6 +259,7 @@ class TestColmapMesherSelection:
         assert "poisson_mesher" in log
         assert "delaunay_mesher" not in log
         assert "Mesher:   poisson" in stdout
+        assert (scene_dir / "textured_mesh/mesh.obj").is_file()
 
     def test_stereo_fusion_uses_tightened_defaults(self, tmp_path):
         scene_dir = _make_scene_dir(tmp_path)
@@ -205,6 +272,8 @@ class TestColmapMesherSelection:
         assert "--StereoFusion.max_depth_error 0.01" in log
         assert "--StereoFusion.max_normal_error 30" in log
         assert "--StereoFusion.check_num_images 3" in log
+        assert "--PatchMatchStereo.geom_consistency 1" in log
+        assert "--PatchMatchStereo.filter 1" in log
 
     def test_stereo_fusion_env_overrides(self, tmp_path):
         scene_dir = _make_scene_dir(tmp_path)

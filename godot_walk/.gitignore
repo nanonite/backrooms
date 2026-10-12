@@ -9,3 +9,6 @@ export_presets.cfg
 # Screenshot harness output
 /screenshots/*
 !/screenshots/.gitkeep
+
+# Generated photogrammetry mesh scenes and imported assets
+/generated_mesh_scenes/
