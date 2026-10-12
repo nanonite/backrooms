@@ -21,6 +21,9 @@ extends SceneTree
 ##                              (#103 measured it: frame 5 differs from frame 150
 ##                              on 27% of pixels, frame 150 == frame 300), so
 ##                              splat evidence must pass a larger value.
+##   --camera-position=x,y,z    explicit world-space eye position; permits
+##                              matched captures in scenes without PlayerSpawn.
+##   --camera-yaw-deg=N          rotate the 8-heading compass around world up.
 ##   --splat=res://path.ply     swap the scene's splat resource for an ablation
 ##   --splat-translation=x,y,z  candidate; both are required together, because
 ##                              GDGS re-centres each PLY at import and only the
@@ -29,12 +32,17 @@ extends SceneTree
 const DEFAULT_SCENE := "res://scenes/corridor_psx.tscn"
 const OUT_DIR := "res://evidence/walk_envelope"
 const SETTLE_FRAMES := 5
+const MAX_CAMERA_COORDINATE_METERS := 100000.0
+const MAX_CAMERA_YAW_DEGREES := 360000.0
 ## Node that carries the splat resource in every corridor scene.
 const SPLAT_NODE_NAME := "CorridorSplatNode"
 
 var scene_path := DEFAULT_SCENE
 var out_dir := OUT_DIR
 var settle_frames := SETTLE_FRAMES
+var camera_position := Vector3.ZERO
+var has_camera_position := false
+var camera_yaw_degrees := 0.0
 ## Optional #103 ablation override: swap the scene's splat resource (and the
 ## node origin that keeps the world fixed) without authoring another scene.
 var splat_override_path := ""
@@ -51,6 +59,22 @@ func _init() -> void:
 			out_dir = arg.split("=")[1]
 		elif arg.begins_with("--settle="):
 			settle_frames = maxi(0, int(arg.split("=")[1]))
+		elif arg.begins_with("--camera-position="):
+			if not _parse_camera_position(arg.get_slice("=", 1)):
+				printerr("FAIL: --camera-position expects finite x,y,z coordinates")
+				quit(1)
+				return
+		elif arg.begins_with("--camera-yaw-deg="):
+			var yaw_text := arg.get_slice("=", 1)
+			if not yaw_text.is_valid_float():
+				printerr("FAIL: --camera-yaw-deg expects a finite number")
+				quit(1)
+				return
+			camera_yaw_degrees = float(yaw_text)
+			if not absf(camera_yaw_degrees) <= MAX_CAMERA_YAW_DEGREES:
+				printerr("FAIL: --camera-yaw-deg is outside the supported range")
+				quit(1)
+				return
 		elif arg.begins_with("--splat="):
 			splat_override_path = arg.split("=")[1]
 		elif arg.begins_with("--splat-translation="):
@@ -78,8 +102,8 @@ func _init() -> void:
 	await process_frame
 
 	var spawn := instance.get_node_or_null("PlayerSpawn") as Node3D
-	if spawn == null:
-		printerr("FAIL: no PlayerSpawn in %s" % scene_path)
+	if spawn == null and not has_camera_position:
+		printerr("FAIL: no PlayerSpawn in %s; pass --camera-position for a matched view" % scene_path)
 		quit(1)
 		return
 
@@ -91,14 +115,17 @@ func _init() -> void:
 	# always renders what the player actually sees. The Head offset lives in
 	# player.tscn (0.5 m above the capsule centre); hardcoding it here drifted
 	# once already (the legacy 1.6 m value put the camera inside the ceiling).
-	var player := instance.get_node_or_null("Player") as Node3D
-	var eye_height := spawn.global_position.y + 0.5
-	if player != null:
-		var head := player.get_node_or_null("Head") as Node3D
-		if head != null:
-			eye_height = head.global_position.y
-		else:
-			eye_height = player.global_position.y + 0.5
+	var eye := camera_position
+	if not has_camera_position:
+		var player := instance.get_node_or_null("Player") as Node3D
+		var eye_height := spawn.global_position.y + 0.5
+		if player != null:
+			var head := player.get_node_or_null("Head") as Node3D
+			if head != null:
+				eye_height = head.global_position.y
+			else:
+				eye_height = player.global_position.y + 0.5
+		eye = Vector3(spawn.global_position.x, eye_height, spawn.global_position.z)
 
 	var headings := [
 		["e", Vector3(1.0, 0.0, 0.0)],
@@ -117,7 +144,7 @@ func _init() -> void:
 	for heading in headings:
 		var name: String = heading[0]
 		var direction: Vector3 = heading[1]
-		var eye := Vector3(spawn.global_position.x, eye_height, spawn.global_position.z)
+		direction = direction.rotated(Vector3.UP, deg_to_rad(camera_yaw_degrees))
 		var camera := Camera3D.new()
 		camera.name = "pov_%s" % name
 		camera.fov = 75.0
@@ -129,6 +156,24 @@ func _init() -> void:
 
 	print("OK: wrote %d heading captures to %s" % [headings.size(), dir_path])
 	quit(0)
+
+
+func _parse_camera_position(value: String) -> bool:
+	var parts := value.split(",", false)
+	if parts.size() != 3:
+		return false
+	var coordinates: Array[float] = []
+	for part in parts:
+		var coordinate_text := part.strip_edges()
+		if not coordinate_text.is_valid_float():
+			return false
+		var coordinate := float(coordinate_text)
+		if not absf(coordinate) <= MAX_CAMERA_COORDINATE_METERS:
+			return false
+		coordinates.append(coordinate)
+	camera_position = Vector3(coordinates[0], coordinates[1], coordinates[2])
+	has_camera_position = true
+	return true
 
 
 func _apply_splat_override(instance: Node) -> bool:
