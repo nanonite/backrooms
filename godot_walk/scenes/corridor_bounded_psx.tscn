@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/corridor_psx.tscn" id="1_baseline"]
+[ext_resource type="Script" path="res://scripts/bounded_psx_shell.gd" id="2_shell"]
+
+[node name="CorridorBoundedPsx" instance=ExtResource("1_baseline")]
+
+[node name="AuthoredBoundaries" type="Node3D" parent="."]
+script = ExtResource("2_shell")
