@@ -1,0 +1,122 @@
+[
+  {
+    "point": "x0.50_z1.70",
+    "heading": "e",
+    "authored_depth_reject_pct": 44.203
+  },
+  {
+    "point": "x0.50_z1.70",
+    "heading": "ne",
+    "authored_depth_reject_pct": 56.577
+  },
+  {
+    "point": "x0.50_z1.70",
+    "heading": "n",
+    "authored_depth_reject_pct": 67.7
+  },
+  {
+    "point": "x0.50_z1.70",
+    "heading": "nw",
+    "authored_depth_reject_pct": 72.54
+  },
+  {
+    "point": "x0.50_z1.70",
+    "heading": "w",
+    "authored_depth_reject_pct": 54.532
+  },
+  {
+    "point": "x0.50_z1.70",
+    "heading": "sw",
+    "authored_depth_reject_pct": 55.031
+  },
+  {
+    "point": "x0.50_z1.70",
+    "heading": "s",
+    "authored_depth_reject_pct": 28.3
+  },
+  {
+    "point": "x0.50_z1.70",
+    "heading": "se",
+    "authored_depth_reject_pct": 33.61
+  },
+  {
+    "point": "x0.50_z2.90",
+    "heading": "e",
+    "authored_depth_reject_pct": 50.12
+  },
+  {
+    "point": "x0.50_z2.90",
+    "heading": "ne",
+    "authored_depth_reject_pct": 62.983
+  },
+  {
+    "point": "x0.50_z2.90",
+    "heading": "n",
+    "authored_depth_reject_pct": 45.826
+  },
+  {
+    "point": "x0.50_z2.90",
+    "heading": "nw",
+    "authored_depth_reject_pct": 74.727
+  },
+  {
+    "point": "x0.50_z2.90",
+    "heading": "w",
+    "authored_depth_reject_pct": 65.27
+  },
+  {
+    "point": "x0.50_z2.90",
+    "heading": "sw",
+    "authored_depth_reject_pct": 65.569
+  },
+  {
+    "point": "x0.50_z2.90",
+    "heading": "s",
+    "authored_depth_reject_pct": 47.91
+  },
+  {
+    "point": "x0.50_z2.90",
+    "heading": "se",
+    "authored_depth_reject_pct": 36.532
+  },
+  {
+    "point": "x-0.65_z2.90",
+    "heading": "e",
+    "authored_depth_reject_pct": 47.174
+  },
+  {
+    "point": "x-0.65_z2.90",
+    "heading": "ne",
+    "authored_depth_reject_pct": 60.219
+  },
+  {
+    "point": "x-0.65_z2.90",
+    "heading": "n",
+    "authored_depth_reject_pct": 48.195
+  },
+  {
+    "point": "x-0.65_z2.90",
+    "heading": "nw",
+    "authored_depth_reject_pct": 60.17
+  },
+  {
+    "point": "x-0.65_z2.90",
+    "heading": "w",
+    "authored_depth_reject_pct": 75.24
+  },
+  {
+    "point": "x-0.65_z2.90",
+    "heading": "sw",
+    "authored_depth_reject_pct": 71.054
+  },
+  {
+    "point": "x-0.65_z2.90",
+    "heading": "s",
+    "authored_depth_reject_pct": 58.236
+  },
+  {
+    "point": "x-0.65_z2.90",
+    "heading": "se",
+    "authored_depth_reject_pct": 35.701
+  }
+]

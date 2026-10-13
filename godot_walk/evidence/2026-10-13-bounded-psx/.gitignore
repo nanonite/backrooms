@@ -1,0 +1,7 @@
+*.import
+shell_v1/
+shell_v2/
+shell_v3/
+shell_v3_sweep/
+sweep_baseline/*.png
+sweep_candidate/*.png

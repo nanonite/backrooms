@@ -1,0 +1,3458 @@
+[
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw14_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw29_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw44_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw59_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw74_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw89_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw104_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw119_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw134_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw149_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw164_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw179_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw194_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw209_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw224_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw239_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw254_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw269_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw284_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw299_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw314_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw329_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw344_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw359_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_0",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw14_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw29_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw44_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw59_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw74_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw89_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw104_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw119_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw134_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw149_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw164_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw179_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw194_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw209_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw224_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw239_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw254_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw269_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw284_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw299_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw314_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw329_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw344_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw359_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_0",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw14_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw29_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw44_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw59_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw74_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw89_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw104_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw119_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw134_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw149_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw164_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw179_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw194_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw209_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw224_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw239_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw254_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw269_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw284_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw299_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw314_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw329_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw344_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0930071473121643,
+			1.63020849227905
+		],
+		"filename": "boundary_0_yaw359_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_0",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw14_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw29_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw44_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw59_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw74_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw89_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw104_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw119_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw134_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw149_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw164_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw179_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw194_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw209_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw224_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw239_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw254_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw269_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw284_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw299_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw314_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw329_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw344_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw359_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_2",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw14_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw29_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw44_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw59_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw74_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw89_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw104_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw119_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw134_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw149_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw164_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw179_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw194_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw209_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw224_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw239_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw254_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw269_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw284_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw299_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw314_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw329_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw344_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw359_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_2",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw14_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw29_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw44_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw59_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw74_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw89_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw104_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw119_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw134_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw149_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw164_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw179_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw194_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw209_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw224_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw239_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw254_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw269_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw284_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw299_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw314_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw329_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw344_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			-0.919977128505707,
+			-0.0427809357643127,
+			2.60003685951233
+		],
+		"filename": "boundary_2_yaw359_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_2",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw14_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw29_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw44_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw59_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw74_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw89_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw104_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw119_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw134_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw149_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw164_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw179_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw194_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw209_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw224_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw239_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw254_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw269_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw284_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw299_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw314_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw329_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw344_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw359_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_4",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw14_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw29_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw44_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw59_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw74_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw89_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw104_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw119_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw134_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw149_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw164_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw179_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw194_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw209_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw224_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw239_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw254_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw269_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw284_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw299_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw314_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw329_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw344_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw359_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_4",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw14_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw29_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw44_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw59_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw74_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw89_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw104_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw119_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw134_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw149_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw164_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw179_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw194_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw209_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw224_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw239_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw254_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw269_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw284_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw299_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw314_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw329_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw344_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0428826212882996,
+			3.02016091346741
+		],
+		"filename": "boundary_4_yaw359_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_4",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw14_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw29_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw44_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw59_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw74_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw89_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw104_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw119_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw134_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw149_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw164_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw179_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw194_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw209_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw224_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw239_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw254_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw269_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw284_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw299_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw314_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw329_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw344_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw359_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "boundary_7",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw14_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw29_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw44_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw59_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw74_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw89_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw104_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw119_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw134_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw149_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw164_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw179_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw194_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw209_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw224_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw239_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw254_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw269_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw284_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw299_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw314_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw329_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw344_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw359_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "boundary_7",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw14_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw29_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw44_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw59_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw74_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw89_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw104_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw119_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw134_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw149_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw164_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw179_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw194_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw209_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw224_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw239_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw254_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw269_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw284_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw299_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw314_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw329_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw344_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			0.86905711889267,
+			-0.0921660661697388,
+			1.63012278079987
+		],
+		"filename": "boundary_7_yaw359_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "boundary_7",
+		"yaw": 359
+	}
+]

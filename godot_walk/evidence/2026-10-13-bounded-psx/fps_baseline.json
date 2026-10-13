@@ -1,0 +1,9 @@
+{
+	"baseline": true,
+	"elapsed_s": 2.146273,
+	"fps": 1537.08312036726,
+	"frames": 3299,
+	"p95_frame_ms": 0.867,
+	"p99_frame_ms": 0.946,
+	"poses": 11
+}

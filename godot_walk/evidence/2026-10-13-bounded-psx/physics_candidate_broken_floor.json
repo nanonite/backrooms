@@ -1,0 +1,177 @@
+{
+	"boundary_pushes": {
+		"0": {
+			"end": [
+				0.5,
+				-2.14254927635193,
+				-2.65625047683716
+			],
+			"trace": {
+				"distance_m": 5.18958377838135,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666667222976685,
+				"safety_contacts": 78,
+				"support_bodies": {
+					"SafetyNet": 78
+				},
+				"ticks": 240
+			}
+		},
+		"1": {
+			"end": [
+				-0.954690456390381,
+				-2.14238882064819,
+				-2.6561598777771
+			],
+			"trace": {
+				"distance_m": 5.79058841988444,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666667073965073,
+				"safety_contacts": 107,
+				"support_bodies": {
+					"SafetyNet": 107
+				},
+				"ticks": 240
+			}
+		},
+		"2": {
+			"end": [
+				-0.955468714237213,
+				-2.14254927635193,
+				2.59999990463257
+			],
+			"trace": {
+				"distance_m": 1.38880205154419,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666666924953461,
+				"safety_contacts": 21,
+				"support_bodies": {
+					"SafetyNet": 21
+				},
+				"ticks": 240
+			}
+		},
+		"3": {
+			"end": [
+				-0.956199467182159,
+				-2.14221501350403,
+				3.05469083786011
+			],
+			"trace": {
+				"distance_m": 1.57443216443062,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666665956377983,
+				"safety_contacts": 26,
+				"support_bodies": {
+					"SafetyNet": 26
+				},
+				"ticks": 240
+			}
+		},
+		"4": {
+			"end": [
+				0.5,
+				-2.14254927635193,
+				3.05546832084656
+			],
+			"trace": {
+				"distance_m": 0.38880181312561,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666666030883789,
+				"safety_contacts": 6,
+				"support_bodies": {
+					"SafetyNet": 6
+				},
+				"ticks": 240
+			}
+		},
+		"5": {
+			"end": [
+				5.63831090927124,
+				-2.14204978942871,
+				3.05469083786011
+			],
+			"trace": {
+				"distance_m": 5.25654370710254,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666666179895401,
+				"safety_contacts": 105,
+				"support_bodies": {
+					"SafetyNet": 105
+				},
+				"ticks": 240
+			}
+		},
+		"6": {
+			"end": [
+				5.65598726272583,
+				-2.14254927635193,
+				2.59999990463257
+			],
+			"trace": {
+				"distance_m": 5.08932060003281,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.066666841506958,
+				"safety_contacts": 77,
+				"support_bodies": {
+					"SafetyNet": 77
+				},
+				"ticks": 240
+			}
+		},
+		"7": {
+			"end": [
+				5.65472030639648,
+				-2.14216828346252,
+				-2.65579152107239
+			],
+			"trace": {
+				"distance_m": 7.32036183215678,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666667893528938,
+				"safety_contacts": 111,
+				"support_bodies": {
+					"SafetyNet": 111
+				},
+				"ticks": 240
+			}
+		}
+	},
+	"failures": [
+		"Support, safety or step gate failed: { \"ticks\": 65, \"floor_fraction\": 1.0, \"distance_m\": 4.26666743308306, \"max_step_m\": 0.06666673719883, \"safety_contacts\": 65, \"support_bodies\": { \"SafetyNet\": 65 } }",
+		"No generated floor support observed",
+		"Escaped bounded envelope",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 1.0, \"distance_m\": 5.18958377838135, \"max_step_m\": 0.06666672229767, \"safety_contacts\": 78, \"support_bodies\": { \"SafetyNet\": 78 } }",
+		"No generated floor support observed",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 1.0, \"distance_m\": 5.79058841988444, \"max_step_m\": 0.06666670739651, \"safety_contacts\": 107, \"support_bodies\": { \"SafetyNet\": 107 } }",
+		"No generated floor support observed",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 1.0, \"distance_m\": 1.38880205154419, \"max_step_m\": 0.06666669249535, \"safety_contacts\": 21, \"support_bodies\": { \"SafetyNet\": 21 } }",
+		"No generated floor support observed",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 1.0, \"distance_m\": 1.57443216443062, \"max_step_m\": 0.0666665956378, \"safety_contacts\": 26, \"support_bodies\": { \"SafetyNet\": 26 } }",
+		"No generated floor support observed",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 1.0, \"distance_m\": 0.38880181312561, \"max_step_m\": 0.06666660308838, \"safety_contacts\": 6, \"support_bodies\": { \"SafetyNet\": 6 } }",
+		"No generated floor support observed",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 1.0, \"distance_m\": 5.25654370710254, \"max_step_m\": 0.06666661798954, \"safety_contacts\": 105, \"support_bodies\": { \"SafetyNet\": 105 } }",
+		"No generated floor support observed",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 1.0, \"distance_m\": 5.08932060003281, \"max_step_m\": 0.06666684150696, \"safety_contacts\": 77, \"support_bodies\": { \"SafetyNet\": 77 } }",
+		"No generated floor support observed",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 1.0, \"distance_m\": 7.32036183215678, \"max_step_m\": 0.06666678935289, \"safety_contacts\": 111, \"support_bodies\": { \"SafetyNet\": 111 } }",
+		"No generated floor support observed"
+	],
+	"out_and_back": {
+		"distance_m": 4.26666743308306,
+		"floor_fraction": 1.0,
+		"max_step_m": 0.0666667371988297,
+		"safety_contacts": 65,
+		"support_bodies": {
+			"SafetyNet": 65
+		},
+		"ticks": 65
+	},
+	"scene": "res://scenes/corridor_bounded_psx.tscn",
+	"spawn_eye": [
+		-0.651324987411499,
+		-1.64282870292664,
+		2.8875470161438
+	]
+}

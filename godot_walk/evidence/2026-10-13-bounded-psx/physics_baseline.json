@@ -1,0 +1,19 @@
+{
+	"failures": [],
+	"out_and_back": {
+		"distance_m": 4.30767879262567,
+		"floor_fraction": 1.0,
+		"max_step_m": 0.0686629712581635,
+		"safety_contacts": 0,
+		"support_bodies": {
+			"GeneratedCollision": 63
+		},
+		"ticks": 66
+	},
+	"scene": "res://scenes/corridor_psx.tscn",
+	"spawn_eye": [
+		-0.651324987411499,
+		-0.0429909825325012,
+		2.8875470161438
+	]
+}

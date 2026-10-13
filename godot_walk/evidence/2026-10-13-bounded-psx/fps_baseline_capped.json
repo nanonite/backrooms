@@ -1,0 +1,11 @@
+{
+	"baseline": true,
+	"capped_at_60": true,
+	"counter": "RenderingServer.frame_post_draw",
+	"elapsed_s": 10.982882,
+	"fps": 60.0024656551896,
+	"frames": 659,
+	"p95_frame_ms": 16.849,
+	"p99_frame_ms": 16.938,
+	"poses": 11
+}

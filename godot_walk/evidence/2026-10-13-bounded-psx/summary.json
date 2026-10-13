@@ -1,0 +1,10 @@
+{
+  "sweep": {
+    "captures": 288,
+    "mean_black_before_pct": 2.761178852599344,
+    "mean_black_after_pct": 2.1098572530864196e-05,
+    "max_black_after_pct": 0.0020616319444444445,
+    "max_after_floater_px": 0
+  },
+  "authored_depth_reject_mean_pct": 54.89245833333333
+}
