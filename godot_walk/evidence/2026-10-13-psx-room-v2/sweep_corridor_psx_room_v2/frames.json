@@ -1,0 +1,2594 @@
+[
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw14_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw29_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw44_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw59_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw74_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw89_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw104_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw119_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw134_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw149_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw164_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw179_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw194_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw209_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw224_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw239_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw254_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw269_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw284_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw299_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw314_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw329_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw344_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw359_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_2",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw14_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw29_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw44_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw59_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw74_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw89_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw104_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw119_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw134_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw149_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw164_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw179_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw194_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw209_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw224_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw239_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw254_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw269_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw284_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw299_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw314_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw329_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw344_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw359_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_2",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw14_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw29_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw44_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw59_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw74_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw89_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw104_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw119_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw134_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw149_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw164_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw179_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw194_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw209_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw224_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw239_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw254_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw269_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw284_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw299_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw314_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw329_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw344_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			0.5,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_2_yaw359_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_2",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw14_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw29_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw44_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw59_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw74_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw89_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw104_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw119_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw134_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw149_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw164_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw179_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw194_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw209_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw224_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw239_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw254_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw269_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw284_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw299_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw314_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw329_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw344_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw359_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_3",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw14_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw29_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw44_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw59_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw74_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw89_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw104_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw119_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw134_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw149_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw164_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw179_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw194_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw209_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw224_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw239_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw254_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw269_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw284_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw299_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw314_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw329_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw344_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw359_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_3",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw14_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw29_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw44_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw59_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw74_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw89_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw104_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw119_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw134_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw149_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw164_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw179_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw194_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw209_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw224_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw239_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw254_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw269_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw284_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw299_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw314_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw329_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw344_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			1.25,
+			-0.0421642661094666,
+			1.70000004768372
+		],
+		"filename": "route_3_yaw359_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_3",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw14_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw29_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw44_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw59_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw74_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw89_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw104_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw119_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw134_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw149_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw164_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw179_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw194_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw209_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw224_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw239_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw254_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw269_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw284_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw299_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw314_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw329_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw344_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw359_pitch-60.png",
+		"fov": 75.0,
+		"pitch": -60,
+		"point": "route_6",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw14_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw29_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw44_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw59_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw74_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw89_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw104_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw119_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw134_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw149_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw164_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw179_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw194_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw209_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw224_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw239_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw254_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw269_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw284_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw299_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw314_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw329_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw344_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw359_pitch0.png",
+		"fov": 75.0,
+		"pitch": 0,
+		"point": "route_6",
+		"yaw": 359
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw14_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 14
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw29_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 29
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw44_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 44
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw59_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 59
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw74_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 74
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw89_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 89
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw104_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 104
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw119_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 119
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw134_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 134
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw149_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 149
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw164_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 164
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw179_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 179
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw194_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 194
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw209_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 209
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw224_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 224
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw239_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 239
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw254_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 254
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw269_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 269
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw284_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 284
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw299_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 299
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw314_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 314
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw329_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 329
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw344_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 344
+	},
+	{
+		"eye": [
+			3.5,
+			-0.0421642661094666,
+			0.200000002980232
+		],
+		"filename": "route_6_yaw359_pitch60.png",
+		"fov": 75.0,
+		"pitch": 60,
+		"point": "route_6",
+		"yaw": 359
+	}
+]

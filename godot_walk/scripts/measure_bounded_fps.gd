@@ -1,6 +1,6 @@
 extends SceneTree
 
-const EVIDENCE := "res://evidence/2026-10-13-bounded-psx/"
+const DEFAULT_EVIDENCE := "res://evidence/2026-10-13-bounded-psx"
 const WARMUP := 200
 const FRAMES_PER_POSE := 300
 var camera: Camera3D
@@ -14,19 +14,37 @@ var loaded_usec := 0
 var measured_frames := 0
 var capped := false
 var frames_per_pose := FRAMES_PER_POSE
+var scene_path := ""
+var evidence_dir := DEFAULT_EVIDENCE
+var result_label := ""
 
 
 func _initialize() -> void:
-	baseline = OS.get_cmdline_user_args().has("--baseline")
-	capped = OS.get_cmdline_user_args().has("--capped")
+	for argument in OS.get_cmdline_user_args():
+		if argument == "--baseline":
+			baseline = true
+		elif argument == "--capped":
+			capped = true
+		elif argument.begins_with("--scene="):
+			scene_path = argument.get_slice("=", 1)
+		elif argument.begins_with("--out-dir="):
+			evidence_dir = argument.get_slice("=", 1)
+		elif argument.begins_with("--label="):
+			result_label = argument.get_slice("=", 1)
 	if capped:
 		frames_per_pose = 60
 	call_deferred("_load_scene")
 
 
 func _load_scene() -> void:
-	var path := "corridor_psx" if baseline else "corridor_bounded_psx"
-	var scene: Node3D = load("res://scenes/%s.tscn" % path).instantiate()
+	var default_scene := "corridor_psx" if baseline else "corridor_bounded_psx"
+	var selected_scene := scene_path if scene_path != "" else "res://scenes/%s.tscn" % default_scene
+	var packed := load(selected_scene) as PackedScene
+	if packed == null:
+		printerr("Could not load FPS scene: %s" % selected_scene)
+		quit(1)
+		return
+	var scene: Node3D = packed.instantiate()
 	root.add_child(scene)
 	await physics_frame
 	scene.get_node("Player").set_physics_process(false)
@@ -35,7 +53,21 @@ func _load_scene() -> void:
 	scene.add_child(camera)
 	camera.current = true
 	for filename in ["route_positions.json", "boundary_positions.json"]:
-		points.append_array(JSON.parse_string(FileAccess.get_file_as_string(EVIDENCE + filename)))
+		var path := evidence_dir.path_join(filename)
+		if not FileAccess.file_exists(path):
+			printerr("Missing FPS position data: %s" % path)
+			quit(1)
+			return
+		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+		if not parsed is Array:
+			printerr("Invalid FPS position data: %s" % path)
+			quit(1)
+			return
+		points.append_array(parsed)
+	if points.is_empty():
+		printerr("No FPS sample positions found")
+		quit(1)
+		return
 	loaded_usec = Time.get_ticks_usec()
 	RenderingServer.frame_post_draw.connect(_drawn)
 
@@ -66,17 +98,19 @@ func _drawn() -> void:
 func _report(now: int) -> void:
 	frame_times.sort()
 	var elapsed := float(now - started_usec) / 1000000.0
-	var result := {"baseline": baseline, "frames": frame_times.size(),
+	var result := {"baseline": baseline, "scene": scene_path, "frames": frame_times.size(),
 		"poses": points.size(), "elapsed_s": elapsed, "fps": frame_times.size() / elapsed,
 		"capped_at_60": capped, "counter": "RenderingServer.frame_post_draw",
 		"p95_frame_ms": frame_times[int(frame_times.size() * 0.95)],
 		"p99_frame_ms": frame_times[int(frame_times.size() * 0.99)]}
 	print("FPS_JSON " + JSON.stringify(result))
-	var label := "baseline" if baseline else "candidate"
+	var label := result_label if result_label != "" else ("baseline" if baseline else "candidate")
 	if capped:
 		label += "_capped"
-	root.get_texture().get_image().save_png(ProjectSettings.globalize_path(EVIDENCE + "fps_%s.png" % label))
-	var file := FileAccess.open(EVIDENCE + "fps_%s.json" % label, FileAccess.WRITE)
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(evidence_dir))
+	root.get_texture().get_image().save_png(ProjectSettings.globalize_path(
+		evidence_dir.path_join("fps_%s.png" % label)))
+	var file := FileAccess.open(evidence_dir.path_join("fps_%s.json" % label), FileAccess.WRITE)
 	if file == null:
 		printerr("Cannot write FPS evidence")
 		quit(1)

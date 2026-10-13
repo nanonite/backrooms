@@ -43,6 +43,7 @@ var settle_frames := SETTLE_FRAMES
 var camera_position := Vector3.ZERO
 var has_camera_position := false
 var camera_yaw_degrees := 0.0
+var hide_node_path := ""
 ## Optional #103 ablation override: swap the scene's splat resource (and the
 ## node origin that keeps the world fixed) without authoring another scene.
 var splat_override_path := ""
@@ -75,6 +76,8 @@ func _init() -> void:
 				printerr("FAIL: --camera-yaw-deg is outside the supported range")
 				quit(1)
 				return
+		elif arg.begins_with("--hide-node="):
+			hide_node_path = arg.get_slice("=", 1)
 		elif arg.begins_with("--splat="):
 			splat_override_path = arg.split("=")[1]
 		elif arg.begins_with("--splat-translation="):
@@ -100,6 +103,9 @@ func _init() -> void:
 		return
 	root.add_child(instance)
 	await process_frame
+	if not _hide_requested_node(instance):
+		quit(1)
+		return
 
 	var spawn := instance.get_node_or_null("PlayerSpawn") as Node3D
 	if spawn == null and not has_camera_position:
@@ -126,6 +132,13 @@ func _init() -> void:
 			else:
 				eye_height = player.global_position.y + 0.5
 		eye = Vector3(spawn.global_position.x, eye_height, spawn.global_position.z)
+	else:
+		var player := instance.get_node_or_null("Player") as CharacterBody3D
+		if player != null:
+			var head := player.get_node_or_null("Head") as Node3D
+			if head != null:
+				player.global_position += eye - head.global_position
+				player.velocity = Vector3.ZERO
 
 	var headings := [
 		["e", Vector3(1.0, 0.0, 0.0)],
@@ -199,6 +212,25 @@ func _apply_splat_override(instance: Node) -> bool:
 	node_transform.origin = splat_override_origin
 	node.transform = node_transform
 	print("OVERRIDE: splat=%s origin=%s" % [splat_override_path, splat_override_origin])
+	return true
+
+
+func _hide_requested_node(instance: Node) -> bool:
+	if hide_node_path == "":
+		return true
+	var target := instance.get_node_or_null(hide_node_path)
+	if target == null:
+		printerr("FAIL: cannot find hidden node %s" % hide_node_path)
+		return false
+	var visuals := []
+	if target is VisualInstance3D:
+		visuals.append(target)
+	visuals.append_array(target.find_children("*", "VisualInstance3D", true, false))
+	if visuals.is_empty():
+		printerr("FAIL: hidden node has no VisualInstance3D descendants")
+		return false
+	for visual in visuals:
+		visual.visible = false
 	return true
 
 

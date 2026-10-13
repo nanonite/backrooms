@@ -1,0 +1,12 @@
+{
+	"baseline": false,
+	"capped_at_60": false,
+	"counter": "RenderingServer.frame_post_draw",
+	"elapsed_s": 3.239124,
+	"fps": 1388.95577940209,
+	"frames": 4499,
+	"p95_frame_ms": 0.947,
+	"p99_frame_ms": 1.03,
+	"poses": 15,
+	"scene": "res://scenes/corridor_psx_room_v2.tscn"
+}
