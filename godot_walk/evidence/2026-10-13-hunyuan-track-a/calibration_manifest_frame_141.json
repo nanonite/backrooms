@@ -1,0 +1,231 @@
+{
+  "schema_version": 2,
+  "issue": 134,
+  "status": "convention_scale_candidate_registration_unaccepted",
+  "transform_kind": "camera_anchored_uniform_similarity_candidate",
+  "mapping": "world_declared = camera_center_world_declared + scale * rotation_local_to_world * point_hunyuan_local",
+  "scale": 1.5582858478636477,
+  "scale_units": "declared_world_metres_per_hunyuan_unit; convention-derived only",
+  "scale_calibrated": false,
+  "scale_status": "convention_derived_not_surveyed",
+  "physical_metric_scale_surveyed": false,
+  "registration_accepted": false,
+  "visual_depth_correction_acceptance": {
+    "status": "locked_before_correction_fits",
+    "route": "A_visual_only_depth_correction",
+    "reference_frame": "#100 declared frame; synthetic footage has no independent physical scale",
+    "output_label": "corrected_not_calibrated",
+    "output_use": "experimental_visual_layer_only",
+    "camera_anchor_world_declared": [
+      2.2503421889550297,
+      -0.10027971444057249,
+      4.39888812351977
+    ],
+    "camera_anchor_must_remain_fixed": true,
+    "held_out_acceptance": {
+      "floor_absolute_world_y_residual_q90_max_m": 0.05,
+      "ceiling_absolute_world_y_residual_q90_max_m": 0.05,
+      "floor_goal_q90_m": 0.03,
+      "all_k_folds_must_pass": true,
+      "all_leave_one_band_out_folds_must_pass": true,
+      "floor_band_leave_out_is_mandatory": true,
+      "report_held_out_ray_depth_residual_distribution": true
+    },
+    "validation_plan": {
+      "k_folds": 5,
+      "random_seed": 142,
+      "panorama_bands": {
+        "top": [0.0, 0.45],
+        "middle": [0.45, 0.55],
+        "bottom_floor_side": [0.55, 1.0]
+      },
+      "gate_aggregation": "report each fold and leave-one-band-out result; every held-out floor and ceiling q90 must meet its 5 cm limit"
+    },
+    "smooth_scale_field": {
+      "features": [
+        "1",
+        "standardized_elevation_angle",
+        "standardized_log_depth",
+        "standardized_elevation_angle_squared",
+        "standardized_elevation_angle_times_standardized_log_depth",
+        "standardized_log_depth_squared"
+      ],
+      "parameter_count": 6,
+      "term_count_justification": "A quadratic in elevation angle and log-depth is the smallest field here that permits smooth curvature and one cross-term; it is fixed before validation to limit overfit, especially for the sparse floor band.",
+      "per_band_free_scales_allowed": false,
+      "per_vertex_warp_allowed": false
+    },
+    "plane_snapping": {
+      "snap_floor_and_ceiling_along_camera_rays_to_declared_planes": true,
+      "wall_correction": "same smooth scale field or one global ray-derived scale",
+      "report_seam_edge_stretch_and_degenerate_or_torn_triangles": true,
+      "any_mesh_tear_fails": true
+    },
+    "second_source_frame_required_before_route_a_adoption": true,
+    "second_frame_gpu_work_requires_explicit_operator_approval": true,
+    "registration_accepted": false,
+    "scale_calibrated": false
+  },
+  "visual_depth_correction_acceptance_sha256": "8495b08fbfeff739beacfc8fe2961ce81eb3ba485425ada890788b7edb56b4af",
+  "rotation_local_to_world_row_major": [
+    [0.5286220008186361, 0.8488510241919436, 0.003273985153690728],
+    [-0.0012503875903586566, -0.003078260635800087, 0.9999944804059345],
+    [0.8488564170584894, -0.5286231767901847, -0.0005658435106224637]
+  ],
+  "translation_world_declared": [
+    2.2503421889550297,
+    -0.10027971444057249,
+    4.39888812351977
+  ],
+  "world_coordinate_convention": "godot_world_using_corridor_splat_alignment_manifest_scale_choice",
+  "local_axis_mapping": {
+    "minus_x": "registered camera forward",
+    "plus_y": "registered camera right",
+    "plus_z": "registered camera up"
+  },
+  "validation": {
+    "rotation_determinant": 1.0000000000000004,
+    "rotation_orthogonality_max_abs_error": 1.1750126146006164e-12,
+    "registered_camera_up_dot_world_plus_y": 0.9999944804059345,
+    "registered_camera_up_tilt_from_world_plus_y_degrees": 0.190366883,
+    "plane_fit_follow_up": {
+      "method": "Fit z=a*x+b*y+c independently to the run-05 background depth-sheet points in panorama floor and ceiling bands, within the registered source camera's horizontal field of view. Solve the uniform scale so the two fitted planes differ by the #100 declared 2.4 m clear height at the #100 landmark x/z. The #100 height is a synthetic-scene convention, not a surveyed dimension.",
+      "mesh_layer": 1,
+      "mesh_layer_role": "background full-panorama grid; 3840x1920 points",
+      "mesh_sha256": "4955ffcd5d05d9dd0bdece02624495fbd39eeb80383c3c5bd119a0a2473e8698",
+      "panorama_pixel_correspondence_check": "1000 sampled PLY vertex colors exactly match the bicubic-resized remove_fg1_image_sr.png at row/column positions; exact_fraction=1.0, max_channel_error=0",
+      "yaw_half_window_degrees": 35.0,
+      "point_selection_convention": "v is panorama row fraction from top (horizon v=0.5); yaw is measured from local -X forward toward local +Y; include points with absolute yaw <= 35 degrees and v in the inclusive bands below",
+      "floor_panorama_v_fraction": [0.56, 0.62],
+      "ceiling_panorama_v_fraction": [0.37, 0.42],
+      "floor_fit": {
+        "point_count": 85790,
+        "z_equals_a_x_plus_b_y_plus_c_local_units": [0.011949709433262116, -0.008890211085127664, -0.6674828590997379],
+        "absolute_residual_quantiles_local_units_q50_q90_q95_q99": [0.00196277, 0.00581917, 0.00718024, 0.00943907],
+        "normal_tilt_from_world_horizontal_degrees": 0.9197435896
+      },
+      "ceiling_fit": {
+        "point_count": 71616,
+        "z_equals_a_x_plus_b_y_plus_c_local_units": [-0.0013708360976328663, -0.032006765296494266, 0.8238017148088348],
+        "absolute_residual_quantiles_local_units_q50_q90_q95_q99": [0.00288111, 0.00728566, 0.00972804, 0.01563257],
+        "normal_tilt_from_world_horizontal_degrees": 2.015199
+      },
+      "reference_clear_height_declared_metres": 2.4,
+      "reference_world_xz_declared": [-0.6513254730710469, 2.8875470743979488],
+      "reference_floor_world_y_declared": -1.2709904916293824,
+      "reference_ceiling_world_y_declared": 1.1290095083706178,
+      "fitted_local_clear_height_at_reference_xz": 1.540153883377887,
+      "convention_scale_declared_metres_per_hunyuan_unit": 1.5582858478636477,
+      "sensitivity": {
+        "yaw_half_window_degrees_31_35_37_96733_scales": [1.5574426537, 1.5582858479, 1.5592053764],
+        "floor_band_variants_scales": [1.5581498548, 1.5582858479, 1.557594669, 1.5571178072],
+        "ceiling_band_variants_scales": [1.558467302, 1.5582858479, 1.5579316225, 1.5568200927, 1.555255615],
+        "combined_observed_scale_range": [1.555255615, 1.5592053764],
+        "relative_range_percent_of_candidate": 0.2535
+      },
+      "camera_anchored_transform": {
+        "translation_world_declared": [2.2503421889550297, -0.10027971444057249, 4.39888812351977],
+        "camera_origin_residual_declared_metres": 0.0,
+        "floor_and_ceiling_height_offset_at_reference_xz_declared_metres": 0.1203424431,
+        "floor_surface_world_y_residual_quantiles_metres_q05_median_q95_q99": [0.05254559, 0.09097952, 0.12238263, 0.12671854],
+        "floor_surface_world_y_residual_rms_metres": 0.09333311,
+        "ceiling_surface_world_y_residual_quantiles_metres_q05_median_q95_q99": [-0.00875101, 0.0650262, 0.13809256, 0.14281337],
+        "ceiling_surface_world_y_residual_rms_metres": 0.08058203
+      },
+      "plane_aligned_diagnostic_transform": {
+        "translation_world_declared": [2.2503421889550297, -0.22062215756426085, 4.39888812351977],
+        "camera_origin_residual_world_y_declared_metres": -0.1203424431,
+        "note": "Aligns the two fitted planes to the #100 declared floor/ceiling at the reference x/z, but shifts the registered camera anchor down by 12.0 cm. Recorded as a diagnostic alternative, not the adopted transform."
+      },
+      "limitations": [
+        "Scale is derived from the #100 synthetic 2.4 m convention, not physical measurement.",
+        "Floor and ceiling are fitted depth-sheet surfaces, not confirmed point correspondences or collidable planes.",
+        "Camera-anchored planes are about 12 cm above the #100 reference at the selected x/z; choosing vertical plane alignment instead violates the camera-center anchor by the same amount.",
+        "Zero matched Hunyuan-to-#100 point landmarks, so mesh reprojection residual is unavailable.",
+        "One source frame and one panorama zone only; cross-zone overlap is unavailable."
+      ]
+    },
+    "prior_frame_141_render": {
+      "evidence_path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/bevy_fixture/frame_141.png",
+      "result": "forward composition and vertex-color mesh render verified in #133",
+      "display_scale": 1.0,
+      "metric_scale_validated": false
+    },
+    "matched_hunyuan_landmarks": 0,
+    "hunyuan_mesh_reprojection_residual_pixels": null,
+    "floor_plane_alignment_residual": {
+      "camera_anchored_reference_offset_metres": 0.1203424431,
+      "plane_aligned_alternative_camera_y_offset_metres": -0.1203424431,
+      "accepted": false
+    },
+    "cross_zone_overlap": "not_tested; only same-panorama mesh variants exist"
+  },
+  "registered_camera": {
+    "frame_number_1_based": 141,
+    "timestamp_seconds": 5.833333333333333,
+    "registered_image": "frame_0141.jpg",
+    "camera_center_world_declared": [
+      2.2503421889550297,
+      -0.10027971444057249,
+      4.39888812351977
+    ],
+    "horizontal_fov_degrees": 75.93466004923032,
+    "vertical_fov_degrees": 47.398805577606446,
+    "source_camera_target_projection_check": {
+      "target_world_declared": [0.5, -0.07, 1.7],
+      "camera_depth_declared": 3.206076842609862,
+      "pixel": [937.3656764155146, 530.0264732214184],
+      "note": "Existing camera-contract check only; this target is not a matched Hunyuan mesh landmark."
+    }
+  },
+  "inputs": {
+    "source_selection_path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/source_selection.json",
+    "source_selection_sha256": "d149ce39286929ac0bdd8f1d32728057f0dd0f8443e913492b6adf59446148c0",
+    "source_video_sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4",
+    "alignment_manifest_path": "godot_walk/assets/corridor_splat/alignment_manifest.json",
+    "alignment_manifest_sha256": "85d5b51c8ca9df614b81a6f6dddf8c68015cca14b36e3b007c1a67f50be03598",
+    "alignment_scale_reference": {
+      "kind": "chosen",
+      "quantity": "floor_to_ceiling_clear_height",
+      "raw_units": 0.4679836904877463,
+      "target_metres": 2.4,
+      "metres_per_unit": 5.128383849229126,
+      "reason": "Synthetic footage has no physical reference; this is an explicit convention, not a measurement."
+    },
+    "hunyuan_meshes": [
+      {
+        "path": "data/track-a/hunyuan/scene-run-05/mesh_layer0.ply",
+        "sha256": "45c67b96b9cdc55e4ebeb7d47784fe83672b32fb6ef5c61972d5d641715d077c",
+        "vertices": 1603955,
+        "triangles": 3235413
+      },
+      {
+        "path": "data/track-a/hunyuan/scene-run-05/mesh_layer1.ply",
+        "sha256": "4955ffcd5d05d9dd0bdece02624495fbd39eeb80383c3c5bd119a0a2473e8698",
+        "vertices": 7372800,
+        "triangles": 14783952
+      }
+    ],
+    "hunyuan_mesh_unit_scale": "unknown; export applied no scale"
+  },
+  "missing_calibration_inputs": [
+    "A surveyed real-world dimension visible in the Hunyuan mesh, or confirmed matched Hunyuan mesh landmarks and #100 3D landmarks. Current 1.558285848 scale only adopts #100's synthetic 2.4 m floor-to-ceiling convention for a candidate mapping; the #100 5.128383849 m/Nerfstudio-unit factor itself is not transferable to Hunyuan coordinates.",
+    "Confirmed Hunyuan-to-#100 point correspondences or equivalent image evidence that resolves the 12 cm conflict between preserving the registered camera-center anchor and aligning the fitted floor/ceiling planes. Current plane labels are semantic fits, not matched point landmarks.",
+    "A route-wide floor reference with measured or independently confirmed vertical alignment for geometric floor evaluation; the fitted surface tilt and residuals are not collision approval.",
+    "At least one independently generated Hunyuan zone from a different registered source frame for cross-zone overlap evaluation."
+  ],
+  "assessment_history": [
+    {
+      "assessment": "initial orientation-and-anchor-only assessment",
+      "scale": null,
+      "reason": "No Hunyuan mesh plane measurement had yet been compared to the #100 declared floor/ceiling convention."
+    },
+    {
+      "assessment": "CPU plane-fit follow-up",
+      "scale": 1.5582858478636477,
+      "scale_status": "convention_derived_not_surveyed",
+      "reason": "Run-05 background depth sheet contains locally planar floor and ceiling patches; matching their separation to the #100 chosen 2.4 m convention yields a candidate scale. The 12 cm camera-anchor versus vertical-plane-alignment discrepancy prevents registration acceptance."
+    }
+  ],
+  "prohibited_interpretation": "Do not treat the candidate scale as surveyed metric geometry, use it for collision, or infer walkability. The prior null value described the initial assessment before the CPU plane-fit follow-up; scale_calibrated remains false."
+}
