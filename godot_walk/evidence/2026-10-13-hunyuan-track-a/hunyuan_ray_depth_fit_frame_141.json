@@ -1,0 +1,193 @@
+{
+  "method": "COLMAP range vs Hunyuan grid-vertex range along registered source-camera rays",
+  "units": "#100 declared metres (chosen 2.4 m clear-height convention; source is synthetic)",
+  "inputs": {
+    "source_frame": {
+      "path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0141.jpg",
+      "sha256": "f77d26c4814611ed1c27ec745d513fabf84936577148e70d609bd872a41c3cc5"
+    },
+    "hunyuan_mesh": {
+      "path": "/mnt/sharedOs/backrooms-track-a/data/track-a/hunyuan/scene-run-05/mesh_layer1.ply",
+      "sha256": "4955ffcd5d05d9dd0bdece02624495fbd39eeb80383c3c5bd119a0a2473e8698",
+      "grid": [
+        3840,
+        1920
+      ]
+    },
+    "foreground_mask": {
+      "path": "/mnt/sharedOs/backrooms-track-a/data/track-a/hunyuan/scene-run-05/fg1_mask.png",
+      "sha256": "9547651316ae3f69eb2a387ef0a1fccd2dec4dbe91ac1a05494243ba61737e74"
+    },
+    "colmap_model": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/sparse/0",
+    "dataparser_transforms": {
+      "path": "/mnt/sharedOs/backrooms-track-a/data/track-a/hunyuan/dataparser_transforms.json",
+      "sha256": "fdabcd1b1450e65c605f45099a93383aff081fb1009b73f71f3eb854654e8ed4"
+    },
+    "alignment_manifest": {
+      "path": "/mnt/sharedOs/backrooms-track-a/godot_walk/assets/corridor_splat/alignment_manifest.json",
+      "sha256": "85d5b51c8ca9df614b81a6f6dddf8c68015cca14b36e3b007c1a67f50be03598"
+    },
+    "calibration_manifest": {
+      "path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/calibration_manifest_frame_141.json",
+      "sha256": "98fa06c73e748f98dfcad0ecddbf250cb9f735736dd5fbcee1f8ce65369afe64"
+    }
+  },
+  "grid_ray_convention_max_error_degrees": 1.6925403083538737e-05,
+  "metres_per_colmap_unit": 1.0031811190201414,
+  "registered_observations": 392,
+  "observations_used_after_foreground_mask": 358,
+  "source_image_grid_cells_occupied_4x4": 15,
+  "observations_masked_as_foreground": 34,
+  "scale_declared_metres_per_hunyuan_unit": {
+    "all_rays": {
+      "count": 358,
+      "median": 1.4315314938378298,
+      "bootstrap_95ci_of_median": [
+        1.4162119788873964,
+        1.447790766490041
+      ],
+      "robust_sigma": 0.18042104045545912,
+      "robust_sigma_fraction": 0.12603358098099796,
+      "relative_residual_q50_q90": [
+        0.0850084857554283,
+        0.26623756818075645
+      ]
+    },
+    "by_panorama_band": {
+      "top": {
+        "count": 167,
+        "median": 1.459820250343011,
+        "bootstrap_95ci_of_median": [
+          1.442998638473477,
+          1.4751202369538923
+        ],
+        "robust_sigma": 0.09557736593947412,
+        "robust_sigma_fraction": 0.06547200993890617,
+        "relative_residual_q50_q90": [
+          0.044160265708152124,
+          0.16995013332395606
+        ]
+      },
+      "middle": {
+        "count": 171,
+        "median": 1.3083690403667438,
+        "bootstrap_95ci_of_median": [
+          1.2495724844493603,
+          1.3904578208044835
+        ],
+        "robust_sigma": 0.2668768508814894,
+        "robust_sigma_fraction": 0.2039767394730482,
+        "relative_residual_q50_q90": [
+          0.1375804259227359,
+          0.26865341029865697
+        ]
+      },
+      "bottom": {
+        "count": 20,
+        "median": 1.6436400083835472,
+        "bootstrap_95ci_of_median": [
+          1.453909576705461,
+          1.6638568423683426
+        ],
+        "robust_sigma": 0.06268672303912558,
+        "robust_sigma_fraction": 0.03813896152404772,
+        "relative_residual_q50_q90": [
+          0.02572437712400366,
+          0.2572491863932567
+        ]
+      }
+    },
+    "by_colmap_range": {
+      "0-4m": {
+        "count": 74,
+        "median": 1.4526040026652483,
+        "bootstrap_95ci_of_median": [
+          1.442998638473477,
+          1.4666967539929707
+        ],
+        "robust_sigma": 0.05367774789569393,
+        "robust_sigma_fraction": 0.03695277432611063,
+        "relative_residual_q50_q90": [
+          0.024924304819985588,
+          0.0878760817225176
+        ]
+      },
+      "4-6m": {
+        "count": 109,
+        "median": 1.4330939268251983,
+        "bootstrap_95ci_of_median": [
+          1.4023155179785576,
+          1.499865065113519
+        ],
+        "robust_sigma": 0.1825079361951643,
+        "robust_sigma_fraction": 0.1273523896647046,
+        "relative_residual_q50_q90": [
+          0.08589801002610586,
+          0.31628590273209034
+        ]
+      },
+      "6-10m": {
+        "count": 108,
+        "median": 1.4850974139613848,
+        "bootstrap_95ci_of_median": [
+          1.4547811667700734,
+          1.5383754660958422
+        ],
+        "robust_sigma": 0.12393359266945021,
+        "robust_sigma_fraction": 0.08345149045736114,
+        "relative_residual_q50_q90": [
+          0.05628725917803934,
+          0.1594431699278552
+        ]
+      },
+      "10-infm": {
+        "count": 67,
+        "median": 1.1648791299825023,
+        "bootstrap_95ci_of_median": [
+          1.128363070528966,
+          1.2063433007400834
+        ],
+        "robust_sigma": 0.11512381946950044,
+        "robust_sigma_fraction": 0.0988289827728562,
+        "relative_residual_q50_q90": [
+          0.0666592356487632,
+          0.15323515482725264
+        ]
+      }
+    }
+  },
+  "scale_comparison": {
+    "convention_plane_fit_134": 1.5582858478636477,
+    "ray_depth_median": 1.4315314938378298,
+    "floor_plane_only_camera_anchored": 1.738575546697624,
+    "ceiling_plane_only_camera_anchored": 1.4122194903233491
+  },
+  "camera_anchored_plane_checks": {
+    "convention_scale": {
+      "scale_declared_metres_per_hunyuan_unit": 1.5582858478636477,
+      "floor_y": -1.150648048505694,
+      "ceiling_y": 1.2493519514943057,
+      "floor_offset_m": 0.12034244309430608,
+      "ceiling_offset_m": 0.12034244309430564,
+      "clear_height_m": 2.3999999999999995
+    },
+    "ray_depth_scale": {
+      "scale_declared_metres_per_hunyuan_unit": 1.4315314938378298,
+      "floor_y": -1.0660401716554788,
+      "ceiling_y": 1.1449204527345793,
+      "floor_offset_m": 0.2049503199445213,
+      "ceiling_offset_m": 0.01591094433457929,
+      "clear_height_m": 2.210960624390058
+    },
+    "reference_floor_y": -1.2709904916,
+    "reference_ceiling_y": 1.1290095084
+  },
+  "tolerance_m": 0.02,
+  "single_similarity_meets_tolerance": false,
+  "limitations": [
+    "One source frame; COLMAP points on low-texture wallpaper are sparse and may be noisy.",
+    "The panorama band split uses Hunyuan row fraction; the bottom band has few points.",
+    "Hunyuan layer depth may include upstream depth compression; ratios are not assumed linear.",
+    "Plane checks reuse #134's fitted floor/ceiling coefficients and #100 reference heights."
+  ]
+}
