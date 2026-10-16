@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "issue": 134,
-  "status": "convention_scale_candidate_registration_unaccepted",
+  "status": "route_a_visual_correction_failed_registration_unaccepted",
   "transform_kind": "camera_anchored_uniform_similarity_candidate",
   "mapping": "world_declared = camera_center_world_declared + scale * rotation_local_to_world * point_hunyuan_local",
   "scale": 1.5582858478636477,
@@ -67,6 +67,74 @@
     "scale_calibrated": false
   },
   "visual_depth_correction_acceptance_sha256": "8495b08fbfeff739beacfc8fe2961ce81eb3ba485425ada890788b7edb56b4af",
+  "ray_depth_fit": {
+    "report": "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_depth_correction_frame_141.json",
+    "decision": "Route A visual correction failed held-out plane and mesh-integrity gates; experimental outputs only",
+    "method": "fixed six-term quadratic log-scale field; plane-snap variant uses the same wall field",
+    "training": {
+      "frame_141_observations": 358,
+      "floor_plane_points": 18,
+      "ceiling_plane_points": 162,
+      "other_frame_floor_holdouts": 217,
+      "cross_frame_visibility": "sparse COLMAP z-buffer; validation only, never training"
+    },
+    "smooth_field": {
+      "in_sample_floor_absolute_q90_m": 0.1077,
+      "in_sample_ceiling_absolute_q90_m": 0.1066,
+      "k_fold_pooled_floor_absolute_q90_m": 0.5103,
+      "k_fold_pooled_ceiling_absolute_q90_m": 0.1523,
+      "leave_bottom_floor_band_out_floor_absolute_q90_m": 0.5957,
+      "other_frame_floor_holdout_absolute_q90_m": 0.1001,
+      "max_edge_stretch_ratio": 88.65,
+      "tear_like_edge_count_ratio_outside_0.5_2.0": 12706998,
+      "degenerate_triangle_count": 2787275,
+      "held_out_acceptance_pass": false
+    },
+    "plane_snap": {
+      "in_sample_floor_absolute_q90_m": 0.1077,
+      "in_sample_ceiling_absolute_q90_m": 0.1066,
+      "floor_samples_snapped_in_sample": 10,
+      "floor_samples_total_in_sample": 18,
+      "ceiling_samples_snapped_in_sample": 108,
+      "ceiling_samples_total_in_sample": 162,
+      "k_fold_pooled_floor_absolute_q90_m": 0.1206,
+      "k_fold_pooled_ceiling_absolute_q90_m": 0.1523,
+      "leave_bottom_floor_band_out_floor_absolute_q90_m": 0.1777,
+      "other_frame_floor_holdout_absolute_q90_m": 0.1001,
+      "seam_edge_count": 15263,
+      "max_seam_stretch_ratio": 414.65,
+      "tear_like_edge_count_ratio_outside_0.5_2.0": 14602,
+      "degenerate_triangle_count": 2787275,
+      "held_out_acceptance_pass": false
+    },
+    "mesh_integrity_comparison": {
+      "source_mesh_degenerate_triangles_at_ray_fit_median_scale": 44386,
+      "corrected_mesh_degenerate_triangles": 2787275,
+      "note": "The 1.431531 ray-fit median is used only for this source-mesh baseline comparison, not as a correction transform."
+    },
+    "resource_use": {
+      "runtime_seconds": 62.216,
+      "peak_rss_kib": 1913084,
+      "gpu_used": false,
+      "swap_used_by_run": false
+    },
+    "experimental_outputs": [
+      {
+        "path": "data/track-a/hunyuan/route-a-visual-correction-frame-141/frame_141_layer1_smooth_corrected.ply",
+        "sha256": "d1fb854314e73bee9a9934b4d23201b6420133d68421a1b0ae5bd4ce90b599d1",
+        "normals": "omitted; downstream importer must recompute or render unlit"
+      },
+      {
+        "path": "data/track-a/hunyuan/route-a-visual-correction-frame-141/frame_141_layer1_plane_snapped_corrected.ply",
+        "sha256": "5d1e2338a27be6a12738ac7e6bf28c502059e8f2b8b39d65e0c78e677c7c11d9",
+        "normals": "omitted; downstream importer must recompute or render unlit"
+      }
+    ],
+    "second_frame_mesh_check": "pending explicit GPU capacity approval; no frame-152 SceneGen run started",
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "may_be_used_by_issue_137": false
+  },
   "rotation_local_to_world_row_major": [
     [0.5286220008186361, 0.8488510241919436, 0.003273985153690728],
     [-0.0012503875903586566, -0.003078260635800087, 0.9999944804059345],
@@ -225,6 +293,13 @@
       "scale": 1.5582858478636477,
       "scale_status": "convention_derived_not_surveyed",
       "reason": "Run-05 background depth sheet contains locally planar floor and ceiling patches; matching their separation to the #100 chosen 2.4 m convention yields a candidate scale. The 12 cm camera-anchor versus vertical-plane-alignment discrepancy prevents registration acceptance."
+    },
+    {
+      "assessment": "Route A visual-only ray-depth correction",
+      "scale": null,
+      "scale_status": "not_calibrated; experimental correction rejected",
+      "report": "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_depth_correction_frame_141.json",
+      "reason": "The six-term field failed held-out floor/ceiling q90 gates and introduced severe full-panorama extrapolation damage. Plane snapping also failed held-out floor and seam-integrity gates. Keep both calibration flags false and do not use either output in #137."
     }
   ],
   "prohibited_interpretation": "Do not treat the candidate scale as surveyed metric geometry, use it for collision, or infer walkability. The prior null value described the initial assessment before the CPU plane-fit follow-up; scale_calibrated remains false."

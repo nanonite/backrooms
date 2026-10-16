@@ -1,0 +1,1430 @@
+{
+  "schema_version": 1,
+  "issue": 142,
+  "status": "experimental_visual_correction_not_calibrated",
+  "method_label": "corrected_not_calibrated",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "acceptance_block_sha256": "8495b08fbfeff739beacfc8fe2961ce81eb3ba485425ada890788b7edb56b4af",
+  "inputs": {
+    "source_frame": "data/scenes/corridor_travel/images/frame_0141.jpg",
+    "hunyuan_mesh": "data/track-a/hunyuan/scene-run-05/mesh_layer1.ply",
+    "hunyuan_mesh_sha256": "4955ffcd5d05d9dd0bdece02624495fbd39eeb80383c3c5bd119a0a2473e8698",
+    "foreground_mask": "data/track-a/hunyuan/scene-run-05/fg1_mask.png",
+    "colmap_model": "data/scenes/corridor_travel/sparse/0",
+    "dataparser": "data/track-a/hunyuan/dataparser_transforms.json",
+    "alignment_manifest": "godot_walk/assets/corridor_splat/alignment_manifest.json",
+    "camera_anchor_world_declared": [
+      2.2503421889550297,
+      -0.10027971444057249,
+      4.39888812351977
+    ],
+    "camera_anchor_residual_m": 0.0
+  },
+  "model": {
+    "target": "log(scale)",
+    "scale_function": "exp(six-term quadratic in standardized elevation and log-depth)",
+    "basis": [
+      "1",
+      "elevation",
+      "log_depth",
+      "elevation^2",
+      "elevation*log_depth",
+      "log_depth^2"
+    ],
+    "parameter_count": 6,
+    "term_count_justification": "A quadratic in elevation angle and log-depth is the smallest field here that permits smooth curvature and one cross-term; it is fixed before validation to limit overfit, especially for the sparse floor band.",
+    "training_observations": {
+      "registered_observations": 392,
+      "foreground_masked": 34,
+      "used_for_training": 358,
+      "floor_plane_membership": 18,
+      "ceiling_plane_membership": 162,
+      "plane_membership_tolerance_m": 0.1
+    }
+  },
+  "cross_frame_visibility": {
+    "candidate_landmarks_seen_in_other_frames": 15461,
+    "projected_inside_frame_141": 9643,
+    "near_declared_floor_before_visibility": 399,
+    "sparse_z_buffer_visible": 356,
+    "foreground_or_invalid_mesh_rays_rejected": 139,
+    "accepted_extra_floor_holdouts": 217,
+    "z_buffer_neighborhood_pixels": 5,
+    "visibility_depth_tolerance_m": 0.1,
+    "floor_membership_tolerance_m": 0.1,
+    "limitation": "Visibility uses a sparse COLMAP z-buffer, not dense image depth; these samples validate but never train the correction field."
+  },
+  "methods": [
+    {
+      "method": "smooth_field",
+      "parameter_count": 6,
+      "in_sample": {
+        "floor": {
+          "count": 18,
+          "signed_median_m": 0.05334861781368594,
+          "absolute_q50_q90_q95_max_m": [
+            0.05334861781368594,
+            0.10767220210421556,
+            0.11365692909123862,
+            0.11891278952912065
+          ],
+          "absolute_q90_m": 0.10767220210421556
+        },
+        "ceiling": {
+          "count": 162,
+          "signed_median_m": 0.020088797270146452,
+          "absolute_q50_q90_q95_max_m": [
+            0.04802760538197004,
+            0.10659081913925023,
+            0.143695902835956,
+            0.27934987281094725
+          ],
+          "absolute_q90_m": 0.10659081913925023
+        },
+        "ray_depth_residual_m": {
+          "count": 358,
+          "signed_median_m": -0.03348148052199207,
+          "absolute_q50_q90_q95_q99_max_m": [
+            0.3146307031586215,
+            1.2443063177481835,
+            2.337012328328249,
+            3.8504941292054076,
+            5.324869551848303
+          ],
+          "absolute_q90_m": 1.2443063177481835
+        },
+        "camera_anchor_residual_m": 0.0,
+        "plane_snapping_coverage": {
+          "floor_samples_snapped": 0,
+          "floor_samples_total": 18,
+          "ceiling_samples_snapped": 0,
+          "ceiling_samples_total": 162
+        }
+      },
+      "k_fold": {
+        "folds": [
+          {
+            "fold": 1,
+            "held_out_spatial_cells": [
+              1,
+              9,
+              14
+            ],
+            "training_count": 259,
+            "held_out": {
+              "floor": {
+                "count": 4,
+                "signed_median_m": 0.09849188954198795,
+                "absolute_q50_q90_q95_max_m": [
+                  0.09849188954198795,
+                  0.11329308064900183,
+                  0.11458594081919783,
+                  0.11587880098939385
+                ],
+                "absolute_q90_m": 0.11329308064900183
+              },
+              "ceiling": {
+                "count": 84,
+                "signed_median_m": 0.06868541121991623,
+                "absolute_q50_q90_q95_max_m": [
+                  0.07307944827365753,
+                  0.10500496062549683,
+                  0.1053389154364177,
+                  0.10596438732389224
+                ],
+                "absolute_q90_m": 0.10500496062549683
+              },
+              "ray_depth_residual_m": {
+                "count": 99,
+                "signed_median_m": 0.2625972362199538,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  0.27799138963494263,
+                  0.8096003219358107,
+                  1.0445815614192873,
+                  1.663744315703208,
+                  2.5160775698519044
+                ],
+                "absolute_q90_m": 0.8096003219358107
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 4,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 84
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": false,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": false,
+              "pass": false
+            }
+          },
+          {
+            "fold": 2,
+            "held_out_spatial_cells": [
+              4,
+              5,
+              10
+            ],
+            "training_count": 247,
+            "held_out": {
+              "floor": {
+                "count": 4,
+                "signed_median_m": 0.11572957308492504,
+                "absolute_q50_q90_q95_max_m": [
+                  0.11572957308492504,
+                  0.1269244382337859,
+                  0.1293012315499271,
+                  0.13167802486606828
+                ],
+                "absolute_q90_m": 0.1269244382337859
+              },
+              "ceiling": {
+                "count": 18,
+                "signed_median_m": -0.027200681553996686,
+                "absolute_q50_q90_q95_max_m": [
+                  0.029652461227362314,
+                  0.04668973901242794,
+                  0.04719975661674267,
+                  0.04755781656791758
+                ],
+                "absolute_q90_m": 0.04668973901242794
+              },
+              "ray_depth_residual_m": {
+                "count": 111,
+                "signed_median_m": 0.6512964383909949,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  0.6602520263070559,
+                  2.5277204516444103,
+                  3.3451240726650413,
+                  4.39939901681097,
+                  4.531825163631357
+                ],
+                "absolute_q90_m": 2.5277204516444103
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 4,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 18
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": false,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": true,
+              "pass": false
+            }
+          },
+          {
+            "fold": 3,
+            "held_out_spatial_cells": [
+              6,
+              7,
+              8
+            ],
+            "training_count": 285,
+            "held_out": {
+              "floor": {
+                "count": 0,
+                "signed_median_m": null,
+                "absolute_q90_m": null
+              },
+              "ceiling": {
+                "count": 20,
+                "signed_median_m": -0.18534102239455086,
+                "absolute_q50_q90_q95_max_m": [
+                  0.18534102239455086,
+                  0.19276781028275405,
+                  0.20111250516779286,
+                  0.3205077539964375
+                ],
+                "absolute_q90_m": 0.19276781028275405
+              },
+              "ray_depth_residual_m": {
+                "count": 73,
+                "signed_median_m": -0.7422160988476643,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  0.787497787786954,
+                  2.1710443352832605,
+                  3.513669803581054,
+                  4.85851317148782,
+                  5.033894610102038
+                ],
+                "absolute_q90_m": 2.1710443352832605
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 0,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 20
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": null,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": false,
+              "pass": false
+            }
+          },
+          {
+            "fold": 4,
+            "held_out_spatial_cells": [
+              0,
+              2,
+              3
+            ],
+            "training_count": 296,
+            "held_out": {
+              "floor": {
+                "count": 0,
+                "signed_median_m": null,
+                "absolute_q90_m": null
+              },
+              "ceiling": {
+                "count": 40,
+                "signed_median_m": -0.014089436997700155,
+                "absolute_q50_q90_q95_max_m": [
+                  0.022261373522538763,
+                  0.054072128050474746,
+                  0.07729226864800207,
+                  0.12145071841476174
+                ],
+                "absolute_q90_m": 0.054072128050474746
+              },
+              "ray_depth_residual_m": {
+                "count": 62,
+                "signed_median_m": -0.29114435883588285,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  0.34924263509439113,
+                  0.8874298522350398,
+                  0.9256992224305741,
+                  1.1013515471538617,
+                  1.2078849930715965
+                ],
+                "absolute_q90_m": 0.8874298522350398
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 0,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 40
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": null,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": false,
+              "pass": false
+            }
+          },
+          {
+            "fold": 5,
+            "held_out_spatial_cells": [
+              11,
+              13,
+              15
+            ],
+            "training_count": 345,
+            "held_out": {
+              "floor": {
+                "count": 10,
+                "signed_median_m": 0.4793512552966328,
+                "absolute_q50_q90_q95_max_m": [
+                  0.4793512552966328,
+                  0.510460776893064,
+                  0.510460776893064,
+                  0.510460776893064
+                ],
+                "absolute_q90_m": 0.510460776893064
+              },
+              "ceiling": {
+                "count": 0,
+                "signed_median_m": null,
+                "absolute_q90_m": null
+              },
+              "ray_depth_residual_m": {
+                "count": 13,
+                "signed_median_m": -1.7012602901411595,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  1.7012602901411595,
+                  1.748211152562396,
+                  1.8245636652170405,
+                  1.9113087485347215,
+                  1.9329950193641419
+                ],
+                "absolute_q90_m": 1.748211152562396
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 10,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 0
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": false,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": null,
+              "pass": false
+            }
+          }
+        ],
+        "pooled_out_of_fold": {
+          "floor": {
+            "count": 18,
+            "signed_median_m": 0.27126696593131544,
+            "absolute_q50_q90_q95_max_m": [
+              0.27126696593131544,
+              0.5102780332624806,
+              0.510460776893064,
+              0.510460776893064
+            ],
+            "absolute_q90_m": 0.5102780332624806
+          },
+          "ceiling": {
+            "count": 162,
+            "signed_median_m": -0.0039980193345670045,
+            "absolute_q50_q90_q95_max_m": [
+              0.05408395471112659,
+              0.15229268455530054,
+              0.1857812873482276,
+              0.3205077539964375
+            ],
+            "absolute_q90_m": 0.15229268455530054
+          },
+          "ray_depth_residual_m": {
+            "count": 358,
+            "signed_median_m": 0.10761588688841517,
+            "absolute_q50_q90_q95_q99_max_m": [
+              0.5365558733089641,
+              1.7221583552852873,
+              2.5540417368442383,
+              4.362658241157958,
+              5.033894610102038
+            ],
+            "absolute_q90_m": 1.7221583552852873
+          },
+          "camera_anchor_residual_m": 0.0,
+          "plane_snapping_coverage": {
+            "floor_samples_snapped": 0,
+            "floor_samples_total": 18,
+            "ceiling_samples_snapped": 0,
+            "ceiling_samples_total": 162
+          }
+        },
+        "all_fold_gates_pass": false
+      },
+      "leave_one_panorama_band_out": {
+        "folds": [
+          {
+            "band": "top",
+            "training_count": 191,
+            "held_out_count": 167,
+            "held_out": {
+              "floor": {
+                "count": 0,
+                "signed_median_m": null,
+                "absolute_q90_m": null
+              },
+              "ceiling": {
+                "count": 135,
+                "signed_median_m": 0.22114174575494294,
+                "absolute_q50_q90_q95_max_m": [
+                  0.22114174575494294,
+                  0.2374629545396126,
+                  0.2381457033680411,
+                  0.2489898465344189
+                ],
+                "absolute_q90_m": 0.2374629545396126
+              },
+              "ray_depth_residual_m": {
+                "count": 167,
+                "signed_median_m": 0.6641182525994833,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  0.6788619926792734,
+                  0.9568866599028597,
+                  1.0375579431291817,
+                  2.552456482346762,
+                  2.6181552571433553
+                ],
+                "absolute_q90_m": 0.9568866599028597
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 0,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 135
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": null,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": false,
+              "pass": false
+            }
+          },
+          {
+            "band": "middle",
+            "training_count": 187,
+            "held_out_count": 171,
+            "held_out": {
+              "floor": {
+                "count": 6,
+                "signed_median_m": 0.16716167200919896,
+                "absolute_q50_q90_q95_max_m": [
+                  0.16716167200919896,
+                  0.24659444597689473,
+                  0.2481753281747735,
+                  0.24975621037265228
+                ],
+                "absolute_q90_m": 0.24659444597689473
+              },
+              "ceiling": {
+                "count": 27,
+                "signed_median_m": -0.06024447722668347,
+                "absolute_q50_q90_q95_max_m": [
+                  0.06024447722668347,
+                  0.09384618635854033,
+                  0.09624432388433735,
+                  0.15774451331736605
+                ],
+                "absolute_q90_m": 0.09384618635854033
+              },
+              "ray_depth_residual_m": {
+                "count": 171,
+                "signed_median_m": 2.153738458768686,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  2.178715470862521,
+                  375.28016844355335,
+                  1046.1753036726877,
+                  1296.2577118596043,
+                  1374.1732218437962
+                ],
+                "absolute_q90_m": 375.28016844355335
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 6,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 27
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": false,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": false,
+              "pass": false
+            }
+          },
+          {
+            "band": "bottom_floor_side",
+            "training_count": 338,
+            "held_out_count": 20,
+            "held_out": {
+              "floor": {
+                "count": 12,
+                "signed_median_m": 0.544019003121509,
+                "absolute_q50_q90_q95_max_m": [
+                  0.544019003121509,
+                  0.5957350819841158,
+                  0.5957636687562395,
+                  0.5957636687562395
+                ],
+                "absolute_q90_m": 0.5957350819841158
+              },
+              "ceiling": {
+                "count": 0,
+                "signed_median_m": null,
+                "absolute_q90_m": null
+              },
+              "ray_depth_residual_m": {
+                "count": 20,
+                "signed_median_m": -1.5415039772077594,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  1.5415039772077594,
+                  2.0427571097736648,
+                  2.0659878644544123,
+                  2.1252537837618806,
+                  2.140070263588748
+                ],
+                "absolute_q90_m": 2.0427571097736648
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 12,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 0
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": false,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": null,
+              "pass": false
+            }
+          }
+        ],
+        "pooled_out_of_band": {
+          "floor": {
+            "count": 18,
+            "signed_median_m": 0.4270250584613708,
+            "absolute_q50_q90_q95_max_m": [
+              0.4270250584613708,
+              0.595563561351374,
+              0.5957636687562395,
+              0.5957636687562395
+            ],
+            "absolute_q90_m": 0.595563561351374
+          },
+          "ceiling": {
+            "count": 162,
+            "signed_median_m": 0.2133537255814083,
+            "absolute_q50_q90_q95_max_m": [
+              0.2133537255814083,
+              0.2372034051370419,
+              0.23787300111294005,
+              0.2489898465344189
+            ],
+            "absolute_q90_m": 0.2372034051370419
+          },
+          "ray_depth_residual_m": {
+            "count": 358,
+            "signed_median_m": 0.7134494171683101,
+            "absolute_q50_q90_q95_q99_max_m": [
+              0.8278626346298086,
+              69.95606856496443,
+              375.28016844355335,
+              1241.8182712816613,
+              1374.1732218437962
+            ],
+            "absolute_q90_m": 69.95606856496443
+          },
+          "camera_anchor_residual_m": 0.0,
+          "plane_snapping_coverage": {
+            "floor_samples_snapped": 0,
+            "floor_samples_total": 18,
+            "ceiling_samples_snapped": 0,
+            "ceiling_samples_total": 162
+          }
+        },
+        "all_band_gates_pass": false,
+        "floor_band_left_out": {
+          "band": "bottom_floor_side",
+          "training_count": 338,
+          "held_out_count": 20,
+          "held_out": {
+            "floor": {
+              "count": 12,
+              "signed_median_m": 0.544019003121509,
+              "absolute_q50_q90_q95_max_m": [
+                0.544019003121509,
+                0.5957350819841158,
+                0.5957636687562395,
+                0.5957636687562395
+              ],
+              "absolute_q90_m": 0.5957350819841158
+            },
+            "ceiling": {
+              "count": 0,
+              "signed_median_m": null,
+              "absolute_q90_m": null
+            },
+            "ray_depth_residual_m": {
+              "count": 20,
+              "signed_median_m": -1.5415039772077594,
+              "absolute_q50_q90_q95_q99_max_m": [
+                1.5415039772077594,
+                2.0427571097736648,
+                2.0659878644544123,
+                2.1252537837618806,
+                2.140070263588748
+              ],
+              "absolute_q90_m": 2.0427571097736648
+            },
+            "camera_anchor_residual_m": 0.0,
+            "plane_snapping_coverage": {
+              "floor_samples_snapped": 0,
+              "floor_samples_total": 12,
+              "ceiling_samples_snapped": 0,
+              "ceiling_samples_total": 0
+            }
+          },
+          "gate": {
+            "floor_q90_pass_5cm": false,
+            "floor_goal_pass_3cm": false,
+            "ceiling_q90_pass_5cm": null,
+            "pass": false
+          }
+        }
+      },
+      "other_frame_floor_holdout": {
+        "floor": {
+          "count": 217,
+          "signed_median_m": 0.05337701051044119,
+          "absolute_q50_q90_q95_max_m": [
+            0.05337701051044119,
+            0.1001199541118031,
+            0.15217827795612504,
+            0.21473922294308578
+          ],
+          "absolute_q90_m": 0.1001199541118031
+        },
+        "ceiling": {
+          "count": 0,
+          "signed_median_m": null,
+          "absolute_q90_m": null
+        },
+        "ray_depth_residual_m": {
+          "count": 217,
+          "signed_median_m": -0.10933766603673867,
+          "absolute_q50_q90_q95_q99_max_m": [
+            0.1258206491374616,
+            0.6962952792116713,
+            0.8238607924189454,
+            1.358724565510989,
+            2.24411872506157
+          ],
+          "absolute_q90_m": 0.6962952792116713
+        },
+        "camera_anchor_residual_m": 0.0,
+        "plane_snapping_coverage": {
+          "floor_samples_snapped": 0,
+          "floor_samples_total": 217,
+          "ceiling_samples_snapped": 0,
+          "ceiling_samples_total": 0
+        }
+      },
+      "other_frame_floor_gate_pass": false,
+      "held_out_acceptance_pass": false,
+      "seam_integrity": {
+        "edge_population": "all grid edges; no region boundary in the smooth-field method",
+        "edge_count": 14739840,
+        "edge_stretch_ratio_q50_q90_q99_max": [
+          2.1843126353643276,
+          8.445527622321345,
+          18.98421794698711,
+          88.65346680446372
+        ],
+        "max_stretch_ratio": 88.65346680446372,
+        "max_compression_ratio": 0.00014953246128287368,
+        "tear_like_edge_count_ratio_outside_0.5_2.0": 12706998,
+        "degenerate_triangle_count": 2787275
+      },
+      "correction": {
+        "median_factor": 0.31094921726091906
+      },
+      "experimental_mesh": "data/track-a/hunyuan/route-a-visual-correction-frame-141/frame_141_layer1_smooth_corrected.ply"
+    },
+    {
+      "method": "plane_snap",
+      "parameter_count": 6,
+      "in_sample": {
+        "floor": {
+          "count": 18,
+          "signed_median_m": 1.1102230246251565e-16,
+          "absolute_q50_q90_q95_max_m": [
+            1.1102230246251565e-16,
+            0.10767220210421556,
+            0.11365692909123862,
+            0.11891278952912065
+          ],
+          "absolute_q90_m": 0.10767220210421556
+        },
+        "ceiling": {
+          "count": 162,
+          "signed_median_m": 0.0,
+          "absolute_q50_q90_q95_max_m": [
+            0.0,
+            0.10659081913925023,
+            0.143695902835956,
+            0.27934987281094725
+          ],
+          "absolute_q90_m": 0.10659081913925023
+        },
+        "ray_depth_residual_m": {
+          "count": 358,
+          "signed_median_m": -0.027749102977610463,
+          "absolute_q50_q90_q95_q99_max_m": [
+            0.27875911684969257,
+            1.2580258459024434,
+            2.337012328328249,
+            3.8504941292054076,
+            5.324869551848303
+          ],
+          "absolute_q90_m": 1.2580258459024434
+        },
+        "camera_anchor_residual_m": 0.0,
+        "plane_snapping_coverage": {
+          "floor_samples_snapped": 10,
+          "floor_samples_total": 18,
+          "ceiling_samples_snapped": 108,
+          "ceiling_samples_total": 162
+        }
+      },
+      "k_fold": {
+        "folds": [
+          {
+            "fold": 1,
+            "held_out_spatial_cells": [
+              1,
+              9,
+              14
+            ],
+            "training_count": 259,
+            "held_out": {
+              "floor": {
+                "count": 4,
+                "signed_median_m": 0.09849188954198795,
+                "absolute_q50_q90_q95_max_m": [
+                  0.09849188954198795,
+                  0.11329308064900183,
+                  0.11458594081919783,
+                  0.11587880098939385
+                ],
+                "absolute_q90_m": 0.11329308064900183
+              },
+              "ceiling": {
+                "count": 84,
+                "signed_median_m": 0.0,
+                "absolute_q50_q90_q95_max_m": [
+                  0.0,
+                  2.220446049250313e-16,
+                  0.0765076963576744,
+                  0.1053336515163874
+                ],
+                "absolute_q90_m": 2.220446049250313e-16
+              },
+              "ray_depth_residual_m": {
+                "count": 99,
+                "signed_median_m": 0.04682767242711705,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  0.08819683428598202,
+                  0.8096003219358107,
+                  1.2767808243358172,
+                  1.663744315703208,
+                  2.5160775698519044
+                ],
+                "absolute_q90_m": 0.8096003219358107
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 1,
+                "floor_samples_total": 4,
+                "ceiling_samples_snapped": 77,
+                "ceiling_samples_total": 84
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": false,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": true,
+              "pass": false
+            }
+          },
+          {
+            "fold": 2,
+            "held_out_spatial_cells": [
+              4,
+              5,
+              10
+            ],
+            "training_count": 247,
+            "held_out": {
+              "floor": {
+                "count": 4,
+                "signed_median_m": 0.11572957308492504,
+                "absolute_q50_q90_q95_max_m": [
+                  0.11572957308492504,
+                  0.1269244382337859,
+                  0.1293012315499271,
+                  0.13167802486606828
+                ],
+                "absolute_q90_m": 0.1269244382337859
+              },
+              "ceiling": {
+                "count": 18,
+                "signed_median_m": -0.027200681553996686,
+                "absolute_q50_q90_q95_max_m": [
+                  0.029652461227362314,
+                  0.04668973901242794,
+                  0.04719975661674267,
+                  0.04755781656791758
+                ],
+                "absolute_q90_m": 0.04668973901242794
+              },
+              "ray_depth_residual_m": {
+                "count": 111,
+                "signed_median_m": 0.6512964383909949,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  0.6602520263070559,
+                  2.5277204516444103,
+                  3.3451240726650413,
+                  4.39939901681097,
+                  4.531825163631357
+                ],
+                "absolute_q90_m": 2.5277204516444103
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 4,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 18
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": false,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": true,
+              "pass": false
+            }
+          },
+          {
+            "fold": 3,
+            "held_out_spatial_cells": [
+              6,
+              7,
+              8
+            ],
+            "training_count": 285,
+            "held_out": {
+              "floor": {
+                "count": 0,
+                "signed_median_m": null,
+                "absolute_q90_m": null
+              },
+              "ceiling": {
+                "count": 20,
+                "signed_median_m": -0.18534102239455086,
+                "absolute_q50_q90_q95_max_m": [
+                  0.18534102239455086,
+                  0.19276781028275405,
+                  0.20111250516779286,
+                  0.3205077539964375
+                ],
+                "absolute_q90_m": 0.19276781028275405
+              },
+              "ray_depth_residual_m": {
+                "count": 73,
+                "signed_median_m": -0.7422160988476643,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  0.787497787786954,
+                  2.1710443352832605,
+                  3.513669803581054,
+                  4.85851317148782,
+                  5.033894610102038
+                ],
+                "absolute_q90_m": 2.1710443352832605
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 0,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 20
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": null,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": false,
+              "pass": false
+            }
+          },
+          {
+            "fold": 4,
+            "held_out_spatial_cells": [
+              0,
+              2,
+              3
+            ],
+            "training_count": 296,
+            "held_out": {
+              "floor": {
+                "count": 0,
+                "signed_median_m": null,
+                "absolute_q90_m": null
+              },
+              "ceiling": {
+                "count": 40,
+                "signed_median_m": 0.0,
+                "absolute_q50_q90_q95_max_m": [
+                  0.0,
+                  0.02491860331131466,
+                  0.027447326315341927,
+                  0.12145071841476174
+                ],
+                "absolute_q90_m": 0.02491860331131466
+              },
+              "ray_depth_residual_m": {
+                "count": 62,
+                "signed_median_m": -0.20732028098270816,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  0.2426384093679439,
+                  0.6932291224149533,
+                  0.8580876606517296,
+                  1.049095209165992,
+                  1.2078849930715965
+                ],
+                "absolute_q90_m": 0.6932291224149533
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 0,
+                "ceiling_samples_snapped": 31,
+                "ceiling_samples_total": 40
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": null,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": true,
+              "pass": true
+            }
+          },
+          {
+            "fold": 5,
+            "held_out_spatial_cells": [
+              11,
+              13,
+              15
+            ],
+            "training_count": 345,
+            "held_out": {
+              "floor": {
+                "count": 10,
+                "signed_median_m": 0.0,
+                "absolute_q50_q90_q95_max_m": [
+                  0.0,
+                  0.01948265918861467,
+                  0.10715462553738085,
+                  0.19482659188614737
+                ],
+                "absolute_q90_m": 0.01948265918861467
+              },
+              "ceiling": {
+                "count": 0,
+                "signed_median_m": null,
+                "absolute_q90_m": null
+              },
+              "ray_depth_residual_m": {
+                "count": 13,
+                "signed_median_m": 0.1280809125829805,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  0.1954319701762417,
+                  1.2091435546816005,
+                  1.5002849606970945,
+                  1.846453007630732,
+                  1.9329950193641419
+                ],
+                "absolute_q90_m": 1.2091435546816005
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 9,
+                "floor_samples_total": 10,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 0
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": true,
+              "floor_goal_pass_3cm": true,
+              "ceiling_q90_pass_5cm": null,
+              "pass": true
+            }
+          }
+        ],
+        "pooled_out_of_fold": {
+          "floor": {
+            "count": 18,
+            "signed_median_m": 1.1102230246251565e-16,
+            "absolute_q50_q90_q95_max_m": [
+              1.1102230246251565e-16,
+              0.12061856815239619,
+              0.14115030991908006,
+              0.19482659188614737
+            ],
+            "absolute_q90_m": 0.12061856815239619
+          },
+          "ceiling": {
+            "count": 162,
+            "signed_median_m": 0.0,
+            "absolute_q50_q90_q95_max_m": [
+              0.0,
+              0.15229268455530054,
+              0.1857812873482276,
+              0.3205077539964375
+            ],
+            "absolute_q90_m": 0.15229268455530054
+          },
+          "ray_depth_residual_m": {
+            "count": 358,
+            "signed_median_m": 0.03354917068616481,
+            "absolute_q50_q90_q95_q99_max_m": [
+              0.46386745217286585,
+              1.6344173278488512,
+              2.5540417368442383,
+              4.362658241157958,
+              5.033894610102038
+            ],
+            "absolute_q90_m": 1.6344173278488512
+          },
+          "camera_anchor_residual_m": 0.0,
+          "plane_snapping_coverage": {
+            "floor_samples_snapped": 10,
+            "floor_samples_total": 18,
+            "ceiling_samples_snapped": 108,
+            "ceiling_samples_total": 162
+          }
+        },
+        "all_fold_gates_pass": false
+      },
+      "leave_one_panorama_band_out": {
+        "folds": [
+          {
+            "band": "top",
+            "training_count": 191,
+            "held_out_count": 167,
+            "held_out": {
+              "floor": {
+                "count": 0,
+                "signed_median_m": null,
+                "absolute_q90_m": null
+              },
+              "ceiling": {
+                "count": 135,
+                "signed_median_m": 0.0,
+                "absolute_q50_q90_q95_max_m": [
+                  0.0,
+                  0.12405308766824834,
+                  0.14968901579134605,
+                  0.1932142494132747
+                ],
+                "absolute_q90_m": 0.12405308766824834
+              },
+              "ray_depth_residual_m": {
+                "count": 167,
+                "signed_median_m": 0.022855197026250273,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  0.13524537007331716,
+                  0.8366787954519013,
+                  1.0031587844213146,
+                  2.552456482346762,
+                  2.6181552571433553
+                ],
+                "absolute_q90_m": 0.8366787954519013
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 0,
+                "ceiling_samples_snapped": 108,
+                "ceiling_samples_total": 135
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": null,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": false,
+              "pass": false
+            }
+          },
+          {
+            "band": "middle",
+            "training_count": 187,
+            "held_out_count": 171,
+            "held_out": {
+              "floor": {
+                "count": 6,
+                "signed_median_m": 0.16716167200919896,
+                "absolute_q50_q90_q95_max_m": [
+                  0.16716167200919896,
+                  0.24659444597689473,
+                  0.2481753281747735,
+                  0.24975621037265228
+                ],
+                "absolute_q90_m": 0.24659444597689473
+              },
+              "ceiling": {
+                "count": 27,
+                "signed_median_m": -0.06024447722668347,
+                "absolute_q50_q90_q95_max_m": [
+                  0.06024447722668347,
+                  0.09384618635854033,
+                  0.09624432388433735,
+                  0.15774451331736605
+                ],
+                "absolute_q90_m": 0.09384618635854033
+              },
+              "ray_depth_residual_m": {
+                "count": 171,
+                "signed_median_m": 2.153738458768686,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  2.178715470862521,
+                  375.28016844355335,
+                  1046.1753036726877,
+                  1296.2577118596043,
+                  1374.1732218437962
+                ],
+                "absolute_q90_m": 375.28016844355335
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 0,
+                "floor_samples_total": 6,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 27
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": false,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": false,
+              "pass": false
+            }
+          },
+          {
+            "band": "bottom_floor_side",
+            "training_count": 338,
+            "held_out_count": 20,
+            "held_out": {
+              "floor": {
+                "count": 12,
+                "signed_median_m": 0.0,
+                "absolute_q50_q90_q95_max_m": [
+                  0.0,
+                  0.1777339600153506,
+                  0.21218603804631142,
+                  0.23015742279811735
+                ],
+                "absolute_q90_m": 0.1777339600153506
+              },
+              "ceiling": {
+                "count": 0,
+                "signed_median_m": null,
+                "absolute_q90_m": null
+              },
+              "ray_depth_residual_m": {
+                "count": 20,
+                "signed_median_m": 0.1396994674305776,
+                "absolute_q50_q90_q95_q99_max_m": [
+                  0.2952435000119187,
+                  1.3173591171118983,
+                  1.4291400109108596,
+                  1.997884213053169,
+                  2.140070263588748
+                ],
+                "absolute_q90_m": 1.3173591171118983
+              },
+              "camera_anchor_residual_m": 0.0,
+              "plane_snapping_coverage": {
+                "floor_samples_snapped": 10,
+                "floor_samples_total": 12,
+                "ceiling_samples_snapped": 0,
+                "ceiling_samples_total": 0
+              }
+            },
+            "gate": {
+              "floor_q90_pass_5cm": false,
+              "floor_goal_pass_3cm": false,
+              "ceiling_q90_pass_5cm": null,
+              "pass": false
+            }
+          }
+        ],
+        "pooled_out_of_band": {
+          "floor": {
+            "count": 18,
+            "signed_median_m": 1.1102230246251565e-16,
+            "absolute_q50_q90_q95_max_m": [
+              1.1102230246251565e-16,
+              0.2341400004330233,
+              0.24438121089986442,
+              0.24975621037265228
+            ],
+            "absolute_q90_m": 0.2341400004330233
+          },
+          "ceiling": {
+            "count": 162,
+            "signed_median_m": 0.0,
+            "absolute_q50_q90_q95_max_m": [
+              0.0,
+              0.10063296335186639,
+              0.14394791974169344,
+              0.1932142494132747
+            ],
+            "absolute_q90_m": 0.10063296335186639
+          },
+          "ray_depth_residual_m": {
+            "count": 358,
+            "signed_median_m": 0.20970040268451484,
+            "absolute_q50_q90_q95_q99_max_m": [
+              0.5023002934595708,
+              69.95606856496443,
+              375.28016844355335,
+              1241.8182712816613,
+              1374.1732218437962
+            ],
+            "absolute_q90_m": 69.95606856496443
+          },
+          "camera_anchor_residual_m": 0.0,
+          "plane_snapping_coverage": {
+            "floor_samples_snapped": 10,
+            "floor_samples_total": 18,
+            "ceiling_samples_snapped": 108,
+            "ceiling_samples_total": 162
+          }
+        },
+        "all_band_gates_pass": false,
+        "floor_band_left_out": {
+          "band": "bottom_floor_side",
+          "training_count": 338,
+          "held_out_count": 20,
+          "held_out": {
+            "floor": {
+              "count": 12,
+              "signed_median_m": 0.0,
+              "absolute_q50_q90_q95_max_m": [
+                0.0,
+                0.1777339600153506,
+                0.21218603804631142,
+                0.23015742279811735
+              ],
+              "absolute_q90_m": 0.1777339600153506
+            },
+            "ceiling": {
+              "count": 0,
+              "signed_median_m": null,
+              "absolute_q90_m": null
+            },
+            "ray_depth_residual_m": {
+              "count": 20,
+              "signed_median_m": 0.1396994674305776,
+              "absolute_q50_q90_q95_q99_max_m": [
+                0.2952435000119187,
+                1.3173591171118983,
+                1.4291400109108596,
+                1.997884213053169,
+                2.140070263588748
+              ],
+              "absolute_q90_m": 1.3173591171118983
+            },
+            "camera_anchor_residual_m": 0.0,
+            "plane_snapping_coverage": {
+              "floor_samples_snapped": 10,
+              "floor_samples_total": 12,
+              "ceiling_samples_snapped": 0,
+              "ceiling_samples_total": 0
+            }
+          },
+          "gate": {
+            "floor_q90_pass_5cm": false,
+            "floor_goal_pass_3cm": false,
+            "ceiling_q90_pass_5cm": null,
+            "pass": false
+          }
+        }
+      },
+      "other_frame_floor_holdout": {
+        "floor": {
+          "count": 217,
+          "signed_median_m": 0.0,
+          "absolute_q50_q90_q95_max_m": [
+            0.0,
+            0.1001199541118031,
+            0.15217827795612504,
+            0.21473922294308578
+          ],
+          "absolute_q90_m": 0.1001199541118031
+        },
+        "ceiling": {
+          "count": 0,
+          "signed_median_m": null,
+          "absolute_q90_m": null
+        },
+        "ray_depth_residual_m": {
+          "count": 217,
+          "signed_median_m": 0.04924719658612542,
+          "absolute_q50_q90_q95_q99_max_m": [
+            0.1902273926337159,
+            0.6962952792116713,
+            0.8238607924189454,
+            1.358724565510989,
+            2.527192658334516
+          ],
+          "absolute_q90_m": 0.6962952792116713
+        },
+        "camera_anchor_residual_m": 0.0,
+        "plane_snapping_coverage": {
+          "floor_samples_snapped": 131,
+          "floor_samples_total": 217,
+          "ceiling_samples_snapped": 0,
+          "ceiling_samples_total": 0
+        }
+      },
+      "other_frame_floor_gate_pass": false,
+      "held_out_acceptance_pass": false,
+      "seam_integrity": {
+        "edge_population": "grid edges crossing snapped-floor/ceiling region boundaries",
+        "edge_count": 15263,
+        "edge_stretch_ratio_q50_q90_q99_max": [
+          15.102884166411727,
+          46.69515949569652,
+          292.1121706169119,
+          414.65343635942963
+        ],
+        "max_stretch_ratio": 414.65343635942963,
+        "max_compression_ratio": 0.20155721064061904,
+        "tear_like_edge_count_ratio_outside_0.5_2.0": 14602,
+        "degenerate_triangle_count": 2787275
+      },
+      "correction": {
+        "method": "normal-and-elevation segmentation; radial plane intersection for floor/ceiling; quadratic smooth field for remaining vertices",
+        "floor_panorama_row_fraction": [
+          0.56,
+          0.62
+        ],
+        "ceiling_panorama_row_fraction": [
+          0.37,
+          0.42
+        ],
+        "normal_vertical_dot_min": 0.8191520442889918,
+        "floor_vertices_snapped": 305457,
+        "ceiling_vertices_snapped": 210536,
+        "wall_and_transition_vertices_smooth_corrected": 6856807,
+        "scale_field_parameter_count": 6,
+        "scale_factor_quantiles_for_smooth_vertices": [
+          0.0003318151910351852,
+          0.2206283220705636,
+          2.58196104579438
+        ]
+      },
+      "experimental_mesh": "data/track-a/hunyuan/route-a-visual-correction-frame-141/frame_141_layer1_plane_snapped_corrected.ply"
+    }
+  ],
+  "resource_use": {
+    "runtime_seconds": 62.216,
+    "peak_rss_kib": 1913084,
+    "gpu_used": false
+  },
+  "decision": {
+    "route_a_held_out_acceptance_pass": false,
+    "second_frame_mesh_check_complete": false,
+    "second_frame_gpu_run_started": false,
+    "may_be_used_by_issue_137": false,
+    "reason": "The required second source-frame mesh check is pending explicit operator GPU approval."
+  }
+}
