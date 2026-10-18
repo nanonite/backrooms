@@ -1,6 +1,7 @@
 mod geometry;
 mod route_collision;
 mod route_mesh;
+mod route_scene;
 mod scenarios;
 mod sensor_shape_diagnostic;
 mod simulation;
@@ -179,6 +180,9 @@ const SLOPE_GATE_DESIGN: SlopeGateDesign = SlopeGateDesign {
 };
 
 pub fn run() -> Result<()> {
+    if env::args().any(|argument| argument == "--hunyuan-route-scene") {
+        return run_route_scene();
+    }
     if env::args().any(|argument| argument == "--write-gate-plan") {
         return write_gate_plan();
     }
@@ -235,6 +239,10 @@ pub fn run() -> Result<()> {
         bail!("walkability scenario failed: {}", failed.scenario);
     }
     Ok(())
+}
+
+pub fn run_route_scene() -> Result<()> {
+    route_scene::run()
 }
 
 fn run_scenario(spec: HarnessSpec, route: Option<AuthoredRouteAsset>) -> Result<ScenarioReport> {

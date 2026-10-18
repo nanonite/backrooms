@@ -24,6 +24,11 @@ pub struct RouteLoadState {
     complete: bool,
 }
 
+#[derive(Resource)]
+pub struct SceneAssetReadiness {
+    pub visual_ready: bool,
+}
+
 #[derive(SystemParam)]
 pub struct RouteImportParams<'w> {
     server: Res<'w, AssetServer>,
@@ -36,6 +41,7 @@ pub struct RouteImportParams<'w> {
     gltf_meshes: Res<'w, Assets<GltfMesh>>,
     meshes: Res<'w, Assets<Mesh>>,
     report: ResMut<'w, ScenarioReport>,
+    scene_readiness: Option<Res<'w, SceneAssetReadiness>>,
 }
 
 pub fn start_loading(
@@ -52,6 +58,13 @@ pub fn start_loading(
 
 pub fn poll_and_install(mut commands: Commands, mut params: RouteImportParams) {
     if params.state.complete {
+        return;
+    }
+    if params
+        .scene_readiness
+        .as_ref()
+        .is_some_and(|readiness| !readiness.visual_ready)
+    {
         return;
     }
     if !params

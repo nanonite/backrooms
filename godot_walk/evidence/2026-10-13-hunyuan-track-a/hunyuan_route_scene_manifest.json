@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "issue": 137,
+  "label": "uncalibrated",
+  "status": "preflight_locked",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "transform": {
+    "transform_status": "uncalibrated_convention",
+    "scale_m_per_hunyuan_unit": 1.5582858479,
+    "scale_basis": "#100 chosen 2.4 m floor-to-ceiling convention; not surveyed",
+    "scale_sensitivity_range_m_per_hunyuan_unit": [
+      1.555256,
+      1.559205
+    ],
+    "local_axis_mapping": "Hunyuan -X to registered forward, +Y to camera right, +Z to camera up",
+    "registered_frame_141_camera_anchor_world_m": [
+      2.2503421889550297,
+      -0.10027971444057249,
+      4.39888812351977
+    ],
+    "plane_aligned_translation_world_m": [
+      2.2503421889550297,
+      -0.22062215756,
+      4.39888812351977
+    ],
+    "camera_anchor_shift_y_m": -0.1203424431,
+    "declared_collision_floor_y_m": -1.2709904909133911,
+    "note": "Convention placement for comparison only; no registration or calibration is accepted."
+  },
+  "assets": {
+    "visual": {
+      "path": "godot_walk/generated_mesh_scenes/hunyuan_track_a_full_run/hunyuan_layers.glb",
+      "sha256": "5cc63c06b1bc920306a8da8758d4ef689c541f7fd64ccd8c02742b358902acba",
+      "source_frame": 141,
+      "source_nodes": [
+        "mesh_layer0",
+        "mesh_layer1"
+      ],
+      "role": "visual_only; never an Avian collider"
+    },
+    "collision": {
+      "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/authored_route_around_column/authored_route_collision.glb",
+      "sha256": "c1c587cfdd773c058d13e71daf841aa460a2413229454ccab6bbf08cacfc460d",
+      "nodes": [
+        "AuthoredPlanarRouteFloor",
+        "ColumnObstacleProxy",
+        "authored_edge_boundary_inner",
+        "authored_edge_boundary_outer"
+      ],
+      "role": "only physics collision asset"
+    },
+    "camera_metadata": {
+      "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/source_selection.json",
+      "sha256": "d149ce39286929ac0bdd8f1d32728057f0dd0f8443e913492b6adf59446148c0"
+    }
+  },
+  "locked_traversal_gate": {
+    "source": "#135 authored-route harness report",
+    "outbound_progress_fraction_min": 1.0,
+    "inbound_progress_fraction_min": 0.992,
+    "moving_support_fraction_min": 0.993,
+    "safety_net_contacts_max": 0,
+    "max_vertical_step_m": 0.2,
+    "comparison_rule": "route traversal metrics must match #135 using the same collision GLB and shared controller; any difference is a bug"
+  },
+  "locked_visual_metrics": {
+    "route_sample_count": 1536,
+    "visual_floor_ray": {
+      "query": "downward ray against Hunyuan visual geometry only; origin is 0.5 m above the authored collision floor and the 1.0 m cast spans 0.5 m above/below it; signed gap is visual hit Y minus authored collision floor Y",
+      "vertical_search_half_range_from_collision_floor_m": 0.5,
+      "report": [
+        "signed gap distribution",
+        "absolute gap median/q90/max",
+        "samples with no upward-facing floor surface at or below the collision floor within 0.5 m",
+        "visual holes: samples with no upward-facing floor surface within 0.5 m above or below the collision floor; a floor slightly above the plane is offset, not a hole",
+        "worst stations and positions",
+        "gap summaries grouped by distance from frame-141 camera"
+      ],
+      "acceptance": "descriptive only; no pass/fail threshold because registration is uncalibrated"
+    },
+    "visual_capsule_intersection": {
+      "capsule_radius_m": 0.3,
+      "capsule_height_m": 1.2,
+      "query": "test both Hunyuan visual layers against the controller capsule volume at every authored route sample; do not register visual geometry with Avian",
+      "report": [
+        "intersection count/fraction",
+        "worst stations and positions"
+      ],
+      "acceptance": "descriptive only; no pass/fail threshold because visual geometry is uncalibrated"
+    }
+  },
+  "resource_metrics": {
+    "report": [
+      "visual GLB load time",
+      "visual query preparation time",
+      "route simulation wall time and mean/p90/max Bevy update time",
+      "peak process RSS"
+    ],
+    "comparison_reference": {
+      "issue": 133,
+      "mesh_triangles": 18019365,
+      "peak_rss_kib": 6898192,
+      "updates_per_second": 15.5
+    }
+  },
+  "rendering": {
+    "status": "pending_explicit_operator_approval",
+    "gpu_or_render_work_started": false,
+    "estimated_vram_budget_gib": 4,
+    "estimated_host_ram_budget_gib": 10,
+    "estimate_basis": "#133 observed 4,229 MiB GPU peak and 6.58 GiB process RSS; estimates include margin and must be verified during an approved run"
+  }
+}
