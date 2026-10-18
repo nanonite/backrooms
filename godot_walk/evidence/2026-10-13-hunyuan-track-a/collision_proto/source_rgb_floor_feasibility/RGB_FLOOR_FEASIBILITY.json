@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "issue": 135,
+  "status": "ambiguous_color_segmentation_stop_before_projection",
+  "asset_status": "diagnostic_candidate_masks_only_not_reviewed_not_collision",
+  "human_reviewed": false,
+  "gpu_used": false,
+  "inference_run": false,
+  "projection_run": false,
+  "registered_frame_count": 192,
+  "representative_frame_numbers_1_based": [
+    1,
+    17,
+    33,
+    49,
+    65,
+    81,
+    97,
+    113,
+    129,
+    145,
+    161,
+    177,
+    192
+  ],
+  "input": {
+    "image_dir": "data/scenes/corridor_travel/images",
+    "dimensions": "1920x1080 RGB JPEG",
+    "selected_frames_loaded_one_at_a_time": true
+  },
+  "rule": {
+    "color_space": "PIL HSV 8-bit channels",
+    "hue_range_inclusive_0_255": [
+      26,
+      35
+    ],
+    "saturation_min_0_255": 125,
+    "value_range_inclusive_0_255": [
+      80,
+      205
+    ],
+    "vertical_crop": "y >= 0.42 * image height",
+    "connectivity": "8-connected candidate components; retain only components touching the bottom 8 rows",
+    "morphology_or_gap_bridging": false
+  },
+  "candidate_pixel_counts": {
+    "raw_hsv_median_q10_q50_q90_max": [
+      573335.0,
+      594930.0,
+      619507.8,
+      651980.0
+    ],
+    "bottom_connected_median_q10_q50_q90_max": [
+      497216.8,
+      548156.0,
+      592532.6,
+      637048.0
+    ],
+    "bottom_connected_fraction_of_pixels_median": 0.26434992283950615
+  },
+  "outputs": {
+    "predicted_floor_contact_sheet": "rgb_floor_candidate_contact_sheet.jpg",
+    "raw_color_candidate_contact_sheet": "rgb_color_candidate_contact_sheet.jpg",
+    "full_size_overlay_dir": "overlays",
+    "per_frame_mask_arrays": "frame_*_raw_mask.npy and frame_*_bottom_connected_mask.npy"
+  },
+  "frame_records": [
+    {
+      "frame_number_1_based": 1,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0001.jpg",
+      "source_sha256": "2635f8a0072e6d130caacf7e7a4415c02bff9c6626700c1ff96dc08b8dcfff41",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0001_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0001_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0001_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 651980,
+      "bottom_connected_pixels": 637048,
+      "pixel_fraction": 0.30721836419753085,
+      "raw_pixel_fraction": 0.3144193672839506,
+      "candidate_component_count_8_connected": 1734,
+      "bottom_seeded_component_count": 1,
+      "bottom_seeded_component_pixels": 637048,
+      "largest_bottom_seeded_component_pixels": 637048
+    },
+    {
+      "frame_number_1_based": 17,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0017.jpg",
+      "source_sha256": "c74ec78bdba6b77ef6dedbc7e0ccd0a2397f7c0ebef120bd948c258d87d77a64",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0017_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0017_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0017_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 612618,
+      "bottom_connected_pixels": 591999,
+      "pixel_fraction": 0.2854933449074074,
+      "raw_pixel_fraction": 0.2954369212962963,
+      "candidate_component_count_8_connected": 1263,
+      "bottom_seeded_component_count": 1,
+      "bottom_seeded_component_pixels": 591999,
+      "largest_bottom_seeded_component_pixels": 591999
+    },
+    {
+      "frame_number_1_based": 33,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0033.jpg",
+      "source_sha256": "e0d50691325271ad5c3e412e3c1d5ba93263d539dd71537012dec3f263f5990e",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0033_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0033_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0033_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 604480,
+      "bottom_connected_pixels": 592666,
+      "pixel_fraction": 0.2858150077160494,
+      "raw_pixel_fraction": 0.29151234567901235,
+      "candidate_component_count_8_connected": 777,
+      "bottom_seeded_component_count": 1,
+      "bottom_seeded_component_pixels": 592666,
+      "largest_bottom_seeded_component_pixels": 592666
+    },
+    {
+      "frame_number_1_based": 49,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0049.jpg",
+      "source_sha256": "78e3793a8e1d4ae61c94f211481511ecf0566d5212aaec38ebbc016fc749632a",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0049_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0049_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0049_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 594930,
+      "bottom_connected_pixels": 571551,
+      "pixel_fraction": 0.2756322337962963,
+      "raw_pixel_fraction": 0.2869068287037037,
+      "candidate_component_count_8_connected": 791,
+      "bottom_seeded_component_count": 6,
+      "bottom_seeded_component_pixels": 571551,
+      "largest_bottom_seeded_component_pixels": 571426
+    },
+    {
+      "frame_number_1_based": 65,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0065.jpg",
+      "source_sha256": "09b81a58e1fe527a08bd65bfb34e2cd6a1716fc3b61602afaebaff898ac19039",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0065_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0065_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0065_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 572294,
+      "bottom_connected_pixels": 546982,
+      "pixel_fraction": 0.2637837577160494,
+      "raw_pixel_fraction": 0.27599054783950616,
+      "candidate_component_count_8_connected": 971,
+      "bottom_seeded_component_count": 2,
+      "bottom_seeded_component_pixels": 546982,
+      "largest_bottom_seeded_component_pixels": 546980
+    },
+    {
+      "frame_number_1_based": 81,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0081.jpg",
+      "source_sha256": "e8bd4b75f9d21c3431d9b32597c9e5b93a06c9d90f065d1a9275160cccdf20b4",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0081_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0081_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0081_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 588824,
+      "bottom_connected_pixels": 561661,
+      "pixel_fraction": 0.27086275077160493,
+      "raw_pixel_fraction": 0.2839621913580247,
+      "candidate_component_count_8_connected": 637,
+      "bottom_seeded_component_count": 1,
+      "bottom_seeded_component_pixels": 561661,
+      "largest_bottom_seeded_component_pixels": 561661
+    },
+    {
+      "frame_number_1_based": 97,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0097.jpg",
+      "source_sha256": "2efa9af88b59333b18ddd2cdd939f7e2dfda8c0ae8e7a64dc3f2b38f4fdaf7ec",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0097_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0097_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0097_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 591572,
+      "bottom_connected_pixels": 551319,
+      "pixel_fraction": 0.26587528935185184,
+      "raw_pixel_fraction": 0.2852874228395062,
+      "candidate_component_count_8_connected": 498,
+      "bottom_seeded_component_count": 5,
+      "bottom_seeded_component_pixels": 551319,
+      "largest_bottom_seeded_component_pixels": 551293
+    },
+    {
+      "frame_number_1_based": 113,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0113.jpg",
+      "source_sha256": "63ab37aefc567a63ec26c84366813e3a7fa82c2083151b33520998ff941854fe",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0113_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0113_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0113_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 587474,
+      "bottom_connected_pixels": 538736,
+      "pixel_fraction": 0.2598070987654321,
+      "raw_pixel_fraction": 0.283311149691358,
+      "candidate_component_count_8_connected": 705,
+      "bottom_seeded_component_count": 29,
+      "bottom_seeded_component_pixels": 538736,
+      "largest_bottom_seeded_component_pixels": 537530
+    },
+    {
+      "frame_number_1_based": 129,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0129.jpg",
+      "source_sha256": "06f0669412ce65daccdbb1921141a0df810d7fff8a78b49fa7532f9931b3a751",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0129_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0129_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0129_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 577499,
+      "bottom_connected_pixels": 490879,
+      "pixel_fraction": 0.23672791280864197,
+      "raw_pixel_fraction": 0.278500675154321,
+      "candidate_component_count_8_connected": 941,
+      "bottom_seeded_component_count": 5,
+      "bottom_seeded_component_pixels": 490879,
+      "largest_bottom_seeded_component_pixels": 485945
+    },
+    {
+      "frame_number_1_based": 145,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0145.jpg",
+      "source_sha256": "4f783bdc4b3d3324f7f752938fe8c49ed0f52eef9106c5125de8e4dd302bceff",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0145_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0145_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0145_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 566302,
+      "bottom_connected_pixels": 453771,
+      "pixel_fraction": 0.21883246527777778,
+      "raw_pixel_fraction": 0.273100887345679,
+      "candidate_component_count_8_connected": 934,
+      "bottom_seeded_component_count": 2,
+      "bottom_seeded_component_pixels": 453771,
+      "largest_bottom_seeded_component_pixels": 453762
+    },
+    {
+      "frame_number_1_based": 161,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0161.jpg",
+      "source_sha256": "b7f5fe9b2b03272745ce8946ddb2a09ee117cd19d8bb56e2023c50db07f8ea99",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0161_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0161_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0161_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 598734,
+      "bottom_connected_pixels": 522568,
+      "pixel_fraction": 0.25201003086419754,
+      "raw_pixel_fraction": 0.2887413194444444,
+      "candidate_component_count_8_connected": 804,
+      "bottom_seeded_component_count": 1,
+      "bottom_seeded_component_pixels": 522568,
+      "largest_bottom_seeded_component_pixels": 522568
+    },
+    {
+      "frame_number_1_based": 177,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0177.jpg",
+      "source_sha256": "245b89a82a7e059f45e88a1d7cd96b4a30387d478f0ba56024ec1b39d74cad0e",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0177_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0177_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0177_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 619897,
+      "bottom_connected_pixels": 546606,
+      "pixel_fraction": 0.26360243055555554,
+      "raw_pixel_fraction": 0.2989472415123457,
+      "candidate_component_count_8_connected": 656,
+      "bottom_seeded_component_count": 5,
+      "bottom_seeded_component_pixels": 546606,
+      "largest_bottom_seeded_component_pixels": 546584
+    },
+    {
+      "frame_number_1_based": 192,
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0192.jpg",
+      "source_sha256": "5d2202775cfd2a25c1269ca1fc64a17fac7f151fa147a72abc1064a4923bfb55",
+      "raw_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0192_raw_mask.npy",
+      "selected_mask_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/frame_0192_bottom_connected_mask.npy",
+      "overlay_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_rgb_floor_feasibility/overlays/frame_0192_floor_candidate.png",
+      "image_shape_hw": [
+        1080,
+        1920
+      ],
+      "raw_candidate_pixels": 617951,
+      "bottom_connected_pixels": 548156,
+      "pixel_fraction": 0.26434992283950615,
+      "raw_pixel_fraction": 0.29800877700617284,
+      "candidate_component_count_8_connected": 645,
+      "bottom_seeded_component_count": 1,
+      "bottom_seeded_component_pixels": 548156,
+      "largest_bottom_seeded_component_pixels": 548156
+    }
+  ],
+  "visual_assessment": {
+    "floor_color_overlap": "Floor HSV samples are near (30-33, 131-187, 149-180), with overlapping values on cream columns and lower wall returns.",
+    "observed_false_positives": [
+      "Frame 17: the bottom-connected candidate extends over a large lower vertical face of the foreground cream column.",
+      "Frame 113: candidate patches touch the foreground column face/base and wall-return boundary."
+    ],
+    "observed_false_negatives": [
+      "Frames 17, 97, and 145 leave large visibly horizontal floor patches unselected, especially where lighting or texture changes.",
+      "Several otherwise continuous floor regions are speckled or clipped at shadows, baseboards, and occlusion edges."
+    ],
+    "ceiling_false_positive_control": "The y >= 0.42 crop suppresses most ceiling pixels by image position. It is not a ceiling classifier and cannot distinguish nearby floor from columns or lower walls.",
+    "decision": "Do not project. This candidate has visible column false positives and substantial floor false negatives; it is not high precision. Contact sheets are exploratory and remain unreviewed."
+  },
+  "execution": {
+    "elapsed_seconds": 6.142109558000811,
+    "peak_process_rss_bytes": 930975744
+  }
+}

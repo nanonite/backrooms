@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "issue": 135,
+  "status": "evidence_only_route_support_failed",
+  "asset_status": "not_collision_not_runtime_imported",
+  "gpu_used": false,
+  "method": "#100 Gaussian centres near its declared floor plane and with a floor-like short covariance axis",
+  "source_masks": {
+    "reviewed_floor_masks_available": false,
+    "note": "No reviewed floor masks or dense registered floor mesh were found in this worktree."
+  },
+  "frame": {
+    "metres_per_unit": 5.128383849229126,
+    "scale_kind": "chosen",
+    "source_up_axis": "z",
+    "world_up_axis": "y",
+    "world_horizontal_axes": [
+      "x",
+      "z"
+    ],
+    "scene_id": "corridor_splat",
+    "metric_scale_accepted": false,
+    "scale_note": "The #100 scale is a chosen synthetic convention, not surveyed metric scale.",
+    "hunyuan_transform_used": false,
+    "hunyuan_registration_accepted": false,
+    "hunyuan_convention_scale": 1.5582858478636477,
+    "hunyuan_scale_note": "Recorded for provenance only; no Hunyuan geometry or scale entered this grid."
+  },
+  "inputs": {
+    "alignment_manifest": "godot_walk/assets/corridor_splat/alignment_manifest.json",
+    "alignment_manifest_sha256": "85d5b51c8ca9df614b81a6f6dddf8c68015cca14b36e3b007c1a67f50be03598",
+    "source_ply": "godot_walk/assets/corridor_splat/corridor.ply",
+    "source_ply_sha256": "1602f159aa7910a105dd2eff913a8bbccec1cb50cca9f974c9f82dfda297929c",
+    "colmap_images": "data/scenes/corridor_travel/sparse/0/images.bin",
+    "colmap_images_sha256": "86122a114a15e8dd248445eae154996be8a83354fa47328fbb038c56bef68791",
+    "dataparser_transform": "data/track-a/hunyuan/dataparser_transforms.json",
+    "dataparser_transform_sha256": "fdabcd1b1450e65c605f45099a93383aff081fb1009b73f71f3eb854654e8ed4",
+    "mapped_camera_bounds_match_contract": true,
+    "registered_camera_count": 192
+  },
+  "selection": {
+    "floor_normal_candidates_in_camera_window": 15214,
+    "selected_floor_samples": 2087,
+    "selected_floor_height_residual_abs_q50_q90_q95_m": [
+      0.02472878788848476,
+      0.044776102736996885,
+      0.04746985222617741
+    ],
+    "floor_band_m": 0.05,
+    "normal_threshold_degrees": 30.0,
+    "camera_xz_window_expansion_m": 0.3,
+    "ply_gaussian_count": 182569
+  },
+  "grid": {
+    "resolution_m": 0.05,
+    "origin_xz_m": [
+      -5.800000000000001,
+      0.0
+    ],
+    "shape_rows_z_columns_x": [
+      117,
+      206
+    ],
+    "grid_cell_count": 24102,
+    "observed_cells_before_filter": 1660,
+    "unsupported_unknown_cells_before_filter": 22442,
+    "cells_rejected_for_local_geometry": 930,
+    "supported_cells_after_filter": 730,
+    "accepted_slope_degrees": 15.0,
+    "maximum_step_m": 0.2,
+    "filtered_reason_counts": {
+      "slope_or_step": 930,
+      "step_bit_set": 0,
+      "slope_bit_set": 930
+    },
+    "unknown_cells_filled": 0
+  },
+  "patch": {
+    "vertex_count": 4,
+    "triangle_count": 2,
+    "file": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_floor_patch_experimental_not_collision.obj",
+    "grid_file": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/source_floor_support_evidence.npz",
+    "note": "Only fully observed adjacent quads are emitted. This OBJ is evidence only, not a valid collision asset."
+  },
+  "camera_path_sample_coverage": {
+    "supported_camera_samples_within_radius": 69,
+    "count": 192,
+    "radius_m": 0.3,
+    "minimum_distance_q50_q90_q95_max_m": [
+      0.44061370834524627,
+      1.2289280240036056,
+      1.558940590485548,
+      1.7900111800615144
+    ]
+  },
+  "measurements": {
+    "registered_camera_samples_within_0_30m": "proximity only; not a walkability test",
+    "tested_walkability": false,
+    "bevy_avian_tnua_runtime_tested": false,
+    "collision_glb_created": false
+  },
+  "execution": {
+    "elapsed_seconds": 2.2013664940022863,
+    "peak_process_rss_bytes": 126513152,
+    "grid_npz_bytes": 13249,
+    "obj_bytes": 272
+  },
+  "failure_reason": "The 5 cm observation grid yields only one contiguous quad and 69/192 camera samples are within 0.30 m of support samples. This proximity probe is not traversal evidence; no connected player route is established."
+}

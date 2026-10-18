@@ -1,0 +1,544 @@
+{
+  "schema_version": 1,
+  "issue": 135,
+  "status": "evidence_only_route_support_failed",
+  "asset_status": "not_collision_not_runtime_imported",
+  "gpu_used": false,
+  "inference_run": false,
+  "metric_scale_accepted": false,
+  "scale_kind": "chosen",
+  "scale_note": "#100's 5.128383849 m/unit is a chosen synthetic convention, not surveyed metric scale.",
+  "floor_plane_height_m": -1.2709904916293824,
+  "method": "Sparse registered COLMAP views; unreviewed candidate crop rows >= threshold; SIMPLE_RADIAL inverse; exact ray-plane intersections; 5 cm occupancy grid.",
+  "mask_audit": {
+    "human_reviewed": false,
+    "source_rule": "uniform lower image band v >= 930",
+    "mask_frame_count": 24,
+    "selected_frame_numbers_1_based": [
+      9,
+      17,
+      25,
+      33,
+      41,
+      49,
+      57,
+      65,
+      73,
+      81,
+      89,
+      97,
+      105,
+      113,
+      121,
+      129,
+      137,
+      141,
+      145,
+      153,
+      161,
+      169,
+      177,
+      185
+    ],
+    "sample_stride_px": 4,
+    "contact_sheet": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/registered_floor_masks/mask_contact_sheet.jpg",
+    "overlay_directory": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/registered_floor_masks/overlays",
+    "interpretation": "Candidate pixels are not a semantic floor segmentation and have not had human review; the contact sheet is for audit. Objects crossing the lower band can create false floor hits."
+  },
+  "inputs": {
+    "alignment_manifest": "godot_walk/assets/corridor_splat/alignment_manifest.json",
+    "alignment_manifest_sha256": "85d5b51c8ca9df614b81a6f6dddf8c68015cca14b36e3b007c1a67f50be03598",
+    "colmap_model": "data/scenes/corridor_travel/sparse/0",
+    "colmap_images_sha256": "86122a114a15e8dd248445eae154996be8a83354fa47328fbb038c56bef68791",
+    "colmap_cameras_sha256": "722bf3809802099390979b5abf1eaea7fb70c88d955bd68147a08466a48082ae",
+    "dataparser_transform": "data/track-a/hunyuan/dataparser_transforms.json",
+    "dataparser_sha256": "fdabcd1b1450e65c605f45099a93383aff081fb1009b73f71f3eb854654e8ed4",
+    "registered_images": 192,
+    "registered_image_order": "numeric frame suffix, not binary model order",
+    "camera_model": "SIMPLE_RADIAL",
+    "camera_parameters_f_cx_cy_k1": [
+      1230.189175616024,
+      960.0,
+      540.0,
+      -0.07134034405730856
+    ],
+    "source_selection_camera_parameters": [
+      1230.189175616024,
+      960.0,
+      540.0,
+      -0.07134034405730856
+    ],
+    "frame_141_camera_parameters_match_source_selection": true,
+    "observation_decode": "This evidence reader decodes COLMAP <ddq> records directly. The shared read_images helper currently casts point IDs through float64; this report does not rely on those IDs."
+  },
+  "alignment_checks": {
+    "mapped_camera_bounds_match_contract": true,
+    "max_camera_bound_residual_m": 2.6645352591003757e-15,
+    "max_abs_intersection_floor_residual_m": 4.440892098500626e-16,
+    "colmap_sparse_reprojection": {
+      "observation_count": 104051,
+      "pixel_residual_mean_median_q90_q95_max": [
+        0.8720004451753455,
+        2.21773384951452,
+        2.6934357937243862,
+        3.992689775429538
+      ],
+      "pixel_residual_mean": 1.0724716608719125
+    },
+    "plane_intersection_residual_note": "The floor residual is numerical consistency only; the plane itself is imposed, not independently measured."
+  },
+  "frame_projections": [
+    {
+      "frame_number_1_based": 9,
+      "registered_image": "frame_0009.jpg",
+      "source_sha256": "5bc5263e82eaf3d6aac2770514c40d82dbc3f0831e26d377c9a9180a4eab1a35",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 17,
+      "registered_image": "frame_0017.jpg",
+      "source_sha256": "c74ec78bdba6b77ef6dedbc7e0ccd0a2397f7c0ebef120bd948c258d87d77a64",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 25,
+      "registered_image": "frame_0025.jpg",
+      "source_sha256": "cca76c02e469bac21ae89da019f666c6adeb7cfe7ddb2f9b5ab5e346537c8ff0",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 4.440892098500626e-16
+      }
+    },
+    {
+      "frame_number_1_based": 33,
+      "registered_image": "frame_0033.jpg",
+      "source_sha256": "e0d50691325271ad5c3e412e3c1d5ba93263d539dd71537012dec3f263f5990e",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 41,
+      "registered_image": "frame_0041.jpg",
+      "source_sha256": "4b7ee5cc020933aab0e7359767b85a57446e6521f3a0f977fa0ef5ca710e1b1e",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 49,
+      "registered_image": "frame_0049.jpg",
+      "source_sha256": "78e3793a8e1d4ae61c94f211481511ecf0566d5212aaec38ebbc016fc749632a",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 57,
+      "registered_image": "frame_0057.jpg",
+      "source_sha256": "6e671c9e3577e95bb90b36cc5ec17322ac515ed57e046adf545c47cb75c0fb79",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 65,
+      "registered_image": "frame_0065.jpg",
+      "source_sha256": "09b81a58e1fe527a08bd65bfb34e2cd6a1716fc3b61602afaebaff898ac19039",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 73,
+      "registered_image": "frame_0073.jpg",
+      "source_sha256": "8094a884db6960aa53d31111a470dd94752a4d006501386e9eee60dca91f81cc",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 81,
+      "registered_image": "frame_0081.jpg",
+      "source_sha256": "e8bd4b75f9d21c3431d9b32597c9e5b93a06c9d90f065d1a9275160cccdf20b4",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 89,
+      "registered_image": "frame_0089.jpg",
+      "source_sha256": "941f307e84072a9238cdf21c831d3469b6593b525b67f342b09e19be9445a68b",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 97,
+      "registered_image": "frame_0097.jpg",
+      "source_sha256": "2efa9af88b59333b18ddd2cdd939f7e2dfda8c0ae8e7a64dc3f2b38f4fdaf7ec",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 105,
+      "registered_image": "frame_0105.jpg",
+      "source_sha256": "771adc8f9c8b2c5881e6dbbf67adce6b29af0e91a19a9c022924b5a48a95c99f",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 113,
+      "registered_image": "frame_0113.jpg",
+      "source_sha256": "63ab37aefc567a63ec26c84366813e3a7fa82c2083151b33520998ff941854fe",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 121,
+      "registered_image": "frame_0121.jpg",
+      "source_sha256": "65459f66bb18b456826e56c3f6cd5437062169b1a315a67f1353d3834e385ec7",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 129,
+      "registered_image": "frame_0129.jpg",
+      "source_sha256": "06f0669412ce65daccdbb1921141a0df810d7fff8a78b49fa7532f9931b3a751",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 4.440892098500626e-16
+      }
+    },
+    {
+      "frame_number_1_based": 137,
+      "registered_image": "frame_0137.jpg",
+      "source_sha256": "092793c5eabc1cbd26178fc1aa7945d4979bbe98f2f7959c26870207a2a41804",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 141,
+      "registered_image": "frame_0141.jpg",
+      "source_sha256": "f77d26c4814611ed1c27ec745d513fabf84936577148e70d609bd872a41c3cc5",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 145,
+      "registered_image": "frame_0145.jpg",
+      "source_sha256": "4f783bdc4b3d3324f7f752938fe8c49ed0f52eef9106c5125de8e4dd302bceff",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 153,
+      "registered_image": "frame_0153.jpg",
+      "source_sha256": "6d0da13a56616c7d1368e668aeba97bb7551701f8c8c3f81a913bbd50918b439",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 161,
+      "registered_image": "frame_0161.jpg",
+      "source_sha256": "b7f5fe9b2b03272745ce8946ddb2a09ee117cd19d8bb56e2023c50db07f8ea99",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 169,
+      "registered_image": "frame_0169.jpg",
+      "source_sha256": "d093bbdb843a6683625efbf859077dd49fc3bd73bb43a653305d0cc1b0ed3d10",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 177,
+      "registered_image": "frame_0177.jpg",
+      "source_sha256": "245b89a82a7e059f45e88a1d7cd96b4a30387d478f0ba56024ec1b39d74cad0e",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 2.220446049250313e-16
+      }
+    },
+    {
+      "frame_number_1_based": 185,
+      "registered_image": "frame_0185.jpg",
+      "source_sha256": "85aca086e4ea3287027f5132af1e86da59d9d97b5fb9c3d71f2eda375da46460",
+      "candidate_rule": "all pixels with v >= 930; no semantic inference",
+      "mask_pixel_fraction": 0.1388888888888889,
+      "projection": {
+        "candidate_pixels": 17760,
+        "rays_downward": 17760,
+        "forward_floor_intersections": 17760,
+        "rejected_up_or_horizontal": 0,
+        "rejected_behind_camera": 0,
+        "max_abs_floor_residual_m": 4.440892098500626e-16
+      }
+    }
+  ],
+  "grid": {
+    "grid_spacing_m": 0.05,
+    "grid_shape_rows_z_columns_x": [
+      174,
+      206
+    ],
+    "observed_cells": 10263,
+    "unknown_cells": 25581,
+    "unknown_cells_filled": 0,
+    "supported_cells_after_slope_step_filter": 10263,
+    "connected_component_count_8_connected": 1,
+    "component_cell_counts_descending": [
+      10263
+    ],
+    "support_area_m2": 25.657500000000006,
+    "camera_samples_within_radius": 0,
+    "camera_sample_count": 192,
+    "camera_coverage_fraction": 0.0,
+    "camera_nearest_distance_q50_q90_q95_max_m": [
+      0.884863525722618,
+      2.2647188261551876,
+      2.29763288725574,
+      2.3324115674482333
+    ],
+    "adjacent_camera_segment_midpoints_within_radius": 0,
+    "adjacent_camera_segment_count": 191,
+    "segment_midpoint_coverage_fraction": 0.0,
+    "segment_midpoint_nearest_distance_max_m": 2.3282994805900405,
+    "coverage_radius_m": 0.3,
+    "coverage_radius_sensitivity": {
+      "0.3": {
+        "camera_sample_fraction": 0.0,
+        "segment_midpoint_fraction": 0.0
+      },
+      "0.5": {
+        "camera_sample_fraction": 0.0,
+        "segment_midpoint_fraction": 0.0
+      },
+      "1.0": {
+        "camera_sample_fraction": 0.609375,
+        "segment_midpoint_fraction": 0.6178010471204188
+      },
+      "1.5": {
+        "camera_sample_fraction": 0.7864583333333334,
+        "segment_midpoint_fraction": 0.7853403141361257
+      },
+      "2.0": {
+        "camera_sample_fraction": 0.84375,
+        "segment_midpoint_fraction": 0.8481675392670157
+      }
+    },
+    "origin_xz_m": [
+      -5.800000000000001,
+      -2.85
+    ],
+    "dimensions_note": "Grid bounds contain observed ray hits and registered camera centres plus 0.30 m; no cells outside observed hits are filled.",
+    "file": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/registered_floor_masks/registered_floor_mask_support_evidence.npz"
+  },
+  "negative_controls": {
+    "wrong_scale": {
+      "rejected": true,
+      "reason": "declared scale disagrees with its alignment reference"
+    },
+    "wrong_axis": {
+      "rejected": true,
+      "reason": "source up axis does not map to Godot world +Y"
+    },
+    "inserted_hole": {
+      "applicable": true,
+      "center_xz_m": [
+        -3.1250000000000004,
+        1.025
+      ],
+      "radius_m": 0.3,
+      "cells_made_unknown": 50,
+      "center_cell_remains_unknown": true,
+      "unknown_cells_filled": 0
+    }
+  },
+  "walkability": {
+    "tested": false,
+    "avian_tnua_tested": false,
+    "reason": "Only 0/192 camera samples and 0/191 segment midpoints are supported within 0.30 m; the >90% route gate fails, so physics was skipped.",
+    "collision_glb_created": false
+  },
+  "execution": {
+    "elapsed_seconds": 12.394993998997961,
+    "peak_process_rss_bytes": 930975744,
+    "grid_archive_bytes": 51633,
+    "contact_sheet_bytes": 634911
+  },
+  "failure_reason": "The unreviewed crop yields one connected 25.66 m2 support component but 0% camera-path coverage at 0.30 m (median nearest support 0.885 m). It is not a route and has not been human-reviewed or semantically validated."
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "issue": 135,
+  "status": "read_only_camera_coverage_diagnostic",
+  "inputs": {
+    "alignment_manifest_sha256": "85d5b51c8ca9df614b81a6f6dddf8c68015cca14b36e3b007c1a67f50be03598",
+    "colmap_images_sha256": "86122a114a15e8dd248445eae154996be8a83354fa47328fbb038c56bef68791",
+    "colmap_cameras_sha256": "722bf3809802099390979b5abf1eaea7fb70c88d955bd68147a08466a48082ae",
+    "dataparser_transforms_sha256": "fdabcd1b1450e65c605f45099a93383aff081fb1009b73f71f3eb854654e8ed4"
+  },
+  "registered_frames": 192,
+  "camera_model": "SIMPLE_RADIAL",
+  "floor_height_m": -1.2709904916293824,
+  "pixel_stride": 16,
+  "results": {
+    "camera_motion_local_abs_component_median_xyz": [
+      0.98372,
+      0.022807,
+      0.175302
+    ],
+    "fraction_frames_x_motion_exceeds_z": 1.0,
+    "camera_pitch_deg": {
+      "min": -0.053677,
+      "q10": 0.042966,
+      "median": 0.114419,
+      "q90": 0.267051,
+      "max": 0.428531
+    },
+    "view_heading_minus_motion_deg": {
+      "min": 71.56032,
+      "q10": 74.470483,
+      "median": 80.566653,
+      "q90": 85.109471,
+      "max": 87.879451
+    },
+    "camera_height_above_declared_floor_m": {
+      "min": 1.091385,
+      "q10": 1.119911,
+      "median": 1.1572,
+      "q90": 1.174407,
+      "max": 1.186014
+    },
+    "ray_origin_vs_registered_camera_residual_m": {
+      "min": 0.0,
+      "q10": 0.0,
+      "median": 0.0,
+      "q90": 0.0,
+      "max": 0.0
+    },
+    "bottom_band_floor_hit_centroid_forward_m": {
+      "min": 2.827803,
+      "q10": 2.876702,
+      "median": 2.940068,
+      "q90": 2.996221,
+      "max": 3.007402
+    },
+    "bottom_band_floor_hit_centroid_lateral_m": {
+      "min": -0.011136,
+      "q10": -0.009482,
+      "median": -0.001636,
+      "q90": 0.000825,
+      "max": 0.001915
+    }
+  },
+  "limits": [
+    "Bottom-band floor intersections use the declared #100 horizontal plane.",
+    "This measures image/frustum geometry, not actual floor elevation or occlusion.",
+    "The #100 scale is a synthetic coordinate convention, not surveyed scale."
+  ]
+}

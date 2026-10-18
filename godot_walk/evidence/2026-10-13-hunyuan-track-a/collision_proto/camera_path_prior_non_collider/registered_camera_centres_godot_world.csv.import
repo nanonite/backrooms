@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bonqpew5tjn4r"
+
+[deps]
+
+files=["res://evidence/2026-10-13-hunyuan-track-a/collision_proto/camera_path_prior_non_collider/registered_camera_centres_godot_world.x.translation", "res://evidence/2026-10-13-hunyuan-track-a/collision_proto/camera_path_prior_non_collider/registered_camera_centres_godot_world.y.translation", "res://evidence/2026-10-13-hunyuan-track-a/collision_proto/camera_path_prior_non_collider/registered_camera_centres_godot_world.z.translation"]
+
+source_file="res://evidence/2026-10-13-hunyuan-track-a/collision_proto/camera_path_prior_non_collider/registered_camera_centres_godot_world.csv"
+dest_files=["res://evidence/2026-10-13-hunyuan-track-a/collision_proto/camera_path_prior_non_collider/registered_camera_centres_godot_world.x.translation", "res://evidence/2026-10-13-hunyuan-track-a/collision_proto/camera_path_prior_non_collider/registered_camera_centres_godot_world.y.translation", "res://evidence/2026-10-13-hunyuan-track-a/collision_proto/camera_path_prior_non_collider/registered_camera_centres_godot_world.z.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "issue": 139,
+  "status": "experimental_authored_route_prototype",
+  "gpu_used": false,
+  "inference_run": false,
+  "metric_scale_accepted": false,
+  "hunyuan_registration_accepted": false,
+  "plane": {
+    "height_m": -1.2709904909133911,
+    "basis": "#100 chosen floor plane; not measured terrain",
+    "slope_and_step_validation": "not applicable to this planar authored mesh"
+  },
+  "route": {
+    "kind": "authored_planar_loop_around_reviewed_column",
+    "center_xz_m": [
+      -0.45011800276157465,
+      1.4506849140103122
+    ],
+    "center_offset_from_camera_orbit_xz_m": [
+      0.25,
+      0.7
+    ],
+    "camera_orbit_fit_radius_m": 4.736981884379917,
+    "camera_orbit_abs_residual_q50_q90_max_m": [
+      0.023947548805651753,
+      0.060685016222625704,
+      0.13452119806172824
+    ],
+    "radius_m": 2.875,
+    "width_m": 0.8,
+    "inner_radius_m": 2.475,
+    "outer_radius_m": 3.275,
+    "start_xz_m": [
+      2.4248819972384252,
+      1.4506849140103122
+    ],
+    "end_xz_m": [
+      2.4248819972384252,
+      1.4506849140103122
+    ],
+    "closed_path_length_m": 18.064145163561285,
+    "centerline_samples": 1536,
+    "candidate_footprint_proximity": {
+      "candidate_cells_within_radius_m": 0.3,
+      "route_samples": 1536,
+      "candidate_supported_samples": 1384,
+      "candidate_support_fraction": 0.9010416666666666,
+      "nearest_distance_q50_q90_max_m": [
+        0.023925067331707087,
+        0.2898088705597801,
+        1.178487208011414
+      ]
+    },
+    "candidate_footprint_corridor_comparison": {
+      "corridor_cells": 5773,
+      "candidate_cells_in_corridor": 4126,
+      "candidate_area_m2": 10.315000000000001,
+      "explicit_authored_fill_area_m2": 4.117500000000001,
+      "candidate_occupancy_fraction": 0.7147063918240083
+    },
+    "offline_capsule_geometry_check": {
+      "pass": true,
+      "capsule_diameter_m": 0.6,
+      "floor_corridor_width_m": 0.8,
+      "lateral_margin_each_side_m": 0.10000000000000003,
+      "obstacle_max_radius_from_loop_center_m": 2.3378097471883077,
+      "obstacle_clearance_to_floor_inner_edge_m": 0.1371902528116924,
+      "centerline_obstacle_clearance_after_capsule_m": 0.23719834066499107,
+      "loop_radius_m": 2.875,
+      "loop_band_center_m": 2.875,
+      "check_kind": "static horizontal geometry only; not a runtime physics traversal"
+    },
+    "explicit_authored_fill": {
+      "mesh_covers_full_loop": true,
+      "candidate_support_is_not_ground_truth": true,
+      "unknown_cells_in_candidate_grid_remain_unmodified": true
+    }
+  },
+  "column_obstacle": {
+    "review_method": "manual image review of three visible floor-contact corners, projected through registered poses onto the declared #100 plane",
+    "frames": [
+      {
+        "frame_number": 137,
+        "image": "frame_0137.jpg",
+        "visible_base_corner_pixels_uv": [
+          [
+            714,
+            835
+          ],
+          [
+            783,
+            900
+          ],
+          [
+            1130,
+            835
+          ]
+        ],
+        "projected_base_corners_xz_m": [
+          [
+            -1.1668431270718147,
+            0.7350662136585218
+          ],
+          [
+            -0.39448970083014046,
+            1.3385216998149807
+          ],
+          [
+            0.31192645011758047,
+            -0.02938068201319144
+          ],
+          [
+            -0.4604269761240938,
+            -0.6328361681696504
+          ]
+        ],
+        "derived_corner_index": 3,
+        "projection": {
+          "candidate_pixels": 3,
+          "rays_downward": 3,
+          "forward_floor_intersections": 3,
+          "rejected_up_or_horizontal": 0,
+          "rejected_behind_camera": 0,
+          "max_abs_floor_residual_m": 0.0
+        }
+      },
+      {
+        "frame_number": 141,
+        "image": "frame_0141.jpg",
+        "visible_base_corner_pixels_uv": [
+          [
+            714,
+            832
+          ],
+          [
+            783,
+            897
+          ],
+          [
+            1128,
+            832
+          ]
+        ],
+        "projected_base_corners_xz_m": [
+          [
+            -1.206856153361357,
+            0.7346989414991043
+          ],
+          [
+            -0.37779766498972833,
+            1.2899280876153472
+          ],
+          [
+            0.21804440163780736,
+            -0.1363309582500074
+          ],
+          [
+            -0.6110140867338214,
+            -0.6915601043662503
+          ]
+        ],
+        "derived_corner_index": 3,
+        "projection": {
+          "candidate_pixels": 3,
+          "rays_downward": 3,
+          "forward_floor_intersections": 3,
+          "rejected_up_or_horizontal": 0,
+          "rejected_behind_camera": 0,
+          "max_abs_floor_residual_m": 0.0
+        }
+      }
+    ],
+    "source_image_sha256": {
+      "frame_0137.jpg": "092793c5eabc1cbd26178fc1aa7945d4979bbe98f2f7959c26870207a2a41804",
+      "frame_0141.jpg": "f77d26c4814611ed1c27ec745d513fabf84936577148e70d609bd872a41c3cc5"
+    },
+    "footprint_lower_xz_m": [
+      -1.2568561533613571,
+      -0.7415601043662503
+    ],
+    "footprint_upper_xz_m": [
+      0.36192645011758046,
+      1.3885216998149807
+    ],
+    "horizontal_margin_m": 0.05,
+    "height_m": 2.4,
+    "height_basis": "chosen #100 room clear-height convention; not measured",
+    "route_centerline_min_clearance_m": 0.5371983406649911,
+    "capsule_radius_m": 0.3,
+    "capsule_residual_clearance_m": 0.23719834066499107
+  },
+  "export": {
+    "path": "authored_route_collision.glb",
+    "format": "glTF 2.0 binary (GLB)",
+    "sha256": "170d91bd13923c0f472fbe1b8844e4b9a6b3f37e3e457decedc49994689d4f1e",
+    "bytes": 20284,
+    "mesh_names": [
+      "AuthoredPlanarRouteFloor",
+      "ColumnObstacleProxy"
+    ],
+    "floor_vertices": 1024,
+    "floor_triangles": 512,
+    "column_vertices": 8,
+    "column_triangles": 12,
+    "node_transform": "identity; vertices already use #100 Godot world coordinates",
+    "grid_spacing_m": 0.05
+  },
+  "inputs": {
+    "alignment_and_registered_pose_hashes": {
+      "alignment_manifest_sha256": "85d5b51c8ca9df614b81a6f6dddf8c68015cca14b36e3b007c1a67f50be03598",
+      "colmap_images_sha256": "86122a114a15e8dd248445eae154996be8a83354fa47328fbb038c56bef68791",
+      "colmap_cameras_sha256": "722bf3809802099390979b5abf1eaea7fb70c88d955bd68147a08466a48082ae",
+      "dataparser_transforms_sha256": "fdabcd1b1450e65c605f45099a93383aff081fb1009b73f71f3eb854654e8ed4"
+    },
+    "candidate_grid_sha256": "8d7293f78a488cef739a564761bee1726a4df1128979c752ae7d5984517bd607",
+    "route_spec_sha256": "0ec5e7c266fe2563b6312177b95bad4a19a5507659317766e8e2dcb0a2ec0c0d",
+    "registered_images": {
+      "frame_0137.jpg": "092793c5eabc1cbd26178fc1aa7945d4979bbe98f2f7959c26870207a2a41804",
+      "frame_0141.jpg": "f77d26c4814611ed1c27ec745d513fabf84936577148e70d609bd872a41c3cc5"
+    }
+  },
+  "limits": [
+    "The #100 scale is a chosen synthetic convention, not surveyed metric scale.",
+    "The floor is an explicitly authored horizontal mesh imported into Godot, not reconstructed terrain.",
+    "The column footprint uses manually selected image pixels and an assumed floor plane.",
+    "The fourth base corner is derived by parallelogram closure; the obstacle is a conservative AABB proxy.",
+    "No engine physics traversal, slope, step, or headroom validation is claimed; #141 owns controller testing.",
+    "Hunyuan #134 registration remains unaccepted; this route is independent authored support."
+  ]
+}

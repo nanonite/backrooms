@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "issue": 135,
+  "method": "run-05 layer-1 original panorama-grid forward floor-band triangles",
+  "status": "experimental_hunyuan_patch_route_start_failed",
+  "asset_status": "evidence_only_not_collision_not_runtime_imported",
+  "gpu_used": false,
+  "hunyuan_inference_run": false,
+  "transform": {
+    "kind": "camera_anchored_uniform_similarity_candidate",
+    "scale": 1.5582858478636477,
+    "scale_status": "convention_derived_not_surveyed",
+    "scale_calibrated": false,
+    "registration_accepted": false,
+    "rotation_local_to_world_row_major": [
+      [
+        0.5286220008186361,
+        0.8488510241919436,
+        0.003273985153690728
+      ],
+      [
+        -0.0012503875903586566,
+        -0.003078260635800087,
+        0.9999944804059345
+      ],
+      [
+        0.8488564170584894,
+        -0.5286231767901847,
+        -0.0005658435106224637
+      ]
+    ],
+    "translation_world_declared": [
+      2.2503421889550297,
+      -0.10027971444057249,
+      4.39888812351977
+    ],
+    "frame_141_anchor_world_declared": [
+      2.2503421889550297,
+      -0.10027971444057249,
+      4.39888812351977
+    ],
+    "camera_anchor_y_offset_from_declared_source_floor_m": 1.17071077718881,
+    "warning": "Convention-derived #134 scale only; not surveyed or approved for collision."
+  },
+  "inputs": {
+    "ply": "data/track-a/hunyuan/scene-run-05/mesh_layer1.ply",
+    "ply_sha256": "4955ffcd5d05d9dd0bdece02624495fbd39eeb80383c3c5bd119a0a2473e8698",
+    "mask": "data/track-a/hunyuan/scene-run-05/fg1_mask.png",
+    "mask_sha256": "9547651316ae3f69eb2a387ef0a1fccd2dec4dbe91ac1a05494243ba61737e74",
+    "source_alignment_manifest_sha256": "85d5b51c8ca9df614b81a6f6dddf8c68015cca14b36e3b007c1a67f50be03598",
+    "registered_source_camera_count": 192,
+    "frame_141_source_camera_index_in_colmap_order": 151,
+    "source_frame_141_anchor_match": true
+  },
+  "grid_and_selection": {
+    "panorama_size_width_height": [
+      3840,
+      1920
+    ],
+    "original_layer_vertices": 7372800,
+    "original_layer_triangles": 14783952,
+    "original_regular_grid_triangles_including_panorama_seam": 14737920,
+    "original_panorama_seam_triangles": 3838,
+    "nonseam_regular_grid_triangles": 14734082,
+    "appended_upstream_boundary_fill_faces_excluded": 46032,
+    "panorama_v_fraction_from_top_inclusive": [
+      0.56,
+      0.62
+    ],
+    "yaw_absolute_degrees_limit_from_local_minus_x": 35.0,
+    "foreground_mask": {
+      "source_size_width_height": [
+        2560,
+        1280
+      ],
+      "resized_size_width_height": [
+        3840,
+        1920
+      ],
+      "resampling": "PIL Image.Resampling.NEAREST (upstream WorldComposer load)",
+      "foreground_pixels_after_resize": 1618324,
+      "foreground_fraction_after_resize": 0.21949924045138888,
+      "selected_band_foreground_vertices": 9674,
+      "selected_band_vertices": 85790,
+      "unmasked_band_vertices": 76116
+    },
+    "foreground_mask_cuts": {
+      "eligible_crop_quads": 84930,
+      "mask_cut_quads": 9733,
+      "mask_cut_components_8_connected": 1,
+      "enclosed_mask_hole_components": 0,
+      "eligible_crop_quad_bounds_grid": [
+        1075,
+        1188,
+        1547,
+        2291
+      ],
+      "mask_cut_component_bounds": [
+        {
+          "quad_count": 9733,
+          "row_bounds_grid": [
+            1075,
+            1129
+          ],
+          "column_bounds": [
+            1799,
+            2006
+          ],
+          "touches_crop_boundary": true
+        }
+      ],
+      "filled_or_bridged_mask_quads": 0
+    },
+    "triangle_selection": {
+      "wholly_in_crop_triangles": 169860,
+      "crop_boundary_triangles_omitted": 3442,
+      "foreground_mask_triangles_omitted": 19447,
+      "triangles_after_crop_and_mask": 150413
+    },
+    "seam_triangles_excluded_by_crop": true,
+    "unknown_or_masked_faces_filled": 0
+  },
+  "geometry_gate": {
+    "max_slope_degrees": 15.0,
+    "max_vertical_edge_step_m": 0.2,
+    "triangle_count_before_gate": 150413,
+    "triangle_count_after_gate": 150413,
+    "triangle_count_rejected": 0,
+    "degenerate_triangles_rejected": 0,
+    "slope_rejected_triangles": 0,
+    "step_rejected_triangles": 0,
+    "slope_degrees_min_q50_q90_q95_q99_max": [
+      0.0026820381511480813,
+      1.261852373838782,
+      2.1274806425369936,
+      2.4624569800171714,
+      3.2021996142123874,
+      5.323234721714332
+    ],
+    "max_edge_vertical_step_m_min_q50_q90_q95_q99_max": [
+      2.2115512332554488e-07,
+      0.0002866782786314914,
+      0.0009231988684946125,
+      0.0012036368806148889,
+      0.001537285655184714,
+      0.002328072584312668
+    ],
+    "accepted_area_m2": 13.086281275121257,
+    "accepted_triangle_winding": {
+      "normal_world_y_positive": 0,
+      "normal_world_y_negative": 150413,
+      "near_vertical_or_degenerate": 0
+    }
+  },
+  "patch": {
+    "connected_component_count": 1,
+    "largest_components_by_area": [
+      {
+        "triangle_count": 150413,
+        "area_m2": 13.086281275121273
+      }
+    ],
+    "accepted_vertex_count": 76116,
+    "accepted_triangle_count": 150413,
+    "candidate_world_bounds_min_xyz_m": [
+      -2.9127403148306796,
+      -1.235371185598414,
+      -1.500244908927506
+    ],
+    "candidate_world_bounds_max_xyz_m": [
+      2.5524490095076495,
+      -1.1417203581016697,
+      3.351676252352309
+    ],
+    "file_obj": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/hunyuan_band_patch_experimental_not_collision.obj",
+    "file_npz": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/hunyuan_band_patch_experimental_not_collision.npz"
+  },
+  "camera_path_proximity_not_traversal": {
+    "metric": "nearest horizontal XZ distance from camera centre to projected accepted triangle",
+    "capsule_radius_m": 0.3,
+    "frame_141_anchor_nearest_support_xz_m": 2.666445545292249,
+    "camera_samples_within_0_30m": 0,
+    "camera_sample_count": 192,
+    "camera_nearest_support_xz_distance_q50_q90_q95_max_m": [
+      2.2305610025178733,
+      2.5637561085854172,
+      2.662611411971122,
+      2.814819088346284
+    ],
+    "nearest_triangle_centroid_search": {
+      "primary_candidates": 64,
+      "comparison_candidates": 256,
+      "max_abs_distance_difference_m": 0.0
+    },
+    "local_capsule_support_can_start_at_registered_camera": false,
+    "walkability_tested": false,
+    "bevy_avian_physics_tested": false,
+    "collision_glb_created": false
+  },
+  "execution": {
+    "elapsed_seconds": 2.037480498998775,
+    "peak_process_rss_bytes": 930975744,
+    "obj_bytes": 5951088,
+    "npz_bytes": 2364563
+  },
+  "failure_reason": "No accepted support triangle lies within a 0.30 m horizontal capsule radius of the registered frame-141 camera anchor; calibration is also unaccepted. No route or walkability claim is supported."
+}

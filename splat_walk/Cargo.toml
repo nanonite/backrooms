@@ -1,0 +1,15 @@
+[package]
+name = "hunyuan_bevy_fixture"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+anyhow = "1"
+avian3d = { version = "=0.6.1", default-features = false, features = ["3d", "f32", "parry-f32"] }
+bevy = { version = "=0.18.0", default-features = false, features = ["3d_bevy_render", "default_app", "default_platform", "png"] }
+bevy-tnua = "=0.31.0"
+bevy-tnua-avian3d = "=0.11.0"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+

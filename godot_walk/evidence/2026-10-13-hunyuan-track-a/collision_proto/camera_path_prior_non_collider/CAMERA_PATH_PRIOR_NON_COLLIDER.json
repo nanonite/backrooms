@@ -1,0 +1,1013 @@
+{
+  "schema_version": 1,
+  "issue": 135,
+  "status": "evidence_only_camera_path_prior_not_walkability_evidence",
+  "asset_name": "camera-path-prior/non-collider",
+  "asset_status": "not_collision_not_runtime_imported_not_a_floor_reconstruction",
+  "gpu_used": false,
+  "inference_run": false,
+  "hunyuan_mesh_or_transform_used": false,
+  "hunyuan_registration_accepted": false,
+  "scale_kind": "chosen",
+  "scale_note": "Uses only the #100 chosen 5.128383849 m/Nerfstudio-unit coordinate convention; it is not surveyed metric scale and does not transfer to Hunyuan.",
+  "height_source": "#100 declared horizontal floor plane only; every synthetic cell shares its floor_height_m",
+  "floor_height_m": -1.2709904916293824,
+  "registered_camera_count": 192,
+  "source_polyline_path_length_m": 15.168362980420584,
+  "grid": {
+    "spacing_m": 0.05,
+    "origin_xz_m": [
+      -6.6000000000000005,
+      -0.8
+    ],
+    "shape_rows_columns": [
+      149,
+      238
+    ],
+    "unknown_outside_support_preserved": true,
+    "unknown_filled": 0,
+    "archive": "camera_path_prior_non_collider.npz",
+    "camera_centres_csv": "registered_camera_centres_godot_world.csv"
+  },
+  "hypothesis": {
+    "camera_path_prior_only": true,
+    "source_observed_floor_cells": 0,
+    "not_reconstructed_scene_boundaries": true,
+    "width_semantics": "total strip width is an explicit hypothetical supported band, not a camera-derived room width",
+    "capsule_example": "0.8 m total = 0.30 m radius + 0.10 m clearance on each side",
+    "segment_midpoints_tested": 191,
+    "variants": {
+      "width_0p8m": {
+        "hypothesis_total_width_m": 0.8,
+        "raster_rule": "cell centre within total_width/2 of the ordered registered-camera XZ polyline",
+        "supported_cell_count": 5056,
+        "support_area_by_cell_centres_m2": 12.640000000000002,
+        "connected_components_8_neighbour": 1,
+        "route_metrics": {
+          "camera_centres": {
+            "0.05m": {
+              "within_tolerance_count": 192,
+              "sample_count": 192,
+              "fraction": 1.0,
+              "tolerance_m": 0.05,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.0018039958924285025,
+                0.0195842601457442,
+                0.028188063013788914,
+                0.02980975515936291,
+                0.03433147376424691
+              ]
+            },
+            "0.30m": {
+              "within_tolerance_count": 192,
+              "sample_count": 192,
+              "fraction": 1.0,
+              "tolerance_m": 0.3,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.0018039958924285025,
+                0.0195842601457442,
+                0.028188063013788914,
+                0.02980975515936291,
+                0.03433147376424691
+              ]
+            },
+            "1.00m": {
+              "within_tolerance_count": 192,
+              "sample_count": 192,
+              "fraction": 1.0,
+              "tolerance_m": 1.0,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.0018039958924285025,
+                0.0195842601457442,
+                0.028188063013788914,
+                0.02980975515936291,
+                0.03433147376424691
+              ]
+            }
+          },
+          "adjacent_camera_segment_midpoints": {
+            "0.05m": {
+              "within_tolerance_count": 191,
+              "sample_count": 191,
+              "fraction": 1.0,
+              "tolerance_m": 0.05,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.003423388633660119,
+                0.020245460025930362,
+                0.027538852338754496,
+                0.029983724848929312,
+                0.032694240408941526
+              ]
+            },
+            "0.30m": {
+              "within_tolerance_count": 191,
+              "sample_count": 191,
+              "fraction": 1.0,
+              "tolerance_m": 0.3,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.003423388633660119,
+                0.020245460025930362,
+                0.027538852338754496,
+                0.029983724848929312,
+                0.032694240408941526
+              ]
+            },
+            "1.00m": {
+              "within_tolerance_count": 191,
+              "sample_count": 191,
+              "fraction": 1.0,
+              "tolerance_m": 1.0,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.003423388633660119,
+                0.020245460025930362,
+                0.027538852338754496,
+                0.029983724848929312,
+                0.032694240408941526
+              ]
+            }
+          },
+          "unsupported_midpoint_gaps_at_0_30m": {
+            "unsupported_segment_count": 0,
+            "unsupported_segment_path_length_m": 0.0,
+            "unsupported_gap_count": 0,
+            "longest_unsupported_segment_run_count": 0,
+            "longest_consecutive_gap_m": 0.0,
+            "unsupported_segment_runs": []
+          }
+        },
+        "off_path_control": {
+          "within_tolerance_count": 27,
+          "sample_count": 192,
+          "fraction": 0.140625,
+          "tolerance_m": 0.3,
+          "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+            0.0038540305963631026,
+            1.7847140428063022,
+            2.552938491313432,
+            2.5811939914914372,
+            2.6264203055377746
+          ],
+          "wrong_path_bounds_xz_m": [
+            [
+              -2.4543411188498894,
+              0.3095993832564058
+            ],
+            [
+              7.151375152628629,
+              5.526584374056296
+            ]
+          ]
+        },
+        "frame_97_local_lateral_controls": {
+          "offset_m": 3.0,
+          "normal_xz": [
+            -0.09968037815620172,
+            0.9950195084573148
+          ],
+          "plus_side": {
+            "within_tolerance_count": 0,
+            "sample_count": 1,
+            "fraction": 0.0,
+            "tolerance_m": 0.3,
+            "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+              2.6095824011391073,
+              2.6095824011391073,
+              2.6095824011391073,
+              2.6095824011391073,
+              2.6095824011391073
+            ]
+          },
+          "minus_side": {
+            "within_tolerance_count": 0,
+            "sample_count": 1,
+            "fraction": 0.0,
+            "tolerance_m": 0.3,
+            "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+              2.603483137065673,
+              2.603483137065673,
+              2.603483137065673,
+              2.603483137065673,
+              2.603483137065673
+            ]
+          }
+        },
+        "wrong_axis_control": {
+          "within_tolerance_count": 39,
+          "sample_count": 192,
+          "fraction": 0.203125,
+          "tolerance_m": 0.3,
+          "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+            0.006171296744263691,
+            1.6654284588698696,
+            5.675678900538497,
+            5.991773779394105,
+            6.232330173910718
+          ],
+          "wrong_path_bounds_xz_m": [
+            [
+              0.3095993832564058,
+              -5.454341118849889
+            ],
+            [
+              5.526584374056296,
+              4.151375152628629
+            ]
+          ]
+        },
+        "wrong_scale_2x_control": {
+          "within_tolerance_count": 0,
+          "sample_count": 192,
+          "fraction": 0.0,
+          "tolerance_m": 0.3,
+          "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+            3.7711111743596306,
+            5.143575709925042,
+            5.357038325311532,
+            5.367391944444424,
+            5.376330910716296
+          ],
+          "wrong_path_bounds_xz_m": [
+            [
+              -10.908682237699779,
+              0.6191987665128116
+            ],
+            [
+              8.302750305257257,
+              11.053168748112592
+            ]
+          ]
+        },
+        "hole_negative_control": {
+          "frame_1_based": 97,
+          "center_xz_m": [
+            -1.2106317366693575,
+            5.49814982773718
+          ],
+          "radius_m": 0.55,
+          "removed_cell_count": 320,
+          "supported_cell_count": 4736,
+          "connected_components_8_neighbour": 2,
+          "route_metrics": {
+            "camera_centres": {
+              "0.05m": {
+                "within_tolerance_count": 179,
+                "sample_count": 192,
+                "fraction": 0.9322916666666666,
+                "tolerance_m": 0.05,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.0018039958924285025,
+                  0.02015545994841498,
+                  0.03161388750943268,
+                  0.15828360472367206,
+                  0.5504473848884556
+                ]
+              },
+              "0.30m": {
+                "within_tolerance_count": 185,
+                "sample_count": 192,
+                "fraction": 0.9635416666666666,
+                "tolerance_m": 0.3,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.0018039958924285025,
+                  0.02015545994841498,
+                  0.03161388750943268,
+                  0.15828360472367206,
+                  0.5504473848884556
+                ]
+              },
+              "1.00m": {
+                "within_tolerance_count": 192,
+                "sample_count": 192,
+                "fraction": 1.0,
+                "tolerance_m": 1.0,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.0018039958924285025,
+                  0.02015545994841498,
+                  0.03161388750943268,
+                  0.15828360472367206,
+                  0.5504473848884556
+                ]
+              }
+            },
+            "adjacent_camera_segment_midpoints": {
+              "0.05m": {
+                "within_tolerance_count": 179,
+                "sample_count": 191,
+                "fraction": 0.93717277486911,
+                "tolerance_m": 0.05,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.003423388633660119,
+                  0.020821335980489852,
+                  0.03124481821070753,
+                  0.15839142463642295,
+                  0.5216571937709871
+                ]
+              },
+              "0.30m": {
+                "within_tolerance_count": 185,
+                "sample_count": 191,
+                "fraction": 0.9685863874345549,
+                "tolerance_m": 0.3,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.003423388633660119,
+                  0.020821335980489852,
+                  0.03124481821070753,
+                  0.15839142463642295,
+                  0.5216571937709871
+                ]
+              },
+              "1.00m": {
+                "within_tolerance_count": 191,
+                "sample_count": 191,
+                "fraction": 1.0,
+                "tolerance_m": 1.0,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.003423388633660119,
+                  0.020821335980489852,
+                  0.03124481821070753,
+                  0.15839142463642295,
+                  0.5216571937709871
+                ]
+              }
+            },
+            "unsupported_midpoint_gaps_at_0_30m": {
+              "unsupported_segment_count": 6,
+              "unsupported_segment_path_length_m": 0.4974195563150307,
+              "unsupported_gap_count": 1,
+              "longest_unsupported_segment_run_count": 6,
+              "longest_consecutive_gap_m": 0.4974195563150307,
+              "unsupported_segment_runs": [
+                {
+                  "start_segment_index_0_based": 93,
+                  "end_segment_index_exclusive": 99,
+                  "segment_count": 6,
+                  "path_length_m": 0.4974195563150307
+                }
+              ]
+            }
+          }
+        }
+      },
+      "width_1p2m": {
+        "hypothesis_total_width_m": 1.2,
+        "raster_rule": "cell centre within total_width/2 of the ordered registered-camera XZ polyline",
+        "supported_cell_count": 7735,
+        "support_area_by_cell_centres_m2": 19.337500000000002,
+        "connected_components_8_neighbour": 1,
+        "route_metrics": {
+          "camera_centres": {
+            "0.05m": {
+              "within_tolerance_count": 192,
+              "sample_count": 192,
+              "fraction": 1.0,
+              "tolerance_m": 0.05,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.0018039958924285025,
+                0.0195842601457442,
+                0.028188063013788914,
+                0.02980975515936291,
+                0.03433147376424691
+              ]
+            },
+            "0.30m": {
+              "within_tolerance_count": 192,
+              "sample_count": 192,
+              "fraction": 1.0,
+              "tolerance_m": 0.3,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.0018039958924285025,
+                0.0195842601457442,
+                0.028188063013788914,
+                0.02980975515936291,
+                0.03433147376424691
+              ]
+            },
+            "1.00m": {
+              "within_tolerance_count": 192,
+              "sample_count": 192,
+              "fraction": 1.0,
+              "tolerance_m": 1.0,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.0018039958924285025,
+                0.0195842601457442,
+                0.028188063013788914,
+                0.02980975515936291,
+                0.03433147376424691
+              ]
+            }
+          },
+          "adjacent_camera_segment_midpoints": {
+            "0.05m": {
+              "within_tolerance_count": 191,
+              "sample_count": 191,
+              "fraction": 1.0,
+              "tolerance_m": 0.05,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.003423388633660119,
+                0.020245460025930362,
+                0.027538852338754496,
+                0.029983724848929312,
+                0.032694240408941526
+              ]
+            },
+            "0.30m": {
+              "within_tolerance_count": 191,
+              "sample_count": 191,
+              "fraction": 1.0,
+              "tolerance_m": 0.3,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.003423388633660119,
+                0.020245460025930362,
+                0.027538852338754496,
+                0.029983724848929312,
+                0.032694240408941526
+              ]
+            },
+            "1.00m": {
+              "within_tolerance_count": 191,
+              "sample_count": 191,
+              "fraction": 1.0,
+              "tolerance_m": 1.0,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.003423388633660119,
+                0.020245460025930362,
+                0.027538852338754496,
+                0.029983724848929312,
+                0.032694240408941526
+              ]
+            }
+          },
+          "unsupported_midpoint_gaps_at_0_30m": {
+            "unsupported_segment_count": 0,
+            "unsupported_segment_path_length_m": 0.0,
+            "unsupported_gap_count": 0,
+            "longest_unsupported_segment_run_count": 0,
+            "longest_consecutive_gap_m": 0.0,
+            "unsupported_segment_runs": []
+          }
+        },
+        "off_path_control": {
+          "within_tolerance_count": 34,
+          "sample_count": 192,
+          "fraction": 0.17708333333333334,
+          "tolerance_m": 0.3,
+          "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+            0.0038540305963631026,
+            1.589459543555228,
+            2.3478753317393593,
+            2.3772956006681283,
+            2.4264240273063735
+          ],
+          "wrong_path_bounds_xz_m": [
+            [
+              -2.4543411188498894,
+              0.3095993832564058
+            ],
+            [
+              7.151375152628629,
+              5.526584374056296
+            ]
+          ]
+        },
+        "frame_97_local_lateral_controls": {
+          "offset_m": 3.0,
+          "normal_xz": [
+            -0.09968037815620172,
+            0.9950195084573148
+          ],
+          "plus_side": {
+            "within_tolerance_count": 0,
+            "sample_count": 1,
+            "fraction": 0.0,
+            "tolerance_m": 0.3,
+            "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+              2.4096964470844253,
+              2.4096964470844253,
+              2.4096964470844253,
+              2.4096964470844253,
+              2.4096964470844253
+            ]
+          },
+          "minus_side": {
+            "within_tolerance_count": 0,
+            "sample_count": 1,
+            "fraction": 0.0,
+            "tolerance_m": 0.3,
+            "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+              2.406940166670417,
+              2.406940166670417,
+              2.406940166670417,
+              2.406940166670417,
+              2.406940166670417
+            ]
+          }
+        },
+        "wrong_axis_control": {
+          "within_tolerance_count": 52,
+          "sample_count": 192,
+          "fraction": 0.2708333333333333,
+          "tolerance_m": 0.3,
+          "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+            0.006171296744263691,
+            1.4828007964587357,
+            5.472254866124919,
+            5.79042182962398,
+            6.032888112104323
+          ],
+          "wrong_path_bounds_xz_m": [
+            [
+              0.3095993832564058,
+              -5.454341118849889
+            ],
+            [
+              5.526584374056296,
+              4.151375152628629
+            ]
+          ]
+        },
+        "wrong_scale_2x_control": {
+          "within_tolerance_count": 0,
+          "sample_count": 192,
+          "fraction": 0.0,
+          "tolerance_m": 0.3,
+          "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+            3.5714635177999448,
+            4.946897563364033,
+            5.159493406883077,
+            5.171665940429621,
+            5.190436915785353
+          ],
+          "wrong_path_bounds_xz_m": [
+            [
+              -10.908682237699779,
+              0.6191987665128116
+            ],
+            [
+              8.302750305257257,
+              11.053168748112592
+            ]
+          ]
+        },
+        "hole_negative_control": {
+          "frame_1_based": 97,
+          "center_xz_m": [
+            -1.2106317366693575,
+            5.49814982773718
+          ],
+          "radius_m": 0.75,
+          "removed_cell_count": 634,
+          "supported_cell_count": 7101,
+          "connected_components_8_neighbour": 2,
+          "route_metrics": {
+            "camera_centres": {
+              "0.05m": {
+                "within_tolerance_count": 175,
+                "sample_count": 192,
+                "fraction": 0.9114583333333334,
+                "tolerance_m": 0.05,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.0029273608662302845,
+                  0.020404931261405294,
+                  0.03420817831343879,
+                  0.3567021519651987,
+                  0.7513138234724527
+                ]
+              },
+              "0.30m": {
+                "within_tolerance_count": 181,
+                "sample_count": 192,
+                "fraction": 0.9427083333333334,
+                "tolerance_m": 0.3,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.0029273608662302845,
+                  0.020404931261405294,
+                  0.03420817831343879,
+                  0.3567021519651987,
+                  0.7513138234724527
+                ]
+              },
+              "1.00m": {
+                "within_tolerance_count": 192,
+                "sample_count": 192,
+                "fraction": 1.0,
+                "tolerance_m": 1.0,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.0029273608662302845,
+                  0.020404931261405294,
+                  0.03420817831343879,
+                  0.3567021519651987,
+                  0.7513138234724527
+                ]
+              }
+            },
+            "adjacent_camera_segment_midpoints": {
+              "0.05m": {
+                "within_tolerance_count": 173,
+                "sample_count": 191,
+                "fraction": 0.9057591623036649,
+                "tolerance_m": 0.05,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.003423388633660119,
+                  0.020908775077721275,
+                  0.03142128952026868,
+                  0.3562148605384887,
+                  0.7236478734290844
+                ]
+              },
+              "0.30m": {
+                "within_tolerance_count": 179,
+                "sample_count": 191,
+                "fraction": 0.93717277486911,
+                "tolerance_m": 0.3,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.003423388633660119,
+                  0.020908775077721275,
+                  0.03142128952026868,
+                  0.3562148605384887,
+                  0.7236478734290844
+                ]
+              },
+              "1.00m": {
+                "within_tolerance_count": 191,
+                "sample_count": 191,
+                "fraction": 1.0,
+                "tolerance_m": 1.0,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.003423388633660119,
+                  0.020908775077721275,
+                  0.03142128952026868,
+                  0.3562148605384887,
+                  0.7236478734290844
+                ]
+              }
+            },
+            "unsupported_midpoint_gaps_at_0_30m": {
+              "unsupported_segment_count": 12,
+              "unsupported_segment_path_length_m": 0.9908357794512238,
+              "unsupported_gap_count": 1,
+              "longest_unsupported_segment_run_count": 12,
+              "longest_consecutive_gap_m": 0.9908357794512238,
+              "unsupported_segment_runs": [
+                {
+                  "start_segment_index_0_based": 90,
+                  "end_segment_index_exclusive": 102,
+                  "segment_count": 12,
+                  "path_length_m": 0.9908357794512238
+                }
+              ]
+            }
+          }
+        }
+      },
+      "width_1p6m": {
+        "hypothesis_total_width_m": 1.6,
+        "raster_rule": "cell centre within total_width/2 of the ordered registered-camera XZ polyline",
+        "supported_cell_count": 10521,
+        "support_area_by_cell_centres_m2": 26.302500000000006,
+        "connected_components_8_neighbour": 1,
+        "route_metrics": {
+          "camera_centres": {
+            "0.05m": {
+              "within_tolerance_count": 192,
+              "sample_count": 192,
+              "fraction": 1.0,
+              "tolerance_m": 0.05,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.0018039958924285025,
+                0.0195842601457442,
+                0.028188063013788914,
+                0.02980975515936291,
+                0.03433147376424691
+              ]
+            },
+            "0.30m": {
+              "within_tolerance_count": 192,
+              "sample_count": 192,
+              "fraction": 1.0,
+              "tolerance_m": 0.3,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.0018039958924285025,
+                0.0195842601457442,
+                0.028188063013788914,
+                0.02980975515936291,
+                0.03433147376424691
+              ]
+            },
+            "1.00m": {
+              "within_tolerance_count": 192,
+              "sample_count": 192,
+              "fraction": 1.0,
+              "tolerance_m": 1.0,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.0018039958924285025,
+                0.0195842601457442,
+                0.028188063013788914,
+                0.02980975515936291,
+                0.03433147376424691
+              ]
+            }
+          },
+          "adjacent_camera_segment_midpoints": {
+            "0.05m": {
+              "within_tolerance_count": 191,
+              "sample_count": 191,
+              "fraction": 1.0,
+              "tolerance_m": 0.05,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.003423388633660119,
+                0.020245460025930362,
+                0.027538852338754496,
+                0.029983724848929312,
+                0.032694240408941526
+              ]
+            },
+            "0.30m": {
+              "within_tolerance_count": 191,
+              "sample_count": 191,
+              "fraction": 1.0,
+              "tolerance_m": 0.3,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.003423388633660119,
+                0.020245460025930362,
+                0.027538852338754496,
+                0.029983724848929312,
+                0.032694240408941526
+              ]
+            },
+            "1.00m": {
+              "within_tolerance_count": 191,
+              "sample_count": 191,
+              "fraction": 1.0,
+              "tolerance_m": 1.0,
+              "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                0.003423388633660119,
+                0.020245460025930362,
+                0.027538852338754496,
+                0.029983724848929312,
+                0.032694240408941526
+              ]
+            }
+          },
+          "unsupported_midpoint_gaps_at_0_30m": {
+            "unsupported_segment_count": 0,
+            "unsupported_segment_path_length_m": 0.0,
+            "unsupported_gap_count": 0,
+            "longest_unsupported_segment_run_count": 0,
+            "longest_consecutive_gap_m": 0.0,
+            "unsupported_segment_runs": []
+          }
+        },
+        "off_path_control": {
+          "within_tolerance_count": 43,
+          "sample_count": 192,
+          "fraction": 0.22395833333333334,
+          "tolerance_m": 0.3,
+          "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+            0.0038540305963631026,
+            1.3826407064073274,
+            2.150691220314766,
+            2.1813725500820955,
+            2.2264284177215834
+          ],
+          "wrong_path_bounds_xz_m": [
+            [
+              -2.4543411188498894,
+              0.3095993832564058
+            ],
+            [
+              7.151375152628629,
+              5.526584374056296
+            ]
+          ]
+        },
+        "frame_97_local_lateral_controls": {
+          "offset_m": 3.0,
+          "normal_xz": [
+            -0.09968037815620172,
+            0.9950195084573148
+          ],
+          "plus_side": {
+            "within_tolerance_count": 0,
+            "sample_count": 1,
+            "fraction": 0.0,
+            "tolerance_m": 0.3,
+            "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+              2.2098311306178244,
+              2.2098311306178244,
+              2.2098311306178244,
+              2.2098311306178244,
+              2.2098311306178244
+            ]
+          },
+          "minus_side": {
+            "within_tolerance_count": 0,
+            "sample_count": 1,
+            "fraction": 0.0,
+            "tolerance_m": 0.3,
+            "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+              2.211017296829111,
+              2.211017296829111,
+              2.211017296829111,
+              2.211017296829111,
+              2.211017296829111
+            ]
+          }
+        },
+        "wrong_axis_control": {
+          "within_tolerance_count": 65,
+          "sample_count": 192,
+          "fraction": 0.3385416666666667,
+          "tolerance_m": 0.3,
+          "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+            0.006171296744263691,
+            1.2708131449313793,
+            5.27539293184583,
+            5.589245827277962,
+            5.829326265506981
+          ],
+          "wrong_path_bounds_xz_m": [
+            [
+              0.3095993832564058,
+              -5.454341118849889
+            ],
+            [
+              5.526584374056296,
+              4.151375152628629
+            ]
+          ]
+        },
+        "wrong_scale_2x_control": {
+          "within_tolerance_count": 0,
+          "sample_count": 192,
+          "fraction": 0.0,
+          "tolerance_m": 0.3,
+          "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+            3.3718576228203725,
+            4.749055175057637,
+            4.958618822731074,
+            4.9701616381345275,
+            4.978304927879114
+          ],
+          "wrong_path_bounds_xz_m": [
+            [
+              -10.908682237699779,
+              0.6191987665128116
+            ],
+            [
+              8.302750305257257,
+              11.053168748112592
+            ]
+          ]
+        },
+        "hole_negative_control": {
+          "frame_1_based": 97,
+          "center_xz_m": [
+            -1.2106317366693575,
+            5.49814982773718
+          ],
+          "radius_m": 0.9500000000000001,
+          "removed_cell_count": 1051,
+          "supported_cell_count": 9470,
+          "connected_components_8_neighbour": 2,
+          "route_metrics": {
+            "camera_centres": {
+              "0.05m": {
+                "within_tolerance_count": 169,
+                "sample_count": 192,
+                "fraction": 0.8802083333333334,
+                "tolerance_m": 0.05,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.0029273608662302845,
+                  0.020603082602498775,
+                  0.15257330421755758,
+                  0.5461148401258609,
+                  0.9504015751880714
+                ]
+              },
+              "0.30m": {
+                "within_tolerance_count": 175,
+                "sample_count": 192,
+                "fraction": 0.9114583333333334,
+                "tolerance_m": 0.3,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.0029273608662302845,
+                  0.020603082602498775,
+                  0.15257330421755758,
+                  0.5461148401258609,
+                  0.9504015751880714
+                ]
+              },
+              "1.00m": {
+                "within_tolerance_count": 192,
+                "sample_count": 192,
+                "fraction": 1.0,
+                "tolerance_m": 1.0,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.0029273608662302845,
+                  0.020603082602498775,
+                  0.15257330421755758,
+                  0.5461148401258609,
+                  0.9504015751880714
+                ]
+              }
+            },
+            "adjacent_camera_segment_midpoints": {
+              "0.05m": {
+                "within_tolerance_count": 169,
+                "sample_count": 191,
+                "fraction": 0.8848167539267016,
+                "tolerance_m": 0.05,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.003423388633660119,
+                  0.021272579371247526,
+                  0.18619268802998334,
+                  0.5467933870066815,
+                  0.9139235472683288
+                ]
+              },
+              "0.30m": {
+                "within_tolerance_count": 175,
+                "sample_count": 191,
+                "fraction": 0.9162303664921466,
+                "tolerance_m": 0.3,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.003423388633660119,
+                  0.021272579371247526,
+                  0.18619268802998334,
+                  0.5467933870066815,
+                  0.9139235472683288
+                ]
+              },
+              "1.00m": {
+                "within_tolerance_count": 191,
+                "sample_count": 191,
+                "fraction": 1.0,
+                "tolerance_m": 1.0,
+                "nearest_cell_centre_distance_min_q50_q90_q95_max_m": [
+                  0.003423388633660119,
+                  0.021272579371247526,
+                  0.18619268802998334,
+                  0.5467933870066815,
+                  0.9139235472683288
+                ]
+              }
+            },
+            "unsupported_midpoint_gaps_at_0_30m": {
+              "unsupported_segment_count": 16,
+              "unsupported_segment_path_length_m": 1.327091515874277,
+              "unsupported_gap_count": 1,
+              "longest_unsupported_segment_run_count": 16,
+              "longest_consecutive_gap_m": 1.327091515874277,
+              "unsupported_segment_runs": [
+                {
+                  "start_segment_index_0_based": 88,
+                  "end_segment_index_exclusive": 104,
+                  "segment_count": 16,
+                  "path_length_m": 1.327091515874277
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "negative_controls": {
+    "wrong_alignment_manifest": {
+      "scale_doubled": {
+        "rejected": true,
+        "reason": "declared scale disagrees with its alignment reference"
+      },
+      "up_axis_mislabeled": {
+        "rejected": true,
+        "reason": "source up axis does not map to Godot world +Y"
+      }
+    },
+    "off_path_translation_m": [
+      3.0,
+      0.0
+    ],
+    "wrong_axis": "swap world X and Z on the evaluated camera polyline",
+    "wrong_scale": "multiply mapped world XZ by 2 about world origin",
+    "deliberate_hole": "remove a disk wider than the strip half-width at registered frame 97; no infill"
+  },
+  "alignment": {
+    "alignment_manifest_sha256": "85d5b51c8ca9df614b81a6f6dddf8c68015cca14b36e3b007c1a67f50be03598",
+    "colmap_images_sha256": "86122a114a15e8dd248445eae154996be8a83354fa47328fbb038c56bef68791",
+    "colmap_cameras_sha256": "722bf3809802099390979b5abf1eaea7fb70c88d955bd68147a08466a48082ae",
+    "dataparser_sha256": "fdabcd1b1450e65c605f45099a93383aff081fb1009b73f71f3eb854654e8ed4",
+    "camera_bounds_match_contract": true,
+    "max_bounds_residual_m": 2.6645352591003757e-15,
+    "registration_residuals_to_source_geometry": null,
+    "reason_residuals_absent": "The polyline is the registered camera input itself; no floor observations are being aligned to it."
+  },
+  "physics": {
+    "avian_or_tnua_tested": false,
+    "reason_not_tested": "The prior creates its own route by assumption, so headless traversal would validate only synthetic support and cannot establish walkability on the mapped source or Hunyuan surfaces. No runtime collider is emitted."
+  },
+  "execution": {
+    "elapsed_seconds": 0.5512349950004136,
+    "peak_process_rss_bytes": 174469120,
+    "archive_bytes": 11074
+  }
+}

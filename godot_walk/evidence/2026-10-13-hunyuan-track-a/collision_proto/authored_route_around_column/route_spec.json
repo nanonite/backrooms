@@ -1,0 +1,39 @@
+{
+  "issue": 139,
+  "route": {
+    "kind": "authored_planar_loop_around_reviewed_column",
+    "radius_m": 2.875,
+    "width_m": 0.8,
+    "segments": 256,
+    "center_offset_from_camera_orbit_xz_m": [0.25, 0.7],
+    "center_source": "camera-orbit fit shifted toward the denser candidate footprint while keeping the column inside the loop"
+  },
+  "column_review": {
+    "method": "manual image review of three visible floor-contact corners, projected through registered poses onto the declared #100 plane",
+    "frames": [
+      {
+        "frame_number": 137,
+        "image": "frame_0137.jpg",
+        "visible_base_corner_pixels_uv": [[714, 835], [783, 900], [1130, 835]]
+      },
+      {
+        "frame_number": 141,
+        "image": "frame_0141.jpg",
+        "visible_base_corner_pixels_uv": [[714, 832], [783, 897], [1128, 832]]
+      }
+    ],
+    "fourth_corner_method": "parallelogram closure from the three visible projected corners",
+    "horizontal_margin_m": 0.05,
+    "height_m": 2.4,
+    "height_basis": "chosen #100 room clear-height convention; not measured"
+  },
+  "capsule": {
+    "radius_m": 0.3,
+    "height_m": 1.2
+  },
+  "scale_status": {
+    "basis": "#100 chosen scale convention",
+    "metric_scale_accepted": false,
+    "hunyuan_registration_accepted": false
+  }
+}
