@@ -31,6 +31,15 @@
     "radius_m": 0.3,
     "height_m": 1.2
   },
+  "edge_boundaries": {
+    "label": "authored_edge_boundary",
+    "origin": "authored",
+    "height_m": 1.4,
+    "thickness_m": 0.08,
+    "segments_per_side": 256,
+    "placement_rule": "continuous inner and outer rings on the open edges of the 0.8 m floor strip; place wall thickness outside the strip; omit only segments physically blocked by the column proxy",
+    "assumed_floor_y_source": "#100 declared floor convention, copied from the route report plane; not surveyed"
+  },
   "scale_status": {
     "basis": "#100 chosen scale convention",
     "metric_scale_accepted": false,

@@ -13,8 +13,9 @@ import pytest
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-from collision_meshes import floor_ring_mesh
+from collision_meshes import edge_boundary_mesh, floor_ring_mesh
 from glb_writer import build_glb
+from route_report import make_report
 from route_geometry import (
     capsule_route_check,
     distance_to_bounds,
@@ -53,6 +54,25 @@ def test_floor_ring_has_continuous_upward_faces() -> None:
         a, b, c = vertices[face]
         normals_y.append(np.cross(b - a, c - a)[1])
     assert min(normals_y) > 0.0
+
+
+@pytest.mark.parametrize("side", ["inner", "outer"])
+def test_edge_boundary_is_a_closed_annular_wall(side: str) -> None:
+    vertices, faces = edge_boundary_mesh(
+        np.array([0.5, -0.25]), 2.0, 2.8, -1.0, 1.4, 0.08, 32, side
+    )
+
+    assert vertices.shape == (128, 3)
+    assert faces.shape == (256, 3)
+    assert np.allclose(vertices[:, 1].min(), -1.0)
+    assert np.allclose(vertices[:, 1].max(), 0.4)
+    assert np.isfinite(vertices).all()
+    edge_counts: dict[tuple[int, int], int] = {}
+    for face in faces:
+        for first, second in ((face[0], face[1]), (face[1], face[2]), (face[2], face[0])):
+            edge = tuple(sorted((int(first), int(second))))
+            edge_counts[edge] = edge_counts.get(edge, 0) + 1
+    assert set(edge_counts.values()) == {2}
 
 
 def test_box_clearance_reports_distance_outside_rectangle() -> None:
@@ -118,11 +138,22 @@ def test_authored_route_glb_preserves_world_space_engine_contract() -> None:
     assert [node["name"] for node in document["nodes"]] == [
         "AuthoredPlanarRouteFloor",
         "ColumnObstacleProxy",
+        "authored_edge_boundary_inner",
+        "authored_edge_boundary_outer",
     ]
     assert all(set(node) == {"name", "mesh"} for node in document["nodes"])
     assert document["asset"]["extras"]["transform"].startswith("identity;")
     assert document["asset"]["extras"]["metric_scale_accepted"] is False
     assert document["asset"]["extras"]["hunyuan_registration_accepted"] is False
+
+    edge_report = make_report(data, glb)["edge_boundaries"]
+    assert edge_report["pass"]
+    assert edge_report["origin"] == "authored"
+    assert edge_report["height_m"] == pytest.approx(1.4)
+    assert edge_report["minimum_capsule_clearance_along_route_m"] > 0.0
+    assert edge_report["maximum_gap_between_consecutive_segments_m"] < 0.6
+    assert edge_report["column_intersects_inner_boundary"] is False
+    assert edge_report["omitted_segments_because_column_blocks"] == 0
 
     floor_accessor_id = document["meshes"][0]["primitives"][0]["attributes"]["POSITION"]
     floor_bounds = document["accessors"][floor_accessor_id]
@@ -140,3 +171,11 @@ def test_authored_route_glb_preserves_world_space_engine_contract() -> None:
     )
     assert floor_bounds["max"][0] == pytest.approx(route_center[0] + outer_radius)
     assert floor_bounds["max"][2] == pytest.approx(route_center[1] + outer_radius)
+
+    for node, mesh_index in zip(document["nodes"][2:], (2, 3), strict=True):
+        assert set(node) == {"name", "mesh"}
+        assert node["mesh"] == mesh_index
+        accessor_id = document["meshes"][mesh_index]["primitives"][0]["attributes"]["POSITION"]
+        boundary_bounds = document["accessors"][accessor_id]
+        assert boundary_bounds["min"][1] == pytest.approx(data["floor_y"])
+        assert boundary_bounds["max"][1] == pytest.approx(data["floor_y"] + 1.4)

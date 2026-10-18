@@ -1,11 +1,11 @@
 use avian3d::prelude::{
     Collider, CollisionEventsEnabled, CollisionStart, LinearVelocity, LockedAxes, Position,
-    RigidBody, Sensor, SpatialQuery, SpatialQueryFilter,
+    RigidBody, Sensor, ShapeCastConfig, SpatialQuery, SpatialQueryFilter,
 };
 use bevy::ecs::system::SystemParam;
 use bevy::prelude::{
-    Assets, Commands, Component, Dir3, Entity, Handle, MessageReader, Name, Res, ResMut, Resource,
-    Transform, Vec3,
+    Assets, Commands, Component, Dir3, Entity, Handle, MessageReader, Name, Quat, Res, ResMut,
+    Resource, Transform, Vec3,
 };
 use bevy_tnua::{
     TnuaController, TnuaProximitySensor, TnuaSensorsEntities, TnuaToggle, builtins::TnuaBuiltinWalk,
@@ -20,7 +20,11 @@ use serde::Serialize;
 
 use crate::walkability_harness::{
     geometry::{SlopeApproachFloor, SlopeSurface, spawn_synthetic_scene},
-    scenarios::{HarnessSpec, STEEP_REJECTION_SCENARIO, SyntheticGeometry, is_steep_rejection},
+    route_mesh::AuthoredEdgeBoundary,
+    scenarios::{
+        AUTHORED_LATERAL_PUSH_TICKS, HarnessSpec, STEEP_REJECTION_SCENARIO, SyntheticGeometry,
+        is_steep_rejection,
+    },
     sensor_shape_diagnostic::{
         self, CollisionObjectData, SensorShapeDiagnosticSample, SeparatedSlopeApproachFloor,
         SeparatedSlopeSurface,
@@ -44,6 +48,12 @@ pub const SLOPE_STABILITY_WINDOW_TICKS: usize = 60;
 pub const SLOPE_MAX_POSITION_RADIUS_M: f32 = 0.02;
 pub const SLOPE_FINAL_REST_WINDOW_TICKS: usize = 10;
 pub const SLOPE_MAX_FINAL_SPEED_MPS: f32 = 0.10;
+pub const AUTHORED_LATERAL_MAX_OFFSET_M: f32 = 0.12;
+pub const AUTHORED_LATERAL_MAX_BOTTOM_RISE_M: f32 = 0.02;
+pub const AUTHORED_LATERAL_MIN_SUPPORT_FRACTION: f32 = 0.95;
+pub const AUTHORED_LATERAL_FINAL_REST_TICKS: usize = 10;
+pub const AUTHORED_LATERAL_MAX_FINAL_SPEED_MPS: f32 = 0.10;
+pub const AUTHORED_LATERAL_MAX_FINAL_POSITION_RADIUS_M: f32 = 0.02;
 
 #[derive(Resource, Clone, Copy)]
 pub struct SafetyNetEntity(pub Entity);
@@ -135,6 +145,26 @@ pub struct LedgeEdgeSample {
 }
 
 #[derive(Serialize, Clone)]
+pub struct EdgeBoundaryContactEvent {
+    pub tick: usize,
+    pub boundary_side: String,
+    pub player_position_m: [f32; 3],
+    pub distance_m: f32,
+    pub detection: String,
+}
+
+#[derive(Serialize, Clone)]
+pub struct AuthoredLateralPushSample {
+    pub tick: usize,
+    pub phase: String,
+    pub lateral_offset_m: f32,
+    pub capsule_bottom_rise_m: f32,
+    pub speed_mps: f32,
+    pub supported: bool,
+    pub player_position_m: [f32; 3],
+}
+
+#[derive(Serialize, Clone)]
 pub struct SlopeSensorSample {
     pub tick: usize,
     pub phase: String,
@@ -192,6 +222,7 @@ pub(super) struct SampleQueries<'w, 's> {
         bevy::prelude::Query<'w, 's, (), bevy::prelude::With<SeparatedSlopeSurface>>,
     separated_approach_floors:
         bevy::prelude::Query<'w, 's, (), bevy::prelude::With<SeparatedSlopeApproachFloor>>,
+    edge_boundaries: bevy::prelude::Query<'w, 's, &'static AuthoredEdgeBoundary>,
 }
 
 #[derive(Resource, Serialize, Default, Clone)]
@@ -256,6 +287,16 @@ pub struct ScenarioReport {
     pub collision_nodes: usize,
     pub floor_collision_triangles: usize,
     pub obstacle_collision_triangles: usize,
+    pub edge_boundary_collision_triangles: usize,
+    pub edge_boundary_contact_events: Vec<EdgeBoundaryContactEvent>,
+    pub authored_lateral_station: Option<String>,
+    pub authored_lateral_expected_boundary: Option<String>,
+    pub authored_lateral_max_abs_offset_m: Option<f32>,
+    pub authored_lateral_max_capsule_bottom_rise_m: Option<f32>,
+    pub authored_lateral_rest_max_speed_mps: Option<f32>,
+    pub authored_lateral_rest_position_radius_m: Option<f32>,
+    pub authored_lateral_rest_at_end: bool,
+    pub authored_lateral_samples: Vec<AuthoredLateralPushSample>,
     pub failure_reason: Option<String>,
     #[serde(skip)]
     previous_y: Option<f32>,
@@ -271,6 +312,10 @@ pub struct ScenarioReport {
     slope_recovery_positions: Vec<Vec3>,
     #[serde(skip)]
     slope_recovery_speeds: Vec<f32>,
+    #[serde(skip)]
+    authored_lateral_rest_positions: Vec<Vec3>,
+    #[serde(skip)]
+    authored_lateral_rest_speeds: Vec<f32>,
 }
 
 pub fn summarize_distances(samples: &mut [f32]) -> DistanceSummary {
@@ -317,6 +362,24 @@ impl ScenarioReport {
             && self
                 .slope_recovery_position_radius_m
                 .is_some_and(|radius| radius <= SLOPE_MAX_POSITION_RADIUS_M);
+        let final_positions = tail(
+            &self.authored_lateral_rest_positions,
+            AUTHORED_LATERAL_FINAL_REST_TICKS,
+        );
+        let final_speeds = tail(
+            &self.authored_lateral_rest_speeds,
+            AUTHORED_LATERAL_FINAL_REST_TICKS,
+        );
+        self.authored_lateral_rest_max_speed_mps = final_speeds.iter().copied().reduce(f32::max);
+        self.authored_lateral_rest_position_radius_m =
+            position_radius(final_positions, AUTHORED_LATERAL_FINAL_REST_TICKS);
+        self.authored_lateral_rest_at_end = final_speeds.len() == AUTHORED_LATERAL_FINAL_REST_TICKS
+            && self
+                .authored_lateral_rest_max_speed_mps
+                .is_some_and(|speed| speed <= AUTHORED_LATERAL_MAX_FINAL_SPEED_MPS)
+            && self
+                .authored_lateral_rest_position_radius_m
+                .is_some_and(|radius| radius <= AUTHORED_LATERAL_MAX_FINAL_POSITION_RADIUS_M);
     }
 }
 
@@ -359,7 +422,9 @@ pub fn setup_scene(
     let config = configs.add(player_controller::walk_config());
     if matches!(
         &spec.geometry,
-        SyntheticGeometry::AuthoredRoute | SyntheticGeometry::AuthoredColumnProbe { .. }
+        SyntheticGeometry::AuthoredRoute
+            | SyntheticGeometry::AuthoredColumnProbe { .. }
+            | SyntheticGeometry::AuthoredLateralPush { .. }
     ) {
         commands.insert_resource(PlayerConfigHandle(config));
     } else {
@@ -413,7 +478,23 @@ pub fn drive_player(
         path.next_waypoint += 1;
     }
     let reversing_slope = is_steep_rejection(&spec.name) && report.total_ticks >= SLOPE_INPUT_TICKS;
-    let mut direction = if reversing_slope {
+    let mut direction = if let SyntheticGeometry::AuthoredLateralPush {
+        outward_direction_xz,
+        boundary_side,
+        ..
+    } = &spec.geometry
+    {
+        if report.total_ticks >= AUTHORED_LATERAL_PUSH_TICKS {
+            Vec3::ZERO
+        } else {
+            let direction_sign = if boundary_side == "inner" { -1.0 } else { 1.0 };
+            Vec3::new(
+                outward_direction_xz[0] * direction_sign,
+                0.0,
+                outward_direction_xz[1] * direction_sign,
+            )
+        }
+    } else if reversing_slope {
         if report.slope_recovered_to_flat {
             Vec3::ZERO
         } else {
@@ -471,6 +552,8 @@ pub(super) fn collect_sample(
     };
     sample_motion(position.0, path.active, &mut report);
     let supported = sample_support(controller, path.active, position.0, &spec.name, &mut report);
+    let velocity = linear_velocity.map_or(Vec3::ZERO, |velocity| velocity.0);
+    sample_authored_lateral_push(position.0, velocity, supported, &spec, &mut report);
     let sensor = sensor_entities
         .ground
         .and_then(|entity| queries.sensors.get(entity).ok());
@@ -501,6 +584,15 @@ pub(super) fn collect_sample(
         safety_net.0,
         player,
         position.0,
+        &mut report,
+        &queries.edge_boundaries,
+    );
+    sample_lateral_boundary_contact(
+        player,
+        position.0,
+        &spec,
+        &spatial_query,
+        &queries.edge_boundaries,
         &mut report,
     );
     sample_ledge_edge(position.0, supported, &spec, &mut report);
@@ -825,6 +917,7 @@ fn sample_safety_net_contacts(
     player: Entity,
     position: Vec3,
     report: &mut ScenarioReport,
+    edge_boundaries: &bevy::prelude::Query<&AuthoredEdgeBoundary>,
 ) {
     for event in collision_starts.read() {
         let is_player_net_pair = (event.collider1 == safety_net && event.collider2 == player)
@@ -837,6 +930,91 @@ fn sample_safety_net_contacts(
                     player_position_m: position.to_array(),
                 });
         }
+        let boundary_entity = if event.collider1 == player {
+            Some(event.collider2)
+        } else if event.collider2 == player {
+            Some(event.collider1)
+        } else {
+            None
+        };
+        if let Some(boundary_entity) = boundary_entity
+            && let Ok(boundary) = edge_boundaries.get(boundary_entity)
+        {
+            report
+                .edge_boundary_contact_events
+                .push(EdgeBoundaryContactEvent {
+                    tick: report.total_ticks,
+                    boundary_side: boundary.side.to_owned(),
+                    player_position_m: position.to_array(),
+                    distance_m: 0.0,
+                    detection: "avian_collision_start".to_owned(),
+                });
+        }
+    }
+}
+
+fn sample_lateral_boundary_contact(
+    player: Entity,
+    position: Vec3,
+    spec: &HarnessSpec,
+    spatial_query: &SpatialQuery,
+    edge_boundaries: &bevy::prelude::Query<&AuthoredEdgeBoundary>,
+    report: &mut ScenarioReport,
+) {
+    let SyntheticGeometry::AuthoredLateralPush {
+        outward_direction_xz,
+        boundary_side,
+        ..
+    } = &spec.geometry
+    else {
+        return;
+    };
+    if report
+        .edge_boundary_contact_events
+        .iter()
+        .any(|contact| contact.boundary_side == *boundary_side)
+    {
+        return;
+    }
+    let direction_sign = if boundary_side == "inner" { -1.0 } else { 1.0 };
+    let direction = Vec3::new(
+        outward_direction_xz[0] * direction_sign,
+        0.0,
+        outward_direction_xz[1] * direction_sign,
+    );
+    let Ok(direction) = Dir3::new(direction) else {
+        return;
+    };
+    let shape = Collider::capsule(PLAYER_RADIUS_M, PLAYER_HEIGHT_M - 2.0 * PLAYER_RADIUS_M);
+    let cast_config = ShapeCastConfig {
+        max_distance: 0.02,
+        ignore_origin_penetration: false,
+        ..Default::default()
+    };
+    let hits = spatial_query.shape_hits(
+        &shape,
+        position,
+        Quat::IDENTITY,
+        direction,
+        8,
+        &cast_config,
+        &SpatialQueryFilter::from_excluded_entities([player]),
+    );
+    if let Some(hit) = hits.into_iter().find(|hit| {
+        hit.distance <= 0.02
+            && edge_boundaries
+                .get(hit.entity)
+                .is_ok_and(|boundary| boundary.side == boundary_side)
+    }) {
+        report
+            .edge_boundary_contact_events
+            .push(EdgeBoundaryContactEvent {
+                tick: report.total_ticks,
+                boundary_side: boundary_side.clone(),
+                player_position_m: position.to_array(),
+                distance_m: hit.distance,
+                detection: "avian_capsule_shape_cast".to_owned(),
+            });
     }
 }
 
@@ -869,6 +1047,62 @@ fn sample_ledge_edge(
         capsule_edge_clearance_m: clearance,
         supported,
     });
+}
+
+fn sample_authored_lateral_push(
+    position: Vec3,
+    velocity: Vec3,
+    supported: bool,
+    spec: &HarnessSpec,
+    report: &mut ScenarioReport,
+) {
+    let SyntheticGeometry::AuthoredLateralPush {
+        station,
+        center_xz,
+        outward_direction_xz,
+        boundary_side,
+    } = &spec.geometry
+    else {
+        return;
+    };
+    let offset = (position.x - center_xz[0]) * outward_direction_xz[0]
+        + (position.z - center_xz[1]) * outward_direction_xz[1];
+    let bottom_rise = position.y - spec.start.y;
+    let speed = velocity.length();
+    report.authored_lateral_station = Some(station.clone());
+    report.authored_lateral_expected_boundary = Some(boundary_side.clone());
+    report.authored_lateral_max_abs_offset_m = Some(
+        report
+            .authored_lateral_max_abs_offset_m
+            .unwrap_or_default()
+            .max(offset.abs()),
+    );
+    report.authored_lateral_max_capsule_bottom_rise_m = Some(
+        report
+            .authored_lateral_max_capsule_bottom_rise_m
+            .unwrap_or(f32::NEG_INFINITY)
+            .max(bottom_rise),
+    );
+    let phase = if report.total_ticks <= AUTHORED_LATERAL_PUSH_TICKS {
+        "lateral_input"
+    } else {
+        "release"
+    };
+    if phase == "release" {
+        report.authored_lateral_rest_positions.push(position);
+        report.authored_lateral_rest_speeds.push(speed);
+    }
+    report
+        .authored_lateral_samples
+        .push(AuthoredLateralPushSample {
+            tick: report.total_ticks,
+            phase: phase.to_owned(),
+            lateral_offset_m: offset,
+            capsule_bottom_rise_m: bottom_rise,
+            speed_mps: speed,
+            supported,
+            player_position_m: position.to_array(),
+        });
 }
 
 fn horizontal_distance(first: Vec3, second: Vec3) -> f32 {

@@ -1,6 +1,6 @@
 use std::time::{Duration, Instant};
 
-use avian3d::prelude::RigidBody;
+use avian3d::prelude::{CollisionEventsEnabled, RigidBody};
 use bevy::{
     asset::{AssetServer, Assets},
     ecs::system::SystemParam,
@@ -101,13 +101,22 @@ fn install_colliders(
         .iter()
         .find(|collision| collision.name == "ColumnObstacleProxy")
         .map_or(0, |collision| collision.triangles);
+    report.edge_boundary_collision_triangles = colliders
+        .iter()
+        .filter(|collision| collision.edge_boundary.is_some())
+        .map(|collision| collision.triangles)
+        .sum();
     for collision in colliders {
-        commands.spawn((
+        let boundary = collision.edge_boundary;
+        let mut entity = commands.spawn((
             Name::new(collision.name),
             RigidBody::Static,
             collision.collider,
             Transform::IDENTITY,
         ));
+        if let Some(boundary) = boundary {
+            entity.insert((boundary, CollisionEventsEnabled));
+        }
     }
     report.collision_asset_loaded = true;
     state.complete = true;

@@ -190,19 +190,57 @@
     "capsule_radius_m": 0.3,
     "capsule_residual_clearance_m": 0.23719834066499107
   },
+  "edge_boundaries": {
+    "pass": true,
+    "label": "authored_edge_boundary",
+    "origin": "authored",
+    "height_m": 1.4,
+    "thickness_m": 0.08,
+    "segments_per_side": 256,
+    "boundary_length_per_side_m": [
+      15.550883635269477,
+      20.577431881013144
+    ],
+    "total_boundary_length_m": 36.12831551628262,
+    "maximum_segment_length_m": 0.08234408869370122,
+    "maximum_gap_between_consecutive_segments_m": 0.0,
+    "capsule_radius_clearance_each_side_m": 0.10000000000000003,
+    "capsule_clearance_from_column_proxy_m": 0.23719834066499107,
+    "column_to_inner_edge_m": 0.1371902528116924,
+    "column_to_inner_wall_m": 0.05719025281169239,
+    "minimum_capsule_clearance_along_route_m": 0.10000000000000003,
+    "placement_rule": "continuous inner and outer rings on the open edges of the 0.8 m floor strip; place wall thickness outside the strip; omit only segments physically blocked by the column proxy",
+    "assumed_floor_y_source": "#100 declared floor convention, copied from the route report plane; not surveyed",
+    "floor_y_m": -1.2709904909133911,
+    "floor_y_basis": "#100 declared floor convention, copied from the route report plane; not surveyed",
+    "column_intersects_inner_boundary": false,
+    "omitted_segments_because_column_blocks": 0,
+    "both_open_edges_fully_bounded": true,
+    "mesh_names": [
+      "authored_edge_boundary_inner",
+      "authored_edge_boundary_outer"
+    ],
+    "transforms": "identity nodes; world-space vertices match Godot source scene"
+  },
   "export": {
     "path": "authored_route_collision.glb",
     "format": "glTF 2.0 binary (GLB)",
-    "sha256": "170d91bd13923c0f472fbe1b8844e4b9a6b3f37e3e457decedc49994689d4f1e",
-    "bytes": 20284,
+    "sha256": "c1c587cfdd773c058d13e71daf841aa460a2413229454ccab6bbf08cacfc460d",
+    "bytes": 95220,
     "mesh_names": [
       "AuthoredPlanarRouteFloor",
-      "ColumnObstacleProxy"
+      "ColumnObstacleProxy",
+      "authored_edge_boundary_inner",
+      "authored_edge_boundary_outer"
     ],
     "floor_vertices": 1024,
     "floor_triangles": 512,
     "column_vertices": 8,
     "column_triangles": 12,
+    "edge_boundary_vertices": 2048,
+    "edge_boundary_triangles": 4096,
+    "inner_edge_boundary_triangles": 2048,
+    "outer_edge_boundary_triangles": 2048,
     "node_transform": "identity; vertices already use #100 Godot world coordinates",
     "grid_spacing_m": 0.05
   },
@@ -214,7 +252,7 @@
       "dataparser_transforms_sha256": "fdabcd1b1450e65c605f45099a93383aff081fb1009b73f71f3eb854654e8ed4"
     },
     "candidate_grid_sha256": "8d7293f78a488cef739a564761bee1726a4df1128979c752ae7d5984517bd607",
-    "route_spec_sha256": "0ec5e7c266fe2563b6312177b95bad4a19a5507659317766e8e2dcb0a2ec0c0d",
+    "route_spec_sha256": "f3245d2abcb08e3735eb64ede6a838154a964b74dd455aa88f46c468159f884e",
     "registered_images": {
       "frame_0137.jpg": "092793c5eabc1cbd26178fc1aa7945d4979bbe98f2f7959c26870207a2a41804",
       "frame_0141.jpg": "f77d26c4814611ed1c27ec745d513fabf84936577148e70d609bd872a41c3cc5"

@@ -27,6 +27,7 @@ def make_report(data: dict, glb: bytes) -> dict:
         "plane": _plane_record(data["floor_y"]),
         "route": _route_record(data),
         "column_obstacle": _column_record(data),
+        "edge_boundaries": _edge_boundary_record(data),
         "export": _export_record(data, glb),
         "inputs": _input_record(data),
         "limits": _limits(),
@@ -126,19 +127,50 @@ def _column_record(data: dict) -> dict:
     }
 
 
+def _edge_boundary_record(data: dict) -> dict:
+    """Document the authored boundary geometry and its assumed plane placement."""
+    spec = data["spec"]["edge_boundaries"]
+    check = data["geometry"]["edge_boundary_check"]
+    column_to_inner_wall = check["column_to_inner_wall_m"]
+    return {
+        **check,
+        "floor_y_m": data["floor_y"],
+        "floor_y_basis": spec["assumed_floor_y_source"],
+        "column_intersects_inner_boundary": column_to_inner_wall <= 0.0,
+        "omitted_segments_because_column_blocks": 0,
+        "both_open_edges_fully_bounded": True,
+        "mesh_names": [
+            "authored_edge_boundary_inner",
+            "authored_edge_boundary_outer",
+        ],
+        "transforms": "identity nodes; world-space vertices match Godot source scene",
+    }
 def _export_record(data: dict, glb: bytes) -> dict:
     """Record triangle counts, content hash, and baked-world transform policy."""
     floor_mesh, column_mesh = data["floor_mesh"], data["column_mesh"]
+    inner_wall, outer_wall = (
+        data["inner_edge_boundary_mesh"],
+        data["outer_edge_boundary_mesh"],
+    )
     return {
         "path": GLB_PATH.name,
         "format": "glTF 2.0 binary (GLB)",
         "sha256": hashlib.sha256(glb).hexdigest(),
         "bytes": len(glb),
-        "mesh_names": ["AuthoredPlanarRouteFloor", "ColumnObstacleProxy"],
+        "mesh_names": [
+            "AuthoredPlanarRouteFloor",
+            "ColumnObstacleProxy",
+            "authored_edge_boundary_inner",
+            "authored_edge_boundary_outer",
+        ],
         "floor_vertices": len(floor_mesh[0]),
         "floor_triangles": len(floor_mesh[1]),
         "column_vertices": len(column_mesh[0]),
         "column_triangles": len(column_mesh[1]),
+        "edge_boundary_vertices": len(inner_wall[0]) + len(outer_wall[0]),
+        "edge_boundary_triangles": len(inner_wall[1]) + len(outer_wall[1]),
+        "inner_edge_boundary_triangles": len(inner_wall[1]),
+        "outer_edge_boundary_triangles": len(outer_wall[1]),
         "node_transform": "identity; vertices already use #100 Godot world coordinates",
         "grid_spacing_m": float(data["grid"]["spacing_m"]),
     }

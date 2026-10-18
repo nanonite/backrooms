@@ -8,20 +8,40 @@ use bevy::prelude::{Resource, Vec3};
 use serde::Deserialize;
 
 const LINE_SAMPLES: usize = 120;
+pub const AUTHORED_LATERAL_PUSH_TICKS: usize = 120;
+pub const AUTHORED_LATERAL_RELEASE_TICKS: usize = 60;
 
 #[derive(Clone)]
 pub enum SyntheticGeometry {
     Flat,
-    Slope { degrees: f32 },
-    SeparatedSlope { degrees: f32 },
-    Step { rise_m: f32 },
-    Gap { width_m: f32 },
+    Slope {
+        degrees: f32,
+    },
+    SeparatedSlope {
+        degrees: f32,
+    },
+    Step {
+        rise_m: f32,
+    },
+    Gap {
+        width_m: f32,
+    },
     BlockingWall,
     ClearedOpening,
-    OpenLedge { strip_width_m: f32 },
+    OpenLedge {
+        strip_width_m: f32,
+    },
     LowCeiling,
     AuthoredRoute,
-    AuthoredColumnProbe { floor_y_m: f32 },
+    AuthoredColumnProbe {
+        floor_y_m: f32,
+    },
+    AuthoredLateralPush {
+        station: String,
+        center_xz: [f32; 2],
+        outward_direction_xz: [f32; 2],
+        boundary_side: String,
+    },
 }
 
 #[derive(Clone, Resource)]
@@ -45,6 +65,10 @@ pub fn is_steep_rejection(name: &str) -> bool {
     name == STEEP_REJECTION_SCENARIO || name.starts_with(STEEP_REJECTION_DIAGNOSTIC_PREFIX)
 }
 
+pub fn is_authored_lateral_push(name: &str) -> bool {
+    name.starts_with("authored_loop_lateral_push_")
+}
+
 #[derive(Clone, Resource)]
 pub struct AuthoredRouteAsset {
     pub directory: PathBuf,
@@ -57,6 +81,9 @@ pub struct AuthoredRouteAsset {
     pub column_upper_xz: [f32; 2],
     pub floor_triangles: usize,
     pub column_triangles: usize,
+    pub inner_boundary_triangles: usize,
+    pub outer_boundary_triangles: usize,
+    pub boundary_height_m: f32,
 }
 
 pub fn synthetic_specs() -> Vec<HarnessSpec> {
@@ -137,6 +164,7 @@ struct RouteReport {
     plane: PlaneReport,
     route: RouteGeometry,
     column_obstacle: ColumnObstacle,
+    edge_boundaries: EdgeBoundaryReport,
     export: RouteExport,
 }
 
@@ -163,6 +191,13 @@ struct RouteExport {
     path: String,
     floor_triangles: usize,
     column_triangles: usize,
+    inner_edge_boundary_triangles: usize,
+    outer_edge_boundary_triangles: usize,
+}
+
+#[derive(Deserialize)]
+struct EdgeBoundaryReport {
+    height_m: f32,
 }
 
 pub fn authored_route_config(report_path: &Path) -> Result<(HarnessSpec, AuthoredRouteAsset)> {
@@ -215,8 +250,83 @@ pub fn authored_route_config(report_path: &Path) -> Result<(HarnessSpec, Authore
         column_upper_xz: route.column_obstacle.footprint_upper_xz_m,
         floor_triangles: route.export.floor_triangles,
         column_triangles: route.export.column_triangles,
+        inner_boundary_triangles: route.export.inner_edge_boundary_triangles,
+        outer_boundary_triangles: route.export.outer_edge_boundary_triangles,
+        boundary_height_m: route.edge_boundaries.height_m,
     };
     Ok((spec, asset))
+}
+
+pub fn authored_lateral_push_specs(route: &AuthoredRouteAsset) -> Vec<HarnessSpec> {
+    let mut stations: Vec<_> = (0..8)
+        .map(|index| {
+            let angle = std::f32::consts::TAU * index as f32 / 8.0;
+            station_record(route, format!("even_{index}"), angle)
+        })
+        .collect();
+    let nearest_angle = (0..128)
+        .map(|index| std::f32::consts::TAU * index as f32 / 128.0)
+        .min_by(|first, second| {
+            point_to_column_distance(route, *first)
+                .total_cmp(&point_to_column_distance(route, *second))
+        })
+        .unwrap_or(0.0);
+    stations.push(station_record(
+        route,
+        "nearest_column".to_owned(),
+        nearest_angle,
+    ));
+
+    stations
+        .into_iter()
+        .flat_map(|(station, center_xz, outward)| {
+            [(-1.0_f32, "inner"), (1.0_f32, "outer")].into_iter().map(
+                move |(direction, boundary_side)| {
+                    let start = Vec3::new(center_xz[0], route.floor_y + 0.7, center_xz[1]);
+                    HarnessSpec {
+                        name: format!("authored_loop_lateral_push_{station}_{boundary_side}"),
+                        geometry: SyntheticGeometry::AuthoredLateralPush {
+                            station: station.clone(),
+                            center_xz,
+                            outward_direction_xz: outward,
+                            boundary_side: boundary_side.to_owned(),
+                        },
+                        start,
+                        waypoints: vec![start],
+                        waypoint_split: None,
+                        max_updates: 300,
+                        speed_scale: direction,
+                        blocking: true,
+                    }
+                },
+            )
+        })
+        .collect()
+}
+
+fn station_record(
+    route: &AuthoredRouteAsset,
+    name: String,
+    angle: f32,
+) -> (String, [f32; 2], [f32; 2]) {
+    let outward = [angle.cos(), angle.sin()];
+    let center_xz = [
+        route.center_xz[0] + route.radius_m * outward[0],
+        route.center_xz[1] + route.radius_m * outward[1],
+    ];
+    (name, center_xz, outward)
+}
+
+fn point_to_column_distance(route: &AuthoredRouteAsset, angle: f32) -> f32 {
+    let point = [
+        route.center_xz[0] + route.radius_m * angle.cos(),
+        route.center_xz[1] + route.radius_m * angle.sin(),
+    ];
+    let dx = (route.column_lower_xz[0] - point[0]).max(0.0)
+        + (point[0] - route.column_upper_xz[0]).max(0.0);
+    let dz = (route.column_lower_xz[1] - point[1]).max(0.0)
+        + (point[1] - route.column_upper_xz[1]).max(0.0);
+    dx.hypot(dz)
 }
 
 pub fn authored_route_probe(spec: &HarnessSpec) -> HarnessSpec {
@@ -341,5 +451,69 @@ fn separated_slope_sensor_probe() -> HarnessSpec {
         max_updates: 300,
         speed_scale: 1.0,
         blocking: true,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::path::PathBuf;
+
+    use bevy::prelude::Vec3;
+
+    use super::{AuthoredRouteAsset, SyntheticGeometry, authored_lateral_push_specs};
+
+    #[test]
+    fn creates_both_edge_pushes_at_nine_fixed_stations() {
+        let route = AuthoredRouteAsset {
+            directory: PathBuf::new(),
+            file_name: String::new(),
+            floor_y: -1.0,
+            center_xz: [0.0, 0.0],
+            radius_m: 2.875,
+            width_m: 0.8,
+            column_lower_xz: [-0.5, -0.5],
+            column_upper_xz: [0.5, 0.5],
+            floor_triangles: 512,
+            column_triangles: 12,
+            inner_boundary_triangles: 2048,
+            outer_boundary_triangles: 2048,
+            boundary_height_m: 1.4,
+        };
+
+        let specs = authored_lateral_push_specs(&route);
+
+        assert_eq!(specs.len(), 18);
+        assert_eq!(
+            specs
+                .iter()
+                .filter(|spec| spec.name.contains("even_"))
+                .count(),
+            16
+        );
+        assert_eq!(
+            specs
+                .iter()
+                .filter(|spec| spec.name.contains("nearest_column"))
+                .count(),
+            2
+        );
+        for spec in specs {
+            assert!(spec.blocking);
+            assert_eq!(spec.start.y, route.floor_y + 0.7);
+            assert_eq!(spec.waypoints, vec![spec.start]);
+            let SyntheticGeometry::AuthoredLateralPush {
+                center_xz,
+                outward_direction_xz,
+                boundary_side,
+                ..
+            } = spec.geometry
+            else {
+                panic!("lateral push scenario has wrong geometry type");
+            };
+            let offset = Vec3::new(center_xz[0], 0.0, center_xz[1]);
+            assert!((offset.length() - route.radius_m).abs() < 1e-5);
+            assert!((outward_direction_xz[0].hypot(outward_direction_xz[1]) - 1.0).abs() < 1e-5);
+            assert!(boundary_side == "inner" || boundary_side == "outer");
+        }
     }
 }

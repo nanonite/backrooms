@@ -4,18 +4,33 @@ use bevy::{
     asset::Assets,
     gltf::{Gltf, GltfMesh, GltfNode},
     mesh::{Indices, Mesh, PrimitiveTopology, VertexAttributeValues},
-    prelude::{Handle, Quat, Vec3},
+    prelude::{Component, Handle, Quat, Vec3},
 };
 
 use crate::walkability_harness::scenarios::AuthoredRouteAsset;
 
 const FLOOR_NODE: &str = "AuthoredPlanarRouteFloor";
 const COLUMN_NODE: &str = "ColumnObstacleProxy";
+const INNER_BOUNDARY_NODE: &str = "authored_edge_boundary_inner";
+const OUTER_BOUNDARY_NODE: &str = "authored_edge_boundary_outer";
+
+#[derive(Component, Clone, Copy)]
+pub struct AuthoredEdgeBoundary {
+    pub side: &'static str,
+}
 
 pub struct RouteCollider {
     pub name: &'static str,
     pub collider: Collider,
     pub triangles: usize,
+    pub edge_boundary: Option<AuthoredEdgeBoundary>,
+}
+
+#[derive(Clone, Copy)]
+enum MeshExpectation<'a> {
+    None,
+    RouteFloor(&'a AuthoredRouteAsset),
+    EdgeBoundary { floor_y: f32, height_m: f32 },
 }
 
 pub fn build_route_colliders(
@@ -27,9 +42,9 @@ pub fn build_route_colliders(
     meshes: &Assets<Mesh>,
 ) -> Result<Vec<RouteCollider>> {
     let gltf = gltfs.get(handle).context("loaded GLB has no Gltf asset")?;
-    if gltf.named_nodes.len() != 2 {
+    if gltf.named_nodes.len() != 4 {
         bail!(
-            "authored route GLB has {} nodes, expected exactly two",
+            "authored route GLB has {} nodes, expected floor, column and two edge boundaries",
             gltf.named_nodes.len()
         );
     }
@@ -37,7 +52,7 @@ pub fn build_route_colliders(
         build_node(
             FLOOR_NODE,
             route.floor_triangles,
-            Some(route),
+            MeshExpectation::RouteFloor(route),
             gltf,
             nodes,
             gltf_meshes,
@@ -46,7 +61,31 @@ pub fn build_route_colliders(
         build_node(
             COLUMN_NODE,
             route.column_triangles,
-            None,
+            MeshExpectation::None,
+            gltf,
+            nodes,
+            gltf_meshes,
+            meshes,
+        )?,
+        build_node(
+            INNER_BOUNDARY_NODE,
+            route.inner_boundary_triangles,
+            MeshExpectation::EdgeBoundary {
+                floor_y: route.floor_y,
+                height_m: route.boundary_height_m,
+            },
+            gltf,
+            nodes,
+            gltf_meshes,
+            meshes,
+        )?,
+        build_node(
+            OUTER_BOUNDARY_NODE,
+            route.outer_boundary_triangles,
+            MeshExpectation::EdgeBoundary {
+                floor_y: route.floor_y,
+                height_m: route.boundary_height_m,
+            },
             gltf,
             nodes,
             gltf_meshes,
@@ -58,7 +97,7 @@ pub fn build_route_colliders(
 fn build_node(
     name: &'static str,
     expected_triangles: usize,
-    expected_route: Option<&AuthoredRouteAsset>,
+    expectation: MeshExpectation<'_>,
     gltf: &Gltf,
     nodes: &Assets<GltfNode>,
     gltf_meshes: &Assets<GltfMesh>,
@@ -88,7 +127,7 @@ fn build_node(
     build_primitive(
         name,
         expected_triangles,
-        expected_route,
+        expectation,
         &gltf_mesh.primitives[0].mesh,
         meshes,
     )
@@ -97,7 +136,7 @@ fn build_node(
 fn build_primitive(
     name: &'static str,
     expected_triangles: usize,
-    expected_route: Option<&AuthoredRouteAsset>,
+    expectation: MeshExpectation<'_>,
     handle: &Handle<Mesh>,
     meshes: &Assets<Mesh>,
 ) -> Result<RouteCollider> {
@@ -112,13 +151,7 @@ fn build_primitive(
         .and_then(VertexAttributeValues::as_float3)
         .with_context(|| format!("GLB node {name} has no float3 positions"))?;
     let triangles = mesh_triangles(mesh)?;
-    verify_mesh(
-        name,
-        positions,
-        &triangles,
-        expected_triangles,
-        expected_route,
-    )?;
+    verify_mesh(name, positions, &triangles, expected_triangles, expectation)?;
     let vertices = positions
         .iter()
         .map(|point| Vec3::from_array(*point))
@@ -130,6 +163,11 @@ fn build_primitive(
         name,
         collider,
         triangles: expected_triangles,
+        edge_boundary: match name {
+            INNER_BOUNDARY_NODE => Some(AuthoredEdgeBoundary { side: "inner" }),
+            OUTER_BOUNDARY_NODE => Some(AuthoredEdgeBoundary { side: "outer" }),
+            _ => None,
+        },
     })
 }
 
@@ -155,7 +193,7 @@ fn verify_mesh(
     positions: &[[f32; 3]],
     triangles: &[[u32; 3]],
     expected_triangles: usize,
-    expected_route: Option<&AuthoredRouteAsset>,
+    expectation: MeshExpectation<'_>,
 ) -> Result<()> {
     if positions.is_empty() || triangles.len() != expected_triangles {
         bail!("GLB node {name} geometry does not match route report triangle/vertex counts");
@@ -167,8 +205,34 @@ fn verify_mesh(
     {
         bail!("GLB node {name} has an out-of-range triangle index");
     }
-    if let Some(route) = expected_route {
-        verify_floor_geometry(name, positions, route)?;
+    match expectation {
+        MeshExpectation::None => {}
+        MeshExpectation::RouteFloor(route) => verify_floor_geometry(name, positions, route)?,
+        MeshExpectation::EdgeBoundary { floor_y, height_m } => {
+            verify_edge_boundary_geometry(name, positions, floor_y, height_m)?;
+        }
+    }
+    Ok(())
+}
+
+fn verify_edge_boundary_geometry(
+    name: &str,
+    positions: &[[f32; 3]],
+    floor_y: f32,
+    height_m: f32,
+) -> Result<()> {
+    let min_y = positions
+        .iter()
+        .map(|point| point[1])
+        .fold(f32::INFINITY, f32::min);
+    let max_y = positions
+        .iter()
+        .map(|point| point[1])
+        .fold(f32::NEG_INFINITY, f32::max);
+    if (min_y - floor_y).abs() > 1e-4 || (max_y - floor_y - height_m).abs() > 1e-4 {
+        bail!(
+            "edge boundary {name} Y bounds [{min_y}, {max_y}] differ from floor {floor_y} and height {height_m}"
+        );
     }
     Ok(())
 }

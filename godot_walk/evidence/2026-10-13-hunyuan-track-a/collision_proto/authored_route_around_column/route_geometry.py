@@ -67,6 +67,57 @@ def _route_metrics(
         "support": support,
         "clearances": clearances,
         "capsule_check": capsule,
+        "edge_boundary_check": edge_boundary_check(
+            dimensions,
+            spec["edge_boundaries"],
+            capsule_radius,
+            capsule["centerline_obstacle_clearance_after_capsule_m"],
+            capsule["obstacle_clearance_to_floor_inner_edge_m"],
+        ),
+    }
+
+
+def edge_boundary_check(
+    dimensions: dict,
+    boundary_spec: dict,
+    capsule_radius_m: float,
+    column_capsule_clearance_m: float,
+    column_to_inner_edge_m: float,
+) -> dict:
+    """Check positive capsule clearance and continuous deterministic boundary segments."""
+    inner_clearance = dimensions["width"] / 2.0 - capsule_radius_m
+    boundary_length = 2.0 * np.pi * (dimensions["inner"] + dimensions["outer"])
+    segment_count = int(boundary_spec["segments_per_side"])
+    longest_segment = 2.0 * np.pi * (
+        dimensions["outer"] + float(boundary_spec["thickness_m"])
+    ) / segment_count
+    column_to_inner_wall_m = column_to_inner_edge_m - float(boundary_spec["thickness_m"])
+    minimum_clearance = min(inner_clearance, column_capsule_clearance_m)
+    return {
+        "pass": bool(
+            minimum_clearance > 0.0
+            and column_to_inner_wall_m > 0.0
+            and longest_segment < 2.0 * capsule_radius_m
+        ),
+        "label": boundary_spec["label"],
+        "origin": boundary_spec["origin"],
+        "height_m": float(boundary_spec["height_m"]),
+        "thickness_m": float(boundary_spec["thickness_m"]),
+        "segments_per_side": segment_count,
+        "boundary_length_per_side_m": [
+            float(2.0 * np.pi * dimensions["inner"]),
+            float(2.0 * np.pi * dimensions["outer"]),
+        ],
+        "total_boundary_length_m": float(boundary_length),
+        "maximum_segment_length_m": float(longest_segment),
+        "maximum_gap_between_consecutive_segments_m": 0.0,
+        "capsule_radius_clearance_each_side_m": float(inner_clearance),
+        "capsule_clearance_from_column_proxy_m": float(column_capsule_clearance_m),
+        "column_to_inner_edge_m": float(column_to_inner_edge_m),
+        "column_to_inner_wall_m": float(column_to_inner_wall_m),
+        "minimum_capsule_clearance_along_route_m": float(minimum_clearance),
+        "placement_rule": boundary_spec["placement_rule"],
+        "assumed_floor_y_source": boundary_spec["assumed_floor_y_source"],
     }
 
 

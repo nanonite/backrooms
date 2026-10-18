@@ -6,7 +6,7 @@ mod sensor_shape_diagnostic;
 mod simulation;
 
 use std::{
-    fs,
+    env, fs,
     path::PathBuf,
     time::{Duration, Instant},
 };
@@ -33,15 +33,20 @@ use serde::Serialize;
 
 use route_collision::{poll_and_install, start_loading};
 use scenarios::{
-    AuthoredRouteAsset, HarnessSpec, authored_column_probe, authored_route_config,
-    authored_route_probe, is_steep_rejection, steep_rejection_diagnostics, synthetic_specs,
+    AUTHORED_LATERAL_PUSH_TICKS, AUTHORED_LATERAL_RELEASE_TICKS, AuthoredRouteAsset, HarnessSpec,
+    authored_column_probe, authored_lateral_push_specs, authored_route_config,
+    authored_route_probe, is_authored_lateral_push, is_steep_rejection,
+    steep_rejection_diagnostics, synthetic_specs,
 };
 use simulation::{
-    ControlScheme, PLAYER_HEIGHT_M, PLAYER_RADIUS_M, SAFETY_NET_TOP_Y_M,
-    SLOPE_FINAL_REST_WINDOW_TICKS, SLOPE_INPUT_TICKS, SLOPE_MAX_BOTTOM_HEIGHT_ABOVE_FLAT_M,
-    SLOPE_MAX_FINAL_SPEED_MPS, SLOPE_MAX_POSITION_RADIUS_M, SLOPE_MAX_VERTICAL_SPEED_MPS,
-    SLOPE_MIN_PLAYER_CENTER_Y_M, SLOPE_RECOVERY_TICKS, SLOPE_STABILITY_WINDOW_TICKS,
-    ScenarioReport, collect_sample, collect_sensor_shape_diagnostics, drive_player, setup_scene,
+    AUTHORED_LATERAL_FINAL_REST_TICKS, AUTHORED_LATERAL_MAX_BOTTOM_RISE_M,
+    AUTHORED_LATERAL_MAX_FINAL_POSITION_RADIUS_M, AUTHORED_LATERAL_MAX_FINAL_SPEED_MPS,
+    AUTHORED_LATERAL_MAX_OFFSET_M, AUTHORED_LATERAL_MIN_SUPPORT_FRACTION, ControlScheme,
+    PLAYER_HEIGHT_M, PLAYER_RADIUS_M, SAFETY_NET_TOP_Y_M, SLOPE_FINAL_REST_WINDOW_TICKS,
+    SLOPE_INPUT_TICKS, SLOPE_MAX_BOTTOM_HEIGHT_ABOVE_FLAT_M, SLOPE_MAX_FINAL_SPEED_MPS,
+    SLOPE_MAX_POSITION_RADIUS_M, SLOPE_MAX_VERTICAL_SPEED_MPS, SLOPE_MIN_PLAYER_CENTER_Y_M,
+    SLOPE_RECOVERY_TICKS, SLOPE_STABILITY_WINDOW_TICKS, ScenarioReport, collect_sample,
+    collect_sensor_shape_diagnostics, drive_player, setup_scene,
 };
 
 const FIXED_STEP: Duration = Duration::from_nanos(16_666_667);
@@ -51,6 +56,7 @@ const MAX_ALLOWED_STEP_M: f32 = 0.2;
 #[derive(Serialize)]
 struct HarnessSuite {
     schema_version: u32,
+    report_phase: &'static str,
     bevy: &'static str,
     avian3d: &'static str,
     bevy_tnua: &'static str,
@@ -66,8 +72,54 @@ struct HarnessSuite {
     resident_set_kib_at_completion: Option<u64>,
     peak_rss_kib: Option<u64>,
     slope_gate_design: SlopeGateDesign,
+    authored_lateral_push_gate: AuthoredLateralPushGate,
     scenarios: Vec<ScenarioReport>,
 }
+
+#[derive(Serialize, Clone, Copy)]
+struct AuthoredLateralPushGate {
+    family: &'static str,
+    station_rule: &'static str,
+    station_count: usize,
+    target_edges: &'static str,
+    input_ticks_per_station_edge: usize,
+    release_ticks_per_station_edge: usize,
+    no_safety_net_contacts: bool,
+    minimum_moving_support_fraction: f32,
+    maximum_absolute_lateral_offset_m: f32,
+    lateral_offset_definition: &'static str,
+    boundary_contact_required: bool,
+    boundary_contact_record_fields: &'static str,
+    maximum_capsule_bottom_rise_m: f32,
+    bottom_rise_definition: &'static str,
+    final_rest_window_ticks: usize,
+    maximum_final_speed_mps: f32,
+    maximum_final_position_radius_m: f32,
+    final_rest_definition: &'static str,
+    open_ledge_negative_control: &'static str,
+}
+
+const AUTHORED_LATERAL_PUSH_GATE: AuthoredLateralPushGate = AuthoredLateralPushGate {
+    family: "authored_loop_lateral_push",
+    station_rule: "8 evenly spaced stations plus the station nearest the column proxy",
+    station_count: 9,
+    target_edges: "inner and outer authored_edge_boundary",
+    input_ticks_per_station_edge: AUTHORED_LATERAL_PUSH_TICKS,
+    release_ticks_per_station_edge: AUTHORED_LATERAL_RELEASE_TICKS,
+    no_safety_net_contacts: true,
+    minimum_moving_support_fraction: AUTHORED_LATERAL_MIN_SUPPORT_FRACTION,
+    maximum_absolute_lateral_offset_m: AUTHORED_LATERAL_MAX_OFFSET_M,
+    lateral_offset_definition: "absolute capsule-center displacement from station along the loop radial; 0.10 m lane margin plus 0.02 m tolerance",
+    boundary_contact_required: true,
+    boundary_contact_record_fields: "tick, expected boundary side and player position",
+    maximum_capsule_bottom_rise_m: AUTHORED_LATERAL_MAX_BOTTOM_RISE_M,
+    bottom_rise_definition: "maximum capsule-bottom Y minus its initial capsule-bottom Y over input and release",
+    final_rest_window_ticks: AUTHORED_LATERAL_FINAL_REST_TICKS,
+    maximum_final_speed_mps: AUTHORED_LATERAL_MAX_FINAL_SPEED_MPS,
+    maximum_final_position_radius_m: AUTHORED_LATERAL_MAX_FINAL_POSITION_RADIUS_M,
+    final_rest_definition: "last 10 release ticks satisfy speed and position-radius bounds",
+    open_ledge_negative_control: "open_ledge_0_8m unchanged and must reach SafetyNet",
+};
 
 #[derive(Serialize, Clone, Copy)]
 struct SlopeGateDesign {
@@ -127,6 +179,9 @@ const SLOPE_GATE_DESIGN: SlopeGateDesign = SlopeGateDesign {
 };
 
 pub fn run() -> Result<()> {
+    if env::args().any(|argument| argument == "--write-gate-plan") {
+        return write_gate_plan();
+    }
     let suite_started = Instant::now();
     let mut scenarios = Vec::new();
     for spec in synthetic_specs()
@@ -144,9 +199,13 @@ pub fn run() -> Result<()> {
         authored_column_probe(&route_asset),
         Some(route_asset.clone()),
     )?);
-    scenarios.push(run_scenario(route_spec, Some(route_asset))?);
+    scenarios.push(run_scenario(route_spec, Some(route_asset.clone()))?);
+    for spec in authored_lateral_push_specs(&route_asset) {
+        scenarios.push(run_scenario(spec, Some(route_asset.clone()))?);
+    }
     let suite = HarnessSuite {
-        schema_version: 4,
+        schema_version: 5,
+        report_phase: "completed_run",
         bevy: "0.18.0",
         avian3d: "0.6.1",
         bevy_tnua: "0.31.0",
@@ -162,6 +221,7 @@ pub fn run() -> Result<()> {
         resident_set_kib_at_completion: current_rss_kib(),
         peak_rss_kib: peak_rss_kib(),
         slope_gate_design: slope_gate_design(),
+        authored_lateral_push_gate: AUTHORED_LATERAL_PUSH_GATE,
         scenarios,
     };
     let report_json = serde_json::to_string_pretty(&suite)?;
@@ -260,11 +320,41 @@ fn is_complete_and_settled(app: &App) -> Result<bool> {
     if is_steep_rejection(&report.scenario) {
         return Ok(report.total_ticks >= SLOPE_INPUT_TICKS + SLOPE_RECOVERY_TICKS);
     }
+    if is_authored_lateral_push(&report.scenario) {
+        return Ok(
+            report.total_ticks >= AUTHORED_LATERAL_PUSH_TICKS + AUTHORED_LATERAL_RELEASE_TICKS
+        );
+    }
     Ok(report.progress_fraction >= 1.0 && report.total_ticks >= 240)
 }
 
 fn slope_gate_design() -> SlopeGateDesign {
     SLOPE_GATE_DESIGN
+}
+
+fn write_gate_plan() -> Result<()> {
+    let suite = HarnessSuite {
+        schema_version: 5,
+        report_phase: "gate_plan_only",
+        bevy: "0.18.0",
+        avian3d: "0.6.1",
+        bevy_tnua: "0.31.0",
+        bevy_tnua_avian3d: "0.11.0",
+        rendering_enabled: false,
+        gpu_used: false,
+        tick_rate_hz: 60,
+        player_capsule_radius_m: PLAYER_RADIUS_M,
+        player_capsule_height_m: PLAYER_HEIGHT_M,
+        safety_net_sensor_present: true,
+        safety_net_top_y_m: SAFETY_NET_TOP_Y_M,
+        suite_wall_clock_seconds: 0.0,
+        resident_set_kib_at_completion: current_rss_kib(),
+        peak_rss_kib: peak_rss_kib(),
+        slope_gate_design: slope_gate_design(),
+        authored_lateral_push_gate: AUTHORED_LATERAL_PUSH_GATE,
+        scenarios: Vec::new(),
+    };
+    write_report(&serde_json::to_string_pretty(&suite)?)
 }
 
 fn finalize_metrics(report: &mut ScenarioReport) {
@@ -435,6 +525,7 @@ fn scenario_passes(report: &ScenarioReport) -> bool {
         "slope_17_degrees_nonoverlap_probe" => {
             report.slope_sensor_hit_ticks > 0 && report.slope_sensor_mismatch_ticks == 0
         }
+        name if is_authored_lateral_push(name) => authored_lateral_push_passes(report),
         "step_030m_rejection" => {
             report.progress_fraction < 0.9
                 && report.moving_support_fraction >= REQUIRED_SUPPORT_FRACTION
@@ -470,7 +561,7 @@ fn scenario_passes(report: &ScenarioReport) -> bool {
         }
         "authored_route_static_probe" => {
             report.collision_asset_loaded
-                && report.collision_nodes == 2
+                && report.collision_nodes == 4
                 && report.total_support_fraction >= REQUIRED_SUPPORT_FRACTION
                 && report.total_floor_ray_fraction >= REQUIRED_SUPPORT_FRACTION
                 && !report.fallthrough_detected
@@ -487,18 +578,40 @@ fn scenario_passes(report: &ScenarioReport) -> bool {
         }
         "authored_route_outbound_inbound" => {
             report.collision_asset_loaded
-                && report.collision_nodes == 2
+                && report.collision_nodes == 4
                 && report.floor_collision_triangles == 512
                 && report.obstacle_collision_triangles == 12
-                && report.outbound_progress_fraction >= 0.9
-                && report.inbound_progress_fraction >= 0.9
+                && report.edge_boundary_collision_triangles > 0
+                && report.outbound_progress_fraction >= 1.0
+                && report.inbound_progress_fraction >= 0.992
                 && traversable(report)
-                && report.moving_floor_ray_fraction >= REQUIRED_SUPPORT_FRACTION
+                && report.moving_support_fraction >= 0.993
                 && report.max_vertical_step <= MAX_ALLOWED_STEP_M
                 && report.safety_net_contact_events.is_empty()
         }
         _ => false,
     }
+}
+
+fn authored_lateral_push_passes(report: &ScenarioReport) -> bool {
+    let expected_side = report.authored_lateral_expected_boundary.as_deref();
+    report.collision_asset_loaded
+        && report.edge_boundary_collision_triangles > 0
+        && report.safety_net_contact_events.is_empty()
+        && report.moving_support_fraction >= AUTHORED_LATERAL_MIN_SUPPORT_FRACTION
+        && report
+            .authored_lateral_max_abs_offset_m
+            .is_some_and(|offset| offset <= AUTHORED_LATERAL_MAX_OFFSET_M)
+        && expected_side.is_some_and(|side| {
+            report
+                .edge_boundary_contact_events
+                .iter()
+                .any(|contact| contact.boundary_side == side)
+        })
+        && report
+            .authored_lateral_max_capsule_bottom_rise_m
+            .is_some_and(|rise| rise <= AUTHORED_LATERAL_MAX_BOTTOM_RISE_M)
+        && report.authored_lateral_rest_at_end
 }
 
 fn traversable(report: &ScenarioReport) -> bool {

@@ -14,7 +14,7 @@ sys.path.insert(0, str(PROTO))
 sys.path.insert(0, str(HERE))
 
 import camera_path_diagnostic_inputs as camera_inputs
-from collision_meshes import box_mesh, floor_ring_mesh
+from collision_meshes import box_mesh, edge_boundary_mesh, floor_ring_mesh
 from glb_writer import build_glb
 from route_geometry import (
     make_route_geometry,
@@ -70,7 +70,34 @@ def _make_meshes(data: dict) -> dict:
         floor_y,
         float(spec["column_review"]["height_m"]),
     )
-    return {"floor_y": floor_y, "floor_mesh": floor, "column_mesh": column}
+    boundary = spec["edge_boundaries"]
+    inner_boundary = edge_boundary_mesh(
+        geometry["center"],
+        geometry["inner"],
+        geometry["outer"],
+        floor_y,
+        float(boundary["height_m"]),
+        float(boundary["thickness_m"]),
+        int(boundary["segments_per_side"]),
+        "inner",
+    )
+    outer_boundary = edge_boundary_mesh(
+        geometry["center"],
+        geometry["inner"],
+        geometry["outer"],
+        floor_y,
+        float(boundary["height_m"]),
+        float(boundary["thickness_m"]),
+        int(boundary["segments_per_side"]),
+        "outer",
+    )
+    return {
+        "floor_y": floor_y,
+        "floor_mesh": floor,
+        "column_mesh": column,
+        "inner_edge_boundary_mesh": inner_boundary,
+        "outer_edge_boundary_mesh": outer_boundary,
+    }
 
 
 def _named_meshes(data: dict) -> list[dict]:
@@ -86,6 +113,16 @@ def _named_meshes(data: dict) -> list[dict]:
             "vertices": data["column_mesh"][0],
             "faces": data["column_mesh"][1],
         },
+        {
+            "name": "authored_edge_boundary_inner",
+            "vertices": data["inner_edge_boundary_mesh"][0],
+            "faces": data["inner_edge_boundary_mesh"][1],
+        },
+        {
+            "name": "authored_edge_boundary_outer",
+            "vertices": data["outer_edge_boundary_mesh"][0],
+            "faces": data["outer_edge_boundary_mesh"][1],
+        },
     ]
 
 
@@ -99,6 +136,8 @@ def _asset_extras(data: dict) -> dict:
         "floor_height_m": data["floor_y"],
         "metric_scale_accepted": False,
         "hunyuan_registration_accepted": False,
+        "edge_boundary_label": data["spec"]["edge_boundaries"]["label"],
+        "edge_boundary_origin": "authored_not_reconstructed",
     }
 
 

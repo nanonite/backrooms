@@ -11,31 +11,57 @@ func _ready() -> void:
 		return
 	var meshes := packed.instantiate()
 	meshes.name = "AuthoredRouteMeshes"
-	add_child(meshes)
+	var source_root := get_node_or_null("AuthoredRouteGlbSource") as Node3D
+	if source_root == null or source_root.transform != Transform3D.IDENTITY:
+		push_error("Authored route GLB source root must exist at identity")
+		return
+	source_root.add_child(meshes)
 	var floor_mesh := meshes.find_child("AuthoredPlanarRouteFloor", true, false) as MeshInstance3D
 	var column_mesh := meshes.find_child("ColumnObstacleProxy", true, false) as MeshInstance3D
-	if not _require_meshes(floor_mesh, column_mesh):
+	var inner_boundary := meshes.find_child("authored_edge_boundary_inner", true, false) as MeshInstance3D
+	var outer_boundary := meshes.find_child("authored_edge_boundary_outer", true, false) as MeshInstance3D
+	if not _require_meshes(floor_mesh, column_mesh, inner_boundary, outer_boundary):
 		return
-	_style_meshes(floor_mesh, column_mesh)
+	_style_meshes(floor_mesh, column_mesh, inner_boundary, outer_boundary)
 	_attach_floor_collider(floor_mesh)
 	_attach_column_collider(column_mesh)
+	_attach_edge_boundary_collider(inner_boundary, "Inner")
+	_attach_edge_boundary_collider(outer_boundary, "Outer")
 	_add_route_start_marker()
 	_add_preview_camera()
 
 
-func _require_meshes(floor_mesh: MeshInstance3D, column_mesh: MeshInstance3D) -> bool:
+func _require_meshes(
+	floor_mesh: MeshInstance3D,
+	column_mesh: MeshInstance3D,
+	inner_boundary: MeshInstance3D,
+	outer_boundary: MeshInstance3D
+) -> bool:
 	if floor_mesh == null or floor_mesh.mesh == null:
 		push_error("Authored route floor mesh is missing")
 		return false
 	if column_mesh == null or column_mesh.mesh == null:
 		push_error("Projected column proxy mesh is missing")
 		return false
+	if inner_boundary == null or inner_boundary.mesh == null:
+		push_error("Authored inner edge boundary is missing")
+		return false
+	if outer_boundary == null or outer_boundary.mesh == null:
+		push_error("Authored outer edge boundary is missing")
+		return false
 	return true
 
 
-func _style_meshes(floor_mesh: MeshInstance3D, column_mesh: MeshInstance3D) -> void:
+func _style_meshes(
+	floor_mesh: MeshInstance3D,
+	column_mesh: MeshInstance3D,
+	inner_boundary: MeshInstance3D,
+	outer_boundary: MeshInstance3D
+) -> void:
 	floor_mesh.material_override = _material(Color(0.16, 0.52, 0.46, 1.0))
 	column_mesh.material_override = _material(Color(0.82, 0.31, 0.22, 1.0))
+	inner_boundary.material_override = _material(Color(0.91, 0.68, 0.20, 1.0))
+	outer_boundary.material_override = _material(Color(0.91, 0.68, 0.20, 1.0))
 
 
 func _material(color: Color) -> StandardMaterial3D:
@@ -68,6 +94,18 @@ func _attach_column_collider(column_mesh: MeshInstance3D) -> void:
 	box.size = bounds.size
 	shape.shape = box
 	shape.position = bounds.position + bounds.size * 0.5
+	body.add_child(shape)
+	add_child(body)
+
+
+func _attach_edge_boundary_collider(boundary_mesh: MeshInstance3D, side: String) -> void:
+	var body := StaticBody3D.new()
+	body.name = "AuthoredEdgeBoundary%s" % side
+	body.set_meta("origin", "authored_not_reconstructed")
+	body.global_transform = boundary_mesh.global_transform
+	var shape := CollisionShape3D.new()
+	shape.name = "AuthoredEdgeBoundary%sShape" % side
+	shape.shape = boundary_mesh.mesh.create_trimesh_shape()
 	body.add_child(shape)
 	add_child(body)
 

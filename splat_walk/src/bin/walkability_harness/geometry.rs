@@ -34,6 +34,7 @@ pub fn spawn_synthetic_scene(commands: &mut Commands, geometry: &SyntheticGeomet
         SyntheticGeometry::AuthoredColumnProbe { floor_y_m } => {
             spawn_flat_floor_at(commands, *floor_y_m)
         }
+        SyntheticGeometry::AuthoredLateralPush { .. } => {}
     }
 }
 
