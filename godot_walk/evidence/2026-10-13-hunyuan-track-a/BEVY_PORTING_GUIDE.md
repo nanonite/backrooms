@@ -50,13 +50,19 @@ shared `splat_walk::player_controller` owns movement. This lets the visual
 representation improve without making the uncalibrated geometry authoritative
 for player physics.
 
-## What Remains To Learn
+## What The First Bevy Port Proves
 
-The Bevy capture mode uses the locked frame-141 and eight loop-station poses.
-Compare those images with the unchanged #100 Godot baseline to locate visual
-differences. ODiff across Godot and Bevy is only a pixel diagnostic: it cannot
-separate mesh differences from renderer, material, color-space, or tone-mapping
-differences.
+The first Bevy port loads and renders the named GLB layers from the locked
+frame-141 and eight loop-station poses. It confirms that this mesh export can
+be imported as Bevy `Mesh3d` entities with vertex colors and the explicit
+uncalibrated transform. The captures are not a claim of visual parity with
+Godot. ODiff across Godot and Bevy is only a pixel diagnostic: it cannot
+separate material, color-space, camera, renderer, or tone-mapping differences.
+
+The direct Godot-Hunyuan versus Bevy-Hunyuan comparison uses the same GLB and
+pose contract. It helps locate port differences, but is still cross-renderer
+and cannot prove parity. Compare it alongside the unchanged #100 baseline.
+Reports and captures are in `godot_walk/evidence/2026-10-13-hunyuan-track-a/`.
 
 If the Bevy surfaces look wrong, inspect in this order:
 
@@ -67,5 +73,7 @@ If the Bevy surfaces look wrong, inspect in this order:
    art direction. Record any render changes as a separate comparison; do not
    change the locked geometry transform to compensate for appearance.
 
-The Bevy matched-view capture is still pending explicit operator approval and
-adequate host capacity. No visual-port parity or calibration is claimed.
+The first pass uses a white unlit, double-sided material to preserve vertex
+colors and show open surfaces. It does not emulate Godot's lighting or tone
+mapping. Further appearance matching should be a separate measured iteration.
+No visual-port parity, accepted registration, or calibrated scale is claimed.

@@ -91,32 +91,48 @@ These measurements are descriptive only. The transform is not calibrated.
 
 ## Bevy Port Status
 
-- The import, transform, renderer boundary, and next debugging steps are in the
-  [Bevy porting guide](BEVY_PORTING_GUIDE.md).
-- Added a `--capture` mode to the #137 Bevy binary. It loads the two named
-  Hunyuan GLB visual nodes with the locked plane-aligned transform, uses the
-  frame-141 and loop-station pose contract, and captures at the same resolution
-  and vertical FOV. Hunyuan remains visual-only; collision is not loaded.
+- The import, transform, renderer boundary, and follow-up guidance are in the
+  [Bevy porting guide](BEVY_PORTING_GUIDE.md). The Bevy asset import/render path
+  is ported and verified; renderer parity is not claimed.
+- The `--capture` mode loaded both named visual GLB nodes with the locked
+  plane-aligned transform and rendered all nine locked poses at 960x540 and
+  47.3988-degree vertical FOV. The Hunyuan layers remained visual-only and the
+  collision GLB was not loaded.
 - The port follows the existing Bevy fixture: glTF vertex colors, a white
   unlit, double-sided material, and the explicit Hunyuan-to-world transform.
-  It does not try to reproduce Godot's renderer or tone mapping. ODiff will be
-  treated as a cross-renderer diagnostic, not a quality score.
-- `cargo check`, strict binary clippy (`--bin hunyuan_route_scene -- -D warnings`),
-  and 13 focused binary tests pass. Full all-targets checks remain pending. The
-  actual Bevy GPU capture also awaits explicit operator approval. The latest
-  preflight showed QEMU using about 165% CPU and only 8 GiB available host RAM,
-  below the proposed 10 GiB run budget. No Bevy renderer was launched under
-  that pressure.
+  It does not emulate Godot lighting or tone mapping. The direct Godot-Hunyuan
+  versus Bevy-Hunyuan ODiff is a same-asset, cross-renderer diagnostic; the
+  Godot #100 baseline comparison is also diagnostic, not a quality score. See
+  [the comparison report](ISSUE_137_BEVY_COMPARISON.md) and
+  [same-asset contact sheet](captures/bevy_port_contact_sheet.png).
+- Operator approval was given before rendering. The Bevy GPU capture completed
+  in 42.33 s with process peak RSS 9,273,148 KiB (about 8.84 GiB), below the
+  approved 10 GiB host-RAM budget but close enough that no second render was
+  needed. On the RTX 4070 Ti (12,282 MiB), polling sampled 1,500 MiB before and
+  1,773 MiB during the run, a sampled increase of 273 MiB. This is a sampled
+  high-water, not a driver-reported exact peak. The full capture metadata is in
+  [`captures/bevy_hunyuan/bevy_capture_report.json`](captures/bevy_hunyuan/bevy_capture_report.json).
 
 ## Verification And Remaining Work
 
-- `cargo fmt --check` passed.
-- `cargo clippy --all-targets -- -D warnings` passed.
-- `cargo test --all-targets` passed (32 test executions across library and
-  binaries; each binary target runs its shared harness tests).
+- Post-render checks passed: `cargo fmt --check`,
+  `cargo clippy --all-targets -- -D warnings`, and
+  `cargo test --all-targets` (38 tests passed across library and binaries).
 - A regression test confirms a floor just above the collision plane is an
   offset, not a visual hole.
-- Bevy capture runner and Bevy-specific ODiff report path are implemented but
-  uncommitted. No Bevy matched-view comparison has been produced yet. No
-  calibration or promotion is accepted.
-- #137 remains open for operator review. No promotion or closure is requested.
+- Nine matched Bevy captures are 960x540 RGB. The same-asset Godot-Hunyuan vs
+  Bevy-Hunyuan ODiff ranges from 51.16% to 96.54% changed pixels. Visual review
+  shows the same broad room layout and Hunyuan surfaces, with Bevy notably less
+  saturated/bright. The high pixel deltas are renderer/material differences to
+  investigate, not proof that the mesh geometry failed to port. See the
+  [comparison table](ISSUE_137_BEVY_COMPARISON.md) and
+  [side-by-side contact sheet](captures/bevy_port_contact_sheet.png).
+- `registration_accepted=false`, `scale_calibrated=false`, and
+  `transform_status=uncalibrated_convention` remain unchanged. No asset is
+  promoted. Traversal acceptance still comes from the exact #135 authored
+  collision GLB and shared controller; this render-only capture does not alter
+  or rerun that gate.
+- The visual GLB is ported into a working Bevy comparison scene. This does not
+  port the Hunyuan inference pipeline, prove Godot/Bevy renderer parity, or
+  calibrate the transform. The work is committed as an experimental,
+  uncalibrated scene and is ready for #137 closure; no promotion is implied.

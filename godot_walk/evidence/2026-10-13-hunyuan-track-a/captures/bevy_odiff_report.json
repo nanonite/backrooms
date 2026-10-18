@@ -1,0 +1,617 @@
+{
+  "issue": 137,
+  "label": "uncalibrated",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "baseline_renderer": "Godot 4.6.3 Forward+ Vulkan",
+  "candidate_renderer": "Bevy 0.18.0 wgpu",
+  "comparison_scope": "cross_renderer_pixel_differences_are_diagnostic_not_a_quality_score",
+  "tool": "ODiff",
+  "tool_command": [
+    "/home/goya/.nvm/versions/node/v22.5.1/bin/npx",
+    "--yes",
+    "--package=odiff-bin@4.5.0",
+    "odiff"
+  ],
+  "threshold": 0.1,
+  "source_assets": {
+    "hunyuan_visual_glb": {
+      "path": "godot_walk/generated_mesh_scenes/hunyuan_track_a_full_run/hunyuan_layers.glb",
+      "sha256": "5cc63c06b1bc920306a8da8758d4ef689c541f7fd64ccd8c02742b358902acba"
+    },
+    "baseline_corridor_ply": {
+      "path": "godot_walk/assets/corridor_splat/corridor.ply",
+      "sha256": "1602f159aa7910a105dd2eff913a8bbccec1cb50cca9f974c9f82dfda297929c"
+    },
+    "baseline_alignment_manifest": {
+      "path": "godot_walk/assets/corridor_splat/alignment_manifest.json",
+      "sha256": "85d5b51c8ca9df614b81a6f6dddf8c68015cca14b36e3b007c1a67f50be03598"
+    },
+    "baseline_scene": {
+      "path": "godot_walk/scenes/corridor_splat.tscn",
+      "sha256": "113a3be42c9da56dc877a1a28ff175db03fde948b4ccc1842bc3695955518386"
+    },
+    "baseline_project_settings": {
+      "path": "godot_walk/project.godot",
+      "sha256": "f9ed4e36e7445255c41b0ae5c6828abf1c0ec6aa34d494647fb3150052dcea52"
+    },
+    "baseline_gaussian_node_script": {
+      "path": "godot_walk/addons/gdgs/runtime/nodes/gaussian_splat_node.gd",
+      "sha256": "5290ba73c720550c17793d06a7071b8f5b185db72f7c09ba6dad0a8937cd480c"
+    },
+    "baseline_gaussian_compositor_script": {
+      "path": "godot_walk/addons/gdgs/runtime/compositor/gaussian_compositor_effect.gd",
+      "sha256": "cfd80ca90c8af9cf1b6163a95e0f0b1b89b1b48bec26f2be20a7a847b89195eb"
+    },
+    "route_report": {
+      "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/authored_route_around_column/route_report.json",
+      "sha256": "c85a4181caf266da8851f6602ec12cd12b37f4c76535193faf403565634778bc"
+    },
+    "frame_141_camera_metadata": {
+      "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/source_selection.json",
+      "sha256": "695ec3aec48c680f7c3656de5e5571560042a9810a9ab72df866f3496c307e57"
+    },
+    "locked_capture_pose_manifest": {
+      "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/captures/capture_poses.json",
+      "sha256": "075e1b8f7aefa1728315e4228b2039f2a16ae2208398cea2357d36ff7cc511a6"
+    },
+    "bevy_capture_report": {
+      "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/captures/bevy_hunyuan/bevy_capture_report.json",
+      "sha256": "6d205df0b7faa59e0e0538f789dfd293cd0097d877cfc7155db001b0edcf6133"
+    }
+  },
+  "noise_method": "maximum pairwise ODiff delta among three same-pose baseline repeats",
+  "maximum_baseline_repeat_noise_percent": 1.58,
+  "views": [
+    {
+      "view": "frame_141",
+      "baseline_noise": {
+        "pair": "repeat_1_vs_3",
+        "diff_pixels": 8214,
+        "diff_percent": 1.58,
+        "diff_image": "captures/odiff/noise/frame_141_repeat_1_vs_3.png",
+        "threshold": 0.1
+      },
+      "baseline_noise_pairs": [
+        {
+          "pair": "repeat_1_vs_2",
+          "diff_pixels": 7983,
+          "diff_percent": 1.54,
+          "diff_image": "captures/odiff/noise/frame_141_repeat_1_vs_2.png",
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_1_vs_3",
+          "diff_pixels": 8214,
+          "diff_percent": 1.58,
+          "diff_image": "captures/odiff/noise/frame_141_repeat_1_vs_3.png",
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_2_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        }
+      ],
+      "bevy_hunyuan_vs_godot_baseline": {
+        "diff_pixels": 373725,
+        "diff_percent": 72.09,
+        "diff_image": "captures/odiff/bevy_vs_godot_baseline/frame_141.png",
+        "threshold": 0.1,
+        "interpretation": "above_Godot_repeat_noise; cross_renderer_difference_requires_visual_review"
+      },
+      "bevy_hunyuan_vs_godot_hunyuan": {
+        "diff_pixels": 493738,
+        "diff_percent": 95.24,
+        "diff_image": "captures/odiff/bevy_vs_godot_hunyuan/frame_141.png",
+        "threshold": 0.1,
+        "interpretation": "same_visual_asset_cross_renderer_diagnostic_only"
+      },
+      "captures": {
+        "baseline_repeat_1": "captures/baseline_repeat_1/frame_141.png",
+        "baseline_repeat_2": "captures/baseline_repeat_2/frame_141.png",
+        "baseline_repeat_3": "captures/baseline_repeat_3/frame_141.png",
+        "godot_hunyuan": "captures/hunyuan/frame_141.png",
+        "bevy_hunyuan": "captures/bevy_hunyuan/frame_141.png"
+      },
+      "sha256": {
+        "baseline_repeat_1": "e1aab10c990b4ad91a77de4563b2ed0394b4f55036797fd451cb0cf0256e6f40",
+        "baseline_repeat_2": "1a494ca326315f01d7e022b43a501d083df5d6d5540041c9cb97729cd86dd21a",
+        "baseline_repeat_3": "52e267054518faa64a2970501c593328e574c143dbe6ba7b5a5c22c8d956bb41",
+        "godot_hunyuan": "5b1e4dc366c90627dd6fbdcc7059eba0cd4aa102cc4694ffee7df851d6d03cd0",
+        "bevy_hunyuan": "ed5d209fa48c05fbc21f88765180ccd51d5e838f6252c97926930cb02f8d2757"
+      }
+    },
+    {
+      "view": "loop_station_00",
+      "baseline_noise": {
+        "pair": "repeat_1_vs_2",
+        "diff_pixels": 0,
+        "diff_percent": 0.0,
+        "diff_image": null,
+        "threshold": 0.1
+      },
+      "baseline_noise_pairs": [
+        {
+          "pair": "repeat_1_vs_2",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_1_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_2_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        }
+      ],
+      "bevy_hunyuan_vs_godot_baseline": {
+        "diff_pixels": 290326,
+        "diff_percent": 56.0,
+        "diff_image": "captures/odiff/bevy_vs_godot_baseline/loop_station_00.png",
+        "threshold": 0.1,
+        "interpretation": "above_Godot_repeat_noise; cross_renderer_difference_requires_visual_review"
+      },
+      "bevy_hunyuan_vs_godot_hunyuan": {
+        "diff_pixels": 389776,
+        "diff_percent": 75.19,
+        "diff_image": "captures/odiff/bevy_vs_godot_hunyuan/loop_station_00.png",
+        "threshold": 0.1,
+        "interpretation": "same_visual_asset_cross_renderer_diagnostic_only"
+      },
+      "captures": {
+        "baseline_repeat_1": "captures/baseline_repeat_1/loop_station_00.png",
+        "baseline_repeat_2": "captures/baseline_repeat_2/loop_station_00.png",
+        "baseline_repeat_3": "captures/baseline_repeat_3/loop_station_00.png",
+        "godot_hunyuan": "captures/hunyuan/loop_station_00.png",
+        "bevy_hunyuan": "captures/bevy_hunyuan/loop_station_00.png"
+      },
+      "sha256": {
+        "baseline_repeat_1": "1f80c59845ca67ee9a6cd881678be4440b8c32799fe6d66700bc8a0b5a8ef768",
+        "baseline_repeat_2": "fe53022fe1d1278b2f27263da6a3c15a76ead79a25fe791e9b29d37144a55662",
+        "baseline_repeat_3": "e0bb0150879e22a021beaea593d5ec0b5931d6f1dbc54bb08b2ec4a7e5f10ec8",
+        "godot_hunyuan": "ede28513a82de93cc04204217f82050dd68d8bdd6736cf1dbd08c00d1abcb261",
+        "bevy_hunyuan": "f34b7ddd0d4e65b140f4f1ff296fc0faadb48021994b1c4de4656e27dbeeb924"
+      }
+    },
+    {
+      "view": "loop_station_01",
+      "baseline_noise": {
+        "pair": "repeat_1_vs_2",
+        "diff_pixels": 0,
+        "diff_percent": 0.0,
+        "diff_image": null,
+        "threshold": 0.1
+      },
+      "baseline_noise_pairs": [
+        {
+          "pair": "repeat_1_vs_2",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_1_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_2_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        }
+      ],
+      "bevy_hunyuan_vs_godot_baseline": {
+        "diff_pixels": 304625,
+        "diff_percent": 58.76,
+        "diff_image": "captures/odiff/bevy_vs_godot_baseline/loop_station_01.png",
+        "threshold": 0.1,
+        "interpretation": "above_Godot_repeat_noise; cross_renderer_difference_requires_visual_review"
+      },
+      "bevy_hunyuan_vs_godot_hunyuan": {
+        "diff_pixels": 405857,
+        "diff_percent": 78.29,
+        "diff_image": "captures/odiff/bevy_vs_godot_hunyuan/loop_station_01.png",
+        "threshold": 0.1,
+        "interpretation": "same_visual_asset_cross_renderer_diagnostic_only"
+      },
+      "captures": {
+        "baseline_repeat_1": "captures/baseline_repeat_1/loop_station_01.png",
+        "baseline_repeat_2": "captures/baseline_repeat_2/loop_station_01.png",
+        "baseline_repeat_3": "captures/baseline_repeat_3/loop_station_01.png",
+        "godot_hunyuan": "captures/hunyuan/loop_station_01.png",
+        "bevy_hunyuan": "captures/bevy_hunyuan/loop_station_01.png"
+      },
+      "sha256": {
+        "baseline_repeat_1": "4222c1231820a81506297c70f1293b6c78ec8dc43e7f78f204bf628f66836fff",
+        "baseline_repeat_2": "b598f122b973da2d2f5f0a17377fd22d949b47a5b2691dfd276450e8d814ecec",
+        "baseline_repeat_3": "d54b7fab99e402475786205a52bf6083bd7bc5ecac9e9d9fffc6504b8cff752c",
+        "godot_hunyuan": "ab5bd2d63efc2e36863eae63288313e6c007617a69b30c8b09619e1ce2f21f8c",
+        "bevy_hunyuan": "c4bcee33fd6ff1fc7cca00ec65009af10c4bfa0343f5184168f409f4b11290a2"
+      }
+    },
+    {
+      "view": "loop_station_02",
+      "baseline_noise": {
+        "pair": "repeat_1_vs_2",
+        "diff_pixels": 0,
+        "diff_percent": 0.0,
+        "diff_image": null,
+        "threshold": 0.1
+      },
+      "baseline_noise_pairs": [
+        {
+          "pair": "repeat_1_vs_2",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_1_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_2_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        }
+      ],
+      "bevy_hunyuan_vs_godot_baseline": {
+        "diff_pixels": 339551,
+        "diff_percent": 65.5,
+        "diff_image": "captures/odiff/bevy_vs_godot_baseline/loop_station_02.png",
+        "threshold": 0.1,
+        "interpretation": "above_Godot_repeat_noise; cross_renderer_difference_requires_visual_review"
+      },
+      "bevy_hunyuan_vs_godot_hunyuan": {
+        "diff_pixels": 485140,
+        "diff_percent": 93.58,
+        "diff_image": "captures/odiff/bevy_vs_godot_hunyuan/loop_station_02.png",
+        "threshold": 0.1,
+        "interpretation": "same_visual_asset_cross_renderer_diagnostic_only"
+      },
+      "captures": {
+        "baseline_repeat_1": "captures/baseline_repeat_1/loop_station_02.png",
+        "baseline_repeat_2": "captures/baseline_repeat_2/loop_station_02.png",
+        "baseline_repeat_3": "captures/baseline_repeat_3/loop_station_02.png",
+        "godot_hunyuan": "captures/hunyuan/loop_station_02.png",
+        "bevy_hunyuan": "captures/bevy_hunyuan/loop_station_02.png"
+      },
+      "sha256": {
+        "baseline_repeat_1": "e42387a1b34c8535503073da779140d70d2f495f2b1e80f1b6166bc5ca98c653",
+        "baseline_repeat_2": "1cd8c59fe6a266175313953bc3d245ed8be72f9d7a8edd111a85336d6f73e373",
+        "baseline_repeat_3": "401c0d8d5fa92e2659e15faf27f4834d06264153941afb4ee69d344615a7b239",
+        "godot_hunyuan": "028700dc175fabcff8d1c6cccbbf7fd365460f7e5c2a77f51eb9a2f7460e4ac4",
+        "bevy_hunyuan": "8f41723aea73577f24812d2fbaa037f9ed067163b3ea1a00208c18c2f8e6c11c"
+      }
+    },
+    {
+      "view": "loop_station_03",
+      "baseline_noise": {
+        "pair": "repeat_1_vs_2",
+        "diff_pixels": 0,
+        "diff_percent": 0.0,
+        "diff_image": null,
+        "threshold": 0.1
+      },
+      "baseline_noise_pairs": [
+        {
+          "pair": "repeat_1_vs_2",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_1_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_2_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        }
+      ],
+      "bevy_hunyuan_vs_godot_baseline": {
+        "diff_pixels": 359346,
+        "diff_percent": 69.32,
+        "diff_image": "captures/odiff/bevy_vs_godot_baseline/loop_station_03.png",
+        "threshold": 0.1,
+        "interpretation": "above_Godot_repeat_noise; cross_renderer_difference_requires_visual_review"
+      },
+      "bevy_hunyuan_vs_godot_hunyuan": {
+        "diff_pixels": 500438,
+        "diff_percent": 96.54,
+        "diff_image": "captures/odiff/bevy_vs_godot_hunyuan/loop_station_03.png",
+        "threshold": 0.1,
+        "interpretation": "same_visual_asset_cross_renderer_diagnostic_only"
+      },
+      "captures": {
+        "baseline_repeat_1": "captures/baseline_repeat_1/loop_station_03.png",
+        "baseline_repeat_2": "captures/baseline_repeat_2/loop_station_03.png",
+        "baseline_repeat_3": "captures/baseline_repeat_3/loop_station_03.png",
+        "godot_hunyuan": "captures/hunyuan/loop_station_03.png",
+        "bevy_hunyuan": "captures/bevy_hunyuan/loop_station_03.png"
+      },
+      "sha256": {
+        "baseline_repeat_1": "c42f65c7dae2353c5aa650211e114070cb6f9dd3fe9b19bc1c1aeec60826e26f",
+        "baseline_repeat_2": "9e8cac1b716a702c444c3359860086cb196112b4cc4cd0bd9982584baccad09a",
+        "baseline_repeat_3": "db0e01064e05ff8bd0b66aa026274c27c1a43d72f3d131cb7251af1850a61c3a",
+        "godot_hunyuan": "bed0d8c5066e0ccf169ceebc9911fe9197471365e49edf29873da2a09ff703cc",
+        "bevy_hunyuan": "88c6cd743ee3fa9114ac4ab5682b4a24047165def1868966e4fe1775ae1af104"
+      }
+    },
+    {
+      "view": "loop_station_04",
+      "baseline_noise": {
+        "pair": "repeat_1_vs_2",
+        "diff_pixels": 0,
+        "diff_percent": 0.0,
+        "diff_image": null,
+        "threshold": 0.1
+      },
+      "baseline_noise_pairs": [
+        {
+          "pair": "repeat_1_vs_2",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_1_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_2_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        }
+      ],
+      "bevy_hunyuan_vs_godot_baseline": {
+        "diff_pixels": 395231,
+        "diff_percent": 76.24,
+        "diff_image": "captures/odiff/bevy_vs_godot_baseline/loop_station_04.png",
+        "threshold": 0.1,
+        "interpretation": "above_Godot_repeat_noise; cross_renderer_difference_requires_visual_review"
+      },
+      "bevy_hunyuan_vs_godot_hunyuan": {
+        "diff_pixels": 490513,
+        "diff_percent": 94.62,
+        "diff_image": "captures/odiff/bevy_vs_godot_hunyuan/loop_station_04.png",
+        "threshold": 0.1,
+        "interpretation": "same_visual_asset_cross_renderer_diagnostic_only"
+      },
+      "captures": {
+        "baseline_repeat_1": "captures/baseline_repeat_1/loop_station_04.png",
+        "baseline_repeat_2": "captures/baseline_repeat_2/loop_station_04.png",
+        "baseline_repeat_3": "captures/baseline_repeat_3/loop_station_04.png",
+        "godot_hunyuan": "captures/hunyuan/loop_station_04.png",
+        "bevy_hunyuan": "captures/bevy_hunyuan/loop_station_04.png"
+      },
+      "sha256": {
+        "baseline_repeat_1": "bdc43d0d13c82f93bd84eb57f84f2f5fad55920bfc17265d8d56150f284cfc9e",
+        "baseline_repeat_2": "7637472c550b29a1f3aac3a0b40864ec846878240c92306e0ddf07134e7a97c3",
+        "baseline_repeat_3": "a0d561e0b1b996b6d0cae9005569dfb5e97892c61ef200704abb42987d032e26",
+        "godot_hunyuan": "f6c1e9e4788817069c43b65b2091577ba047bd617f8a4f20cd6180849501b090",
+        "bevy_hunyuan": "c8571a4c8bf3896d9fccdb0b1adacc04393db50e5b01c629858c9e3da77d7581"
+      }
+    },
+    {
+      "view": "loop_station_05",
+      "baseline_noise": {
+        "pair": "repeat_1_vs_2",
+        "diff_pixels": 0,
+        "diff_percent": 0.0,
+        "diff_image": null,
+        "threshold": 0.1
+      },
+      "baseline_noise_pairs": [
+        {
+          "pair": "repeat_1_vs_2",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_1_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_2_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        }
+      ],
+      "bevy_hunyuan_vs_godot_baseline": {
+        "diff_pixels": 449267,
+        "diff_percent": 86.66,
+        "diff_image": "captures/odiff/bevy_vs_godot_baseline/loop_station_05.png",
+        "threshold": 0.1,
+        "interpretation": "above_Godot_repeat_noise; cross_renderer_difference_requires_visual_review"
+      },
+      "bevy_hunyuan_vs_godot_hunyuan": {
+        "diff_pixels": 456723,
+        "diff_percent": 88.1,
+        "diff_image": "captures/odiff/bevy_vs_godot_hunyuan/loop_station_05.png",
+        "threshold": 0.1,
+        "interpretation": "same_visual_asset_cross_renderer_diagnostic_only"
+      },
+      "captures": {
+        "baseline_repeat_1": "captures/baseline_repeat_1/loop_station_05.png",
+        "baseline_repeat_2": "captures/baseline_repeat_2/loop_station_05.png",
+        "baseline_repeat_3": "captures/baseline_repeat_3/loop_station_05.png",
+        "godot_hunyuan": "captures/hunyuan/loop_station_05.png",
+        "bevy_hunyuan": "captures/bevy_hunyuan/loop_station_05.png"
+      },
+      "sha256": {
+        "baseline_repeat_1": "0a89a2aec8c7f318580fc95f17008866018e97c845bda94b800f71e0082a16cc",
+        "baseline_repeat_2": "23478c899c9aa023da8ccd49bda9a76c3c730c584879f9990d3f424ce362a206",
+        "baseline_repeat_3": "3cb9f6e49562f7b4820722039e3e26c7a30367512bee299449ff517108cef6af",
+        "godot_hunyuan": "e3b30d6b1f0713e61795970528f21fa3660029382ead0323ea73c1550012d2d9",
+        "bevy_hunyuan": "6bd8907e72c4ff744f45496b664b76b53bd9b326b574b13a65031652f9641132"
+      }
+    },
+    {
+      "view": "loop_station_06",
+      "baseline_noise": {
+        "pair": "repeat_1_vs_2",
+        "diff_pixels": 0,
+        "diff_percent": 0.0,
+        "diff_image": null,
+        "threshold": 0.1
+      },
+      "baseline_noise_pairs": [
+        {
+          "pair": "repeat_1_vs_2",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_1_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_2_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        }
+      ],
+      "bevy_hunyuan_vs_godot_baseline": {
+        "diff_pixels": 341902,
+        "diff_percent": 65.95,
+        "diff_image": "captures/odiff/bevy_vs_godot_baseline/loop_station_06.png",
+        "threshold": 0.1,
+        "interpretation": "above_Godot_repeat_noise; cross_renderer_difference_requires_visual_review"
+      },
+      "bevy_hunyuan_vs_godot_hunyuan": {
+        "diff_pixels": 409337,
+        "diff_percent": 78.96,
+        "diff_image": "captures/odiff/bevy_vs_godot_hunyuan/loop_station_06.png",
+        "threshold": 0.1,
+        "interpretation": "same_visual_asset_cross_renderer_diagnostic_only"
+      },
+      "captures": {
+        "baseline_repeat_1": "captures/baseline_repeat_1/loop_station_06.png",
+        "baseline_repeat_2": "captures/baseline_repeat_2/loop_station_06.png",
+        "baseline_repeat_3": "captures/baseline_repeat_3/loop_station_06.png",
+        "godot_hunyuan": "captures/hunyuan/loop_station_06.png",
+        "bevy_hunyuan": "captures/bevy_hunyuan/loop_station_06.png"
+      },
+      "sha256": {
+        "baseline_repeat_1": "57491871f7391f40a35e54f8d41ca69cafacf42e50b6bfd2c46ef90086955099",
+        "baseline_repeat_2": "cd6b9f5e8a8bac18fcb70339eb27451b77b110ee70e805bc2cbf3ff317d3a6fe",
+        "baseline_repeat_3": "6d5a36f2f5e816485353a6095adb8d9ae068a2c480d8c62166081d5678673cab",
+        "godot_hunyuan": "86dfbd794899cbd3e4b0119c41e86a0d82be676ef49b99a7e8eacebc08c175ba",
+        "bevy_hunyuan": "50ff8847209d05ef28686220945209256610b701dba730641f8dc43394dd26ce"
+      }
+    },
+    {
+      "view": "loop_station_07",
+      "baseline_noise": {
+        "pair": "repeat_1_vs_2",
+        "diff_pixels": 0,
+        "diff_percent": 0.0,
+        "diff_image": null,
+        "threshold": 0.1
+      },
+      "baseline_noise_pairs": [
+        {
+          "pair": "repeat_1_vs_2",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_1_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        },
+        {
+          "pair": "repeat_2_vs_3",
+          "diff_pixels": 0,
+          "diff_percent": 0.0,
+          "diff_image": null,
+          "threshold": 0.1
+        }
+      ],
+      "bevy_hunyuan_vs_godot_baseline": {
+        "diff_pixels": 262709,
+        "diff_percent": 50.68,
+        "diff_image": "captures/odiff/bevy_vs_godot_baseline/loop_station_07.png",
+        "threshold": 0.1,
+        "interpretation": "above_Godot_repeat_noise; cross_renderer_difference_requires_visual_review"
+      },
+      "bevy_hunyuan_vs_godot_hunyuan": {
+        "diff_pixels": 265226,
+        "diff_percent": 51.16,
+        "diff_image": "captures/odiff/bevy_vs_godot_hunyuan/loop_station_07.png",
+        "threshold": 0.1,
+        "interpretation": "same_visual_asset_cross_renderer_diagnostic_only"
+      },
+      "captures": {
+        "baseline_repeat_1": "captures/baseline_repeat_1/loop_station_07.png",
+        "baseline_repeat_2": "captures/baseline_repeat_2/loop_station_07.png",
+        "baseline_repeat_3": "captures/baseline_repeat_3/loop_station_07.png",
+        "godot_hunyuan": "captures/hunyuan/loop_station_07.png",
+        "bevy_hunyuan": "captures/bevy_hunyuan/loop_station_07.png"
+      },
+      "sha256": {
+        "baseline_repeat_1": "ba6b491d01f43857dead70841a3f2d26d4c4703f5fc23b17c0006e8cfd112517",
+        "baseline_repeat_2": "67f498ee310c3da838766258438ad33a2042381ed44836429a0a656f9f20ac74",
+        "baseline_repeat_3": "2568ae2791634d1a6acbf1dc8129143b886f3ef2d64c309856b6c63ad3795879",
+        "godot_hunyuan": "7b621db5127599936f17d10927f0801661f62e6eff557d7dc35bf509bef51ef8",
+        "bevy_hunyuan": "0ff7f0faf99eaa1b831029b0d3b80d45bdfb1c8b380e8f021e7b3bfd5f650183"
+      }
+    }
+  ],
+  "interpretation": "pixel changes are diagnostic; at-or-below-noise differences are inconclusive"
+}

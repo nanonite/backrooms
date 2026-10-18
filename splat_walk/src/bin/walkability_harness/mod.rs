@@ -245,6 +245,8 @@ pub fn run_route_scene() -> Result<()> {
     route_scene::run()
 }
 
+// This entry point is consumed by the companion hunyuan_route_scene binary.
+#[allow(dead_code)]
 pub fn run_route_scene_capture() -> Result<()> {
     route_scene::run_capture()
 }

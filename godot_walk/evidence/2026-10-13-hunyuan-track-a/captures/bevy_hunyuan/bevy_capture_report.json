@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "issue": 137,
+  "label": "uncalibrated",
+  "renderer": "Bevy 0.18.0 / wgpu",
+  "bevy_version": "0.18.0",
+  "resolution": [
+    960,
+    540
+  ],
+  "vertical_fov_degrees": 47.398804,
+  "captured_views": [
+    "frame_141",
+    "loop_station_00",
+    "loop_station_01",
+    "loop_station_02",
+    "loop_station_03",
+    "loop_station_04",
+    "loop_station_05",
+    "loop_station_06",
+    "loop_station_07"
+  ],
+  "visual_only_nodes": [
+    "mesh_layer0",
+    "mesh_layer1"
+  ],
+  "collision_loaded": false,
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "wall_time_seconds": 42.325451573,
+  "peak_rss_kib": 9273148
+}

@@ -1,4 +1,6 @@
 mod assets;
+// The companion hunyuan_route_scene binary uses this renderer-only path.
+#[allow(dead_code)]
 mod capture;
 mod geometry_query;
 mod manifest;
@@ -182,6 +184,7 @@ pub fn run() -> Result<()> {
     Ok(())
 }
 
+#[allow(dead_code)]
 pub fn run_capture() -> Result<()> {
     capture::run()
 }

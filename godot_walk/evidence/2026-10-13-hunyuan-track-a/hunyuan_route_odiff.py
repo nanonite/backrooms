@@ -97,8 +97,9 @@ def compare_view(command: list[str], name: str) -> dict:
         for index in range(1, 4)
     ]
     hunyuan = CAPTURES / "bevy_hunyuan" / f"{name}.png"
+    godot_hunyuan = CAPTURES / "hunyuan" / f"{name}.png"
     expected_size = (960, 540)
-    for path in [*baselines, hunyuan]:
+    for path in [*baselines, hunyuan, godot_hunyuan]:
         if not path.is_file() or image_size(path) != expected_size:
             raise ValueError(f"missing or wrong-size capture: {path}")
     noise_pairs = []
@@ -116,16 +117,25 @@ def compare_view(command: list[str], name: str) -> dict:
         if delta["diff_percent"] <= noise["diff_percent"]
         else "above_Godot_repeat_noise; cross_renderer_difference_requires_visual_review"
     )
+    port_delta = compare(
+        command,
+        godot_hunyuan,
+        hunyuan,
+        CAPTURES / "odiff" / "bevy_vs_godot_hunyuan" / f"{name}.png",
+    )
+    port_delta["interpretation"] = "same_visual_asset_cross_renderer_diagnostic_only"
     return {
         "view": name,
         "baseline_noise": noise,
         "baseline_noise_pairs": noise_pairs,
         "bevy_hunyuan_vs_godot_baseline": delta,
+        "bevy_hunyuan_vs_godot_hunyuan": port_delta,
         "captures": {
             **{
                 f"baseline_repeat_{index}": path.relative_to(EVIDENCE).as_posix()
                 for index, path in enumerate(baselines, start=1)
             },
+            "godot_hunyuan": godot_hunyuan.relative_to(EVIDENCE).as_posix(),
             "bevy_hunyuan": hunyuan.relative_to(EVIDENCE).as_posix(),
         },
         "sha256": {
@@ -133,6 +143,7 @@ def compare_view(command: list[str], name: str) -> dict:
                 f"baseline_repeat_{index}": file_sha256(path)
                 for index, path in enumerate(baselines, start=1)
             },
+            "godot_hunyuan": file_sha256(godot_hunyuan),
             "bevy_hunyuan": file_sha256(hunyuan),
         },
     }
@@ -165,6 +176,37 @@ def create_contact_sheet(results: list[dict]) -> None:
     sheet.save(CAPTURES / "bevy_contact_sheet.png")
 
 
+def create_port_contact_sheet(results: list[dict]) -> None:
+    label_height = 24
+    gutter = 8
+    columns = ["godot_hunyuan", "bevy_hunyuan", "diff"]
+    sheet = Image.new(
+        "RGB",
+        (gutter + len(columns) * (THUMBNAIL[0] + gutter),
+         gutter + len(results) * (THUMBNAIL[1] + label_height + gutter)),
+        (24, 27, 28),
+    )
+    draw = ImageDraw.Draw(sheet)
+    font = ImageFont.load_default()
+    for row, result in enumerate(results):
+        y = gutter + row * (THUMBNAIL[1] + label_height + gutter)
+        for column, label in enumerate(columns):
+            x = gutter + column * (THUMBNAIL[0] + gutter)
+            draw.text((x, y), f"{result['view']} | {label}", fill=(242, 242, 242), font=font)
+            source = (
+                EVIDENCE / result["bevy_hunyuan_vs_godot_hunyuan"]["diff_image"]
+                if label == "diff"
+                else EVIDENCE / result["captures"][label]
+            )
+            if source.is_file():
+                with Image.open(source) as image:
+                    thumbnail = image.convert("RGB").resize(
+                        THUMBNAIL, Image.Resampling.LANCZOS
+                    )
+                sheet.paste(thumbnail, (x, y + label_height))
+    sheet.save(CAPTURES / "bevy_port_contact_sheet.png")
+
+
 def write_markdown(results: list[dict], command: list[str]) -> None:
     noise_max = max(item["baseline_noise"]["diff_percent"] for item in results)
     command_text = " ".join(command)
@@ -175,23 +217,28 @@ def write_markdown(results: list[dict], command: list[str]) -> None:
         "",
         f"ODiff threshold: `{THRESHOLD}`. Maximum same-pose Godot baseline repeat noise: `{noise_max:.6f}%` of pixels. ODiff is a pixel-change diagnostic, not a quality score. Because the candidate and baseline use different renderers, differences can come from renderer, material, tone-mapping, or geometry behavior. This comparison does not establish visual quality or parity. Changes at or below the per-view Godot repeat noise are inconclusive.",
         "",
-        f"ODiff command: `{command_text}`. Contact sheet: [captures/bevy_contact_sheet.png](captures/bevy_contact_sheet.png). Pose contract: [captures/capture_poses.json](captures/capture_poses.json). Bevy capture details: [captures/bevy_hunyuan/bevy_capture_report.json](captures/bevy_hunyuan/bevy_capture_report.json).",
+        f"ODiff command: `{command_text}`. Baseline comparison sheet: [captures/bevy_contact_sheet.png](captures/bevy_contact_sheet.png). Same-Hunyuan-asset port diagnostic: [captures/bevy_port_contact_sheet.png](captures/bevy_port_contact_sheet.png). Pose contract: [captures/capture_poses.json](captures/capture_poses.json). Bevy capture details: [captures/bevy_hunyuan/bevy_capture_report.json](captures/bevy_hunyuan/bevy_capture_report.json).",
         "",
-        "| View | Godot baseline repeat noise | Bevy Hunyuan vs Godot baseline | Interpretation | Captures |",
-        "|---|---:|---:|---|---|",
+        "| View | Godot baseline repeat noise | Bevy Hunyuan vs Godot baseline | Godot Hunyuan vs Bevy Hunyuan | Interpretation | Captures |",
+        "|---|---:|---:|---:|---|---|",
     ]
     for result in results:
         noise = result["baseline_noise"]["diff_percent"]
         delta = result["bevy_hunyuan_vs_godot_baseline"]
-        left, right = result["captures"]["baseline_repeat_1"], result["captures"]["bevy_hunyuan"]
+        port_delta = result["bevy_hunyuan_vs_godot_hunyuan"]
+        left = result["captures"]["baseline_repeat_1"]
+        godot_hunyuan = result["captures"]["godot_hunyuan"]
+        right = result["captures"]["bevy_hunyuan"]
         lines.append(
             f"| `{result['view']}` | {noise:.6f}% | {delta['diff_percent']:.3f}% "
-            f"({delta['diff_pixels']} px) | `{delta['interpretation']}` | "
-            f"[Godot baseline]({left}), [Bevy Hunyuan]({right}) |"
+            f"({delta['diff_pixels']} px) | {port_delta['diff_percent']:.3f}% "
+            f"({port_delta['diff_pixels']} px) | `{delta['interpretation']}`; "
+            f"same-asset comparison is diagnostic only | [Godot baseline]({left}), "
+            f"[Godot Hunyuan]({godot_hunyuan}), [Bevy Hunyuan]({right}) |"
         )
     lines.extend([
         "",
-        "No visual-quality or renderer-parity claim is made from ODiff. Review the linked same-pose captures to guide the Bevy material and render-pipeline port. Differences identify where the images diverge, not which representation is better.",
+        "No visual-quality or renderer-parity claim is made from ODiff. The same-Hunyuan comparison uses the same GLB and pose contract, so its differences help localize material, color-space, camera, and renderer behavior in the port; they still do not establish parity. Review the linked captures to guide follow-up tuning. Differences identify where images diverge, not which representation is better.",
         "",
     ])
     (EVIDENCE / "ISSUE_137_BEVY_COMPARISON.md").write_text("\n".join(lines))
@@ -225,11 +272,13 @@ def main() -> None:
     }
     (CAPTURES / "bevy_odiff_report.json").write_text(json.dumps(report, indent=2) + "\n")
     create_contact_sheet(results)
+    create_port_contact_sheet(results)
     write_markdown(results, command)
     print(json.dumps({
         "odiff_command": command,
         "maximum_repeat_noise_percent": report["maximum_baseline_repeat_noise_percent"],
         "views": len(results),
+        "same_asset_cross_renderer_diagnostic": True,
         "report": "ISSUE_137_BEVY_COMPARISON.md",
     }, indent=2))
 
