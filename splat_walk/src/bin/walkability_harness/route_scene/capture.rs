@@ -1,0 +1,495 @@
+use std::{
+    fs,
+    path::{Path, PathBuf},
+    time::Instant,
+};
+
+use anyhow::{Context, Result, bail};
+use bevy::{
+    app::AppExit,
+    asset::{AssetPlugin, AssetServer, Assets},
+    ecs::system::SystemParam,
+    gltf::{Gltf, GltfMesh, GltfNode, GltfPlugin, convert_coordinates::GltfConvertCoordinates},
+    pbr::StandardMaterial,
+    prelude::*,
+    render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
+    window::{WindowPlugin, WindowResolution},
+};
+use serde::{Deserialize, Serialize};
+
+use super::{load_camera_metadata, model_transform};
+use crate::walkability_harness::route_scene::manifest::{load_manifest, repo_root};
+
+const POSES_PATH: &str =
+    "godot_walk/evidence/2026-10-13-hunyuan-track-a/captures/capture_poses.json";
+const DEFAULT_OUTPUT_PATH: &str =
+    "godot_walk/evidence/2026-10-13-hunyuan-track-a/captures/bevy_hunyuan";
+const VISUAL_NODES: [&str; 2] = ["mesh_layer0", "mesh_layer1"];
+const VIEW_NAMES: [&str; 9] = [
+    "frame_141",
+    "loop_station_00",
+    "loop_station_01",
+    "loop_station_02",
+    "loop_station_03",
+    "loop_station_04",
+    "loop_station_05",
+    "loop_station_06",
+    "loop_station_07",
+];
+const MAX_ASSET_WAIT_SECONDS: u64 = 120;
+
+#[derive(Deserialize)]
+struct PoseManifest {
+    issue: u32,
+    label: String,
+    registration_accepted: bool,
+    scale_calibrated: bool,
+    resolution: [u32; 2],
+    vertical_fov_degrees: f32,
+    settle_frames_before_each_capture: u32,
+    poses: Vec<CapturePose>,
+}
+
+#[derive(Deserialize)]
+struct CapturePose {
+    name: String,
+    position_world_m: [f32; 3],
+    forward_world: [f32; 3],
+    up_world: [f32; 3],
+}
+
+#[derive(Resource)]
+struct CaptureConfig {
+    visual_asset_path: String,
+    model_transform: Transform,
+    poses: Vec<CapturePose>,
+    vertical_fov_radians: f32,
+    output_directory: PathBuf,
+    settle_frames: u32,
+}
+
+#[derive(Resource)]
+struct LoadedVisual(Handle<Gltf>, Instant);
+
+#[derive(Resource)]
+struct CaptureProgress {
+    ready: bool,
+    pose_index: usize,
+    settle_frames: u32,
+    in_flight: bool,
+    failure: Option<String>,
+}
+
+#[derive(Component)]
+struct CaptureCamera;
+
+#[derive(SystemParam)]
+struct GltfAssets<'w> {
+    server: Res<'w, AssetServer>,
+    gltfs: Res<'w, Assets<Gltf>>,
+    nodes: Res<'w, Assets<GltfNode>>,
+    gltf_meshes: Res<'w, Assets<GltfMesh>>,
+}
+
+#[derive(Serialize)]
+struct CaptureReport {
+    schema_version: u32,
+    issue: u32,
+    label: &'static str,
+    renderer: &'static str,
+    bevy_version: &'static str,
+    resolution: [u32; 2],
+    vertical_fov_degrees: f32,
+    captured_views: Vec<String>,
+    visual_only_nodes: [&'static str; 2],
+    collision_loaded: bool,
+    registration_accepted: bool,
+    scale_calibrated: bool,
+    wall_time_seconds: f64,
+    peak_rss_kib: Option<u64>,
+}
+
+pub fn run() -> Result<()> {
+    let started = Instant::now();
+    let root = repo_root()?;
+    let manifest = load_manifest(&root)?;
+    let camera = load_camera_metadata(&root, &manifest)?;
+    let transform = model_transform(&manifest, &camera)?;
+    let capture_manifest = read_pose_manifest(&root.join(POSES_PATH))?;
+    validate_pose_manifest(&capture_manifest)?;
+    let output_directory = capture_output_directory(&root);
+    fs::create_dir_all(&output_directory).with_context(|| {
+        format!(
+            "cannot create capture directory {}",
+            output_directory.display()
+        )
+    })?;
+    let output_directory = output_directory.canonicalize().with_context(|| {
+        format!(
+            "cannot resolve capture directory {}",
+            output_directory.display()
+        )
+    })?;
+    run_bevy_capture(
+        &root,
+        &manifest.assets.visual.path,
+        transform,
+        capture_manifest,
+        &output_directory,
+    )?;
+    verify_capture_outputs(&output_directory)?;
+    write_capture_report(&output_directory, started.elapsed().as_secs_f64())?;
+    Ok(())
+}
+
+fn read_pose_manifest(path: &Path) -> Result<PoseManifest> {
+    serde_json::from_slice(
+        &fs::read(path).with_context(|| format!("cannot read {}", path.display()))?,
+    )
+    .with_context(|| format!("invalid capture-pose manifest {}", path.display()))
+}
+
+fn validate_pose_manifest(manifest: &PoseManifest) -> Result<()> {
+    if manifest.issue != 137
+        || manifest.label != "uncalibrated"
+        || manifest.registration_accepted
+        || manifest.scale_calibrated
+        || manifest.resolution != [960, 540]
+        || manifest.settle_frames_before_each_capture != 8
+        || manifest.poses.len() != VIEW_NAMES.len()
+        || !manifest.vertical_fov_degrees.is_finite()
+        || !(0.0..180.0).contains(&manifest.vertical_fov_degrees)
+    {
+        bail!("capture poses do not match the locked #137 uncalibrated view set");
+    }
+    for (pose, expected_name) in manifest.poses.iter().zip(VIEW_NAMES) {
+        if pose.name != expected_name {
+            bail!("capture pose order differs from the locked #137 view set");
+        }
+        pose_transform(pose)?;
+    }
+    Ok(())
+}
+
+fn pose_transform(pose: &CapturePose) -> Result<Transform> {
+    let position = Vec3::from_array(pose.position_world_m);
+    let forward = Vec3::from_array(pose.forward_world);
+    let up = Vec3::from_array(pose.up_world);
+    if !position.is_finite()
+        || !forward.is_finite()
+        || !up.is_finite()
+        || forward.length_squared() < 0.99
+        || up.length_squared() < 0.99
+        || forward.normalize().dot(up.normalize()).abs() > 1.0e-3
+    {
+        bail!(
+            "capture pose {} has invalid or non-orthogonal axes",
+            pose.name
+        );
+    }
+    Ok(Transform::from_translation(position).looking_to(forward, up))
+}
+
+fn capture_output_directory(root: &Path) -> PathBuf {
+    std::env::args()
+        .find_map(|argument| argument.strip_prefix("--capture-dir=").map(PathBuf::from))
+        .map(|path| {
+            if path.is_absolute() {
+                path
+            } else {
+                root.join(path)
+            }
+        })
+        .unwrap_or_else(|| root.join(DEFAULT_OUTPUT_PATH))
+}
+
+fn run_bevy_capture(
+    root: &Path,
+    visual_asset_path: &str,
+    model_transform: Transform,
+    manifest: PoseManifest,
+    output_directory: &Path,
+) -> Result<()> {
+    let resolution = manifest.resolution;
+    let config = CaptureConfig {
+        visual_asset_path: visual_asset_path.to_owned(),
+        model_transform,
+        poses: manifest.poses,
+        vertical_fov_radians: manifest.vertical_fov_degrees.to_radians(),
+        output_directory: output_directory.to_path_buf(),
+        settle_frames: manifest.settle_frames_before_each_capture,
+    };
+    let mut app = App::new();
+    app.insert_resource(CaptureProgress {
+        ready: false,
+        pose_index: 0,
+        settle_frames: 0,
+        in_flight: false,
+        failure: None,
+    })
+    .insert_resource(config)
+    .add_plugins(
+        DefaultPlugins
+            .set(AssetPlugin {
+                file_path: root.to_string_lossy().into_owned(),
+                ..default()
+            })
+            .set(WindowPlugin {
+                primary_window: Some(Window {
+                    title: "HunyuanWorld #137 Bevy comparison".into(),
+                    resolution: WindowResolution::new(resolution[0], resolution[1])
+                        .with_scale_factor_override(1.0),
+                    ..default()
+                }),
+                ..default()
+            })
+            .set(GltfPlugin {
+                convert_coordinates: GltfConvertCoordinates {
+                    rotate_scene_entity: false,
+                    rotate_meshes: false,
+                },
+                ..default()
+            }),
+    )
+    .add_systems(Startup, (start_visual_load, spawn_camera))
+    .add_systems(Update, (poll_visual_load, capture_next_pose).chain());
+    let app_exit = app.run();
+    if app_exit.is_error() {
+        bail!("Bevy capture app exited with an error");
+    }
+    Ok(())
+}
+
+fn start_visual_load(mut commands: Commands, server: Res<AssetServer>, config: Res<CaptureConfig>) {
+    commands.insert_resource(LoadedVisual(
+        server.load(config.visual_asset_path.clone()),
+        Instant::now(),
+    ));
+}
+
+fn spawn_camera(mut commands: Commands, config: Res<CaptureConfig>) {
+    let Ok(transform) = pose_transform(&config.poses[0]) else {
+        return;
+    };
+    commands.spawn((
+        CaptureCamera,
+        Camera3d::default(),
+        Projection::Perspective(PerspectiveProjection {
+            fov: config.vertical_fov_radians,
+            ..default()
+        }),
+        transform,
+    ));
+}
+
+fn poll_visual_load(
+    mut commands: Commands,
+    config: Res<CaptureConfig>,
+    loaded: Res<LoadedVisual>,
+    assets: GltfAssets,
+    mut materials: ResMut<Assets<StandardMaterial>>,
+    mut progress: ResMut<CaptureProgress>,
+) {
+    if progress.ready || progress.failure.is_some() {
+        return;
+    }
+    if !assets.server.is_loaded_with_dependencies(&loaded.0) {
+        if loaded.1.elapsed().as_secs() > MAX_ASSET_WAIT_SECONDS {
+            fail_capture(
+                &mut commands,
+                &mut progress,
+                "timed out loading Hunyuan visual GLB",
+            );
+        }
+        return;
+    }
+    let Some(gltf) = assets.gltfs.get(&loaded.0) else {
+        fail_capture(&mut commands, &mut progress, "loaded GLB has no Gltf asset");
+        return;
+    };
+    let material = materials.add(StandardMaterial {
+        base_color: Color::WHITE,
+        unlit: true,
+        cull_mode: None,
+        ..default()
+    });
+    match spawn_visual_nodes(&mut commands, &config, &assets, gltf, &material) {
+        Ok(()) => progress.ready = true,
+        Err(error) => fail_capture(&mut commands, &mut progress, &error.to_string()),
+    }
+}
+
+fn spawn_visual_nodes(
+    commands: &mut Commands,
+    config: &CaptureConfig,
+    assets: &GltfAssets,
+    gltf: &Gltf,
+    material: &Handle<StandardMaterial>,
+) -> Result<()> {
+    for node_name in VISUAL_NODES {
+        let node_handle = gltf
+            .named_nodes
+            .get(node_name)
+            .with_context(|| format!("GLB is missing visual layer {node_name}"))?;
+        let node = assets
+            .nodes
+            .get(node_handle)
+            .context("GLB visual node did not load")?;
+        let mesh_handle = node.mesh.as_ref().context("GLB visual node has no mesh")?;
+        let mesh = assets
+            .gltf_meshes
+            .get(mesh_handle)
+            .context("GLB visual mesh did not load")?;
+        let world_transform = config.model_transform.mul_transform(node.transform);
+        for primitive in &mesh.primitives {
+            commands.spawn((
+                Name::new(format!("uncalibrated_visual_{node_name}")),
+                Mesh3d(primitive.mesh.clone()),
+                MeshMaterial3d(material.clone()),
+                world_transform,
+            ));
+        }
+    }
+    Ok(())
+}
+
+fn capture_next_pose(
+    mut commands: Commands,
+    config: Res<CaptureConfig>,
+    mut progress: ResMut<CaptureProgress>,
+    mut camera: Query<&mut Transform, With<CaptureCamera>>,
+    mut app_exit: MessageWriter<AppExit>,
+) {
+    if progress.failure.is_some() || !progress.ready || progress.in_flight {
+        return;
+    }
+    if progress.pose_index >= config.poses.len() {
+        app_exit.write(AppExit::Success);
+        progress.in_flight = true;
+        return;
+    }
+    let pose = &config.poses[progress.pose_index];
+    let Ok(mut transform) = camera.single_mut() else {
+        fail_capture(&mut commands, &mut progress, "capture camera is missing");
+        return;
+    };
+    let Ok(pose_transform) = pose_transform(pose) else {
+        fail_capture(&mut commands, &mut progress, "capture pose is invalid");
+        return;
+    };
+    *transform = pose_transform;
+    if progress.settle_frames < config.settle_frames {
+        progress.settle_frames += 1;
+        return;
+    }
+    let path = config.output_directory.join(format!("{}.png", pose.name));
+    commands
+        .spawn(Screenshot::primary_window())
+        .observe(save_to_disk(path))
+        .observe(mark_capture_complete);
+    progress.in_flight = true;
+}
+
+fn mark_capture_complete(_: On<ScreenshotCaptured>, mut progress: ResMut<CaptureProgress>) {
+    progress.pose_index += 1;
+    progress.settle_frames = 0;
+    progress.in_flight = false;
+}
+
+fn fail_capture(commands: &mut Commands, progress: &mut CaptureProgress, message: &str) {
+    progress.failure = Some(message.to_owned());
+    eprintln!("Hunyuan Bevy capture failed: {message}");
+    commands.write_message(AppExit::error());
+}
+
+fn verify_capture_outputs(directory: &Path) -> Result<()> {
+    let poses: PoseManifest = read_pose_manifest(&repo_root()?.join(POSES_PATH))?;
+    for pose in poses.poses {
+        let path = directory.join(format!("{}.png", pose.name));
+        if !path.is_file() {
+            bail!("expected Bevy capture was not written: {}", path.display());
+        }
+    }
+    Ok(())
+}
+
+fn write_capture_report(directory: &Path, wall_time_seconds: f64) -> Result<()> {
+    let manifest: PoseManifest = read_pose_manifest(&repo_root()?.join(POSES_PATH))?;
+    let report = CaptureReport {
+        schema_version: 1,
+        issue: 137,
+        label: "uncalibrated",
+        renderer: "Bevy 0.18.0 / wgpu",
+        bevy_version: "0.18.0",
+        resolution: manifest.resolution,
+        vertical_fov_degrees: manifest.vertical_fov_degrees,
+        captured_views: manifest.poses.into_iter().map(|pose| pose.name).collect(),
+        visual_only_nodes: VISUAL_NODES,
+        collision_loaded: false,
+        registration_accepted: false,
+        scale_calibrated: false,
+        wall_time_seconds,
+        peak_rss_kib: process_peak_rss_kib(),
+    };
+    let path = directory.join("bevy_capture_report.json");
+    fs::write(&path, serde_json::to_vec_pretty(&report)?)
+        .with_context(|| format!("cannot write Bevy capture report {}", path.display()))
+}
+
+fn process_peak_rss_kib() -> Option<u64> {
+    fs::read_to_string("/proc/self/status")
+        .ok()?
+        .lines()
+        .find_map(|line| {
+            line.strip_prefix("VmHWM:")
+                .and_then(|value| value.split_whitespace().next())
+                .and_then(|value| value.parse().ok())
+        })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{CapturePose, PoseManifest, VIEW_NAMES, pose_transform, validate_pose_manifest};
+
+    fn locked_manifest() -> PoseManifest {
+        PoseManifest {
+            issue: 137,
+            label: "uncalibrated".to_owned(),
+            registration_accepted: false,
+            scale_calibrated: false,
+            resolution: [960, 540],
+            vertical_fov_degrees: 47.398_806,
+            settle_frames_before_each_capture: 8,
+            poses: VIEW_NAMES
+                .iter()
+                .map(|name| CapturePose {
+                    name: (*name).to_owned(),
+                    position_world_m: [0.0, 1.0, 0.0],
+                    forward_world: [0.0, 0.0, 1.0],
+                    up_world: [0.0, 1.0, 0.0],
+                })
+                .collect(),
+        }
+    }
+
+    #[test]
+    fn accepts_locked_uncalibrated_capture_manifest() {
+        assert!(validate_pose_manifest(&locked_manifest()).is_ok());
+    }
+
+    #[test]
+    fn rejects_capture_manifest_with_accepted_registration() {
+        let mut manifest = locked_manifest();
+        manifest.registration_accepted = true;
+        assert!(validate_pose_manifest(&manifest).is_err());
+    }
+
+    #[test]
+    fn capture_camera_faces_the_declared_world_forward() -> anyhow::Result<()> {
+        let transform = pose_transform(&locked_manifest().poses[0])?;
+        assert!(
+            (transform.rotation * -bevy::prelude::Vec3::Z - bevy::prelude::Vec3::Z).length() < 1e-5
+        );
+        Ok(())
+    }
+}

@@ -1,0 +1,108 @@
+{
+  "source_video": {
+    "path": "data/scenes/corridor_travel/video.mp4",
+    "sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4",
+    "width": 1920,
+    "height": 1080,
+    "fps": 24.0,
+    "frame_count": 192,
+    "duration_seconds": 8.0
+  },
+  "registered_images": 192,
+  "selected_frame": {
+    "video_frame_number_1_based": 141,
+    "video_frame_index_0_based": 140,
+    "timestamp_seconds": 5.833333333333333,
+    "registered_image": "frame_0141.jpg",
+    "registered_image_sha256": "f77d26c4814611ed1c27ec745d513fabf84936577148e70d609bd872a41c3cc5",
+    "seed_png": "data/track-a/hunyuan/source_frame_0141.png",
+    "seed_png_sha256": "d3b1eb7ac7c1b737f4a79bec1e25eeecc6a8d3b1f517fa6231ba666a8ebc8408",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "crop_or_resize": false
+  },
+  "camera": {
+    "camera_id": 1,
+    "colmap_model": "SIMPLE_RADIAL",
+    "parameters": [
+      1230.189175616024,
+      960.0,
+      540.0,
+      -0.07134034405730856
+    ],
+    "focal_x_pixels": 1230.189175616024,
+    "focal_y_pixels": 1230.189175616024,
+    "approx_horizontal_fov_degrees": 75.93466004923032,
+    "approx_vertical_fov_degrees": 47.398805577606446,
+    "radial_distortion_is_not_modeled_by_upstream_panorama_warp": true,
+    "world_to_camera_rotation": [
+      [
+        -0.5286232702399989,
+        0.007011398185751247,
+        0.8488275905366475
+      ],
+      [
+        0.0005473458915143045,
+        0.9999684946922998,
+        -0.007918966807051576
+      ],
+      [
+        -0.8488563709917271,
+        -0.0037215478361813845,
+        -0.5286104534612031
+      ]
+    ],
+    "world_to_camera_translation": [
+      -2.4415908571432094,
+      0.026842972388026468,
+      2.367270764464268
+    ],
+    "camera_center_colmap": [
+      0.718776434396172,
+      -0.0009132495946536157,
+      3.3240663252214273
+    ],
+    "camera_center_godot_world_m": [
+      2.2503421889550297,
+      -0.10027971444057249,
+      4.39888812351977
+    ],
+    "forward_godot_world": [
+      -0.5286220008186361,
+      0.0012503875903586566,
+      -0.8488564170584894
+    ],
+    "up_godot_world": [
+      0.003273985153690728,
+      0.9999944804059345,
+      -0.0005658435106224637
+    ],
+    "yaw_degrees": 31.912424066982677,
+    "pitch_degrees": 0.07164195035142173
+  },
+  "patch_anchor_check": {
+    "target_godot_world_m": [
+      0.5,
+      -0.07,
+      1.7
+    ],
+    "camera_depth_m": 3.206076842609862,
+    "pixel": [
+      937.3656764155146,
+      530.0264732214184
+    ],
+    "normalized_center_offset": 0.029950241445258787,
+    "inside_image": true
+  },
+  "hunyuan": {
+    "repository": "https://github.com/Tencent-Hunyuan/HunyuanWorld-1.0",
+    "commit": "57fa9f3a79eae1079c279968cdb9d82c75fa7c86",
+    "default_panorama_fov_degrees": 80.0,
+    "measured_panorama_fov_degrees": 75.93466004923032,
+    "theta_degrees": 0.0,
+    "phi_degrees": 0.0
+  },
+  "extraction_command": "ffmpeg -hide_banner -loglevel error -y -i data/scenes/corridor_travel/video.mp4 -vf select=eq(n\\,140) -frames:v 1 -fps_mode vfr -c:v png data/track-a/hunyuan/source_frame_0141.png"
+}

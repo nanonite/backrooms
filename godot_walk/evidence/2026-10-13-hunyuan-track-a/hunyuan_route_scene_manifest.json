@@ -52,7 +52,7 @@
     },
     "camera_metadata": {
       "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/source_selection.json",
-      "sha256": "d149ce39286929ac0bdd8f1d32728057f0dd0f8443e913492b6adf59446148c0"
+      "sha256": "695ec3aec48c680f7c3656de5e5571560042a9810a9ab72df866f3496c307e57"
     }
   },
   "locked_traversal_gate": {
@@ -105,10 +105,43 @@
     }
   },
   "rendering": {
-    "status": "pending_explicit_operator_approval",
-    "gpu_or_render_work_started": false,
+    "status": "supplemental_godot_crosscheck_complete_bevy_capture_pending",
+    "gpu_or_render_work_started": true,
     "estimated_vram_budget_gib": 4,
     "estimated_host_ram_budget_gib": 10,
-    "estimate_basis": "#133 observed 4,229 MiB GPU peak and 6.58 GiB process RSS; estimates include margin and must be verified during an approved run"
+    "estimate_basis": "#133 observed 4,229 MiB GPU peak and 6.58 GiB process RSS; estimates include margin and must be verified during an approved run",
+    "supplemental_godot_run": {
+      "renderer": "Godot 4.6.3 Forward+ Vulkan",
+      "gpu_device": "NVIDIA GeForce RTX 4070 Ti",
+      "gpu_total_vram_mib": 12282,
+      "gpu_board_memory_peak_mib": 2845,
+      "gpu_board_memory_before_run_mib": 1458,
+      "gpu_board_memory_increment_peak_mib": 1387,
+      "hunyuan_capture_process_peak_rss_kib": 1634236,
+      "hunyuan_capture_wall_time_seconds": 5.16,
+      "capture_resolution": [
+        960,
+        540
+      ],
+      "matched_view_count": 9,
+      "baseline_repeats_per_view": 3,
+      "settle_frames_before_capture": 8,
+      "capture_script": "godot_walk/evidence/2026-10-13-hunyuan-track-a/capture_issue_137.gd",
+      "comparison_report": "godot_walk/evidence/2026-10-13-hunyuan-track-a/ISSUE_137_VISUAL_COMPARISON.md",
+      "source_identity_check": "Baseline corridor PLY, alignment manifest, scene, project settings and Gaussian compositor script hashes matched the main #100 worktree read-only."
+    },
+    "bevy_port": {
+      "status": "capture_mode_implemented_explicit_approval_and_capacity_pending",
+      "porting_guide": "godot_walk/evidence/2026-10-13-hunyuan-track-a/BEVY_PORTING_GUIDE.md",
+      "asset": "run-05 GLB nodes mesh_layer0 and mesh_layer1",
+      "conversion": "Bevy glTF import preserves GLB vertex colors; white unlit double-sided StandardMaterial; node transforms composed with the locked uncalibrated plane-aligned convention transform",
+      "collision_loaded": false,
+      "poses": "same nine-pose capture_poses.json contract",
+      "cross_renderer_comparison": "ODiff is diagnostic only; Godot/Bevy differences do not establish quality or parity",
+      "registration_accepted": false,
+      "scale_calibrated": false,
+      "gpu_approval": "explicit operator approval required; not yet recorded",
+      "latest_resource_preflight": "QEMU active at about 165% CPU; 8 GiB available RAM, below the proposed 10 GiB host-RAM budget; Bevy renderer not launched"
+    }
   }
 }

@@ -1,0 +1,180 @@
+{
+  "baseline_repeat_count": 3,
+  "camera_height_m_above_authored_floor_at_loop_stations": 1.17071077972651,
+  "issue": 137,
+  "label": "uncalibrated",
+  "loop_station_heading": "tangent in increasing xz angle from +x toward +z",
+  "poses": [
+    {
+      "forward_world": [
+        -0.528622031211853,
+        0.00125038775149733,
+        -0.848856449127197
+      ],
+      "name": "frame_141",
+      "position_world_m": [
+        2.25034213066101,
+        -0.100279711186886,
+        4.3988881111145
+      ],
+      "up_world": [
+        0.00327398534864187,
+        0.999994516372681,
+        -0.000565843540243804
+      ]
+    },
+    {
+      "forward_world": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "loop_station_00",
+      "position_world_m": [
+        2.42488193511963,
+        -0.100279711186886,
+        1.45068490505219
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "forward_world": [
+        -0.707106828689575,
+        0.0,
+        0.707106828689575
+      ],
+      "name": "loop_station_01",
+      "position_world_m": [
+        1.58281397819519,
+        -0.100279711186886,
+        3.48361682891846
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "forward_world": [
+        -1.0,
+        0.0,
+        0.0000000000000000612323426292584
+      ],
+      "name": "loop_station_02",
+      "position_world_m": [
+        -0.450118005275726,
+        -0.100279711186886,
+        4.32568502426147
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "forward_world": [
+        -0.707106828689575,
+        0.0,
+        -0.707106828689575
+      ],
+      "name": "loop_station_03",
+      "position_world_m": [
+        -2.48305010795593,
+        -0.100279711186886,
+        3.48361682891846
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "forward_world": [
+        -0.000000000000000122464685258517,
+        0.0,
+        -1.0
+      ],
+      "name": "loop_station_04",
+      "position_world_m": [
+        -3.32511806488037,
+        -0.100279711186886,
+        1.45068490505219
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "forward_world": [
+        0.707106828689575,
+        0.0,
+        -0.707106828689575
+      ],
+      "name": "loop_station_05",
+      "position_world_m": [
+        -2.48305010795593,
+        -0.100279711186886,
+        -0.582247078418732
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "forward_world": [
+        1.0,
+        0.0,
+        -0.000000000000000183697014652885
+      ],
+      "name": "loop_station_06",
+      "position_world_m": [
+        -0.450118005275726,
+        -0.100279711186886,
+        -1.42431509494781
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "forward_world": [
+        0.707106828689575,
+        0.0,
+        0.707106828689575
+      ],
+      "name": "loop_station_07",
+      "position_world_m": [
+        1.58281397819519,
+        -0.100279711186886,
+        -0.582247078418732
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "registration_accepted": false,
+  "renderer": "Godot 4.6.3 Forward+ Vulkan",
+  "resolution": [
+    960,
+    540
+  ],
+  "scale_calibrated": false,
+  "settle_frames_before_each_capture": 8,
+  "vertical_fov_degrees": 47.3988056
+}

@@ -1,4 +1,5 @@
 mod assets;
+mod capture;
 mod geometry_query;
 mod manifest;
 mod report;
@@ -179,6 +180,10 @@ pub fn run() -> Result<()> {
         bail!("uncalibrated comparison scene failed traversal or #135 parity checks");
     }
     Ok(())
+}
+
+pub fn run_capture() -> Result<()> {
+    capture::run()
 }
 
 fn build_app(

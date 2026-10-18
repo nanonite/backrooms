@@ -245,6 +245,10 @@ pub fn run_route_scene() -> Result<()> {
     route_scene::run()
 }
 
+pub fn run_route_scene_capture() -> Result<()> {
+    route_scene::run_capture()
+}
+
 fn run_scenario(spec: HarnessSpec, route: Option<AuthoredRouteAsset>) -> Result<ScenarioReport> {
     let scenario_started = Instant::now();
     let max_updates = spec.max_updates;
