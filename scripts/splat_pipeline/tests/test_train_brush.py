@@ -64,7 +64,7 @@ EXPORT_NAME=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --total-steps) TOTAL_STEPS="$2"; shift 2 ;;
+        --total-train-iters) TOTAL_STEPS="$2"; shift 2 ;;
         --max-splats) MAX_SPLATS="$2"; shift 2 ;;
         --export-path) EXPORT_PATH="$2"; shift 2 ;;
         --export-name) EXPORT_NAME="$2"; shift 2 ;;

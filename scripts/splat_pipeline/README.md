@@ -24,6 +24,16 @@ The pipeline is **resumable**: after an interruption, re-run the same command
 and unchanged stages are skipped. Changing the video or any setting changes
 the stage's input hash, so that stage (and everything downstream) re-runs.
 
+## Tests
+
+Run the suite in the `nerfstudio` conda environment described in `PLAN.md`.
+It provides the Python mesh dependencies used by scene staging and texture
+projection tests, including `trimesh`, Open3D, and PyCOLMAP.
+
+```bash
+conda run -n nerfstudio python -m pytest scripts/splat_pipeline/tests -q
+```
+
 ## Resumability and dry-run
 
 Each stage records its input hash, output hash, and status in
