@@ -29,6 +29,7 @@ Track A (#144) owns room inventory, module contracts, standalone Bevy validation
 | #78 | Deliver a reproducible video-to-walkable-scene pipeline | Parent epic |
 | #101 | Verify the synthetic Backrooms PoC as a PSX-scale walking simulator | Open; #116 now carries the room-library and design-iteration direction |
 | #116 | Backrooms room library, design iteration, and layout generation | Open umbrella; starts from `milestone/video-to-walkable-working` |
+| #111 | Audit committed Backrooms artifacts for unnecessary binaries | Open; inventory and reference-check before any cleanup; user design work is out of scope |
 | #117 | Track B: establish the PSX design-iteration harness | Open; parallel to Track A, not a gate |
 | #121 | Run the first Gaussian-backed design iteration rounds | Open; operator-reviewed feedback loop under #117 |
 | #144 | Track A: build a verified room catalog and modular Bevy scenes | Open; children #145-#149 |
