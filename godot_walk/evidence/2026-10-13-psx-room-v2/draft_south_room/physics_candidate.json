@@ -1,0 +1,276 @@
+{
+	"boundary_pushes": {
+		"0": {
+			"end": [
+				1.25,
+				-0.542789399623871,
+				-2.42018270492554
+			],
+			"trace": {
+				"distance_m": 1.85351604223251,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.066673256456852,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloorExtension": 6,
+					"GeneratedCollision": 23
+				},
+				"ticks": 240
+			}
+		},
+		"1": {
+			"end": [
+				-0.965610265731812,
+				-0.5422043800354,
+				-2.41905951499939
+			],
+			"trace": {
+				"distance_m": 2.94065088033676,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666746273636818,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloorExtension": 25,
+					"GeneratedCollision": 21
+				},
+				"ticks": 240
+			}
+		},
+		"2": {
+			"end": [
+				-0.399736702442169,
+				-0.542999982833862,
+				-0.5
+			],
+			"trace": {
+				"distance_m": 1.5830699801445,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666690543293953,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloorExtension": 17,
+					"GeneratedCollision": 7
+				},
+				"ticks": 240
+			}
+		},
+		"3": {
+			"end": [
+				-0.969060182571411,
+				-0.542050361633301,
+				3.02007269859314
+			],
+			"trace": {
+				"distance_m": 4.37553542293608,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0709503963589668,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloorExtension": 35,
+					"GeneratedCollision": 31
+				},
+				"ticks": 240
+			}
+		},
+		"4": {
+			"end": [
+				1.25,
+				-0.59295117855072,
+				3.01964807510376
+			],
+			"trace": {
+				"distance_m": 3.45298141241074,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0715811178088188,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloorExtension": 30,
+					"GeneratedCollision": 18
+				},
+				"ticks": 240
+			}
+		},
+		"5": {
+			"end": [
+				1.95711290836334,
+				-0.54205709695816,
+				1.0496563911438
+			],
+			"trace": {
+				"distance_m": 1.77588555961847,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.06667111068964,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloorExtension": 30,
+					"GeneratedCollision": 2
+				},
+				"ticks": 240
+			}
+		},
+		"6": {
+			"end": [
+				1.97016668319702,
+				-0.542810380458832,
+				-0.5
+			],
+			"trace": {
+				"distance_m": 0.653499960899353,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666667222976685,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloorExtension": 8,
+					"GeneratedCollision": 2
+				},
+				"ticks": 240
+			}
+		},
+		"7": {
+			"end": [
+				1.957106590271,
+				-0.542056798934937,
+				-2.04035115242004
+			],
+			"trace": {
+				"distance_m": 1.76657769083977,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666710883378983,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloorExtension": 23,
+					"GeneratedCollision": 9
+				},
+				"ticks": 240
+			}
+		}
+	},
+	"failures": [],
+	"out_and_back": {
+		"distance_m": 12.7488115094602,
+		"floor_fraction": 1.0,
+		"max_step_m": 0.072925329208374,
+		"safety_contacts": 0,
+		"support_bodies": {
+			"AuthoredFloorExtension": 95,
+			"GeneratedCollision": 92
+		},
+		"ticks": 193
+	},
+	"route_segments": [
+		{
+			"player": [
+				-0.651324987411499,
+				-0.542990982532501,
+				2.8875470161438
+			],
+			"reached": true,
+			"target": [
+				-0.649999976158142,
+				2.90000009536743
+			]
+		},
+		{
+			"player": [
+				0.415287345647812,
+				-0.542990982532501,
+				2.89908385276794
+			],
+			"reached": true,
+			"target": [
+				0.5,
+				2.90000009536743
+			]
+		},
+		{
+			"player": [
+				0.49808856844902,
+				-0.54277503490448,
+				1.72728705406189
+			],
+			"reached": true,
+			"target": [
+				0.5,
+				1.70000004768372
+			]
+		},
+		{
+			"player": [
+				1.16431677341461,
+				-0.54277503490448,
+				1.70310950279236
+			],
+			"reached": true,
+			"target": [
+				1.25,
+				1.70000004768372
+			]
+		},
+		{
+			"player": [
+				1.24831712245941,
+				-0.542058825492859,
+				-1.82923483848572
+			],
+			"reached": true,
+			"target": [
+				1.25,
+				-1.89999997615814
+			]
+		},
+		{
+			"player": [
+				1.24997019767761,
+				-0.542058825492859,
+				1.63743042945862
+			],
+			"reached": true,
+			"target": [
+				1.25,
+				1.70000004768372
+			]
+		},
+		{
+			"player": [
+				0.585611641407013,
+				-0.542058825492859,
+				1.69285750389099
+			],
+			"reached": true,
+			"target": [
+				0.5,
+				1.70000004768372
+			]
+		},
+		{
+			"player": [
+				0.502531290054321,
+				-0.542577147483826,
+				2.86398100852966
+			],
+			"reached": true,
+			"target": [
+				0.5,
+				2.90000009536743
+			]
+		},
+		{
+			"player": [
+				-0.563624143600464,
+				-0.542577147483826,
+				2.89730072021484
+			],
+			"reached": true,
+			"target": [
+				-0.649999976158142,
+				2.90000009536743
+			]
+		}
+	],
+	"scene": "res://scenes/corridor_psx_room_v2.tscn",
+	"spawn_eye": [
+		-0.651324987411499,
+		-0.0429909825325012,
+		2.8875470161438
+	]
+}

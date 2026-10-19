@@ -1,0 +1,34 @@
+<!doctype html><meta charset="utf-8"><title>PSX Design Round 4: Source-Texture Cleanup</title>
+<style>body{font:14px system-ui,sans-serif;margin:24px;background:#f3f4f5;color:#202326}
+main{max-width:1500px;margin:auto}img{max-width:100%;height:auto}table{border-collapse:collapse;width:100%}
+th,td{text-align:left;border-bottom:1px solid #c9cccf;padding:6px}section{margin:28px 0}</style>
+<main><h1>PSX Design Round 4: Source-Texture Cleanup</h1>
+<p>Compare the flush-door control and north-wall texture against a visual-only candidate that source-textures the square wall shell, ceiling, floor, and column. The Gaussian PLY, collision, route, and door remain fixed. ODiff locates pixel changes; it does not score art direction.
+ODiff threshold: 0.1. Control repeats differ by up to 0.080% of pixels. Candidate deltas
+at or below that measured noise are inconclusive; no threshold was tuned.</p>
+<section><h2>patch_anchor</h2><img src="contact_sheets/patch_anchor.jpg" alt="patch_anchor matched views"></section>
+<section><h2>transition</h2><img src="contact_sheets/transition.jpg" alt="transition matched views"></section>
+<section><h2>column</h2><img src="contact_sheets/column.jpg" alt="column matched views"></section>
+<section><h2>far_room</h2><img src="contact_sheets/far_room.jpg" alt="far_room matched views"></section><h2>Operator Review</h2><p>Review wall and corner coverage from every angle, column alignment, ceiling and floor texture, and the overall walk. Does the new candidate hide the artifacts without erasing the Backrooms character?</p><h2>Candidate Pixel Deltas</h2><table><thead><tr><th>Variant</th><th>View</th>
+<th>Changed pixels</th><th>Changed share</th><th>Diff image</th></tr></thead><tbody><tr><td>north_wall_source_texture</td><td>spawn_patch_anchor_e.png</td><td>29973</td><td>3.250%</td><td><a href="diffs/north_wall_source_texture/north_wall_source_texture_spawn_patch_anchor_e.png">open</a></td></tr>
+<tr><td>north_wall_source_texture</td><td>spawn_patch_anchor_w.png</td><td>27336</td><td>2.970%</td><td><a href="diffs/north_wall_source_texture/north_wall_source_texture_spawn_patch_anchor_w.png">open</a></td></tr>
+<tr><td>north_wall_source_texture</td><td>spawn_transition_e.png</td><td>1136</td><td>0.120%</td><td><a href="diffs/north_wall_source_texture/north_wall_source_texture_spawn_transition_e.png">open</a></td></tr>
+<tr><td>north_wall_source_texture</td><td>spawn_transition_w.png</td><td>27132</td><td>2.940%</td><td><a href="diffs/north_wall_source_texture/north_wall_source_texture_spawn_transition_w.png">open</a></td></tr>
+<tr><td>north_wall_source_texture</td><td>spawn_column_e.png</td><td>0</td><td>0.000%</td><td>identical at configured ODiff threshold</td></tr>
+<tr><td>north_wall_source_texture</td><td>spawn_column_n.png</td><td>31053</td><td>3.370%</td><td><a href="diffs/north_wall_source_texture/north_wall_source_texture_spawn_column_n.png">open</a></td></tr>
+<tr><td>north_wall_source_texture</td><td>spawn_column_w.png</td><td>13129</td><td>1.420%</td><td><a href="diffs/north_wall_source_texture/north_wall_source_texture_spawn_column_w.png">open</a></td></tr>
+<tr><td>north_wall_source_texture</td><td>spawn_column_s.png</td><td>0</td><td>0.000%</td><td>identical at configured ODiff threshold</td></tr>
+<tr><td>north_wall_source_texture</td><td>spawn_far_room_e.png</td><td>0</td><td>0.000%</td><td>identical at configured ODiff threshold</td></tr>
+<tr><td>north_wall_source_texture</td><td>spawn_far_room_w.png</td><td>19329</td><td>2.100%</td><td><a href="diffs/north_wall_source_texture/north_wall_source_texture_spawn_far_room_w.png">open</a></td></tr>
+<tr><td>source_texture_cleanup</td><td>spawn_patch_anchor_e.png</td><td>199953</td><td>21.700%</td><td><a href="diffs/source_texture_cleanup/source_texture_cleanup_spawn_patch_anchor_e.png">open</a></td></tr>
+<tr><td>source_texture_cleanup</td><td>spawn_patch_anchor_w.png</td><td>63944</td><td>6.940%</td><td><a href="diffs/source_texture_cleanup/source_texture_cleanup_spawn_patch_anchor_w.png">open</a></td></tr>
+<tr><td>source_texture_cleanup</td><td>spawn_transition_e.png</td><td>115136</td><td>12.490%</td><td><a href="diffs/source_texture_cleanup/source_texture_cleanup_spawn_transition_e.png">open</a></td></tr>
+<tr><td>source_texture_cleanup</td><td>spawn_transition_w.png</td><td>92485</td><td>10.040%</td><td><a href="diffs/source_texture_cleanup/source_texture_cleanup_spawn_transition_w.png">open</a></td></tr>
+<tr><td>source_texture_cleanup</td><td>spawn_column_e.png</td><td>292902</td><td>31.780%</td><td><a href="diffs/source_texture_cleanup/source_texture_cleanup_spawn_column_e.png">open</a></td></tr>
+<tr><td>source_texture_cleanup</td><td>spawn_column_n.png</td><td>149099</td><td>16.180%</td><td><a href="diffs/source_texture_cleanup/source_texture_cleanup_spawn_column_n.png">open</a></td></tr>
+<tr><td>source_texture_cleanup</td><td>spawn_column_w.png</td><td>63462</td><td>6.890%</td><td><a href="diffs/source_texture_cleanup/source_texture_cleanup_spawn_column_w.png">open</a></td></tr>
+<tr><td>source_texture_cleanup</td><td>spawn_column_s.png</td><td>81542</td><td>8.850%</td><td><a href="diffs/source_texture_cleanup/source_texture_cleanup_spawn_column_s.png">open</a></td></tr>
+<tr><td>source_texture_cleanup</td><td>spawn_far_room_e.png</td><td>648943</td><td>70.410%</td><td><a href="diffs/source_texture_cleanup/source_texture_cleanup_spawn_far_room_e.png">open</a></td></tr>
+<tr><td>source_texture_cleanup</td><td>spawn_far_room_w.png</td><td>88747</td><td>9.630%</td><td><a href="diffs/source_texture_cleanup/source_texture_cleanup_spawn_far_room_w.png">open</a></td></tr></tbody></table>
+<p><a href="review_metrics.json">Full visual metrics</a> | <a href="review_manifest.json">Capture manifest</a></p>
+</main>

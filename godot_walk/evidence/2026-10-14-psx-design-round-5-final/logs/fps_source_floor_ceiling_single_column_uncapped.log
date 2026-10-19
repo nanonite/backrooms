@@ -1,0 +1,5 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+Vulkan 1.4.329 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Ti
+
+DESIGN_CANDIDATE id=source_floor_ceiling_single_column hypothesis=A lower source-textured ceiling with visible walls fitted to the same height and slim corner trim will cover overhead artifacts and make the room junctions read as intentional right angles.
+FPS_JSON {"baseline":false,"capped_at_60":false,"counter":"RenderingServer.frame_post_draw","elapsed_s":3.192294,"fps":1409.3313460477,"frames":4499,"p95_frame_ms":0.921,"p99_frame_ms":1.005,"poses":15,"scene":"res://scenes/corridor_psx_design_candidate.tscn"}

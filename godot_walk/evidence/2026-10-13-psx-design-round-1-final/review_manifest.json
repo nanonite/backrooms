@@ -1,0 +1,508 @@
+{
+  "issue": 121,
+  "created_utc": "2026-10-14T00:32:34.969207+00:00",
+  "git_commit": "cd7ebc0f53ccc69eae496baf15b47f76eba6ef31",
+  "scope": "Compare the as-built hatch, a wall-flush hatch, and a continuous PSX end wall. Splat, room envelope, collision, and route remain fixed.",
+  "variants": [
+    "v2_control",
+    "door_flush",
+    "wall_endcap"
+  ],
+  "resolution": [
+    1280,
+    720
+  ],
+  "fov_degrees": 75,
+  "settle_frames": 200,
+  "fixed_fps": 60,
+  "rendering_driver": "vulkan",
+  "capture_path": "Godot viewport get_image()",
+  "source_sha256": {
+    "assets/corridor_splat/corridor_clean.ply": "88a20a95dd4df4dde98203f7fb934d17db93a9cb5d98f9e8c1625d478e9d7af0",
+    "scenes/corridor_psx_room_v2.tscn": "adbed773927464648f6bdc6229eb9c9fecc325cf5147e52f42dcd5fc0326f2a2",
+    "scripts/psx_patch_room_extension_v2.gd": "b01e13ac8451a90c78625a634115bf5faa2a445fde2eedfb256a540f66e39424",
+    "scenes/corridor_psx_design_candidate.tscn": "4a1e3064f1b54d5dc2547d82f9d17056255b10fb77cbae7e9ce79ff1cc8a6247",
+    "scripts/psx_design_variant_driver.gd": "3d6ece75abffed0a3b8b1b1904849a6aedaf445e60c66909a6233cffce8e75ab",
+    "scripts/psx_design_variant_catalog.gd": "5ccdfeb080e66ff9ccce53166fd359e3c72ef70a51851ae960fb6c7b91832b67",
+    "design_variants/v2_control.json": "e1fff9982c05e74a1bed11006ea087c869c8129830e021dda1cff47ad4484ca1",
+    "design_variants/door_flush.json": "b1b0fe6c2852162c152791d4a2d79c43d9cc51739978deadc5dca0c35207ed16",
+    "design_variants/wall_endcap.json": "41290b41d2a4988930849d16a5e03655830921cb01fe5e239ae8d98d6238efc3"
+  },
+  "commands": [
+    {
+      "name": "physics_v2_control_1",
+      "command": [
+        "godot4",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--headless",
+        "--script",
+        "res://scripts/verify_bounded_psx.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/v2_control/repeat_1",
+        "--variant=v2_control",
+        "--trace-state"
+      ],
+      "returncode": 0,
+      "log": "logs/physics_v2_control_1.log"
+    },
+    {
+      "name": "physics_v2_control_2",
+      "command": [
+        "godot4",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--headless",
+        "--script",
+        "res://scripts/verify_bounded_psx.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/v2_control/repeat_2",
+        "--variant=v2_control",
+        "--trace-state"
+      ],
+      "returncode": 0,
+      "log": "logs/physics_v2_control_2.log"
+    },
+    {
+      "name": "physics_v2_control_3",
+      "command": [
+        "godot4",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--headless",
+        "--script",
+        "res://scripts/verify_bounded_psx.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/v2_control/repeat_3",
+        "--variant=v2_control",
+        "--trace-state"
+      ],
+      "returncode": 0,
+      "log": "logs/physics_v2_control_3.log"
+    },
+    {
+      "name": "physics_door_flush_1",
+      "command": [
+        "godot4",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--headless",
+        "--script",
+        "res://scripts/verify_bounded_psx.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/door_flush/repeat_1",
+        "--variant=door_flush",
+        "--trace-state"
+      ],
+      "returncode": 0,
+      "log": "logs/physics_door_flush_1.log"
+    },
+    {
+      "name": "physics_wall_endcap_1",
+      "command": [
+        "godot4",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--headless",
+        "--script",
+        "res://scripts/verify_bounded_psx.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/wall_endcap/repeat_1",
+        "--variant=wall_endcap",
+        "--trace-state"
+      ],
+      "returncode": 0,
+      "log": "logs/physics_wall_endcap_1.log"
+    },
+    {
+      "name": "negative_boundary",
+      "command": [
+        "godot4",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--headless",
+        "--script",
+        "res://scripts/verify_bounded_psx.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/negative_boundary",
+        "--variant=v2_control",
+        "--break=boundary"
+      ],
+      "returncode": 1,
+      "log": "logs/negative_boundary.log",
+      "expected_failure": [
+        "Escaped bounded envelope"
+      ]
+    },
+    {
+      "name": "negative_floor",
+      "command": [
+        "godot4",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--headless",
+        "--script",
+        "res://scripts/verify_bounded_psx.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/negative_floor",
+        "--variant=v2_control",
+        "--break=floor"
+      ],
+      "returncode": 1,
+      "log": "logs/negative_floor.log",
+      "expected_failure": [
+        "Support, safety or step gate failed: { \"ticks\": 197, \"floor_fraction\": 1.0, \"distance_m\": 13.0666700303555, \"max_step_m\": 0.06666675955057, \"safety_contacts\": 197, \"support_bodies\": { \"SafetyNet\": 197 } }",
+        "No configured walkable floor support observed: [\"GeneratedCollision\", \"AuthoredFloorExtension\"]",
+        "Escaped bounded envelope",
+        "Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.30833333333333, \"distance_m\": 15.9339143037796, \"max_step_m\": 0.45408582687378, \"safety_contacts\": 71, \"support_bodies\": { \"SafetyNet\": 71 } }",
+        "No configured walkable floor support observed: [\"GeneratedCollision\", \"AuthoredFloorExtension\"]",
+        "Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.4375, \"distance_m\": 15.9339909404516, \"max_step_m\": 0.37082043290138, \"safety_contacts\": 101, \"support_bodies\": { \"SafetyNet\": 101 } }",
+        "No configured walkable floor support observed: [\"GeneratedCollision\", \"AuthoredFloorExtension\"]",
+        "Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.5875, \"distance_m\": 15.9351663589478, \"max_step_m\": 0.2749816775322, \"safety_contacts\": 138, \"support_bodies\": { \"SafetyNet\": 138 } }",
+        "No configured walkable floor support observed: [\"GeneratedCollision\", \"AuthoredFloorExtension\"]",
+        "Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.62083333333333, \"distance_m\": 15.934172488749, \"max_step_m\": 0.25390818715096, \"safety_contacts\": 144, \"support_bodies\": { \"SafetyNet\": 144 } }",
+        "No configured walkable floor support observed: [\"GeneratedCollision\", \"AuthoredFloorExtension\"]",
+        "Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.4375, \"distance_m\": 15.9335305392742, \"max_step_m\": 0.37082061171532, \"safety_contacts\": 102, \"support_bodies\": { \"SafetyNet\": 102 } }",
+        "No configured walkable floor support observed: [\"GeneratedCollision\", \"AuthoredFloorExtension\"]",
+        "Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.25833333333333, \"distance_m\": 15.9338783994317, \"max_step_m\": 0.4864245057106, \"safety_contacts\": 58, \"support_bodies\": { \"SafetyNet\": 58 } }",
+        "No configured walkable floor support observed: [\"GeneratedCollision\", \"AuthoredFloorExtension\"]",
+        "Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.18333333333333, \"distance_m\": 15.9344491958618, \"max_step_m\": 0.53500419855118, \"safety_contacts\": 41, \"support_bodies\": { \"SafetyNet\": 41 } }",
+        "No configured walkable floor support observed: [\"GeneratedCollision\", \"AuthoredFloorExtension\"]",
+        "Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.25833333333333, \"distance_m\": 15.9353130683303, \"max_step_m\": 0.4864245057106, \"safety_contacts\": 58, \"support_bodies\": { \"SafetyNet\": 58 } }",
+        "No configured walkable floor support observed: [\"GeneratedCollision\", \"AuthoredFloorExtension\"]"
+      ]
+    },
+    {
+      "name": "fps_v2_control_uncapped",
+      "command": [
+        "godot4",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--rendering-driver",
+        "vulkan",
+        "--resolution",
+        "1280x720",
+        "--disable-vsync",
+        "--script",
+        "res://scripts/measure_bounded_fps.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/v2_control/repeat_1",
+        "--label=v2_control_uncapped",
+        "--variant=v2_control"
+      ],
+      "returncode": 0,
+      "log": "logs/fps_v2_control_uncapped.log"
+    },
+    {
+      "name": "fps_v2_control",
+      "command": [
+        "godot4",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--rendering-driver",
+        "vulkan",
+        "--resolution",
+        "1280x720",
+        "--disable-vsync",
+        "--max-fps",
+        "60",
+        "--script",
+        "res://scripts/measure_bounded_fps.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/v2_control/repeat_1",
+        "--label=v2_control",
+        "--variant=v2_control",
+        "--capped"
+      ],
+      "returncode": 0,
+      "log": "logs/fps_v2_control.log"
+    },
+    {
+      "name": "capture_v2_control_repeat_1",
+      "command": [
+        "godot4",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--rendering-driver",
+        "vulkan",
+        "--resolution",
+        "1280x720",
+        "--disable-vsync",
+        "--script",
+        "res://scripts/capture_psx_design_review.gd",
+        "--",
+        "--variant=v2_control",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/captures/v2_control/repeat_1",
+        "--positions-json=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/v2_control/repeat_1/route_positions.json",
+        "--settle=200"
+      ],
+      "returncode": 0,
+      "log": "logs/capture_v2_control_repeat_1.log"
+    },
+    {
+      "name": "capture_v2_control_repeat_2",
+      "command": [
+        "godot4",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--rendering-driver",
+        "vulkan",
+        "--resolution",
+        "1280x720",
+        "--disable-vsync",
+        "--script",
+        "res://scripts/capture_psx_design_review.gd",
+        "--",
+        "--variant=v2_control",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/captures/v2_control/repeat_2",
+        "--positions-json=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/v2_control/repeat_2/route_positions.json",
+        "--settle=200"
+      ],
+      "returncode": 0,
+      "log": "logs/capture_v2_control_repeat_2.log"
+    },
+    {
+      "name": "capture_v2_control_repeat_3",
+      "command": [
+        "godot4",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--rendering-driver",
+        "vulkan",
+        "--resolution",
+        "1280x720",
+        "--disable-vsync",
+        "--script",
+        "res://scripts/capture_psx_design_review.gd",
+        "--",
+        "--variant=v2_control",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/captures/v2_control/repeat_3",
+        "--positions-json=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/v2_control/repeat_3/route_positions.json",
+        "--settle=200"
+      ],
+      "returncode": 0,
+      "log": "logs/capture_v2_control_repeat_3.log"
+    },
+    {
+      "name": "fps_door_flush_uncapped",
+      "command": [
+        "godot4",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--rendering-driver",
+        "vulkan",
+        "--resolution",
+        "1280x720",
+        "--disable-vsync",
+        "--script",
+        "res://scripts/measure_bounded_fps.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/door_flush/repeat_1",
+        "--label=door_flush_uncapped",
+        "--variant=door_flush"
+      ],
+      "returncode": 0,
+      "log": "logs/fps_door_flush_uncapped.log"
+    },
+    {
+      "name": "fps_door_flush",
+      "command": [
+        "godot4",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--rendering-driver",
+        "vulkan",
+        "--resolution",
+        "1280x720",
+        "--disable-vsync",
+        "--max-fps",
+        "60",
+        "--script",
+        "res://scripts/measure_bounded_fps.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/door_flush/repeat_1",
+        "--label=door_flush",
+        "--variant=door_flush",
+        "--capped"
+      ],
+      "returncode": 0,
+      "log": "logs/fps_door_flush.log"
+    },
+    {
+      "name": "capture_door_flush_repeat_1",
+      "command": [
+        "godot4",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--rendering-driver",
+        "vulkan",
+        "--resolution",
+        "1280x720",
+        "--disable-vsync",
+        "--script",
+        "res://scripts/capture_psx_design_review.gd",
+        "--",
+        "--variant=door_flush",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/captures/door_flush/repeat_1",
+        "--positions-json=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/door_flush/repeat_1/route_positions.json",
+        "--settle=200"
+      ],
+      "returncode": 0,
+      "log": "logs/capture_door_flush_repeat_1.log"
+    },
+    {
+      "name": "fps_wall_endcap_uncapped",
+      "command": [
+        "godot4",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--rendering-driver",
+        "vulkan",
+        "--resolution",
+        "1280x720",
+        "--disable-vsync",
+        "--script",
+        "res://scripts/measure_bounded_fps.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/wall_endcap/repeat_1",
+        "--label=wall_endcap_uncapped",
+        "--variant=wall_endcap"
+      ],
+      "returncode": 0,
+      "log": "logs/fps_wall_endcap_uncapped.log"
+    },
+    {
+      "name": "fps_wall_endcap",
+      "command": [
+        "godot4",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--rendering-driver",
+        "vulkan",
+        "--resolution",
+        "1280x720",
+        "--disable-vsync",
+        "--max-fps",
+        "60",
+        "--script",
+        "res://scripts/measure_bounded_fps.gd",
+        "--",
+        "--scene=res://scenes/corridor_psx_design_candidate.tscn",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/wall_endcap/repeat_1",
+        "--label=wall_endcap",
+        "--variant=wall_endcap",
+        "--capped"
+      ],
+      "returncode": 0,
+      "log": "logs/fps_wall_endcap.log"
+    },
+    {
+      "name": "capture_wall_endcap_repeat_1",
+      "command": [
+        "godot4",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/mnt/sharedOs/backrooms-workspace/godot_walk",
+        "--rendering-driver",
+        "vulkan",
+        "--resolution",
+        "1280x720",
+        "--disable-vsync",
+        "--script",
+        "res://scripts/capture_psx_design_review.gd",
+        "--",
+        "--variant=wall_endcap",
+        "--out-dir=res://evidence/2026-10-13-psx-design-round-1-final/captures/wall_endcap/repeat_1",
+        "--positions-json=res://evidence/2026-10-13-psx-design-round-1-final/mechanics/wall_endcap/repeat_1/route_positions.json",
+        "--settle=200"
+      ],
+      "returncode": 0,
+      "log": "logs/capture_wall_endcap_repeat_1.log"
+    }
+  ],
+  "odiff": {
+    "command": [
+      "/home/goya/.nvm/versions/node/v22.5.1/bin/npx",
+      "--yes",
+      "--package=odiff-bin@4.5.0",
+      "odiff"
+    ],
+    "version": "4.5.0",
+    "threshold": 0.1
+  },
+  "visual_summary": {
+    "repeat_noise_max_pct": 0.16,
+    "candidate_mean_diff_pct": {
+      "door_flush": 0.199,
+      "wall_endcap": 9.657
+    }
+  },
+  "route_drift": {
+    "determinism_assumed": false,
+    "comparisons_to_repeat_1": [
+      {
+        "repeat": 2,
+        "reference_ticks": 197,
+        "repeat_ticks": 197,
+        "compared_ticks": 197,
+        "max_position_drift_m": 0.0,
+        "contact_or_floor_mismatch_ticks": 0
+      },
+      {
+        "repeat": 3,
+        "reference_ticks": 197,
+        "repeat_ticks": 197,
+        "compared_ticks": 197,
+        "max_position_drift_m": 0.0,
+        "contact_or_floor_mismatch_ticks": 0
+      }
+    ]
+  },
+  "source_sha256_end": {
+    "assets/corridor_splat/corridor_clean.ply": "88a20a95dd4df4dde98203f7fb934d17db93a9cb5d98f9e8c1625d478e9d7af0",
+    "scenes/corridor_psx_room_v2.tscn": "adbed773927464648f6bdc6229eb9c9fecc325cf5147e52f42dcd5fc0326f2a2",
+    "scripts/psx_patch_room_extension_v2.gd": "b01e13ac8451a90c78625a634115bf5faa2a445fde2eedfb256a540f66e39424",
+    "scenes/corridor_psx_design_candidate.tscn": "4a1e3064f1b54d5dc2547d82f9d17056255b10fb77cbae7e9ce79ff1cc8a6247",
+    "scripts/psx_design_variant_driver.gd": "3d6ece75abffed0a3b8b1b1904849a6aedaf445e60c66909a6233cffce8e75ab",
+    "scripts/psx_design_variant_catalog.gd": "5ccdfeb080e66ff9ccce53166fd359e3c72ef70a51851ae960fb6c7b91832b67",
+    "design_variants/v2_control.json": "e1fff9982c05e74a1bed11006ea087c869c8129830e021dda1cff47ad4484ca1",
+    "design_variants/door_flush.json": "b1b0fe6c2852162c152791d4a2d79c43d9cc51739978deadc5dca0c35207ed16",
+    "design_variants/wall_endcap.json": "41290b41d2a4988930849d16a5e03655830921cb01fe5e239ae8d98d6238efc3"
+  },
+  "protected_inputs_unchanged": true
+}

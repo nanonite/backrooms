@@ -1,0 +1,5 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+Vulkan 1.4.329 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Ti
+
+DESIGN_CANDIDATE id=source_floor_single_column hypothesis=Moving the source-textured column cover onto the existing column centerline will remove the accidental second-column appearance while retaining the clean floor.
+FPS_JSON {"baseline":false,"capped_at_60":false,"counter":"RenderingServer.frame_post_draw","elapsed_s":3.19711,"fps":1407.20838507277,"frames":4499,"p95_frame_ms":0.93,"p99_frame_ms":1.007,"poses":15,"scene":"res://scenes/corridor_psx_design_candidate.tscn"}

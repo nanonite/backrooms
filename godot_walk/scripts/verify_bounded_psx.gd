@@ -11,6 +11,9 @@ var failures: Array = []
 var scene_path := "res://scenes/corridor_bounded_psx.tscn"
 var evidence_dir := "res://evidence/2026-10-13-bounded-psx"
 var mutation := ""
+var record_state_trace := false
+var route_state_trace: Array[Dictionary] = []
+var route_state_tick := 0
 
 
 func _initialize() -> void:
@@ -21,6 +24,8 @@ func _initialize() -> void:
 			evidence_dir = argument.trim_prefix("--out-dir=")
 		if argument.begins_with("--break="):
 			mutation = argument.trim_prefix("--break=")
+		elif argument == "--trace-state":
+			record_state_trace = true
 	call_deferred("_verify")
 
 
@@ -106,6 +111,8 @@ func _route() -> void:
 			failures.append("Route target not reached: %s" % target)
 	results["out_and_back"] = trace.report()
 	results["route_segments"] = segments
+	if record_state_trace:
+		results["route_state_trace"] = route_state_trace
 	_validate_trace(trace)
 	_write_route_positions(route_points)
 
@@ -120,8 +127,27 @@ func _drive_to(target: Vector2, trace: RefCounted) -> bool:
 		Input.action_press("move_forward")
 		await physics_frame
 		trace.sample(player)
+		_record_route_state(target)
 	Input.action_release("move_forward")
 	return false
+
+
+func _record_route_state(target: Vector2) -> void:
+	if not record_state_trace:
+		return
+	var contacts: Array = []
+	for index in player.get_slide_collision_count():
+		var collision := player.get_slide_collision(index)
+		var body: Node = collision.get_collider()
+		contacts.append({"body": body.name,
+			"normal": _coordinates(collision.get_normal())})
+	route_state_trace.append({"tick": route_state_tick,
+		"target": [target.x, target.y],
+		"position": _coordinates(player.global_position),
+		"eye": _coordinates(player.get_node("Head").global_position),
+		"velocity": _coordinates(player.velocity),
+		"on_floor": player.is_on_floor(), "contacts": contacts})
+	route_state_tick += 1
 
 
 func _boundaries() -> void:

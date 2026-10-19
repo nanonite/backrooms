@@ -19,6 +19,7 @@
 #                        Overridden by --sequential.
 #   POSE_MIN_REGISTERED  Minimum fraction of images that must register (0.0–1.0).
 #                        Default: 0.5. If fewer register, emits POSE_FAILED.
+#   GLOMAP_SKIP_RETRIANGULATION  Skip GLOMAP's retriangulation step (default: false).
 #
 # Exit codes:
 #   0  Success — sparse/0/{cameras,images,points3D}.bin exist, enough registered.
@@ -61,6 +62,7 @@ Environment:
   POSE_MATCHER_MODE      "sequential" or "exhaustive" (default: exhaustive).
   POSE_MIN_REGISTERED    Minimum fraction of input images to register (0.0–1.0,
                          default: 0.5).
+  GLOMAP_SKIP_RETRIANGULATION  Skip retriangulation when true (default: false).
 
 Exit codes:
   0  Success — model produced with sufficient registered images.
@@ -131,6 +133,7 @@ SCENE_DIR="$1"
 shift
 
 MATCHER_MODE="${POSE_MATCHER_MODE:-exhaustive}"
+SKIP_RETRIANGULATION="${GLOMAP_SKIP_RETRIANGULATION:-false}"
 DO_CLEANUP=true
 
 while [[ $# -gt 0 ]]; do
@@ -145,6 +148,11 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+case "${SKIP_RETRIANGULATION,,}" in
+    true|false) SKIP_RETRIANGULATION="${SKIP_RETRIANGULATION,,}" ;;
+    *) die 1 "GLOMAP_SKIP_RETRIANGULATION must be true or false." ;;
+esac
+
 SCENE_DIR="$(realpath "$SCENE_DIR")"
 IMAGES_DIR="$SCENE_DIR/images"
 DATABASE_PATH="$SCENE_DIR/database.db"
@@ -155,6 +163,7 @@ MIN_REGISTERED_FRACTION="${POSE_MIN_REGISTERED:-$MIN_REGISTERED_FRACTION_DEFAULT
 echo "=== COLMAP/GLOMAP pose estimation (Path 1) ==="
 echo "Scene:    $SCENE_DIR"
 echo "Matcher:  $MATCHER_MODE"
+echo "Skip retriangulation: $SKIP_RETRIANGULATION"
 echo "Cleanup:  $DO_CLEANUP"
 echo "Min reg:  ${MIN_REGISTERED_FRACTION} (fraction of input images)"
 echo
@@ -248,11 +257,15 @@ echo
 
 echo "--- Stage B.3: GLOMAP global mapping ---"
 
-"$GLOMAP_BIN" mapper \
+GLOMAP_ARGS=(mapper \
     --database_path "$DATABASE_PATH" \
     --image_path "$IMAGES_DIR" \
-    --output_path "$SPARSE_DIR" \
-    || die 5 "GLOMAP mapper failed."
+    --output_path "$SPARSE_DIR")
+if [[ "$SKIP_RETRIANGULATION" == "true" ]]; then
+    GLOMAP_ARGS+=(--skip_retriangulation 1)
+fi
+
+"$GLOMAP_BIN" "${GLOMAP_ARGS[@]}" || die 5 "GLOMAP mapper failed."
 
 echo "GLOMAP mapping complete."
 echo

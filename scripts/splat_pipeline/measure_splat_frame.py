@@ -50,6 +50,7 @@ from splat_frame import (  # noqa: E402
     PlyToWorld,
     ScaleReference,
     SplatBounds,
+    CAMERA_ROOM_SLACK_M,
 )
 
 # Half-extent of the analysis window around the training camera path, in
@@ -83,6 +84,7 @@ class Measurement:
     up_axis: int
     up_sign: int
     width_axis: int
+    width_note: str
     up_evidence: dict
     camera_ply: np.ndarray
 
@@ -212,7 +214,12 @@ def camera_path_report(cameras: CameraPath, collider: ColliderBox) -> str:
     )
 
 
-def measure(ply_path: Path, model_dir: str, dataparser_path: str) -> Measurement:
+def measure(
+    ply_path: Path,
+    model_dir: str,
+    dataparser_path: str,
+    target_clear_height_m: float,
+) -> Measurement:
     """Take every raw measurement the contract needs."""
     images = colmap_model.read_images(model_dir)
     if not images:
@@ -250,17 +257,25 @@ def measure(ply_path: Path, model_dir: str, dataparser_path: str) -> Measurement
             "ERROR: could not measure floor and ceiling on the measured up axis %s: %s"
             % (frame_axes.AXIS_NAMES[up_axis], error)
         ) from error
-    height = float(upper.offset - lower.offset)
     # Offsets are low/high by position, not by facing: a covariance encodes an
     # axis, never a facing, so only the measured up sign says which one is the floor.
     floor_frame = lower.offset if up_sign > 0 else upper.offset
     ceiling_frame = upper.offset if up_sign > 0 else lower.offset
+    height = float(upper.offset - lower.offset)
+    if not np.isfinite(target_clear_height_m) or target_clear_height_m <= 0.0:
+        raise SystemExit("ERROR: target clear height must be positive")
 
     # The width axis is only *tried*; a capture whose walls are not resolvable
     # reports width_axis = -1 and the room box falls back to the measured splat
     # extent on both horizontal axes.  That is the honest outcome, not a failure:
     # pretending to measure walls we cannot see is how colliders drift by eye.
-    width_axis = _width_axis(core, normals, up_axis)
+    width_axis, width_note = _width_axis(
+        core,
+        normals,
+        up_axis,
+        camera_centres,
+        CAMERA_ROOM_SLACK_M * height / target_clear_height_m,
+    )
     if width_axis < 0:
         width_low = width_high = float("nan")
     else:
@@ -286,27 +301,100 @@ def measure(ply_path: Path, model_dir: str, dataparser_path: str) -> Measurement
         up_axis=up_axis,
         up_sign=up_sign,
         width_axis=width_axis,
+        width_note=width_note,
         up_evidence=evidence,
         camera_ply=camera_centres,
     )
 
 
-def _width_axis(core, normals, up_axis: int) -> int:
-    """Return the horizontal axis whose surfaces are clear enough to measure, or -1.
+def _width_axis(
+    core,
+    normals,
+    up_axis: int,
+    camera_centres: np.ndarray,
+    camera_slack_units: float,
+) -> tuple[int, str]:
+    """Return a credible horizontal wall axis and a reason when none is credible.
 
     Picking the axis with the strongest bimodality beats picking by bounding-box
     width, which a long corridor wins on the axis you do not want.  When no axis
-    clears the contrast bar the function returns -1 and the caller reports that
-    the room's width was not measured, instead of inventing it.
+    clears the contrast bar and brackets the camera path, the function returns -1
+    and the caller reports that the room's width was not measured, instead of
+    mistaking an internal surface such as a column for a room boundary.
     """
     strengths = {
         candidate: splat_geometry.measure_plane_strength(core, normals, candidate)
         for candidate in sorted({0, 1, 2} - {up_axis})
     }
-    best = max(strengths, key=lambda index: strengths[index])
-    if strengths[best] < splat_geometry.MIN_MODE_CONTRAST:
-        return -1
-    return best
+    candidates = sorted(strengths, key=lambda index: strengths[index], reverse=True)
+    rejected = []
+    for candidate in candidates:
+        pair = _wall_pair(core, normals, candidate, strengths[candidate])
+        if pair is None:
+            continue
+        lower, upper = pair
+        if not _planes_bracket_cameras(
+            lower.offset, upper.offset, candidate, camera_centres, camera_slack_units
+        ):
+            rejected.append(_wall_rejection_note(
+                candidate, lower.offset, upper.offset, camera_centres, camera_slack_units
+            ))
+            continue
+        return candidate, ""
+    return -1, _wall_failure_note(rejected)
+
+
+def _wall_pair(core, normals, axis: int, strength: float):
+    """Measure a candidate wall pair only when its density contrast is usable."""
+    if strength < splat_geometry.MIN_MODE_CONTRAST:
+        return None
+    try:
+        return splat_geometry.measure_plane_pair(core, normals, axis, 0.02, 0.05)
+    except splat_geometry.MeasurementError:
+        return None
+
+
+def _planes_bracket_cameras(
+    low: float,
+    high: float,
+    axis: int,
+    cameras: np.ndarray,
+    slack: float,
+) -> bool:
+    """Whether measured walls enclose the camera path within metric slack."""
+    camera_low = float(cameras[:, axis].min())
+    camera_high = float(cameras[:, axis].max())
+    return camera_low >= low - slack and camera_high <= high + slack
+
+
+def _wall_rejection_note(
+    axis: int,
+    low: float,
+    high: float,
+    cameras: np.ndarray,
+    slack: float,
+) -> str:
+    """Explain why a dense internal pair was not accepted as room boundaries."""
+    camera_low = float(cameras[:, axis].min())
+    camera_high = float(cameras[:, axis].max())
+    return (
+        "axis %s planes %.3f..%.3f units do not bracket camera range %.3f..%.3f "
+        "within %.3f units (%.1f m)"
+        % (
+            frame_axes.AXIS_NAMES[axis], low, high, camera_low, camera_high,
+            slack, CAMERA_ROOM_SLACK_M,
+        )
+    )
+
+
+def _wall_failure_note(rejected: list[str]) -> str:
+    """Describe why no horizontal plane pair was used as room boundaries."""
+    if rejected:
+        return "Rejected candidate wall planes: " + "; ".join(rejected) + "."
+    return (
+        "No horizontal axis showed two surfaces above the %.1fx density-contrast "
+        "threshold."
+    ) % splat_geometry.MIN_MODE_CONTRAST
 
 
 def _mapping_width_axis(measurement: Measurement) -> int:
@@ -561,12 +649,10 @@ def _capture_record(args: argparse.Namespace, measurement: Measurement) -> dict:
                 * (target_metres(args) / measurement.height_units),
             )
             if measurement.width_axis >= 0
-            else "Wall planes were NOT resolved: no horizontal axis showed two surfaces "
-            "above the %.1fx density-contrast threshold (see splat_geometry.MIN_MODE_"
-            "CONTRAST). The room's horizontal extents therefore come from the measured "
-            "splat extent inside the camera-path window, not from measured wall offsets. "
-            "Treat them as observation bounds, not as a measured room."
-            % splat_geometry.MIN_MODE_CONTRAST
+            else "Wall planes were NOT measured: %s The room's horizontal extents therefore "
+            "come from the measured splat extent inside the camera-path window, not from "
+            "measured wall offsets. Treat them as observation bounds, not as a measured room."
+            % measurement.width_note
         ),
     }
 
@@ -607,7 +693,12 @@ def md5(path: Path) -> str:
 def main(argv: list[str] | None = None) -> int:
     """Measure the scene and write its alignment manifest."""
     args = parse_args(argv)
-    measurement = measure(Path(args.ply), args.colmap_model, args.dataparser_transforms)
+    measurement = measure(
+        Path(args.ply),
+        args.colmap_model,
+        args.dataparser_transforms,
+        target_metres(args),
+    )
     contract = build_contract(measurement, args)
     written = contract.save(args.out)
     reference = contract.scale_reference

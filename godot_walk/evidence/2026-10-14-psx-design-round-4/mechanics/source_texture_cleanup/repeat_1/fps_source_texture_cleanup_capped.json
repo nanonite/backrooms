@@ -1,0 +1,12 @@
+{
+	"baseline": false,
+	"capped_at_60": true,
+	"counter": "RenderingServer.frame_post_draw",
+	"elapsed_s": 14.982766,
+	"fps": 60.0022719436451,
+	"frames": 899,
+	"p95_frame_ms": 16.852,
+	"p99_frame_ms": 17.006,
+	"poses": 15,
+	"scene": "res://scenes/corridor_psx_design_candidate.tscn"
+}

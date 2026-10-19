@@ -1,0 +1,37 @@
+{
+  "round_id": "round-4",
+  "round_number": 4,
+  "out_dir": "godot_walk/evidence/2026-10-14-psx-design-round-4",
+  "issue": 121,
+  "baseline": "door_flush",
+  "variants": ["door_flush", "north_wall_source_texture", "source_texture_cleanup"],
+  "title": "PSX Design Round 4: Source-Texture Cleanup",
+  "scope": "Compare the flush-door control and north-wall texture against a visual-only candidate that source-textures the square wall shell, ceiling, floor, and column. The Gaussian PLY, collision, route, and door remain fixed.",
+  "review_prompt": "Review wall and corner coverage from every angle, column alignment, ceiling and floor texture, and the overall walk. Does the new candidate hide the artifacts without erasing the Backrooms character?",
+  "texture_crops": {
+    "wall": [1550, 320, 370, 380],
+    "ceiling": [640, 0, 320, 170],
+    "floor": [850, 900, 360, 150],
+    "column": [610, 300, 100, 400]
+  },
+  "video": "data/scenes/corridor_travel/video.mp4",
+  "source_frame": "data/scenes/corridor_travel/images/frame_0001.jpg",
+  "repeat_count": 3,
+  "settle_frames": 200,
+  "resolution": [1280, 720],
+  "fov_degrees": 75,
+  "fixed_fps": 60,
+  "rendering_driver": "vulkan",
+  "capture_path": "Godot viewport get_image()",
+  "negative_controls": ["boundary", "floor"],
+  "additional_inputs": [
+    "godot_walk/assets/psx_extension/textures/wallpaper.png",
+    "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+    "godot_walk/assets/psx_extension/textures/ceiling.png",
+    "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+    "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+    "godot_walk/assets/psx_extension/textures/column_source_video.png"
+  ],
+  "route_drift": false,
+  "feedback_template": "# Operator Feedback: PSX Design Round 4\n\nReview the wall/corner, column, ceiling, and floor from matched angles. Note where `door_flush` preserves texture better than the source-textured candidate, and whether the room still feels coherent during the live walk.\n\nCandidate choice by view:\n\nOverall walkthrough feel:\n\nRemaining problems:\n"
+}

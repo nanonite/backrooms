@@ -116,6 +116,7 @@ exit 0
     _write_stub(bin_dir, "train_splatfacto.sh", """#!/usr/bin/env bash
 set -euo pipefail
 SCENE_DIR="$1"
+printf '%s\\n' "${NS_USE_SCALE_REGULARIZATION:-false}" > "$SCENE_DIR/scale_regularization_used.txt"
 python3 - "$SCENE_DIR/scene.ply" << 'PYEOF'
 import struct, sys
 path = sys.argv[1]
@@ -365,6 +366,8 @@ def test_pipeline_resumability(tmp_path):
     )
     assert result1.returncode == 0, f"First run failed: {result1.stderr[-1000:]}"
     fresh_hashes = _asset_hashes(scene_dir)
+    stage_a_log = scene_dir / "logs" / "stage_a.log"
+    stage_a_log.write_text(stage_a_log.read_text() + "first-run detail marker\n")
 
     # Second run — should skip all stages
     result2 = subprocess.run(
@@ -376,6 +379,9 @@ def test_pipeline_resumability(tmp_path):
         cwd=str(REPO_ROOT),
     )
     assert result2.returncode == 0, f"Second run failed: {result2.stderr[-1000:]}"
+    assert "first-run detail marker" in stage_a_log.read_text(), (
+        "A cached stage must not truncate its previous diagnostic log."
+    )
 
     # Every stage must be skipped on the resumed run. The pipeline prints the
     # stable token "SKIP: <stage_name>" for each skipped stage.
@@ -426,6 +432,42 @@ def test_pipeline_invalidates_on_input_change(tmp_path):
     assert "skip: stage_a" not in second.stdout.lower(), (
         "Stage A should re-run when the video changes."
     )
+
+
+def test_scale_regularization_reaches_trainer_and_invalidates_stage_c(tmp_path):
+    scene_dir = tmp_path / "test_scene"
+    scene_dir.mkdir()
+    (scene_dir / "video.mp4").write_text("fake video content")
+    env, stub_dir = _make_stub_env(tmp_path)
+    stub_pipeline = stub_dir / "run_pipeline.sh"
+
+    first = subprocess.run(
+        ["bash", str(stub_pipeline), str(scene_dir)],
+        capture_output=True,
+        text=True,
+        env=env,
+        check=False,
+        cwd=str(REPO_ROOT),
+    )
+    assert first.returncode == 0, f"First run failed: {first.stderr[-1000:]}"
+    first_state = json.loads((scene_dir / "pipeline_state.json").read_text())
+    first_hash = first_state["stage_c"]["input_hash"]
+    assert (scene_dir / "scale_regularization_used.txt").read_text().strip() == "false"
+
+    env["NS_USE_SCALE_REGULARIZATION"] = "true"
+    second = subprocess.run(
+        ["bash", str(stub_pipeline), str(scene_dir)],
+        capture_output=True,
+        text=True,
+        env=env,
+        check=False,
+        cwd=str(REPO_ROOT),
+    )
+    assert second.returncode == 0, f"Second run failed: {second.stderr[-1000:]}"
+    second_state = json.loads((scene_dir / "pipeline_state.json").read_text())
+    assert second_state["stage_c"]["input_hash"] != first_hash
+    assert "skip: stage_c" not in second.stdout.lower()
+    assert (scene_dir / "scale_regularization_used.txt").read_text().strip() == "true"
 
 
 def test_pipeline_dry_run_does_not_mutate(tmp_path):

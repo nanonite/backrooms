@@ -1,0 +1,157 @@
+{
+	"boundary_pushes": {
+		"0": {
+			"end": [
+				0.5,
+				-0.593007147312164,
+				1.63020849227905
+			],
+			"trace": {
+				"distance_m": 0.903124809265137,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666667222976685,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"GeneratedCollision": 14
+				},
+				"ticks": 240
+			}
+		},
+		"1": {
+			"end": [
+				0.00304656848311424,
+				-0.592784762382507,
+				2.10106134414673
+			],
+			"trace": {
+				"distance_m": 0.645214080810547,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0690782591700554,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"GeneratedCollision": 10
+				},
+				"ticks": 240
+			}
+		},
+		"2": {
+			"end": [
+				-0.919977128505707,
+				-0.542780935764313,
+				2.60003685951233
+			],
+			"trace": {
+				"distance_m": 1.36990091577172,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0667131543159485,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"GeneratedCollision": 24
+				},
+				"ticks": 240
+			}
+		},
+		"3": {
+			"end": [
+				-0.901671946048737,
+				-0.54204785823822,
+				3.01387405395508
+			],
+			"trace": {
+				"distance_m": 1.51531495526433,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666981339454651,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"GeneratedCollision": 33
+				},
+				"ticks": 240
+			}
+		},
+		"4": {
+			"end": [
+				0.5,
+				-0.5428826212883,
+				3.02016091346741
+			],
+			"trace": {
+				"distance_m": 0.365723609924316,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0667130947113037,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"GeneratedCollision": 8
+				},
+				"ticks": 240
+			}
+		},
+		"5": {
+			"end": [
+				0.868880808353424,
+				-0.592048346996307,
+				3.01355457305908
+			],
+			"trace": {
+				"distance_m": 0.505296632647514,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0704460069537163,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"GeneratedCollision": 9
+				},
+				"ticks": 240
+			}
+		},
+		"6": {
+			"end": [
+				0.869791626930237,
+				-0.593007147312164,
+				2.59999990463257
+			],
+			"trace": {
+				"distance_m": 0.303124964237213,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666666626930237,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"GeneratedCollision": 5
+				},
+				"ticks": 240
+			}
+		},
+		"7": {
+			"end": [
+				0.86905711889267,
+				-0.592166066169739,
+				1.63012278079987
+			],
+			"trace": {
+				"distance_m": 1.05398584902287,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666666179895401,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"GeneratedCollision": 20
+				},
+				"ticks": 240
+			}
+		}
+	},
+	"failures": [],
+	"out_and_back": {
+		"distance_m": 4.30767879262567,
+		"floor_fraction": 1.0,
+		"max_step_m": 0.0686629712581635,
+		"safety_contacts": 0,
+		"support_bodies": {
+			"GeneratedCollision": 63
+		},
+		"ticks": 66
+	},
+	"scene": "res://scenes/corridor_psx_patch_extension.tscn",
+	"spawn_eye": [
+		-0.651324987411499,
+		-0.0429909825325012,
+		2.8875470161438
+	]
+}

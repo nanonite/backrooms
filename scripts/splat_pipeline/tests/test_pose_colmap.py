@@ -49,6 +49,9 @@ if [[ "$1" != "mapper" ]]; then
     echo "glomap stub: unknown command $1" >&2; exit 1
 fi
 shift
+if [[ -n "${GLOMAP_ARGS_CAPTURE:-}" ]]; then
+    printf '%s\\n' "$@" > "$GLOMAP_ARGS_CAPTURE"
+fi
 OUTPUT=""
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -259,6 +262,20 @@ class TestSuccessPath:
         rc, stdout, stderr = _run(tmp_path, env=env)
         assert rc == 0
         assert "POSE_OK" in stdout
+
+    def test_skip_retriangulation_passes_supported_glomap_flag(self, tmp_path):
+        _make_images(tmp_path, 5)
+        env = _make_stub_env(tmp_path)
+        capture = tmp_path / "glomap_args.txt"
+        env["GLOMAP_SKIP_RETRIANGULATION"] = "true"
+        env["GLOMAP_ARGS_CAPTURE"] = str(capture)
+
+        rc, stdout, stderr = _run(tmp_path, env=env)
+
+        assert rc == 0, stderr
+        arguments = capture.read_text().splitlines()
+        flag_index = arguments.index("--skip_retriangulation")
+        assert arguments[flag_index + 1] == "1"
 
     def test_no_cleanup_keeps_db(self, tmp_path):
         _make_images(tmp_path, 5)
