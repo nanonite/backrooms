@@ -1,3 +1,4 @@
+mod automation;
 mod input;
 mod metrics;
 mod resources;
@@ -15,16 +16,15 @@ use hunyuan_bevy_fixture::player_controller::{
     PLAYER_FLOAT_HEIGHT_M, PlayerMotionInput, yaw_facing_direction,
 };
 
+use self::{
+    automation::{configure as configure_automation, take_report, timeout_from_args},
+    input::{CursorLockState, WalkLook},
+    metrics::PlaySessionMetrics,
+};
 use crate::walkability_harness::{
     route_scene::assets::{SceneVisualConfig, SceneVisualMaterial},
     scenarios::{AuthoredRouteAsset, HarnessSpec},
     simulation::{HarnessPlayer, PlayerResetEvents, ScenarioReport},
-};
-use anyhow::Context;
-
-use self::{
-    input::{CursorLockState, WalkLook},
-    metrics::PlaySessionMetrics,
 };
 
 pub use self::{metrics::PlaySessionReport, resources::ResourcePreflight};
@@ -81,32 +81,6 @@ pub fn exit_on_scene_failure(scenario: Res<ScenarioReport>, mut exit: MessageWri
 
 pub fn check_resources() -> anyhow::Result<ResourcePreflight> {
     resources::check_resources()
-}
-
-pub fn finish_report(app: &App, preflight: ResourcePreflight) -> anyhow::Result<PlaySessionReport> {
-    let assets_ready = app
-        .world()
-        .get_resource::<ScenarioReport>()
-        .is_some_and(|report| report.collision_asset_loaded)
-        && app
-            .world()
-            .get_resource::<crate::walkability_harness::route_collision::SceneAssetReadiness>()
-            .is_some_and(|readiness| readiness.visual_ready);
-    let metrics = app
-        .world()
-        .get_resource::<PlaySessionMetrics>()
-        .context("interactive scene lost its runtime metrics")?;
-    let resets = app
-        .world()
-        .get_resource::<PlayerResetEvents>()
-        .cloned()
-        .unwrap_or_default();
-    Ok(metrics::create_report(
-        metrics.clone(),
-        preflight,
-        resets,
-        assets_ready,
-    ))
 }
 
 pub fn write_report(path: std::path::PathBuf, report: &PlaySessionReport) -> anyhow::Result<()> {
@@ -208,6 +182,7 @@ pub fn report_path(root: &std::path::Path) -> std::path::PathBuf {
 
 pub fn start(root: &std::path::Path) -> anyhow::Result<()> {
     let preflight = check_resources()?;
+    let timeout = timeout_from_args()?;
     println!(
         "Play-mode resource preflight: {}",
         serde_json::to_string(&preflight)?
@@ -230,9 +205,10 @@ pub fn start(root: &std::path::Path) -> anyhow::Result<()> {
         root,
         super::SceneAppMode::Interactive { initial_yaw },
     );
+    let report_path = report_path(root);
+    let report_handle = configure_automation(&mut app, report_path, preflight, timeout);
     let exit = app.run();
-    let report = finish_report(&app, preflight)?;
-    write_report(report_path(root), &report)?;
+    let report = take_report(report_handle)?;
     println!("{}", serde_json::to_string_pretty(&report)?);
     if exit.is_error() {
         anyhow::bail!("interactive Bevy app exited with an error");

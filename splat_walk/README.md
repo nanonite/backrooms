@@ -39,6 +39,16 @@ The report records resource preflight, asset load time, median and p95 frame
 time, peak process RSS, and reset events. Use `--play-report=/path/to/report.json`
 to choose another report path.
 
+Automated GPU runs can exit and write the report after a fixed duration with
+`--play-timeout-seconds=N` (1-3600). Keep an outer process timeout as a hard
+watchdog, for example:
+
+```sh
+timeout --signal=TERM --kill-after=5s 30s cargo run --release \
+  --manifest-path splat_walk/Cargo.toml --bin hunyuan_route_scene -- \
+  --play --play-timeout-seconds=15 --play-report=/tmp/hunyuan-play-report.json
+```
+
 Run the CPU-only input and traversal smoke check without opening a window or
 using the GPU:
 
