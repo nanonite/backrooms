@@ -6,6 +6,7 @@ use bevy::{
     ecs::system::SystemParam,
     gltf::{Gltf, GltfMesh, GltfNode},
     mesh::{Mesh, Mesh3d, VertexAttributeValues},
+    pbr::{MeshMaterial3d, StandardMaterial},
     prelude::{Commands, Handle, Name, Res, ResMut, Resource, Transform},
 };
 use serde::Serialize;
@@ -27,7 +28,11 @@ pub struct SceneVisualConfig {
     pub asset_path: String,
     pub model_transform: Transform,
     pub frame_141_camera_origin: bevy::prelude::Vec3,
+    pub analyze_alignment: bool,
 }
+
+#[derive(Resource)]
+pub struct SceneVisualMaterial(pub Handle<StandardMaterial>);
 
 #[derive(Resource)]
 pub struct VisualLoadState {
@@ -44,7 +49,7 @@ pub struct VisualSceneReportData {
     pub load_time_seconds: f64,
     pub query_preparation_time_seconds: f64,
     pub visual_nodes: Vec<VisualNodeReport>,
-    pub visual_alignment: VisualAlignmentMetrics,
+    pub visual_alignment: Option<VisualAlignmentMetrics>,
 }
 
 #[derive(Serialize, Clone)]
@@ -64,6 +69,7 @@ struct VisualBuildContext<'a, 'cw, 'cs, 'pw> {
     params: &'a VisualPollParams<'pw>,
     nodes_report: &'a mut Vec<VisualNodeReport>,
     query_meshes: &'a mut Vec<super::geometry_query::VisualQueryMesh>,
+    material: Option<Handle<StandardMaterial>>,
 }
 
 struct PrimitiveBuild {
@@ -87,6 +93,7 @@ pub struct VisualPollParams<'w> {
     output: ResMut<'w, VisualSceneReport>,
     readiness: ResMut<'w, SceneAssetReadiness>,
     scenario: ResMut<'w, ScenarioReport>,
+    material: Option<Res<'w, SceneVisualMaterial>>,
 }
 
 pub fn start_visual_loading(
@@ -148,17 +155,22 @@ fn build_visual_scene<'a, 'cw, 'cs, 'pw>(
         params,
         nodes_report: &mut nodes_report,
         query_meshes: &mut query_meshes,
+        material: params.material.as_ref().map(|material| material.0.clone()),
     };
     for node_name in VISUAL_NODE_NAMES {
         append_node_visuals(node_name, gltf, &mut context)?;
     }
-    let visual_alignment = analyze_visual_alignment(
-        &params.route,
-        params.config.frame_141_camera_origin,
-        &query_meshes,
-        PLAYER_RADIUS_M,
-        PLAYER_STEM_M,
-    )?;
+    let visual_alignment = if params.config.analyze_alignment {
+        Some(analyze_visual_alignment(
+            &params.route,
+            params.config.frame_141_camera_origin,
+            &query_meshes,
+            PLAYER_RADIUS_M,
+            PLAYER_STEM_M,
+        )?)
+    } else {
+        None
+    };
     Ok(VisualSceneReportData {
         load_time_seconds,
         query_preparation_time_seconds: build_started.elapsed().as_secs_f64(),
@@ -222,6 +234,7 @@ fn append_primitive<'a, 'cw, 'cs, 'pw>(
         params,
         nodes_report,
         query_meshes,
+        ..
     } = context;
     let mesh = params
         .meshes
@@ -238,16 +251,21 @@ fn append_primitive<'a, 'cw, 'cs, 'pw>(
         "uncalibrated_{}_{}",
         primitive.node_name, primitive.primitive_index
     );
-    commands.spawn((
+    let mut entity = commands.spawn((
         Name::new(name),
         Mesh3d(primitive.handle),
         primitive.world_transform,
     ));
-    query_meshes.push(build_visual_query_mesh(
-        &format!("{}_{}", primitive.node_name, primitive.primitive_index),
-        mesh,
-        primitive.world_transform,
-    )?);
+    if let Some(material) = context.material.as_ref() {
+        entity.insert(MeshMaterial3d(material.clone()));
+    }
+    if params.config.analyze_alignment {
+        query_meshes.push(build_visual_query_mesh(
+            &format!("{}_{}", primitive.node_name, primitive.primitive_index),
+            mesh,
+            primitive.world_transform,
+        )?);
+    }
     nodes_report.push(VisualNodeReport {
         node_name: primitive.node_name,
         primitive_name: primitive.primitive_name,

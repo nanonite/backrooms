@@ -1,0 +1,456 @@
+{
+  "schema_version": 1,
+  "label": "uncalibrated",
+  "status": "interactive_input_route_smoke_passed",
+  "keyboard_motion_mapping_exercised": true,
+  "locked_route_gate_passed": true,
+  "keyboard_reset_events": [
+    {
+      "reason": "keyboard_r",
+      "tick": 0,
+      "player_position_m": [
+        2.424882,
+        -0.5709905,
+        1.4506849
+      ]
+    }
+  ],
+  "traversal": {
+    "schema_version": 2,
+    "issue": 137,
+    "label": "uncalibrated",
+    "status": "interactive_input_route_smoke_passed",
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "transform_status": "uncalibrated_convention",
+    "scale_m_per_hunyuan_unit": 1.5582858,
+    "scale_sensitivity_range_m_per_hunyuan_unit": [
+      1.555256,
+      1.559205
+    ],
+    "plane_aligned_translation_world_m": [
+      2.2503421,
+      -0.22062215,
+      4.398888
+    ],
+    "model_rotation_xyzw": [
+      0.6189237,
+      0.3423688,
+      0.34419852,
+      -0.61745
+    ],
+    "camera_anchor_shift_y_m": -0.12034244,
+    "visual_asset_path": "godot_walk/generated_mesh_scenes/hunyuan_track_a_full_run/hunyuan_layers.glb",
+    "visual_asset_sha256": "5cc63c06b1bc920306a8da8758d4ef689c541f7fd64ccd8c02742b358902acba",
+    "collision_asset_path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/authored_route_around_column/authored_route_collision.glb",
+    "collision_asset_sha256": "c1c587cfdd773c058d13e71daf841aa460a2413229454ccab6bbf08cacfc460d",
+    "visual_layers_are_avian_colliders": false,
+    "gpu_used": false,
+    "rendering_enabled": false,
+    "traversal_gate": {
+      "source": "#135 locked authored-route gate",
+      "outbound_progress_fraction_min": 1.0,
+      "inbound_progress_fraction_min": 0.992,
+      "moving_support_fraction_min": 0.993,
+      "safety_net_contacts_max": 0,
+      "max_vertical_step_m": 0.2,
+      "comparison_rule": "use the exact #135 collision GLB and shared controller; these values must match the #135 report within 1e-6"
+    },
+    "visual_metric_contract": "visual floor gap is signed Hunyuan hit Y minus authored collision floor Y; directional absence counts samples without an upward-facing hit at or below the collision plane within 0.5 m, while a visual hole requires no hit within the full +/-0.5 m vertical window. Capsule intersection tests the shared 0.30 m radius / 1.20 m height player volume against temporary CPU query BVHs. All visual metrics are descriptive only because the transform is uncalibrated.",
+    "visual": {
+      "load_time_seconds": 2.179423717,
+      "query_preparation_time_seconds": 6.115060694,
+      "visual_nodes": [
+        {
+          "node_name": "mesh_layer0",
+          "primitive_name": "mesh_layer0",
+          "vertex_count": 9706239,
+          "triangle_count": 3235413,
+          "world_translation_m": [
+            2.2503421,
+            -0.22062215,
+            4.398888
+          ],
+          "world_rotation_xyzw": [
+            0.6189237,
+            0.3423688,
+            0.34419852,
+            -0.61745
+          ],
+          "world_scale": [
+            1.5582858,
+            1.5582858,
+            1.5582858
+          ],
+          "collider_created": false
+        },
+        {
+          "node_name": "mesh_layer1",
+          "primitive_name": "mesh_layer1",
+          "vertex_count": 44351856,
+          "triangle_count": 14783952,
+          "world_translation_m": [
+            2.2503421,
+            -0.22062215,
+            4.398888
+          ],
+          "world_rotation_xyzw": [
+            0.6189237,
+            0.3423688,
+            0.34419852,
+            -0.61745
+          ],
+          "world_scale": [
+            1.5582858,
+            1.5582858,
+            1.5582858
+          ],
+          "collider_created": false
+        }
+      ],
+      "visual_alignment": {
+        "query_method": "CPU-only Parry BVH queries over temporary visual-mesh copies; no Hunyuan Avian collider is created or registered",
+        "visual_mesh_triangle_counts": [
+          [
+            "mesh_layer0_0",
+            3235413
+          ],
+          [
+            "mesh_layer1_0",
+            14783952
+          ]
+        ],
+        "route_sample_count": 1536,
+        "floor_gap_signed_m": {
+          "sample_count": 1536,
+          "median_m": -0.027771652,
+          "q90_m": 0.031433642,
+          "max_m": 0.043033004
+        },
+        "floor_gap_abs_m": {
+          "sample_count": 1536,
+          "median_m": 0.03522356,
+          "q90_m": 0.078196466,
+          "max_m": 0.085683525
+        },
+        "no_floor_within_0_5m_below_count": 529,
+        "visual_hole_count": 0,
+        "visual_hole_fraction": 0.0,
+        "capsule_intersection_count": 0,
+        "capsule_intersection_fraction": 0.0,
+        "capsule_penetration_m": {
+          "sample_count": 0,
+          "median_m": null,
+          "q90_m": null,
+          "max_m": null
+        },
+        "worst_floor_gap_stations": [
+          {
+            "sample_index": 1211,
+            "position_m": [
+              0.23703635,
+              -0.5709905,
+              -1.3409892
+            ],
+            "distance_from_frame_141_m": 6.1009145,
+            "signed_floor_gap_m": -0.085683525,
+            "capsule_penetration_m": null
+          },
+          {
+            "sample_index": 1216,
+            "position_m": [
+              0.29398668,
+              -0.5709905,
+              -1.3263518
+            ],
+            "distance_from_frame_141_m": 6.0685472,
+            "signed_floor_gap_m": -0.08568311,
+            "capsule_penetration_m": null
+          },
+          {
+            "sample_index": 1215,
+            "position_m": [
+              0.2826215,
+              -0.5709905,
+              -1.3293723
+            ],
+            "distance_from_frame_141_m": 6.075069,
+            "signed_floor_gap_m": -0.085669816,
+            "capsule_penetration_m": null
+          },
+          {
+            "sample_index": 1212,
+            "position_m": [
+              0.24845064,
+              -0.5709905,
+              -1.3381549
+            ],
+            "distance_from_frame_141_m": 6.094489,
+            "signed_floor_gap_m": -0.085654676,
+            "capsule_penetration_m": null
+          },
+          {
+            "sample_index": 1210,
+            "position_m": [
+              0.22561044,
+              -0.5709905,
+              -1.3437768
+            ],
+            "distance_from_frame_141_m": 6.1073155,
+            "signed_floor_gap_m": -0.08562112,
+            "capsule_penetration_m": null
+          },
+          {
+            "sample_index": 1217,
+            "position_m": [
+              0.3053407,
+              -0.5709905,
+              -1.3232847
+            ],
+            "distance_from_frame_141_m": 6.062001,
+            "signed_floor_gap_m": -0.08560115,
+            "capsule_penetration_m": null
+          },
+          {
+            "sample_index": 1214,
+            "position_m": [
+              0.2712428,
+              -0.5709905,
+              -1.3323466
+            ],
+            "distance_from_frame_141_m": 6.0815663,
+            "signed_floor_gap_m": -0.08557087,
+            "capsule_penetration_m": null
+          },
+          {
+            "sample_index": 1213,
+            "position_m": [
+              0.259852,
+              -0.5709905,
+              -1.3352741
+            ],
+            "distance_from_frame_141_m": 6.088041,
+            "signed_floor_gap_m": -0.085561156,
+            "capsule_penetration_m": null
+          },
+          {
+            "sample_index": 1209,
+            "position_m": [
+              0.21417463,
+              -0.5709905,
+              -1.3465174
+            ],
+            "distance_from_frame_141_m": 6.1136923,
+            "signed_floor_gap_m": -0.08553314,
+            "capsule_penetration_m": null
+          },
+          {
+            "sample_index": 1218,
+            "position_m": [
+              0.31668204,
+              -0.5709905,
+              -1.320171
+            ],
+            "distance_from_frame_141_m": 6.055431,
+            "signed_floor_gap_m": -0.08550531,
+            "capsule_penetration_m": null
+          }
+        ],
+        "worst_capsule_intersection_stations": [],
+        "hole_stations": [],
+        "by_distance_from_frame_141": [
+          {
+            "band": "0-3m",
+            "sample_count": 407,
+            "floor_gap_signed_m": {
+              "sample_count": 407,
+              "median_m": 0.017929941,
+              "q90_m": 0.029380739,
+              "max_m": 0.035244226
+            },
+            "floor_gap_abs_m": {
+              "sample_count": 407,
+              "median_m": 0.020201027,
+              "q90_m": 0.029380739,
+              "max_m": 0.035244226
+            },
+            "holes_below_floor": 303,
+            "visual_holes": 0
+          },
+          {
+            "band": "3-6m",
+            "sample_count": 618,
+            "floor_gap_signed_m": {
+              "sample_count": 618,
+              "median_m": -0.020814836,
+              "q90_m": 0.036344916,
+              "max_m": 0.043033004
+            },
+            "floor_gap_abs_m": {
+              "sample_count": 618,
+              "median_m": 0.03756465,
+              "q90_m": 0.07548857,
+              "max_m": 0.08400321
+            },
+            "holes_below_floor": 226,
+            "visual_holes": 0
+          },
+          {
+            "band": "6-10m",
+            "sample_count": 511,
+            "floor_gap_signed_m": {
+              "sample_count": 511,
+              "median_m": -0.05330628,
+              "q90_m": -0.028454304,
+              "max_m": -0.014516711
+            },
+            "floor_gap_abs_m": {
+              "sample_count": 511,
+              "median_m": 0.05330628,
+              "q90_m": 0.084539235,
+              "max_m": 0.085683525
+            },
+            "holes_below_floor": 0,
+            "visual_holes": 0
+          },
+          {
+            "band": ">10m",
+            "sample_count": 0,
+            "floor_gap_signed_m": {
+              "sample_count": 0,
+              "median_m": null,
+              "q90_m": null,
+              "max_m": null
+            },
+            "floor_gap_abs_m": {
+              "sample_count": 0,
+              "median_m": null,
+              "q90_m": null,
+              "max_m": null
+            },
+            "holes_below_floor": 0,
+            "visual_holes": 0
+          }
+        ]
+      }
+    },
+    "traversal": {
+      "scenario": "authored_route_outbound_inbound",
+      "blocking": true,
+      "pass": true,
+      "runtime_seconds": 1.505543367,
+      "resident_set_kib_at_completion": 2177024,
+      "total_ticks": 1144,
+      "moving_ticks": 1144,
+      "support_ticks": 1143,
+      "moving_support_ticks": 1143,
+      "floor_ray_hit_ticks": 1144,
+      "moving_floor_ray_hit_ticks": 1144,
+      "headroom_clear_ticks": 1144,
+      "headroom_blocked_ticks": 0,
+      "floor_ray_miss_ticks": 0,
+      "floor_clearance_from_capsule_bottom": {
+        "sample_count": 1144,
+        "min_m": 0.09779173,
+        "median_m": 0.10000348,
+        "q90_m": 0.10004568,
+        "max_m": 0.10219586
+      },
+      "headroom_block_distance": {
+        "sample_count": 0,
+        "min_m": null,
+        "median_m": null,
+        "q90_m": null,
+        "max_m": null
+      },
+      "headroom_clear_distance_lower_bound_m": 0.55,
+      "floor_ray_max_distance_m": 1.4,
+      "headroom_ray_max_distance_m": 0.55,
+      "controller_max_slope_degrees": 16.0,
+      "outbound_progress_fraction": 1.0,
+      "inbound_progress_fraction": 0.992126,
+      "moving_support_fraction": 0.9991259,
+      "moving_floor_ray_fraction": 1.0,
+      "total_support_fraction": 0.9991259,
+      "total_floor_ray_fraction": 1.0,
+      "progress_fraction": 1.0,
+      "final_position": [
+        2.4047928,
+        -0.57098645,
+        1.7720493
+      ],
+      "min_y": -0.57319874,
+      "max_vertical_step": 0.0022509098,
+      "max_route_deviation_m": 0.0031425883,
+      "fallthrough_detected": false,
+      "controlled_slope_rejection": null,
+      "slope_rejection_outcome": null,
+      "slope_gate_failures": [],
+      "slope_sensor_hit_ticks": 0,
+      "slope_sensor_mismatch_ticks": 0,
+      "slope_sensor_samples": [],
+      "sensor_shape_diagnostic_samples": [],
+      "slope_release_tick": null,
+      "slope_recovery_ticks_to_flat_support": null,
+      "slope_recovered_to_flat": false,
+      "slope_max_capsule_bottom_height_above_flat_m": null,
+      "slope_peak_abs_vertical_velocity_mps": null,
+      "slope_input_position_radius_m": null,
+      "slope_recovery_end_max_speed_mps": null,
+      "slope_recovery_position_radius_m": null,
+      "slope_recovery_end_at_rest": false,
+      "ledge_boundary_walls_required": null,
+      "ledge_outcome": null,
+      "minimum_ledge_edge_clearance_m": null,
+      "maximum_ledge_lateral_center_z_m": null,
+      "ledge_edge_samples": [],
+      "safety_net_contact_events": [],
+      "support_loss_events": [],
+      "unsupported_authored_route_samples": [
+        {
+          "tick": 1,
+          "player_position_m": [
+            2.424882,
+            -0.5723876,
+            1.4506849
+          ]
+        }
+      ],
+      "collision_asset_loaded": true,
+      "collision_nodes": 4,
+      "floor_collision_triangles": 512,
+      "obstacle_collision_triangles": 12,
+      "edge_boundary_collision_triangles": 4096,
+      "edge_boundary_contact_events": [],
+      "authored_lateral_station": null,
+      "authored_lateral_expected_boundary": null,
+      "authored_lateral_max_abs_offset_m": null,
+      "authored_lateral_max_capsule_bottom_rise_m": null,
+      "authored_lateral_rest_max_speed_mps": null,
+      "authored_lateral_rest_position_radius_m": null,
+      "authored_lateral_rest_at_end": false,
+      "authored_lateral_samples": [],
+      "failure_reason": null
+    },
+    "baseline_comparison": {
+      "reference_report": "collision_proto/avian_tnua_harness/walkability_report.json",
+      "matches_within_1e_6": false,
+      "outbound_progress_delta": 0.0,
+      "inbound_progress_delta": 0.0,
+      "moving_support_delta": 0.0,
+      "max_vertical_step_delta_m": 0.000030040741,
+      "safety_net_contact_count_delta": 0
+    },
+    "update_time_ms": {
+      "sample_count": 1073,
+      "mean": 0.32128470363466916,
+      "p90": 0.337065,
+      "max": 11.932302,
+      "sample_scope": "app.update wall time in milliseconds after visual-query preparation and route collider installation"
+    },
+    "scene_total_wall_time_seconds": 10.507363843,
+    "route_simulation_wall_time_seconds": 1.505543367,
+    "peak_rss_kib": 5954320,
+    "current_rss_kib": 2197456
+  }
+}

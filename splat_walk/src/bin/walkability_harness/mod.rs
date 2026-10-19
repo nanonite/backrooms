@@ -245,6 +245,16 @@ pub fn run_route_scene() -> Result<()> {
     route_scene::run()
 }
 
+#[allow(dead_code)]
+pub fn run_interactive_play() -> Result<()> {
+    route_scene::run_interactive_play()
+}
+
+#[allow(dead_code)]
+pub fn run_play_smoke() -> Result<()> {
+    route_scene::run_play_smoke()
+}
+
 // This entry point is consumed by the companion hunyuan_route_scene binary.
 #[allow(dead_code)]
 pub fn run_route_scene_capture() -> Result<()> {

@@ -1,5 +1,5 @@
 use avian3d::prelude::{Collider, LockedAxes, RigidBody};
-use bevy::prelude::{Bundle, Component, Handle, Transform, Vec3};
+use bevy::prelude::{Bundle, Component, Handle, Resource, Transform, Vec3};
 use bevy_tnua::{
     TnuaController, TnuaScheme, TnuaToggle,
     builtins::{TnuaBuiltinWalkConfig, TnuaBuiltinWalkHeadroom},
@@ -30,6 +30,38 @@ pub struct PlayerControllerBundle {
     pub transform: Transform,
     pub toggle: TnuaToggle,
     pub steep_ground_hold: SteepGroundHold,
+}
+
+#[derive(Resource, Clone, Copy, Debug, Default, PartialEq)]
+pub struct PlayerMotionInput {
+    pub forward: f32,
+    pub right: f32,
+    pub yaw_radians: f32,
+    pub reset_requested: bool,
+}
+
+impl PlayerMotionInput {
+    pub fn take_reset_request(&mut self) -> bool {
+        std::mem::take(&mut self.reset_requested)
+    }
+
+    pub fn desired_motion(self) -> Vec3 {
+        let forward_axis = self.forward.clamp(-1.0, 1.0);
+        let right_axis = self.right.clamp(-1.0, 1.0);
+        let forward = Vec3::new(-self.yaw_radians.sin(), 0.0, -self.yaw_radians.cos());
+        let right = Vec3::new(self.yaw_radians.cos(), 0.0, -self.yaw_radians.sin());
+        let motion = forward * forward_axis + right * right_axis;
+        motion.normalize_or_zero()
+    }
+}
+
+pub fn yaw_facing_direction(direction: Vec3) -> f32 {
+    let horizontal = Vec3::new(direction.x, 0.0, direction.z).normalize_or_zero();
+    if horizontal == Vec3::ZERO {
+        0.0
+    } else {
+        (-horizontal.x).atan2(-horizontal.z)
+    }
 }
 
 /// Set while the character, having arrived from walkable support, is blocked by unwalkable
@@ -158,7 +190,8 @@ pub fn steep_ground_command(
 #[cfg(test)]
 mod tests {
     use super::{
-        SteepGroundHold, shape_steep_slope_motion, steep_ground_command, steep_ground_toggle,
+        PlayerMotionInput, SteepGroundHold, shape_steep_slope_motion, steep_ground_command,
+        steep_ground_toggle, yaw_facing_direction,
     };
     use bevy::prelude::Vec3;
     use bevy_tnua::TnuaToggle;
@@ -215,6 +248,59 @@ mod tests {
             TnuaToggle::Enabled
         );
         assert_eq!(steep_ground_toggle(Vec3::ZERO, None), TnuaToggle::Enabled);
+    }
+
+    #[test]
+    fn keyboard_motion_is_relative_to_view_yaw_and_normalized() {
+        let forward = PlayerMotionInput {
+            forward: 1.0,
+            yaw_radians: std::f32::consts::PI,
+            ..Default::default()
+        }
+        .desired_motion();
+        assert!(forward.distance(Vec3::Z) < 1.0e-6);
+
+        let diagonal = PlayerMotionInput {
+            forward: 1.0,
+            right: 1.0,
+            ..Default::default()
+        }
+        .desired_motion();
+        assert!((diagonal.length() - 1.0).abs() < 1.0e-6);
+        assert!(diagonal.x > 0.0 && diagonal.z < 0.0);
+    }
+
+    #[test]
+    fn yaw_conversion_faces_both_route_axes() {
+        let east = PlayerMotionInput {
+            forward: 1.0,
+            yaw_radians: yaw_facing_direction(Vec3::X),
+            ..Default::default()
+        }
+        .desired_motion();
+        let north = PlayerMotionInput {
+            forward: 1.0,
+            yaw_radians: yaw_facing_direction(Vec3::Z),
+            ..Default::default()
+        }
+        .desired_motion();
+        assert!(east.distance(Vec3::X) < 1.0e-6);
+        assert!(north.distance(Vec3::Z) < 1.0e-6);
+    }
+
+    #[test]
+    fn no_keyboard_input_stays_still() {
+        assert_eq!(PlayerMotionInput::default().desired_motion(), Vec3::ZERO);
+    }
+
+    #[test]
+    fn reset_request_is_consumed_once() {
+        let mut input = PlayerMotionInput {
+            reset_requested: true,
+            ..Default::default()
+        };
+        assert!(input.take_reset_request());
+        assert!(!input.take_reset_request());
     }
 
     #[test]

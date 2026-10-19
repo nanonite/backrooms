@@ -16,6 +16,7 @@ pub use hunyuan_bevy_fixture::player_controller::{
     CONTROLLER_MAX_SLOPE_DEGREES, ControlScheme, PLAYER_HEIGHT_M, PLAYER_RADIUS_M,
 };
 use hunyuan_bevy_fixture::player_controller::{ControlSchemeConfig, SteepGroundHold};
+use hunyuan_bevy_fixture::player_controller::{PlayerMotionInput, yaw_facing_direction};
 use serde::Serialize;
 
 use crate::walkability_harness::{
@@ -104,6 +105,21 @@ impl PathProgress {
             .map(|segment| point_segment_distance(position, segment[0], segment[1]))
             .fold(f32::INFINITY, f32::min)
     }
+
+    pub fn reset(&mut self) {
+        self.next_waypoint = 0;
+        self.active = false;
+    }
+}
+
+#[derive(Resource, Default, Clone)]
+pub struct PlayerResetEvents(pub Vec<PlayerResetEvent>);
+
+#[derive(Serialize, Clone)]
+pub struct PlayerResetEvent {
+    pub reason: String,
+    pub tick: usize,
+    pub player_position_m: [f32; 3],
 }
 
 #[derive(Resource)]
@@ -414,6 +430,7 @@ pub fn setup_scene(
         spec.waypoints.clone(),
         spec.waypoint_split,
     ));
+    commands.init_resource::<PlayerResetEvents>();
     spawn_synthetic_scene(&mut commands, &spec.geometry);
     if spec.name == STEEP_REJECTION_SCENARIO {
         sensor_shape_diagnostic::spawn_separated_geometry(&mut commands);
@@ -459,6 +476,7 @@ pub fn drive_player(
     mut path: ResMut<PathProgress>,
     spec: Res<HarnessSpec>,
     report: Res<ScenarioReport>,
+    input: Option<Res<PlayerMotionInput>>,
 ) {
     let Ok((
         position,
@@ -478,7 +496,9 @@ pub fn drive_player(
         path.next_waypoint += 1;
     }
     let reversing_slope = is_steep_rejection(&spec.name) && report.total_ticks >= SLOPE_INPUT_TICKS;
-    let mut direction = if let SyntheticGeometry::AuthoredLateralPush {
+    let mut direction = if let Some(input) = input {
+        input.desired_motion()
+    } else if let SyntheticGeometry::AuthoredLateralPush {
         outward_direction_xz,
         boundary_side,
         ..
@@ -534,6 +554,117 @@ pub fn drive_player(
         desired_motion: direction,
         ..Default::default()
     };
+}
+
+pub fn route_smoke_input(
+    players: bevy::prelude::Query<&Position, bevy::prelude::With<HarnessPlayer>>,
+    mut path: ResMut<PathProgress>,
+    mut input: ResMut<PlayerMotionInput>,
+) {
+    let Ok(position) = players.single() else {
+        return;
+    };
+    while let Some(target) = path.waypoints.get(path.next_waypoint)
+        && horizontal_distance(position.0, *target) <= WAYPOINT_TOLERANCE
+    {
+        path.next_waypoint += 1;
+    }
+    let Some(target) = path.waypoints.get(path.next_waypoint) else {
+        input.forward = 0.0;
+        input.right = 0.0;
+        return;
+    };
+    let direction = horizontal_delta(position.0, *target).normalize_or_zero();
+    if direction == Vec3::ZERO {
+        input.forward = 0.0;
+        input.right = 0.0;
+        return;
+    }
+    input.yaw_radians = yaw_facing_direction(direction);
+    input.forward = 1.0;
+    input.right = 0.0;
+}
+
+pub fn reset_player_from_input(
+    mut players: bevy::prelude::Query<ResetPlayerData, bevy::prelude::With<HarnessPlayer>>,
+    mut path: ResMut<PathProgress>,
+    spec: Res<HarnessSpec>,
+    report: Res<ScenarioReport>,
+    mut input: Option<ResMut<PlayerMotionInput>>,
+    mut events: ResMut<PlayerResetEvents>,
+) {
+    let Ok(mut player) = players.single_mut() else {
+        return;
+    };
+    let Some(input) = input.as_mut() else {
+        return;
+    };
+    if !input.take_reset_request() {
+        return;
+    }
+    let previous_position = player.1.0;
+    reset_player_state(&mut player, spec.start, &mut path);
+    events.0.push(PlayerResetEvent {
+        reason: "keyboard_r".to_owned(),
+        tick: report.total_ticks,
+        player_position_m: previous_position.to_array(),
+    });
+}
+
+pub fn reset_player_on_safety_net(
+    mut collision_starts: MessageReader<CollisionStart>,
+    safety_net: Res<SafetyNetEntity>,
+    mut players: bevy::prelude::Query<ResetPlayerData, bevy::prelude::With<HarnessPlayer>>,
+    mut path: ResMut<PathProgress>,
+    spec: Res<HarnessSpec>,
+    report: Res<ScenarioReport>,
+    mut events: ResMut<PlayerResetEvents>,
+) {
+    let Ok(mut player) = players.single_mut() else {
+        return;
+    };
+    let entity = player.0;
+    for collision in collision_starts.read() {
+        let touches_safety_net = (collision.collider1 == safety_net.0
+            && collision.collider2 == entity)
+            || (collision.collider2 == safety_net.0 && collision.collider1 == entity);
+        if !touches_safety_net {
+            continue;
+        }
+        let impact_position = player.1.0;
+        reset_player_state(&mut player, spec.start, &mut path);
+        events.0.push(PlayerResetEvent {
+            reason: "safety_net".to_owned(),
+            tick: report.total_ticks,
+            player_position_m: impact_position.to_array(),
+        });
+        break;
+    }
+}
+
+type ResetPlayerData = (
+    Entity,
+    &'static mut Position,
+    &'static mut Transform,
+    &'static mut LinearVelocity,
+    &'static mut TnuaToggle,
+    &'static mut SteepGroundHold,
+    &'static mut LockedAxes,
+);
+
+fn reset_player_state(
+    player: &mut bevy::ecs::query::QueryItem<ResetPlayerData>,
+    start: Vec3,
+    path: &mut PathProgress,
+) {
+    let (_, position, transform, velocity, toggle, hold, locked_axes) = player;
+    position.0 = start;
+    transform.translation = start;
+    velocity.0 = Vec3::ZERO;
+    **toggle = TnuaToggle::Enabled;
+    **hold = SteepGroundHold::default();
+    **locked_axes = LockedAxes::ROTATION_LOCKED;
+    path.reset();
 }
 
 pub(super) fn collect_sample(
