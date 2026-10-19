@@ -1,0 +1,21 @@
+{
+  "determinism_assumed": false,
+  "comparisons_to_repeat_1": [
+    {
+      "repeat": 2,
+      "reference_ticks": 197,
+      "repeat_ticks": 197,
+      "compared_ticks": 197,
+      "max_position_drift_m": 0.0,
+      "contact_or_floor_mismatch_ticks": 0
+    },
+    {
+      "repeat": 3,
+      "reference_ticks": 197,
+      "repeat_ticks": 197,
+      "compared_ticks": 197,
+      "max_position_drift_m": 0.0,
+      "contact_or_floor_mismatch_ticks": 0
+    }
+  ]
+}

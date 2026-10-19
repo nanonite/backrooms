@@ -494,7 +494,7 @@ class TestCameraPath:
             height_max_m=0.5,
             source="test",
         )
-        with pytest.raises(ContractError, match="do not lie inside the room"):
+        with pytest.raises(ContractError, match="incomplete geometric coverage"):
             make_contract(cameras=outside).validate()
 
     def test_contract_rejects_cameras_above_the_ceiling(self):

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/corridor_psx_room_v2.tscn" id="1_room_v2"]
+[ext_resource type="Script" path="res://scripts/psx_design_variant_driver.gd" id="2_variant_driver"]
+
+[node name="CorridorPsxDesignCandidate" instance=ExtResource("1_room_v2")]
+
+[node name="VariantDriver" type="Node" parent="."]
+script = ExtResource("2_variant_driver")

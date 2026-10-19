@@ -1,0 +1,5 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+Vulkan 1.4.329 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Ti
+
+DESIGN_CANDIDATE id=door_flush hypothesis=A leaf that sits within the fixed frame will read as an integrated service hatch rather than a door pasted onto the wall.
+FPS_JSON {"baseline":false,"capped_at_60":false,"counter":"RenderingServer.frame_post_draw","elapsed_s":3.245488,"fps":1386.23220914698,"frames":4499,"p95_frame_ms":0.97,"p99_frame_ms":1.116,"poses":15,"scene":"res://scenes/corridor_psx_design_candidate.tscn"}

@@ -1,0 +1,396 @@
+{
+  "scope": "Compare the flush-door control and north-wall texture against a visual-only candidate that source-textures the square wall shell, ceiling, floor, and column. The Gaussian PLY, collision, route, and door remain fixed.",
+  "repeat_noise": [
+    {
+      "repeat": "repeat_2",
+      "views": [
+        {
+          "view": "spawn_patch_anchor_e.png",
+          "station": "patch_anchor",
+          "heading": "e",
+          "diff_pixels": 26,
+          "diff_pct": 0.0,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/baseline_noise/repeat_2_spawn_patch_anchor_e.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_patch_anchor_w.png",
+          "station": "patch_anchor",
+          "heading": "w",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_transition_e.png",
+          "station": "transition",
+          "heading": "e",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_transition_w.png",
+          "station": "transition",
+          "heading": "w",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_e.png",
+          "station": "column",
+          "heading": "e",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_n.png",
+          "station": "column",
+          "heading": "n",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_w.png",
+          "station": "column",
+          "heading": "w",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_s.png",
+          "station": "column",
+          "heading": "s",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_far_room_e.png",
+          "station": "far_room",
+          "heading": "e",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_far_room_w.png",
+          "station": "far_room",
+          "heading": "w",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        }
+      ],
+      "max_diff_pct": 0.0
+    },
+    {
+      "repeat": "repeat_3",
+      "views": [
+        {
+          "view": "spawn_patch_anchor_e.png",
+          "station": "patch_anchor",
+          "heading": "e",
+          "diff_pixels": 730,
+          "diff_pct": 0.08,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/baseline_noise/repeat_3_spawn_patch_anchor_e.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_patch_anchor_w.png",
+          "station": "patch_anchor",
+          "heading": "w",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_transition_e.png",
+          "station": "transition",
+          "heading": "e",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_transition_w.png",
+          "station": "transition",
+          "heading": "w",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_e.png",
+          "station": "column",
+          "heading": "e",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_n.png",
+          "station": "column",
+          "heading": "n",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_w.png",
+          "station": "column",
+          "heading": "w",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_s.png",
+          "station": "column",
+          "heading": "s",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_far_room_e.png",
+          "station": "far_room",
+          "heading": "e",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_far_room_w.png",
+          "station": "far_room",
+          "heading": "w",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        }
+      ],
+      "max_diff_pct": 0.08
+    }
+  ],
+  "candidate_comparisons": [
+    {
+      "variant": "north_wall_source_texture",
+      "views": [
+        {
+          "view": "spawn_patch_anchor_e.png",
+          "station": "patch_anchor",
+          "heading": "e",
+          "diff_pixels": 29973,
+          "diff_pct": 3.25,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/north_wall_source_texture/north_wall_source_texture_spawn_patch_anchor_e.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_patch_anchor_w.png",
+          "station": "patch_anchor",
+          "heading": "w",
+          "diff_pixels": 27336,
+          "diff_pct": 2.97,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/north_wall_source_texture/north_wall_source_texture_spawn_patch_anchor_w.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_transition_e.png",
+          "station": "transition",
+          "heading": "e",
+          "diff_pixels": 1136,
+          "diff_pct": 0.12,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/north_wall_source_texture/north_wall_source_texture_spawn_transition_e.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_transition_w.png",
+          "station": "transition",
+          "heading": "w",
+          "diff_pixels": 27132,
+          "diff_pct": 2.94,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/north_wall_source_texture/north_wall_source_texture_spawn_transition_w.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_e.png",
+          "station": "column",
+          "heading": "e",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_n.png",
+          "station": "column",
+          "heading": "n",
+          "diff_pixels": 31053,
+          "diff_pct": 3.37,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/north_wall_source_texture/north_wall_source_texture_spawn_column_n.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_w.png",
+          "station": "column",
+          "heading": "w",
+          "diff_pixels": 13129,
+          "diff_pct": 1.42,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/north_wall_source_texture/north_wall_source_texture_spawn_column_w.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_s.png",
+          "station": "column",
+          "heading": "s",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_far_room_e.png",
+          "station": "far_room",
+          "heading": "e",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_far_room_w.png",
+          "station": "far_room",
+          "heading": "w",
+          "diff_pixels": 19329,
+          "diff_pct": 2.1,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/north_wall_source_texture/north_wall_source_texture_spawn_far_room_w.png",
+          "odiff_threshold": 0.1
+        }
+      ],
+      "mean_diff_pct": 1.617,
+      "max_diff_pct": 3.37
+    },
+    {
+      "variant": "source_texture_cleanup",
+      "views": [
+        {
+          "view": "spawn_patch_anchor_e.png",
+          "station": "patch_anchor",
+          "heading": "e",
+          "diff_pixels": 199953,
+          "diff_pct": 21.7,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/source_texture_cleanup/source_texture_cleanup_spawn_patch_anchor_e.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_patch_anchor_w.png",
+          "station": "patch_anchor",
+          "heading": "w",
+          "diff_pixels": 63944,
+          "diff_pct": 6.94,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/source_texture_cleanup/source_texture_cleanup_spawn_patch_anchor_w.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_transition_e.png",
+          "station": "transition",
+          "heading": "e",
+          "diff_pixels": 115136,
+          "diff_pct": 12.49,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/source_texture_cleanup/source_texture_cleanup_spawn_transition_e.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_transition_w.png",
+          "station": "transition",
+          "heading": "w",
+          "diff_pixels": 92485,
+          "diff_pct": 10.04,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/source_texture_cleanup/source_texture_cleanup_spawn_transition_w.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_e.png",
+          "station": "column",
+          "heading": "e",
+          "diff_pixels": 292902,
+          "diff_pct": 31.78,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/source_texture_cleanup/source_texture_cleanup_spawn_column_e.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_n.png",
+          "station": "column",
+          "heading": "n",
+          "diff_pixels": 149099,
+          "diff_pct": 16.18,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/source_texture_cleanup/source_texture_cleanup_spawn_column_n.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_w.png",
+          "station": "column",
+          "heading": "w",
+          "diff_pixels": 63462,
+          "diff_pct": 6.89,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/source_texture_cleanup/source_texture_cleanup_spawn_column_w.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_column_s.png",
+          "station": "column",
+          "heading": "s",
+          "diff_pixels": 81542,
+          "diff_pct": 8.85,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/source_texture_cleanup/source_texture_cleanup_spawn_column_s.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_far_room_e.png",
+          "station": "far_room",
+          "heading": "e",
+          "diff_pixels": 648943,
+          "diff_pct": 70.41,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/source_texture_cleanup/source_texture_cleanup_spawn_far_room_e.png",
+          "odiff_threshold": 0.1
+        },
+        {
+          "view": "spawn_far_room_w.png",
+          "station": "far_room",
+          "heading": "w",
+          "diff_pixels": 88747,
+          "diff_pct": 9.63,
+          "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-14-psx-design-round-4/diffs/source_texture_cleanup/source_texture_cleanup_spawn_far_room_w.png",
+          "odiff_threshold": 0.1
+        }
+      ],
+      "mean_diff_pct": 19.491,
+      "max_diff_pct": 70.41
+    }
+  ],
+  "odiff_threshold": 0.1,
+  "repeatability_note": "Candidate deltas at or below maximum control-repeat noise are inconclusive.",
+  "interpretation": "ODiff is a pixel-change diagnostic, not an art-direction score."
+}

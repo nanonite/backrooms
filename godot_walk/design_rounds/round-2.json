@@ -1,0 +1,27 @@
+{
+  "round_id": "round-2",
+  "round_number": 2,
+  "out_dir": "godot_walk/evidence/2026-10-13-psx-design-round-2-final",
+  "issue": 121,
+  "baseline": "door_flush",
+  "variants": ["door_flush", "north_wall_smooth", "clean_ceiling"],
+  "title": "PSX Design Round 2: Wall and Ceiling Treatments",
+  "scope": "Carry forward the operator-selected flush hatch. Compare a smoothed north wall with a clean ceiling grid; splat, route, room envelope, and collision remain fixed.",
+  "review_prompt": "Does the north-wall treatment make the right-hand wall feel more intentional? Does the clean ceiling reduce distracting artifacts? Choose a candidate, request a combination, or reject both.",
+  "inherited_feedback": "The operator preferred door_flush at far_room/E, patch_anchor/E, transition/E, and column/E. The right-hand wall needs smoothing and a more coherent design; ceiling Gaussian artifacts remain distracting.",
+  "texture_crops": {},
+  "repeat_count": 3,
+  "settle_frames": 200,
+  "resolution": [1280, 720],
+  "fov_degrees": 75,
+  "fixed_fps": 60,
+  "rendering_driver": "vulkan",
+  "capture_path": "Godot viewport get_image()",
+  "negative_controls": ["boundary", "floor"],
+  "additional_inputs": [
+    "godot_walk/assets/psx_extension/textures/wallpaper.png",
+    "godot_walk/assets/psx_extension/textures/ceiling.png"
+  ],
+  "route_drift": true,
+  "feedback_template": "# Operator Feedback: PSX Design Round 2\n\nRound 1 feedback carried forward: The operator preferred door_flush at far_room/E, patch_anchor/E, transition/E, and column/E. The right-hand wall needs smoothing and a more coherent design; ceiling Gaussian artifacts remain distracting.\n\nCompare matched views in the three columns. The first is the selected `door_flush` baseline, the second adds north-wall paneling, and the third adds a lowered ceiling tile grid. Record what improves, what still feels wrong, and what should carry into the next round.\n\n1. `door_flush` vs `north_wall_smooth` (right-hand north wall):\n   Choice:\n   Reason:\n2. `door_flush` vs `clean_ceiling` (ceiling treatment):\n   Choice:\n   Reason:\n3. `north_wall_smooth` vs `clean_ceiling`:\n   Choice:\n   Reason:\n\nOverall: choose a candidate, request a combination, reject all, or name a new direction.\nTraits to keep:\nRemaining problems:\nWould you approve one candidate as the room to carry forward? Why?\n"
+}

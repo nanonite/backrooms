@@ -1,0 +1,18 @@
+{
+  "baseline": "door_flush",
+  "determinism_assumed": false,
+  "comparisons_to_repeat_1": [
+    {
+      "repeat": 2,
+      "compared_ticks": 197,
+      "max_position_drift_m": 0.0,
+      "contact_or_floor_mismatch_ticks": 0
+    },
+    {
+      "repeat": 3,
+      "compared_ticks": 197,
+      "max_position_drift_m": 0.0,
+      "contact_or_floor_mismatch_ticks": 0
+    }
+  ]
+}

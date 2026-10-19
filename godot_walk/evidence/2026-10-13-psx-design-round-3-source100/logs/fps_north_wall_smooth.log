@@ -1,0 +1,5 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+Vulkan 1.4.329 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Ti
+
+DESIGN_CANDIDATE id=north_wall_smooth hypothesis=A flat, coherent wall finish with restrained trim will make the east-facing right wall feel intentional without altering the splat or route.
+FPS_JSON {"baseline":false,"capped_at_60":true,"counter":"RenderingServer.frame_post_draw","elapsed_s":14.982331,"fps":60.0040140616303,"frames":899,"p95_frame_ms":16.957,"p99_frame_ms":19.237,"poses":15,"scene":"res://scenes/corridor_psx_design_candidate.tscn"}

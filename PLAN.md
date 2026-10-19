@@ -39,6 +39,50 @@ The first separate authored control is `godot_walk/scenes/corridor_psx_patch_ext
 
 Issue #114 follows only after #113 establishes a reproducible manual patch-to-room loop. Run a controlled initial batch of synthetic clips from the same Backrooms visual target, vary capture-motion/coverage factors systematically, and train only candidates that pass cheap capture and pose gates. Measure whether each clip yields a compact, visually reliable Gaussian patch and how much manual PSX extension work it needs. Use the findings to define a minimum-good-splat-patch capture recipe before scaling to larger video batches.
 
+The proposal in `PLAN_IMAGE_TO_PANORAMA_DESIGN_HARNESS.md` is decomposed under #116. Start with Track B, #117, and its design brief, deterministic capture, and first human-directed iteration tasks (#119-#121); #118 research is advisory. Treat replay as measured repeatability, not guaranteed determinism; use visual metrics as diagnostics, not provenance or unvalidated pass/fail gates. Track A, #122-#126, is blocked until #121 demonstrates a useful loop. Hunyuan input must be a registered raw frame from the #100 source video, never a Gaussian render; this does not change #104's reconstruction criteria or replace the #115 baseline.
+
+Track B #121 remains active after #120. Round 1 selected the frame-aligned
+`door_flush` hatch. Round 2 found the `north_wall_smooth` wall shape promising,
+but it lost the Backrooms wallpaper; the lowered ceiling did not resolve its
+splat artifacts. Round 3 sampled wallpaper from registered frame 1 of the
+actual #100 source video (`data/scenes/corridor_travel/video.mp4`). The operator
+then confirmed the preference is angle-dependent: `north_wall_source_texture`
+helps on several patch-anchor and column views, while `door_flush` retains the
+native wall texture better from transition-west and far-room-west. The
+walkthrough reads as a room with a column and smaller door hallway; movement is
+consistent with no falls through the floor. Remaining work is to complete
+artifact-heavy wall corners and column faces, and smooth/cover the ceiling and
+floor without applying one wall candidate universally.
+
+Round 4 is the next separate review candidate. It keeps `door_flush` as control
+and adds a visual-only source-frame texture wrap for the north wall, ceiling,
+floor, and column; it leaves the far door wall in place and preserves the #100
+PLY, collision, route, camera, and compositor. The 13.067 m route has 100% floor
+support and zero SafetyNet contacts; floor and boundary negative controls fail
+as expected. Capped performance is 60.00 FPS (p95 16.85 ms, p99 16.94 ms),
+protected inputs are unchanged, and control repeat noise is at most 0.07%.
+ODiff changes are diagnostics, not a quality score. Review at
+`godot_walk/evidence/2026-10-14-psx-design-round-4-final/index.html`; keep #121
+open and #122 deferred until the operator reviews the new candidate. An earlier
+round-3 source check used the separate #107 video and is marked superseded in
+its evidence directory.
+
+Round 4 review identified an accidental second column: its source-textured cover
+was placed at z=2.55 m instead of over the existing column on the far-room
+z=0.2 m centerline. Round 5 preserves round 4 and compares the `door_flush`
+control with two new visual-only candidates: source-textured floor plus a single
+aligned column, and those surfaces plus a lower source-textured ceiling, fitted
+visible wall meshes, and square perimeter trim. The #100 PLY, collision, route,
+door, and camera remain fixed. Evidence:
+`godot_walk/evidence/2026-10-14-psx-design-round-5-final/index.html`.
+
+Round 5 passes the 13.067 m route with 100% floor support, zero SafetyNet
+contacts, expected boundary/floor negative-control failures, and capped 60 FPS.
+The corrected column cover reads as one column in the far-room comparison. The
+lower-ceiling variant still has visible Gaussian/bright artifacts and stronger
+trim, so it is not selected as a fix. Keep #121 open for the operator to review
+matched views and the live walk before choosing a next wall/ceiling iteration.
+
 ### #115 Implementation Workflow
 
 Keep the October 13 extension as a protected control. First capture representative splat-only views and annotate the patch envelope as good, marginal, or poor; use existing black/floater metrics as supporting data rather than inventing unvalidated artifact thresholds. Then build one separate room-v2 composition, reducing long partition dominance and making authored junctions intentional. Expand traversal only with explicit collision: if the Gaussian collision ends before the authored room, add a separately named authored floor collider and teach the verifier to report support by body while retaining floor/boundary negative controls. Parameterize the existing sweep and FPS harnesses for the v2 scene and evidence directory without changing legacy defaults. Compare matched views and intermediate turns, report visual transitions and runtime, and treat contribution masks as unmeasured unless an actual segmentation/ID pass is available; RGB differences from hidden-layer captures are not provenance masks. Use measured route area and length as results, not as arbitrary pass/fail targets.

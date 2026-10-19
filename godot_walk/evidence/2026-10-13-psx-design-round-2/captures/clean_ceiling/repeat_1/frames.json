@@ -1,0 +1,134 @@
+{
+	"capture_path": "root.get_texture().get_image()",
+	"fov_degrees": 75.0,
+	"hypothesis": "A clean authored ceiling plane and restrained grid will reduce distracting splat-like stains while retaining the room's warm lighting rhythm.",
+	"resolution": [
+		1280,
+		720
+	],
+	"scene": "res://scenes/corridor_psx_design_candidate.tscn",
+	"settle_frames": 200,
+	"variant": "clean_ceiling",
+	"views": [
+		{
+			"eye": [
+				0.5,
+				-0.0421642661094666,
+				1.70000004768372
+			],
+			"filename": "spawn_patch_anchor_e.png",
+			"fov_degrees": 75.0,
+			"heading": "e",
+			"route_id": "route_2",
+			"station": "patch_anchor"
+		},
+		{
+			"eye": [
+				0.5,
+				-0.0421642661094666,
+				1.70000004768372
+			],
+			"filename": "spawn_patch_anchor_w.png",
+			"fov_degrees": 75.0,
+			"heading": "w",
+			"route_id": "route_2",
+			"station": "patch_anchor"
+		},
+		{
+			"eye": [
+				1.25,
+				-0.0421642661094666,
+				1.70000004768372
+			],
+			"filename": "spawn_transition_e.png",
+			"fov_degrees": 75.0,
+			"heading": "e",
+			"route_id": "route_3",
+			"station": "transition"
+		},
+		{
+			"eye": [
+				1.25,
+				-0.0421642661094666,
+				1.70000004768372
+			],
+			"filename": "spawn_transition_w.png",
+			"fov_degrees": 75.0,
+			"heading": "w",
+			"route_id": "route_3",
+			"station": "transition"
+		},
+		{
+			"eye": [
+				2.59999990463257,
+				-0.0421642661094666,
+				0.200000002980232
+			],
+			"filename": "spawn_column_e.png",
+			"fov_degrees": 75.0,
+			"heading": "e",
+			"route_id": "route_5",
+			"station": "column"
+		},
+		{
+			"eye": [
+				2.59999990463257,
+				-0.0421642661094666,
+				0.200000002980232
+			],
+			"filename": "spawn_column_n.png",
+			"fov_degrees": 75.0,
+			"heading": "n",
+			"route_id": "route_5",
+			"station": "column"
+		},
+		{
+			"eye": [
+				2.59999990463257,
+				-0.0421642661094666,
+				0.200000002980232
+			],
+			"filename": "spawn_column_w.png",
+			"fov_degrees": 75.0,
+			"heading": "w",
+			"route_id": "route_5",
+			"station": "column"
+		},
+		{
+			"eye": [
+				2.59999990463257,
+				-0.0421642661094666,
+				0.200000002980232
+			],
+			"filename": "spawn_column_s.png",
+			"fov_degrees": 75.0,
+			"heading": "s",
+			"route_id": "route_5",
+			"station": "column"
+		},
+		{
+			"eye": [
+				3.5,
+				-0.0421642661094666,
+				0.200000002980232
+			],
+			"filename": "spawn_far_room_e.png",
+			"fov_degrees": 75.0,
+			"heading": "e",
+			"route_id": "route_6",
+			"station": "far_room"
+		},
+		{
+			"eye": [
+				3.5,
+				-0.0421642661094666,
+				0.200000002980232
+			],
+			"filename": "spawn_far_room_w.png",
+			"fov_degrees": 75.0,
+			"heading": "w",
+			"route_id": "route_6",
+			"station": "far_room"
+		}
+	]
+}

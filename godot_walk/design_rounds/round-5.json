@@ -1,0 +1,33 @@
+{
+  "round_id": "round-5",
+  "round_number": 5,
+  "out_dir": "godot_walk/evidence/2026-10-14-psx-design-round-5-final",
+  "issue": 121,
+  "baseline": "door_flush",
+  "variants": ["door_flush", "source_floor_single_column", "source_floor_ceiling_single_column"],
+  "title": "PSX Design Round 5: Single Column and Clean Surfaces",
+  "scope": "Compare door_flush walls with two source-texture candidates: a clean floor and single aligned column, then the same treatment with a lower ceiling and square corner trim. The Gaussian PLY, route, and collision remain fixed.",
+  "review_prompt": "Check that the added column cover reads as the existing single column. Compare the clean floor and ceiling-wall corners, and note any remaining Gaussian artifacts or loss of the Backrooms character.",
+  "texture_crops": {
+    "ceiling": [640, 0, 320, 170],
+    "floor": [850, 900, 360, 150],
+    "column": [610, 300, 100, 400]
+  },
+  "video": "data/scenes/corridor_travel/video.mp4",
+  "source_frame": "data/scenes/corridor_travel/images/frame_0001.jpg",
+  "repeat_count": 3,
+  "settle_frames": 200,
+  "resolution": [1280, 720],
+  "fov_degrees": 75,
+  "fixed_fps": 60,
+  "rendering_driver": "vulkan",
+  "capture_path": "Godot viewport get_image()",
+  "negative_controls": ["boundary", "floor"],
+  "additional_inputs": [
+    "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+    "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+    "godot_walk/assets/psx_extension/textures/column_source_video.png"
+  ],
+  "route_drift": false,
+  "feedback_template": "# Operator Feedback: PSX Design Round 5\n\nCandidate choice by view:\n\nOverall walkthrough feel:\n\nRemaining problems:\n"
+}

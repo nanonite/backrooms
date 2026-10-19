@@ -54,6 +54,25 @@ TARGET_FRAMES="${SPLAT_TARGET_FRAMES:-150}"
 # Training backend: "splatfacto" (default) or "brush" (fallback).
 TRAIN_BACKEND="${TRAIN_BACKEND:-splatfacto}"
 
+# Keep the Splatfacto training choice explicit and resumability-aware.
+NS_USE_SCALE_REGULARIZATION="${NS_USE_SCALE_REGULARIZATION:-false}"
+case "${NS_USE_SCALE_REGULARIZATION,,}" in
+    true|false) NS_USE_SCALE_REGULARIZATION="${NS_USE_SCALE_REGULARIZATION,,}" ;;
+    *) echo "ERROR: NS_USE_SCALE_REGULARIZATION must be true or false." >&2; exit 1 ;;
+esac
+
+GLOMAP_SKIP_RETRIANGULATION="${GLOMAP_SKIP_RETRIANGULATION:-false}"
+case "${GLOMAP_SKIP_RETRIANGULATION,,}" in
+    true|false) GLOMAP_SKIP_RETRIANGULATION="${GLOMAP_SKIP_RETRIANGULATION,,}" ;;
+    *) echo "ERROR: GLOMAP_SKIP_RETRIANGULATION must be true or false." >&2; exit 1 ;;
+esac
+
+SPLATFACTO_BRUSH_FALLBACK="${SPLATFACTO_BRUSH_FALLBACK:-true}"
+case "${SPLATFACTO_BRUSH_FALLBACK,,}" in
+    true|false) SPLATFACTO_BRUSH_FALLBACK="${SPLATFACTO_BRUSH_FALLBACK,,}" ;;
+    *) echo "ERROR: SPLATFACTO_BRUSH_FALLBACK must be true or false." >&2; exit 1 ;;
+esac
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -242,6 +261,18 @@ print(pipeline_state.file_hash(Path(sys.argv[1])))
 " "$1"
 }
 
+latest_file() {
+    python3 - "$1" "$2" <<'PY'
+import sys
+from pathlib import Path
+
+root = Path(sys.argv[1])
+matches = list(root.rglob(sys.argv[2])) if root.is_dir() else []
+if matches:
+    print(max(matches, key=lambda path: path.stat().st_mtime_ns))
+PY
+}
+
 # Compute a hash from settings strings.
 settings_hash() {
     PYTHONPATH="$SCRIPT_DIR" python3 -c "
@@ -270,13 +301,14 @@ if [[ "$DRY_RUN" == true ]]; then
     echo
     echo "Stage C: Splat training ($TRAIN_BACKEND)"
     if [[ "$TRAIN_BACKEND" == "splatfacto" ]]; then
-        echo "  $SCRIPT_DIR/train_splatfacto.sh $SCENE_DIR"
+        echo "  NS_USE_SCALE_REGULARIZATION=$NS_USE_SCALE_REGULARIZATION $SCRIPT_DIR/train_splatfacto.sh $SCENE_DIR"
+        echo "  Brush fallback: $SPLATFACTO_BRUSH_FALLBACK"
     else
         echo "  $SCRIPT_DIR/train_brush.sh $SCENE_DIR"
     fi
     echo
     echo "Stage D: Alignment contract"
-    echo "  python3 $SCRIPT_DIR/measure_splat_frame.py --ply $SCENE_DIR/scene.ply --colmap-model $SCENE_DIR/sparse/<selected> --dataparser-transforms $SCENE_DIR/splatfacto_output/dataparser_transforms.json --scene-id $SCENE_NAME --out $SCENE_DIR/alignment_manifest.json"
+    echo "  python3 $SCRIPT_DIR/measure_splat_frame.py --ply $SCENE_DIR/scene.ply --colmap-model $SCENE_DIR/sparse/<selected> --dataparser-transforms ${NS_OUTPUT_DIR:-$SCENE_DIR/splatfacto_output}/dataparser_transforms.json --scene-id $SCENE_NAME --out $SCENE_DIR/alignment_manifest.json"
     echo
     echo "Stage E: Collision mesh + traversal plan"
     echo "  python3 $SCRIPT_DIR/generate_collision.py --manifest $SCENE_DIR/alignment_manifest.json --ply $SCENE_DIR/scene.ply --out $SCENE_DIR/collision --report $SCENE_DIR/collision_benchmark.json"
@@ -306,7 +338,7 @@ python3 "$SCRIPT_DIR/validate_input.py" "$VIDEO_PATH" || {
 STAGE_A_LOG="$SCENE_DIR/logs/stage_a.log"
 
 echo
-echo "--- Stage A: Bounded sampling and frame extraction ---" | tee "$STAGE_A_LOG"
+echo "--- Stage A: Bounded sampling and frame extraction ---" | tee -a "$STAGE_A_LOG"
 
 STAGE_A_INPUT_HASH="$(file_hash "$VIDEO_PATH")"
 STAGE_A_INPUT_HASH="$(settings_hash "$STAGE_A_INPUT_HASH" "$TARGET_FRAMES" "$EXTRACT_FPS")"
@@ -409,7 +441,7 @@ fi
 STAGE_B_LOG="$SCENE_DIR/logs/stage_b.log"
 
 echo
-echo "--- Stage B: Pose estimation ---" | tee "$STAGE_B_LOG"
+echo "--- Stage B: Pose estimation ---" | tee -a "$STAGE_B_LOG"
 
 # Compute input hash from the images directory and matcher mode.
 STAGE_B_INPUT_HASH="$(PYTHONPATH="$SCRIPT_DIR" python3 -c "
@@ -424,7 +456,7 @@ for f in sorted(images_dir.glob('frame_*')):
     h.update(b'\x00')
 print(h.hexdigest())
 " "$SCENE_DIR/images")"
-STAGE_B_INPUT_HASH="$(settings_hash "$STAGE_B_INPUT_HASH" "${POSE_MATCHER_MODE:-exhaustive}")"
+STAGE_B_INPUT_HASH="$(settings_hash "$STAGE_B_INPUT_HASH" "${POSE_MATCHER_MODE:-exhaustive}" "$GLOMAP_SKIP_RETRIANGULATION")"
 
 STAGE_B_RAN=false
 if should_skip_stage "stage_b" "$STAGE_B_INPUT_HASH"; then
@@ -592,7 +624,7 @@ echo
 STAGE_C_LOG="$SCENE_DIR/logs/stage_c.log"
 
 echo
-echo "--- Stage C: Splat training ---" | tee "$STAGE_C_LOG"
+echo "--- Stage C: Splat training ---" | tee -a "$STAGE_C_LOG"
 
 STAGE_C_INPUT_HASH="$(PYTHONPATH="$SCRIPT_DIR" python3 -c "
 import sys, hashlib
@@ -607,7 +639,7 @@ for name in ['cameras.bin', 'images.bin', 'points3D.bin']:
     h.update(b'\x00')
 print(h.hexdigest())
 " "$SPARSE_MODEL_DIR")"
-STAGE_C_INPUT_HASH="$(settings_hash "$STAGE_C_INPUT_HASH" "$TRAIN_BACKEND" "${NS_MAX_STEPS:-30000}")"
+STAGE_C_INPUT_HASH="$(settings_hash "$STAGE_C_INPUT_HASH" "$TRAIN_BACKEND" "${NS_MAX_STEPS:-30000}" "${NS_EVAL_MODE:-all}" "$NS_USE_SCALE_REGULARIZATION" "$SPLATFACTO_BRUSH_FALLBACK")"
 
 if should_skip_stage "stage_c" "$STAGE_C_INPUT_HASH"; then
     echo "Stage C skipped (unchanged)." | tee -a "$STAGE_C_LOG"
@@ -616,6 +648,10 @@ else
         if [[ -x "$SCRIPT_DIR/train_splatfacto.sh" ]]; then
             SPARSE_MODEL_DIR="$SPARSE_MODEL_DIR" "$SCRIPT_DIR/train_splatfacto.sh" "$SCENE_DIR" 2>&1 | tee -a "$STAGE_C_LOG" || {
                 echo "FAIL: Stage C (Splatfacto training) failed (see above)." >&2 | tee -a "$STAGE_C_LOG"
+                if [[ "$SPLATFACTO_BRUSH_FALLBACK" != "true" ]]; then
+                    record_stage "stage_c" "$STAGE_C_INPUT_HASH" "" "failed" "Splatfacto failed; Brush fallback disabled"
+                    exit 1
+                fi
                 echo "Falling back to Brush..." >&2 | tee -a "$STAGE_C_LOG"
                 if [[ -x "$SCRIPT_DIR/train_brush.sh" ]]; then
                     SPARSE_MODEL_DIR="$SPARSE_MODEL_DIR" "$SCRIPT_DIR/train_brush.sh" "$SCENE_DIR" 2>&1 | tee -a "$STAGE_C_LOG" || {
@@ -683,22 +719,16 @@ echo
 STAGE_D_LOG="$SCENE_DIR/logs/stage_d.log"
 
 echo
-echo "--- Stage D: Alignment contract ---" | tee "$STAGE_D_LOG"
+echo "--- Stage D: Alignment contract ---" | tee -a "$STAGE_D_LOG"
 
-# Find the dataparser transforms JSON (produced by Stage C).
-DATAPARSER_TRANSFORMS=""
-for candidate in \
-    "$SCENE_DIR/splatfacto_output/dataparser_transforms.json" \
-    "$SCENE_DIR"/splatfacto_output/*/dataparser_transforms.json; do
-    if [[ -f "$candidate" ]]; then
-        DATAPARSER_TRANSFORMS="$candidate"
-        break
-    fi
-done
+# Nerfstudio nests transforms by dataset, method, and run timestamp.
+TRAINING_OUTPUT_DIR="${NS_OUTPUT_DIR:-$SCENE_DIR/splatfacto_output}"
+DATAPARSER_TRANSFORMS="$(latest_file "$TRAINING_OUTPUT_DIR" dataparser_transforms.json)"
 
 if [[ -z "$DATAPARSER_TRANSFORMS" ]]; then
-    echo "WARN: dataparser_transforms.json not found; measuring without it." >&2 | tee -a "$STAGE_D_LOG"
-    echo "Expected: $SCENE_DIR/splatfacto_output/dataparser_transforms.json" >&2 | tee -a "$STAGE_D_LOG"
+    echo "FAIL: dataparser_transforms.json not found under $TRAINING_OUTPUT_DIR." >&2 | tee -a "$STAGE_D_LOG"
+    record_stage "stage_d" "missing" "" "failed" "dataparser_transforms.json missing"
+    exit 1
 fi
 
 STAGE_D_INPUT_HASH="$(file_hash "$SCENE_DIR/scene.ply")"
@@ -753,7 +783,7 @@ echo
 STAGE_E_LOG="$SCENE_DIR/logs/stage_e.log"
 
 echo
-echo "--- Stage E: Collision mesh + traversal plan ---" | tee "$STAGE_E_LOG"
+echo "--- Stage E: Collision mesh + traversal plan ---" | tee -a "$STAGE_E_LOG"
 
 STAGE_E_INPUT_HASH="$(file_hash "$SCENE_DIR/scene.ply")"
 STAGE_E_INPUT_HASH="$(settings_hash "$STAGE_E_INPUT_HASH" "$(file_hash "$SCENE_DIR/alignment_manifest.json")" "${VOXEL_SIZE_M:-0.05}" "${EXTERIOR_FILL_M:-1.2}" "${CLUSTER_RESOLUTION_M:-0.25}")"
@@ -836,7 +866,7 @@ echo
 STAGE_F_LOG="$SCENE_DIR/logs/stage_f.log"
 
 echo
-echo "--- Stage F: Godot staging ---" | tee "$STAGE_F_LOG"
+echo "--- Stage F: Godot staging ---" | tee -a "$STAGE_F_LOG"
 
 STAGE_F_INPUT_HASH="$(file_hash "$SCENE_DIR/scene.ply")"
 STAGE_F_INPUT_HASH="$(settings_hash "$STAGE_F_INPUT_HASH" "$(file_hash "$SCENE_DIR/collision.collision.glb")" "$(file_hash "$SCENE_DIR/alignment_manifest.json")" "$(file_hash "$SCENE_DIR/traversal_manifest.json")")"

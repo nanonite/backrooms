@@ -262,6 +262,9 @@ artifact.
 # Default: COLMAP exhaustive matching + GLOMAP mapper
 scripts/splat_pipeline/pose_colmap.sh <scene_dir>
 
+# Skip a failing retriangulation pass if that option fixes the source database
+GLOMAP_SKIP_RETRIANGULATION=true scripts/splat_pipeline/pose_colmap.sh <scene_dir>
+
 # Sequential matcher for long walk-through videos (much faster)
 scripts/splat_pipeline/pose_colmap.sh <scene_dir> --sequential
 
@@ -298,8 +301,9 @@ routes to `pose_vggt.sh` (Path 2).
 |----------|---------|---------|
 | `POSE_MATCHER_MODE` | `exhaustive` | `sequential` or `exhaustive` |
 | `POSE_MIN_REGISTERED` | `0.5` | Fraction of input images that must register (0.0–1.0) |
+| `GLOMAP_SKIP_RETRIANGULATION` | `false` | Skip GLOMAP retriangulation when true; part of Stage B's resumability key |
 
-**Output:** `<scene_dir>/sparse/0/{cameras.bin, images.bin, points3D.bin}` in COLMAP binary format. Consumed by Stage C (Brush).
+**Output:** `<scene_dir>/sparse/0/{cameras.bin, images.bin, points3D.bin}` in COLMAP binary format. Consumed by Stage C.
 
 ### Stage B — VGGT fallback (Path 2)
 
@@ -366,22 +370,34 @@ vastly more robust. Less metric precision means a fiddlier alignment ritual
 (Back-end Step 4) and possibly a non-trivial scale factor.
 
 **Output:** `<scene_dir>/sparse/0/{cameras.bin, images.bin, points3D.bin}` in COLMAP
-binary format — identical contract to Path 1. Consumed by Stage C (Brush).
+binary format — identical contract to Path 1. Consumed by Stage C.
 
 **Stage C (#109):** Train the Gaussian splat. The default backend is Nerfstudio
 Splatfacto (`train_splatfacto.sh`); Brush (`train_brush.sh`) is the fallback for
-hosts where nerfstudio is unavailable. Output: `scene.ply`.
+hosts where nerfstudio is unavailable. Output: `scene.ply`. Splatfacto scale
+regularization defaults off to preserve prior runs; set
+`NS_USE_SCALE_REGULARIZATION=true` to suppress oversized, spiky Gaussians. The
+setting is included in Stage C's resumability key. Before training, the wrapper
+uses `colmap_dataset.py` to stage the selected model at `sparse/0` and create
+Nerfstudio's expected `images_2` set without modifying the capture or prompting.
+Set `SPLATFACTO_BRUSH_FALLBACK=false` when the run must remain on the established
+Splatfacto route; its value is also part of Stage C's resumability key.
 
 ### Stage C — Usage
 
 ```bash
-# Basic: 30k steps, no splat cap
-scripts/splat_pipeline/train_brush.sh <scene_dir>
+# Existing Godot reconstruction route: Nerfstudio Splatfacto
+TRAIN_BACKEND=splatfacto scripts/splat_pipeline/run_pipeline.sh <scene_dir>
 
-# Custom step count
+# Retrain with scale regularization
+NS_USE_SCALE_REGULARIZATION=true TRAIN_BACKEND=splatfacto \
+  scripts/splat_pipeline/run_pipeline.sh <scene_dir>
+
+# Brush fallback for a host without Nerfstudio
+TRAIN_BACKEND=brush scripts/splat_pipeline/run_pipeline.sh <scene_dir>
+
+# Direct Brush options remain available when invoking its trainer directly:
 scripts/splat_pipeline/train_brush.sh <scene_dir> --total-steps 20000
-
-# Cap splats for VRAM-limited targets (e.g., 12 GB RTX 4070 Ti)
 scripts/splat_pipeline/train_brush.sh <scene_dir> --max-splats 3000000
 ```
 

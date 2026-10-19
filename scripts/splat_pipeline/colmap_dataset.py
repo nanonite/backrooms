@@ -144,12 +144,20 @@ def _staging_images(source_dir: Path, staging_dir: Path) -> Path:
     return images
 
 
-def _stage_sparse(source_dir: Path, staging_dir: Path) -> None:
-    """Link the COLMAP model into the ``sparse/0`` layout nerfstudio reads."""
+def _stage_sparse(source_dir: Path, staging_dir: Path, model_dir: Path | None) -> None:
+    """Link either the scene model tree or selected model at ``sparse/0``."""
     sparse = source_dir / "sparse"
-    if not (sparse / "0" / "points3D.bin").exists():
-        raise DatasetError(f"no COLMAP model at {sparse / '0'}")
-    _link(sparse, staging_dir / "sparse")
+    if model_dir is None:
+        if not (sparse / "0" / "points3D.bin").exists():
+            raise DatasetError(f"no COLMAP model at {sparse / '0'}")
+        _link(sparse, staging_dir / "sparse")
+        return
+    model = model_dir if model_dir.is_absolute() else source_dir / model_dir
+    if not (model / "points3D.bin").is_file():
+        raise DatasetError(f"no COLMAP model at {model}")
+    selected = staging_dir / "sparse" / "0"
+    selected.parent.mkdir(parents=True, exist_ok=True)
+    _link(model, selected)
 
 
 def _render_downscaled(
@@ -185,6 +193,7 @@ def stage_dataset(
     staging_dir: str | Path,
     rounding: str = DEFAULT_ROUNDING,
     skip_downscaling: bool = False,
+    sparse_model_dir: str | Path | None = None,
 ) -> StagedDataset:
     """Prepare ``source_dir`` under ``staging_dir`` for an unattended nerfstudio run.
 
@@ -200,7 +209,8 @@ def stage_dataset(
     staging.mkdir(parents=True, exist_ok=True)
 
     images = _staging_images(source, staging)
-    _stage_sparse(source, staging)
+    model = Path(sparse_model_dir) if sparse_model_dir is not None else None
+    _stage_sparse(source, staging, model)
     frames = sorted(images.glob("*.jpg")) + sorted(images.glob("*.png"))
     if not frames:
         raise DatasetError(f"no frames found in {images}")
@@ -216,13 +226,14 @@ def stage_dataset(
 
 def main(argv: list[str]) -> int:
     """Stage a dataset from the command line; used by tests and manual setup."""
-    if len(argv) != 2:
-        print(f"usage: {sys.argv[0]} <capture_dir> <staging_dir>", file=sys.stderr)
+    if len(argv) not in (2, 3):
+        print(f"usage: {sys.argv[0]} <capture_dir> <staging_dir> [sparse_model_dir]", file=sys.stderr)
         return 1
     if shutil.which(FFMPEG) is None:
         print(f"ERROR: {FFMPEG} is required to stage a dataset", file=sys.stderr)
         return 2
-    staged = stage_dataset(argv[0], argv[1])
+    model = argv[2] if len(argv) == 3 else None
+    staged = stage_dataset(argv[0], argv[1], sparse_model_dir=model)
     print(f"staged {staged.frame_count} frames at {staged.downscaled_size} in {staged.staging_dir}")
     return 0
 

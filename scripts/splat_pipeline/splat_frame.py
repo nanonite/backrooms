@@ -334,12 +334,12 @@ class CameraPath:
         if not self.inside_room(room, CAMERA_ROOM_SLACK_M):
             raise ContractError(
                 "the reconstruction cameras (%d, %s .. %s, heights %.4f..%.4f m) do not "
-                "lie inside the room %s .. %s; the camera path and the measured room "
-                "were derived from different frames"
+                "fit the measured room bounds %s .. %s within %.1f m; this can indicate "
+                "a frame-mapping mismatch or incomplete geometric coverage"
                 % (self.count, low.round(4).tolist(), high.round(4).tolist(),
                    self.height_min_m, self.height_max_m,
                    np.round(room.min_corner, 4).tolist(),
-                   np.round(room.max_corner, 4).tolist())
+                   np.round(room.max_corner, 4).tolist(), CAMERA_ROOM_SLACK_M)
             )
         eye = self.height_mean_m - room.floor_height
         if not EYE_HEIGHT_RANGE_M[0] <= eye <= EYE_HEIGHT_RANGE_M[1]:

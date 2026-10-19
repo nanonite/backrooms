@@ -14,13 +14,15 @@
 #   scene_dir      Per-scene working directory containing images/ and a COLMAP
 #                  sparse model (the sub-model run_pipeline.sh selected).
 #   --max-steps    Maximum training iterations (default: 30000).
-#   --eval-mode    Evaluation mode: all | few | none (default: all).
+#   --eval-mode    COLMAP split mode: fraction | filename | interval | all (default: all).
 #
 # Environment:
 #   SPARSE_MODEL_DIR   Selected COLMAP model dir (default: <scene_dir>/sparse/0).
 #   NS_BIN             Path to the ns-train binary (default: ns-train).
 #   NS_MAX_STEPS       Default --max-steps (overridable by CLI; default: 30000).
 #   NS_EVAL_MODE       Default --eval-mode (overridable by CLI; default: all).
+#   NS_USE_SCALE_REGULARIZATION  Enable PhysGauss scale regularization (default: false).
+#   NS_DATASET_DIR    Disposable Nerfstudio input staging path (default: <scene_dir>/.splatfacto_dataset).
 #   NS_OUTPUT_DIR      Output directory (default: <scene_dir>/splatfacto_output).
 #
 # Exit codes:
@@ -46,6 +48,7 @@ set -euo pipefail
 DEFAULT_MAX_STEPS=30000
 DEFAULT_EVAL_MODE="all"
 SCENE_PLY="scene.ply"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Pinned tool versions (recorded in the scene manifest for provenance).
 PINNED_NERFSTUDIO_VERSION="${PINNED_NERFSTUDIO_VERSION:-1.1.5}"
@@ -64,13 +67,15 @@ Usage: train_splatfacto.sh <scene_dir> [--max-steps N] [--eval-mode MODE]
 
 Options:
   --max-steps N    Maximum training iterations (default: 30000).
-  --eval-mode MODE Evaluation mode: all | few | none (default: all).
+  --eval-mode MODE COLMAP split: fraction | filename | interval | all (default: all).
 
 Environment:
   SPARSE_MODEL_DIR   Selected COLMAP model dir (default: <scene_dir>/sparse/0).
   NS_BIN             Path to the ns-train binary (default: ns-train).
   NS_MAX_STEPS       Default max steps (overridable by --max-steps).
   NS_EVAL_MODE       Default eval mode (overridable by --eval-mode).
+  NS_USE_SCALE_REGULARIZATION  Enable scale regularization (true or false; default: false).
+  NS_DATASET_DIR    Disposable Nerfstudio input staging path.
   NS_OUTPUT_DIR      Output directory (default: <scene_dir>/splatfacto_output).
 
 Exit codes:
@@ -94,6 +99,13 @@ warn() {
     echo "WARN: $*" >&2
 }
 
+latest_output_file() {
+    local root="$1"
+    local pattern="$2"
+    find "$root" -type f -name "$pattern" -printf '%T@ %p\n' 2>/dev/null \
+        | sort -nr | head -n 1 | cut -d' ' -f2-
+}
+
 # ---------------------------------------------------------------------------
 # Argument parsing
 # ---------------------------------------------------------------------------
@@ -111,6 +123,7 @@ shift
 
 NS_MAX_STEPS_VAL="${NS_MAX_STEPS:-$DEFAULT_MAX_STEPS}"
 NS_EVAL_MODE_VAL="${NS_EVAL_MODE:-$DEFAULT_EVAL_MODE}"
+NS_USE_SCALE_REGULARIZATION_VAL="${NS_USE_SCALE_REGULARIZATION:-false}"
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -135,6 +148,20 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+case "$NS_EVAL_MODE_VAL" in
+    fraction|filename|interval|all) ;;
+    *) die 1 "--eval-mode must be fraction, filename, interval, or all." ;;
+esac
+
+case "${NS_USE_SCALE_REGULARIZATION_VAL,,}" in
+    true|false) NS_USE_SCALE_REGULARIZATION_VAL="${NS_USE_SCALE_REGULARIZATION_VAL,,}" ;;
+    *) die 1 "NS_USE_SCALE_REGULARIZATION must be true or false." ;;
+esac
+NS_SCALE_REGULARIZATION_ARGUMENT="False"
+if [[ "$NS_USE_SCALE_REGULARIZATION_VAL" == "true" ]]; then
+    NS_SCALE_REGULARIZATION_ARGUMENT="True"
+fi
+
 SCENE_DIR="$(realpath "$SCENE_DIR")"
 IMAGES_DIR="$SCENE_DIR/images"
 # The selected COLMAP model. run_pipeline.sh sets SPARSE_MODEL_DIR after
@@ -143,11 +170,13 @@ IMAGES_DIR="$SCENE_DIR/images"
 SPARSE_MODEL_DIR="${SPARSE_MODEL_DIR:-$SCENE_DIR/sparse/0}"
 PLY_OUT="$SCENE_DIR/$SCENE_PLY"
 OUTPUT_DIR="${NS_OUTPUT_DIR:-$SCENE_DIR/splatfacto_output}"
+TRAINING_DATA_DIR="${NS_DATASET_DIR:-$SCENE_DIR/.splatfacto_dataset}"
 
 echo "=== Nerfstudio Splatfacto training (Stage C) ==="
 echo "Scene:      $SCENE_DIR"
 echo "Max steps:  $NS_MAX_STEPS_VAL"
 echo "Eval mode:  $NS_EVAL_MODE_VAL"
+echo "Scale regularization: $NS_USE_SCALE_REGULARIZATION_VAL"
 echo "Output dir: $OUTPUT_DIR"
 echo
 
@@ -203,10 +232,13 @@ if [[ ! -f "$POINTS_BIN" ]]; then
     die 3 "points3D.bin not found: '$POINTS_BIN'. Stage B output incomplete."
 fi
 
-# nerfstudio's colmap dataparser resolves --colmap-path relative to --data.
-COLMAP_REL_PATH="${SPARSE_MODEL_DIR#"$SCENE_DIR"/}"
+# Nerfstudio prompts before generating images_2, so stage those frames first.
+python3 "$SCRIPT_DIR/colmap_dataset.py" "$SCENE_DIR" "$TRAINING_DATA_DIR" \
+    "$SPARSE_MODEL_DIR"
+COLMAP_REL_PATH="sparse/0"
 
-echo "COLMAP model: $SPARSE_MODEL_DIR (--colmap-path $COLMAP_REL_PATH)"
+echo "COLMAP model: $SPARSE_MODEL_DIR (staged as $COLMAP_REL_PATH)"
+echo "Training data: $TRAINING_DATA_DIR"
 echo
 
 # ---------------------------------------------------------------------------
@@ -223,7 +255,7 @@ echo "--- Stage C: Nerfstudio Splatfacto training ---"
 
 # Record tool versions for provenance. Query the actual installed versions
 # rather than asserting the pinned constants.
-NS_VERSION="$("$NS_PATH" --version 2>/dev/null || echo "unknown")"
+NS_VERSION="$(python3 -c 'from importlib.metadata import version; print(version("nerfstudio"))' 2>/dev/null || echo "unknown")"
 GSPLAT_VERSION="$(python3 -c "import gsplat; print(gsplat.__version__)" 2>/dev/null || echo "unknown")"
 echo "nerfstudio version: $NS_VERSION"
 echo "gsplat version: $GSPLAT_VERSION"
@@ -232,9 +264,8 @@ echo "gsplat version: $GSPLAT_VERSION"
 # (which contains images/ and sparse/0/). The --output-dir flag controls where
 # the training outputs (including dataparser_transforms.json) are written.
 #
-# The --pipeline.model.eval-mode flag controls how many evaluation images
-# are rendered during training. "all" renders every image, "few" renders a
-# subset, "none" renders none.
+# The COLMAP dataparser's --eval-mode chooses which registered images are held
+# out. "all" keeps every camera in the training split for this reconstruction.
 #
 # The --max-num-iterations flag controls the training duration.
 
@@ -245,11 +276,12 @@ echo "gsplat version: $GSPLAT_VERSION"
 # dataparser that does not read this COLMAP model.
 NS_TRAIN_ARGS=(
     "splatfacto"
-    "--data" "$SCENE_DIR"
+    "--data" "$TRAINING_DATA_DIR"
     "--output-dir" "$OUTPUT_DIR"
-    "--pipeline.model.eval-mode" "$NS_EVAL_MODE_VAL"
+    "--viewer.quit-on-train-completion" "True"
+    "--pipeline.model.use-scale-regularization" "$NS_SCALE_REGULARIZATION_ARGUMENT"
     "--max-num-iterations" "$NS_MAX_STEPS_VAL"
-    "colmap" "--colmap-path" "$COLMAP_REL_PATH"
+    "colmap" "--colmap-path" "$COLMAP_REL_PATH" "--eval-mode" "$NS_EVAL_MODE_VAL"
 )
 
 echo "Command: $NS_PATH ${NS_TRAIN_ARGS[*]}"
@@ -281,29 +313,12 @@ echo "--- Exporting PLY ---"
 # But newer versions of nerfstudio export automatically during training. We
 # check for the PLY in the output directory first.
 
-EXPORTED_PLY=""
-
-# Check for auto-exported PLY in the output directory.
-for candidate in \
-    "$OUTPUT_DIR"/*.ply \
-    "$OUTPUT_DIR"/nerfstudio_models/*.ply \
-    "$OUTPUT_DIR"/export/*.ply; do
-    if [[ -f "$candidate" ]]; then
-        EXPORTED_PLY="$candidate"
-        break
-    fi
-done
+EXPORTED_PLY="$(latest_output_file "$OUTPUT_DIR" "*.ply")"
 
 # If no auto-exported PLY was found, try to export manually.
 if [[ -z "$EXPORTED_PLY" ]]; then
     # Find the config YAML in the output directory.
-    CONFIG_YAML=""
-    for candidate in "$OUTPUT_DIR"/config.yml "$OUTPUT_DIR"/*/config.yml; do
-        if [[ -f "$candidate" ]]; then
-            CONFIG_YAML="$candidate"
-            break
-        fi
-    done
+    CONFIG_YAML="$(latest_output_file "$OUTPUT_DIR" "config.yml")"
 
     if [[ -n "$CONFIG_YAML" ]]; then
         echo "No auto-exported PLY found. Exporting from config: $CONFIG_YAML"
@@ -314,15 +329,7 @@ if [[ -z "$EXPORTED_PLY" ]]; then
         }
 
         # Check again for the exported PLY.
-        for candidate in \
-            "$OUTPUT_DIR"/*.ply \
-            "$OUTPUT_DIR"/nerfstudio_models/*.ply \
-            "$OUTPUT_DIR"/export/*.ply; do
-            if [[ -f "$candidate" ]]; then
-                EXPORTED_PLY="$candidate"
-                break
-            fi
-        done
+        EXPORTED_PLY="$(latest_output_file "$OUTPUT_DIR" "*.ply")"
     fi
 fi
 
@@ -386,16 +393,8 @@ COLMAP_VERSION="$(command -v colmap >/dev/null 2>&1 && colmap --version 2>/dev/n
 GLOMAP_VERSION="$(command -v glomap >/dev/null 2>&1 && glomap --version 2>/dev/null | head -n 1 || echo unknown)"
 
 # Locate the nerfstudio config and dataparser transform actually produced.
-CONFIG_YAML=""
-for candidate in "$OUTPUT_DIR"/config.yml "$OUTPUT_DIR"/*/config.yml; do
-    if [[ -f "$candidate" ]]; then CONFIG_YAML="$candidate"; break; fi
-done
-DATAPARSER_JSON=""
-for candidate in \
-    "$OUTPUT_DIR"/dataparser_transforms.json \
-    "$OUTPUT_DIR"/*/dataparser_transforms.json; do
-    if [[ -f "$candidate" ]]; then DATAPARSER_JSON="$candidate"; break; fi
-done
+CONFIG_YAML="$(latest_output_file "$OUTPUT_DIR" "config.yml")"
+DATAPARSER_JSON="$(latest_output_file "$OUTPUT_DIR" "dataparser_transforms.json")"
 
 python3 - "$SCENE_DIR" "$NS_VERSION" "$GSPLAT_VERSION" "$PINNED_NERFSTUDIO_VERSION" \
     "$PINNED_GSPLAT_VERSION" "$COLMAP_VERSION" "$GLOMAP_VERSION" \

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "candidate_id": "clean_ceiling",
+  "parent_candidate_id": "door_flush",
+  "source_type": "gaussian_splat",
+  "change_summary": "Keep the selected flush hatch and add a lowered visual-only PSX tile ceiling beneath the noisy overhead region.",
+  "hypothesis": "A dropped false ceiling can cover high ceiling splats and give the room a deliberate acoustic-tile rhythm without changing traversal or collision.",
+  "design": {
+    "layout": "room_v2",
+    "transition": "framed_portal_v2",
+    "doorway_policy": "flush_to_wall_face",
+    "surface_treatment": "lowered_ceiling_grid",
+    "column_face_treatment": "preserve_native_splat",
+    "junction_treatment": "inherit_v2",
+    "materials": {
+      "wall": "wallpaper_v2",
+      "floor": "carpet_v2",
+      "ceiling": "ceiling_v2",
+      "wainscot": "olive_wainscot_v2",
+      "trim": "walnut_trim_v2",
+      "light": "warm_emissive_v2",
+      "door": "service_green_v2",
+      "hardware": "brass_v2"
+    },
+    "collision": {
+      "policy": "inherit_v2_locked",
+      "bounds_m": {
+        "west": -1.35,
+        "east": 4.0,
+        "south": -2.8,
+        "north": 3.4,
+        "wall_thickness": 0.16,
+        "floor_y": -1.143,
+        "ceiling_y": 1.8,
+        "floor_west": 0.45,
+        "floor_thickness": 0.12,
+        "partition_x": 2.8,
+        "portal_south": -0.2,
+        "portal_north": 2.6
+      }
+    }
+  }
+}

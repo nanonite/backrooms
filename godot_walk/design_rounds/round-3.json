@@ -1,0 +1,30 @@
+{
+  "round_id": "round-3",
+  "round_number": 3,
+  "out_dir": "godot_walk/evidence/2026-10-13-psx-design-round-3-source100",
+  "issue": 121,
+  "baseline": "door_flush",
+  "variants": ["door_flush", "north_wall_smooth", "north_wall_source_texture"],
+  "title": "PSX Design Round 3: Source Wallpaper",
+  "scope": "Compare a flat smooth north wall with the same wall carrying wallpaper sampled from raw source-video frame 1. Door, room, route, splat, and collision stay fixed.",
+  "review_prompt": "Does the source-video wallpaper restore the Backrooms identity while keeping the smoother wall shape? Compare against the flat wall and flush-door control.",
+  "inherited_feedback": "The operator selected door_flush and said north_wall_smooth had the right wall shape but lost the original Backrooms texture.",
+  "texture_crops": { "wall": [1550, 320, 370, 380] },
+  "video": "data/scenes/corridor_travel/video.mp4",
+  "source_frame": "data/scenes/corridor_travel/images/frame_0001.jpg",
+  "repeat_count": 3,
+  "settle_frames": 200,
+  "resolution": [1280, 720],
+  "fov_degrees": 75,
+  "fixed_fps": 60,
+  "rendering_driver": "vulkan",
+  "capture_path": "Godot viewport get_image()",
+  "negative_controls": ["boundary", "floor"],
+  "additional_inputs": [
+    "godot_walk/assets/psx_extension/textures/wallpaper.png",
+    "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+    "godot_walk/assets/psx_extension/textures/ceiling.png"
+  ],
+  "route_drift": false,
+  "feedback_template": "# Operator Feedback: PSX Design Round 3\n\nRound 2 feedback carried forward: The operator selected door_flush and said north_wall_smooth had the right wall shape but lost the original Backrooms texture.\n\n1. `north_wall_smooth` vs `north_wall_source_texture`:\n   Choice:\n   Reason:\n2. `door_flush` vs `north_wall_source_texture`:\n   Choice:\n   Reason:\n\nDoes the wallpaper feel like the original Backrooms surface? Is the pattern too large, too small, too repetitive, or about right?\n\nOverall: choose a candidate, request a change, or reject both.\nTraits to keep:\nRemaining problems:\n"
+}

@@ -100,6 +100,20 @@ def test_the_model_is_reachable_at_the_path_nerfstudio_is_told_to_use(tmp_path):
     assert (tmp_path / "staging" / "sparse" / "0" / "points3D.bin").exists()
 
 
+def test_staging_places_the_selected_model_at_sparse_zero(tmp_path):
+    capture = make_capture(tmp_path / "capture")
+    selected = tmp_path / "selected_model"
+    selected.mkdir()
+    (selected / "points3D.bin").write_bytes(b"selected")
+
+    stage_dataset(capture, tmp_path / "staging", sparse_model_dir=selected)
+
+    staged_model = tmp_path / "staging" / "sparse" / "0"
+    assert staged_model.is_symlink()
+    assert staged_model.resolve() == selected.resolve()
+    assert (capture / "sparse" / "0" / "points3D.bin").read_bytes() == b"\x00" * 8
+
+
 def test_restaging_reuses_rendered_frames_rather_than_redoing_them(tmp_path):
     capture = make_capture(tmp_path / "capture")
     staging = tmp_path / "staging"
