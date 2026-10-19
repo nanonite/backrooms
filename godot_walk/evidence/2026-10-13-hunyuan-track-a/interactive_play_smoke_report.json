@@ -58,8 +58,8 @@
     },
     "visual_metric_contract": "visual floor gap is signed Hunyuan hit Y minus authored collision floor Y; directional absence counts samples without an upward-facing hit at or below the collision plane within 0.5 m, while a visual hole requires no hit within the full +/-0.5 m vertical window. Capsule intersection tests the shared 0.30 m radius / 1.20 m height player volume against temporary CPU query BVHs. All visual metrics are descriptive only because the transform is uncalibrated.",
     "visual": {
-      "load_time_seconds": 2.179423717,
-      "query_preparation_time_seconds": 6.115060694,
+      "load_time_seconds": 2.561827856,
+      "query_preparation_time_seconds": 6.958361362,
       "visual_nodes": [
         {
           "node_name": "mesh_layer0",
@@ -338,8 +338,8 @@
       "scenario": "authored_route_outbound_inbound",
       "blocking": true,
       "pass": true,
-      "runtime_seconds": 1.505543367,
-      "resident_set_kib_at_completion": 2177024,
+      "runtime_seconds": 1.703500745,
+      "resident_set_kib_at_completion": 2178192,
       "total_ticks": 1144,
       "moving_ticks": 1144,
       "support_ticks": 1143,
@@ -443,14 +443,14 @@
     },
     "update_time_ms": {
       "sample_count": 1073,
-      "mean": 0.32128470363466916,
-      "p90": 0.337065,
-      "max": 11.932302,
+      "mean": 0.5171072842497674,
+      "p90": 0.678853,
+      "max": 13.213671999999999,
       "sample_scope": "app.update wall time in milliseconds after visual-query preparation and route collider installation"
     },
-    "scene_total_wall_time_seconds": 10.507363843,
-    "route_simulation_wall_time_seconds": 1.505543367,
-    "peak_rss_kib": 5954320,
-    "current_rss_kib": 2197456
+    "scene_total_wall_time_seconds": 12.050544999,
+    "route_simulation_wall_time_seconds": 1.703500745,
+    "peak_rss_kib": 5953072,
+    "current_rss_kib": 2198216
   }
 }

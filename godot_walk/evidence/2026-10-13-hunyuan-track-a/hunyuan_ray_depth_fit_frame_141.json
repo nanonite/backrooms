@@ -3,11 +3,11 @@
   "units": "#100 declared metres (chosen 2.4 m clear-height convention; source is synthetic)",
   "inputs": {
     "source_frame": {
-      "path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/images/frame_0141.jpg",
+      "path": "data/scenes/corridor_travel/images/frame_0141.jpg",
       "sha256": "f77d26c4814611ed1c27ec745d513fabf84936577148e70d609bd872a41c3cc5"
     },
     "hunyuan_mesh": {
-      "path": "/mnt/sharedOs/backrooms-track-a/data/track-a/hunyuan/scene-run-05/mesh_layer1.ply",
+      "path": "data/track-a/hunyuan/scene-run-05/mesh_layer1.ply",
       "sha256": "4955ffcd5d05d9dd0bdece02624495fbd39eeb80383c3c5bd119a0a2473e8698",
       "grid": [
         3840,
@@ -15,7 +15,7 @@
       ]
     },
     "foreground_mask": {
-      "path": "/mnt/sharedOs/backrooms-track-a/data/track-a/hunyuan/scene-run-05/fg1_mask.png",
+      "path": "data/track-a/hunyuan/scene-run-05/fg1_mask.png",
       "sha256": "9547651316ae3f69eb2a387ef0a1fccd2dec4dbe91ac1a05494243ba61737e74"
     },
     "colmap_model": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/sparse/0",
@@ -29,7 +29,7 @@
     },
     "calibration_manifest": {
       "path": "/mnt/sharedOs/backrooms-track-a/godot_walk/evidence/2026-10-13-hunyuan-track-a/calibration_manifest_frame_141.json",
-      "sha256": "98fa06c73e748f98dfcad0ecddbf250cb9f735736dd5fbcee1f8ce65369afe64"
+      "sha256": "a5b2c0cee8c2cc30313fa0f75e39919f1d52206608f296f8697e809e25915668"
     }
   },
   "grid_ray_convention_max_error_degrees": 1.6925403083538737e-05,
@@ -153,6 +153,47 @@
           0.0666592356487632,
           0.15323515482725264
         ]
+      }
+    }
+  },
+  "scale_profile_normalized_to_all_ray_median": {
+    "by_panorama_band": {
+      "top": {
+        "count": 167,
+        "median_scale": 1.459820250343011,
+        "median_normalized_to_all_rays": 1.0197611834786402
+      },
+      "middle": {
+        "count": 171,
+        "median_scale": 1.3083690403667438,
+        "median_normalized_to_all_rays": 0.9139645519492577
+      },
+      "bottom": {
+        "count": 20,
+        "median_scale": 1.6436400083835472,
+        "median_normalized_to_all_rays": 1.1481689473537673
+      }
+    },
+    "by_colmap_range": {
+      "0-4m": {
+        "count": 74,
+        "median_scale": 1.4526040026652483,
+        "median_normalized_to_all_rays": 1.0147202551380303
+      },
+      "4-6m": {
+        "count": 109,
+        "median_scale": 1.4330939268251983,
+        "median_normalized_to_all_rays": 1.0010914415743517
+      },
+      "6-10m": {
+        "count": 108,
+        "median_scale": 1.4850974139613848,
+        "median_normalized_to_all_rays": 1.0374186110149408
+      },
+      "10-infm": {
+        "count": 67,
+        "median_scale": 1.1648791299825023,
+        "median_normalized_to_all_rays": 0.8137293066878659
       }
     }
   },

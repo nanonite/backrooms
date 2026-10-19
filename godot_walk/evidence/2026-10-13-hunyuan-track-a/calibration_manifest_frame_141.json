@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "issue": 134,
-  "status": "route_a_visual_correction_failed_registration_unaccepted",
+  "status": "route_c_panorama_evidence_only_registration_unaccepted",
   "transform_kind": "camera_anchored_uniform_similarity_candidate",
   "mapping": "world_declared = camera_center_world_declared + scale * rotation_local_to_world * point_hunyuan_local",
   "scale": 1.5582858478636477,
@@ -11,7 +11,7 @@
   "physical_metric_scale_surveyed": false,
   "registration_accepted": false,
   "visual_depth_correction_acceptance": {
-    "status": "locked_before_correction_fits",
+    "status": "relocked_before_final_route_a_iteration",
     "route": "A_visual_only_depth_correction",
     "reference_frame": "#100 declared frame; synthetic footage has no independent physical scale",
     "output_label": "corrected_not_calibrated",
@@ -22,24 +22,73 @@
       4.39888812351977
     ],
     "camera_anchor_must_remain_fixed": true,
-    "held_out_acceptance": {
-      "floor_absolute_world_y_residual_q90_max_m": 0.05,
-      "ceiling_absolute_world_y_residual_q90_max_m": 0.05,
+    "legacy_plane_gate": {
+      "status": "invalid: below the oracle noise floor",
+      "metric": "absolute corrected-world-y error against the #100 floor or ceiling plane for COLMAP points already within plane membership tolerance",
+      "former_q90_limit_m": 0.05,
+      "plane_membership_tolerance_m": 0.1,
+      "oracle_depth_equals_colmap_point": {
+        "frame_141_floor": {
+          "count": 18,
+          "plane_absolute_q90_m": 0.076967
+        },
+        "frame_141_ceiling": {
+          "count": 162,
+          "plane_absolute_q90_m": 0.070642
+        },
+        "other_frame_floor": {
+          "count": 217,
+          "plane_absolute_q90_m": 0.083431
+        },
+        "primary_point_vertical_error_q90_m": 0.0
+      },
+      "reason": "The old metric scores samples against the same planes that only select COLMAP points within +/-0.10 m. Even exact recovery of each COLMAP point exceeds the 0.05 m plane q90 limit. Retain the plane metric only beside the oracle for context."
+    },
+    "primary_held_out_gate": {
+      "metric": "abs((corrected_depth_m - target_colmap_depth_m) * direction_world_y)",
+      "target": "each sample's own registered COLMAP 3D point position",
+      "floor_member_q90_max_m": 0.05,
       "floor_goal_q90_m": 0.03,
+      "ceiling_member_q90_max_m": 0.05,
+      "camera_anchor_residual_max_m": 0.0,
       "all_k_folds_must_pass": true,
       "all_leave_one_band_out_folds_must_pass": true,
       "floor_band_leave_out_is_mandatory": true,
+      "other_frame_floor_holdout_must_pass": true,
+      "report_legacy_plane_metric_beside_oracle_for_context_only": true,
       "report_held_out_ray_depth_residual_distribution": true
+    },
+    "mesh_quality_gate": {
+      "degenerate_triangle_source_count_frame_141": 44386,
+      "degenerate_triangle_max_increase_fraction": 0.01,
+      "degenerate_triangle_max_count": 44829,
+      "edge_ratio_definition": "corrected triangle-edge length divided by source triangle-edge length after a single global median radial scale about the fixed camera anchor",
+      "edge_ratio_range": [
+        0.5,
+        2.0
+      ],
+      "minimum_edge_fraction_in_range": 0.99,
+      "flipped_face_count_max": 0,
+      "all_mesh_quality_checks_must_pass": true
     },
     "validation_plan": {
       "k_folds": 5,
       "random_seed": 142,
       "panorama_bands": {
-        "top": [0.0, 0.45],
-        "middle": [0.45, 0.55],
-        "bottom_floor_side": [0.55, 1.0]
+        "top": [
+          0.0,
+          0.45
+        ],
+        "middle": [
+          0.45,
+          0.55
+        ],
+        "bottom_floor_side": [
+          0.55,
+          1.0
+        ]
       },
-      "gate_aggregation": "report each fold and leave-one-band-out result; every held-out floor and ceiling q90 must meet its 5 cm limit"
+      "gate_aggregation": "report each fold and leave-one-band-out result; every held-out floor and ceiling primary point-depth vertical-error q90 must meet its 5 cm limit; external floor holdout must also pass"
     },
     "smooth_scale_field": {
       "features": [
@@ -53,92 +102,516 @@
       "parameter_count": 6,
       "term_count_justification": "A quadratic in elevation angle and log-depth is the smallest field here that permits smooth curvature and one cross-term; it is fixed before validation to limit overfit, especially for the sparse floor band.",
       "per_band_free_scales_allowed": false,
-      "per_vertex_warp_allowed": false
+      "per_vertex_warp_allowed": false,
+      "domain_policy": "Clamp standardized elevation and log-depth independently to the min/max training bounds before polynomial evaluation; never extrapolate outside those bounds. Each training fold derives and applies its own bounds."
     },
     "plane_snapping": {
       "snap_floor_and_ceiling_along_camera_rays_to_declared_planes": true,
       "wall_correction": "same smooth scale field or one global ray-derived scale",
+      "blend_width_elevation_degrees": 2.0,
+      "blend_profile": "Within each eligible floor/ceiling region, smoothstep from wall-field depth at the region boundary to snapped plane depth 2 degrees inward; zero outside. Feather eligible-region boundaries, including the normal-qualified region edge.",
       "report_seam_edge_stretch_and_degenerate_or_torn_triangles": true,
       "any_mesh_tear_fails": true
     },
+    "route_a_decision_rule": "Route A survives only if at least one method passes every primary held-out gate and every mesh-quality gate on both frames 141 and 152; otherwise choose Route C.",
     "second_source_frame_required_before_route_a_adoption": true,
-    "second_frame_gpu_work_requires_explicit_operator_approval": true,
+    "second_frame_generation_status": "mesh generated; CPU-only calibration validation pending",
+    "future_panogen_or_scenegen_policy": "cloud or an explicitly exclusive operator-approved window; no local generation in this iteration",
     "registration_accepted": false,
     "scale_calibrated": false
   },
-  "visual_depth_correction_acceptance_sha256": "8495b08fbfeff739beacfc8fe2961ce81eb3ba485425ada890788b7edb56b4af",
+  "visual_depth_correction_acceptance_sha256": "ef8a166af45750f36cb73d44a2c5f8b653b0128f34a686210ad979610fd58b69",
   "ray_depth_fit": {
-    "report": "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_depth_correction_frame_141.json",
-    "decision": "Route A visual correction failed held-out plane and mesh-integrity gates; experimental outputs only",
-    "method": "fixed six-term quadratic log-scale field; plane-snap variant uses the same wall field",
-    "training": {
-      "frame_141_observations": 358,
-      "floor_plane_points": 18,
-      "ceiling_plane_points": 162,
-      "other_frame_floor_holdouts": 217,
-      "cross_frame_visibility": "sparse COLMAP z-buffer; validation only, never training"
-    },
-    "smooth_field": {
-      "in_sample_floor_absolute_q90_m": 0.1077,
-      "in_sample_ceiling_absolute_q90_m": 0.1066,
-      "k_fold_pooled_floor_absolute_q90_m": 0.5103,
-      "k_fold_pooled_ceiling_absolute_q90_m": 0.1523,
-      "leave_bottom_floor_band_out_floor_absolute_q90_m": 0.5957,
-      "other_frame_floor_holdout_absolute_q90_m": 0.1001,
-      "max_edge_stretch_ratio": 88.65,
-      "tear_like_edge_count_ratio_outside_0.5_2.0": 12706998,
-      "degenerate_triangle_count": 2787275,
-      "held_out_acceptance_pass": false
-    },
-    "plane_snap": {
-      "in_sample_floor_absolute_q90_m": 0.1077,
-      "in_sample_ceiling_absolute_q90_m": 0.1066,
-      "floor_samples_snapped_in_sample": 10,
-      "floor_samples_total_in_sample": 18,
-      "ceiling_samples_snapped_in_sample": 108,
-      "ceiling_samples_total_in_sample": 162,
-      "k_fold_pooled_floor_absolute_q90_m": 0.1206,
-      "k_fold_pooled_ceiling_absolute_q90_m": 0.1523,
-      "leave_bottom_floor_band_out_floor_absolute_q90_m": 0.1777,
-      "other_frame_floor_holdout_absolute_q90_m": 0.1001,
-      "seam_edge_count": 15263,
-      "max_seam_stretch_ratio": 414.65,
-      "tear_like_edge_count_ratio_outside_0.5_2.0": 14602,
-      "degenerate_triangle_count": 2787275,
-      "held_out_acceptance_pass": false
-    },
-    "mesh_integrity_comparison": {
-      "source_mesh_degenerate_triangles_at_ray_fit_median_scale": 44386,
-      "corrected_mesh_degenerate_triangles": 2787275,
-      "note": "The 1.431531 ray-fit median is used only for this source-mesh baseline comparison, not as a correction transform."
-    },
-    "resource_use": {
-      "runtime_seconds": 62.216,
-      "peak_rss_kib": 1913084,
-      "gpu_used": false,
-      "swap_used_by_run": false
-    },
-    "experimental_outputs": [
-      {
-        "path": "data/track-a/hunyuan/route-a-visual-correction-frame-141/frame_141_layer1_smooth_corrected.ply",
-        "sha256": "d1fb854314e73bee9a9934b4d23201b6420133d68421a1b0ae5bd4ce90b599d1",
-        "normals": "omitted; downstream importer must recompute or render unlit"
+    "decision": "Route C: panorama evidence and documented ray-depth distortion profile only",
+    "reason": "Route C selected under the pre-locked rule: no frame-specific refit method passes the primary held-out and mesh-quality gates on both frames 141 and 152. Keep panorama evidence and ray-depth distortion profiles only; all corrected meshes remain experimental and excluded from issue 137.",
+    "method": "CPU-only, fixed six-term clamped quadratic log-scale refit; separate feathered plane-snap variant; coefficient transfer informational only",
+    "locked_acceptance_block_sha256": "ef8a166af45750f36cb73d44a2c5f8b653b0128f34a686210ad979610fd58b69",
+    "final_two_frame_decision_complete": true,
+    "route_a_survived": false,
+    "gpu_used": false,
+    "may_be_used_by_issue_137": false,
+    "frame_141": {
+      "depth_fit_report": "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_depth_correction_frame_141.json",
+      "depth_fit_report_sha256": "7205a508f64a2e4eb8d4b9a6ca0850ff52818400b8a29ed2ba7144103ce37a27",
+      "ray_depth_fit_report": "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_ray_depth_fit_frame_141.json",
+      "ray_depth_fit_report_sha256": "9aa458de98ac2d0b05ad375dfde49f3cf8261dcd0f103ad3697c47c55c08e481",
+      "ray_scale_median_declared_m_per_hunyuan_unit": 1.4315314938378298,
+      "ray_scale_count": 358,
+      "normalized_scale_profile": {
+        "by_panorama_band": {
+          "top": {
+            "count": 167,
+            "median_scale": 1.459820250343011,
+            "median_normalized_to_all_rays": 1.0197611834786402
+          },
+          "middle": {
+            "count": 171,
+            "median_scale": 1.3083690403667438,
+            "median_normalized_to_all_rays": 0.9139645519492577
+          },
+          "bottom": {
+            "count": 20,
+            "median_scale": 1.6436400083835472,
+            "median_normalized_to_all_rays": 1.1481689473537673
+          }
+        },
+        "by_colmap_range": {
+          "0-4m": {
+            "count": 74,
+            "median_scale": 1.4526040026652483,
+            "median_normalized_to_all_rays": 1.0147202551380303
+          },
+          "4-6m": {
+            "count": 109,
+            "median_scale": 1.4330939268251983,
+            "median_normalized_to_all_rays": 1.0010914415743517
+          },
+          "6-10m": {
+            "count": 108,
+            "median_scale": 1.4850974139613848,
+            "median_normalized_to_all_rays": 1.0374186110149408
+          },
+          "10-infm": {
+            "count": 67,
+            "median_scale": 1.1648791299825023,
+            "median_normalized_to_all_rays": 0.8137293066878659
+          }
+        }
       },
-      {
-        "path": "data/track-a/hunyuan/route-a-visual-correction-frame-141/frame_141_layer1_plane_snapped_corrected.ply",
-        "sha256": "5d1e2338a27be6a12738ac7e6bf28c502059e8f2b8b39d65e0c78e677c7c11d9",
-        "normals": "omitted; downstream importer must recompute or render unlit"
-      }
-    ],
-    "second_frame_mesh_check": "pending explicit GPU capacity approval; no frame-152 SceneGen run started",
+      "plane_check": {
+        "convention_scale": {
+          "scale_declared_metres_per_hunyuan_unit": 1.5582858478636477,
+          "floor_y": -1.150648048505694,
+          "ceiling_y": 1.2493519514943057,
+          "floor_offset_m": 0.12034244309430608,
+          "ceiling_offset_m": 0.12034244309430564,
+          "clear_height_m": 2.3999999999999995
+        },
+        "ray_depth_scale": {
+          "scale_declared_metres_per_hunyuan_unit": 1.4315314938378298,
+          "floor_y": -1.0660401716554788,
+          "ceiling_y": 1.1449204527345793,
+          "floor_offset_m": 0.2049503199445213,
+          "ceiling_offset_m": 0.01591094433457929,
+          "clear_height_m": 2.210960624390058
+        },
+        "reference_floor_y": -1.2709904916,
+        "reference_ceiling_y": 1.1290095084
+      },
+      "mask_observations_used": 358,
+      "mask_observations_foreground": 34,
+      "camera_anchor_residual_m": 0.0,
+      "resource_use": {
+        "runtime_seconds": 33.812,
+        "peak_rss_kib": 2519720,
+        "gpu_used": false
+      },
+      "methods": [
+        {
+          "method": "smooth_field",
+          "fit_policy": "frame_specific_refit",
+          "candidate_for_route_a_decision": true,
+          "in_sample_q90_m": {
+            "floor": 0.07644480188193095,
+            "ceiling": 0.11684721033098325
+          },
+          "k_fold_pooled_q90_m": {
+            "floor": 0.42285511452488644,
+            "ceiling": 0.14893043599245814
+          },
+          "k_fold_all_gates_pass": false,
+          "leave_one_band_out_pooled_q90_m": {
+            "floor": 0.16164832968860193,
+            "ceiling": 0.8392503566242334
+          },
+          "floor_band_leave_out_floor_q90_m": 0.15593406963560208,
+          "top_band_leave_out_ceiling_q90_m": 0.8657131462851559,
+          "leave_one_band_out_all_gates_pass": false,
+          "other_frame_floor_holdout_q90_m": 0.09911199370520177,
+          "other_frame_floor_gate_pass": false,
+          "primary_held_out_acceptance_pass": false,
+          "mesh_quality": {
+            "edge_population": "all triangle edge instances, including shared-edge repeats",
+            "edge_count": 44351856,
+            "edge_ratio_q50_q90_q99_max": [
+              1.0,
+              1.48102867603302,
+              2.9762110710144043,
+              3.9112417697906494
+            ],
+            "edge_fraction_within_0.5x_2x": 0.9404564715397705,
+            "edge_fraction_gate_pass": false,
+            "source_baseline_degenerate_triangle_count": 44079,
+            "degenerate_triangle_count": 44079,
+            "degenerate_triangle_limit": 44829,
+            "degenerate_triangle_gate_pass": true,
+            "flipped_face_count": 53022,
+            "flippable_face_count": 14739873,
+            "flipped_face_gate_pass": false,
+            "mesh_quality_pass": false,
+            "snap_boundary_edge_count": 0,
+            "snap_boundary_edge_stretch_q50_q90_q99_max": null
+          },
+          "route_a_method_pass": false,
+          "experimental_mesh": {
+            "path": "data/track-a/hunyuan/route-a-visual-correction-v3-frame-141/frame_0141_smooth_field_corrected.ply",
+            "sha256": "d63e195df016110d3be9f9bc91f2ce72a5f7c495b64d712158ac5b3a26770256"
+          }
+        },
+        {
+          "method": "plane_snap",
+          "fit_policy": "frame_specific_refit",
+          "candidate_for_route_a_decision": true,
+          "in_sample_q90_m": {
+            "floor": 0.08021886410496544,
+            "ceiling": 0.11090265507419282
+          },
+          "k_fold_pooled_q90_m": {
+            "floor": 0.09025340672935186,
+            "ceiling": 0.14580105472257043
+          },
+          "k_fold_all_gates_pass": false,
+          "leave_one_band_out_pooled_q90_m": {
+            "floor": 0.16164832968860193,
+            "ceiling": 0.3577652448772215
+          },
+          "floor_band_leave_out_floor_q90_m": 0.15209093966558604,
+          "top_band_leave_out_ceiling_q90_m": 0.38139397974568073,
+          "leave_one_band_out_all_gates_pass": false,
+          "other_frame_floor_holdout_q90_m": 0.09824091168987326,
+          "other_frame_floor_gate_pass": false,
+          "primary_held_out_acceptance_pass": false,
+          "mesh_quality": {
+            "edge_population": "all triangle edge instances, including shared-edge repeats",
+            "edge_count": 44351856,
+            "edge_ratio_q50_q90_q99_max": [
+              1.0,
+              1.5160582661628723,
+              3.125885009765625,
+              201.48391723632812
+            ],
+            "edge_fraction_within_0.5x_2x": 0.934686656630559,
+            "edge_fraction_gate_pass": false,
+            "source_baseline_degenerate_triangle_count": 44079,
+            "degenerate_triangle_count": 44079,
+            "degenerate_triangle_limit": 44829,
+            "degenerate_triangle_gate_pass": true,
+            "flipped_face_count": 73535,
+            "flippable_face_count": 14739873,
+            "flipped_face_gate_pass": false,
+            "mesh_quality_pass": false,
+            "snap_boundary_edge_count": 1513970,
+            "snap_boundary_edge_stretch_q50_q90_q99_max": [
+              1.109103990648324,
+              3.127829312784015,
+              56.383768877737495,
+              201.48391054209944
+            ]
+          },
+          "route_a_method_pass": false,
+          "experimental_mesh": {
+            "path": "data/track-a/hunyuan/route-a-visual-correction-v3-frame-141/frame_0141_plane_snap_corrected.ply",
+            "sha256": "c62916852eed197cdb261afa7cfec908d74316a948e4dd4c48507ef60f758ba9"
+          }
+        }
+      ]
+    },
+    "frame_152": {
+      "depth_fit_report": "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_depth_correction_frame_152.json",
+      "depth_fit_report_sha256": "0cf914c1072e1a170151ef1e6d7acc21d5f5aaee15d610ad8981986aa8164b4c",
+      "ray_depth_fit_report": "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_ray_depth_fit_frame_152.json",
+      "ray_depth_fit_report_sha256": "fd9056f014316e17ae2410bed6300d62dfe46fba1048341ec686d04772ce47bc",
+      "ray_scale_median_declared_m_per_hunyuan_unit": 1.700136721645771,
+      "ray_scale_count": 389,
+      "normalized_scale_profile": {
+        "by_panorama_band": {
+          "top": {
+            "count": 184,
+            "median_scale": 1.7388181963868234,
+            "median_normalized_to_all_rays": 1.0227519788547406
+          },
+          "middle": {
+            "count": 191,
+            "median_scale": 1.637822390301644,
+            "median_normalized_to_all_rays": 0.9633474587362566
+          },
+          "bottom": {
+            "count": 14,
+            "median_scale": 1.794908159882898,
+            "median_normalized_to_all_rays": 1.0557434217086883
+          }
+        },
+        "by_colmap_range": {
+          "0-4m": {
+            "count": 55,
+            "median_scale": 1.7601800821023899,
+            "median_normalized_to_all_rays": 1.0353167834634474
+          },
+          "4-6m": {
+            "count": 147,
+            "median_scale": 1.715433038348362,
+            "median_normalized_to_all_rays": 1.0089971097664332
+          },
+          "6-10m": {
+            "count": 111,
+            "median_scale": 1.6960335009319392,
+            "median_normalized_to_all_rays": 0.9975865348582907
+          },
+          "10-infm": {
+            "count": 76,
+            "median_scale": 1.419774811587787,
+            "median_normalized_to_all_rays": 0.8350944918202888
+          }
+        }
+      },
+      "plane_check": {
+        "status": "skipped",
+        "reason": "No frame-specific fitted plane coefficients were supplied; frame-141 camera and plane data were not reused."
+      },
+      "mask_observations_used": 389,
+      "mask_observations_foreground": 23,
+      "camera_anchor_residual_m": 0.0,
+      "resource_use": {
+        "runtime_seconds": 70.87,
+        "peak_rss_kib": 2522408,
+        "gpu_used": false
+      },
+      "methods": [
+        {
+          "method": "smooth_field_refit",
+          "fit_policy": "frame_specific_refit",
+          "candidate_for_route_a_decision": true,
+          "in_sample_q90_m": {
+            "floor": 0.13283656284817977,
+            "ceiling": 0.07924067039863504
+          },
+          "k_fold_pooled_q90_m": {
+            "floor": 0.1612623914669418,
+            "ceiling": 0.13054865513901098
+          },
+          "k_fold_all_gates_pass": false,
+          "leave_one_band_out_pooled_q90_m": {
+            "floor": 0.2717164170955411,
+            "ceiling": 1.4668863754909234
+          },
+          "floor_band_leave_out_floor_q90_m": 0.2691823143782001,
+          "top_band_leave_out_ceiling_q90_m": 1.4691934925129564,
+          "leave_one_band_out_all_gates_pass": false,
+          "other_frame_floor_holdout_q90_m": 0.12271309332072096,
+          "other_frame_floor_gate_pass": false,
+          "primary_held_out_acceptance_pass": false,
+          "mesh_quality": {
+            "edge_population": "all triangle edge instances, including shared-edge repeats",
+            "edge_count": 44351856,
+            "edge_ratio_q50_q90_q99_max": [
+              1.0049456357955933,
+              1.0675379037857056,
+              1.2056041955947876,
+              1.4736883640289307
+            ],
+            "edge_fraction_within_0.5x_2x": 1.0,
+            "edge_fraction_gate_pass": true,
+            "source_baseline_degenerate_triangle_count": 45389,
+            "degenerate_triangle_count": 45536,
+            "degenerate_triangle_limit": 44829,
+            "degenerate_triangle_gate_pass": false,
+            "flipped_face_count": 0,
+            "flippable_face_count": 14738416,
+            "flipped_face_gate_pass": true,
+            "mesh_quality_pass": false,
+            "snap_boundary_edge_count": 0,
+            "snap_boundary_edge_stretch_q50_q90_q99_max": null
+          },
+          "route_a_method_pass": false,
+          "experimental_mesh": {
+            "path": "data/track-a/hunyuan/route-a-visual-correction-v4-frame-152/frame_0152_smooth_field_refit_corrected.ply",
+            "sha256": "6bffcfaa155674c9a7ce0399876daad2d4e3fd9cce24fa2813e896cff78a0814"
+          }
+        },
+        {
+          "method": "plane_snap_refit",
+          "fit_policy": "frame_specific_refit",
+          "candidate_for_route_a_decision": true,
+          "in_sample_q90_m": {
+            "floor": 0.13283656284817977,
+            "ceiling": 0.07958520538524817
+          },
+          "k_fold_pooled_q90_m": {
+            "floor": 0.1612623914669418,
+            "ceiling": 0.13054865513901098
+          },
+          "k_fold_all_gates_pass": false,
+          "leave_one_band_out_pooled_q90_m": {
+            "floor": 0.22513655960971404,
+            "ceiling": 0.7007644899257174
+          },
+          "floor_band_leave_out_floor_q90_m": 0.05496621043698568,
+          "top_band_leave_out_ceiling_q90_m": 0.712184262134238,
+          "leave_one_band_out_all_gates_pass": false,
+          "other_frame_floor_holdout_q90_m": 0.118194688436957,
+          "other_frame_floor_gate_pass": false,
+          "primary_held_out_acceptance_pass": false,
+          "mesh_quality": {
+            "edge_population": "all triangle edge instances, including shared-edge repeats",
+            "edge_count": 44351856,
+            "edge_ratio_q50_q90_q99_max": [
+              1.0036230087280273,
+              1.0675379037857056,
+              1.2566630840301514,
+              3.3623006343841553
+            ],
+            "edge_fraction_within_0.5x_2x": 0.9947724848313,
+            "edge_fraction_gate_pass": true,
+            "source_baseline_degenerate_triangle_count": 45389,
+            "degenerate_triangle_count": 45536,
+            "degenerate_triangle_limit": 44829,
+            "degenerate_triangle_gate_pass": false,
+            "flipped_face_count": 50057,
+            "flippable_face_count": 14738416,
+            "flipped_face_gate_pass": false,
+            "mesh_quality_pass": false,
+            "snap_boundary_edge_count": 2102310,
+            "snap_boundary_edge_stretch_q50_q90_q99_max": [
+              0.9482166569898174,
+              1.3746941429079647,
+              2.575008739285319,
+              3.3623006835661116
+            ]
+          },
+          "route_a_method_pass": false,
+          "experimental_mesh": {
+            "path": "data/track-a/hunyuan/route-a-visual-correction-v4-frame-152/frame_0152_plane_snap_refit_corrected.ply",
+            "sha256": "98181a589d5df62abe824d77b24d872dcaa39915ecbf60d9d0a79f31bf28e167"
+          }
+        },
+        {
+          "method": "smooth_field_coefficient_transfer",
+          "fit_policy": "coefficient_transfer",
+          "candidate_for_route_a_decision": false,
+          "in_sample_q90_m": {
+            "floor": 0.19025772795932064,
+            "ceiling": 0.14966036239312633
+          },
+          "k_fold_pooled_q90_m": {
+            "floor": 0.19025772795932064,
+            "ceiling": 0.14966036239312633
+          },
+          "k_fold_all_gates_pass": false,
+          "leave_one_band_out_pooled_q90_m": {
+            "floor": 0.19025772795932064,
+            "ceiling": 0.14966036239312633
+          },
+          "floor_band_leave_out_floor_q90_m": 0.12001071872938383,
+          "top_band_leave_out_ceiling_q90_m": 0.07064300280078606,
+          "leave_one_band_out_all_gates_pass": false,
+          "other_frame_floor_holdout_q90_m": 0.18059913205953582,
+          "other_frame_floor_gate_pass": false,
+          "primary_held_out_acceptance_pass": false,
+          "mesh_quality": {
+            "edge_population": "all triangle edge instances, including shared-edge repeats",
+            "edge_count": 44351856,
+            "edge_ratio_q50_q90_q99_max": [
+              1.0,
+              1.4430477023124695,
+              2.506464719772339,
+              3.3715603351593018
+            ],
+            "edge_fraction_within_0.5x_2x": 0.9604969857405742,
+            "edge_fraction_gate_pass": false,
+            "source_baseline_degenerate_triangle_count": 45679,
+            "degenerate_triangle_count": 45679,
+            "degenerate_triangle_limit": 44829,
+            "degenerate_triangle_gate_pass": false,
+            "flipped_face_count": 572,
+            "flippable_face_count": 14738273,
+            "flipped_face_gate_pass": false,
+            "mesh_quality_pass": false,
+            "snap_boundary_edge_count": 0,
+            "snap_boundary_edge_stretch_q50_q90_q99_max": null
+          },
+          "route_a_method_pass": false,
+          "experimental_mesh": {
+            "path": "data/track-a/hunyuan/route-a-visual-correction-v4-frame-152/frame_0152_smooth_field_coefficient_transfer_corrected.ply",
+            "sha256": "9d16df4c6ac500f000bb20afc11693b93b3cf1f9aae9bd66836fbb4d77976ddd"
+          }
+        },
+        {
+          "method": "plane_snap_coefficient_transfer",
+          "fit_policy": "coefficient_transfer",
+          "candidate_for_route_a_decision": false,
+          "in_sample_q90_m": {
+            "floor": 0.19025772795932064,
+            "ceiling": 0.1412671336120806
+          },
+          "k_fold_pooled_q90_m": {
+            "floor": 0.19025772795932064,
+            "ceiling": 0.1412671336120806
+          },
+          "k_fold_all_gates_pass": false,
+          "leave_one_band_out_pooled_q90_m": {
+            "floor": 0.19025772795932064,
+            "ceiling": 0.1412671336120806
+          },
+          "floor_band_leave_out_floor_q90_m": 0.05496621043698568,
+          "top_band_leave_out_ceiling_q90_m": 0.05866439744531446,
+          "leave_one_band_out_all_gates_pass": false,
+          "other_frame_floor_holdout_q90_m": 0.18059913205953582,
+          "other_frame_floor_gate_pass": false,
+          "primary_held_out_acceptance_pass": false,
+          "mesh_quality": {
+            "edge_population": "all triangle edge instances, including shared-edge repeats",
+            "edge_count": 44351856,
+            "edge_ratio_q50_q90_q99_max": [
+              1.0,
+              1.4765785336494446,
+              2.8274588584899902,
+              5.422356128692627
+            ],
+            "edge_fraction_within_0.5x_2x": 0.9523748904668161,
+            "edge_fraction_gate_pass": false,
+            "source_baseline_degenerate_triangle_count": 45679,
+            "degenerate_triangle_count": 45679,
+            "degenerate_triangle_limit": 44829,
+            "degenerate_triangle_gate_pass": false,
+            "flipped_face_count": 14309,
+            "flippable_face_count": 14738273,
+            "flipped_face_gate_pass": false,
+            "mesh_quality_pass": false,
+            "snap_boundary_edge_count": 2102310,
+            "snap_boundary_edge_stretch_q50_q90_q99_max": [
+              1.1055975817552774,
+              3.1635498329113174,
+              4.499999077017882,
+              5.422356206550925
+            ]
+          },
+          "route_a_method_pass": false,
+          "experimental_mesh": {
+            "path": "data/track-a/hunyuan/route-a-visual-correction-v4-frame-152/frame_0152_plane_snap_coefficient_transfer_corrected.ply",
+            "sha256": "7911222dbccff0541cfafe7d5af8e31edcccec719975174dd0f235a9d4ca58ab"
+          }
+        }
+      ]
+    },
     "registration_accepted": false,
-    "scale_calibrated": false,
-    "may_be_used_by_issue_137": false
+    "scale_calibrated": false
   },
   "rotation_local_to_world_row_major": [
-    [0.5286220008186361, 0.8488510241919436, 0.003273985153690728],
-    [-0.0012503875903586566, -0.003078260635800087, 0.9999944804059345],
-    [0.8488564170584894, -0.5286231767901847, -0.0005658435106224637]
+    [
+      0.5286220008186361,
+      0.8488510241919436,
+      0.003273985153690728
+    ],
+    [
+      -0.0012503875903586566,
+      -0.003078260635800087,
+      0.9999944804059345
+    ],
+    [
+      0.8488564170584894,
+      -0.5286231767901847,
+      -0.0005658435106224637
+    ]
   ],
   "translation_world_declared": [
     2.2503421889550297,
@@ -164,44 +637,107 @@
       "panorama_pixel_correspondence_check": "1000 sampled PLY vertex colors exactly match the bicubic-resized remove_fg1_image_sr.png at row/column positions; exact_fraction=1.0, max_channel_error=0",
       "yaw_half_window_degrees": 35.0,
       "point_selection_convention": "v is panorama row fraction from top (horizon v=0.5); yaw is measured from local -X forward toward local +Y; include points with absolute yaw <= 35 degrees and v in the inclusive bands below",
-      "floor_panorama_v_fraction": [0.56, 0.62],
-      "ceiling_panorama_v_fraction": [0.37, 0.42],
+      "floor_panorama_v_fraction": [
+        0.56,
+        0.62
+      ],
+      "ceiling_panorama_v_fraction": [
+        0.37,
+        0.42
+      ],
       "floor_fit": {
         "point_count": 85790,
-        "z_equals_a_x_plus_b_y_plus_c_local_units": [0.011949709433262116, -0.008890211085127664, -0.6674828590997379],
-        "absolute_residual_quantiles_local_units_q50_q90_q95_q99": [0.00196277, 0.00581917, 0.00718024, 0.00943907],
+        "z_equals_a_x_plus_b_y_plus_c_local_units": [
+          0.011949709433262116,
+          -0.008890211085127664,
+          -0.6674828590997379
+        ],
+        "absolute_residual_quantiles_local_units_q50_q90_q95_q99": [
+          0.00196277,
+          0.00581917,
+          0.00718024,
+          0.00943907
+        ],
         "normal_tilt_from_world_horizontal_degrees": 0.9197435896
       },
       "ceiling_fit": {
         "point_count": 71616,
-        "z_equals_a_x_plus_b_y_plus_c_local_units": [-0.0013708360976328663, -0.032006765296494266, 0.8238017148088348],
-        "absolute_residual_quantiles_local_units_q50_q90_q95_q99": [0.00288111, 0.00728566, 0.00972804, 0.01563257],
+        "z_equals_a_x_plus_b_y_plus_c_local_units": [
+          -0.0013708360976328663,
+          -0.032006765296494266,
+          0.8238017148088348
+        ],
+        "absolute_residual_quantiles_local_units_q50_q90_q95_q99": [
+          0.00288111,
+          0.00728566,
+          0.00972804,
+          0.01563257
+        ],
         "normal_tilt_from_world_horizontal_degrees": 2.015199
       },
       "reference_clear_height_declared_metres": 2.4,
-      "reference_world_xz_declared": [-0.6513254730710469, 2.8875470743979488],
+      "reference_world_xz_declared": [
+        -0.6513254730710469,
+        2.8875470743979488
+      ],
       "reference_floor_world_y_declared": -1.2709904916293824,
       "reference_ceiling_world_y_declared": 1.1290095083706178,
       "fitted_local_clear_height_at_reference_xz": 1.540153883377887,
       "convention_scale_declared_metres_per_hunyuan_unit": 1.5582858478636477,
       "sensitivity": {
-        "yaw_half_window_degrees_31_35_37_96733_scales": [1.5574426537, 1.5582858479, 1.5592053764],
-        "floor_band_variants_scales": [1.5581498548, 1.5582858479, 1.557594669, 1.5571178072],
-        "ceiling_band_variants_scales": [1.558467302, 1.5582858479, 1.5579316225, 1.5568200927, 1.555255615],
-        "combined_observed_scale_range": [1.555255615, 1.5592053764],
+        "yaw_half_window_degrees_31_35_37_96733_scales": [
+          1.5574426537,
+          1.5582858479,
+          1.5592053764
+        ],
+        "floor_band_variants_scales": [
+          1.5581498548,
+          1.5582858479,
+          1.557594669,
+          1.5571178072
+        ],
+        "ceiling_band_variants_scales": [
+          1.558467302,
+          1.5582858479,
+          1.5579316225,
+          1.5568200927,
+          1.555255615
+        ],
+        "combined_observed_scale_range": [
+          1.555255615,
+          1.5592053764
+        ],
         "relative_range_percent_of_candidate": 0.2535
       },
       "camera_anchored_transform": {
-        "translation_world_declared": [2.2503421889550297, -0.10027971444057249, 4.39888812351977],
+        "translation_world_declared": [
+          2.2503421889550297,
+          -0.10027971444057249,
+          4.39888812351977
+        ],
         "camera_origin_residual_declared_metres": 0.0,
         "floor_and_ceiling_height_offset_at_reference_xz_declared_metres": 0.1203424431,
-        "floor_surface_world_y_residual_quantiles_metres_q05_median_q95_q99": [0.05254559, 0.09097952, 0.12238263, 0.12671854],
+        "floor_surface_world_y_residual_quantiles_metres_q05_median_q95_q99": [
+          0.05254559,
+          0.09097952,
+          0.12238263,
+          0.12671854
+        ],
         "floor_surface_world_y_residual_rms_metres": 0.09333311,
-        "ceiling_surface_world_y_residual_quantiles_metres_q05_median_q95_q99": [-0.00875101, 0.0650262, 0.13809256, 0.14281337],
+        "ceiling_surface_world_y_residual_quantiles_metres_q05_median_q95_q99": [
+          -0.00875101,
+          0.0650262,
+          0.13809256,
+          0.14281337
+        ],
         "ceiling_surface_world_y_residual_rms_metres": 0.08058203
       },
       "plane_aligned_diagnostic_transform": {
-        "translation_world_declared": [2.2503421889550297, -0.22062215756426085, 4.39888812351977],
+        "translation_world_declared": [
+          2.2503421889550297,
+          -0.22062215756426085,
+          4.39888812351977
+        ],
         "camera_origin_residual_world_y_declared_metres": -0.1203424431,
         "note": "Aligns the two fitted planes to the #100 declared floor/ceiling at the reference x/z, but shifts the registered camera anchor down by 12.0 cm. Recorded as a diagnostic alternative, not the adopted transform."
       },
@@ -240,9 +776,16 @@
     "horizontal_fov_degrees": 75.93466004923032,
     "vertical_fov_degrees": 47.398805577606446,
     "source_camera_target_projection_check": {
-      "target_world_declared": [0.5, -0.07, 1.7],
+      "target_world_declared": [
+        0.5,
+        -0.07,
+        1.7
+      ],
       "camera_depth_declared": 3.206076842609862,
-      "pixel": [937.3656764155146, 530.0264732214184],
+      "pixel": [
+        937.3656764155146,
+        530.0264732214184
+      ],
       "note": "Existing camera-contract check only; this target is not a matched Hunyuan mesh landmark."
     }
   },
@@ -299,8 +842,34 @@
       "scale": null,
       "scale_status": "not_calibrated; experimental correction rejected",
       "report": "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_depth_correction_frame_141.json",
-      "reason": "The six-term field failed held-out floor/ceiling q90 gates and introduced severe full-panorama extrapolation damage. Plane snapping also failed held-out floor and seam-integrity gates. Keep both calibration flags false and do not use either output in #137."
+      "reason": "The old plane-residual gate is invalid below its oracle noise floor (7.1-8.3 cm q90). The previous smooth field extrapolated outside the training domain and both old outputs exceeded the earlier mesh-integrity limits. Do not interpret old plane-gate failures as valid calibration evidence; keep both calibration flags false and do not use either output in #137."
+    },
+    {
+      "assessment": "Route A gate relock before final iteration",
+      "scale": null,
+      "scale_status": "not_calibrated; primary gate uses point-depth vertical error",
+      "reason": "The 5 cm plane-residual gate is marked invalid because exact COLMAP-depth oracle q90 is 7.7 cm floor, 7.1 cm ceiling, and 8.3 cm external floor. The replacement gate compares corrected and COLMAP depths along the ray, includes 2-degree plane-snap feathering, domain clamping, and mesh-quality limits. Route A survives only if one method passes all held-out and mesh-quality gates on frames 141 and 152; otherwise choose Route C."
+    },
+    {
+      "assessment": "Route A final CPU-only two-frame iteration; Route C selected",
+      "scale": null,
+      "scale_status": "not_calibrated; visual correction rejected under locked held-out and mesh-quality gates",
+      "reports": [
+        "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_depth_correction_frame_141.json",
+        "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_depth_correction_frame_152.json"
+      ],
+      "reason": "Route C selected under the pre-locked rule: no frame-specific refit method passes the primary held-out and mesh-quality gates on both frames 141 and 152. Keep panorama evidence and ray-depth distortion profiles only; all corrected meshes remain experimental and excluded from issue 137. The frame-152 camera block came from its own registered source metadata; its ray-fit plane check was skipped because no frame-specific fitted plane coefficients were supplied. The frame-141 plane check was not reused."
     }
   ],
-  "prohibited_interpretation": "Do not treat the candidate scale as surveyed metric geometry, use it for collision, or infer walkability. The prior null value described the initial assessment before the CPU plane-fit follow-up; scale_calibrated remains false."
+  "prohibited_interpretation": "Do not treat the candidate scale as surveyed metric geometry, use it for collision, or infer walkability. The prior null value described the initial assessment before the CPU plane-fit follow-up; scale_calibrated remains false.",
+  "second_frame_mesh_check": {
+    "status": "cpu_validation_complete_route_c",
+    "frame": 152,
+    "scene_manifest": "data/track-a/hunyuan/scene-frame-0152-attempt-02/scene_manifest.json",
+    "scene_generation_complete": true,
+    "calibration_validation_complete": true,
+    "route_a_survived": false,
+    "may_be_used_by_issue_137": false,
+    "note": "Route C selected under the pre-locked rule: no frame-specific refit method passes the primary held-out and mesh-quality gates on both frames 141 and 152. Keep panorama evidence and ray-depth distortion profiles only; all corrected meshes remain experimental and excluded from issue 137."
+  }
 }

@@ -1,0 +1,59 @@
+{
+  "candidate_id": "track-a-hunyuan-frame-141-measured-fov-seed-42",
+  "source_video_sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4",
+  "source_frame": {
+    "number_1_based": 141,
+    "timestamp_seconds": 5.833333333333333,
+    "sha256": "d3b1eb7ac7c1b737f4a79bec1e25eeecc6a8d3b1f517fa6231ba666a8ebc8408"
+  },
+  "upstream_commit": "57fa9f3a79eae1079c279968cdb9d82c75fa7c86",
+  "panorama": {
+    "width": 1280,
+    "height": 640,
+    "horizontal_fov_degrees": 75.93466004923032,
+    "seed": 42,
+    "sha256": "523bf7a6f47212171f062e776010255cb149ac5813110acb5b88ca5741ea5427"
+  },
+  "godot_import": {
+    "engine_version": "4.6.3.stable.official.7d41c59c4",
+    "renderer": "Vulkan Forward+",
+    "glb_sha256": "5cc63c06b1bc920306a8da8758d4ef689c541f7fd64ccd8c02742b358902acba",
+    "local_to_godot_axis_mapping": {
+      "minus_x": "registered camera forward",
+      "plus_y": "registered camera right",
+      "plus_z": "registered camera up"
+    },
+    "translation_godot_world_m": [
+      2.2503421889550297,
+      -0.10027971444057249,
+      4.39888812351977
+    ],
+    "provisional_display_scale": 1.0,
+    "calibrated_unit_scale": false,
+    "forward_view": "central column, ceiling lights, right wall, and open left side appear in the corresponding registered-frame composition",
+    "yaw_views": "forward, right, back, and left rendered",
+    "parallax_probe": {
+      "translation": "0.25 provisional Godot units to camera right",
+      "visible_image_change": true,
+      "physical_scale_validated": false
+    },
+    "screenshots": [
+      "godot_mesh_views_full_run05/forward.png",
+      "godot_mesh_views_full_run05/right.png",
+      "godot_mesh_views_full_run05/back.png",
+      "godot_mesh_views_full_run05/left.png",
+      "godot_mesh_views_full_run05/parallax_right_025.png"
+    ]
+  },
+  "walkability": {
+    "accepted": false,
+    "decision": "do not stage a player or collision",
+    "reasons": [
+      "Hunyuan mesh unit scale is uncalibrated against the registered camera path.",
+      "Both exported surfaces are open and non-watertight depth sheets.",
+      "Side and back views show stretched/generated surfaces; one panorama does not validate route-wide geometry.",
+      "No measured floor route or physics collision verification was performed."
+    ]
+  },
+  "production_use": "exploratory only; does not replace the #100 Gaussian or change Track B approval"
+}

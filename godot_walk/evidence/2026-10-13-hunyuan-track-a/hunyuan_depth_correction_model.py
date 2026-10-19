@@ -22,10 +22,14 @@ class ScaleField:
     def predict(self, elevation: np.ndarray, depth: np.ndarray) -> np.ndarray:
         elevation = np.asarray(elevation, dtype=np.float64)
         depth = np.asarray(depth, dtype=np.float64)
+        if not np.isfinite(elevation).all():
+            raise ValueError("elevation values must be finite")
         if np.any(depth <= 0) or not np.isfinite(depth).all():
             raise ValueError("depth values must be finite and positive")
         elevation_z = (elevation - self.elevation_mean) / self.elevation_scale
         log_depth_z = (np.log(depth) - self.log_depth_mean) / self.log_depth_scale
+        elevation_z = np.clip(elevation_z, *self.elevation_bounds)
+        log_depth_z = np.clip(log_depth_z, *self.log_depth_bounds)
         log_scale = scale_design(elevation_z, log_depth_z) @ self.coefficients
         with np.errstate(over="ignore", invalid="ignore"):
             return np.exp(log_scale)

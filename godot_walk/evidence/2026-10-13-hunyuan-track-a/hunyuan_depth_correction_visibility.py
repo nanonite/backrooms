@@ -111,8 +111,9 @@ def collect_cross_frame_floor_samples(
         image_height=context.camera.height,
     )
     return samples, {
+        "source_frame": Path(context.image.name).stem,
         "candidate_landmarks_seen_in_other_frames": len(candidate_ids),
-        "projected_inside_frame_141": int(np.count_nonzero(in_bounds)),
+        "projected_inside_source_frame": int(np.count_nonzero(in_bounds)),
         "near_declared_floor_before_visibility": int(np.count_nonzero(in_bounds & floor_points)),
         "sparse_z_buffer_visible": int(np.count_nonzero(in_bounds & floor_points & visible)),
         "foreground_or_invalid_mesh_rays_rejected": int(np.count_nonzero(in_bounds & floor_points & visible) - len(samples.point_ids)),

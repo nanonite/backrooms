@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/hunyuan_panorama_preview.gd" id="1_preview"]
+
+[node name="HunyuanPanoramaPreview" type="Node3D"]
+script = ExtResource("1_preview")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="PreviewCamera" type="Camera3D" parent="."]
+current = true
+
+[node name="Overlay" type="CanvasLayer" parent="."]
+
+[node name="Status" type="Label" parent="Overlay"]
+offset_left = 24.0
+offset_top = 22.0
+offset_right = 520.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(0.95, 0.94, 0.86, 1)
+theme_override_font_sizes/font_size = 16
+text = "PANORAMA ONLY  /  NON-WALKABLE"
+
+[node name="Direction" type="Label" parent="Overlay"]
+offset_left = 24.0
+offset_top = 62.0
+offset_right = 320.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(0.79, 0.87, 0.82, 1)
+theme_override_font_sizes/font_size = 14
+text = "FORWARD"

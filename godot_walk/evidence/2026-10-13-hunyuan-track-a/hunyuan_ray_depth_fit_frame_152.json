@@ -1,0 +1,212 @@
+{
+  "method": "COLMAP range vs Hunyuan grid-vertex range along registered source-camera rays",
+  "units": "#100 declared metres (chosen 2.4 m clear-height convention; source is synthetic)",
+  "inputs": {
+    "source_frame": {
+      "path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+      "sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12"
+    },
+    "hunyuan_mesh": {
+      "path": "data/track-a/hunyuan/scene-frame-0152-attempt-02/mesh_layer1.ply",
+      "sha256": "c44b11b40cc4763d375cbcae47f9ec4256eaa38b50d74f8ca7ba1372e6177a34",
+      "grid": [
+        3840,
+        1920
+      ]
+    },
+    "foreground_mask": {
+      "path": "data/track-a/hunyuan/scene-frame-0152-attempt-02/fg1_mask.png",
+      "sha256": "02c0d0a2b127c55b0cb4041e04273797cece6458448ef3f80de49ee4c2c12e42"
+    },
+    "colmap_model": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/sparse/0",
+    "dataparser_transforms": {
+      "path": "/mnt/sharedOs/backrooms-track-a/data/track-a/hunyuan/dataparser_transforms.json",
+      "sha256": "fdabcd1b1450e65c605f45099a93383aff081fb1009b73f71f3eb854654e8ed4"
+    },
+    "alignment_manifest": {
+      "path": "/mnt/sharedOs/backrooms-track-a/godot_walk/assets/corridor_splat/alignment_manifest.json",
+      "sha256": "85d5b51c8ca9df614b81a6f6dddf8c68015cca14b36e3b007c1a67f50be03598"
+    },
+    "calibration_manifest": null
+  },
+  "grid_ray_convention_max_error_degrees": 1.63782182658682e-05,
+  "metres_per_colmap_unit": 1.0031811190201414,
+  "registered_observations": 412,
+  "observations_used_after_foreground_mask": 389,
+  "source_image_grid_cells_occupied_4x4": 14,
+  "observations_masked_as_foreground": 23,
+  "scale_declared_metres_per_hunyuan_unit": {
+    "all_rays": {
+      "count": 389,
+      "median": 1.700136721645771,
+      "bootstrap_95ci_of_median": [
+        1.6926041101092786,
+        1.7112150571064388
+      ],
+      "robust_sigma": 0.10763299929503287,
+      "robust_sigma_fraction": 0.06330843744780812,
+      "relative_residual_q50_q90": [
+        0.04270095605544855,
+        0.21822772240787947
+      ]
+    },
+    "by_panorama_band": {
+      "top": {
+        "count": 184,
+        "median": 1.7388181963868234,
+        "bootstrap_95ci_of_median": [
+          1.720553524889468,
+          1.7544609172286088
+        ],
+        "robust_sigma": 0.06597890396219423,
+        "robust_sigma_fraction": 0.037944682255623426,
+        "relative_residual_q50_q90": [
+          0.025593337552693496,
+          0.07833214142377408
+        ]
+      },
+      "middle": {
+        "count": 191,
+        "median": 1.637822390301644,
+        "bootstrap_95ci_of_median": [
+          1.5890965821211323,
+          1.6777630234543794
+        ],
+        "robust_sigma": 0.19828027551837643,
+        "robust_sigma_fraction": 0.12106335625431179,
+        "relative_residual_q50_q90": [
+          0.08165611510475634,
+          0.23720614833870912
+        ]
+      },
+      "bottom": {
+        "count": 14,
+        "median": 1.794908159882898,
+        "bootstrap_95ci_of_median": [
+          1.7455382336989402,
+          1.8275711198134668
+        ],
+        "robust_sigma": 0.07396994595187364,
+        "robust_sigma_fraction": 0.04121099207476974,
+        "relative_residual_q50_q90": [
+          0.0277964333432954,
+          0.2680503638826405
+        ]
+      }
+    },
+    "by_colmap_range": {
+      "0-4m": {
+        "count": 55,
+        "median": 1.7601800821023899,
+        "bootstrap_95ci_of_median": [
+          1.754458427937314,
+          1.7716241504922867
+        ],
+        "robust_sigma": 0.029933638045244827,
+        "robust_sigma_fraction": 0.017006008845124283,
+        "relative_residual_q50_q90": [
+          0.011470395821613577,
+          0.040079055022079896
+        ]
+      },
+      "4-6m": {
+        "count": 147,
+        "median": 1.715433038348362,
+        "bootstrap_95ci_of_median": [
+          1.7069407194748762,
+          1.7288640278570517
+        ],
+        "robust_sigma": 0.07719754100740911,
+        "robust_sigma_fraction": 0.04500178047272294,
+        "relative_residual_q50_q90": [
+          0.030353285088845938,
+          0.152371714526286
+        ]
+      },
+      "6-10m": {
+        "count": 111,
+        "median": 1.6960335009319392,
+        "bootstrap_95ci_of_median": [
+          1.6908625452621386,
+          1.7051041660152548
+        ],
+        "robust_sigma": 0.08300589960390622,
+        "robust_sigma_fraction": 0.04894119105447859,
+        "relative_residual_q50_q90": [
+          0.033010381124024324,
+          0.13455778949662678
+        ]
+      },
+      "10-infm": {
+        "count": 76,
+        "median": 1.419774811587787,
+        "bootstrap_95ci_of_median": [
+          1.377744382490063,
+          1.4829033537957028
+        ],
+        "robust_sigma": 0.1702003250229742,
+        "robust_sigma_fraction": 0.119878394541056,
+        "relative_residual_q50_q90": [
+          0.0808568693788318,
+          0.22960270416307216
+        ]
+      }
+    }
+  },
+  "scale_profile_normalized_to_all_ray_median": {
+    "by_panorama_band": {
+      "top": {
+        "count": 184,
+        "median_scale": 1.7388181963868234,
+        "median_normalized_to_all_rays": 1.0227519788547406
+      },
+      "middle": {
+        "count": 191,
+        "median_scale": 1.637822390301644,
+        "median_normalized_to_all_rays": 0.9633474587362566
+      },
+      "bottom": {
+        "count": 14,
+        "median_scale": 1.794908159882898,
+        "median_normalized_to_all_rays": 1.0557434217086883
+      }
+    },
+    "by_colmap_range": {
+      "0-4m": {
+        "count": 55,
+        "median_scale": 1.7601800821023899,
+        "median_normalized_to_all_rays": 1.0353167834634474
+      },
+      "4-6m": {
+        "count": 147,
+        "median_scale": 1.715433038348362,
+        "median_normalized_to_all_rays": 1.0089971097664332
+      },
+      "6-10m": {
+        "count": 111,
+        "median_scale": 1.6960335009319392,
+        "median_normalized_to_all_rays": 0.9975865348582907
+      },
+      "10-infm": {
+        "count": 76,
+        "median_scale": 1.419774811587787,
+        "median_normalized_to_all_rays": 0.8350944918202888
+      }
+    }
+  },
+  "scale_comparison": {
+    "ray_depth_median": 1.700136721645771
+  },
+  "camera_anchored_plane_checks": {
+    "status": "skipped",
+    "reason": "No frame-specific fitted plane coefficients were supplied; frame-141 camera and plane data were not reused."
+  },
+  "tolerance_m": null,
+  "single_similarity_meets_tolerance": null,
+  "limitations": [
+    "One source frame; COLMAP points on low-texture wallpaper are sparse and may be noisy.",
+    "The panorama band split uses Hunyuan row fraction; the bottom band has few points.",
+    "Hunyuan layer depth may include upstream depth compression; ratios are not assumed linear.",
+    "Plane check skipped; frame-141 camera and plane coefficients were not reused."
+  ]
+}

@@ -101,6 +101,17 @@ def robust_summary(ratios: np.ndarray, rng: np.random.Generator, samples: int) -
     }
 
 
+def normalized_scale_profile(profile: dict, overall_median: float) -> dict:
+    return {
+        name: {
+            "count": values["count"],
+            "median_scale": values["median"],
+            "median_normalized_to_all_rays": values["median"] / overall_median,
+        }
+        for name, values in profile.items()
+    }
+
+
 def plane_height(calibration: dict, plane: str, scale: float) -> float:
     """World y of a #134 fitted plane at the reference x/z, camera anchored."""
     follow_up = calibration["validation"]["plane_fit_follow_up"]
@@ -190,17 +201,41 @@ def analyze(args: argparse.Namespace) -> dict:
         if np.count_nonzero(keep & (range_m >= low) & (range_m < high)) >= args.min_bin
     }
 
-    calibration = json.loads(args.calibration.read_text())
-    convention_scale = float(calibration["scale"])
     ray_scale = overall["median"]
-    floor_scale = single_plane_scale(calibration, "floor", REFERENCE_FLOOR_Y)
-    ceiling_scale = single_plane_scale(calibration, "ceiling", REFERENCE_CEILING_Y)
-    ray_plane = plane_check(calibration, ray_scale)
-    # The camera anchor residual is zero by construction, so the gate is the floor and ceiling.
-    similarity_passes = (
-        abs(ray_plane["floor_offset_m"]) <= TOLERANCE_M
-        and abs(ray_plane["ceiling_offset_m"]) <= TOLERANCE_M
-    )
+    if args.skip_plane_check:
+        scale_comparison = {"ray_depth_median": ray_scale}
+        plane_checks = {
+            "status": "skipped",
+            "reason": "No frame-specific fitted plane coefficients were supplied; frame-141 camera and plane data were not reused.",
+        }
+        similarity_passes = None
+        calibration_input = None
+    else:
+        calibration = json.loads(args.calibration.read_text())
+        convention_scale = float(calibration["scale"])
+        floor_scale = single_plane_scale(calibration, "floor", REFERENCE_FLOOR_Y)
+        ceiling_scale = single_plane_scale(calibration, "ceiling", REFERENCE_CEILING_Y)
+        ray_plane = plane_check(calibration, ray_scale)
+        scale_comparison = {
+            "convention_plane_fit_134": convention_scale,
+            "ray_depth_median": ray_scale,
+            "floor_plane_only_camera_anchored": floor_scale,
+            "ceiling_plane_only_camera_anchored": ceiling_scale,
+        }
+        plane_checks = {
+            "convention_scale": plane_check(calibration, convention_scale),
+            "ray_depth_scale": ray_plane,
+            "reference_floor_y": REFERENCE_FLOOR_Y,
+            "reference_ceiling_y": REFERENCE_CEILING_Y,
+        }
+        similarity_passes = (
+            abs(ray_plane["floor_offset_m"]) <= TOLERANCE_M
+            and abs(ray_plane["ceiling_offset_m"]) <= TOLERANCE_M
+        )
+        calibration_input = {
+            "path": str(args.calibration),
+            "sha256": sha256(args.calibration),
+        }
 
     return {
         "method": "COLMAP range vs Hunyuan grid-vertex range along registered source-camera rays",
@@ -212,7 +247,7 @@ def analyze(args: argparse.Namespace) -> dict:
             "colmap_model": str(args.colmap),
             "dataparser_transforms": {"path": str(args.dataparser), "sha256": sha256(args.dataparser)},
             "alignment_manifest": {"path": str(args.alignment), "sha256": sha256(args.alignment)},
-            "calibration_manifest": {"path": str(args.calibration), "sha256": sha256(args.calibration)},
+            "calibration_manifest": calibration_input,
         },
         "grid_ray_convention_max_error_degrees": ray_check_degrees(vertices),
         "metres_per_colmap_unit": metres_per_colmap_unit,
@@ -225,25 +260,25 @@ def analyze(args: argparse.Namespace) -> dict:
             "by_panorama_band": bands,
             "by_colmap_range": depth_bins,
         },
-        "scale_comparison": {
-            "convention_plane_fit_134": convention_scale,
-            "ray_depth_median": ray_scale,
-            "floor_plane_only_camera_anchored": floor_scale,
-            "ceiling_plane_only_camera_anchored": ceiling_scale,
+        "scale_profile_normalized_to_all_ray_median": {
+            "by_panorama_band": normalized_scale_profile(bands, ray_scale),
+            "by_colmap_range": normalized_scale_profile(depth_bins, ray_scale),
         },
-        "camera_anchored_plane_checks": {
-            "convention_scale": plane_check(calibration, convention_scale),
-            "ray_depth_scale": ray_plane,
-            "reference_floor_y": REFERENCE_FLOOR_Y,
-            "reference_ceiling_y": REFERENCE_CEILING_Y,
-        },
-        "tolerance_m": TOLERANCE_M,
-        "single_similarity_meets_tolerance": bool(similarity_passes),
+        "scale_comparison": scale_comparison,
+        "camera_anchored_plane_checks": plane_checks,
+        "tolerance_m": None if args.skip_plane_check else TOLERANCE_M,
+        "single_similarity_meets_tolerance": (
+            None if similarity_passes is None else bool(similarity_passes)
+        ),
         "limitations": [
             "One source frame; COLMAP points on low-texture wallpaper are sparse and may be noisy.",
             "The panorama band split uses Hunyuan row fraction; the bottom band has few points.",
             "Hunyuan layer depth may include upstream depth compression; ratios are not assumed linear.",
-            "Plane checks reuse #134's fitted floor/ceiling coefficients and #100 reference heights.",
+            *(
+                ["Plane check skipped; frame-141 camera and plane coefficients were not reused."]
+                if args.skip_plane_check
+                else ["Plane checks reuse #134's fitted floor/ceiling coefficients and #100 reference heights."]
+            ),
         ],
     }
 
@@ -260,6 +295,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--bootstrap", type=int, default=2000)
     parser.add_argument("--min-bin", type=int, default=10)
     parser.add_argument("--seed", type=int, default=142)
+    parser.add_argument(
+        "--skip-plane-check",
+        action="store_true",
+        help="do not reuse frame-141 plane fit or camera block for another source frame",
+    )
     parser.add_argument("--output", type=Path)
     return parser.parse_args()
 

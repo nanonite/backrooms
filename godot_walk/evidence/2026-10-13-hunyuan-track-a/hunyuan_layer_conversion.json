@@ -1,0 +1,49 @@
+{
+  "format": "glTF 2.0 binary",
+  "output_path": "/mnt/sharedOs/backrooms-track-a/godot_walk/generated_mesh_scenes/hunyuan_track_a/hunyuan_layers.glb",
+  "output_sha256": "05e4ef4a6d85e917f2ea2b5637104fa06ce46ec0971e3820980c8fc991d5e36e",
+  "unit_scale": "unknown; no scale was applied",
+  "layer_transforms": "identity; Hunyuan PLY layers share their exported coordinates",
+  "layers": [
+    {
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/track-a/hunyuan/scene-run-04/mesh_layer0.ply",
+      "source_sha256": "39cbabc873521276033af4d6da9637683d253c1e67d221c90e944909c6d54cf2",
+      "name": "mesh_layer0",
+      "vertices": 1603960,
+      "triangles": 3235343,
+      "bounds_min": [
+        -5.338449478149414,
+        -0.9695708155632019,
+        -0.736989438533783
+      ],
+      "bounds_max": [
+        1.1615262031555176,
+        3.265889883041382,
+        0.8771288394927979
+      ],
+      "vertex_color_kind": "vertex",
+      "winding_consistent": false,
+      "watertight": false
+    },
+    {
+      "source_path": "/mnt/sharedOs/backrooms-track-a/data/track-a/hunyuan/scene-run-04/mesh_layer1.ply",
+      "source_sha256": "74da848d775827aaa3262a2ce59e66c482898eb7e80271b5fff37227bcbf30e7",
+      "name": "mesh_layer1",
+      "vertices": 7372800,
+      "triangles": 14783952,
+      "bounds_min": [
+        -18.493789672851562,
+        -10.999139785766602,
+        -0.8688146471977234
+      ],
+      "bounds_max": [
+        1.6674118041992188,
+        3.240905284881592,
+        0.9196824431419373
+      ],
+      "vertex_color_kind": "vertex",
+      "winding_consistent": false,
+      "watertight": false
+    }
+  ]
+}

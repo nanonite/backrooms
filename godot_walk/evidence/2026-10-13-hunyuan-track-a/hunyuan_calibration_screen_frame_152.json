@@ -1,0 +1,66 @@
+{
+  "method": "SIFT ratio matches after Hunyuan equirectangular-to-camera reprojection",
+  "source_frame": "frame_0152.jpg",
+  "camera_model": "CameraModelId.SIMPLE_RADIAL",
+  "camera_parameters": [
+    1230.189175616024,
+    960.0,
+    540.0,
+    -0.07134034405730856
+  ],
+  "source_image": {
+    "path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+    "sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12"
+  },
+  "hunyuan_panorama": {
+    "path": "data/track-a/hunyuan/panorama-frame-0152-attempt-02/measured_fov_75.93_seed_42/panorama.png",
+    "sha256": "135dd2a83e4865c2516d8d66a2b1670ba6dd65fbef9c7204438cc62e45f3d3d5",
+    "size": [
+      1280,
+      640
+    ]
+  },
+  "colmap_model": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/sparse/0",
+  "sift_keypoints": {
+    "source": 189,
+    "hunyuan_projected_view": 37
+  },
+  "lowe_ratio_threshold": 0.75,
+  "ratio_matches": 29,
+  "homography_ransac_threshold_pixels": 3.0,
+  "homography_inliers": 7,
+  "inlier_source_image_grid_cells_occupied_4x4": 3,
+  "unique_registered_3d_points_within_10px_of_inliers": 3,
+  "inlier_hunyuan_equirectangular_pixels": [
+    [
+      530.1840209960938,
+      314.3133239746094
+    ],
+    [
+      549.5030517578125,
+      313.61822509765625
+    ],
+    [
+      586.87939453125,
+      289.1446228027344
+    ],
+    [
+      586.87939453125,
+      289.1446228027344
+    ],
+    [
+      596.561767578125,
+      289.007080078125
+    ],
+    [
+      650.9215698242188,
+      316.69232177734375
+    ],
+    [
+      669.0438842773438,
+      287.8697509765625
+    ]
+  ],
+  "automated_correspondence_screen_passed": false,
+  "limitation": "Feature screening does not prove semantic identity. A passing count still requires spatially distributed, manually confirmed landmarks and a robust fit."
+}

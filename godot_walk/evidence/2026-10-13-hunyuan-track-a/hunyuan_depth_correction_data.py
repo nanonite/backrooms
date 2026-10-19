@@ -59,6 +59,7 @@ class CameraContext:
     camera_center: np.ndarray
     rotation: np.ndarray
     metres_per_colmap_unit: float
+    camera_frame_source: str
 
 
 def make_camera_context(
@@ -67,6 +68,7 @@ def make_camera_context(
     dataparser_path: Path,
     alignment_path: Path,
     calibration: dict,
+    frame_camera_path: Path | None = None,
 ) -> CameraContext:
     reconstruction = pycolmap.Reconstruction(str(colmap_path))
     image = next(
@@ -89,6 +91,9 @@ def make_camera_context(
     dataparser_scale = float(json.loads(dataparser_path.read_text())["scale"])
     alignment = json.loads(alignment_path.read_text())
     metres = dataparser_scale * float(alignment["ply_to_world"]["metres_per_unit"])
+    camera_center, rotation, camera_frame_source = _camera_frame(
+        frame_camera_path, source_path.name, calibration
+    )
     return CameraContext(
         reconstruction=reconstruction,
         image=image,
@@ -96,9 +101,37 @@ def make_camera_context(
         camera_points=camera_points,
         pixels=pixels,
         point_ids=point_ids,
-        camera_center=np.asarray(calibration["registered_camera"]["camera_center_world_declared"]),
-        rotation=np.asarray(calibration["rotation_local_to_world_row_major"], dtype=np.float64),
+        camera_center=camera_center,
+        rotation=rotation,
         metres_per_colmap_unit=metres,
+        camera_frame_source=camera_frame_source,
+    )
+
+
+def _camera_frame(
+    frame_camera_path: Path | None, source_name: str, calibration: dict
+) -> tuple[np.ndarray, np.ndarray, str]:
+    if frame_camera_path is None:
+        return (
+            np.asarray(calibration["registered_camera"]["camera_center_world_declared"], dtype=np.float64),
+            np.asarray(calibration["rotation_local_to_world_row_major"], dtype=np.float64),
+            "frame-141 calibration manifest",
+        )
+    frame = json.loads(frame_camera_path.read_text())
+    if frame["selected_frame"]["registered_image"] != source_name:
+        raise ValueError("frame camera metadata does not match the selected source image")
+    camera = frame["camera"]
+    forward = np.asarray(camera["forward_godot_world"], dtype=np.float64)
+    up = np.asarray(camera["up_godot_world"], dtype=np.float64)
+    rotation = np.column_stack((-forward, np.cross(forward, up), up))
+    if not np.allclose(rotation.T @ rotation, np.eye(3), atol=1e-4):
+        raise ValueError("frame camera orientation is not orthonormal")
+    if not np.isclose(np.linalg.det(rotation), 1.0, atol=1e-4):
+        raise ValueError("frame camera orientation is not a proper rotation")
+    return (
+        np.asarray(camera["camera_center_godot_world_m"], dtype=np.float64),
+        rotation,
+        str(frame_camera_path),
     )
 
 
@@ -130,7 +163,7 @@ def collect_frame_samples(
     )
     plane_kind = _plane_membership(source_world_y)
     samples = _samples_from_arrays(
-        source="frame_141",
+        source=Path(context.image.name).stem,
         point_ids=context.point_ids,
         source_pixels=context.pixels,
         elevations=elevations,

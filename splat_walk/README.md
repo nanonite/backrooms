@@ -6,9 +6,16 @@ This is an experimental first-person walkthrough, not a calibrated reconstructio
 The run-05 Hunyuan GLB supplies visuals only. The #135 authored route GLB supplies
 all collision: its floor, column proxy, and edge boundaries. The playable region
 is the authored loop around the column. The rest of the Hunyuan scene is not
-walkable.
+walkable. `registration_accepted=false` and `scale_calibrated=false` remain in
+the manifest.
 
-Launch from the Track A worktree after GPU use is approved:
+The visual asset is stored with Git LFS at
+`godot_walk/generated_mesh_scenes/hunyuan_track_a_full_run/hunyuan_layers.glb`.
+The route manifest verifies its SHA-256 before launch. Run `git lfs pull` after
+cloning if the working file is still an LFS pointer.
+
+Launch from the repository root (including a clean `main` worktree) after GPU
+use is approved:
 
 ```sh
 cargo run --release --manifest-path splat_walk/Cargo.toml --bin hunyuan_route_scene -- --play
@@ -45,6 +52,5 @@ It exercises the keyboard-to-motion mapping and `R` reset, then compares route
 traversal with the locked #135 metrics. Unit tests cover cursor-lock transitions
 and the one-shot reset request.
 
-The live window has not been launched as part of this code change. A GPU-approved
-operator play-test is still required to assess the visuals and movement feel.
-`registration_accepted=false` and `scale_calibrated=false` remain unchanged.
+The `--play` mode uses the GPU for rendering but runs no Hunyuan inference. The
+CPU-only `--play-smoke` command above remains suitable for automated checks.
