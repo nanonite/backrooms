@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">#145 footage inventory and bounded room-layout proposal</title>
+  <desc id="desc">Left: camera-center trace measured from registered COLMAP poses in uncalibrated reconstruction units. Right: not-to-scale evidence topology showing visible wall fragments, an open passage, repeated columns, and an authored navigation suggestion without an inferred perimeter.</desc>
+  <rect width="1200" height="700" fill="#f4f6f3"/>
+  <text x="40" y="48" fill="#202d2b" font-family="sans-serif" font-size="25" font-weight="700">#145 | Source-footage inventory</text>
+  <text x="40" y="76" fill="#51615c" font-family="sans-serif" font-size="14">Measured camera trace and a separate, operator-review topology proposal</text>
+
+  <rect x="32" y="100" width="520" height="548" fill="#ffffff" stroke="#b8c6c1" stroke-width="1"/>
+  <text x="56" y="137" fill="#243633" font-family="sans-serif" font-size="19" font-weight="700">Camera centers | COLMAP X-Z</text>
+  <text x="56" y="160" fill="#62716d" font-family="sans-serif" font-size="12">192 registered poses; reconstruction units, not meters</text>
+  <line x1="86" y1="566" x2="492" y2="566" stroke="#8a9994"/>
+  <line x1="86" y1="190" x2="86" y2="566" stroke="#8a9994"/>
+  <text x="480" y="588" fill="#62716d" font-family="sans-serif" font-size="12">X</text>
+  <text x="68" y="202" fill="#62716d" font-family="sans-serif" font-size="12">Z</text>
+  <g fill="#62716d" font-family="sans-serif" font-size="11">
+    <text x="80" y="584">-3.5</text><text x="192" y="584">-2</text><text x="304" y="584">-0.5</text><text x="417" y="584">1</text>
+    <text x="58" y="570">-4.5</text><text x="58" y="475">-2</text><text x="58" y="380">0.5</text><text x="58" y="285">3</text><text x="58" y="195">5.5</text>
+  </g>
+  <polyline points="147,557 235,548 341,521 433,469 479,400 462,326 382,262 253,217 104,201" fill="none" stroke="#16766b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#d35e45" stroke="#ffffff" stroke-width="2">
+    <circle cx="147" cy="557" r="5"/><circle cx="235" cy="548" r="5"/><circle cx="341" cy="521" r="5"/><circle cx="433" cy="469" r="5"/><circle cx="479" cy="400" r="5"/><circle cx="462" cy="326" r="5"/><circle cx="382" cy="262" r="5"/><circle cx="253" cy="217" r="5"/><circle cx="104" cy="201" r="5"/>
+  </g>
+  <g fill="#354541" font-family="sans-serif" font-size="11">
+    <text x="120" y="538">0001</text><text x="463" y="382">0097</text><text x="86" y="180">0192</text>
+  </g>
+  <text x="56" y="620" fill="#62716d" font-family="sans-serif" font-size="12">Line: registered camera-center sequence. Dots: sampled source frames.</text>
+
+  <rect x="572" y="100" width="596" height="548" fill="#ffffff" stroke="#b8c6c1" stroke-width="1"/>
+  <text x="596" y="137" fill="#243633" font-family="sans-serif" font-size="19" font-weight="700">Evidence topology | not to scale</text>
+  <text x="596" y="160" fill="#62716d" font-family="sans-serif" font-size="12">Schematic relations only; no measured wall positions or perimeter</text>
+
+  <g fill="none" stroke="#315f52" stroke-width="12" stroke-linecap="square">
+    <path d="M635 258 H790"/>
+    <path d="M790 258 V333"/>
+    <path d="M898 333 H969"/>
+    <path d="M969 333 V397"/>
+    <path d="M714 397 H799"/>
+  </g>
+  <g fill="#d9b88b" stroke="#765d40" stroke-width="2">
+    <rect x="670" y="327" width="34" height="34"/><rect x="855" y="238" width="34" height="34"/>
+    <rect x="1021" y="260" width="34" height="34"/><rect x="1092" y="355" width="34" height="34"/>
+    <rect x="1006" y="451" width="34" height="34"/><rect x="1100" y="521" width="34" height="34"/>
+  </g>
+  <text x="618" y="224" fill="#315f52" font-family="sans-serif" font-size="13">wall / partition run</text>
+  <text x="802" y="302" fill="#315f52" font-family="sans-serif" font-size="13">visible return</text>
+  <text x="779" y="375" fill="#315f52" font-family="sans-serif" font-size="13">open passage</text>
+  <text x="981" y="235" fill="#765d40" font-family="sans-serif" font-size="13">repeated-column bay</text>
+  <text x="991" y="585" fill="#62716d" font-family="sans-serif" font-size="12">far extent unknown</text>
+  <text x="595" y="447" fill="#62716d" font-family="sans-serif" font-size="12">not observed</text>
+  <text x="1064" y="180" fill="#62716d" font-family="sans-serif" font-size="12">not observed</text>
+
+  <path d="M636 457 C712 453 760 429 790 389 S813 346 832 335 S866 335 887 350 S933 403 989 430 S1053 466 1090 489" fill="none" stroke="#16766b" stroke-width="3" stroke-dasharray="10 8" marker-end="url(#arrow)"/>
+  <text x="624" y="493" fill="#16766b" font-family="sans-serif" font-size="12">authored navigation suggestion</text>
+  <text x="624" y="511" fill="#62716d" font-family="sans-serif" font-size="11">not a measured route or accepted production layout</text>
+
+  <g font-family="sans-serif" font-size="12" fill="#354541">
+    <line x1="598" y1="550" x2="642" y2="550" stroke="#315f52" stroke-width="8"/><text x="652" y="554">visible wall fragment</text>
+    <rect x="798" y="540" width="18" height="18" fill="#d9b88b" stroke="#765d40"/><text x="825" y="554">visible column</text>
+    <line x1="940" y1="550" x2="984" y2="550" stroke="#16766b" stroke-width="3" stroke-dasharray="8 6"/><text x="994" y="554">authored proposal</text>
+  </g>
+  <text x="596" y="618" fill="#8d4b38" font-family="sans-serif" font-size="12" font-weight="700">Operator review required before room production. No unseen rooms are proposed.</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 Z" fill="#16766b"/>
+    </marker>
+  </defs>
+</svg>
