@@ -1,19 +1,42 @@
-# Video -> Walkable Gaussian Splat
+# Video -> Walkable Backrooms
 
-**Long-term target:** Milestone #10, a first-person Bevy 0.18 experience with Gaussian-splat visuals and co-registered collision.
+**Long-term target:** a first-person Bevy 0.18 Backrooms simulator assembled from a library of individually tested rooms. Source video informs each room's visual content and layout; collision remains explicit, validated geometry. A deterministic 2D room graph can later generate maze-like runs from approved modules.
 
 ## Current Execution Context
 
-The active Chainlink work is the synthetic Backrooms proof of concept under #78 and #101. Its current runtime and pipeline are in `godot_walk/` and `scripts/splat_pipeline/`; this validates the video-to-walkable-scene workflow before the Bevy integration. The Bevy issue table that previously assigned #101-#110 to controller, renderer, and alignment work is stale: those IDs now refer to different live Chainlink issues. In particular, current Chainlink #104 is **Capture and reconstruct a fully covered synthetic Backrooms walkthrough**, not the former BE-4 alignment task. Do not reuse the old issue-number mapping.
+The workspace contains both the established Godot prototype/pipeline and the Bevy 0.18 crate in `splat_walk/`. Keep `data/scenes/corridor_travel/` and the #100 scene as protected reference inputs. Current Chainlink #104 is **Capture and reconstruct a fully covered synthetic Backrooms walkthrough**, not the former BE-4 alignment task. Do not reuse the old issue-number mapping.
 
-The checked-in workspace currently contains the Godot prototype, not the `splat_walk/` Bevy crate described by the long-term target. Keep the Godot proof-of-concept and the future Bevy integration distinct; new Bevy work needs current issue IDs rather than the stale table.
+## Working Milestone: Video To Walkable
+
+`milestone/video-to-walkable-working` points to commit `d785651` and is merged into local `main`. It is the first operator-played Bevy walkthrough from the #100 source: a run-05 Hunyuan GLB supplies visuals only, while the exact #135 authored collision GLB supplies the floor, column proxy, and edge boundaries. The shared player controller moves the player around the authored loop. The evidence and launch command are documented in `splat_walk/README.md` and `godot_walk/evidence/2026-10-13-hunyuan-track-a/`.
+
+This is a working, uncalibrated playable zone, not a metric reconstruction of the whole source video. The route is deliberately authored. Hunyuan geometry does not provide collision. `registration_accepted=false` and `scale_calibrated=false` remain locked. The tag is the baseline for extending the simulator, not a claim that room discovery, module stitching, or procedural generation is done.
+
+## Roadmap: Room Library To Generator
+
+1. **Inventory the footage.** Map the rooms, corridors, columns, doorways, and transitions that the #100 source actually shows. Record frame ranges, camera coverage, visible openings, and unknown areas. Propose a 2D layout with evidence-backed and authored parts distinguished.
+2. **Define a room module.** Give each module a stable ID, source-video/frame provenance, visual asset, separate collision asset, coordinate/scale status, connector sockets, exposed-boundary rules, playability report, and resource measurements. Register the tagged walkthrough as an uncalibrated reference zone, not a surveyed full room.
+3. **Build rooms one at a time.** Select a room from the reviewed inventory. Create its visual candidate and explicit collision route. Run it standalone in Bevy with the shared fixed-step controller, boundary and obstacle controls, and operator visual review. Do not add a module to the catalog before it passes.
+4. **Stitch verified modules.** Place at least two approved rooms through compatible connectors. Test doorway clearance, floor-height transitions, collision seams, continuous traversal, and exposed edges. Reject a layout if a room works alone but its connector does not.
+5. **Generate layouts.** Once the catalog contains multiple validated modules, generate a deterministic 2D grid or room graph from compatible connectors. Use a seed and explicit topology constraints for loops, dead ends, reachability, and exits. The generator places approved modules; it does not invent untested collision.
+
+Track A (#144) owns room inventory, module contracts, standalone Bevy validation, stitching, and layout generation. Track B (#117) continues the human-directed PSX visual/design loop in parallel. Track B can inform the visual grammar and transitions, but it is not a gate for Track A. WorldMirror is optional research, not a prerequisite for a playable room library.
 
 ## Current Chainlink Build Order
 
 | Issue | Current goal | State / dependency |
 |-------|--------------|-------------------|
 | #78 | Deliver a reproducible video-to-walkable-scene pipeline | Parent epic |
-| #101 | Verify the synthetic Backrooms PoC as a PSX-scale walking simulator | Open; bounded Gaussian patch found; hybrid PSX extension is next |
+| #101 | Verify the synthetic Backrooms PoC as a PSX-scale walking simulator | Open; #116 now carries the room-library and design-iteration direction |
+| #116 | Backrooms room library, design iteration, and layout generation | Open umbrella; starts from `milestone/video-to-walkable-working` |
+| #117 | Track B: establish the PSX design-iteration harness | Open; parallel to Track A, not a gate |
+| #121 | Run the first Gaussian-backed design iteration rounds | Open; operator-reviewed feedback loop under #117 |
+| #144 | Track A: build a verified room catalog and modular Bevy scenes | Open; children #145-#149 |
+| #145 | Inventory #100 source footage and propose a room plan | Open; first Track A step; operator reviews layout |
+| #146 | Define the validated Bevy room-module contract | Open; blocked by #145 |
+| #147 | Build and validate the first additional room module | Open; blocked by #146 and room approval |
+| #148 | Stitch verified room modules through tested connectors | Open; blocked by #147 |
+| #149 | Generate seeded 2D Backrooms layouts from verified modules | Open; blocked by #148 |
 | #103 | Measure standard cleanup of the existing splat | Open for operator review; candidate report recommends new coverage |
 | #104 | Capture and reconstruct a fully covered synthetic Backrooms walkthrough | Candidate trained; alignment found incomplete geometry coverage; keep open |
 | #113 | Build a PSX room extension around a reliable Gaussian patch | In progress; manual room-v2 implementation is tracked by child #115 |
