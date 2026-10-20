@@ -27,7 +27,7 @@ const VISUAL_NODE_NAMES: [&str; 2] = ["mesh_layer0", "mesh_layer1"];
 pub struct SceneVisualConfig {
     pub asset_path: String,
     pub model_transform: Transform,
-    pub frame_141_camera_origin: bevy::prelude::Vec3,
+    pub camera_origin: bevy::prelude::Vec3,
     pub analyze_alignment: bool,
 }
 
@@ -117,7 +117,7 @@ pub fn poll_visual_loading(mut commands: Commands, mut params: VisualPollParams)
         .is_loaded_with_dependencies(&params.state.handle)
     {
         if params.state.started_at.elapsed() > VISUAL_LOAD_TIMEOUT {
-            fail_visual_load(&mut params, "timed out loading run-05 Hunyuan visual GLB");
+            fail_visual_load(&mut params, "timed out loading selected Hunyuan visual GLB");
         }
         return;
     }
@@ -163,7 +163,7 @@ fn build_visual_scene<'a, 'cw, 'cs, 'pw>(
     let visual_alignment = if params.config.analyze_alignment {
         Some(analyze_visual_alignment(
             &params.route,
-            params.config.frame_141_camera_origin,
+            params.config.camera_origin,
             &query_meshes,
             PLAYER_RADIUS_M,
             PLAYER_STEM_M,

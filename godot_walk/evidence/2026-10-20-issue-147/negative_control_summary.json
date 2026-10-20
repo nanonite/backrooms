@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "status": "expected_rejections_observed",
+  "candidate_route_physics": {
+    "positive_report": "walkability_report.json",
+    "all_required_scenarios_pass": true,
+    "authored_lateral_pushes_passed": 18,
+    "authored_lateral_pushes_total": 18,
+    "max_lateral_offset_m": 0.117089465,
+    "maximum_allowed_offset_m": 0.12
+  },
+  "asset_integrity_negative_controls": [
+    {
+      "control": "missing_floor",
+      "report": "missing_floor_walkability.json",
+      "process_exit_code": 1,
+      "rejection_stage": "required collision GLB node-count validation, before physics simulation",
+      "reason": "authored route GLB has 3 nodes, expected floor, column and two edge boundaries"
+    },
+    {
+      "control": "missing_column",
+      "report": "missing_column_walkability.json",
+      "process_exit_code": 1,
+      "rejection_stage": "required collision GLB node-count validation, before physics simulation",
+      "reason": "authored route GLB has 3 nodes, expected floor, column and two edge boundaries"
+    },
+    {
+      "control": "missing_boundaries",
+      "report": "missing_boundaries_walkability.json",
+      "process_exit_code": 1,
+      "rejection_stage": "required collision GLB node-count validation, before physics simulation",
+      "reason": "authored route GLB has 2 nodes, expected floor, column and two edge boundaries"
+    }
+  ],
+  "physics_negative_controls": [
+    {
+      "scenario": "wide_hole_safety_net_contact",
+      "passed_as_expected_negative_control": true,
+      "safety_net_contact_count": 1
+    },
+    {
+      "scenario": "open_ledge_0_8m",
+      "passed_as_expected_negative_control": true,
+      "outcome": "authored_edge_boundaries_required_before_player_traversal",
+      "safety_net_contact_count": 1
+    }
+  ],
+  "interpretation": "Missing-node controls prove malformed candidate assets are rejected, not that a partially damaged candidate was traversed. Physics loss-of-support is exercised by the shared wide-hole and open-ledge controls."
+}

@@ -10,6 +10,8 @@ use sha2::{Digest, Sha256};
 
 const MANIFEST_PATH: &str =
     "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_route_scene_manifest.json";
+const ISSUE147_MANIFEST_PATH: &str =
+    "godot_walk/evidence/2026-10-20-issue-147/module_manifest.json";
 
 #[derive(Deserialize)]
 pub struct SceneManifest {
@@ -19,7 +21,21 @@ pub struct SceneManifest {
     pub scale_calibrated: bool,
     pub transform: SceneTransform,
     pub assets: SceneAssets,
+    #[serde(default)]
+    pub source_evidence: Vec<AssetRecord>,
     pub locked_traversal_gate: TraversalGate,
+    #[serde(default)]
+    pub route_report_path: Option<String>,
+    #[serde(default)]
+    pub route_report_sha256: Option<String>,
+    #[serde(default)]
+    pub output_report_path: Option<String>,
+    #[serde(default)]
+    pub capture_poses_path: Option<String>,
+    #[serde(default)]
+    pub capture_poses_sha256: Option<String>,
+    #[serde(default)]
+    pub capture_output_path: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -27,7 +43,8 @@ pub struct SceneTransform {
     pub transform_status: String,
     pub scale_m_per_hunyuan_unit: f32,
     pub scale_sensitivity_range_m_per_hunyuan_unit: [f32; 2],
-    pub registered_frame_141_camera_anchor_world_m: [f32; 3],
+    #[serde(alias = "registered_frame_141_camera_anchor_world_m")]
+    pub camera_anchor_world_m: [f32; 3],
     pub plane_aligned_translation_world_m: [f32; 3],
     pub camera_anchor_shift_y_m: f32,
     pub declared_collision_floor_y_m: f32,
@@ -56,19 +73,38 @@ pub struct TraversalGate {
 }
 
 pub fn load_manifest(root: &Path) -> Result<SceneManifest> {
-    let manifest_path = root.join(MANIFEST_PATH);
+    load_manifest_from(root, MANIFEST_PATH)
+}
+
+pub fn load_issue147_manifest(root: &Path) -> Result<SceneManifest> {
+    load_manifest_from(root, ISSUE147_MANIFEST_PATH)
+}
+
+fn load_manifest_from(root: &Path, relative_path: &str) -> Result<SceneManifest> {
+    let manifest_path = root.join(relative_path);
     let manifest: SceneManifest = serde_json::from_slice(
         &std::fs::read(&manifest_path)
             .with_context(|| format!("cannot read manifest {}", manifest_path.display()))?,
     )
     .context("route-scene manifest is invalid JSON")?;
-    if manifest.issue != 137
+    if ![137, 147].contains(&manifest.issue)
         || manifest.label != "uncalibrated"
         || manifest.registration_accepted
         || manifest.scale_calibrated
         || manifest.transform.transform_status != "uncalibrated_convention"
     {
-        bail!("route-scene manifest does not preserve the uncalibrated decision");
+        bail!("route-scene manifest has invalid issue or calibration status");
+    }
+    if manifest.issue == 147
+        && (manifest.route_report_path.is_none()
+            || manifest.route_report_sha256.is_none()
+            || manifest.output_report_path.is_none()
+            || manifest.capture_poses_path.is_none()
+            || manifest.capture_poses_sha256.is_none()
+            || manifest.capture_output_path.is_none()
+            || manifest.source_evidence.len() < 2)
+    {
+        bail!("#147 module manifest is missing route or capture paths");
     }
     if manifest.assets.visual.path.is_empty()
         || manifest.assets.collision.path.is_empty()
@@ -87,6 +123,33 @@ pub fn load_manifest(root: &Path) -> Result<SceneManifest> {
     verify_hash(root, &manifest.assets.visual)?;
     verify_hash(root, &manifest.assets.collision)?;
     verify_hash(root, &manifest.assets.camera_metadata)?;
+    for source in &manifest.source_evidence {
+        verify_hash(root, source)?;
+    }
+    if let (Some(path), Some(sha256)) = (
+        manifest.route_report_path.as_ref(),
+        manifest.route_report_sha256.as_ref(),
+    ) {
+        verify_hash(
+            root,
+            &AssetRecord {
+                path: path.clone(),
+                sha256: sha256.clone(),
+            },
+        )?;
+    }
+    if let (Some(path), Some(sha256)) = (
+        manifest.capture_poses_path.as_ref(),
+        manifest.capture_poses_sha256.as_ref(),
+    ) {
+        verify_hash(
+            root,
+            &AssetRecord {
+                path: path.clone(),
+                sha256: sha256.clone(),
+            },
+        )?;
+    }
     Ok(manifest)
 }
 

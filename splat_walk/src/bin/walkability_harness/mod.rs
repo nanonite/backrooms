@@ -650,19 +650,40 @@ fn ratio(numerator: usize, denominator: usize) -> f32 {
 }
 
 fn route_report_path() -> Result<PathBuf> {
-    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .parent()
-        .context("crate has no workspace parent")?
-        .to_path_buf();
-    Ok(root.join("godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/authored_route_around_column/route_report.json"))
+    configured_report_path(
+        "--route-report=",
+        if env::args().any(|argument| argument == "--issue147") {
+            "godot_walk/evidence/2026-10-20-issue-147/route_report_v2.json"
+        } else {
+            "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/authored_route_around_column/route_report.json"
+        },
+    )
 }
 
 fn report_path() -> Result<PathBuf> {
+    configured_report_path(
+        "--report=",
+        if env::args().any(|argument| argument == "--issue147") {
+            "godot_walk/evidence/2026-10-20-issue-147/walkability_report.json"
+        } else {
+            "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/avian_tnua_harness/walkability_report.json"
+        },
+    )
+}
+
+fn configured_report_path(argument_prefix: &str, default_path: &str) -> Result<PathBuf> {
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .parent()
         .context("crate has no workspace parent")?
         .to_path_buf();
-    Ok(root.join("godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/avian_tnua_harness/walkability_report.json"))
+    let requested = env::args()
+        .find_map(|argument| argument.strip_prefix(argument_prefix).map(PathBuf::from))
+        .unwrap_or_else(|| PathBuf::from(default_path));
+    Ok(if requested.is_absolute() {
+        requested
+    } else {
+        root.join(requested)
+    })
 }
 
 fn write_report(report_json: &str) -> Result<()> {

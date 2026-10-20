@@ -1,0 +1,115 @@
+{
+  "created_utc": "2026-10-15T22:36:50.523564+00:00",
+  "upstream_repository": "/mnt/sharedOs/backrooms-track-a-runtime/HunyuanWorld-1.0",
+  "upstream_commit": "57fa9f3a79eae1079c279968cdb9d82c75fa7c86",
+  "source_video": {
+    "path": "/mnt/sharedOs/backrooms-track-a/data/scenes/corridor_travel/video.mp4",
+    "sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4",
+    "width": 1920,
+    "height": 1080,
+    "fps": 24.0,
+    "frame_count": 192,
+    "duration_seconds": 8.0
+  },
+  "selected_frame": {
+    "video_frame_number_1_based": 152,
+    "video_frame_index_0_based": 151,
+    "timestamp_seconds": 6.291666666666667,
+    "registered_image": "frame_0152.jpg",
+    "registered_image_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+    "seed_png": "/mnt/sharedOs/backrooms-track-a/data/track-a/hunyuan/source_frame_0152.png",
+    "seed_png_sha256": "fd165eeb0c2d5a14101f2314290feedcc44aeb73148b9d1272fa52d26f819401",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "crop_or_resize": false
+  },
+  "source_camera": {
+    "camera_id": 1,
+    "colmap_model": "SIMPLE_RADIAL",
+    "parameters": [
+      1230.189175616024,
+      960.0,
+      540.0,
+      -0.07134034405730856
+    ],
+    "focal_x_pixels": 1230.189175616024,
+    "focal_y_pixels": 1230.189175616024,
+    "approx_horizontal_fov_degrees": 75.93466004923032,
+    "approx_vertical_fov_degrees": 47.398805577606446,
+    "radial_distortion_is_not_modeled_by_upstream_panorama_warp": true,
+    "world_to_camera_rotation": [
+      [
+        -0.6909255570477184,
+        0.006558140510618031,
+        0.7228961650274152
+      ],
+      [
+        0.002040619601113172,
+        0.9999725602763663,
+        -0.007121416008947876
+      ],
+      [
+        -0.7229230322032522,
+        -0.0034452122390263625,
+        -0.6909199809114546
+      ]
+    ],
+    "world_to_camera_translation": [
+      -2.868489272889425,
+      0.04145591853843594,
+      2.777057359057254
+    ],
+    "camera_center_colmap": [
+      0.025601582095542925,
+      -0.013075273292776588,
+      3.9926395371458416
+    ],
+    "camera_center_godot_world_m": [
+      2.920978333078322,
+      -0.08497656639639749,
+      3.7035079450105557
+    ],
+    "forward_godot_world": [
+      -0.6909284990566434,
+      0.00022244980471342399,
+      -0.7229230662438558
+    ],
+    "up_godot_world": [
+      0.002476424139258394,
+      0.9999948136663447,
+      -0.00205911726116329
+    ],
+    "yaw_degrees": 43.703653978897165,
+    "pitch_degrees": 0.012745435068704234
+  },
+  "image_path": "/mnt/sharedOs/backrooms-track-a/data/track-a/hunyuan/source_frame_0152.png",
+  "image_sha256": "fd165eeb0c2d5a14101f2314290feedcc44aeb73148b9d1272fa52d26f819401",
+  "prompt": "Empty Backrooms corridor matching this frame: pale yellow geometric wallpaper, cream columns, off-white tiled ceiling with fluorescent panels, beige carpet, and connected open corridors. Preserve the architecture, viewpoint, and lighting; continue the unseen room consistently. No people or furniture.",
+  "negative_prompt": "",
+  "theta_degrees": 0.0,
+  "phi_degrees": 0.0,
+  "height": 640,
+  "width": 1280,
+  "steps": 50,
+  "guidance_scale": 30.0,
+  "true_cfg_scale": 1.0,
+  "blend_extend": 6,
+  "fp8_attention": true,
+  "fp8_gemm": true,
+  "cache": true,
+  "offload_mode": "sequential",
+  "measured_fov_only": true,
+  "candidates": [
+    {
+      "name": "measured_fov_75.93_seed_42",
+      "seed": 42,
+      "fov": 75.93466004923032,
+      "status": "complete",
+      "output_path": "/mnt/sharedOs/backrooms-track-a/data/track-a/hunyuan/panorama-frame-0152-attempt-02/measured_fov_75.93_seed_42/panorama.png",
+      "output_sha256": "135dd2a83e4865c2516d8d66a2b1670ba6dd65fbef9c7204438cc62e45f3d3d5",
+      "peak_cuda_memory_bytes": 3391193088
+    }
+  ]
+}

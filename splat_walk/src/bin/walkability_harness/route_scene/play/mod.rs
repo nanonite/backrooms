@@ -3,6 +3,8 @@ mod input;
 mod metrics;
 mod resources;
 
+use std::path::PathBuf;
+
 use avian3d::prelude::Position;
 use bevy::{
     pbr::StandardMaterial,
@@ -96,7 +98,7 @@ fn spawn_first_person_camera(
     let tangent =
         (spec.waypoints.get(1).copied().unwrap_or(spec.start) - spec.start).normalize_or_zero();
     let yaw = yaw_facing_direction(tangent);
-    let eye_height = visual.frame_141_camera_origin.y - route.floor_y;
+    let eye_height = visual.camera_origin.y - route.floor_y;
     let local_eye_offset = eye_height - PLAYER_FLOAT_HEIGHT_M;
     let position = spec.start + Vec3::Y * local_eye_offset;
     commands.spawn((
@@ -149,8 +151,8 @@ fn sync_first_person_camera(
     let Ok(mut camera) = cameras.single_mut() else {
         return;
     };
-    camera.translation = player.0
-        + Vec3::Y * (visual.frame_141_camera_origin.y - route.floor_y - PLAYER_FLOAT_HEIGHT_M);
+    camera.translation =
+        player.0 + Vec3::Y * (visual.camera_origin.y - route.floor_y - PLAYER_FLOAT_HEIGHT_M);
     camera.rotation =
         Quat::from_rotation_y(look.yaw_radians) * Quat::from_rotation_x(look.pitch_radians);
 }
@@ -161,12 +163,21 @@ pub fn initial_yaw(spec: &HarnessSpec) -> f32 {
     yaw_facing_direction(tangent)
 }
 
-pub fn report_path(root: &std::path::Path) -> std::path::PathBuf {
+pub fn report_path(
+    root: &std::path::Path,
+    manifest: &super::manifest::SceneManifest,
+) -> std::path::PathBuf {
     std::env::args()
         .find_map(|argument| {
             argument
                 .strip_prefix("--play-report=")
                 .map(std::path::PathBuf::from)
+        })
+        .or_else(|| {
+            manifest
+                .output_report_path
+                .as_deref()
+                .map(|path| PathBuf::from(path).with_file_name("interactive_play_report.json"))
         })
         .map(|path| {
             if path.is_absolute() {
@@ -187,12 +198,11 @@ pub fn start(root: &std::path::Path) -> anyhow::Result<()> {
         "Play-mode resource preflight: {}",
         serde_json::to_string(&preflight)?
     );
-    let manifest = super::load_manifest(root)?;
+    let manifest = super::selected_manifest(root)?;
     let camera = super::load_camera_metadata(root, &manifest)?;
     let transform = super::model_transform(&manifest, &camera)?;
-    let (spec, mut route) = super::authored_route_config(
-        &root.join("godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/authored_route_around_column/route_report.json"),
-    )?;
+    let route_report_path = super::selected_route_report_path(root, &manifest);
+    let (spec, mut route) = super::authored_route_config(&route_report_path)?;
     route.directory = root.to_path_buf();
     route.file_name.clone_from(&manifest.assets.collision.path);
     let initial_yaw = initial_yaw(&spec);
@@ -205,7 +215,7 @@ pub fn start(root: &std::path::Path) -> anyhow::Result<()> {
         root,
         super::SceneAppMode::Interactive { initial_yaw },
     );
-    let report_path = report_path(root);
+    let report_path = report_path(root, &manifest);
     let report_handle = configure_automation(&mut app, report_path, preflight, timeout);
     let exit = app.run();
     let report = take_report(report_handle)?;

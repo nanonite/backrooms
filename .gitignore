@@ -73,6 +73,10 @@ scripts/splat_pipeline/scenes/
 # byte-comparable from a fixed seed).
 scripts/splat_pipeline/fixtures/clips/
 
+# #147 Hunyuan visual GLB (307 MB). Pinned by SHA-256 in the issue's module_manifest.json;
+# regenerate with the "Fresh Clone" steps in godot_walk/evidence/2026-10-20-issue-147/COMMANDS.md.
+godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb
+
 # Nerfstudio training outputs and exports (large, regeneratable from pipeline)
 outputs/
 exports/

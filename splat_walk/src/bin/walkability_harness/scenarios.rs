@@ -201,12 +201,12 @@ struct EdgeBoundaryReport {
 }
 
 pub fn authored_route_config(report_path: &Path) -> Result<(HarnessSpec, AuthoredRouteAsset)> {
-    let report = fs::read(report_path).context("cannot read #139 route report")?;
+    let report = fs::read(report_path).context("cannot read authored route report")?;
     let route: RouteReport =
-        serde_json::from_slice(&report).context("#139 route report is invalid JSON")?;
+        serde_json::from_slice(&report).context("authored route report is invalid JSON")?;
     let route_directory = report_path
         .parent()
-        .context("#139 report path has no parent directory")?
+        .context("authored route report path has no parent directory")?
         .to_path_buf();
     let floor_center_y = route.plane.height_m + 0.7;
     let center = Vec3::new(

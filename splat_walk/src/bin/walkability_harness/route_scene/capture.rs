@@ -1,6 +1,7 @@
 use std::{
     fs,
     path::{Path, PathBuf},
+    process::Command,
     time::Instant,
 };
 
@@ -17,8 +18,8 @@ use bevy::{
 };
 use serde::{Deserialize, Serialize};
 
-use super::{load_camera_metadata, model_transform};
-use crate::walkability_harness::route_scene::manifest::{load_manifest, repo_root};
+use super::{load_camera_metadata, model_transform, play::ResourcePreflight, selected_manifest};
+use crate::walkability_harness::route_scene::manifest::repo_root;
 
 const POSES_PATH: &str =
     "godot_walk/evidence/2026-10-13-hunyuan-track-a/captures/capture_poses.json";
@@ -38,7 +39,7 @@ const VIEW_NAMES: [&str; 9] = [
 ];
 const MAX_ASSET_WAIT_SECONDS: u64 = 120;
 
-#[derive(Deserialize)]
+#[derive(Clone, Deserialize)]
 struct PoseManifest {
     issue: u32,
     label: String,
@@ -50,7 +51,7 @@ struct PoseManifest {
     poses: Vec<CapturePose>,
 }
 
-#[derive(Deserialize)]
+#[derive(Clone, Deserialize)]
 struct CapturePose {
     name: String,
     position_world_m: [f32; 3],
@@ -103,6 +104,8 @@ struct CaptureReport {
     captured_views: Vec<String>,
     visual_only_nodes: [&'static str; 2],
     collision_loaded: bool,
+    resource_preflight: ResourcePreflight,
+    gpu_compute_processes_before_capture: usize,
     registration_accepted: bool,
     scale_calibrated: bool,
     wall_time_seconds: f64,
@@ -111,13 +114,22 @@ struct CaptureReport {
 
 pub fn run() -> Result<()> {
     let started = Instant::now();
+    let resource_preflight = super::play::check_resources()?;
+    let gpu_compute_processes = ensure_no_competing_gpu_jobs()?;
     let root = repo_root()?;
-    let manifest = load_manifest(&root)?;
-    let camera = load_camera_metadata(&root, &manifest)?;
-    let transform = model_transform(&manifest, &camera)?;
-    let capture_manifest = read_pose_manifest(&root.join(POSES_PATH))?;
+    let scene_manifest = selected_manifest(&root)?;
+    let camera = load_camera_metadata(&root, &scene_manifest)?;
+    let transform = model_transform(&scene_manifest, &camera)?;
+    let pose_path = scene_manifest
+        .capture_poses_path
+        .as_deref()
+        .unwrap_or(POSES_PATH);
+    let capture_manifest = read_pose_manifest(&root.join(pose_path))?;
     validate_pose_manifest(&capture_manifest)?;
-    let output_directory = capture_output_directory(&root);
+    if capture_manifest.issue != scene_manifest.issue {
+        bail!("capture-pose issue does not match the selected scene manifest");
+    }
+    let output_directory = capture_output_directory(&root, &scene_manifest);
     fs::create_dir_all(&output_directory).with_context(|| {
         format!(
             "cannot create capture directory {}",
@@ -132,13 +144,19 @@ pub fn run() -> Result<()> {
     })?;
     run_bevy_capture(
         &root,
-        &manifest.assets.visual.path,
+        &scene_manifest.assets.visual.path,
         transform,
-        capture_manifest,
+        capture_manifest.clone(),
         &output_directory,
     )?;
-    verify_capture_outputs(&output_directory)?;
-    write_capture_report(&output_directory, started.elapsed().as_secs_f64())?;
+    verify_capture_outputs(&output_directory, &capture_manifest)?;
+    write_capture_report(
+        &output_directory,
+        &capture_manifest,
+        started.elapsed().as_secs_f64(),
+        resource_preflight,
+        gpu_compute_processes,
+    )?;
     Ok(())
 }
 
@@ -150,21 +168,33 @@ fn read_pose_manifest(path: &Path) -> Result<PoseManifest> {
 }
 
 fn validate_pose_manifest(manifest: &PoseManifest) -> Result<()> {
-    if manifest.issue != 137
+    let valid_view_count = if manifest.issue == 137 {
+        manifest.poses.len() == VIEW_NAMES.len()
+    } else {
+        (1..=32).contains(&manifest.poses.len())
+    };
+    if ![137, 147].contains(&manifest.issue)
         || manifest.label != "uncalibrated"
         || manifest.registration_accepted
         || manifest.scale_calibrated
         || manifest.resolution != [960, 540]
         || manifest.settle_frames_before_each_capture != 8
-        || manifest.poses.len() != VIEW_NAMES.len()
+        || !valid_view_count
         || !manifest.vertical_fov_degrees.is_finite()
         || !(0.0..180.0).contains(&manifest.vertical_fov_degrees)
     {
-        bail!("capture poses do not match the locked #137 uncalibrated view set");
+        bail!("capture poses have invalid issue, calibration or capture settings");
     }
-    for (pose, expected_name) in manifest.poses.iter().zip(VIEW_NAMES) {
-        if pose.name != expected_name {
+    for (index, pose) in manifest.poses.iter().enumerate() {
+        if manifest.issue == 137 && pose.name != VIEW_NAMES[index] {
             bail!("capture pose order differs from the locked #137 view set");
+        }
+        if !pose
+            .name
+            .chars()
+            .all(|character| character.is_ascii_alphanumeric() || character == '_')
+        {
+            bail!("capture pose name contains unsafe characters");
         }
         pose_transform(pose)?;
     }
@@ -190,9 +220,25 @@ fn pose_transform(pose: &CapturePose) -> Result<Transform> {
     Ok(Transform::from_translation(position).looking_to(forward, up))
 }
 
-fn capture_output_directory(root: &Path) -> PathBuf {
+fn capture_output_directory(
+    root: &Path,
+    scene_manifest: &crate::walkability_harness::route_scene::manifest::SceneManifest,
+) -> PathBuf {
     std::env::args()
         .find_map(|argument| argument.strip_prefix("--capture-dir=").map(PathBuf::from))
+        .map(|path| {
+            if path.is_absolute() {
+                path
+            } else {
+                root.join(path)
+            }
+        })
+        .or_else(|| {
+            scene_manifest
+                .capture_output_path
+                .as_deref()
+                .map(PathBuf::from)
+        })
         .map(|path| {
             if path.is_absolute() {
                 path
@@ -236,7 +282,7 @@ fn run_bevy_capture(
             })
             .set(WindowPlugin {
                 primary_window: Some(Window {
-                    title: "HunyuanWorld #137 Bevy comparison".into(),
+                    title: "HunyuanWorld standalone Bevy review".into(),
                     resolution: WindowResolution::new(resolution[0], resolution[1])
                         .with_scale_factor_override(1.0),
                     ..default()
@@ -402,9 +448,8 @@ fn fail_capture(commands: &mut Commands, progress: &mut CaptureProgress, message
     commands.write_message(AppExit::error());
 }
 
-fn verify_capture_outputs(directory: &Path) -> Result<()> {
-    let poses: PoseManifest = read_pose_manifest(&repo_root()?.join(POSES_PATH))?;
-    for pose in poses.poses {
+fn verify_capture_outputs(directory: &Path, poses: &PoseManifest) -> Result<()> {
+    for pose in &poses.poses {
         let path = directory.join(format!("{}.png", pose.name));
         if !path.is_file() {
             bail!("expected Bevy capture was not written: {}", path.display());
@@ -413,19 +458,30 @@ fn verify_capture_outputs(directory: &Path) -> Result<()> {
     Ok(())
 }
 
-fn write_capture_report(directory: &Path, wall_time_seconds: f64) -> Result<()> {
-    let manifest: PoseManifest = read_pose_manifest(&repo_root()?.join(POSES_PATH))?;
+fn write_capture_report(
+    directory: &Path,
+    manifest: &PoseManifest,
+    wall_time_seconds: f64,
+    resource_preflight: ResourcePreflight,
+    gpu_compute_processes_before_capture: usize,
+) -> Result<()> {
     let report = CaptureReport {
         schema_version: 1,
-        issue: 137,
+        issue: manifest.issue,
         label: "uncalibrated",
         renderer: "Bevy 0.18.0 / wgpu",
         bevy_version: "0.18.0",
         resolution: manifest.resolution,
         vertical_fov_degrees: manifest.vertical_fov_degrees,
-        captured_views: manifest.poses.into_iter().map(|pose| pose.name).collect(),
+        captured_views: manifest
+            .poses
+            .iter()
+            .map(|pose| pose.name.clone())
+            .collect(),
         visual_only_nodes: VISUAL_NODES,
         collision_loaded: false,
+        resource_preflight,
+        gpu_compute_processes_before_capture,
         registration_accepted: false,
         scale_calibrated: false,
         wall_time_seconds,
@@ -434,6 +490,29 @@ fn write_capture_report(directory: &Path, wall_time_seconds: f64) -> Result<()> 
     let path = directory.join("bevy_capture_report.json");
     fs::write(&path, serde_json::to_vec_pretty(&report)?)
         .with_context(|| format!("cannot write Bevy capture report {}", path.display()))
+}
+
+fn ensure_no_competing_gpu_jobs() -> Result<usize> {
+    let output = Command::new("nvidia-smi")
+        .args([
+            "--query-compute-apps=pid,process_name",
+            "--format=csv,noheader",
+        ])
+        .output()
+        .context("cannot inspect active GPU compute processes before capture")?;
+    if !output.status.success() {
+        bail!("nvidia-smi failed while checking for competing GPU jobs");
+    }
+    let process_list = String::from_utf8(output.stdout)
+        .context("nvidia-smi returned non-UTF8 active-process data")?;
+    let process_count = process_list
+        .lines()
+        .filter(|line| !line.trim().is_empty())
+        .count();
+    if process_count > 0 {
+        bail!("GPU capture refused while {process_count} compute process(es) are active");
+    }
+    Ok(process_count)
 }
 
 fn process_peak_rss_kib() -> Option<u64> {

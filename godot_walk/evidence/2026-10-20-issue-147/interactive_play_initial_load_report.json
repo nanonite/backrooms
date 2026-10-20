@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "label": "uncalibrated",
+  "fixed_step_hz": 60,
+  "resource_preflight": {
+    "available_ram_kib": 20480280,
+    "minimum_available_ram_kib": 10485760,
+    "free_vram_mib": 10749,
+    "minimum_free_vram_mib": 4096
+  },
+  "assets_ready": true,
+  "load_time_seconds": 16.566313801,
+  "frame_count": 0,
+  "frame_time_median_ms": null,
+  "frame_time_p95_ms": null,
+  "peak_rss_kib": 7934800,
+  "resets": []
+}

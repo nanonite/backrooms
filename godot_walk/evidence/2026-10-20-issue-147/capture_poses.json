@@ -1,0 +1,29 @@
+{
+  "issue": 147,
+  "label": "uncalibrated",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "resolution": [960, 540],
+  "vertical_fov_degrees": 47.3988056,
+  "settle_frames_before_each_capture": 8,
+  "pose_set": "four authored-loop stations by four local-axis headings, plus the raw frame-152 camera pose",
+  "poses": [
+    {"name":"station_x_pos_face_x_pos","position_world_m":[2.849882,-0.100279711,1.450685],"forward_world":[1,0,0],"up_world":[0,1,0]},
+    {"name":"station_x_pos_face_x_neg","position_world_m":[2.849882,-0.100279711,1.450685],"forward_world":[-1,0,0],"up_world":[0,1,0]},
+    {"name":"station_x_pos_face_z_pos","position_world_m":[2.849882,-0.100279711,1.450685],"forward_world":[0,0,1],"up_world":[0,1,0]},
+    {"name":"station_x_pos_face_z_neg","position_world_m":[2.849882,-0.100279711,1.450685],"forward_world":[0,0,-1],"up_world":[0,1,0]},
+    {"name":"station_x_neg_face_x_pos","position_world_m":[-3.750118,-0.100279711,1.450685],"forward_world":[1,0,0],"up_world":[0,1,0]},
+    {"name":"station_x_neg_face_x_neg","position_world_m":[-3.750118,-0.100279711,1.450685],"forward_world":[-1,0,0],"up_world":[0,1,0]},
+    {"name":"station_x_neg_face_z_pos","position_world_m":[-3.750118,-0.100279711,1.450685],"forward_world":[0,0,1],"up_world":[0,1,0]},
+    {"name":"station_x_neg_face_z_neg","position_world_m":[-3.750118,-0.100279711,1.450685],"forward_world":[0,0,-1],"up_world":[0,1,0]},
+    {"name":"station_z_pos_face_x_pos","position_world_m":[-0.450118,-0.100279711,4.750685],"forward_world":[1,0,0],"up_world":[0,1,0]},
+    {"name":"station_z_pos_face_x_neg","position_world_m":[-0.450118,-0.100279711,4.750685],"forward_world":[-1,0,0],"up_world":[0,1,0]},
+    {"name":"station_z_pos_face_z_pos","position_world_m":[-0.450118,-0.100279711,4.750685],"forward_world":[0,0,1],"up_world":[0,1,0]},
+    {"name":"station_z_pos_face_z_neg","position_world_m":[-0.450118,-0.100279711,4.750685],"forward_world":[0,0,-1],"up_world":[0,1,0]},
+    {"name":"station_z_neg_face_x_pos","position_world_m":[-0.450118,-0.100279711,-1.849315],"forward_world":[1,0,0],"up_world":[0,1,0]},
+    {"name":"station_z_neg_face_x_neg","position_world_m":[-0.450118,-0.100279711,-1.849315],"forward_world":[-1,0,0],"up_world":[0,1,0]},
+    {"name":"station_z_neg_face_z_pos","position_world_m":[-0.450118,-0.100279711,-1.849315],"forward_world":[0,0,1],"up_world":[0,1,0]},
+    {"name":"station_z_neg_face_z_neg","position_world_m":[-0.450118,-0.100279711,-1.849315],"forward_world":[0,0,-1],"up_world":[0,1,0]},
+    {"name":"candidate_camera_at_frame_0152","position_world_m":[2.920978333,-0.084976566,3.703507945],"forward_world":[-0.690928499,0.00022245,-0.722923066],"up_world":[0.002476424,0.999994814,-0.002059117]}
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "issue": 147,
+  "status": "negative_control",
+  "negative_control": "missing_boundaries",
+  "gpu_used": false,
+  "metric_scale_accepted": false,
+  "hunyuan_registration_accepted": false,
+  "plane": {
+    "height_m": -1.2709904909133911,
+    "basis": "#100 chosen floor convention; not surveyed"
+  },
+  "route": {
+    "kind": "authored_expanded_loop_around_observed_column_candidate",
+    "center_xz_m": [
+      -0.45011800276157465,
+      1.4506849140103122
+    ],
+    "radius_m": 3.3,
+    "width_m": 0.8,
+    "inner_radius_m": 2.9,
+    "outer_radius_m": 3.6999999999999997,
+    "closed_path_length_m": 20.734511513692635,
+    "centerline_samples": 1536,
+    "geometry_origin": "authored; a bounded playable candidate, not a recovered room extent"
+  },
+  "column_obstacle": {
+    "footprint_lower_xz_m": [
+      -1.2568561533613571,
+      -0.7415601043662503
+    ],
+    "footprint_upper_xz_m": [
+      0.36192645011758046,
+      1.3885216998149807
+    ],
+    "height_m": 2.4,
+    "basis": "reused conservative authored proxy from #135 frames 0137 and 0141",
+    "metric_scale_accepted": false
+  },
+  "edge_boundaries": {
+    "height_m": 1.4,
+    "thickness_m": 0.08,
+    "origin": "authored, not reconstructed",
+    "inner_and_outer_rings_closed": true
+  },
+  "export": {
+    "path": "missing_boundaries.glb",
+    "sha256": "cb152e213b3e09639ea8a489c8de75d9046e9ef3ad12820117c6479a963b4d8f",
+    "bytes": 20168,
+    "floor_triangles": 512,
+    "column_triangles": 12,
+    "inner_edge_boundary_triangles": 0,
+    "outer_edge_boundary_triangles": 0,
+    "mesh_names": [
+      "AuthoredPlanarRouteFloor",
+      "ColumnObstacleProxy"
+    ],
+    "node_transform": "identity; authored vertices use the uncalibrated #100 convention"
+  }
+}

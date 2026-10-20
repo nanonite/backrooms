@@ -1,0 +1,33 @@
+{
+  "created_utc": "2026-10-16T14:42:18.775268+00:00",
+  "upstream_commit": "57fa9f3a79eae1079c279968cdb9d82c75fa7c86",
+  "image_path": "/mnt/sharedOs/backrooms-track-a/data/track-a/hunyuan/panorama-frame-0152-attempt-02/measured_fov_75.93_seed_42/panorama.png",
+  "image_sha256": "135dd2a83e4865c2516d8d66a2b1670ba6dd65fbef9c7204438cc62e45f3d3d5",
+  "scene_class": "indoor",
+  "foreground_layer_1_labels": [
+    "columns"
+  ],
+  "foreground_layer_2_labels": [],
+  "seed": 42,
+  "fp8_attention": true,
+  "fp8_gemm": true,
+  "cache": false,
+  "offload_mode": "sequential; installed after FP8 module conversion",
+  "zim_checkpoint_path": "/mnt/sharedOs/backrooms-track-a-runtime/ZIM/zim_vit_l_2092",
+  "resume_decomposition_dir": null,
+  "mesh_only": false,
+  "status": "complete",
+  "mesh_layers": [
+    {
+      "path": "mesh_layer0.ply",
+      "bytes": 22629118,
+      "sha256": "0cc7cd2a248e16d8a43533d17ec9d70d9ab4d332afa6ad7401b11a2d320207de"
+    },
+    {
+      "path": "mesh_layer1.ply",
+      "bytes": 568204505,
+      "sha256": "c44b11b40cc4763d375cbcae47f9ec4256eaa38b50d74f8ca7ba1372e6177a34"
+    }
+  ],
+  "peak_cuda_memory_bytes": 6431233536
+}

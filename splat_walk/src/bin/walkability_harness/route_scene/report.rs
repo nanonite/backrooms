@@ -35,7 +35,7 @@ pub struct ComparisonSceneReport {
     pub visual_metric_contract: &'static str,
     pub visual: Option<VisualSceneReportData>,
     pub traversal: ScenarioReport,
-    pub baseline_comparison: BaselineComparison,
+    pub baseline_comparison: Option<BaselineComparison>,
     pub update_time_ms: UpdateTimeReport,
     pub scene_total_wall_time_seconds: f64,
     pub route_simulation_wall_time_seconds: f64,
@@ -46,7 +46,7 @@ pub struct ComparisonSceneReport {
 pub struct SceneRunReportData {
     pub visual: Option<VisualSceneReportData>,
     pub traversal: ScenarioReport,
-    pub baseline_comparison: BaselineComparison,
+    pub baseline_comparison: Option<BaselineComparison>,
     pub traversal_gate: TraversalGateReport,
     pub model_rotation_xyzw: [f32; 4],
     pub update_time_ms: UpdateTimeReport,
@@ -70,7 +70,11 @@ pub struct TraversalGateReport {
 impl TraversalGateReport {
     pub fn from_manifest(manifest: &SceneManifest) -> Self {
         Self {
-            source: "#135 locked authored-route gate",
+            source: if manifest.issue == 137 {
+                "#135 locked authored-route gate"
+            } else {
+                "#147 standalone authored-route gate"
+            },
             outbound_progress_fraction_min: manifest
                 .locked_traversal_gate
                 .outbound_progress_fraction_min,
@@ -80,7 +84,11 @@ impl TraversalGateReport {
             moving_support_fraction_min: manifest.locked_traversal_gate.moving_support_fraction_min,
             safety_net_contacts_max: manifest.locked_traversal_gate.safety_net_contacts_max,
             max_vertical_step_m: manifest.locked_traversal_gate.max_vertical_step_m,
-            comparison_rule: "use the exact #135 collision GLB and shared controller; these values must match the #135 report within 1e-6",
+            comparison_rule: if manifest.issue == 137 {
+                "use the exact #135 collision GLB and shared controller; these values must match the #135 report within 1e-6"
+            } else {
+                "pass the shared-controller standalone route with authored floor, obstacle and boundary geometry; no connector traversal is claimed"
+            },
         }
     }
 }
@@ -184,11 +192,16 @@ pub fn baseline_comparison(
 }
 
 pub fn scene_report(manifest: &SceneManifest, run: SceneRunReportData) -> ComparisonSceneReport {
+    let route_passed = run.traversal.pass
+        && run
+            .baseline_comparison
+            .as_ref()
+            .is_none_or(|baseline| baseline.matches_within_1e_6);
     ComparisonSceneReport {
         schema_version: 2,
         issue: manifest.issue,
         label: "uncalibrated",
-        status: if run.traversal.pass && run.baseline_comparison.matches_within_1e_6 {
+        status: if route_passed {
             "cpu_scene_run_complete"
         } else {
             "cpu_scene_run_incomplete_or_failed"

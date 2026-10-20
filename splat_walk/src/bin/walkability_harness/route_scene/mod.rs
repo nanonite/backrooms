@@ -48,7 +48,7 @@ use crate::walkability_harness::{
 
 use self::{
     assets::{SceneVisualConfig, VisualSceneReport, poll_visual_loading, start_visual_loading},
-    manifest::{SceneManifest, load_manifest, repo_root},
+    manifest::{SceneManifest, load_issue147_manifest, load_manifest, repo_root},
     report::{
         ComparisonSceneReport, SceneRunReportData, TraversalGateReport, UpdateTimeReport,
         baseline_comparison, scene_report,
@@ -112,15 +112,34 @@ pub fn run_interactive_play() -> Result<()> {
     play::start(&root)
 }
 
+pub(super) fn selected_manifest(root: &std::path::Path) -> Result<SceneManifest> {
+    if std::env::args().any(|argument| argument == "--issue147") {
+        load_issue147_manifest(root)
+    } else {
+        load_manifest(root)
+    }
+}
+
+pub(super) fn selected_route_report_path(
+    root: &std::path::Path,
+    manifest: &SceneManifest,
+) -> std::path::PathBuf {
+    manifest.route_report_path.as_deref().map_or_else(
+        || root.join(ROUTE_REPORT_RELATIVE_PATH),
+        |path| root.join(path),
+    )
+}
+
 fn run_with_mode(mode: SceneAppMode, output_report_path: &str) -> Result<()> {
     let started = Instant::now();
     let root = repo_root()?;
-    let manifest = load_manifest(&root)?;
+    let manifest = selected_manifest(&root)?;
     let camera = load_camera_metadata(&root, &manifest)?;
     let model_transform = model_transform(&manifest, &camera)?;
-    let (spec, mut route) = authored_route_config(&root.join(ROUTE_REPORT_RELATIVE_PATH))?;
+    let route_report_path = selected_route_report_path(&root, &manifest);
+    let (spec, mut route) = authored_route_config(&route_report_path)?;
     if (route.floor_y - manifest.transform.declared_collision_floor_y_m).abs() > 1.0e-4 {
-        bail!("#139 route floor differs from the locked #100 collision floor");
+        bail!("authored route floor differs from the module manifest floor convention");
     }
     route.directory.clone_from(&root);
     route.file_name.clone_from(&manifest.assets.collision.path);
@@ -198,8 +217,19 @@ fn run_with_mode(mode: SceneAppMode, output_report_path: &str) -> Result<()> {
         .get_resource::<VisualSceneReport>()
         .and_then(|report| report.0.as_ref())
         .cloned();
-    let baseline = baseline_comparison(&traversal, &root.join(BASELINE_REPORT_RELATIVE_PATH))?;
     let update_time = UpdateTimeReport::from_samples(&update_times_seconds);
+    let baseline = if manifest.issue == 137 {
+        Some(baseline_comparison(
+            &traversal,
+            &root.join(BASELINE_REPORT_RELATIVE_PATH),
+        )?)
+    } else {
+        None
+    };
+    let report_path = manifest
+        .output_report_path
+        .as_deref()
+        .unwrap_or(output_report_path);
     let mut report = scene_report(
         &manifest,
         SceneRunReportData {
@@ -236,7 +266,7 @@ fn run_with_mode(mode: SceneAppMode, output_report_path: &str) -> Result<()> {
             locked_route_gate_passed,
         )?;
     } else {
-        write_report(&root, output_report_path, &report)?;
+        write_report(&root, report_path, &report)?;
     }
     println!("{}", serde_json::to_string_pretty(&report)?);
     if let Some(reason) = failure_reason {
@@ -245,13 +275,17 @@ fn run_with_mode(mode: SceneAppMode, output_report_path: &str) -> Result<()> {
     let passed = if matches!(mode, SceneAppMode::InputSmoke) {
         input_smoke_route_gate_passes(&report)
     } else {
-        report.traversal.pass && report.baseline_comparison.matches_within_1e_6
+        report.traversal.pass
+            && report
+                .baseline_comparison
+                .as_ref()
+                .is_none_or(|baseline| baseline.matches_within_1e_6)
     };
     if !passed {
         let reason = if matches!(mode, SceneAppMode::InputSmoke) {
             "interactive input smoke failed its locked route gate"
         } else {
-            "uncalibrated comparison scene failed traversal or #135 parity checks"
+            "uncalibrated scene failed its traversal or comparison gate"
         };
         bail!("{reason}");
     }
@@ -267,7 +301,7 @@ fn build_app(
     spec: crate::walkability_harness::scenarios::HarnessSpec,
     route: AuthoredRouteAsset,
     model_transform: bevy::prelude::Transform,
-    frame_141_camera_origin: bevy::prelude::Vec3,
+    camera_origin: bevy::prelude::Vec3,
     visual_asset_path: String,
     root: &std::path::Path,
     mode: SceneAppMode,
@@ -334,7 +368,7 @@ fn build_app(
         .insert_resource(SceneVisualConfig {
             asset_path: visual_asset_path,
             model_transform,
-            frame_141_camera_origin,
+            camera_origin,
             analyze_alignment: !matches!(mode, SceneAppMode::Interactive { .. }),
         })
         .init_resource::<ScenarioReport>()
@@ -407,7 +441,7 @@ fn load_camera_metadata(root: &std::path::Path, manifest: &SceneManifest) -> Res
         &fs::read(&path)
             .with_context(|| format!("cannot read camera metadata {}", path.display()))?,
     )
-    .context("frame-141 camera metadata is invalid JSON")?;
+    .context("source-frame camera metadata is invalid JSON")?;
     Ok(metadata.camera)
 }
 
@@ -425,11 +459,7 @@ fn model_transform(
     let up = Vec3::from_array(camera.up_godot_world).normalize_or_zero();
     let right = forward.cross(up).normalize_or_zero();
     let camera_origin = camera_origin(camera);
-    let registered_anchor = Vec3::from_array(
-        manifest
-            .transform
-            .registered_frame_141_camera_anchor_world_m,
-    );
+    let registered_anchor = Vec3::from_array(manifest.transform.camera_anchor_world_m);
     let plane_translation = Vec3::from_array(manifest.transform.plane_aligned_translation_world_m);
     if forward == Vec3::ZERO
         || up == Vec3::ZERO
@@ -442,7 +472,7 @@ fn model_transform(
             .abs()
             > 1.0e-4
     {
-        bail!("frame-141 camera metadata and locked plane-aligned transform disagree");
+        bail!("source camera metadata and plane-aligned transform disagree");
     }
     let rotation = convention_rotation(forward, right, up);
     Ok(Transform {
@@ -499,7 +529,9 @@ fn write_input_smoke_report(
 
 fn input_smoke_route_gate_passes(report: &ComparisonSceneReport) -> bool {
     let traversal = &report.traversal;
-    let baseline = &report.baseline_comparison;
+    let Some(baseline) = report.baseline_comparison.as_ref() else {
+        return false;
+    };
     traversal.pass
         && baseline.outbound_progress_delta.abs() <= 1.0e-6
         && baseline.inbound_progress_delta.abs() <= 1.0e-6

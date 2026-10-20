@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="790" viewBox="0 0 960 790">
+  <rect width="960" height="790" fill="#f5f6f4"/>
+  <text x="32" y="38" fill="#1d292b" font-family="sans-serif" font-size="24" font-weight="700">Issue 147: bounded candidate</text>
+  <text x="32" y="66" fill="#8b3d31" font-family="sans-serif" font-size="15" font-weight="700">AUTHORED GEOMETRY ONLY - NOT A RECOVERED FLOOR PLAN - NO CONNECTORS</text>
+  <text x="455" y="100" fill="#536164" font-family="sans-serif" font-size="13" text-anchor="middle">Provisional #100 coordinate convention; registration and scale remain unaccepted</text>
+
+  <circle cx="440" cy="430" r="259" fill="#bdd5d1" stroke="#ad5142" stroke-width="8"/>
+  <circle cx="440" cy="430" r="203" fill="#f5f6f4" stroke="#ad5142" stroke-width="8"/>
+  <text x="440" y="714" fill="#284d4b" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle">Authored floor ring: 0.8 m lane, 20.73 m centerline</text>
+
+  <rect x="384" y="434" width="113" height="150" rx="2" fill="#d5a15a" stroke="#7e4d26" stroke-width="3"/>
+  <text x="440" y="493" fill="#3d2c1d" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle">Authored</text>
+  <text x="440" y="512" fill="#3d2c1d" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle">column proxy</text>
+  <text x="440" y="531" fill="#3d2c1d" font-family="sans-serif" font-size="11" text-anchor="middle">from frames 0137/0141</text>
+
+  <line x1="676" y1="272" x2="645" y2="305" stroke="#176b91" stroke-width="4" marker-end="url(#arrow)"/>
+  <circle cx="676" cy="272" r="9" fill="#176b91" stroke="#ffffff" stroke-width="3"/>
+  <text x="697" y="251" fill="#15546f" font-family="sans-serif" font-size="13" font-weight="700">Registered frame-0152 pose</text>
+  <text x="697" y="269" fill="#15546f" font-family="sans-serif" font-size="11">registration not accepted</text>
+  <text x="697" y="287" fill="#15546f" font-family="sans-serif" font-size="11">outside lane; not player-accessible</text>
+
+  <line x1="100" y1="610" x2="168" y2="610" stroke="#1d292b" stroke-width="2" marker-end="url(#axis)"/>
+  <line x1="100" y1="610" x2="100" y2="542" stroke="#1d292b" stroke-width="2" marker-end="url(#axis)"/>
+  <text x="177" y="615" fill="#1d292b" font-family="sans-serif" font-size="13">+X</text>
+  <text x="105" y="532" fill="#1d292b" font-family="sans-serif" font-size="13">+Z</text>
+  <circle cx="100" cy="610" r="4" fill="#1d292b"/>
+
+  <rect x="32" y="752" width="18" height="18" fill="#bdd5d1" stroke="#ad5142" stroke-width="3"/>
+  <text x="60" y="766" fill="#1d292b" font-family="sans-serif" font-size="12">authored floor and safety boundaries (collision-only)</text>
+  <rect x="373" y="752" width="18" height="18" fill="#d5a15a" stroke="#7e4d26" stroke-width="2"/>
+  <text x="401" y="766" fill="#1d292b" font-family="sans-serif" font-size="12">authored column obstacle proxy</text>
+  <circle cx="715" cy="761" r="7" fill="#176b91"/>
+  <text x="731" y="766" fill="#1d292b" font-family="sans-serif" font-size="12">source camera pose</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#176b91"/>
+    </marker>
+    <marker id="axis" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1d292b"/>
+    </marker>
+  </defs>
+</svg>
