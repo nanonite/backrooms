@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
   <title id="title">#145 footage inventory and bounded room-layout proposal</title>
-  <desc id="desc">Left: camera-center trace measured from registered COLMAP poses in uncalibrated reconstruction units. Right: not-to-scale evidence topology showing visible partition fragments, an opening candidate with unknown destination, a wider column bay whose room identity is unresolved, and a separate authored navigation suggestion without an inferred perimeter.</desc>
+  <desc id="desc">Left: nine sampled camera centers from registered COLMAP poses in uncalibrated reconstruction units. Right: illustrative, not-to-scale evidence topology; wall and column placements and their relationships are not recovered or measured. Catalog IDs and frame references are included. The connection between zones is unknown, and the dashed navigation is an authored suggestion only.</desc>
   <rect width="1200" height="700" fill="#f4f6f3"/>
   <text x="40" y="48" fill="#202d2b" font-family="sans-serif" font-size="25" font-weight="700">#145 | Source-footage inventory</text>
-  <text x="40" y="76" fill="#51615c" font-family="sans-serif" font-size="14">Measured camera trace and a separate, operator-review topology proposal</text>
+  <text x="40" y="76" fill="#51615c" font-family="sans-serif" font-size="14">Nine sampled camera poses and an illustrative topology, not a recovered floor plan</text>
 
   <rect x="32" y="100" width="520" height="548" fill="#ffffff" stroke="#b8c6c1" stroke-width="1"/>
   <text x="56" y="137" fill="#243633" font-family="sans-serif" font-size="19" font-weight="700">Camera centers | COLMAP X-Z</text>
-  <text x="56" y="160" fill="#62716d" font-family="sans-serif" font-size="12">192 registered poses; reconstruction units, not meters</text>
+  <text x="56" y="160" fill="#62716d" font-family="sans-serif" font-size="12">192 poses registered; line connects 9 samples, in uncalibrated units</text>
   <line x1="86" y1="566" x2="492" y2="566" stroke="#8a9994"/>
   <line x1="86" y1="190" x2="86" y2="566" stroke="#8a9994"/>
   <text x="480" y="588" fill="#62716d" font-family="sans-serif" font-size="12">X</text>
@@ -23,11 +23,12 @@
   <g fill="#354541" font-family="sans-serif" font-size="11">
     <text x="120" y="538">0001</text><text x="463" y="382">0097</text><text x="86" y="180">0192</text>
   </g>
-  <text x="56" y="620" fill="#62716d" font-family="sans-serif" font-size="12">Line: registered camera-center sequence. Dots: sampled source frames.</text>
+  <text x="56" y="620" fill="#62716d" font-family="sans-serif" font-size="12">Polyline connects 9 sampled poses: 0001, 0025, 0049, 0073, 0097, 0121, 0145, 0169, 0192.</text>
 
   <rect x="572" y="100" width="596" height="548" fill="#ffffff" stroke="#b8c6c1" stroke-width="1"/>
-  <text x="596" y="137" fill="#243633" font-family="sans-serif" font-size="19" font-weight="700">Evidence topology | not to scale</text>
-  <text x="596" y="160" fill="#62716d" font-family="sans-serif" font-size="12">Schematic relations only; no measured wall positions or perimeter</text>
+  <text x="596" y="137" fill="#243633" font-family="sans-serif" font-size="19" font-weight="700">Illustrative evidence diagram | not to scale</text>
+  <text x="596" y="160" fill="#62716d" font-family="sans-serif" font-size="12">Placements and object relationships are not recovered or measured</text>
+  <text x="596" y="181" fill="#62716d" font-family="sans-serif" font-size="11">A: finishes, 0001-0192 | zone count and inter-zone connection unknown</text>
 
   <g fill="none" stroke="#315f52" stroke-width="12" stroke-linecap="square">
     <path d="M635 258 H790"/>
@@ -41,18 +42,19 @@
     <rect x="1021" y="260" width="34" height="34"/><rect x="1092" y="355" width="34" height="34"/>
     <rect x="1006" y="451" width="34" height="34"/><rect x="1100" y="521" width="34" height="34"/>
   </g>
-  <text x="618" y="224" fill="#315f52" font-family="sans-serif" font-size="13">wall / partition run</text>
-  <text x="802" y="302" fill="#315f52" font-family="sans-serif" font-size="13">visible return</text>
-  <text x="760" y="375" fill="#315f52" font-family="sans-serif" font-size="13">opening candidate</text>
-  <text x="981" y="235" fill="#765d40" font-family="sans-serif" font-size="13">wide column bay</text>
-  <text x="981" y="252" fill="#765d40" font-family="sans-serif" font-size="11">room boundary unknown</text>
+  <text x="618" y="224" fill="#315f52" font-family="sans-serif" font-size="12">B: partition, 0001-0048</text>
+  <text x="802" y="302" fill="#315f52" font-family="sans-serif" font-size="12">D: return, 0049-0096</text>
+  <text x="716" y="375" fill="#315f52" font-family="sans-serif" font-size="12">C: opening, 0013-0027</text>
+  <text x="981" y="235" fill="#765d40" font-family="sans-serif" font-size="12">E: column bay, 0085-0192</text>
+  <text x="981" y="252" fill="#765d40" font-family="sans-serif" font-size="10">room boundary unknown</text>
+  <text x="993" y="408" fill="#62716d" font-family="sans-serif" font-size="10">F: other gaps, throughout</text>
   <text x="991" y="585" fill="#62716d" font-family="sans-serif" font-size="12">far extent unknown</text>
   <text x="595" y="447" fill="#62716d" font-family="sans-serif" font-size="12">not observed</text>
   <text x="1064" y="180" fill="#62716d" font-family="sans-serif" font-size="12">not observed</text>
 
   <path d="M636 457 C712 453 760 429 790 389 S813 346 832 335 S866 335 887 350 S933 403 989 430 S1053 466 1090 489" fill="none" stroke="#16766b" stroke-width="3" stroke-dasharray="10 8" marker-end="url(#arrow)"/>
   <text x="624" y="493" fill="#16766b" font-family="sans-serif" font-size="12">authored navigation suggestion</text>
-  <text x="624" y="511" fill="#62716d" font-family="sans-serif" font-size="11">not a measured route or accepted production layout</text>
+  <text x="624" y="511" fill="#62716d" font-family="sans-serif" font-size="11">zone connection unknown; not a measured route/layout</text>
 
   <g font-family="sans-serif" font-size="12" fill="#354541">
     <line x1="598" y1="550" x2="642" y2="550" stroke="#315f52" stroke-width="8"/><text x="652" y="554">visible wall fragment</text>

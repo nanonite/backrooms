@@ -29,9 +29,9 @@ See [ROOM_CATALOG.md](ROOM_CATALOG.md) for the compact observation catalog and f
 
 ## Layout Review
 
-[layout_proposal.svg](layout_proposal.svg) separates the measured camera trace from the not-to-scale authored topology proposal. The proposal does not add unseen rooms, close an unobserved perimeter, or assert that a visible opening is a door.
+[layout_proposal.svg](layout_proposal.svg) shows nine sampled camera poses and a not-to-scale illustrative topology. Object placement and relationships in the diagram are not recovered coordinates; the connection between observed zones is unknown. It does not add unseen rooms, close an unobserved perimeter, or assert that a visible opening is a door.
 
-**Operator gate:** review or revise the topology proposal before room production. No production, stitching, generation, Hunyuan inference, or GPU capture was run for #145.
+**Operator review (2026-10-20):** approved #145 as an inventory, not as a recovered floor plan. Room count, connectivity, and scale remain unknown. The diagram is illustrative only. No production, stitching, generation, Hunyuan inference, or GPU capture was run for #145.
 
 ## Hashes
 
