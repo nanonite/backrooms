@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "id": "milestone-video-to-walkable-working",
+      "display_name": "Tagged Hunyuan route reference zone",
+      "kind": "bounded_playable_reference_zone",
+      "admission_status": "uncalibrated_reference",
+      "source": {
+        "video": {
+          "path": "data/scenes/corridor_travel/video.mp4",
+          "sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4"
+        },
+        "frames": [
+          {
+            "frame_id": 141,
+            "zero_based_index": 140,
+            "timestamp_seconds": 5.8333333333,
+            "image": {
+              "path": "data/scenes/corridor_travel/images/frame_0141.jpg",
+              "sha256": "f77d26c4814611ed1c27ec745d513fabf84936577148e70d609bd872a41c3cc5"
+            },
+            "usage": "Direct #100 source-video frame supplied to the Hunyuan image-to-panorama run; not a Gaussian render."
+          }
+        ],
+        "camera_metadata": {
+          "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/source_selection.json",
+          "sha256": "695ec3aec48c680f7c3656de5e5571560042a9810a9ab72df866f3496c307e57"
+        },
+        "inventory_catalog": {
+          "path": "godot_walk/evidence/2026-10-18-issue-145/ROOM_CATALOG.md",
+          "sha256": "a3e515c6553583ae50c577073d2649e7964550782f8a0a6680e0908d0ceb0254"
+        }
+      },
+      "assets": {
+        "visual": {
+          "path": "godot_walk/generated_mesh_scenes/hunyuan_track_a_full_run/hunyuan_layers.glb",
+          "sha256": "5cc63c06b1bc920306a8da8758d4ef689c541f7fd64ccd8c02742b358902acba",
+          "role": "visual_only",
+          "transform": {
+            "status": "uncalibrated_convention",
+            "translation_m": [2.2503421, -0.22062215, 4.398888],
+            "rotation_xyzw": [0.6189237, 0.3423688, 0.34419852, -0.61745],
+            "scale": [1.5582858, 1.5582858, 1.5582858],
+            "note": "Current Bevy comparison transform from the locked frame-141 convention; not accepted registration or metric calibration."
+          }
+        },
+        "collision": {
+          "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/authored_route_around_column/authored_route_collision.glb",
+          "sha256": "c1c587cfdd773c058d13e71daf841aa460a2413229454ccab6bbf08cacfc460d",
+          "role": "collision_only",
+          "transform": {
+            "status": "authored_in_convention_world",
+            "translation_m": [0.0, 0.0, 0.0],
+            "rotation_xyzw": [0.0, 0.0, 0.0, 1.0],
+            "scale": [1.0, 1.0, 1.0],
+            "note": "GLB vertices already use the chosen #100 world convention; this is authored collision, not reconstructed Hunyuan geometry."
+          }
+        }
+      },
+      "coordinate_frame": {
+        "id": "hunyuan-run05-frame141-convention",
+        "units": "convention_meters_not_calibrated",
+        "handedness": "right_handed",
+        "up_axis": "+Y",
+        "transform_status": "uncalibrated_convention",
+        "registration_accepted": false,
+        "scale_calibrated": false,
+        "scale_basis": "Chosen #100 2.4 m floor-to-ceiling convention; not surveyed.",
+        "transform_evidence": {
+          "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_route_scene_manifest.json",
+          "sha256": "e3f175c707ffb20d2937b7bebeff807949d4206222ab1f7b50a36c47a824735d"
+        },
+        "registration_evidence": null,
+        "scale_evidence": null
+      },
+      "floor_ceiling": {
+        "floor": {
+          "status": "authored_tested",
+          "origin": "authored",
+          "elevation_m": -1.2709904909133911,
+          "assumed_clear_height_m": null,
+          "basis": "Chosen #100 floor convention copied into the #135 planar route; not surveyed.",
+          "collision_role": "walkable floor in the authored collision GLB"
+        },
+        "ceiling": {
+          "status": "visual_only_unverified",
+          "origin": "Hunyuan visual asset; correspondence is unregistered",
+          "elevation_m": null,
+          "assumed_clear_height_m": 2.4,
+          "basis": "Chosen #100 clear-height convention; not measured.",
+          "collision_role": "none; no ceiling collision is claimed"
+        }
+      },
+      "observed_openings": [
+        {
+          "id": "issue-145-opening-candidates-wide-bay",
+          "inventory_catalog_id": "F",
+          "frame_start": 85,
+          "frame_end": 192,
+          "description": "Gaps between columns and wall fragments expose deeper sightlines; the inventory does not establish their destinations or traversability.",
+          "traversability": "unknown",
+          "module_relation": "unregistered"
+        }
+      ],
+      "connector_sockets": [],
+      "tested_connectors": [],
+      "boundary_rules": [
+        {
+          "id": "authored-loop-floor",
+          "kind": "floor",
+          "origin": "authored",
+          "description": "Planar 18.064 m closed route loop, 0.8 m wide; full loop fill is explicit authored geometry.",
+          "collision_node": "AuthoredPlanarRouteFloor",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/authored_route_around_column/route_report.json",
+            "sha256": "c85a4181caf266da8851f6602ec12cd12b37f4c76535193faf403565634778bc",
+            "purpose": "Authored floor dimensions, route scope, and collision export record."
+          }
+        },
+        {
+          "id": "authored-column-proxy",
+          "kind": "obstacle",
+          "origin": "authored",
+          "description": "Collision proxy for the reviewed column; selected dimensions remain a convention, not surveyed geometry.",
+          "collision_node": "ColumnObstacleProxy",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/authored_route_around_column/route_report.json",
+            "sha256": "c85a4181caf266da8851f6602ec12cd12b37f4c76535193faf403565634778bc",
+            "purpose": "Authored column proxy and route clearance record."
+          }
+        },
+        {
+          "id": "authored-inner-edge-boundary",
+          "kind": "edge_boundary",
+          "origin": "authored",
+          "description": "Continuous inner boundary on one open side of the authored floor strip.",
+          "collision_node": "authored_edge_boundary_inner",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/authored_route_around_column/route_report.json",
+            "sha256": "c85a4181caf266da8851f6602ec12cd12b37f4c76535193faf403565634778bc",
+            "purpose": "Authored boundary continuity and clearance measurements."
+          }
+        },
+        {
+          "id": "authored-outer-edge-boundary",
+          "kind": "edge_boundary",
+          "origin": "authored",
+          "description": "Continuous outer boundary on the other open side of the authored floor strip.",
+          "collision_node": "authored_edge_boundary_outer",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/authored_route_around_column/route_report.json",
+            "sha256": "c85a4181caf266da8851f6602ec12cd12b37f4c76535193faf403565634778bc",
+            "purpose": "Authored boundary continuity and clearance measurements."
+          }
+        }
+      ],
+      "shared_controller": {
+        "profile_id": "shared-tnua-avian-player-v1",
+        "source_files": [
+          {
+            "path": "splat_walk/src/player_controller.rs",
+            "sha256": "8ea18745f2f7cdb8b47462c3afb2427642442bce4b5add60e48f6dc6c6e4c2c2"
+          },
+          {
+            "path": "splat_walk/src/bin/walkability_harness/simulation.rs",
+            "sha256": "7393a13bb031638c14cd8394db8f1e2dd745653996007f706fcab314389c233d"
+          }
+        ],
+        "tnua_version": "0.31.0",
+        "avian3d_version": "0.6.1",
+        "capsule_radius_m": 0.3,
+        "capsule_height_m": 1.2,
+        "max_slope_degrees": 16.0,
+        "per_module_overrides": []
+      },
+      "validation_evidence": [
+        {
+          "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/ISSUE_135_ACCEPTANCE.md",
+          "sha256": "cdea98fead1707fef9a61c828491500ab1b9b47d619a385ddfe788249a7a6c42",
+          "purpose": "#135 authored collision route acceptance and negative-control evidence."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/avian_tnua_harness/walkability_report.json",
+          "sha256": "247b663bcffa7a4296e916d1e29ace0a7ae649fcb6a37de6297241499c66b7b8",
+          "purpose": "Shared player-controller route and boundary validation evidence."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/captures/bevy_hunyuan/bevy_capture_report.json",
+          "sha256": "6d205df0b7faa59e0e0538f789dfd293cd0097d877cfc7155db001b0edcf6133",
+          "purpose": "Nine-view Bevy visual capture; report confirms collision was not loaded for that capture."
+        }
+      ],
+      "runtime_measurements": {
+        "report": {
+          "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_route_scene_report.json",
+          "sha256": "b9ffe79d059737aae311da5e67639fd6fb92eb31ef0f41f3f4a7748cc377f8ae",
+          "purpose": "CPU-only Bevy route simulation, visual mesh query, and process resource report."
+        },
+        "mode": "cpu_headless",
+        "gpu_used": false,
+        "scene_total_wall_time_seconds": 95.672191702,
+        "route_simulation_wall_time_seconds": 2.937938931,
+        "peak_rss_kib": 5977064,
+        "mean_update_ms": 1.6779126085740927,
+        "p90_update_ms": 2.00305,
+        "max_update_ms": 5.223565000000001,
+        "visual_load_seconds": 21.428086955,
+        "visual_query_preparation_seconds": 63.178029151,
+        "visual_triangle_count": 18019365,
+        "note": "Existing headless run, not an FPS/render benchmark. GPU/render metrics are documented separately and were not rerun for #146."
+      }
+    }
+  ]
+}

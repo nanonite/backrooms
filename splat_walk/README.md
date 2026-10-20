@@ -14,6 +14,24 @@ The visual asset is stored with Git LFS at
 The route manifest verifies its SHA-256 before launch. Run `git lfs pull` after
 cloning if the working file is still an LFS pointer.
 
+## Room catalog
+
+The versioned module registry is `splat_walk/room_catalog/catalog.json`.
+It records the tagged walkthrough as an uncalibrated bounded reference zone,
+with source and asset hashes, authored collision boundaries, controller
+settings, validation evidence, and CPU runtime/resource measurements. Source-
+observed openings are not tested traversal connectors.
+
+Validate the registry and every referenced file from the repository root:
+
+```sh
+cargo run --manifest-path splat_walk/Cargo.toml --bin validate_room_catalog
+```
+
+The validator is CPU-only. It rejects missing or modified files, duplicate
+module IDs, invalid connector transforms, unresolved connector endpoints, and
+inconsistent registration/scale flags.
+
 Launch from the repository root (including a clean `main` worktree) after GPU
 use is approved:
 

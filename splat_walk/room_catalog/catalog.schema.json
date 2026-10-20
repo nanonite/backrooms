@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/splat_walk/room_catalog/catalog.schema.json",
+  "title": "Backrooms Bevy room catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "modules"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "modules": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/module" } }
+  },
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "file": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": { "path": { "type": "string", "minLength": 1 }, "sha256": { "$ref": "#/$defs/sha256" } }
+    },
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "purpose"],
+      "properties": { "path": { "type": "string", "minLength": 1 }, "sha256": { "$ref": "#/$defs/sha256" }, "purpose": { "type": "string", "minLength": 1 } }
+    },
+    "vec3": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "number" } },
+    "vec4": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "type": "number" } },
+    "asset_transform": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "translation_m", "rotation_xyzw", "scale", "note"],
+      "properties": {
+        "status": { "type": "string", "minLength": 1 }, "translation_m": { "$ref": "#/$defs/vec3" },
+        "rotation_xyzw": { "$ref": "#/$defs/vec4" }, "scale": { "$ref": "#/$defs/vec3" }, "note": { "type": "string", "minLength": 1 }
+      }
+    },
+    "asset": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "role", "transform"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 }, "sha256": { "$ref": "#/$defs/sha256" },
+        "role": { "enum": ["visual_only", "collision_only"] }, "transform": { "$ref": "#/$defs/asset_transform" }
+      }
+    },
+    "module": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "display_name", "kind", "admission_status", "source", "assets", "coordinate_frame", "floor_ceiling", "observed_openings", "connector_sockets", "tested_connectors", "boundary_rules", "shared_controller", "validation_evidence", "runtime_measurements"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "display_name": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["bounded_playable_reference_zone", "room", "corridor"] },
+        "admission_status": { "enum": ["uncalibrated_reference", "proposed", "standalone_validated"] },
+        "source": { "type": "object", "additionalProperties": false, "required": ["video", "frames", "camera_metadata", "inventory_catalog"], "properties": {
+          "video": { "$ref": "#/$defs/file" }, "camera_metadata": { "$ref": "#/$defs/file" }, "inventory_catalog": { "$ref": "#/$defs/file" },
+          "frames": { "type": "array", "minItems": 1, "items": { "type": "object", "additionalProperties": false, "required": ["frame_id", "zero_based_index", "timestamp_seconds", "image", "usage"], "properties": {
+            "frame_id": { "type": "integer", "minimum": 1 }, "zero_based_index": { "type": "integer", "minimum": 0 }, "timestamp_seconds": { "type": "number", "minimum": 0 }, "image": { "$ref": "#/$defs/file" }, "usage": { "type": "string", "minLength": 1 }
+          } } }
+        } },
+        "assets": { "type": "object", "additionalProperties": false, "required": ["visual", "collision"], "properties": { "visual": { "$ref": "#/$defs/asset" }, "collision": { "$ref": "#/$defs/asset" } } },
+        "coordinate_frame": { "type": "object", "additionalProperties": false, "required": ["id", "units", "handedness", "up_axis", "transform_status", "registration_accepted", "scale_calibrated", "scale_basis", "transform_evidence"], "properties": {
+          "id": { "type": "string", "minLength": 1 }, "units": { "type": "string", "minLength": 1 }, "handedness": { "type": "string", "minLength": 1 }, "up_axis": { "type": "string", "minLength": 1 },
+          "transform_status": { "enum": ["uncalibrated_convention", "registered_scale_unknown", "scale_calibrated_unregistered", "calibrated_registered"] },
+          "registration_accepted": { "type": "boolean" }, "scale_calibrated": { "type": "boolean" }, "scale_basis": { "type": "string", "minLength": 1 },
+          "transform_evidence": { "$ref": "#/$defs/file" }, "registration_evidence": { "oneOf": [{ "$ref": "#/$defs/file" }, { "type": "null" }] }, "scale_evidence": { "oneOf": [{ "$ref": "#/$defs/file" }, { "type": "null" }] }
+        } },
+        "floor_ceiling": { "type": "object", "additionalProperties": false, "required": ["floor", "ceiling"], "properties": { "floor": { "$ref": "#/$defs/surface" }, "ceiling": { "$ref": "#/$defs/surface" } } },
+        "observed_openings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["id", "inventory_catalog_id", "frame_start", "frame_end", "description", "traversability", "module_relation"], "properties": {
+          "id": { "$ref": "#/$defs/id" }, "inventory_catalog_id": { "type": "string", "minLength": 1 }, "frame_start": { "type": "integer", "minimum": 1 }, "frame_end": { "type": "integer", "minimum": 1 }, "description": { "type": "string", "minLength": 1 }, "traversability": { "enum": ["unknown", "visually_open"] }, "module_relation": { "enum": ["unregistered", "registered_visual_only"] }
+        } } },
+        "connector_sockets": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["id", "status", "description", "clear_width_m", "clear_height_m", "local_transform"], "properties": {
+          "id": { "$ref": "#/$defs/id" }, "status": { "type": "string", "minLength": 1 }, "description": { "type": "string", "minLength": 1 }, "clear_width_m": { "type": "number", "exclusiveMinimum": 0 }, "clear_height_m": { "type": "number", "exclusiveMinimum": 0 },
+          "local_transform": { "type": "object", "additionalProperties": false, "required": ["translation_m", "rotation_xyzw", "scale"], "properties": { "translation_m": { "$ref": "#/$defs/vec3" }, "rotation_xyzw": { "$ref": "#/$defs/vec4" }, "scale": { "$ref": "#/$defs/vec3" } } }
+        } } },
+        "tested_connectors": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["id", "from_socket_id", "target_module_id", "target_socket_id", "evidence"], "properties": {
+          "id": { "$ref": "#/$defs/id" }, "from_socket_id": { "$ref": "#/$defs/id" }, "target_module_id": { "$ref": "#/$defs/id" }, "target_socket_id": { "$ref": "#/$defs/id" }, "evidence": { "$ref": "#/$defs/evidence" }
+        } } },
+        "boundary_rules": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["id", "kind", "origin", "description", "collision_node", "evidence"], "properties": {
+          "id": { "$ref": "#/$defs/id" }, "kind": { "type": "string", "minLength": 1 }, "origin": { "enum": ["authored", "observed"] }, "description": { "type": "string", "minLength": 1 }, "collision_node": { "type": "string", "minLength": 1 }, "evidence": { "$ref": "#/$defs/evidence" }
+        } } },
+        "shared_controller": { "type": "object", "additionalProperties": false, "required": ["profile_id", "source_files", "tnua_version", "avian3d_version", "capsule_radius_m", "capsule_height_m", "max_slope_degrees", "per_module_overrides"], "properties": {
+          "profile_id": { "$ref": "#/$defs/id" }, "source_files": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/file" } }, "tnua_version": { "type": "string", "minLength": 1 }, "avian3d_version": { "type": "string", "minLength": 1 },
+          "capsule_radius_m": { "type": "number", "exclusiveMinimum": 0 }, "capsule_height_m": { "type": "number", "exclusiveMinimum": 0 }, "max_slope_degrees": { "type": "number", "exclusiveMinimum": 0, "maximum": 89.999 }, "per_module_overrides": { "type": "array", "items": { "type": "string" } }
+        } },
+        "validation_evidence": { "type": "array", "items": { "$ref": "#/$defs/evidence" } },
+        "runtime_measurements": { "type": "object", "additionalProperties": false, "required": ["report", "mode", "gpu_used", "scene_total_wall_time_seconds", "route_simulation_wall_time_seconds", "peak_rss_kib", "mean_update_ms", "p90_update_ms", "max_update_ms", "visual_load_seconds", "visual_query_preparation_seconds", "visual_triangle_count", "note"], "properties": {
+          "report": { "$ref": "#/$defs/evidence" }, "mode": { "enum": ["cpu_headless", "gpu_rendered", "interactive_walk"] }, "gpu_used": { "type": "boolean" }, "scene_total_wall_time_seconds": { "type": "number", "minimum": 0 }, "route_simulation_wall_time_seconds": { "type": "number", "minimum": 0 }, "peak_rss_kib": { "type": "integer", "minimum": 1 },
+          "mean_update_ms": { "type": "number", "minimum": 0 }, "p90_update_ms": { "type": "number", "minimum": 0 }, "max_update_ms": { "type": "number", "minimum": 0 }, "visual_load_seconds": { "type": "number", "minimum": 0 }, "visual_query_preparation_seconds": { "type": "number", "minimum": 0 }, "visual_triangle_count": { "type": "integer", "minimum": 1 }, "note": { "type": "string", "minLength": 1 }
+        } }
+      }
+    },
+    "surface": {
+      "type": "object", "additionalProperties": false, "required": ["status", "origin", "basis", "collision_role"], "properties": {
+        "status": { "type": "string", "minLength": 1 }, "origin": { "type": "string", "minLength": 1 }, "elevation_m": { "oneOf": [{ "type": "number" }, { "type": "null" }] }, "assumed_clear_height_m": { "oneOf": [{ "type": "number" }, { "type": "null" }] }, "basis": { "type": "string", "minLength": 1 }, "collision_role": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
