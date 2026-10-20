@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
   <title id="title">#145 footage inventory and bounded room-layout proposal</title>
-  <desc id="desc">Left: camera-center trace measured from registered COLMAP poses in uncalibrated reconstruction units. Right: not-to-scale evidence topology showing visible wall fragments, an open passage, repeated columns, and an authored navigation suggestion without an inferred perimeter.</desc>
+  <desc id="desc">Left: camera-center trace measured from registered COLMAP poses in uncalibrated reconstruction units. Right: not-to-scale evidence topology showing visible partition fragments, an opening candidate with unknown destination, a wider column bay whose room identity is unresolved, and a separate authored navigation suggestion without an inferred perimeter.</desc>
   <rect width="1200" height="700" fill="#f4f6f3"/>
   <text x="40" y="48" fill="#202d2b" font-family="sans-serif" font-size="25" font-weight="700">#145 | Source-footage inventory</text>
   <text x="40" y="76" fill="#51615c" font-family="sans-serif" font-size="14">Measured camera trace and a separate, operator-review topology proposal</text>
@@ -43,8 +43,9 @@
   </g>
   <text x="618" y="224" fill="#315f52" font-family="sans-serif" font-size="13">wall / partition run</text>
   <text x="802" y="302" fill="#315f52" font-family="sans-serif" font-size="13">visible return</text>
-  <text x="779" y="375" fill="#315f52" font-family="sans-serif" font-size="13">open passage</text>
-  <text x="981" y="235" fill="#765d40" font-family="sans-serif" font-size="13">repeated-column bay</text>
+  <text x="760" y="375" fill="#315f52" font-family="sans-serif" font-size="13">opening candidate</text>
+  <text x="981" y="235" fill="#765d40" font-family="sans-serif" font-size="13">wide column bay</text>
+  <text x="981" y="252" fill="#765d40" font-family="sans-serif" font-size="11">room boundary unknown</text>
   <text x="991" y="585" fill="#62716d" font-family="sans-serif" font-size="12">far extent unknown</text>
   <text x="595" y="447" fill="#62716d" font-family="sans-serif" font-size="12">not observed</text>
   <text x="1064" y="180" fill="#62716d" font-family="sans-serif" font-size="12">not observed</text>

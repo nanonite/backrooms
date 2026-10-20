@@ -2,7 +2,7 @@
 
 ## Result
 
-The 8.0 s source clip shows one visually continuous Backrooms-like interior: patterned wall/partition runs, perpendicular returns, carpet, tiled ceiling with fluorescent panels, pale square columns, and several open sightlines into a wider column bay. It does not establish separate enclosed rooms or the perimeter beyond the visible surfaces. The layout below is a review proposal, not a reconstruction target.
+The 8.0 s source clip shows a connected observed environment with at least two visually distinct zones: an early partition-bounded pocket and a later, much wider repeated-column bay. Frames 0013-0027 look through a broad gap to a darker wallpapered surface beyond the nearer green-patterned partitions. This could be an adjoining area with a different finish, but the clip does not establish separate room boundaries or the full perimeter beyond visible surfaces. The layout below is a review proposal, not a reconstruction target.
 
 **Registration and scale:** all 192 video frames have registered COLMAP camera poses. This is a camera reconstruction, not accepted registration to a surveyed world. Keep `registration_accepted=false` and `scale_calibrated=false`; COLMAP distances below are reconstruction units, not metres.
 
@@ -16,7 +16,16 @@ The 8.0 s source clip shows one visually continuous Backrooms-like interior: pat
 
 ## Inventory
 
-See [ROOM_CATALOG.md](ROOM_CATALOG.md) for the compact observation catalog and frame-indexed references. The only spatial layout recommendation is to start with one continuous interior and the visible partition/column arrangement. Keep beyond-opening space open/unknown until the operator approves a specific authored extension.
+See [ROOM_CATALOG.md](ROOM_CATALOG.md) for the compact observation catalog and frame-indexed references. The proposal keeps the early partition-bounded pocket and later column bay as distinct observed zones, with an opening candidate between views. It does not decide whether they are separate rooms. Keep beyond-opening space open/unknown until the operator approves a specific authored extension.
+
+## Room-Separation Assessment
+
+- Frames 0013-0027 show a broad, doorless gap between visible partition ends. A darker wallpapered surface and floor are visible beyond the nearer green-patterned walls. This is evidence of a visually distinct area and possible connector, not proof of a separate room or formal doorway.
+- Frames 0049-0096 show a perpendicular wall return and changing sightlines around columns. The occluded side of the return is not visible, so it cannot establish a room boundary or a corridor turn in the unseen space.
+- Frames 0085-0192 reveal a larger open bay with repeated columns and additional wall fragments. This is a distinct visible spatial zone, but its far extent and relation to the earlier pocket remain partly occluded.
+- Across the sampled full-resolution frames and all-frame overview, the carpet, ceiling grid, and fluorescent lighting appear consistent; wallpaper differs in at least one sightline beyond the early opening. The 192 registered poses form a smooth camera path, but no cut, door leaf, or closed threshold establishes a room boundary. Camera-path continuity alone does not prove architectural continuity or that the camera traverses the apparent connector.
+
+**Best-supported interpretation:** one connected observed environment with multiple visible subareas and candidate openings; a separate-room interpretation is plausible but unverified. Preserve the distinct visual zones in the proposal, but do not claim separate bounded room modules or infer the spaces beyond the openings from this clip alone.
 
 ## Layout Review
 
