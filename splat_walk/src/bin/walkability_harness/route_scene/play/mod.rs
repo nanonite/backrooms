@@ -174,6 +174,13 @@ pub fn report_path(
                 .map(std::path::PathBuf::from)
         })
         .or_else(|| {
+            super::psx_repair::enabled().then(|| {
+                PathBuf::from(
+                    "godot_walk/evidence/2026-10-21-issue-153/interactive_play_report.json",
+                )
+            })
+        })
+        .or_else(|| {
             manifest
                 .output_report_path
                 .as_deref()

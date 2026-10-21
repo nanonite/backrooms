@@ -12,6 +12,7 @@ use bevy::{
 use serde::Serialize;
 
 use super::authored_visuals::{AuthoredVisualSurface, spawn_room_visuals};
+use super::psx_repair::spawn;
 use crate::walkability_harness::{
     route_collision::SceneAssetReadiness,
     route_scene::{geometry_query::build_visual_query_mesh, visual_metrics::*},
@@ -30,6 +31,7 @@ pub struct SceneVisualConfig {
     pub model_transform: Transform,
     pub camera_origin: bevy::prelude::Vec3,
     pub analyze_alignment: bool,
+    pub load_psx_repair_overlay: bool,
 }
 
 #[derive(Resource)]
@@ -104,6 +106,9 @@ pub fn start_visual_loading(
     server: Res<AssetServer>,
     config: Res<SceneVisualConfig>,
 ) {
+    if config.load_psx_repair_overlay {
+        spawn(&mut commands, &server);
+    }
     commands.insert_resource(VisualLoadState {
         handle: server.load(config.asset_path.clone()),
         started_at: Instant::now(),

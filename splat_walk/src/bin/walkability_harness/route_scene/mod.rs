@@ -7,6 +7,7 @@ mod geometry_query;
 mod manifest;
 #[allow(dead_code)]
 mod play;
+mod psx_repair;
 mod report;
 mod visual_metrics;
 
@@ -107,7 +108,10 @@ pub fn run() -> Result<()> {
 
 #[allow(dead_code)]
 pub fn run_play_smoke() -> Result<()> {
-    run_with_mode(SceneAppMode::InputSmoke, PLAY_SMOKE_REPORT_RELATIVE_PATH)
+    let report_path = std::env::args()
+        .find_map(|argument| argument.strip_prefix("--play-report=").map(str::to_owned))
+        .unwrap_or_else(|| PLAY_SMOKE_REPORT_RELATIVE_PATH.to_owned());
+    run_with_mode(SceneAppMode::InputSmoke, &report_path)
 }
 
 #[allow(dead_code)]
@@ -117,7 +121,9 @@ pub fn run_interactive_play() -> Result<()> {
 }
 
 pub(super) fn selected_manifest(root: &std::path::Path) -> Result<SceneManifest> {
-    if std::env::args().any(|argument| argument == "--issue148-standalone") {
+    if std::env::args().any(|argument| argument == "--issue153") {
+        load_issue150_manifest(root)
+    } else if std::env::args().any(|argument| argument == "--issue148-standalone") {
         load_issue148_standalone_manifest(root)
     } else if std::env::args().any(|argument| argument == "--issue148") {
         load_issue148_manifest(root)
@@ -382,6 +388,8 @@ fn build_app(
             model_transform,
             camera_origin,
             analyze_alignment,
+            load_psx_repair_overlay: matches!(mode, SceneAppMode::Interactive { .. })
+                && psx_repair::enabled(),
         })
         .init_resource::<ScenarioReport>()
         .init_resource::<VisualSceneReport>()

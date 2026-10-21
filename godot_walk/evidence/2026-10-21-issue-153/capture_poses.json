@@ -1,0 +1,24 @@
+{
+  "issue": 150,
+  "label": "uncalibrated",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "resolution": [960, 540],
+  "vertical_fov_degrees": 47.3988056,
+  "settle_frames_before_each_capture": 8,
+  "pose_set": "two matched #150 anchors: source-frame camera anchor and column east face",
+  "poses": [
+    {
+      "name": "registered_frame_0152_anchor",
+      "position_world_m": [2.920978333, -0.084976566, 3.703507945],
+      "forward_world": [-0.690928499, 0.00022245, -0.722923066],
+      "up_world": [0.0, 1.0, 0.0]
+    },
+    {
+      "name": "column_east_face",
+      "position_world_m": [2.36192645, -0.100279711, 0.323480798],
+      "forward_world": [-1.0, 0.0, 0.0],
+      "up_world": [0.0, 1.0, 0.0]
+    }
+  ]
+}

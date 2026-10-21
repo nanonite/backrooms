@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "issue": 153,
+  "source_scene_issue": 150,
+  "label": "uncalibrated",
+  "renderer": "Bevy 0.18.0 / wgpu",
+  "bevy_version": "0.18.0",
+  "resolution": [
+    960,
+    540
+  ],
+  "vertical_fov_degrees": 47.398804,
+  "captured_views": [
+    "registered_frame_0152_anchor",
+    "column_north_face"
+  ],
+  "visual_only_nodes": [
+    "mesh_layer0",
+    "mesh_layer1"
+  ],
+  "visual_overlay_asset_path": "godot_walk/evidence/2026-10-21-issue-153/generated/column_corner_repair.glb#Scene0",
+  "authored_visual_surfaces_included": [
+    "Blender-authored visual-only column and wall-corner GLB"
+  ],
+  "collision_loaded": false,
+  "resource_preflight": {
+    "available_ram_kib": 36167640,
+    "minimum_available_ram_kib": 10485760,
+    "free_vram_mib": 10084,
+    "minimum_free_vram_mib": 4096
+  },
+  "gpu_compute_processes_before_capture": 0,
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "wall_time_seconds": 8.141319198,
+  "peak_rss_kib": 7841732
+}

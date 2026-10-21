@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "issue": 153,
+  "tool": "Blender 5.2.2 LTS",
+  "tool_license": "Blender GPL-3.0-or-later; no third-party add-on used",
+  "authoring_method": "native editable quad meshes, UV maps, and Principled materials",
+  "visual_only": true,
+  "calibration": {
+    "registration_accepted": false,
+    "scale_calibrated": false
+  },
+  "coordinate_convention": "Bevy world (x,y,z) maps to Blender (x,-z,y); GLB Y-up export returns it to Bevy coordinates",
+  "authored_proposal": "one source-textured east-facing column face and a narrow wallpaper L-return; not inferred architecture",
+  "blender_project_path": "godot_walk/evidence/2026-10-21-issue-153/column_corner_repair.blend",
+  "blender_project_sha256": "c67bfd4f279c880d958d4bdc992b9256f8d9a5bc9e5d94fec9e27bbb86ac0c85",
+  "visual_glb_path": "godot_walk/evidence/2026-10-21-issue-153/generated/column_corner_repair.glb",
+  "visual_glb_sha256": "3dc78192dd85cbd0b99737796b152b287eb2af395ac09e7064a7853eebe6674c",
+  "source_crops": [
+    {
+      "id": "column_face",
+      "frame_id_1_based": 152,
+      "source_path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+      "source_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "source_size_px": [
+        1920,
+        1080
+      ],
+      "crop_xyxy_px": [
+        780,
+        300,
+        1100,
+        700
+      ],
+      "operation": "direct pixel crop; no grading, resizing, or generation",
+      "output_path": "godot_walk/evidence/2026-10-21-issue-153/source/frame_0152_column_face.png",
+      "output_sha256": "7bb880ae7b4ce91ac5720f8ad136b7403da2c4983e0e71cb6e05239dfcfc5a01"
+    },
+    {
+      "id": "wallpaper_panel",
+      "frame_id_1_based": 152,
+      "source_path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+      "source_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "source_size_px": [
+        1920,
+        1080
+      ],
+      "crop_xyxy_px": [
+        1290,
+        410,
+        1770,
+        710
+      ],
+      "operation": "direct pixel crop; no grading, resizing, or generation",
+      "output_path": "godot_walk/evidence/2026-10-21-issue-153/source/frame_0152_wallpaper_panel.png",
+      "output_sha256": "acb90ec95e8b15652079222c5cca37a28febf8d63f0aa47755829d3e131e58bc"
+    }
+  ],
+  "export_settings": {
+    "format": "GLB 2.0",
+    "export_yup": true,
+    "apply_modifiers": true,
+    "selected_objects_only": true,
+    "collision_exported": false
+  }
+}

@@ -19,6 +19,7 @@ use bevy::{
 };
 use serde::{Deserialize, Serialize};
 
+use super::psx_repair::{REPAIR_SCENE_PATH, enabled, spawn_if_enabled};
 use super::{authored_visuals::spawn_room_visuals, selected_route_report_path};
 use super::{load_camera_metadata, model_transform, play::ResourcePreflight, selected_manifest};
 use crate::walkability_harness::route_scene::manifest::repo_root;
@@ -41,6 +42,7 @@ const VIEW_NAMES: [&str; 9] = [
     "loop_station_07",
 ];
 const MAX_ASSET_WAIT_SECONDS: u64 = 120;
+const ISSUE153_POSES_PATH: &str = "godot_walk/evidence/2026-10-21-issue-153/capture_poses.json";
 
 #[derive(Clone, Deserialize)]
 struct PoseManifest {
@@ -109,6 +111,7 @@ struct CaptureVisualAssets<'a> {
 struct CaptureReport {
     schema_version: u32,
     issue: u32,
+    source_scene_issue: u32,
     label: &'static str,
     renderer: &'static str,
     bevy_version: &'static str,
@@ -116,6 +119,7 @@ struct CaptureReport {
     vertical_fov_degrees: f32,
     captured_views: Vec<String>,
     visual_only_nodes: [&'static str; 2],
+    visual_overlay_asset_path: Option<&'static str>,
     authored_visual_surfaces_included: Vec<&'static str>,
     collision_loaded: bool,
     resource_preflight: ResourcePreflight,
@@ -134,11 +138,8 @@ pub fn run() -> Result<()> {
     let scene_manifest = selected_manifest(&root)?;
     let camera = load_camera_metadata(&root, &scene_manifest)?;
     let transform = model_transform(&scene_manifest, &camera)?;
-    let pose_path = scene_manifest
-        .capture_poses_path
-        .as_deref()
-        .unwrap_or(POSES_PATH);
-    let capture_manifest = read_pose_manifest(&root.join(pose_path))?;
+    let pose_path = capture_pose_path(&root, &scene_manifest)?;
+    let capture_manifest = read_pose_manifest(&pose_path)?;
     validate_pose_manifest(&capture_manifest)?;
     if capture_manifest.issue != scene_manifest.issue {
         bail!("capture-pose issue does not match the selected scene manifest");
@@ -179,8 +180,30 @@ pub fn run() -> Result<()> {
         started.elapsed().as_secs_f64(),
         resource_preflight,
         gpu_compute_processes,
+        enabled(),
     )?;
     Ok(())
+}
+
+fn capture_pose_path(
+    root: &Path,
+    manifest: &crate::walkability_harness::route_scene::manifest::SceneManifest,
+) -> Result<PathBuf> {
+    let requested = std::env::args()
+        .find_map(|argument| argument.strip_prefix("--capture-poses=").map(PathBuf::from));
+    let path = requested.or_else(|| {
+        if enabled() {
+            Some(PathBuf::from(ISSUE153_POSES_PATH))
+        } else {
+            manifest.capture_poses_path.as_deref().map(PathBuf::from)
+        }
+    });
+    let path = path.unwrap_or_else(|| PathBuf::from(POSES_PATH));
+    Ok(if path.is_absolute() {
+        path
+    } else {
+        root.join(path)
+    })
 }
 
 fn read_pose_manifest(path: &Path) -> Result<PoseManifest> {
@@ -255,6 +278,11 @@ fn capture_output_directory(
             } else {
                 root.join(path)
             }
+        })
+        .or_else(|| {
+            enabled().then(|| {
+                PathBuf::from("godot_walk/evidence/2026-10-21-issue-153/captures/candidate")
+            })
         })
         .or_else(|| {
             scene_manifest
@@ -332,6 +360,7 @@ fn run_bevy_capture(
 }
 
 fn start_visual_load(mut commands: Commands, server: Res<AssetServer>, config: Res<CaptureConfig>) {
+    spawn_if_enabled(&mut commands, &server);
     commands.insert_resource(LoadedVisual(
         server.load(config.visual_asset_path.clone()),
         Instant::now(),
@@ -505,10 +534,16 @@ fn write_capture_report(
     wall_time_seconds: f64,
     resource_preflight: ResourcePreflight,
     gpu_compute_processes_before_capture: usize,
+    has_issue153_overlay: bool,
 ) -> Result<()> {
     let report = CaptureReport {
         schema_version: 1,
-        issue: manifest.issue,
+        issue: if has_issue153_overlay {
+            153
+        } else {
+            manifest.issue
+        },
+        source_scene_issue: manifest.issue,
         label: "uncalibrated",
         renderer: "Bevy 0.18.0 / wgpu",
         bevy_version: "0.18.0",
@@ -520,7 +555,10 @@ fn write_capture_report(
             .map(|pose| pose.name.clone())
             .collect(),
         visual_only_nodes: VISUAL_NODES,
-        authored_visual_surfaces_included: if manifest.issue == 148 {
+        visual_overlay_asset_path: has_issue153_overlay.then_some(REPAIR_SCENE_PATH),
+        authored_visual_surfaces_included: if has_issue153_overlay {
+            vec!["Blender-authored visual-only column and wall-corner GLB"]
+        } else if manifest.issue == 148 {
             vec!["authored early-pocket and connector shell"]
         } else if manifest.issue == 150 {
             vec![
