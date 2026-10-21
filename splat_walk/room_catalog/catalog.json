@@ -39,9 +39,22 @@
           "role": "visual_only",
           "transform": {
             "status": "uncalibrated_convention",
-            "translation_m": [2.2503421, -0.22062215, 4.398888],
-            "rotation_xyzw": [0.6189237, 0.3423688, 0.34419852, -0.61745],
-            "scale": [1.5582858, 1.5582858, 1.5582858],
+            "translation_m": [
+              2.2503421,
+              -0.22062215,
+              4.398888
+            ],
+            "rotation_xyzw": [
+              0.6189237,
+              0.3423688,
+              0.34419852,
+              -0.61745
+            ],
+            "scale": [
+              1.5582858,
+              1.5582858,
+              1.5582858
+            ],
             "note": "Current Bevy comparison transform from the locked frame-141 convention; not accepted registration or metric calibration."
           }
         },
@@ -51,9 +64,22 @@
           "role": "collision_only",
           "transform": {
             "status": "authored_in_convention_world",
-            "translation_m": [0.0, 0.0, 0.0],
-            "rotation_xyzw": [0.0, 0.0, 0.0, 1.0],
-            "scale": [1.0, 1.0, 1.0],
+            "translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_xyzw": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
             "note": "GLB vertices already use the chosen #100 world convention; this is authored collision, not reconstructed Hunyuan geometry."
           }
         }
@@ -189,26 +215,820 @@
           "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/captures/bevy_hunyuan/bevy_capture_report.json",
           "sha256": "6d205df0b7faa59e0e0538f789dfd293cd0097d877cfc7155db001b0edcf6133",
           "purpose": "Nine-view Bevy visual capture; report confirms collision was not loaded for that capture."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/tagged-reference-walkability.json",
+          "sha256": "971c1df4ab5b08109ec580b6a0dd68226aa83ca386b693258832dd9024ca278b",
+          "purpose": "Fresh independent CPU route validation for this bounded reference module."
         }
       ],
       "runtime_measurements": {
         "report": {
           "path": "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_route_scene_report.json",
-          "sha256": "b9ffe79d059737aae311da5e67639fd6fb92eb31ef0f41f3f4a7748cc377f8ae",
+          "sha256": "fb04f9276c37ca2a40527a6e2aedca246efde85838b6f8dd2b0ba9b779a5beed",
           "purpose": "CPU-only Bevy route simulation, visual mesh query, and process resource report."
         },
         "mode": "cpu_headless",
         "gpu_used": false,
-        "scene_total_wall_time_seconds": 95.672191702,
-        "route_simulation_wall_time_seconds": 2.937938931,
-        "peak_rss_kib": 5977064,
-        "mean_update_ms": 1.6779126085740927,
-        "p90_update_ms": 2.00305,
-        "max_update_ms": 5.223565000000001,
-        "visual_load_seconds": 21.428086955,
-        "visual_query_preparation_seconds": 63.178029151,
+        "scene_total_wall_time_seconds": 98.088832045,
+        "route_simulation_wall_time_seconds": 7.653949644,
+        "peak_rss_kib": 5967760,
+        "mean_update_ms": 5.9372999040074665,
+        "p90_update_ms": 10.345967,
+        "max_update_ms": 22.460728999999997,
+        "visual_load_seconds": 19.633076046,
+        "visual_query_preparation_seconds": 62.225938397,
         "visual_triangle_count": 18019365,
-        "note": "Existing headless run, not an FPS/render benchmark. GPU/render metrics are documented separately and were not rerun for #146."
+        "note": "Current user-preserved headless run, not an FPS/render benchmark. GPU/render metrics are documented separately."
+      }
+    },
+    {
+      "id": "hunyuan-issue-150-later-bay",
+      "display_name": "Issue 150 authored later-bay room candidate",
+      "kind": "room",
+      "admission_status": "standalone_validated",
+      "source": {
+        "video": {
+          "path": "data/scenes/corridor_travel/video.mp4",
+          "sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4"
+        },
+        "frames": [
+          {
+            "frame_id": 85,
+            "zero_based_index": 84,
+            "timestamp_seconds": 3.5,
+            "image": {
+              "path": "data/scenes/corridor_travel/images/frame_0085.jpg",
+              "sha256": "daf1a9d5372c856664e37fe0d4d46ef96486ade1bf6e9b19eff7c39c8571f729"
+            },
+            "usage": "Beginning of the later-bay source coverage window; source context only, not a recovered room boundary."
+          },
+          {
+            "frame_id": 137,
+            "zero_based_index": 136,
+            "timestamp_seconds": 5.6666666667,
+            "image": {
+              "path": "data/scenes/corridor_travel/images/frame_0137.jpg",
+              "sha256": "092793c5eabc1cbd26178fc1aa7945d4979bbe98f2f7959c26870207a2a41804"
+            },
+            "usage": "Visible column-base corner used to author the separate column proxy; not a complete observed column."
+          },
+          {
+            "frame_id": 141,
+            "zero_based_index": 140,
+            "timestamp_seconds": 5.8333333333,
+            "image": {
+              "path": "data/scenes/corridor_travel/images/frame_0141.jpg",
+              "sha256": "f77d26c4814611ed1c27ec745d513fabf84936577148e70d609bd872a41c3cc5"
+            },
+            "usage": "Second visible column-base view used with frame 0137 to size an authored proxy; proxy dimensions remain a convention."
+          },
+          {
+            "frame_id": 152,
+            "zero_based_index": 151,
+            "timestamp_seconds": 6.2916666667,
+            "image": {
+              "path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+              "sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12"
+            },
+            "usage": "Direct #100 source-video seed frame for the Hunyuan panorama; not a Gaussian render."
+          },
+          {
+            "frame_id": 192,
+            "zero_based_index": 191,
+            "timestamp_seconds": 7.9583333333,
+            "image": {
+              "path": "data/scenes/corridor_travel/images/frame_0192.jpg",
+              "sha256": "5d2202775cfd2a25c1269ca1fc64a17fac7f151fa147a72abc1064a4923bfb55"
+            },
+            "usage": "End of the later-bay source coverage window; no room count or connection is inferred from this frame."
+          }
+        ],
+        "camera_metadata": {
+          "path": "godot_walk/evidence/2026-10-20-issue-147/source_selection.json",
+          "sha256": "d9cb2e90dd1bc16470b4dbed3c2759a7ad39ae46ada86b4c5bc68667549d5661"
+        },
+        "inventory_catalog": {
+          "path": "godot_walk/evidence/2026-10-18-issue-145/ROOM_CATALOG.md",
+          "sha256": "a3e515c6553583ae50c577073d2649e7964550782f8a0a6680e0908d0ceb0254"
+        }
+      },
+      "assets": {
+        "visual": {
+          "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb",
+          "sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+          "role": "visual_only",
+          "transform": {
+            "status": "uncalibrated_convention",
+            "translation_m": [
+              2.920978333078322,
+              -0.20531900949639748,
+              3.7035079450105557
+            ],
+            "rotation_xyzw": [
+              0.6511913,
+              0.27745163,
+              0.27848938,
+              -0.64916414
+            ],
+            "scale": [
+              1.5582858479,
+              1.5582858479,
+              1.5582858479
+            ],
+            "note": "Issue 150 frame-0152 placement hypothesis for visual review only; not accepted registration or metric calibration."
+          }
+        },
+        "collision": {
+          "path": "godot_walk/evidence/2026-10-20-issue-150/authored_room_collision.glb",
+          "sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9",
+          "role": "collision_only",
+          "transform": {
+            "status": "authored_in_convention_world",
+            "translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_xyzw": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "note": "Authored planar floor, column obstacle proxy, and four room-boundary colliders; distinct from the Hunyuan visual mesh."
+          }
+        }
+      },
+      "coordinate_frame": {
+        "id": "hunyuan-issue-150-frame152-convention",
+        "units": "convention_meters_not_calibrated",
+        "handedness": "right_handed",
+        "up_axis": "+Y",
+        "transform_status": "uncalibrated_convention",
+        "registration_accepted": false,
+        "scale_calibrated": false,
+        "scale_basis": "Reused #100 2.4 m floor-to-ceiling convention; neither surveyed nor accepted.",
+        "transform_evidence": {
+          "path": "godot_walk/evidence/2026-10-20-issue-150/module_manifest.json",
+          "sha256": "989a0398435f5cac6f704cbe419c49c7fff6899ceb5d365ee1ab7332ddf6b2fe"
+        },
+        "registration_evidence": null,
+        "scale_evidence": null
+      },
+      "floor_ceiling": {
+        "floor": {
+          "status": "authored_tested",
+          "origin": "authored #150 planar room floor; not reconstructed from footage",
+          "elevation_m": -1.2709904909133911,
+          "assumed_clear_height_m": null,
+          "basis": "Chosen #100 floor convention reused by #150; not surveyed or calibrated.",
+          "collision_role": "Walkable floor in authored_room_collision.glb."
+        },
+        "ceiling": {
+          "status": "visual_only_unverified",
+          "origin": "Hunyuan visual plus authored 2.4 m wall-height convention; no ceiling collider or observed ceiling elevation is claimed",
+          "elevation_m": null,
+          "assumed_clear_height_m": 2.4,
+          "basis": "Chosen #100 clear-height convention; authored wall height, not a measured ceiling.",
+          "collision_role": "None; #150 has no ceiling collision."
+        }
+      },
+      "observed_openings": [
+        {
+          "id": "issue-145-opening-candidates-wide-bay",
+          "inventory_catalog_id": "F",
+          "frame_start": 85,
+          "frame_end": 192,
+          "description": "The #145 inventory describes gaps between columns and wall fragments in this source window; their destination, traversability, and relation to another catalog module remain unknown.",
+          "traversability": "unknown",
+          "module_relation": "unregistered"
+        }
+      ],
+      "connector_sockets": [
+        {
+          "id": "issue148-later-bay-east-socket",
+          "status": "authored_adaptation_socket",
+          "description": "Authored east-wall socket only in the #148 assembly adaptation; #150 remains unchanged as a closed standalone baseline.",
+          "clear_width_m": 2.4,
+          "clear_height_m": 2.4,
+          "local_transform": {
+            "translation_m": [
+              4.5,
+              -0.07099049091339116,
+              4.0
+            ],
+            "rotation_xyzw": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ],
+      "tested_connectors": [
+        {
+          "id": "issue148-later-bay-to-early-pocket",
+          "from_socket_id": "issue148-later-bay-east-socket",
+          "target_module_id": "issue-148-early-pocket",
+          "target_socket_id": "issue148-early-pocket-west-socket",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/assembled_connector_walkability.json",
+            "sha256": "0855e04529dbe167ae6b68da74b17c5356504ae42280e9063940bae557e56b24",
+            "purpose": "CPU route, collision, floor continuity, column obstacle, and boundary checks for the authored assembly; not source connectivity."
+          }
+        }
+      ],
+      "boundary_rules": [
+        {
+          "id": "issue150-authored-floor",
+          "kind": "floor",
+          "origin": "authored",
+          "description": "Continuous planar floor supporting the 40.6 m outbound perimeter route; authored design geometry in the uncalibrated convention.",
+          "collision_node": "AuthoredPlanarRouteFloor",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-20-issue-150/route_report.json",
+            "sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+            "purpose": "Authored floor route geometry and dimensions."
+          }
+        },
+        {
+          "id": "issue150-column-proxy",
+          "kind": "obstacle",
+          "origin": "authored",
+          "description": "Separate collision proxy based on visible base corners in frames 0137 and 0141; its far-side completeness is deferred art polish and its dimensions remain a convention.",
+          "collision_node": "ColumnObstacleProxy",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-20-issue-150/route_report.json",
+            "sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+            "purpose": "Authored column-proxy footprint and collision declaration."
+          }
+        },
+        {
+          "id": "issue150-room-boundary-west",
+          "kind": "room_boundary",
+          "origin": "authored",
+          "description": "West wall end and collision boundary of the authored room shell; not an observed video wall placement.",
+          "collision_node": "authored_room_boundary_west",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-20-issue-150/route_report.json",
+            "sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+            "purpose": "Authored wall bounds, clearance, and collision-node declaration."
+          }
+        },
+        {
+          "id": "issue150-room-boundary-east",
+          "kind": "room_boundary",
+          "origin": "authored",
+          "description": "East wall end and collision boundary of the authored room shell; not an observed video wall placement.",
+          "collision_node": "authored_room_boundary_east",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-20-issue-150/route_report.json",
+            "sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+            "purpose": "Authored wall bounds, clearance, and collision-node declaration."
+          }
+        },
+        {
+          "id": "issue150-room-boundary-south",
+          "kind": "room_boundary",
+          "origin": "authored",
+          "description": "South wall end and collision boundary of the authored room shell; not an observed video wall placement.",
+          "collision_node": "authored_room_boundary_south",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-20-issue-150/route_report.json",
+            "sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+            "purpose": "Authored wall bounds, clearance, and collision-node declaration."
+          }
+        },
+        {
+          "id": "issue150-room-boundary-north",
+          "kind": "room_boundary",
+          "origin": "authored",
+          "description": "North wall end and collision boundary of the authored room shell; not an observed video wall placement.",
+          "collision_node": "authored_room_boundary_north",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-20-issue-150/route_report.json",
+            "sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+            "purpose": "Authored wall bounds, clearance, and collision-node declaration."
+          }
+        }
+      ],
+      "shared_controller": {
+        "profile_id": "shared-tnua-avian-player-v1",
+        "source_files": [
+          {
+            "path": "splat_walk/src/player_controller.rs",
+            "sha256": "8ea18745f2f7cdb8b47462c3afb2427642442bce4b5add60e48f6dc6c6e4c2c2"
+          },
+          {
+            "path": "splat_walk/src/bin/walkability_harness/simulation.rs",
+            "sha256": "7393a13bb031638c14cd8394db8f1e2dd745653996007f706fcab314389c233d"
+          }
+        ],
+        "tnua_version": "0.31.0",
+        "avian3d_version": "0.6.1",
+        "capsule_radius_m": 0.3,
+        "capsule_height_m": 1.2,
+        "max_slope_degrees": 16.0,
+        "per_module_overrides": []
+      },
+      "validation_evidence": [
+        {
+          "path": "godot_walk/evidence/2026-10-20-issue-150/REPORT.md",
+          "sha256": "2cb2bf74a1b60e8b96e6c1c5f32cb471cd31a77ca0139a1b85914fde2df8f222",
+          "purpose": "Operator acceptance, authored-boundary declaration, standalone checks, and known limitations."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-20-issue-150/candidate_contact_sheet.jpg",
+          "sha256": "64575f9a8b03ac6e77219766e7ebed2bb78c28299f53a593666323a46f701b70",
+          "purpose": "Existing nine-view visual review of #150 as a standalone candidate; not a stitched-scene capture."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-20-issue-150/captures/bevy/bevy_capture_report.json",
+          "sha256": "8eb1391093d944c7de125f8b7d951b9743bd913cc5761d04da0290ec9c72abed",
+          "purpose": "Nine 960x540 Vulkan captures with authored wall/column visuals; not an FPS result."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-20-issue-150/walkability_report.json",
+          "sha256": "a03eb1271304b4980a01ed162dda9a8e5026006c6366e2c580ac16f394da5631",
+          "purpose": "Original route/collision checks and negative-control summary."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-20-issue-150/negative_controls/missing_floor_walkability_report.json",
+          "sha256": "3c67b6baca379869fa30a1b94d935319ff14ef35997bd5c5ccf731c34d94b851",
+          "purpose": "Missing-floor negative control fails closed."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-20-issue-150/negative_controls/missing_column_walkability_report.json",
+          "sha256": "a0f91a4366439110f63ffec72ea44921ae1766db7297f4a7972426cfa18ce9b8",
+          "purpose": "Missing-column negative control fails closed."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-20-issue-150/negative_controls/missing_boundaries_walkability_report.json",
+          "sha256": "950690b625fc3447b8493f62c87e170773b06bc18ada816a759bf2eb0e017123",
+          "purpose": "Missing-boundaries negative control fails closed."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/REPORT.md",
+          "sha256": "49e32655c9f066a74d0dc17d0415f93aa7669debd5f34398913060118297b4a5",
+          "purpose": "Issue 148 standalone admission record and explicit connector decision."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/COMMANDS.md",
+          "sha256": "c11a811050095fc3a3f0bf9747db1b02dd8c3dd64d318606f0bdf374ecde3569",
+          "purpose": "Reproduction and standalone walkthrough commands."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/module_overlap_assessment.svg",
+          "sha256": "11473a0bcfcdc57178c14886d8dfe56c0f134b5cd23da0c7cd1699a62e15e021",
+          "purpose": "Convention-space footprint comparison; not registered placement or recovered architecture."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-20-issue-150/module_manifest.json",
+          "sha256": "989a0398435f5cac6f704cbe419c49c7fff6899ceb5d365ee1ab7332ddf6b2fe",
+          "purpose": "Issue 150 source coverage, transform convention, asset hashes, and explicit false calibration flags."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-20-issue-150/candidate_layout.svg",
+          "sha256": "d04915ac8da1d258e72e1a2c9037b705986d12fbf1c8ee984a520b30b6165964",
+          "purpose": "Authored shell proposal and room extents; not a recovered floor plan."
+        },
+        {
+          "path": "splat_walk/src/bin/walkability_harness/route_scene/authored_visuals.rs",
+          "sha256": "6fd3598c80dac32d76197991ae02afcc20ea2c74e43c3439aafae80d7125ed80",
+          "purpose": "Source hash for the procedurally spawned #150 authored wall and column visual shell."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/issue150-standalone-walkability.json",
+          "sha256": "af94becfad5ee087ba6ac2683f319c7d3ef0f9e6a81445cb7fc22587c59bdad8",
+          "purpose": "Fresh independent CPU route validation of the issue 150 candidate."
+        }
+      ],
+      "runtime_measurements": {
+        "report": {
+          "path": "godot_walk/evidence/2026-10-20-issue-150/hunyuan_route_scene_report.json",
+          "sha256": "bc586052422752a4541de0aaa5a35379a72f480c2026cebce4e39407cbea41b8",
+          "purpose": "CPU-only route/visual-load runtime and process resource measurements; not an FPS benchmark."
+        },
+        "mode": "cpu_headless",
+        "gpu_used": false,
+        "scene_total_wall_time_seconds": 31.625121266,
+        "route_simulation_wall_time_seconds": 7.789080146,
+        "peak_rss_kib": 3074620,
+        "mean_update_ms": 2.1613863040066086,
+        "p90_update_ms": 2.617347,
+        "max_update_ms": 41.240748,
+        "visual_load_seconds": 16.633833766,
+        "visual_query_preparation_seconds": 8.603e-05,
+        "visual_triangle_count": 15383468,
+        "note": "CPU/headless measurement includes loading the original #147 Hunyuan visual and the separate #150 authored collision scene. It is not a rendered performance result; the independently captured nine-view Vulkan bundle reports its own peak RSS and wall time."
+      }
+    },
+    {
+      "id": "issue-148-early-pocket",
+      "display_name": "Issue 148 authored early-pocket",
+      "kind": "room",
+      "admission_status": "standalone_validated",
+      "source": {
+        "video": {
+          "path": "data/scenes/corridor_travel/video.mp4",
+          "sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4"
+        },
+        "frames": [
+          {
+            "frame_id": 13,
+            "zero_based_index": 12,
+            "timestamp_seconds": 0.5,
+            "image": {
+              "path": "data/scenes/corridor_travel/images/frame_0013.jpg",
+              "sha256": "6cf610ca213af97ac7da752153a875ff64ecda839c8a770d0bef7b24c15db5a7"
+            },
+            "usage": "Direct #100 source frame selected from opening candidate C; visual context only. It does not establish a room, hallway, threshold traversal, scale, or connection."
+          },
+          {
+            "frame_id": 17,
+            "zero_based_index": 16,
+            "timestamp_seconds": 0.6666666667,
+            "image": {
+              "path": "data/scenes/corridor_travel/images/frame_0017.jpg",
+              "sha256": "c74ec78bdba6b77ef6dedbc7e0ccd0a2397f7c0ebef120bd948c258d87d77a64"
+            },
+            "usage": "Direct #100 source frame selected from opening candidate C; visual context only. It does not establish a room, hallway, threshold traversal, scale, or connection."
+          },
+          {
+            "frame_id": 25,
+            "zero_based_index": 24,
+            "timestamp_seconds": 1.0,
+            "image": {
+              "path": "data/scenes/corridor_travel/images/frame_0025.jpg",
+              "sha256": "cca76c02e469bac21ae89da019f666c6adeb7cfe7ddb2f9b5ab5e346537c8ff0"
+            },
+            "usage": "Direct #100 source frame selected from opening candidate C; visual context only. It does not establish a room, hallway, threshold traversal, scale, or connection."
+          },
+          {
+            "frame_id": 27,
+            "zero_based_index": 26,
+            "timestamp_seconds": 1.0833333333,
+            "image": {
+              "path": "data/scenes/corridor_travel/images/frame_0027.jpg",
+              "sha256": "92e1dd66dd4cd9e875c3eb3ee50902740e5d707b87ccb6b5bd72e94643084b10"
+            },
+            "usage": "Direct #100 source frame selected from opening candidate C; visual context only. It does not establish a room, hallway, threshold traversal, scale, or connection."
+          }
+        ],
+        "camera_metadata": {
+          "path": "godot_walk/evidence/2026-10-18-issue-145/camera_path.csv",
+          "sha256": "92584e1de30a526fa17b307f9a81f28a7b3268e9cf992d184a1d5fedca88024e"
+        },
+        "inventory_catalog": {
+          "path": "godot_walk/evidence/2026-10-18-issue-145/ROOM_CATALOG.md",
+          "sha256": "a3e515c6553583ae50c577073d2649e7964550782f8a0a6680e0908d0ceb0254"
+        }
+      },
+      "assets": {
+        "visual": {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+          "sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5",
+          "role": "visual_only",
+          "transform": {
+            "status": "authored_design_convention",
+            "translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_xyzw": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "note": "Identity in the authored convention; floor/ceiling mesh layers, with the visual shell separately declared in the route report and rendered procedurally."
+          }
+        },
+        "collision": {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_collision.glb",
+          "sha256": "0a4479f9c32cdf193d4a4196f8e6330474a7a2254426471b2725220a7b966246",
+          "role": "collision_only",
+          "transform": {
+            "status": "authored_design_convention",
+            "translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_xyzw": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "note": "Closed standalone authored room collision; no column, registration, or calibrated scale."
+          }
+        }
+      },
+      "coordinate_frame": {
+        "id": "issue148-early-pocket-authored-convention",
+        "units": "convention_meters_not_calibrated",
+        "handedness": "right_handed",
+        "up_axis": "+Y",
+        "transform_status": "uncalibrated_convention",
+        "registration_accepted": false,
+        "scale_calibrated": false,
+        "scale_basis": "Authored 2.4 m wall-height convention reused from #100; not surveyed.",
+        "transform_evidence": {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/standalone_scene_manifest.json",
+          "sha256": "bc2c9e075dd26403c4270985c208f9f23785372c586b9473a1c41a20ca452d25"
+        },
+        "registration_evidence": null,
+        "scale_evidence": null
+      },
+      "floor_ceiling": {
+        "floor": {
+          "status": "authored_tested",
+          "origin": "Authored early-pocket route floor.",
+          "elevation_m": -1.2709904909133911,
+          "assumed_clear_height_m": null,
+          "basis": "Same uncalibrated #100 Y convention as route harness; not measured from footage.",
+          "collision_role": "Continuous walkable floor in standalone collision GLB."
+        },
+        "ceiling": {
+          "status": "authored_visual_unverified",
+          "origin": "Authored visual convention, not source reconstruction.",
+          "elevation_m": null,
+          "assumed_clear_height_m": 2.4,
+          "basis": "Authored shell height for review; not measured from footage.",
+          "collision_role": "Visual only; no ceiling collider."
+        }
+      },
+      "observed_openings": [
+        {
+          "id": "issue145-opening-candidate-c",
+          "inventory_catalog_id": "C",
+          "frame_start": 13,
+          "frame_end": 27,
+          "description": "A broad gap between patterned partition ends is visible; the camera does not establish threshold traversal or what lies beyond.",
+          "traversability": "visually_open",
+          "module_relation": "unregistered"
+        }
+      ],
+      "connector_sockets": [
+        {
+          "id": "issue148-early-pocket-west-socket",
+          "status": "authored_adaptation_socket",
+          "description": "Authored west-wall socket only in the #148 assembly adaptation; the standalone wall stays closed and no video doorway is claimed.",
+          "clear_width_m": 2.4,
+          "clear_height_m": 2.4,
+          "local_transform": {
+            "translation_m": [
+              0.0,
+              -0.07099049091339116,
+              9.0
+            ],
+            "rotation_xyzw": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ],
+      "tested_connectors": [
+        {
+          "id": "issue148-early-pocket-to-later-bay",
+          "from_socket_id": "issue148-early-pocket-west-socket",
+          "target_module_id": "hunyuan-issue-150-later-bay",
+          "target_socket_id": "issue148-later-bay-east-socket",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/assembled_connector_walkability.json",
+            "sha256": "0855e04529dbe167ae6b68da74b17c5356504ae42280e9063940bae557e56b24",
+            "purpose": "CPU route, collision, floor continuity, column obstacle, and boundary checks for the authored assembly; not source connectivity."
+          }
+        }
+      ],
+      "boundary_rules": [
+        {
+          "id": "issue148-early-pocket-floor",
+          "kind": "floor",
+          "origin": "authored",
+          "description": "Continuous authored floor for the 6.0 x 13.8 convention-unit standalone pocket.",
+          "collision_node": "AuthoredPlanarRouteFloor",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_route_report.json",
+            "sha256": "33536b01ed448f4e53faa135280a02cc6bb3da032fda862a723b1a3e6c41c3ed",
+            "purpose": "Standalone authored pocket bounds, floor, wall declaration, and collision mesh."
+          }
+        },
+        {
+          "id": "issue148-early-pocket-boundary-west",
+          "kind": "room_boundary",
+          "origin": "authored",
+          "description": "Closed authored west wall; not an observed source-video placement.",
+          "collision_node": "authored_room_boundary_west",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_route_report.json",
+            "sha256": "33536b01ed448f4e53faa135280a02cc6bb3da032fda862a723b1a3e6c41c3ed",
+            "purpose": "Standalone authored pocket bounds, floor, wall declaration, and collision mesh."
+          }
+        },
+        {
+          "id": "issue148-early-pocket-boundary-east",
+          "kind": "room_boundary",
+          "origin": "authored",
+          "description": "Closed authored east wall; not an observed source-video placement.",
+          "collision_node": "authored_room_boundary_east",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_route_report.json",
+            "sha256": "33536b01ed448f4e53faa135280a02cc6bb3da032fda862a723b1a3e6c41c3ed",
+            "purpose": "Standalone authored pocket bounds, floor, wall declaration, and collision mesh."
+          }
+        },
+        {
+          "id": "issue148-early-pocket-boundary-south",
+          "kind": "room_boundary",
+          "origin": "authored",
+          "description": "Closed authored south wall; not an observed source-video placement.",
+          "collision_node": "authored_room_boundary_south",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_route_report.json",
+            "sha256": "33536b01ed448f4e53faa135280a02cc6bb3da032fda862a723b1a3e6c41c3ed",
+            "purpose": "Standalone authored pocket bounds, floor, wall declaration, and collision mesh."
+          }
+        },
+        {
+          "id": "issue148-early-pocket-boundary-north",
+          "kind": "room_boundary",
+          "origin": "authored",
+          "description": "Closed authored north wall; not an observed source-video placement.",
+          "collision_node": "authored_room_boundary_north",
+          "evidence": {
+            "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_route_report.json",
+            "sha256": "33536b01ed448f4e53faa135280a02cc6bb3da032fda862a723b1a3e6c41c3ed",
+            "purpose": "Standalone authored pocket bounds, floor, wall declaration, and collision mesh."
+          }
+        }
+      ],
+      "shared_controller": {
+        "profile_id": "shared-tnua-avian-player-v1",
+        "source_files": [
+          {
+            "path": "splat_walk/src/player_controller.rs",
+            "sha256": "8ea18745f2f7cdb8b47462c3afb2427642442bce4b5add60e48f6dc6c6e4c2c2"
+          },
+          {
+            "path": "splat_walk/src/bin/walkability_harness/simulation.rs",
+            "sha256": "7393a13bb031638c14cd8394db8f1e2dd745653996007f706fcab314389c233d"
+          }
+        ],
+        "tnua_version": "0.31.0",
+        "avian3d_version": "0.6.1",
+        "capsule_radius_m": 0.3,
+        "capsule_height_m": 1.2,
+        "max_slope_degrees": 16.0,
+        "per_module_overrides": []
+      },
+      "validation_evidence": [
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/REPORT.md",
+          "sha256": "49e32655c9f066a74d0dc17d0415f93aa7669debd5f34398913060118297b4a5",
+          "purpose": "Issue 148 decision, validation, resources, and review status."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/COMMANDS.md",
+          "sha256": "c11a811050095fc3a3f0bf9747db1b02dd8c3dd64d318606f0bdf374ecde3569",
+          "purpose": "Reproduction commands for route checks, scenes, and review."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/REPORT.md",
+          "sha256": "60fa6497a9a6f905bbfa7f73aa0b8f7eb31ece2e460f6d6d0171d87583a80a30",
+          "purpose": "Pocket scope, separate assembly adaptation, and visual-review notes."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/authored_assembly_layout.svg",
+          "sha256": "17d40973c43e53348ceb8aede5eed24190561669a40d3fb20701c16412aa7ae7",
+          "purpose": "Authored plan proposal, not recovered source layout."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/standalone_scene_manifest.json",
+          "sha256": "bc2c9e075dd26403c4270985c208f9f23785372c586b9473a1c41a20ca452d25",
+          "purpose": "Standalone provenance and false calibration flags."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/module_manifest.json",
+          "sha256": "b29adb72a590a8841a4d5ae3323a3425f4146f2d1d072a8aef48e07b48f1f2d2",
+          "purpose": "Separate assembly assets and false calibration flags."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_route_report.json",
+          "sha256": "33536b01ed448f4e53faa135280a02cc6bb3da032fda862a723b1a3e6c41c3ed",
+          "purpose": "Standalone bounds, authored shell, and collision declaration."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_walkability.json",
+          "sha256": "cf290a81fd3c2abd06063e0a1bf7a58d912f27e72a2e1d6465c7c7f46dbe7c60",
+          "purpose": "Standalone bidirectional route and boundary checks."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json",
+          "sha256": "0c2b5bb8a131b53a49a8243296121078caaec83bb14d2a2e5258ad0c6b52b28b",
+          "purpose": "CPU-only standalone scene and resource measurements."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/assembled_route_report.json",
+          "sha256": "3bfa78f139c9d2c7b06dd6555ef75c7ec4a6878ee32077039992e21b8ba0c29d",
+          "purpose": "Authored assembly route and separate collision layout."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/assembled_connector_walkability.json",
+          "sha256": "0855e04529dbe167ae6b68da74b17c5356504ae42280e9063940bae557e56b24",
+          "purpose": "CPU route and collision checks for the authored connector."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/assembled_connector_scene_report.json",
+          "sha256": "bc9bd97498a904cfcfe2bd44f35de5b89d1fa8410c1e5aa4133cfb3c44a27297",
+          "purpose": "CPU-only assembly scene resource measurements."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/assembled_connector_collision.glb",
+          "sha256": "087617fe92f03358041ee6b60616341d3454b84a372fece612c3760fcc552c81",
+          "purpose": "Separate connector collision; #150 baseline collision is unchanged."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/assembled_review_visual.glb",
+          "sha256": "c2c14c8d9f4e94e04154652144a4366f372164d522298a19ff9bff5eed912873",
+          "purpose": "Separate review visual for the authored adaptation."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/captures/assembled_connector/bevy_capture_report.json",
+          "sha256": "346086d7f8407e25982159ca297545ca8ae3462117e7cbf045a0aae07be32646",
+          "purpose": "Eight Vulkan review views and resource preflight."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/captures/assembled_connector/candidate_contact_sheet.jpg",
+          "sha256": "f13c0a27dac0d9ce5b39ea18fc4449fc2973545e07ff3e24ed769a64d7a157ee",
+          "purpose": "Eight-view visual review; not source footage."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/negative_controls/blocked_entry_walkability.json",
+          "sha256": "cf299c796a28c7f42221e521ce25cffa0bc4314309488fa8b354da92aa9779f5",
+          "purpose": "A wall across the opening blocks traversal."
+        },
+        {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/negative_controls/missing_connector_floor_walkability.json",
+          "sha256": "ac043d906592754943ce72b45a7378f4d0a8c914a69bfaf4ca1f40d96bf2bfdd",
+          "purpose": "Missing floor fails route/support checks."
+        },
+        {
+          "path": "splat_walk/src/bin/walkability_harness/route_scene/authored_visuals.rs",
+          "sha256": "6fd3598c80dac32d76197991ae02afcc20ea2c74e43c3439aafae80d7125ed80",
+          "purpose": "Procedural authored shell rendering implementation."
+        }
+      ],
+      "runtime_measurements": {
+        "report": {
+          "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json",
+          "sha256": "0c2b5bb8a131b53a49a8243296121078caaec83bb14d2a2e5258ad0c6b52b28b",
+          "purpose": "CPU-only standalone scene, route, update, visual-load, and resource report."
+        },
+        "mode": "cpu_headless",
+        "gpu_used": false,
+        "scene_total_wall_time_seconds": 7.596012966,
+        "route_simulation_wall_time_seconds": 7.153832758,
+        "peak_rss_kib": 129932,
+        "mean_update_ms": 2.5573413705763413,
+        "p90_update_ms": 3.4800959999999996,
+        "max_update_ms": 8.386272,
+        "visual_load_seconds": 0.004011875,
+        "visual_query_preparation_seconds": 0.000625525,
+        "visual_triangle_count": 4,
+        "note": "CPU/headless, not an FPS result. 4 GLB triangles plus 137 procedural authored visual surfaces declared in the route report."
       }
     }
   ]

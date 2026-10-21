@@ -1,0 +1,123 @@
+{
+  "issue": 148,
+  "label": "uncalibrated",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "resolution": [
+    960,
+    540
+  ],
+  "vertical_fov_degrees": 47.3988056,
+  "settle_frames_before_each_capture": 8,
+  "pose_set": "authored review views, not registered to source video",
+  "poses": [
+    {
+      "name": "pocket_entry",
+      "position_world_m": [
+        1.0,
+        0.0,
+        6.9
+      ],
+      "forward_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "pocket_center",
+      "position_world_m": [
+        3.0,
+        0.0,
+        6.9
+      ],
+      "forward_world": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "pocket_far_end",
+      "position_world_m": [
+        3.0,
+        0.0,
+        12.3
+      ],
+      "forward_world": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "pocket_west_wall",
+      "position_world_m": [
+        0.8,
+        0.0,
+        3.0
+      ],
+      "forward_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "pocket_east_wall",
+      "position_world_m": [
+        5.2,
+        0.0,
+        3.0
+      ],
+      "forward_world": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "pocket_north_wall",
+      "position_world_m": [
+        3.0,
+        0.0,
+        12.0
+      ],
+      "forward_world": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    }
+  ]
+}

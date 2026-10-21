@@ -6,7 +6,7 @@ use bevy::{
 };
 use serde::Serialize;
 
-use crate::walkability_harness::scenarios::AuthoredRouteAsset;
+use crate::walkability_harness::scenarios::{AuthoredRoomVisualBox, AuthoredRouteAsset};
 
 const COLUMN_COVER_PADDING_M: f32 = 0.24;
 const WALL_COLOR: Color = Color::srgb(0.76, 0.72, 0.54);
@@ -29,9 +29,43 @@ pub fn spawn_room_visuals(
     let Some(layout) = route.room_layout.as_ref() else {
         return Vec::new();
     };
-    let column = spawn_column_cover(commands, meshes, materials, route);
+    if !layout.visual_boxes.is_empty() {
+        return layout
+            .visual_boxes
+            .iter()
+            .map(|visual| spawn_custom_box(commands, meshes, materials, visual))
+            .collect();
+    }
+    let column = (route.column_triangles > 0)
+        .then(|| spawn_column_cover(commands, meshes, materials, route));
     let walls = spawn_room_walls(commands, meshes, materials, route, layout);
-    std::iter::once(column).chain(walls).collect()
+    column.into_iter().chain(walls).collect()
+}
+
+fn spawn_custom_box(
+    commands: &mut Commands,
+    meshes: &mut Assets<Mesh>,
+    materials: &mut Assets<StandardMaterial>,
+    visual: &AuthoredRoomVisualBox,
+) -> AuthoredVisualSurface {
+    let center = Vec3::from_array(visual.center_world_m);
+    let size = Vec3::from_array(visual.size_m);
+    let [red, green, blue] = visual.color_srgb;
+    spawn_box(
+        commands,
+        meshes,
+        materials,
+        &visual.name,
+        center,
+        size,
+        Color::srgb(red, green, blue),
+    );
+    AuthoredVisualSurface {
+        name: visual.name.clone(),
+        origin: "authored room-layout visual box; separate from collision mesh",
+        center_world_m: center.to_array(),
+        size_m: size.to_array(),
+    }
 }
 
 fn spawn_column_cover(

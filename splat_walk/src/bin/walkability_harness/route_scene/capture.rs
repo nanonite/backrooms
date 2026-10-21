@@ -144,7 +144,7 @@ pub fn run() -> Result<()> {
         bail!("capture-pose issue does not match the selected scene manifest");
     }
     let output_directory = capture_output_directory(&root, &scene_manifest);
-    let authored_route = if scene_manifest.issue == 150 {
+    let authored_route = if [148, 150].contains(&scene_manifest.issue) {
         let report_path = selected_route_report_path(&root, &scene_manifest);
         let (_, mut route) = authored_route_config(&report_path)?;
         route.directory = root.clone();
@@ -196,7 +196,7 @@ fn validate_pose_manifest(manifest: &PoseManifest) -> Result<()> {
     } else {
         (1..=32).contains(&manifest.poses.len())
     };
-    if ![137, 147, 150].contains(&manifest.issue)
+    if ![137, 147, 148, 150].contains(&manifest.issue)
         || manifest.label != "uncalibrated"
         || manifest.registration_accepted
         || manifest.scale_calibrated
@@ -520,7 +520,9 @@ fn write_capture_report(
             .map(|pose| pose.name.clone())
             .collect(),
         visual_only_nodes: VISUAL_NODES,
-        authored_visual_surfaces_included: if manifest.issue == 150 {
+        authored_visual_surfaces_included: if manifest.issue == 148 {
+            vec!["authored early-pocket and connector shell"]
+        } else if manifest.issue == 150 {
             vec![
                 "authored_column_artifact_cover",
                 "authored_room_wall_west",

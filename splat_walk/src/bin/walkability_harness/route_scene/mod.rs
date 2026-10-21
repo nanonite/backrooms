@@ -50,7 +50,8 @@ use crate::walkability_harness::{
 use self::{
     assets::{SceneVisualConfig, VisualSceneReport, poll_visual_loading, start_visual_loading},
     manifest::{
-        SceneManifest, load_issue147_manifest, load_issue150_manifest, load_manifest, repo_root,
+        SceneManifest, load_issue147_manifest, load_issue148_manifest,
+        load_issue148_standalone_manifest, load_issue150_manifest, load_manifest, repo_root,
     },
     report::{
         ComparisonSceneReport, SceneRunReportData, TraversalGateReport, UpdateTimeReport,
@@ -116,7 +117,11 @@ pub fn run_interactive_play() -> Result<()> {
 }
 
 pub(super) fn selected_manifest(root: &std::path::Path) -> Result<SceneManifest> {
-    if std::env::args().any(|argument| argument == "--issue150") {
+    if std::env::args().any(|argument| argument == "--issue148-standalone") {
+        load_issue148_standalone_manifest(root)
+    } else if std::env::args().any(|argument| argument == "--issue148") {
+        load_issue148_manifest(root)
+    } else if std::env::args().any(|argument| argument == "--issue150") {
         load_issue150_manifest(root)
     } else if std::env::args().any(|argument| argument == "--issue147") {
         load_issue147_manifest(root)
@@ -311,7 +316,8 @@ fn build_app(
     root: &std::path::Path,
     mode: SceneAppMode,
 ) -> App {
-    let analyze_alignment = route.issue != 150 && !matches!(mode, SceneAppMode::Interactive { .. });
+    let analyze_alignment =
+        ![148, 150].contains(&route.issue) && !matches!(mode, SceneAppMode::Interactive { .. });
     let mut app = App::new();
     match mode {
         SceneAppMode::Interactive { .. } => {

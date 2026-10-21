@@ -1,0 +1,20 @@
+{
+  "camera": {
+    "camera_center_godot_world_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "forward_godot_world": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "up_godot_world": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "origin": "authored review camera; not a registered source camera"
+  }
+}

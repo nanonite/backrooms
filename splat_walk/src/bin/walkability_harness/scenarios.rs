@@ -95,6 +95,16 @@ pub struct AuthoredRoomLayout {
     pub upper_xz: [f32; 2],
     pub boundary_thickness_m: f32,
     pub boundary_triangles: [usize; 4],
+    pub interior_boundary_triangles: usize,
+    pub visual_boxes: Vec<AuthoredRoomVisualBox>,
+}
+
+#[derive(Clone)]
+pub struct AuthoredRoomVisualBox {
+    pub name: String,
+    pub center_world_m: [f32; 3],
+    pub size_m: [f32; 3],
+    pub color_srgb: [f32; 3],
 }
 
 pub fn synthetic_specs() -> Vec<HarnessSpec> {
@@ -189,6 +199,18 @@ struct RoomLayoutReport {
     boundary_thickness_m: f32,
     walk_loop_centerline_xz_m: Vec<[f32; 2]>,
     boundary_triangles: [usize; 4],
+    #[serde(default)]
+    interior_boundary_triangles: usize,
+    #[serde(default)]
+    visual_boxes: Vec<RoomVisualBoxReport>,
+}
+
+#[derive(Deserialize)]
+struct RoomVisualBoxReport {
+    name: String,
+    center_world_m: [f32; 3],
+    size_m: [f32; 3],
+    color_srgb: [f32; 3],
 }
 
 #[derive(Deserialize)]
@@ -308,6 +330,17 @@ pub fn authored_route_config(report_path: &Path) -> Result<(HarnessSpec, Authore
             upper_xz: layout.bounds_upper_xz_m,
             boundary_thickness_m: layout.boundary_thickness_m,
             boundary_triangles: layout.boundary_triangles,
+            interior_boundary_triangles: layout.interior_boundary_triangles,
+            visual_boxes: layout
+                .visual_boxes
+                .into_iter()
+                .map(|visual| AuthoredRoomVisualBox {
+                    name: visual.name,
+                    center_world_m: visual.center_world_m,
+                    size_m: visual.size_m,
+                    color_srgb: visual.color_srgb,
+                })
+                .collect(),
         }),
     };
     Ok((spec, asset))
@@ -337,6 +370,19 @@ fn validate_room_layout(layout: &RoomLayoutReport, boundary_height_m: f32) -> Re
             .iter()
             .flatten()
             .any(|value| !value.is_finite())
+        || layout.visual_boxes.iter().any(|visual| {
+            visual
+                .center_world_m
+                .iter()
+                .chain(&visual.size_m)
+                .chain(&visual.color_srgb)
+                .any(|value| !value.is_finite())
+                || visual.size_m.iter().any(|value| *value <= 0.0)
+                || visual
+                    .color_srgb
+                    .iter()
+                    .any(|value| !(0.0..=1.0).contains(value))
+        })
     {
         bail!("authored room layout has invalid bounds, route, height or boundary meshes");
     }
@@ -668,6 +714,8 @@ mod tests {
                 upper_xz: [5.0, 6.0],
                 boundary_thickness_m: 0.12,
                 boundary_triangles: [12; 4],
+                interior_boundary_triangles: 0,
+                visual_boxes: Vec::new(),
             }),
         };
 

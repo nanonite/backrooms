@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "issue": 148,
+  "label": "uncalibrated",
+  "renderer": "Bevy 0.18.0 / wgpu",
+  "bevy_version": "0.18.0",
+  "resolution": [
+    960,
+    540
+  ],
+  "vertical_fov_degrees": 47.398804,
+  "captured_views": [
+    "later_bay_approach",
+    "doorway_from_later_bay",
+    "connector_midpoint",
+    "pocket_entry",
+    "pocket_far_end",
+    "pocket_return",
+    "column_to_connector",
+    "connector_return"
+  ],
+  "visual_only_nodes": [
+    "mesh_layer0",
+    "mesh_layer1"
+  ],
+  "authored_visual_surfaces_included": [
+    "authored early-pocket and connector shell"
+  ],
+  "collision_loaded": false,
+  "resource_preflight": {
+    "available_ram_kib": 39281264,
+    "minimum_available_ram_kib": 10485760,
+    "free_vram_mib": 10314,
+    "minimum_free_vram_mib": 4096
+  },
+  "gpu_compute_processes_before_capture": 0,
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "wall_time_seconds": 4.645683525,
+  "peak_rss_kib": 826876
+}

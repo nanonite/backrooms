@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="740" viewBox="0 0 1000 740" role="img" aria-labelledby="title desc">
+  <title id="title">Convention-space bounds comparison for the tagged reference loop and issue 150 room</title>
+  <desc id="desc">The tagged reference loop lies inside the authored issue 150 room bounds in the shared uncalibrated coordinate convention. This is not an accepted registration or floor plan.</desc>
+  <rect width="1000" height="740" fill="#f7f8f6"/>
+  <text x="48" y="54" font-family="sans-serif" font-size="25" font-weight="700" fill="#263238">Issue 148: candidate bounds overlap</text>
+  <text x="48" y="87" font-family="sans-serif" font-size="15" fill="#455a64">Shared uncalibrated #100 convention only; not registered placement, metric calibration, or recovered architecture.</text>
+  <rect x="277.5" y="83.5" width="350" height="483" fill="#dcefe9" stroke="#24765e" stroke-width="4"/>
+  <text x="310" y="117" font-family="sans-serif" font-size="17" font-weight="700" fill="#195a48">#150 authored room bounds</text>
+  <text x="310" y="140" font-family="sans-serif" font-size="14" fill="#195a48">x [-5.4, 4.5], z [-5.0, 8.8]</text>
+  <circle cx="472.5" cy="324.5" r="114.6" fill="#ead6cb" fill-opacity="0.82" stroke="#a44c35" stroke-width="4"/>
+  <circle cx="472.5" cy="324.5" r="86.6" fill="#f7f8f6" stroke="#a44c35" stroke-width="3" stroke-dasharray="7 6"/>
+  <text x="472.5" y="176" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#873c2d">Tagged reference authored loop</text>
+  <text x="472.5" y="199" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#873c2d">center (-0.450, 1.451); outer radius 3.275 m</text>
+  <rect x="449.7" y="329.5" width="47.9" height="63.9" fill="#c8a942" stroke="#604d16" stroke-width="2"/>
+  <text x="472.5" y="418" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4e401b">same authored column proxy</text>
+  <line x1="675" y1="170" x2="790" y2="170" stroke="#24765e" stroke-width="4"/>
+  <text x="804" y="176" font-family="sans-serif" font-size="15" fill="#263238">#150 room boundary</text>
+  <line x1="675" y1="214" x2="790" y2="214" stroke="#a44c35" stroke-width="4"/>
+  <text x="804" y="220" font-family="sans-serif" font-size="15" fill="#263238">Reference loop extent</text>
+  <rect x="675" y="246" width="115" height="18" fill="#ead6cb" stroke="#a44c35" stroke-width="2"/>
+  <text x="804" y="261" font-family="sans-serif" font-size="15" fill="#263238">Shared column area</text>
+  <text x="675" y="324" font-family="sans-serif" font-size="15" font-weight="700" fill="#263238">Decision</text>
+  <text x="675" y="350" font-family="sans-serif" font-size="14" fill="#455a64">These are overlapping</text>
+  <text x="675" y="372" font-family="sans-serif" font-size="14" fill="#455a64">representations of the</text>
+  <text x="675" y="394" font-family="sans-serif" font-size="14" fill="#455a64">same later-bay area, not</text>
+  <text x="675" y="416" font-family="sans-serif" font-size="14" fill="#455a64">two adjacent proven rooms.</text>
+  <text x="675" y="461" font-family="sans-serif" font-size="14" fill="#455a64">No authored connector</text>
+  <text x="675" y="483" font-family="sans-serif" font-size="14" fill="#455a64">or assembled scene was</text>
+  <text x="675" y="505" font-family="sans-serif" font-size="14" fill="#455a64">created pending direction.</text>
+  <g font-family="sans-serif" font-size="12" fill="#546e7a">
+    <text x="274" y="592">x -5.5</text><text x="466" y="592">x 0</text><text x="615" y="592">x 4.5</text>
+    <text x="227" y="554">z -5</text><text x="227" y="333">z 1.45</text><text x="227" y="91">z 8.8</text>
+  </g>
+  <text x="48" y="665" font-family="sans-serif" font-size="14" fill="#455a64">Bounds are rendered to the authored values in the shared convention; the convention itself is unaccepted and uncalibrated.</text>
+</svg>

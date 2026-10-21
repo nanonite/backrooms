@@ -1,0 +1,4674 @@
+{
+  "schema_version": 2,
+  "issue": 148,
+  "label": "uncalibrated",
+  "status": "cpu_scene_run_complete",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "transform_status": "uncalibrated_convention",
+  "scale_m_per_hunyuan_unit": 1.0,
+  "scale_sensitivity_range_m_per_hunyuan_unit": [
+    0.999,
+    1.001
+  ],
+  "plane_aligned_translation_world_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "model_rotation_xyzw": [
+    -0.0,
+    0.0,
+    -0.0,
+    1.0
+  ],
+  "camera_anchor_shift_y_m": 0.0,
+  "visual_asset_path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/assembled_review_visual.glb",
+  "visual_asset_sha256": "c2c14c8d9f4e94e04154652144a4366f372164d522298a19ff9bff5eed912873",
+  "collision_asset_path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/assembled_connector_collision.glb",
+  "collision_asset_sha256": "087617fe92f03358041ee6b60616341d3454b84a372fece612c3760fcc552c81",
+  "visual_layers_are_avian_colliders": false,
+  "gpu_used": false,
+  "rendering_enabled": false,
+  "traversal_gate": {
+    "source": "#148 authored early-pocket and connector traversal gate",
+    "outbound_progress_fraction_min": 1.0,
+    "inbound_progress_fraction_min": 0.992,
+    "moving_support_fraction_min": 0.993,
+    "safety_net_contacts_max": 0,
+    "max_vertical_step_m": 0.2,
+    "comparison_rule": "traverse the standalone early pocket and the separate authored connector adaptation in both directions; no source connectivity or calibration claim"
+  },
+  "visual_metric_contract": "visual floor gap is signed Hunyuan hit Y minus authored collision floor Y; directional absence counts samples without an upward-facing hit at or below the collision plane within 0.5 m, while a visual hole requires no hit within the full +/-0.5 m vertical window. Capsule intersection tests the shared 0.30 m radius / 1.20 m height player volume against temporary CPU query BVHs. All visual metrics are descriptive only because the transform is uncalibrated.",
+  "visual": {
+    "load_time_seconds": 0.004048514,
+    "query_preparation_time_seconds": 0.001330389,
+    "visual_nodes": [
+      {
+        "node_name": "mesh_layer0",
+        "primitive_name": "mesh_layer0",
+        "vertex_count": 6,
+        "triangle_count": 2,
+        "world_translation_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "world_rotation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "world_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "collider_created": false
+      },
+      {
+        "node_name": "mesh_layer1",
+        "primitive_name": "mesh_layer1",
+        "vertex_count": 6,
+        "triangle_count": 2,
+        "world_translation_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "world_rotation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "world_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "collider_created": false
+      }
+    ],
+    "visual_alignment": null,
+    "authored_visual_surfaces": [
+      {
+        "name": "authored_carpet_visual",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          -1.2629905,
+          1.9
+        ],
+        "size_m": [
+          19.4,
+          0.03,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_visual",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.1390095,
+          1.9
+        ],
+        "size_m": [
+          19.4,
+          0.04,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.46,
+          -0.07099049,
+          1.9
+        ],
+        "size_m": [
+          0.12,
+          2.4,
+          14.04
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_0_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          -4.7
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_0_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          -4.7
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_1_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          -4.02
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_1_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          -4.02
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_2_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          -3.34
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_2_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          -3.34
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_3_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          -2.66
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_3_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          -2.66
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_4_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          -1.98
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_4_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          -1.98
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_5_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          -1.3
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_5_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          -1.3
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_6_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          -0.62
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_6_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          -0.62
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_7_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          0.06
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_7_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          0.06
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_8_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          0.74
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_8_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          0.74
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_9_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          1.42
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_9_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          1.42
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_10_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          2.1
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_10_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          2.1
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_11_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          2.78
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_11_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          2.78
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_12_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          3.46
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_12_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          3.46
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_13_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          4.14
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_13_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          4.14
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_14_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          4.82
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_14_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          4.82
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_15_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          5.5
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_15_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          5.5
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_16_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          6.18
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_16_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          6.18
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_17_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          6.86
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_17_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          6.86
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_18_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          7.54
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_18_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          7.54
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_19_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.532,
+          -0.02099049,
+          8.22
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_west_wallpaper_19_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -5.388,
+          -0.02099049,
+          8.22
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.06,
+          -0.07099049,
+          1.9
+        ],
+        "size_m": [
+          0.12,
+          2.4,
+          14.04
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_0_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          -4.7
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_0_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          -4.7
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_1_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          -4.02
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_1_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          -4.02
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_2_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          -3.34
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_2_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          -3.34
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_3_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          -2.66
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_3_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          -2.66
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_4_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          -1.98
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_4_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          -1.98
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_5_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          -1.3
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_5_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          -1.3
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_6_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          -0.62
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_6_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          -0.62
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_7_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          0.06
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_7_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          0.06
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_8_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          0.74
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_8_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          0.74
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_9_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          1.42
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_9_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          1.42
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_10_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          2.1
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_10_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          2.1
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_11_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          2.78
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_11_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          2.78
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_12_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          3.46
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_12_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          3.46
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_13_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          4.14
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_13_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          4.14
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_14_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          4.82
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_14_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          4.82
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_15_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          5.5
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_15_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          5.5
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_16_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          6.18
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_16_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          6.18
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_17_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          6.86
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_17_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          6.86
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_18_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          7.54
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_18_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          7.54
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_19_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.988,
+          -0.02099049,
+          8.22
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_east_wallpaper_19_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          14.132,
+          -0.02099049,
+          8.22
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          -0.07099049,
+          -5.06
+        ],
+        "size_m": [
+          19.4,
+          2.4,
+          0.12
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_0_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -4.98,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_0_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -4.98,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_1_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -4.3,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_1_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -4.3,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_2_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -3.62,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_2_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -3.62,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_3_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -2.94,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_3_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -2.94,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_4_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -2.26,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_4_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -2.26,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_5_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -1.58,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_5_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -1.58,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_6_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -0.9,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_6_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -0.9,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_7_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -0.22,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_7_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -0.22,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_8_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          0.46,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_8_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          0.46,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_9_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          1.14,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_9_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          1.14,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_10_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          1.82,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_10_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          1.82,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_11_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          2.5,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_11_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          2.5,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_12_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          3.18,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_12_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          3.18,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_13_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          3.86,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_13_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          3.86,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_14_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.54,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_14_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.54,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_15_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          5.22,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_15_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          5.22,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_16_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          5.9,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_16_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          5.9,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_17_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.58,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_17_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.58,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_18_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.26,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_18_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.26,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_19_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.94,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_19_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.94,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_20_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.62,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_20_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.62,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_21_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          9.3,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_21_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          9.3,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_22_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          9.98,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_22_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          9.98,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_23_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          10.66,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_23_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          10.66,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_24_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          11.34,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_24_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          11.34,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_25_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          12.02,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_25_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          12.02,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_26_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          12.7,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_26_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          12.7,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_27_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.38,
+          -0.02099049,
+          -5.132
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_south_wallpaper_27_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.38,
+          -0.02099049,
+          -4.988
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          -0.07099049,
+          8.86
+        ],
+        "size_m": [
+          19.4,
+          2.4,
+          0.12
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_0_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -4.98,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_0_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -4.98,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_1_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -4.3,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_1_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -4.3,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_2_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -3.62,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_2_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -3.62,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_3_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -2.94,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_3_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -2.94,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_4_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -2.26,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_4_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -2.26,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_5_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -1.58,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_5_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -1.58,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_6_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -0.9,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_6_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -0.9,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_7_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -0.22,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_7_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -0.22,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_8_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          0.46,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_8_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          0.46,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_9_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          1.14,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_9_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          1.14,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_10_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          1.82,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_10_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          1.82,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_11_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          2.5,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_11_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          2.5,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_12_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          3.18,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_12_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          3.18,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_13_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          3.86,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_13_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          3.86,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_14_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.54,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_14_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.54,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_15_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          5.22,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_15_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          5.22,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_16_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          5.9,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_16_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          5.9,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_17_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.58,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_17_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.58,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_18_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.26,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_18_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.26,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_19_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.94,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_19_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.94,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_20_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.62,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_20_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.62,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_21_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          9.3,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_21_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          9.3,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_22_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          9.98,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_22_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          9.98,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_23_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          10.66,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_23_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          10.66,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_24_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          11.34,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_24_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          11.34,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_25_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          12.02,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_25_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          12.02,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_26_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          12.7,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_26_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          12.7,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_27_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.38,
+          -0.02099049,
+          8.788
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_room_boundary_north_wallpaper_27_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          13.38,
+          -0.02099049,
+          8.932
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.5,
+          -0.07099049,
+          -1.1
+        ],
+        "size_m": [
+          0.12,
+          2.4,
+          7.8
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_0_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          -4.58
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_0_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          -4.58
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_1_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          -3.9
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_1_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          -3.9
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_2_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          -3.22
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_2_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          -3.22
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_3_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          -2.54
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_3_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          -2.54
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_4_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          -1.86
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_4_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          -1.86
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_5_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          -1.18
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_5_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          -1.18
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_6_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          -0.5
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_6_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          -0.5
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_7_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          0.18
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_7_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          0.18
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_8_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          0.86
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_8_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          0.86
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_9_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          1.54
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_9_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          1.54
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_10_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          2.22
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_south_wallpaper_10_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          2.22
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_north",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.5,
+          -0.07099049,
+          7.0
+        ],
+        "size_m": [
+          0.12,
+          2.4,
+          3.6
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_north_wallpaper_0_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          5.62
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_north_wallpaper_0_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          5.62
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_north_wallpaper_1_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          6.3
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_north_wallpaper_1_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          6.3
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_north_wallpaper_2_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          6.98
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_north_wallpaper_2_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          6.98
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_north_wallpaper_3_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          7.66
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_north_wallpaper_3_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          7.66
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_north_wallpaper_4_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.428,
+          -0.02099049,
+          8.34
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_later_bay_divider_north_wallpaper_4_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.572,
+          -0.02099049,
+          8.34
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.0,
+          -0.07099049,
+          -1.1
+        ],
+        "size_m": [
+          0.12,
+          2.4,
+          7.8
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_0_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          -4.58
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_0_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          -4.58
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_1_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          -3.9
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_1_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          -3.9
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_2_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          -3.22
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_2_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          -3.22
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_3_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          -2.54
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_3_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          -2.54
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_4_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          -1.86
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_4_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          -1.86
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_5_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          -1.18
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_5_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          -1.18
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_6_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          -0.5
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_6_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          -0.5
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_7_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          0.18
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_7_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          0.18
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_8_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          0.86
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_8_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          0.86
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_9_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          1.54
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_9_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          1.54
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_10_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          2.22
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_south_wallpaper_10_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          2.22
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_north",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.0,
+          -0.07099049,
+          7.0
+        ],
+        "size_m": [
+          0.12,
+          2.4,
+          3.6
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_north_wallpaper_0_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          5.62
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_north_wallpaper_0_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          5.62
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_north_wallpaper_1_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          6.3
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_north_wallpaper_1_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          6.3
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_north_wallpaper_2_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          6.98
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_north_wallpaper_2_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          6.98
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_north_wallpaper_3_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          7.66
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_north_wallpaper_3_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          7.66
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_north_wallpaper_4_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.928,
+          -0.02099049,
+          8.34
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_pocket_divider_north_wallpaper_4_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.072,
+          -0.02099049,
+          8.34
+        ],
+        "size_m": [
+          0.024,
+          1.7,
+          0.22
+        ]
+      },
+      {
+        "name": "authored_connector_wall_south",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.25,
+          -0.07099049,
+          2.8
+        ],
+        "size_m": [
+          3.5,
+          2.4,
+          0.12
+        ]
+      },
+      {
+        "name": "authored_connector_wall_south_wallpaper_0_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.92,
+          -0.02099049,
+          2.728
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_south_wallpaper_0_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.92,
+          -0.02099049,
+          2.872
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_south_wallpaper_1_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          5.6,
+          -0.02099049,
+          2.728
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_south_wallpaper_1_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          5.6,
+          -0.02099049,
+          2.872
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_south_wallpaper_2_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.28,
+          -0.02099049,
+          2.728
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_south_wallpaper_2_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.28,
+          -0.02099049,
+          2.872
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_south_wallpaper_3_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.96,
+          -0.02099049,
+          2.728
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_south_wallpaper_3_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.96,
+          -0.02099049,
+          2.872
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_south_wallpaper_4_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.64,
+          -0.02099049,
+          2.728
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_south_wallpaper_4_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.64,
+          -0.02099049,
+          2.872
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_north",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.25,
+          -0.07099049,
+          5.2
+        ],
+        "size_m": [
+          3.5,
+          2.4,
+          0.12
+        ]
+      },
+      {
+        "name": "authored_connector_wall_north_wallpaper_0_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.92,
+          -0.02099049,
+          5.128
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_north_wallpaper_0_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.92,
+          -0.02099049,
+          5.272
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_north_wallpaper_1_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          5.6,
+          -0.02099049,
+          5.128
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_north_wallpaper_1_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          5.6,
+          -0.02099049,
+          5.272
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_north_wallpaper_2_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.28,
+          -0.02099049,
+          5.128
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_north_wallpaper_2_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.28,
+          -0.02099049,
+          5.272
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_north_wallpaper_3_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.96,
+          -0.02099049,
+          5.128
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_north_wallpaper_3_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.96,
+          -0.02099049,
+          5.272
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_north_wallpaper_4_a",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.64,
+          -0.02099049,
+          5.128
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_connector_wall_north_wallpaper_4_b",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.64,
+          -0.02099049,
+          5.272
+        ],
+        "size_m": [
+          0.22,
+          1.7,
+          0.024
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_0",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -4.2588234,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_1",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -3.1176472,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_2",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -1.9764706,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_3",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -0.8352941,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_4",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          0.30588236,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_5",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          1.4470588,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_6",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          2.5882354,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_7",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          3.7294118,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_8",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.8705883,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_9",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          6.0117645,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_10",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          7.152941,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_11",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          8.294118,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_12",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          9.435294,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_13",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          10.57647,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_14",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          11.717647,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_x_15",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          12.858824,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          0.035,
+          0.05,
+          13.8
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_z_0",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.1040095,
+          -3.85
+        ],
+        "size_m": [
+          19.4,
+          0.05,
+          0.035
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_z_1",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.1040095,
+          -2.7
+        ],
+        "size_m": [
+          19.4,
+          0.05,
+          0.035
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_z_2",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.1040095,
+          -1.55
+        ],
+        "size_m": [
+          19.4,
+          0.05,
+          0.035
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_z_3",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.1040095,
+          -0.4
+        ],
+        "size_m": [
+          19.4,
+          0.05,
+          0.035
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_z_4",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.1040095,
+          0.75
+        ],
+        "size_m": [
+          19.4,
+          0.05,
+          0.035
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_z_5",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.1040095,
+          1.9
+        ],
+        "size_m": [
+          19.4,
+          0.05,
+          0.035
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_z_6",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.1040095,
+          3.05
+        ],
+        "size_m": [
+          19.4,
+          0.05,
+          0.035
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_z_7",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.1040095,
+          4.2
+        ],
+        "size_m": [
+          19.4,
+          0.05,
+          0.035
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_z_8",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.1040095,
+          5.35
+        ],
+        "size_m": [
+          19.4,
+          0.05,
+          0.035
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_z_9",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.1040095,
+          6.5
+        ],
+        "size_m": [
+          19.4,
+          0.05,
+          0.035
+        ]
+      },
+      {
+        "name": "authored_ceiling_grid_z_10",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.1040095,
+          7.65
+        ],
+        "size_m": [
+          19.4,
+          0.05,
+          0.035
+        ]
+      },
+      {
+        "name": "authored_ceiling_light_1",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -0.55,
+          1.0940095,
+          1.9
+        ],
+        "size_m": [
+          1.5,
+          0.06,
+          0.55
+        ]
+      },
+      {
+        "name": "authored_ceiling_light_2",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          4.3,
+          1.0940095,
+          1.9
+        ],
+        "size_m": [
+          1.5,
+          0.06,
+          0.55
+        ]
+      },
+      {
+        "name": "authored_ceiling_light_3",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          9.15,
+          1.0940095,
+          1.9
+        ],
+        "size_m": [
+          1.5,
+          0.06,
+          0.55
+        ]
+      },
+      {
+        "name": "authored_later_bay_column_visual",
+        "origin": "authored room-layout visual box; separate from collision mesh",
+        "center_world_m": [
+          -0.44746485,
+          -0.07099049,
+          0.32348078
+        ],
+        "size_m": [
+          1.6187826,
+          2.4,
+          2.130082
+        ]
+      }
+    ]
+  },
+  "traversal": {
+    "scenario": "authored_route_outbound_inbound",
+    "blocking": true,
+    "pass": true,
+    "runtime_seconds": 4.692585829,
+    "resident_set_kib_at_completion": 130848,
+    "total_ticks": 1585,
+    "moving_ticks": 1585,
+    "support_ticks": 1584,
+    "moving_support_ticks": 1584,
+    "floor_ray_hit_ticks": 1585,
+    "moving_floor_ray_hit_ticks": 1585,
+    "headroom_clear_ticks": 1585,
+    "headroom_blocked_ticks": 0,
+    "floor_ray_miss_ticks": 0,
+    "floor_clearance_from_capsule_bottom": {
+      "sample_count": 1585,
+      "min_m": 0.09513867,
+      "median_m": 0.100006044,
+      "q90_m": 0.10096055,
+      "max_m": 0.10484648
+    },
+    "headroom_block_distance": {
+      "sample_count": 0,
+      "min_m": null,
+      "median_m": null,
+      "q90_m": null,
+      "max_m": null
+    },
+    "headroom_clear_distance_lower_bound_m": 0.55,
+    "floor_ray_max_distance_m": 1.4,
+    "headroom_ray_max_distance_m": 0.55,
+    "controller_max_slope_degrees": 16.0,
+    "outbound_progress_fraction": 1.0,
+    "inbound_progress_fraction": 0.9921875,
+    "moving_support_fraction": 0.9993691,
+    "moving_floor_ray_fraction": 1.0,
+    "total_support_fraction": 0.9993691,
+    "total_floor_ray_fraction": 1.0,
+    "progress_fraction": 1.0,
+    "final_position": [
+      2.220192,
+      -0.570975,
+      4.0000005
+    ],
+    "min_y": -0.5758518,
+    "max_vertical_step": 0.0031245947,
+    "max_route_deviation_m": 0.026288986,
+    "fallthrough_detected": false,
+    "controlled_slope_rejection": null,
+    "slope_rejection_outcome": null,
+    "slope_gate_failures": [],
+    "slope_sensor_hit_ticks": 0,
+    "slope_sensor_mismatch_ticks": 0,
+    "slope_sensor_samples": [],
+    "sensor_shape_diagnostic_samples": [],
+    "slope_release_tick": null,
+    "slope_recovery_ticks_to_flat_support": null,
+    "slope_recovered_to_flat": false,
+    "slope_max_capsule_bottom_height_above_flat_m": null,
+    "slope_peak_abs_vertical_velocity_mps": null,
+    "slope_input_position_radius_m": null,
+    "slope_recovery_end_max_speed_mps": null,
+    "slope_recovery_position_radius_m": null,
+    "slope_recovery_end_at_rest": false,
+    "ledge_boundary_walls_required": null,
+    "ledge_outcome": null,
+    "minimum_ledge_edge_clearance_m": null,
+    "maximum_ledge_lateral_center_z_m": null,
+    "ledge_edge_samples": [],
+    "safety_net_contact_events": [],
+    "support_loss_events": [],
+    "unsupported_authored_route_samples": [
+      {
+        "tick": 1,
+        "player_position_m": [
+          2.0,
+          -0.5723876,
+          4.0
+        ]
+      }
+    ],
+    "collision_asset_loaded": true,
+    "collision_nodes": 7,
+    "floor_collision_triangles": 2,
+    "obstacle_collision_triangles": 12,
+    "edge_boundary_collision_triangles": 120,
+    "edge_boundary_contact_events": [],
+    "authored_lateral_station": null,
+    "authored_lateral_expected_boundary": null,
+    "authored_lateral_max_abs_offset_m": null,
+    "authored_lateral_max_capsule_bottom_rise_m": null,
+    "authored_lateral_rest_max_speed_mps": null,
+    "authored_lateral_rest_position_radius_m": null,
+    "authored_lateral_rest_at_end": false,
+    "authored_lateral_samples": [],
+    "failure_reason": null
+  },
+  "baseline_comparison": null,
+  "update_time_ms": {
+    "sample_count": 1486,
+    "mean": 2.1026333687752343,
+    "p90": 2.270765,
+    "max": 4.800867,
+    "sample_scope": "app.update wall time in milliseconds after visual-query preparation and route collider installation"
+  },
+  "scene_total_wall_time_seconds": 5.145165182,
+  "route_simulation_wall_time_seconds": 4.692585829,
+  "peak_rss_kib": 130848,
+  "current_rss_kib": 130848
+}

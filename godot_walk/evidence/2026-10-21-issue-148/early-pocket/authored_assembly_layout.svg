@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="650" viewBox="0 0 1080 650">
+<rect width="1080" height="650" fill="#f4f2ea"/><text x="32" y="42" font-family="sans-serif" font-size="24" font-weight="700">#148 authored assembly proposal</text>
+<text x="32" y="70" font-family="sans-serif" font-size="14">Plan view only. Positions and connector are game-design choices, not recovered video layout.</text>
+<rect x="100" y="155" width="490" height="350" fill="#d1c17f" stroke="#35352e" stroke-width="5"/><text x="140" y="205" font-family="sans-serif" font-size="20">#150 later-bay baseline</text>
+<rect x="590" y="255" width="175" height="90" fill="#c7c39b" stroke="#9b482f" stroke-width="4" stroke-dasharray="9 7"/><text x="610" y="305" font-family="sans-serif" font-size="16">authored hall</text>
+<rect x="765" y="155" width="295" height="350" fill="#c5ce8c" stroke="#35352e" stroke-width="5"/><text x="795" y="205" font-family="sans-serif" font-size="20">early-pocket module</text>
+<line x1="590" y1="300" x2="765" y2="300" stroke="#9b482f" stroke-width="9"/><text x="610" y="370" font-family="sans-serif" font-size="13">2.4 m authored clearance</text>
+<rect x="275" y="295" width="65" height="75" fill="#b9ac78" stroke="#554e39" stroke-width="3"/><text x="249" y="395" font-family="sans-serif" font-size="13">existing #150 column</text>
+<text x="100" y="545" font-family="sans-serif" font-size="15">Source evidence: #145 opening candidate C, frames 0013-0027. The camera does not establish threshold traversal.</text>
+<text x="100" y="575" font-family="sans-serif" font-size="15">The pocket is a new authored room proposal; its location, size, hallway, and connector are not source facts.</text></svg>

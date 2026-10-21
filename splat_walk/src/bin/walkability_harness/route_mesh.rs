@@ -13,6 +13,7 @@ const FLOOR_NODE: &str = "AuthoredPlanarRouteFloor";
 const COLUMN_NODE: &str = "ColumnObstacleProxy";
 const INNER_BOUNDARY_NODE: &str = "authored_edge_boundary_inner";
 const OUTER_BOUNDARY_NODE: &str = "authored_edge_boundary_outer";
+const INTERIOR_BOUNDARY_NODE: &str = "AuthoredRoomInteriorBoundaries";
 const ROOM_BOUNDARY_NODES: [(&str, &str); 4] = [
     ("authored_room_boundary_west", "west"),
     ("authored_room_boundary_east", "east"),
@@ -115,23 +116,26 @@ fn build_room_colliders(
         .room_layout
         .as_ref()
         .context("room collision route has no room bounds")?;
-    if gltf.named_nodes.len() != 6 {
+    let has_column = route.column_triangles > 0;
+    let has_interior_boundaries = layout.interior_boundary_triangles > 0;
+    let expected_nodes = 5 + usize::from(has_column) + usize::from(has_interior_boundaries);
+    if gltf.named_nodes.len() != expected_nodes {
         bail!(
-            "authored room GLB has {} nodes, expected floor, column and four room boundaries",
-            gltf.named_nodes.len()
+            "authored room GLB has {} nodes, expected {expected_nodes} nodes from its room contract",
+            gltf.named_nodes.len(),
         );
     }
-    let mut colliders = vec![
-        build_node(
-            FLOOR_NODE,
-            route.floor_triangles,
-            MeshExpectation::RoomFloor(route),
-            gltf,
-            nodes,
-            gltf_meshes,
-            meshes,
-        )?,
-        build_node(
+    let mut colliders = vec![build_node(
+        FLOOR_NODE,
+        route.floor_triangles,
+        MeshExpectation::RoomFloor(route),
+        gltf,
+        nodes,
+        gltf_meshes,
+        meshes,
+    )?];
+    if has_column {
+        colliders.push(build_node(
             COLUMN_NODE,
             route.column_triangles,
             MeshExpectation::None,
@@ -139,8 +143,8 @@ fn build_room_colliders(
             nodes,
             gltf_meshes,
             meshes,
-        )?,
-    ];
+        )?);
+    }
     for (index, (name, _side)) in ROOM_BOUNDARY_NODES.iter().enumerate() {
         let boundary = build_node(
             name,
@@ -155,6 +159,20 @@ fn build_room_colliders(
             meshes,
         )?;
         colliders.push(boundary);
+    }
+    if has_interior_boundaries {
+        colliders.push(build_node(
+            INTERIOR_BOUNDARY_NODE,
+            layout.interior_boundary_triangles,
+            MeshExpectation::EdgeBoundary {
+                floor_y: route.floor_y,
+                height_m: route.boundary_height_m,
+            },
+            gltf,
+            nodes,
+            gltf_meshes,
+            meshes,
+        )?);
     }
     Ok(colliders)
 }
@@ -235,6 +253,7 @@ fn build_primitive(
             "authored_room_boundary_east" => Some(AuthoredEdgeBoundary { side: "east" }),
             "authored_room_boundary_south" => Some(AuthoredEdgeBoundary { side: "south" }),
             "authored_room_boundary_north" => Some(AuthoredEdgeBoundary { side: "north" }),
+            INTERIOR_BOUNDARY_NODE => Some(AuthoredEdgeBoundary { side: "interior" }),
             _ => None,
         },
     })

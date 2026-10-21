@@ -1,0 +1,159 @@
+{
+  "issue": 148,
+  "label": "uncalibrated",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "resolution": [
+    960,
+    540
+  ],
+  "vertical_fov_degrees": 47.3988056,
+  "settle_frames_before_each_capture": 8,
+  "pose_set": "authored review views, not registered to source video",
+  "poses": [
+    {
+      "name": "later_bay_approach",
+      "position_world_m": [
+        2.0,
+        0.0,
+        4.0
+      ],
+      "forward_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "doorway_from_later_bay",
+      "position_world_m": [
+        3.4,
+        0.0,
+        4.0
+      ],
+      "forward_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "connector_midpoint",
+      "position_world_m": [
+        6.2,
+        0.0,
+        4.0
+      ],
+      "forward_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "pocket_entry",
+      "position_world_m": [
+        8.7,
+        0.0,
+        4.0
+      ],
+      "forward_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "pocket_far_end",
+      "position_world_m": [
+        13.0,
+        0.0,
+        4.0
+      ],
+      "forward_world": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "pocket_return",
+      "position_world_m": [
+        10.0,
+        0.0,
+        1.0
+      ],
+      "forward_world": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "column_to_connector",
+      "position_world_m": [
+        0.0,
+        0.0,
+        1.9
+      ],
+      "forward_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "connector_return",
+      "position_world_m": [
+        6.2,
+        0.0,
+        4.0
+      ],
+      "forward_world": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    }
+  ]
+}
