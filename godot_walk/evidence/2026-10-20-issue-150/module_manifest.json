@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "issue": 150,
+  "label": "uncalibrated",
+  "status": "operator_accepted_standalone_design_baseline",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "transform": {
+    "transform_status": "uncalibrated_convention",
+    "scale_m_per_hunyuan_unit": 1.5582858479,
+    "scale_basis": "reused #100 convention from a chosen 2.4 m floor-to-ceiling value; not surveyed and not accepted",
+    "scale_sensitivity_range_m_per_hunyuan_unit": [
+      1.555256,
+      1.559205
+    ],
+    "local_axis_mapping": "Hunyuan -X to registered forward, +Y to camera right, +Z to camera up",
+    "camera_anchor_world_m": [
+      2.920978333078322,
+      -0.08497656639639749,
+      3.7035079450105557
+    ],
+    "plane_aligned_translation_world_m": [
+      2.920978333078322,
+      -0.20531900949639748,
+      3.7035079450105557
+    ],
+    "camera_anchor_shift_y_m": -0.1203424431,
+    "declared_collision_floor_y_m": -1.2709904909133911,
+    "note": "Frame-152 camera convention is a placement hypothesis for review only. Neither the Hunyuan mesh nor authored route is registered or scale-calibrated."
+  },
+  "assets": {
+    "visual": {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb",
+      "sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+      "source_nodes": [
+        "mesh_layer0",
+        "mesh_layer1"
+      ],
+      "role": "visual_only; never an Avian collider"
+    },
+    "collision": {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/authored_room_collision.glb",
+      "sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9",
+      "nodes": [
+        "AuthoredPlanarRouteFloor",
+        "ColumnObstacleProxy",
+        "authored_room_boundary_west",
+        "authored_room_boundary_east",
+        "authored_room_boundary_south",
+        "authored_room_boundary_north"
+      ],
+      "role": "explicit authored room floor, column obstacle, and four visible end boundaries; physics only"
+    },
+    "camera_metadata": {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/source_selection.json",
+      "sha256": "d9cb2e90dd1bc16470b4dbed3c2759a7ad39ae46ada86b4c5bc68667549d5661"
+    }
+  },
+  "source_evidence": [
+    {
+      "path": "data/scenes/corridor_travel/video.mp4",
+      "sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4"
+    },
+    {
+      "path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+      "sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/source_frame_0152.png",
+      "sha256": "4846fcf6f510017f02e67f12d9dd71ab2dc1cd0a71bc4750ab1956fb60a4a7ad"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/panogen_input_frame_0152.png",
+      "sha256": "fd165eeb0c2d5a14101f2314290feedcc44aeb73148b9d1272fa52d26f819401"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/panorama_1280x640.png",
+      "sha256": "135dd2a83e4865c2516d8d66a2b1670ba6dd65fbef9c7204438cc62e45f3d3d5"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/panogen_run_manifest.json",
+      "sha256": "1cfff60109b8876a91e14ef0b8e09ea36bf8444e295184f786c508f969c9346e"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/scenegen_manifest.json",
+      "sha256": "07e2fb3b0066cb284bca3d969077cee9acef7b1377d123b6fbfac5da6ffdd4cb"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_conversion.json",
+      "sha256": "7e420195d62538a74c1f88bd3f669f93ad25fbf1c149a06d926ba2214294105b"
+    }
+  ],
+  "source_coverage": {
+    "video_frame_ids_1_based": [
+      85,
+      192
+    ],
+    "timestamp_range_seconds_inclusive": [
+      3.5,
+      7.9583333333
+    ],
+    "direct_hunyuan_seed_frame_id_1_based": 152,
+    "direct_hunyuan_seed_timestamp_seconds": 6.2916666667,
+    "source_resolution": [
+      1920,
+      1080
+    ],
+    "seed_crop_or_resize": false,
+    "recovered_room_count": null,
+    "connection_to_tagged_reference_zone": "unknown; candidate is deliberately standalone"
+  },
+  "route_report_path": "godot_walk/evidence/2026-10-20-issue-150/route_report.json",
+  "route_report_sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+  "output_report_path": "godot_walk/evidence/2026-10-20-issue-150/hunyuan_route_scene_report.json",
+  "capture_poses_path": "godot_walk/evidence/2026-10-20-issue-150/capture_poses.json",
+  "capture_poses_sha256": "979a3dc9849fbc5c0f8ce28dba558876182046d3b9fdda1f2b9fd1c28accfc8d",
+  "capture_output_path": "godot_walk/evidence/2026-10-20-issue-150/captures/bevy",
+  "locked_traversal_gate": {
+    "source": "#150 authored room-end perimeter traversal gate",
+    "outbound_progress_fraction_min": 1.0,
+    "inbound_progress_fraction_min": 0.992,
+    "moving_support_fraction_min": 0.993,
+    "safety_net_contacts_max": 0,
+    "max_vertical_step_m": 0.2,
+    "comparison_rule": "standalone authored room perimeter must pass with continuous support and four explicit boundaries; no connector or registration claim"
+  }
+}

@@ -186,13 +186,16 @@ pub fn run() -> Result<()> {
     if env::args().any(|argument| argument == "--write-gate-plan") {
         return write_gate_plan();
     }
+    let route_only = env::args().any(|argument| argument == "--room-checks-only");
     let suite_started = Instant::now();
     let mut scenarios = Vec::new();
-    for spec in synthetic_specs()
-        .into_iter()
-        .chain(steep_rejection_diagnostics())
-    {
-        scenarios.push(run_scenario(spec, None)?);
+    if !route_only {
+        for spec in synthetic_specs()
+            .into_iter()
+            .chain(steep_rejection_diagnostics())
+        {
+            scenarios.push(run_scenario(spec, None)?);
+        }
     }
     let (route_spec, route_asset) = authored_route_config(&route_report_path()?)?;
     scenarios.push(run_scenario(
@@ -225,7 +228,7 @@ pub fn run() -> Result<()> {
         resident_set_kib_at_completion: current_rss_kib(),
         peak_rss_kib: peak_rss_kib(),
         slope_gate_design: slope_gate_design(),
-        authored_lateral_push_gate: AUTHORED_LATERAL_PUSH_GATE,
+        authored_lateral_push_gate: lateral_push_gate_for_route(&route_asset),
         scenarios,
     };
     let report_json = serde_json::to_string_pretty(&suite)?;
@@ -354,6 +357,17 @@ fn is_complete_and_settled(app: &App) -> Result<bool> {
 
 fn slope_gate_design() -> SlopeGateDesign {
     SLOPE_GATE_DESIGN
+}
+
+fn lateral_push_gate_for_route(route: &AuthoredRouteAsset) -> AuthoredLateralPushGate {
+    let mut gate = AUTHORED_LATERAL_PUSH_GATE;
+    if route.room_layout.is_some() {
+        gate.station_rule = "four room-edge midpoints, one per authored boundary";
+        gate.station_count = 4;
+        gate.target_edges = "west, east, south and north authored room boundaries";
+        gate.lateral_offset_definition = "absolute capsule-center displacement from each room-edge station until the named authored boundary arrests movement";
+    }
+    gate
 }
 
 fn write_gate_plan() -> Result<()> {
@@ -585,7 +599,7 @@ fn scenario_passes(report: &ScenarioReport) -> bool {
         }
         "authored_route_static_probe" => {
             report.collision_asset_loaded
-                && report.collision_nodes == 4
+                && report.collision_nodes >= 4
                 && report.total_support_fraction >= REQUIRED_SUPPORT_FRACTION
                 && report.total_floor_ray_fraction >= REQUIRED_SUPPORT_FRACTION
                 && !report.fallthrough_detected
@@ -601,9 +615,14 @@ fn scenario_passes(report: &ScenarioReport) -> bool {
                 && report.safety_net_contact_events.is_empty()
         }
         "authored_route_outbound_inbound" => {
+            let room_layout = report.collision_nodes == 6;
+            let floor_geometry_valid = if room_layout {
+                report.floor_collision_triangles == 2
+            } else {
+                report.collision_nodes == 4 && report.floor_collision_triangles == 512
+            };
             report.collision_asset_loaded
-                && report.collision_nodes == 4
-                && report.floor_collision_triangles == 512
+                && floor_geometry_valid
                 && report.obstacle_collision_triangles == 12
                 && report.edge_boundary_collision_triangles > 0
                 && report.outbound_progress_fraction >= 1.0
@@ -652,7 +671,9 @@ fn ratio(numerator: usize, denominator: usize) -> f32 {
 fn route_report_path() -> Result<PathBuf> {
     configured_report_path(
         "--route-report=",
-        if env::args().any(|argument| argument == "--issue147") {
+        if env::args().any(|argument| argument == "--issue150") {
+            "godot_walk/evidence/2026-10-20-issue-150/route_report.json"
+        } else if env::args().any(|argument| argument == "--issue147") {
             "godot_walk/evidence/2026-10-20-issue-147/route_report_v2.json"
         } else {
             "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/authored_route_around_column/route_report.json"
@@ -663,7 +684,9 @@ fn route_report_path() -> Result<PathBuf> {
 fn report_path() -> Result<PathBuf> {
     configured_report_path(
         "--report=",
-        if env::args().any(|argument| argument == "--issue147") {
+        if env::args().any(|argument| argument == "--issue150") {
+            "godot_walk/evidence/2026-10-20-issue-150/walkability_report.json"
+        } else if env::args().any(|argument| argument == "--issue147") {
             "godot_walk/evidence/2026-10-20-issue-147/walkability_report.json"
         } else {
             "godot_walk/evidence/2026-10-13-hunyuan-track-a/collision_proto/avian_tnua_harness/walkability_report.json"

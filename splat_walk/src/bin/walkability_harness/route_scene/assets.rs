@@ -11,6 +11,7 @@ use bevy::{
 };
 use serde::Serialize;
 
+use super::authored_visuals::{AuthoredVisualSurface, spawn_room_visuals};
 use crate::walkability_harness::{
     route_collision::SceneAssetReadiness,
     route_scene::{geometry_query::build_visual_query_mesh, visual_metrics::*},
@@ -50,6 +51,7 @@ pub struct VisualSceneReportData {
     pub query_preparation_time_seconds: f64,
     pub visual_nodes: Vec<VisualNodeReport>,
     pub visual_alignment: Option<VisualAlignmentMetrics>,
+    pub authored_visual_surfaces: Vec<AuthoredVisualSurface>,
 }
 
 #[derive(Serialize, Clone)]
@@ -89,7 +91,8 @@ pub struct VisualPollParams<'w> {
     gltfs: Res<'w, Assets<Gltf>>,
     nodes: Res<'w, Assets<GltfNode>>,
     gltf_meshes: Res<'w, Assets<GltfMesh>>,
-    meshes: Res<'w, Assets<Mesh>>,
+    meshes: ResMut<'w, Assets<Mesh>>,
+    materials: ResMut<'w, Assets<StandardMaterial>>,
     output: ResMut<'w, VisualSceneReport>,
     readiness: ResMut<'w, SceneAssetReadiness>,
     scenario: ResMut<'w, ScenarioReport>,
@@ -128,7 +131,7 @@ pub fn poll_visual_loading(mut commands: Commands, mut params: VisualPollParams)
         );
         return;
     }
-    match build_visual_scene(&mut commands, &params) {
+    match build_visual_scene(&mut commands, &mut params) {
         Ok(report) => {
             params.output.0 = Some(report);
             params.readiness.visual_ready = true;
@@ -140,7 +143,7 @@ pub fn poll_visual_loading(mut commands: Commands, mut params: VisualPollParams)
 
 fn build_visual_scene<'a, 'cw, 'cs, 'pw>(
     commands: &'a mut Commands<'cw, 'cs>,
-    params: &'a VisualPollParams<'pw>,
+    params: &'a mut VisualPollParams<'pw>,
 ) -> Result<VisualSceneReportData> {
     let load_time_seconds = params.state.started_at.elapsed().as_secs_f64();
     let build_started = Instant::now();
@@ -148,6 +151,12 @@ fn build_visual_scene<'a, 'cw, 'cs, 'pw>(
         .gltfs
         .get(&params.state.handle)
         .context("loaded Hunyuan GLB has no Gltf asset")?;
+    let authored_visual_surfaces = spawn_room_visuals(
+        commands,
+        &mut params.meshes,
+        &mut params.materials,
+        &params.route,
+    );
     let mut nodes_report = Vec::new();
     let mut query_meshes = Vec::new();
     let mut context = VisualBuildContext {
@@ -176,6 +185,7 @@ fn build_visual_scene<'a, 'cw, 'cs, 'pw>(
         query_preparation_time_seconds: build_started.elapsed().as_secs_f64(),
         visual_nodes: nodes_report,
         visual_alignment,
+        authored_visual_surfaces,
     })
 }
 

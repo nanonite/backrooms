@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="960" viewBox="0 0 900 960">
+  <rect width="900" height="960" fill="#f7f5e9"/>
+  <text x="56" y="54" font-family="sans-serif" font-size="22" font-weight="700" fill="#26251f">#150 authored room proposal</text>
+  <text x="56" y="82" font-family="sans-serif" font-size="14" fill="#7a3529">Design hypothesis only; not a recovered floor plan. Scale and connectivity remain unknown.</text>
+  <rect x="150" y="120" width="495" height="690" fill="#e3dfc9" stroke="#34352c" stroke-width="10"/>
+  <text x="168" y="146" font-family="sans-serif" font-size="12" fill="#34352c">visible authored shell + collision walls</text>
+  <rect x="357" y="490" width="81" height="107" rx="2" fill="#c9c6b8" stroke="#5c5a50" stroke-width="3"/>
+  <text x="448" y="534" font-family="sans-serif" font-size="13" fill="#34352c">authored smooth column cover</text>
+  <text x="448" y="554" font-family="sans-serif" font-size="12" fill="#5c5a50">over separate collision proxy</text>
+  <path d="M192.5 767.5 L602.5 767.5 L602.5 162.5 L192.5 162.5 Z" fill="none" stroke="#246b65" stroke-width="5" stroke-dasharray="12 8"/>
+  <circle cx="192.5" cy="767.5" r="9" fill="#246b65"/>
+  <text x="206" y="790" font-family="sans-serif" font-size="12" fill="#14524e">automated out-and-back perimeter path</text>
+  <circle cx="566" cy="375" r="8" fill="#a23d47" stroke="#fff" stroke-width="2"/>
+  <text x="578" y="379" font-family="sans-serif" font-size="12" fill="#7c2630">frame-0152 camera anchor</text>
+  <line x1="150" y1="842" x2="645" y2="842" stroke="#6e6a5e" stroke-width="1"/>
+  <text x="150" y="868" font-family="sans-serif" font-size="13" fill="#34352c">Authored bounds: x [-5.4, 4.5], z [-5.0, 8.8] in the uncalibrated convention.</text>
+  <text x="150" y="892" font-family="sans-serif" font-size="13" fill="#34352c">Observed video evidence informs the visual input only; placements and walls are proposals.</text>
+  <text x="150" y="916" font-family="sans-serif" font-size="13" fill="#7a3529">No claim is made about unseen rooms, room count, metric scale, or a tested connector.</text>
+</svg>

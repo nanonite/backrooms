@@ -11,6 +11,7 @@ use bevy::{
     asset::{AssetPlugin, AssetServer, Assets},
     ecs::system::SystemParam,
     gltf::{Gltf, GltfMesh, GltfNode, GltfPlugin, convert_coordinates::GltfConvertCoordinates},
+    mesh::Mesh,
     pbr::StandardMaterial,
     prelude::*,
     render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
@@ -18,8 +19,10 @@ use bevy::{
 };
 use serde::{Deserialize, Serialize};
 
+use super::{authored_visuals::spawn_room_visuals, selected_route_report_path};
 use super::{load_camera_metadata, model_transform, play::ResourcePreflight, selected_manifest};
 use crate::walkability_harness::route_scene::manifest::repo_root;
+use crate::walkability_harness::scenarios::{AuthoredRouteAsset, authored_route_config};
 
 const POSES_PATH: &str =
     "godot_walk/evidence/2026-10-13-hunyuan-track-a/captures/capture_poses.json";
@@ -67,6 +70,7 @@ struct CaptureConfig {
     vertical_fov_radians: f32,
     output_directory: PathBuf,
     settle_frames: u32,
+    authored_route: Option<AuthoredRouteAsset>,
 }
 
 #[derive(Resource)]
@@ -90,6 +94,15 @@ struct GltfAssets<'w> {
     gltfs: Res<'w, Assets<Gltf>>,
     nodes: Res<'w, Assets<GltfNode>>,
     gltf_meshes: Res<'w, Assets<GltfMesh>>,
+    meshes: ResMut<'w, Assets<Mesh>>,
+    materials: ResMut<'w, Assets<StandardMaterial>>,
+}
+
+struct CaptureVisualAssets<'a> {
+    nodes: &'a Assets<GltfNode>,
+    gltf_meshes: &'a Assets<GltfMesh>,
+    meshes: &'a mut Assets<Mesh>,
+    materials: &'a mut Assets<StandardMaterial>,
 }
 
 #[derive(Serialize)]
@@ -103,6 +116,7 @@ struct CaptureReport {
     vertical_fov_degrees: f32,
     captured_views: Vec<String>,
     visual_only_nodes: [&'static str; 2],
+    authored_visual_surfaces_included: Vec<&'static str>,
     collision_loaded: bool,
     resource_preflight: ResourcePreflight,
     gpu_compute_processes_before_capture: usize,
@@ -130,6 +144,14 @@ pub fn run() -> Result<()> {
         bail!("capture-pose issue does not match the selected scene manifest");
     }
     let output_directory = capture_output_directory(&root, &scene_manifest);
+    let authored_route = if scene_manifest.issue == 150 {
+        let report_path = selected_route_report_path(&root, &scene_manifest);
+        let (_, mut route) = authored_route_config(&report_path)?;
+        route.directory = root.clone();
+        Some(route)
+    } else {
+        None
+    };
     fs::create_dir_all(&output_directory).with_context(|| {
         format!(
             "cannot create capture directory {}",
@@ -148,6 +170,7 @@ pub fn run() -> Result<()> {
         transform,
         capture_manifest.clone(),
         &output_directory,
+        authored_route,
     )?;
     verify_capture_outputs(&output_directory, &capture_manifest)?;
     write_capture_report(
@@ -173,7 +196,7 @@ fn validate_pose_manifest(manifest: &PoseManifest) -> Result<()> {
     } else {
         (1..=32).contains(&manifest.poses.len())
     };
-    if ![137, 147].contains(&manifest.issue)
+    if ![137, 147, 150].contains(&manifest.issue)
         || manifest.label != "uncalibrated"
         || manifest.registration_accepted
         || manifest.scale_calibrated
@@ -255,6 +278,7 @@ fn run_bevy_capture(
     model_transform: Transform,
     manifest: PoseManifest,
     output_directory: &Path,
+    authored_route: Option<AuthoredRouteAsset>,
 ) -> Result<()> {
     let resolution = manifest.resolution;
     let config = CaptureConfig {
@@ -264,6 +288,7 @@ fn run_bevy_capture(
         vertical_fov_radians: manifest.vertical_fov_degrees.to_radians(),
         output_directory: output_directory.to_path_buf(),
         settle_frames: manifest.settle_frames_before_each_capture,
+        authored_route,
     };
     let mut app = App::new();
     app.insert_resource(CaptureProgress {
@@ -332,8 +357,7 @@ fn poll_visual_load(
     mut commands: Commands,
     config: Res<CaptureConfig>,
     loaded: Res<LoadedVisual>,
-    assets: GltfAssets,
-    mut materials: ResMut<Assets<StandardMaterial>>,
+    mut assets: GltfAssets,
     mut progress: ResMut<CaptureProgress>,
 ) {
     if progress.ready || progress.failure.is_some() {
@@ -349,17 +373,31 @@ fn poll_visual_load(
         }
         return;
     }
-    let Some(gltf) = assets.gltfs.get(&loaded.0) else {
-        fail_capture(&mut commands, &mut progress, "loaded GLB has no Gltf asset");
-        return;
-    };
-    let material = materials.add(StandardMaterial {
+    let material = assets.materials.add(StandardMaterial {
         base_color: Color::WHITE,
         unlit: true,
         cull_mode: None,
         ..default()
     });
-    match spawn_visual_nodes(&mut commands, &config, &assets, gltf, &material) {
+    let GltfAssets {
+        gltfs,
+        nodes,
+        gltf_meshes,
+        meshes,
+        materials,
+        ..
+    } = &mut assets;
+    let Some(gltf) = gltfs.get(&loaded.0) else {
+        fail_capture(&mut commands, &mut progress, "loaded GLB has no Gltf asset");
+        return;
+    };
+    let visual_assets = CaptureVisualAssets {
+        nodes,
+        gltf_meshes,
+        meshes,
+        materials,
+    };
+    match spawn_visual_nodes(&mut commands, &config, visual_assets, gltf, &material) {
         Ok(()) => progress.ready = true,
         Err(error) => fail_capture(&mut commands, &mut progress, &error.to_string()),
     }
@@ -368,7 +406,7 @@ fn poll_visual_load(
 fn spawn_visual_nodes(
     commands: &mut Commands,
     config: &CaptureConfig,
-    assets: &GltfAssets,
+    assets: CaptureVisualAssets<'_>,
     gltf: &Gltf,
     material: &Handle<StandardMaterial>,
 ) -> Result<()> {
@@ -395,6 +433,9 @@ fn spawn_visual_nodes(
                 world_transform,
             ));
         }
+    }
+    if let Some(route) = config.authored_route.as_ref() {
+        spawn_room_visuals(commands, assets.meshes, assets.materials, route);
     }
     Ok(())
 }
@@ -479,6 +520,17 @@ fn write_capture_report(
             .map(|pose| pose.name.clone())
             .collect(),
         visual_only_nodes: VISUAL_NODES,
+        authored_visual_surfaces_included: if manifest.issue == 150 {
+            vec![
+                "authored_column_artifact_cover",
+                "authored_room_wall_west",
+                "authored_room_wall_east",
+                "authored_room_wall_south",
+                "authored_room_wall_north",
+            ]
+        } else {
+            Vec::new()
+        },
         collision_loaded: false,
         resource_preflight,
         gpu_compute_processes_before_capture,

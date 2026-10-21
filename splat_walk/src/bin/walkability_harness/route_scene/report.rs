@@ -72,6 +72,8 @@ impl TraversalGateReport {
         Self {
             source: if manifest.issue == 137 {
                 "#135 locked authored-route gate"
+            } else if manifest.issue == 150 {
+                "#150 authored room-floor, boundary, column and end-to-end gate"
             } else {
                 "#147 standalone authored-route gate"
             },
@@ -86,6 +88,8 @@ impl TraversalGateReport {
             max_vertical_step_m: manifest.locked_traversal_gate.max_vertical_step_m,
             comparison_rule: if manifest.issue == 137 {
                 "use the exact #135 collision GLB and shared controller; these values must match the #135 report within 1e-6"
+            } else if manifest.issue == 150 {
+                "traverse the authored room perimeter in both directions with continuous floor support, four explicit authored boundaries and a separate column obstacle; no registration, scale or connector claim"
             } else {
                 "pass the shared-controller standalone route with authored floor, obstacle and boundary geometry; no connector traversal is claimed"
             },

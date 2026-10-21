@@ -13,6 +13,12 @@ const FLOOR_NODE: &str = "AuthoredPlanarRouteFloor";
 const COLUMN_NODE: &str = "ColumnObstacleProxy";
 const INNER_BOUNDARY_NODE: &str = "authored_edge_boundary_inner";
 const OUTER_BOUNDARY_NODE: &str = "authored_edge_boundary_outer";
+const ROOM_BOUNDARY_NODES: [(&str, &str); 4] = [
+    ("authored_room_boundary_west", "west"),
+    ("authored_room_boundary_east", "east"),
+    ("authored_room_boundary_south", "south"),
+    ("authored_room_boundary_north", "north"),
+];
 
 #[derive(Component, Clone, Copy)]
 pub struct AuthoredEdgeBoundary {
@@ -30,6 +36,7 @@ pub struct RouteCollider {
 enum MeshExpectation<'a> {
     None,
     RouteFloor(&'a AuthoredRouteAsset),
+    RoomFloor(&'a AuthoredRouteAsset),
     EdgeBoundary { floor_y: f32, height_m: f32 },
 }
 
@@ -42,6 +49,9 @@ pub fn build_route_colliders(
     meshes: &Assets<Mesh>,
 ) -> Result<Vec<RouteCollider>> {
     let gltf = gltfs.get(handle).context("loaded GLB has no Gltf asset")?;
+    if route.room_layout.is_some() {
+        return build_room_colliders(route, gltf, nodes, gltf_meshes, meshes);
+    }
     if gltf.named_nodes.len() != 4 {
         bail!(
             "authored route GLB has {} nodes, expected floor, column and two edge boundaries",
@@ -92,6 +102,61 @@ pub fn build_route_colliders(
             meshes,
         )?,
     ])
+}
+
+fn build_room_colliders(
+    route: &AuthoredRouteAsset,
+    gltf: &Gltf,
+    nodes: &Assets<GltfNode>,
+    gltf_meshes: &Assets<GltfMesh>,
+    meshes: &Assets<Mesh>,
+) -> Result<Vec<RouteCollider>> {
+    let layout = route
+        .room_layout
+        .as_ref()
+        .context("room collision route has no room bounds")?;
+    if gltf.named_nodes.len() != 6 {
+        bail!(
+            "authored room GLB has {} nodes, expected floor, column and four room boundaries",
+            gltf.named_nodes.len()
+        );
+    }
+    let mut colliders = vec![
+        build_node(
+            FLOOR_NODE,
+            route.floor_triangles,
+            MeshExpectation::RoomFloor(route),
+            gltf,
+            nodes,
+            gltf_meshes,
+            meshes,
+        )?,
+        build_node(
+            COLUMN_NODE,
+            route.column_triangles,
+            MeshExpectation::None,
+            gltf,
+            nodes,
+            gltf_meshes,
+            meshes,
+        )?,
+    ];
+    for (index, (name, _side)) in ROOM_BOUNDARY_NODES.iter().enumerate() {
+        let boundary = build_node(
+            name,
+            layout.boundary_triangles[index],
+            MeshExpectation::EdgeBoundary {
+                floor_y: route.floor_y,
+                height_m: route.boundary_height_m,
+            },
+            gltf,
+            nodes,
+            gltf_meshes,
+            meshes,
+        )?;
+        colliders.push(boundary);
+    }
+    Ok(colliders)
 }
 
 fn build_node(
@@ -166,6 +231,10 @@ fn build_primitive(
         edge_boundary: match name {
             INNER_BOUNDARY_NODE => Some(AuthoredEdgeBoundary { side: "inner" }),
             OUTER_BOUNDARY_NODE => Some(AuthoredEdgeBoundary { side: "outer" }),
+            "authored_room_boundary_west" => Some(AuthoredEdgeBoundary { side: "west" }),
+            "authored_room_boundary_east" => Some(AuthoredEdgeBoundary { side: "east" }),
+            "authored_room_boundary_south" => Some(AuthoredEdgeBoundary { side: "south" }),
+            "authored_room_boundary_north" => Some(AuthoredEdgeBoundary { side: "north" }),
             _ => None,
         },
     })
@@ -208,9 +277,49 @@ fn verify_mesh(
     match expectation {
         MeshExpectation::None => {}
         MeshExpectation::RouteFloor(route) => verify_floor_geometry(name, positions, route)?,
+        MeshExpectation::RoomFloor(route) => verify_room_floor_geometry(name, positions, route)?,
         MeshExpectation::EdgeBoundary { floor_y, height_m } => {
             verify_edge_boundary_geometry(name, positions, floor_y, height_m)?;
         }
+    }
+    Ok(())
+}
+
+fn verify_room_floor_geometry(
+    name: &str,
+    positions: &[[f32; 3]],
+    route: &AuthoredRouteAsset,
+) -> Result<()> {
+    let layout = route
+        .room_layout
+        .as_ref()
+        .context("room floor has no declared bounds")?;
+    let min_y = positions
+        .iter()
+        .map(|point| point[1])
+        .fold(f32::INFINITY, f32::min);
+    let max_y = positions
+        .iter()
+        .map(|point| point[1])
+        .fold(f32::NEG_INFINITY, f32::max);
+    let actual_min = positions
+        .iter()
+        .fold(Vec3::splat(f32::INFINITY), |bounds, point| {
+            bounds.min(Vec3::from_array(*point))
+        });
+    let actual_max = positions
+        .iter()
+        .fold(Vec3::splat(f32::NEG_INFINITY), |bounds, point| {
+            bounds.max(Vec3::from_array(*point))
+        });
+    let expected_min = Vec3::new(layout.lower_xz[0], route.floor_y, layout.lower_xz[1]);
+    let expected_max = Vec3::new(layout.upper_xz[0], route.floor_y, layout.upper_xz[1]);
+    if (min_y - route.floor_y).abs() > 1e-5
+        || (max_y - route.floor_y).abs() > 1e-5
+        || actual_min.distance(expected_min) > 1e-4
+        || actual_max.distance(expected_max) > 1e-4
+    {
+        bail!("room floor node {name} bounds differ from the declared room layout");
     }
     Ok(())
 }

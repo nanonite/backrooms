@@ -1,0 +1,177 @@
+{
+  "issue": 150,
+  "label": "uncalibrated",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "resolution": [
+    960,
+    540
+  ],
+  "vertical_fov_degrees": 47.3988056,
+  "settle_frames_before_each_capture": 8,
+  "pose_set": "four authored room-end views, four authored column-face views, and the frame-0152 camera anchor",
+  "poses": [
+    {
+      "name": "south_room_end",
+      "position_world_m": [
+        -0.4500000000000002,
+        -0.100279711,
+        -4.0
+      ],
+      "forward_world": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "north_room_end",
+      "position_world_m": [
+        -0.4500000000000002,
+        -0.100279711,
+        7.800000000000001
+      ],
+      "forward_world": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "west_room_end",
+      "position_world_m": [
+        -4.4,
+        -0.100279711,
+        1.9000000000000004
+      ],
+      "forward_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "east_room_end",
+      "position_world_m": [
+        3.5,
+        -0.100279711,
+        1.9000000000000004
+      ],
+      "forward_world": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "column_south_face",
+      "position_world_m": [
+        -0.4474648516218883,
+        -0.100279711,
+        -2.7415601043662505
+      ],
+      "forward_world": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "column_north_face",
+      "position_world_m": [
+        -0.4474648516218883,
+        -0.100279711,
+        3.388521699814981
+      ],
+      "forward_world": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "column_west_face",
+      "position_world_m": [
+        -3.2568561533613574,
+        -0.100279711,
+        0.3234807977243652
+      ],
+      "forward_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "column_east_face",
+      "position_world_m": [
+        2.3619264501175805,
+        -0.100279711,
+        0.3234807977243652
+      ],
+      "forward_world": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "registered_frame_0152_anchor",
+      "position_world_m": [
+        2.920978333,
+        -0.084976566,
+        3.703507945
+      ],
+      "forward_world": [
+        -0.690928499,
+        0.00022245,
+        -0.722923066
+      ],
+      "up_world": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    }
+  ]
+}

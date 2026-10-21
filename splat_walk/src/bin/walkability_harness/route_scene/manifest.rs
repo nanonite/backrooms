@@ -12,6 +12,8 @@ const MANIFEST_PATH: &str =
     "godot_walk/evidence/2026-10-13-hunyuan-track-a/hunyuan_route_scene_manifest.json";
 const ISSUE147_MANIFEST_PATH: &str =
     "godot_walk/evidence/2026-10-20-issue-147/module_manifest.json";
+const ISSUE150_MANIFEST_PATH: &str =
+    "godot_walk/evidence/2026-10-20-issue-150/module_manifest.json";
 
 #[derive(Deserialize)]
 pub struct SceneManifest {
@@ -80,6 +82,10 @@ pub fn load_issue147_manifest(root: &Path) -> Result<SceneManifest> {
     load_manifest_from(root, ISSUE147_MANIFEST_PATH)
 }
 
+pub fn load_issue150_manifest(root: &Path) -> Result<SceneManifest> {
+    load_manifest_from(root, ISSUE150_MANIFEST_PATH)
+}
+
 fn load_manifest_from(root: &Path, relative_path: &str) -> Result<SceneManifest> {
     let manifest_path = root.join(relative_path);
     let manifest: SceneManifest = serde_json::from_slice(
@@ -87,7 +93,7 @@ fn load_manifest_from(root: &Path, relative_path: &str) -> Result<SceneManifest>
             .with_context(|| format!("cannot read manifest {}", manifest_path.display()))?,
     )
     .context("route-scene manifest is invalid JSON")?;
-    if ![137, 147].contains(&manifest.issue)
+    if ![137, 147, 150].contains(&manifest.issue)
         || manifest.label != "uncalibrated"
         || manifest.registration_accepted
         || manifest.scale_calibrated
@@ -95,7 +101,7 @@ fn load_manifest_from(root: &Path, relative_path: &str) -> Result<SceneManifest>
     {
         bail!("route-scene manifest has invalid issue or calibration status");
     }
-    if manifest.issue == 147
+    if manifest.issue != 137
         && (manifest.route_report_path.is_none()
             || manifest.route_report_sha256.is_none()
             || manifest.output_report_path.is_none()

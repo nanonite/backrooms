@@ -1,0 +1,278 @@
+{
+  "schema_version": 2,
+  "issue": 150,
+  "label": "uncalibrated",
+  "status": "cpu_scene_run_complete",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "transform_status": "uncalibrated_convention",
+  "scale_m_per_hunyuan_unit": 1.5582858,
+  "scale_sensitivity_range_m_per_hunyuan_unit": [
+    1.555256,
+    1.559205
+  ],
+  "plane_aligned_translation_world_m": [
+    2.9209783,
+    -0.205319,
+    3.703508
+  ],
+  "model_rotation_xyzw": [
+    0.6511913,
+    0.27745163,
+    0.27848938,
+    -0.64916414
+  ],
+  "camera_anchor_shift_y_m": -0.12034244,
+  "visual_asset_path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb",
+  "visual_asset_sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+  "collision_asset_path": "godot_walk/evidence/2026-10-20-issue-150/authored_room_collision.glb",
+  "collision_asset_sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9",
+  "visual_layers_are_avian_colliders": false,
+  "gpu_used": false,
+  "rendering_enabled": false,
+  "traversal_gate": {
+    "source": "#150 authored room-floor, boundary, column and end-to-end gate",
+    "outbound_progress_fraction_min": 1.0,
+    "inbound_progress_fraction_min": 0.992,
+    "moving_support_fraction_min": 0.993,
+    "safety_net_contacts_max": 0,
+    "max_vertical_step_m": 0.2,
+    "comparison_rule": "traverse the authored room perimeter in both directions with continuous floor support, four explicit authored boundaries and a separate column obstacle; no registration, scale or connector claim"
+  },
+  "visual_metric_contract": "visual floor gap is signed Hunyuan hit Y minus authored collision floor Y; directional absence counts samples without an upward-facing hit at or below the collision plane within 0.5 m, while a visual hole requires no hit within the full +/-0.5 m vertical window. Capsule intersection tests the shared 0.30 m radius / 1.20 m height player volume against temporary CPU query BVHs. All visual metrics are descriptive only because the transform is uncalibrated.",
+  "visual": {
+    "load_time_seconds": 16.633833766,
+    "query_preparation_time_seconds": 0.00008603,
+    "visual_nodes": [
+      {
+        "node_name": "mesh_layer0",
+        "primitive_name": "mesh_layer0",
+        "vertex_count": 1798548,
+        "triangle_count": 599516,
+        "world_translation_m": [
+          2.9209783,
+          -0.205319,
+          3.703508
+        ],
+        "world_rotation_xyzw": [
+          0.6511913,
+          0.27745163,
+          0.27848938,
+          -0.64916414
+        ],
+        "world_scale": [
+          1.5582858,
+          1.5582858,
+          1.5582858
+        ],
+        "collider_created": false
+      },
+      {
+        "node_name": "mesh_layer1",
+        "primitive_name": "mesh_layer1",
+        "vertex_count": 44351856,
+        "triangle_count": 14783952,
+        "world_translation_m": [
+          2.9209783,
+          -0.205319,
+          3.703508
+        ],
+        "world_rotation_xyzw": [
+          0.6511913,
+          0.27745163,
+          0.27848938,
+          -0.64916414
+        ],
+        "world_scale": [
+          1.5582858,
+          1.5582858,
+          1.5582858
+        ],
+        "collider_created": false
+      }
+    ],
+    "visual_alignment": null,
+    "authored_visual_surfaces": [
+      {
+        "name": "authored_column_artifact_cover",
+        "origin": "authored visual cover; separate from collision proxy and Hunyuan mesh",
+        "center_world_m": [
+          -0.44746488,
+          -0.07099044,
+          0.32348078
+        ],
+        "size_m": [
+          1.8587826,
+          2.4,
+          2.3700817
+        ]
+      },
+      {
+        "name": "authored_room_wall_west",
+        "origin": "authored room-shell visual; separate from Hunyuan mesh",
+        "center_world_m": [
+          -5.46,
+          -0.07099044,
+          1.9000001
+        ],
+        "size_m": [
+          0.12,
+          2.4,
+          14.04
+        ]
+      },
+      {
+        "name": "authored_room_wall_east",
+        "origin": "authored room-shell visual; separate from Hunyuan mesh",
+        "center_world_m": [
+          4.56,
+          -0.07099044,
+          1.9000001
+        ],
+        "size_m": [
+          0.12,
+          2.4,
+          14.04
+        ]
+      },
+      {
+        "name": "authored_room_wall_south",
+        "origin": "authored room-shell visual; separate from Hunyuan mesh",
+        "center_world_m": [
+          -0.45000005,
+          -0.07099044,
+          -5.06
+        ],
+        "size_m": [
+          9.9,
+          2.4,
+          0.12
+        ]
+      },
+      {
+        "name": "authored_room_wall_north",
+        "origin": "authored room-shell visual; separate from Hunyuan mesh",
+        "center_world_m": [
+          -0.45000005,
+          -0.07099044,
+          8.860001
+        ],
+        "size_m": [
+          9.9,
+          2.4,
+          0.12
+        ]
+      }
+    ]
+  },
+  "traversal": {
+    "scenario": "authored_route_outbound_inbound",
+    "blocking": true,
+    "pass": true,
+    "runtime_seconds": 7.789080146,
+    "resident_set_kib_at_completion": 1955472,
+    "total_ticks": 2583,
+    "moving_ticks": 2583,
+    "support_ticks": 2582,
+    "moving_support_ticks": 2582,
+    "floor_ray_hit_ticks": 2583,
+    "moving_floor_ray_hit_ticks": 2583,
+    "headroom_clear_ticks": 2583,
+    "headroom_blocked_ticks": 0,
+    "floor_ray_miss_ticks": 0,
+    "floor_clearance_from_capsule_bottom": {
+      "sample_count": 2583,
+      "min_m": 0.09647298,
+      "median_m": 0.1000033,
+      "q90_m": 0.100013554,
+      "max_m": 0.10180211
+    },
+    "headroom_block_distance": {
+      "sample_count": 0,
+      "min_m": null,
+      "median_m": null,
+      "q90_m": null,
+      "max_m": null
+    },
+    "headroom_clear_distance_lower_bound_m": 0.55,
+    "floor_ray_max_distance_m": 1.4,
+    "headroom_ray_max_distance_m": 0.55,
+    "controller_max_slope_degrees": 16.0,
+    "outbound_progress_fraction": 1.0,
+    "inbound_progress_fraction": 0.99509805,
+    "moving_support_fraction": 0.99961287,
+    "moving_floor_ray_fraction": 1.0,
+    "total_support_fraction": 0.99961287,
+    "total_floor_ray_fraction": 1.0,
+    "progress_fraction": 1.0,
+    "final_position": [
+      -4.316731,
+      -0.5709854,
+      -4.1499996
+    ],
+    "min_y": -0.5745175,
+    "max_vertical_step": 0.0020949244,
+    "max_route_deviation_m": 0.032399654,
+    "fallthrough_detected": false,
+    "controlled_slope_rejection": null,
+    "slope_rejection_outcome": null,
+    "slope_gate_failures": [],
+    "slope_sensor_hit_ticks": 0,
+    "slope_sensor_mismatch_ticks": 0,
+    "slope_sensor_samples": [],
+    "sensor_shape_diagnostic_samples": [],
+    "slope_release_tick": null,
+    "slope_recovery_ticks_to_flat_support": null,
+    "slope_recovered_to_flat": false,
+    "slope_max_capsule_bottom_height_above_flat_m": null,
+    "slope_peak_abs_vertical_velocity_mps": null,
+    "slope_input_position_radius_m": null,
+    "slope_recovery_end_max_speed_mps": null,
+    "slope_recovery_position_radius_m": null,
+    "slope_recovery_end_at_rest": false,
+    "ledge_boundary_walls_required": null,
+    "ledge_outcome": null,
+    "minimum_ledge_edge_clearance_m": null,
+    "maximum_ledge_lateral_center_z_m": null,
+    "ledge_edge_samples": [],
+    "safety_net_contact_events": [],
+    "support_loss_events": [],
+    "unsupported_authored_route_samples": [
+      {
+        "tick": 1,
+        "player_position_m": [
+          -4.55,
+          -0.5723876,
+          -4.15
+        ]
+      }
+    ],
+    "collision_asset_loaded": true,
+    "collision_nodes": 6,
+    "floor_collision_triangles": 2,
+    "obstacle_collision_triangles": 12,
+    "edge_boundary_collision_triangles": 48,
+    "edge_boundary_contact_events": [],
+    "authored_lateral_station": null,
+    "authored_lateral_expected_boundary": null,
+    "authored_lateral_max_abs_offset_m": null,
+    "authored_lateral_max_capsule_bottom_rise_m": null,
+    "authored_lateral_rest_max_speed_mps": null,
+    "authored_lateral_rest_position_radius_m": null,
+    "authored_lateral_rest_at_end": false,
+    "authored_lateral_samples": [],
+    "failure_reason": null
+  },
+  "baseline_comparison": null,
+  "update_time_ms": {
+    "sample_count": 2421,
+    "mean": 2.1613863040066086,
+    "p90": 2.617347,
+    "max": 41.240748,
+    "sample_scope": "app.update wall time in milliseconds after visual-query preparation and route collider installation"
+  },
+  "scene_total_wall_time_seconds": 31.625121266,
+  "route_simulation_wall_time_seconds": 7.789080146,
+  "peak_rss_kib": 3074620,
+  "current_rss_kib": 1955472
+}

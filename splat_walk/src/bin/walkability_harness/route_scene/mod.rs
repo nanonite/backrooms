@@ -1,4 +1,5 @@
 mod assets;
+mod authored_visuals;
 // The companion hunyuan_route_scene binary uses this renderer-only path.
 #[allow(dead_code)]
 mod capture;
@@ -48,7 +49,9 @@ use crate::walkability_harness::{
 
 use self::{
     assets::{SceneVisualConfig, VisualSceneReport, poll_visual_loading, start_visual_loading},
-    manifest::{SceneManifest, load_issue147_manifest, load_manifest, repo_root},
+    manifest::{
+        SceneManifest, load_issue147_manifest, load_issue150_manifest, load_manifest, repo_root,
+    },
     report::{
         ComparisonSceneReport, SceneRunReportData, TraversalGateReport, UpdateTimeReport,
         baseline_comparison, scene_report,
@@ -113,7 +116,9 @@ pub fn run_interactive_play() -> Result<()> {
 }
 
 pub(super) fn selected_manifest(root: &std::path::Path) -> Result<SceneManifest> {
-    if std::env::args().any(|argument| argument == "--issue147") {
+    if std::env::args().any(|argument| argument == "--issue150") {
+        load_issue150_manifest(root)
+    } else if std::env::args().any(|argument| argument == "--issue147") {
         load_issue147_manifest(root)
     } else {
         load_manifest(root)
@@ -306,6 +311,7 @@ fn build_app(
     root: &std::path::Path,
     mode: SceneAppMode,
 ) -> App {
+    let analyze_alignment = route.issue != 150 && !matches!(mode, SceneAppMode::Interactive { .. });
     let mut app = App::new();
     match mode {
         SceneAppMode::Interactive { .. } => {
@@ -317,7 +323,7 @@ fn build_app(
                     })
                     .set(WindowPlugin {
                         primary_window: Some(Window {
-                            title: "Uncalibrated Hunyuan route".into(),
+                            title: "Uncalibrated Hunyuan room candidate".into(),
                             resolution: WindowResolution::new(1280, 720)
                                 .with_scale_factor_override(1.0),
                             ..default()
@@ -369,7 +375,7 @@ fn build_app(
             asset_path: visual_asset_path,
             model_transform,
             camera_origin,
-            analyze_alignment: !matches!(mode, SceneAppMode::Interactive { .. }),
+            analyze_alignment,
         })
         .init_resource::<ScenarioReport>()
         .init_resource::<VisualSceneReport>()

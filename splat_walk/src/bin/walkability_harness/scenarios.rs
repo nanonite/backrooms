@@ -3,7 +3,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, bail};
 use bevy::prelude::{Resource, Vec3};
 use serde::Deserialize;
 
@@ -71,6 +71,7 @@ pub fn is_authored_lateral_push(name: &str) -> bool {
 
 #[derive(Clone, Resource)]
 pub struct AuthoredRouteAsset {
+    pub issue: u32,
     pub directory: PathBuf,
     pub file_name: String,
     pub floor_y: f32,
@@ -79,11 +80,21 @@ pub struct AuthoredRouteAsset {
     pub width_m: f32,
     pub column_lower_xz: [f32; 2],
     pub column_upper_xz: [f32; 2],
+    pub column_height_m: f32,
     pub floor_triangles: usize,
     pub column_triangles: usize,
     pub inner_boundary_triangles: usize,
     pub outer_boundary_triangles: usize,
     pub boundary_height_m: f32,
+    pub room_layout: Option<AuthoredRoomLayout>,
+}
+
+#[derive(Clone)]
+pub struct AuthoredRoomLayout {
+    pub lower_xz: [f32; 2],
+    pub upper_xz: [f32; 2],
+    pub boundary_thickness_m: f32,
+    pub boundary_triangles: [usize; 4],
 }
 
 pub fn synthetic_specs() -> Vec<HarnessSpec> {
@@ -161,11 +172,23 @@ pub fn synthetic_specs() -> Vec<HarnessSpec> {
 
 #[derive(Deserialize)]
 struct RouteReport {
+    issue: u32,
     plane: PlaneReport,
     route: RouteGeometry,
     column_obstacle: ColumnObstacle,
     edge_boundaries: EdgeBoundaryReport,
     export: RouteExport,
+    #[serde(default)]
+    room_layout: Option<RoomLayoutReport>,
+}
+
+#[derive(Deserialize)]
+struct RoomLayoutReport {
+    bounds_lower_xz_m: [f32; 2],
+    bounds_upper_xz_m: [f32; 2],
+    boundary_thickness_m: f32,
+    walk_loop_centerline_xz_m: Vec<[f32; 2]>,
+    boundary_triangles: [usize; 4],
 }
 
 #[derive(Deserialize)]
@@ -184,6 +207,7 @@ struct RouteGeometry {
 struct ColumnObstacle {
     footprint_lower_xz_m: [f32; 2],
     footprint_upper_xz_m: [f32; 2],
+    height_m: f32,
 }
 
 #[derive(Deserialize)]
@@ -204,6 +228,9 @@ pub fn authored_route_config(report_path: &Path) -> Result<(HarnessSpec, Authore
     let report = fs::read(report_path).context("cannot read authored route report")?;
     let route: RouteReport =
         serde_json::from_slice(&report).context("authored route report is invalid JSON")?;
+    if let Some(layout) = route.room_layout.as_ref() {
+        validate_room_layout(layout, route.edge_boundaries.height_m)?;
+    }
     let route_directory = report_path
         .parent()
         .context("authored route report path has no parent directory")?
@@ -214,32 +241,54 @@ pub fn authored_route_config(report_path: &Path) -> Result<(HarnessSpec, Authore
         floor_center_y,
         route.route.center_xz_m[1],
     );
-    let orbit: Vec<Vec3> = (0..128)
-        .map(|index| {
-            let angle = std::f32::consts::TAU * index as f32 / 128.0;
-            Vec3::new(
-                center.x + route.route.radius_m * angle.cos(),
-                center.y,
-                center.z + route.route.radius_m * angle.sin(),
-            )
-        })
-        .collect();
+    let orbit: Vec<Vec3> = route.room_layout.as_ref().map_or_else(
+        || {
+            (0..128)
+                .map(|index| {
+                    let angle = std::f32::consts::TAU * index as f32 / 128.0;
+                    Vec3::new(
+                        center.x + route.route.radius_m * angle.cos(),
+                        center.y,
+                        center.z + route.route.radius_m * angle.sin(),
+                    )
+                })
+                .collect()
+        },
+        |layout| {
+            layout
+                .walk_loop_centerline_xz_m
+                .iter()
+                .map(|point| Vec3::new(point[0], center.y, point[1]))
+                .collect()
+        },
+    );
+    if orbit.len() < 4 {
+        anyhow::bail!("authored room route needs at least four loop points");
+    }
     let mut waypoints = vec![orbit[0]];
     waypoints.extend(orbit.iter().skip(1).copied());
     waypoints.push(orbit[0]);
     let waypoint_split = waypoints.len();
     waypoints.extend(orbit.iter().skip(1).rev().copied());
+    if route.room_layout.is_some() {
+        waypoints.push(orbit[0]);
+    }
     let spec = HarnessSpec {
         name: "authored_route_outbound_inbound".to_owned(),
         geometry: SyntheticGeometry::AuthoredRoute,
         start: orbit[0],
         waypoints,
         waypoint_split: Some(waypoint_split),
-        max_updates: 2700,
+        max_updates: if route.room_layout.is_some() {
+            3600
+        } else {
+            2700
+        },
         speed_scale: 1.0,
         blocking: true,
     };
     let asset = AuthoredRouteAsset {
+        issue: route.issue,
         directory: route_directory,
         file_name: route.export.path,
         floor_y: route.plane.height_m,
@@ -248,16 +297,56 @@ pub fn authored_route_config(report_path: &Path) -> Result<(HarnessSpec, Authore
         width_m: route.route.width_m,
         column_lower_xz: route.column_obstacle.footprint_lower_xz_m,
         column_upper_xz: route.column_obstacle.footprint_upper_xz_m,
+        column_height_m: route.column_obstacle.height_m,
         floor_triangles: route.export.floor_triangles,
         column_triangles: route.export.column_triangles,
         inner_boundary_triangles: route.export.inner_edge_boundary_triangles,
         outer_boundary_triangles: route.export.outer_edge_boundary_triangles,
         boundary_height_m: route.edge_boundaries.height_m,
+        room_layout: route.room_layout.map(|layout| AuthoredRoomLayout {
+            lower_xz: layout.bounds_lower_xz_m,
+            upper_xz: layout.bounds_upper_xz_m,
+            boundary_thickness_m: layout.boundary_thickness_m,
+            boundary_triangles: layout.boundary_triangles,
+        }),
     };
     Ok((spec, asset))
 }
 
+fn validate_room_layout(layout: &RoomLayoutReport, boundary_height_m: f32) -> Result<()> {
+    let [lower_x, lower_z] = layout.bounds_lower_xz_m;
+    let [upper_x, upper_z] = layout.bounds_upper_xz_m;
+    let bounds_are_valid = [
+        lower_x,
+        lower_z,
+        upper_x,
+        upper_z,
+        layout.boundary_thickness_m,
+    ]
+    .iter()
+    .all(|value| value.is_finite());
+    if !bounds_are_valid
+        || lower_x >= upper_x
+        || lower_z >= upper_z
+        || layout.boundary_thickness_m <= 0.0
+        || !boundary_height_m.is_finite()
+        || boundary_height_m <= 0.0
+        || layout.walk_loop_centerline_xz_m.len() < 4
+        || layout
+            .walk_loop_centerline_xz_m
+            .iter()
+            .flatten()
+            .any(|value| !value.is_finite())
+    {
+        bail!("authored room layout has invalid bounds, route, height or boundary meshes");
+    }
+    Ok(())
+}
+
 pub fn authored_lateral_push_specs(route: &AuthoredRouteAsset) -> Vec<HarnessSpec> {
+    if let Some(layout) = &route.room_layout {
+        return authored_room_boundary_push_specs(route, layout);
+    }
     let mut stations: Vec<_> = (0..8)
         .map(|index| {
             let angle = std::f32::consts::TAU * index as f32 / 8.0;
@@ -302,6 +391,40 @@ pub fn authored_lateral_push_specs(route: &AuthoredRouteAsset) -> Vec<HarnessSpe
             )
         })
         .collect()
+}
+
+fn authored_room_boundary_push_specs(
+    route: &AuthoredRouteAsset,
+    layout: &AuthoredRoomLayout,
+) -> Vec<HarnessSpec> {
+    let center_x = (layout.lower_xz[0] + layout.upper_xz[0]) * 0.5;
+    let center_z = (layout.lower_xz[1] + layout.upper_xz[1]) * 0.5;
+    [
+        ("west", [layout.lower_xz[0] + 0.4, center_z], [-1.0, 0.0]),
+        ("east", [layout.upper_xz[0] - 0.4, center_z], [1.0, 0.0]),
+        ("south", [center_x, layout.lower_xz[1] + 0.4], [0.0, -1.0]),
+        ("north", [center_x, layout.upper_xz[1] - 0.4], [0.0, 1.0]),
+    ]
+    .into_iter()
+    .map(|(side, center_xz, outward)| {
+        let start = Vec3::new(center_xz[0], route.floor_y + 0.7, center_xz[1]);
+        HarnessSpec {
+            name: format!("authored_loop_lateral_push_room_{side}"),
+            geometry: SyntheticGeometry::AuthoredLateralPush {
+                station: format!("room_{side}"),
+                center_xz,
+                outward_direction_xz: outward,
+                boundary_side: side.to_owned(),
+            },
+            start,
+            waypoints: vec![start],
+            waypoint_split: None,
+            max_updates: 300,
+            speed_scale: 1.0,
+            blocking: true,
+        }
+    })
+    .collect()
 }
 
 fn station_record(
@@ -460,11 +583,14 @@ mod tests {
 
     use bevy::prelude::Vec3;
 
-    use super::{AuthoredRouteAsset, SyntheticGeometry, authored_lateral_push_specs};
+    use super::{
+        AuthoredRoomLayout, AuthoredRouteAsset, SyntheticGeometry, authored_lateral_push_specs,
+    };
 
     #[test]
     fn creates_both_edge_pushes_at_nine_fixed_stations() {
         let route = AuthoredRouteAsset {
+            issue: 147,
             directory: PathBuf::new(),
             file_name: String::new(),
             floor_y: -1.0,
@@ -473,11 +599,13 @@ mod tests {
             width_m: 0.8,
             column_lower_xz: [-0.5, -0.5],
             column_upper_xz: [0.5, 0.5],
+            column_height_m: 2.4,
             floor_triangles: 512,
             column_triangles: 12,
             inner_boundary_triangles: 2048,
             outer_boundary_triangles: 2048,
             boundary_height_m: 1.4,
+            room_layout: None,
         };
 
         let specs = authored_lateral_push_specs(&route);
@@ -515,5 +643,50 @@ mod tests {
             assert!((outward_direction_xz[0].hypot(outward_direction_xz[1]) - 1.0).abs() < 1e-5);
             assert!(boundary_side == "inner" || boundary_side == "outer");
         }
+    }
+
+    #[test]
+    fn creates_a_probe_at_each_room_end_with_matching_boundary_labels() {
+        let route = AuthoredRouteAsset {
+            issue: 150,
+            directory: PathBuf::new(),
+            file_name: String::new(),
+            floor_y: -1.0,
+            center_xz: [0.0, 0.0],
+            radius_m: 0.0,
+            width_m: 0.0,
+            column_lower_xz: [-0.5, -0.5],
+            column_upper_xz: [0.5, 0.5],
+            column_height_m: 2.4,
+            floor_triangles: 2,
+            column_triangles: 12,
+            inner_boundary_triangles: 0,
+            outer_boundary_triangles: 48,
+            boundary_height_m: 2.4,
+            room_layout: Some(AuthoredRoomLayout {
+                lower_xz: [-5.0, -6.0],
+                upper_xz: [5.0, 6.0],
+                boundary_thickness_m: 0.12,
+                boundary_triangles: [12; 4],
+            }),
+        };
+
+        let specs = authored_lateral_push_specs(&route);
+        let sides: Vec<_> = specs
+            .iter()
+            .filter_map(|spec| match &spec.geometry {
+                SyntheticGeometry::AuthoredLateralPush { boundary_side, .. } => {
+                    Some(boundary_side.as_str())
+                }
+                _ => None,
+            })
+            .collect();
+
+        assert_eq!(sides, ["west", "east", "south", "north"]);
+        assert!(
+            specs
+                .iter()
+                .all(|spec| spec.blocking && spec.max_updates == 300)
+        );
     }
 }

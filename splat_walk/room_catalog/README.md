@@ -40,7 +40,11 @@ asset is never collision. The catalog preserves the selected source-video frame,
 hashes, transform convention, shared controller parameters, validation evidence,
 and measured CPU runtime/resource figures.
 
-The next candidate (#147) is a bounded portion of the later column bay,
-referenced by #145 frames 0085-0192. Its authored boundaries and collision must
-be explicit, and it must pass standalone traversal and visual review before it
-can be admitted. Do not stitch it to this reference zone until that review passes.
+The operator accepted #150 as an approximate, standalone playable candidate for
+the later column bay, using the #147 Hunyuan visual and a separately authored
+room shell and collision asset. Its core perspective is useful; exact
+video-to-Bevy geometry is not claimed. The far side of the column remains
+room-specific art polish. #148 owns catalog admission and any connector test.
+The #145 inventory does not establish that this candidate connects to the
+tagged reference zone, so any such connection must be labeled as authored and
+tested rather than inferred from the video.
