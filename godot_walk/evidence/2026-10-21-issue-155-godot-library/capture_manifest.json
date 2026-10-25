@@ -1,0 +1,186 @@
+[
+	{
+		"eye": [
+			2.920978307724,
+			-0.100299999117851,
+			3.70350790023804
+		],
+		"forward": [
+			-0.690999984741211,
+			0.0,
+			-0.72299998998642
+		],
+		"fov": 75.0,
+		"mode": "native_baseline",
+		"path": "res://evidence/2026-10-21-issue-155-godot-library/captures/column/native_baseline/patch_anchor.png",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "column",
+		"scene_load_to_ready_ms": 2223,
+		"settle_frames": 20,
+		"view": "patch_anchor"
+	},
+	{
+		"eye": [
+			2.36999988555908,
+			-0.100299999117851,
+			0.323000013828278
+		],
+		"forward": [
+			-1.0,
+			0.0,
+			0.0
+		],
+		"fov": 75.0,
+		"mode": "native_baseline",
+		"path": "res://evidence/2026-10-21-issue-155-godot-library/captures/column/native_baseline/column_east.png",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "column",
+		"scene_load_to_ready_ms": 2223,
+		"settle_frames": 20,
+		"view": "column_east"
+	},
+	{
+		"eye": [
+			2.920978307724,
+			-0.100299999117851,
+			3.70350790023804
+		],
+		"forward": [
+			-0.690999984741211,
+			0.0,
+			-0.72299998998642
+		],
+		"fov": 75.0,
+		"mode": "ursc_candidate",
+		"path": "res://evidence/2026-10-21-issue-155-godot-library/captures/column/ursc_candidate/patch_anchor.png",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "column",
+		"scene_load_to_ready_ms": 2223,
+		"settle_frames": 20,
+		"view": "patch_anchor"
+	},
+	{
+		"eye": [
+			2.36999988555908,
+			-0.100299999117851,
+			0.323000013828278
+		],
+		"forward": [
+			-1.0,
+			0.0,
+			0.0
+		],
+		"fov": 75.0,
+		"mode": "ursc_candidate",
+		"path": "res://evidence/2026-10-21-issue-155-godot-library/captures/column/ursc_candidate/column_east.png",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "column",
+		"scene_load_to_ready_ms": 2223,
+		"settle_frames": 20,
+		"view": "column_east"
+	},
+	{
+		"eye": [
+			0.800000011920929,
+			-0.100299999117851,
+			0.800000011920929
+		],
+		"forward": [
+			0.25,
+			0.0299999993294477,
+			1.0
+		],
+		"fov": 75.0,
+		"mode": "native_baseline",
+		"path": "res://evidence/2026-10-21-issue-155-godot-library/captures/pocket/native_baseline/entry.png",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "pocket",
+		"scene_load_to_ready_ms": 54,
+		"settle_frames": 20,
+		"view": "entry"
+	},
+	{
+		"eye": [
+			5.19999980926514,
+			-0.100299999117851,
+			13.0
+		],
+		"forward": [
+			-0.25,
+			0.0299999993294477,
+			-1.0
+		],
+		"fov": 75.0,
+		"mode": "native_baseline",
+		"path": "res://evidence/2026-10-21-issue-155-godot-library/captures/pocket/native_baseline/return.png",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "pocket",
+		"scene_load_to_ready_ms": 54,
+		"settle_frames": 20,
+		"view": "return"
+	},
+	{
+		"eye": [
+			0.800000011920929,
+			-0.100299999117851,
+			0.800000011920929
+		],
+		"forward": [
+			0.25,
+			0.0299999993294477,
+			1.0
+		],
+		"fov": 75.0,
+		"mode": "ursc_candidate",
+		"path": "res://evidence/2026-10-21-issue-155-godot-library/captures/pocket/ursc_candidate/entry.png",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "pocket",
+		"scene_load_to_ready_ms": 54,
+		"settle_frames": 20,
+		"view": "entry"
+	},
+	{
+		"eye": [
+			5.19999980926514,
+			-0.100299999117851,
+			13.0
+		],
+		"forward": [
+			-0.25,
+			0.0299999993294477,
+			-1.0
+		],
+		"fov": 75.0,
+		"mode": "ursc_candidate",
+		"path": "res://evidence/2026-10-21-issue-155-godot-library/captures/pocket/ursc_candidate/return.png",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "pocket",
+		"scene_load_to_ready_ms": 54,
+		"settle_frames": 20,
+		"view": "return"
+	}
+]

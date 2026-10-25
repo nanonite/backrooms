@@ -1,0 +1,35 @@
+{
+	"measurement": "300 unthrottled rendered frame intervals after 30 warmup frames at one fixed branch pose",
+	"profiles": [
+		{
+			"affine_texture_mapping": true,
+			"frame_interval_ms": {
+				"max": 0.905,
+				"p50": 0.265,
+				"p95": 0.375,
+				"p99": 0.409
+			},
+			"frame_samples": 300,
+			"profile_id": "affine_on",
+			"scene_load_to_ready_ms": 2060.026,
+			"texture_filtering": false,
+			"vertex_snap_intensity": 1,
+			"warmup_frames": 30
+		},
+		{
+			"affine_texture_mapping": false,
+			"frame_interval_ms": {
+				"max": 0.431,
+				"p50": 0.243,
+				"p95": 0.322,
+				"p99": 0.382
+			},
+			"frame_samples": 300,
+			"profile_id": "affine_off",
+			"scene_load_to_ready_ms": 2060.026,
+			"texture_filtering": false,
+			"vertex_snap_intensity": 1,
+			"warmup_frames": 30
+		}
+	]
+}

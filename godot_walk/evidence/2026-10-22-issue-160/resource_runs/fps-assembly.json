@@ -1,0 +1,45 @@
+{
+  "label": "fps-assembly",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "960x540",
+    "--disable-vsync",
+    "--max-fps",
+    "60",
+    "--script",
+    "res://scripts/measure_bounded_fps.gd",
+    "--",
+    "--capped",
+    "--scene=res://scenes/issue160_assembled_walkthrough.tscn",
+    "--out-dir=res://evidence/2026-10-22-issue-160/mechanics/assembly",
+    "--label=issue160_assembly"
+  ],
+  "timeout_seconds": 180,
+  "timed_out": false,
+  "return_code": 0,
+  "elapsed_seconds": 25.746,
+  "finished_utc": "2026-10-22T19:52:44.599661+00:00",
+  "preflight": {
+    "free_vram_bytes": 10784604160,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 5,
+    "compute_apps": [],
+    "ram_available_bytes": 25780842496,
+    "vram_after_headroom_bytes": 8627683328,
+    "ram_after_headroom_bytes": 19335631872,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 2425364480,
+    "gpu_memory_start_bytes": 1661992960,
+    "peak_gpu_memory_used_bytes": 2250244096,
+    "peak_gpu_memory_delta_bytes": 588251136,
+    "gpu_sample_period_ms": 500
+  }
+}

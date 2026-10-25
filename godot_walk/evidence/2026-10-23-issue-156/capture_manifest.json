@@ -1,0 +1,112 @@
+[
+	{
+		"cached_module_types": 0,
+		"camera_eye": [
+			2.40000009536743,
+			-0.170990496873856,
+			3.09999990463257
+		],
+		"camera_target": [
+			5.19999980926514,
+			-0.170990496873856,
+			3.09999990463257
+		],
+		"frontier_caps": 1,
+		"id": "spawn_connector",
+		"loaded_ids": [
+			"R000",
+			"R001"
+		],
+		"path": "res://evidence/2026-10-23-issue-156/captures/spawn_connector.png",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R000",
+		"scene_load_to_ready_ms": 2095,
+		"settle_frames": 30
+	},
+	{
+		"cached_module_types": 1,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			-0.170990496873856,
+			8.0
+		],
+		"frontier_caps": 2,
+		"id": "three_way_branch",
+		"loaded_ids": [
+			"R005",
+			"R006",
+			"R007",
+			"R008"
+		],
+		"path": "res://evidence/2026-10-23-issue-156/captures/three_way_branch.png",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2095,
+		"settle_frames": 30
+	},
+	{
+		"cached_module_types": 2,
+		"camera_eye": [
+			32.9000015258789,
+			-0.170990496873856,
+			13.0
+		],
+		"camera_target": [
+			41.9000015258789,
+			-0.170990496873856,
+			13.0
+		],
+		"frontier_caps": 2,
+		"id": "branch_leaf",
+		"loaded_ids": [
+			"R006",
+			"R007"
+		],
+		"path": "res://evidence/2026-10-23-issue-156/captures/branch_leaf.png",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R007",
+		"scene_load_to_ready_ms": 2095,
+		"settle_frames": 30
+	},
+	{
+		"cached_module_types": 2,
+		"camera_eye": [
+			48.5,
+			-0.170990496873856,
+			6.69999980926514
+		],
+		"camera_target": [
+			48.5,
+			-0.170990496873856,
+			-2.29999995231628
+		],
+		"frontier_caps": 1,
+		"id": "far_terminal",
+		"loaded_ids": [
+			"R008",
+			"R009"
+		],
+		"path": "res://evidence/2026-10-23-issue-156/captures/far_terminal.png",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R009",
+		"scene_load_to_ready_ms": 2095,
+		"settle_frames": 30
+	}
+]

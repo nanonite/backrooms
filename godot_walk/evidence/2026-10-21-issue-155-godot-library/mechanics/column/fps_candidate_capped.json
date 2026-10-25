@@ -1,0 +1,12 @@
+{
+	"baseline": false,
+	"capped_at_60": true,
+	"counter": "RenderingServer.frame_post_draw",
+	"elapsed_s": 11.982802,
+	"fps": 60.0026604795773,
+	"frames": 719,
+	"p95_frame_ms": 16.818,
+	"p99_frame_ms": 16.918,
+	"poses": 12,
+	"scene": "res://scenes/library_column_room.tscn"
+}

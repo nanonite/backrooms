@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "round_id": "hunyuan-psx-r3",
+  "variant_id": "column_face_extrusion",
+  "parent_id": "hunyuan-psx-r2/column_box_source_face",
+  "hypothesis": "Preserve the Hunyuan column silhouette and cover only its source-observed east face with a shallow source-textured extrusion sized to the frame-0152 face ratio.",
+  "region_decisions": [
+    {
+      "id": "floor_ceiling_walls",
+      "action": "preserve",
+      "provenance": "hunyuan-generated",
+      "evidence": "Confirmed Round 1 and Round 2 operator direction",
+      "reason": "Keep the accepted room surfaces unchanged while addressing only the column."
+    },
+    {
+      "id": "column_east_face",
+      "action": "cover",
+      "provenance": "authored",
+      "evidence": "Direct column-face crop from source video frame 0152",
+      "reason": "Replace one visibly damaged face while leaving the Hunyuan sides and depth visible."
+    }
+  ],
+  "authored_changes": [
+    {
+      "id": "column_face_extrusion",
+      "geometry": "1.261 x 2.4 m face with 0.025 m shallow backing, at the existing east-side collision proxy plane; width from source crop aspect ratio times the uncalibrated 2.4 m height convention",
+      "material": "Direct, unmodified source crop frame_0152_column_front.png with nearest filtering and the existing PSX compositor",
+      "collision": "Visual-only; reuses existing ColumnObstacle without changes"
+    }
+  ],
+  "texture_provenance": {
+    "source_frame": "data/scenes/corridor_travel/images/frame_0152.jpg",
+    "source_frame_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+    "crop_xyxy": [734, 150, 1128, 900],
+    "crop_method": "Direct pixel crop; no grading, resizing, or generated texture",
+    "texture_path": "godot_walk/evidence/2026-10-21-issue-151-round-3/source/frame_0152_column_front.png"
+  }
+}

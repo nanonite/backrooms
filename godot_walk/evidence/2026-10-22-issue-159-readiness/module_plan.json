@@ -1,0 +1,38 @@
+{
+  "issue": 159,
+  "status": "proposal_only_not_operator_approved",
+  "generation_ready": false,
+  "operator_acceptance": {
+    "rooms": ["library_column_room", "library_pocket_room"],
+    "visual_playable_review": "accepted by user 2026-10-22; both walkable and okay",
+    "column_C01_visual_repair": "accepted previously; preserve",
+    "generation_stitching": "not accepted; footprint, exposed surfaces and Godot connectors unresolved"
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "units": "Godot world units; no metric calibration",
+  "column_module": {
+    "proposed_authored_polygon_xz": [[-4.4,-1.2],[0,-1.2],[3.5,1.2],[3.5,5.6],[-0.3,5.6],[-4.4,3.7]],
+    "floor_y": -1.27099049,
+    "height": 2.4,
+    "intent": "Keep C01 and C02 in one useful bounded bay, avoid current behind-wall region; proposed dimensions require a visual derivative review before any collision change",
+    "source_visual": "Preserve original GLB. Future separate derivative must fit the reviewed module and prevent source geometry bleeding into neighbor modules. Do not blindly truncate full source scene.",
+    "background": "West/south source wing, north behind-wall area and C03 excluded from playable scope. Hide behind authored visible closures; inspect all accessible viewpoints for leaks.",
+    "C01": "Preserve accepted visual box; fix visual/proxy collision mismatch independently",
+    "C02": "Retain; repair open/partial faces as explicitly authored simple prism, add matching independent collision after review",
+    "C03": "Occlude/exclude; if visible after closure, it remains a required visual repair"
+  },
+  "sockets": [
+    {"room": "column", "status": "PROPOSED_UNTESTED", "floor_center": [3.5,-1.27099049,3.1], "outward_normal": [1,0,0], "clear_width": 2.0, "clear_height": 2.1, "approach_depth": 1.2, "reason": "On proposed east authored closure, away from C01/C02; current source visual extends beyond this plane and must be resolved in a separate derivative before connection", "current_boundary": "No opening. Existing EastBoundary at x4.5 remains solid; socket is not on current collision boundary"},
+    {"room": "pocket", "status": "PROPOSED_UNTESTED", "floor_center": [0,-1.27099049,6.9], "outward_normal": [-1,0,0], "clear_width": 2.0, "clear_height": 2.1, "approach_depth": 1.2, "reason": "Authored west wall midpoint, away from corners; no known interior column proxy", "current_boundary": "Closed authored west visual/collision wall; no opening"}
+  ],
+  "required_before_ready": [
+    "Review proposed envelope and C02/C03 inventory",
+    "Create separate bounded column-module visual derivative with visible closures and no source bleed",
+    "Repair visible C02; reconcile C01 proxy; verify each retained approachable upright has matching collision",
+    "Add matching authored socket openings to both visual and collision geometry only after plan approval",
+    "Test both modules separately and assembled: full capsule clearance, floors, two-way traversal, seam pushes, backtracking and negative controls",
+    "Capture full reachable perimeter, all exposed sides and both connector directions; operator acceptance",
+    "Register approved Godot modules with hashes, envelope, tested sockets and PSX preset; only then start layout generation"
+  ]
+}

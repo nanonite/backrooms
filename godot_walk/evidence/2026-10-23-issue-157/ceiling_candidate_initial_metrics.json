@@ -1,0 +1,51 @@
+{
+  "odiff_version": "odiff-bin@4.5.0",
+  "odiff_threshold": 0.1,
+  "candidate": "column-side-source-textured-ceiling-bridge",
+  "source_texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+  "geometry": {
+    "center_m": [
+      2.85,
+      1.10400951,
+      3.1
+    ],
+    "size_m": [
+      1.3,
+      2.0
+    ]
+  },
+  "visual_only": true,
+  "collision_added": false,
+  "repeat_noise_ceiling_pct": 0.0,
+  "interpretation": "ODiff reports changed pixels; it is not a visual quality score.",
+  "views": [
+    {
+      "view_id": "column_into_pocket",
+      "repeat_noise_pct": 0.0,
+      "candidate_changed_pct": 0.17,
+      "candidate_diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-157/diffs/ceiling_source_bridge/column_into_pocket.png",
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "pocket_into_column",
+      "repeat_noise_pct": 0.0,
+      "candidate_changed_pct": 0.02,
+      "candidate_diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-157/diffs/ceiling_source_bridge/pocket_into_column.png",
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "threshold_ceiling",
+      "repeat_noise_pct": 0.0,
+      "candidate_changed_pct": 0.0,
+      "candidate_diff_image": null,
+      "above_repeat_noise": false
+    },
+    {
+      "view_id": "column_socket_jamb",
+      "repeat_noise_pct": 0.0,
+      "candidate_changed_pct": 0.0,
+      "candidate_diff_image": null,
+      "above_repeat_noise": false
+    }
+  ]
+}

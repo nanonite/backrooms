@@ -1,0 +1,736 @@
+{
+  "issue": 156,
+  "baseline_issue": 160,
+  "source_manifests": [
+    "godot_walk/evidence/2026-10-22-issue-160/provenance.json",
+    "godot_walk/evidence/2026-10-23-issue-156/catalog_snapshot.json"
+  ],
+  "inherited_protected_count": 53,
+  "catalog_dependency_count": 41,
+  "all_inherited_and_catalog_hashes_verified": true,
+  "protected_inputs": [
+    {
+      "path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+      "category": "#160-protected-input",
+      "expected_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "actual_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "verified": true
+    },
+    {
+      "path": "data/scenes/corridor_travel/video.mp4",
+      "category": "#160-protected-input",
+      "expected_sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4",
+      "actual_sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "actual_sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_conversion.json",
+      "category": "#160-protected-input",
+      "expected_sha256": "7e420195d62538a74c1f88bd3f669f93ad25fbf1c149a06d926ba2214294105b",
+      "actual_sha256": "7e420195d62538a74c1f88bd3f669f93ad25fbf1c149a06d926ba2214294105b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb",
+      "category": "#160-protected-input",
+      "expected_sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+      "actual_sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/panogen_input_frame_0152.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "fd165eeb0c2d5a14101f2314290feedcc44aeb73148b9d1272fa52d26f819401",
+      "actual_sha256": "fd165eeb0c2d5a14101f2314290feedcc44aeb73148b9d1272fa52d26f819401",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/panogen_run_manifest.json",
+      "category": "#160-protected-input",
+      "expected_sha256": "1cfff60109b8876a91e14ef0b8e09ea36bf8444e295184f786c508f969c9346e",
+      "actual_sha256": "1cfff60109b8876a91e14ef0b8e09ea36bf8444e295184f786c508f969c9346e",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/panorama_1280x640.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "135dd2a83e4865c2516d8d66a2b1670ba6dd65fbef9c7204438cc62e45f3d3d5",
+      "actual_sha256": "135dd2a83e4865c2516d8d66a2b1670ba6dd65fbef9c7204438cc62e45f3d3d5",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/scenegen_manifest.json",
+      "category": "#160-protected-input",
+      "expected_sha256": "07e2fb3b0066cb284bca3d969077cee9acef7b1377d123b6fbfac5da6ffdd4cb",
+      "actual_sha256": "07e2fb3b0066cb284bca3d969077cee9acef7b1377d123b6fbfac5da6ffdd4cb",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/source_frame_0152.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "4846fcf6f510017f02e67f12d9dd71ab2dc1cd0a71bc4750ab1956fb60a4a7ad",
+      "actual_sha256": "4846fcf6f510017f02e67f12d9dd71ab2dc1cd0a71bc4750ab1956fb60a4a7ad",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/source_selection.json",
+      "category": "#160-protected-input",
+      "expected_sha256": "d9cb2e90dd1bc16470b4dbed3c2759a7ad39ae46ada86b4c5bc68667549d5661",
+      "actual_sha256": "d9cb2e90dd1bc16470b4dbed3c2759a7ad39ae46ada86b4c5bc68667549d5661",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/authored_room_collision.glb",
+      "category": "#160-protected-input",
+      "expected_sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9",
+      "actual_sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/capture_poses.json",
+      "category": "#160-protected-input",
+      "expected_sha256": "979a3dc9849fbc5c0f8ce28dba558876182046d3b9fdda1f2b9fd1c28accfc8d",
+      "actual_sha256": "979a3dc9849fbc5c0f8ce28dba558876182046d3b9fdda1f2b9fd1c28accfc8d",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/route_report.json",
+      "category": "#160-protected-input",
+      "expected_sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+      "actual_sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_collision.glb",
+      "category": "#160-protected-input",
+      "expected_sha256": "0a4479f9c32cdf193d4a4196f8e6330474a7a2254426471b2725220a7b966246",
+      "actual_sha256": "0a4479f9c32cdf193d4a4196f8e6330474a7a2254426471b2725220a7b966246",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json",
+      "category": "#160-protected-input",
+      "expected_sha256": "0c2b5bb8a131b53a49a8243296121078caaec83bb14d2a2e5258ad0c6b52b28b",
+      "actual_sha256": "0c2b5bb8a131b53a49a8243296121078caaec83bb14d2a2e5258ad0c6b52b28b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+      "category": "#160-protected-input",
+      "expected_sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5",
+      "actual_sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/bounded_hunyuan_visual.glb",
+      "category": "#160-protected-input",
+      "expected_sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898",
+      "actual_sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/column_approach.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "39aa2849791ea3aa98bb4bb416fb2f24b501d395df849b2bbcf900fd2576c434",
+      "actual_sha256": "39aa2849791ea3aa98bb4bb416fb2f24b501d395df849b2bbcf900fd2576c434",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/connector_midpoint.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "5b31f892e139afc97d3b963646df911f8381718773dada654c80ecfefc745c84",
+      "actual_sha256": "5b31f892e139afc97d3b963646df911f8381718773dada654c80ecfefc745c84",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/pocket_far.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "383bff83c2822c2c1c453ac57eaabe9a7db0550702470488b9ef6ad7a22631ac",
+      "actual_sha256": "383bff83c2822c2c1c453ac57eaabe9a7db0550702470488b9ef6ad7a22631ac",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/pocket_return.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "34b6cc77a17517bfa1014eef4592d9de982f57d00117cd83e785703bae0032a0",
+      "actual_sha256": "34b6cc77a17517bfa1014eef4592d9de982f57d00117cd83e785703bae0032a0",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/seam_floor.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "ad5717be227ac9083429a54ff38a46109bc35677ed7b6436f97f55b61ff1ee2f",
+      "actual_sha256": "ad5717be227ac9083429a54ff38a46109bc35677ed7b6436f97f55b61ff1ee2f",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/C01_north.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "9d57d81162bb1d85d3e902e33b3019084c6ec89079e7d46905a26a8c2bba1e01",
+      "actual_sha256": "9d57d81162bb1d85d3e902e33b3019084c6ec89079e7d46905a26a8c2bba1e01",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/C01_west.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "c7f54833ca0c5d51251bedad95a3f70c218fee6394fbeaf69fcf562c6d50b093",
+      "actual_sha256": "c7f54833ca0c5d51251bedad95a3f70c218fee6394fbeaf69fcf562c6d50b093",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/C02_front.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "7c4f237a7cf929154bf146d030ff4baf0b9263389ae110a8fe95c517405e4fce",
+      "actual_sha256": "7c4f237a7cf929154bf146d030ff4baf0b9263389ae110a8fe95c517405e4fce",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/C02_reverse.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "09628d532c939dea959fb9e4cadc4a6b72cc3805db442d8a3c8d8bfee843cdc3",
+      "actual_sha256": "09628d532c939dea959fb9e4cadc4a6b72cc3805db442d8a3c8d8bfee843cdc3",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/east_socket_closed.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "981a2177c8dd3d9f647a325c6bfe31efa0615b7d29ec6cb5b98483517ce0b767",
+      "actual_sha256": "981a2177c8dd3d9f647a325c6bfe31efa0615b7d29ec6cb5b98483517ce0b767",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/spawn_to_C01.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "9e720971e31e1144b976cb16c342a6287e45f9a194f79dcf1cef3ecebe8d3f32",
+      "actual_sha256": "9e720971e31e1144b976cb16c342a6287e45f9a194f79dcf1cef3ecebe8d3f32",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/pocket/east_wall.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "aa9d6f1bf089ee99db8c8b442ac6d27bfbdaaef9b4668ba1cf3399a29605d86c",
+      "actual_sha256": "aa9d6f1bf089ee99db8c8b442ac6d27bfbdaaef9b4668ba1cf3399a29605d86c",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/pocket/entry.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "c2b907b6e5e0ab2fbb4bd25aba1f57d2c413a484cf6b8a329daaa44ae56b20e9",
+      "actual_sha256": "c2b907b6e5e0ab2fbb4bd25aba1f57d2c413a484cf6b8a329daaa44ae56b20e9",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/pocket/far_end.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "37027dc31eeecc3bedec780873c4c763faae1c0ac65251615510d4757f27aba4",
+      "actual_sha256": "37027dc31eeecc3bedec780873c4c763faae1c0ac65251615510d4757f27aba4",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/pocket/west_socket_closed.png",
+      "category": "#160-protected-input",
+      "expected_sha256": "11275401e5548f01aadcf37b53f57e78387154cd10c0b273595370597fc7a3c8",
+      "actual_sha256": "11275401e5548f01aadcf37b53f57e78387154cd10c0b273595370597fc7a3c8",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_assembled_walkthrough.tscn",
+      "category": "#160-protected-input",
+      "expected_sha256": "deaa8f4b53456a803f15b412a670c2a1ec096bacb7978912936c1d61669098e2",
+      "actual_sha256": "deaa8f4b53456a803f15b412a670c2a1ec096bacb7978912936c1d61669098e2",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_bounded_column_room.tscn",
+      "category": "#160-protected-input",
+      "expected_sha256": "3b31049ab24536d2f9862e8f8f30398589f987409252e60ca081f02185649ccb",
+      "actual_sha256": "3b31049ab24536d2f9862e8f8f30398589f987409252e60ca081f02185649ccb",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_bounded_pocket_room.tscn",
+      "category": "#160-protected-input",
+      "expected_sha256": "23e75bb03aff06eae8d7c1ebce5b026365a0168548ecd67c81d83a08d8f42f50",
+      "actual_sha256": "23e75bb03aff06eae8d7c1ebce5b026365a0168548ecd67c81d83a08d8f42f50",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_column_connector.tscn",
+      "category": "#160-protected-input",
+      "expected_sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654",
+      "actual_sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_pocket_connector.tscn",
+      "category": "#160-protected-input",
+      "expected_sha256": "078826e5824772c05dc4bf38c340f27fbc927abacfbba7dee6ec006a0bc967d3",
+      "actual_sha256": "078826e5824772c05dc4bf38c340f27fbc927abacfbba7dee6ec006a0bc967d3",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/library_column_room.tscn",
+      "category": "#160-protected-input",
+      "expected_sha256": "957904553423659dd06676fba8ae32d7a9bc4310f1a239d6f60972f2228bb5ff",
+      "actual_sha256": "957904553423659dd06676fba8ae32d7a9bc4310f1a239d6f60972f2228bb5ff",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/library_pocket_room.tscn",
+      "category": "#160-protected-input",
+      "expected_sha256": "21d2f4091578803264eb333abd0fe314b5d725cd6faa6a1157e56715be175389",
+      "actual_sha256": "21d2f4091578803264eb333abd0fe314b5d725cd6faa6a1157e56715be175389",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/build_issue160_bounded_visual.py",
+      "category": "#160-protected-input",
+      "expected_sha256": "b23f68ff355e881d88ae8a9ffdef5545720adddd7bcca94bd4d03116a9de1fb3",
+      "actual_sha256": "b23f68ff355e881d88ae8a9ffdef5545720adddd7bcca94bd4d03116a9de1fb3",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/capture_issue160.gd",
+      "category": "#160-protected-input",
+      "expected_sha256": "53393220c20489e926d5f7f1df98eeaeb55b3a26a9e6b68c6e838b200155ef18",
+      "actual_sha256": "53393220c20489e926d5f7f1df98eeaeb55b3a26a9e6b68c6e838b200155ef18",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/hunyuan_psx_column_box.gd",
+      "category": "#160-protected-input",
+      "expected_sha256": "04142b33c1b39edd2725fbefa854c8b88561a43d45eaa06d94bafaba578be68b",
+      "actual_sha256": "04142b33c1b39edd2725fbefa854c8b88561a43d45eaa06d94bafaba578be68b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/hunyuan_psx_round3.gd",
+      "category": "#160-protected-input",
+      "expected_sha256": "ef306619ae6e57af2784092e1a55a7cee296014b2561496cf423786f7557d103",
+      "actual_sha256": "ef306619ae6e57af2784092e1a55a7cee296014b2561496cf423786f7557d103",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_assembled_walkthrough.gd",
+      "category": "#160-protected-input",
+      "expected_sha256": "61f867ad3899018a94fd20908c459932353c6a76609650f0a973c2ab456484cb",
+      "actual_sha256": "61f867ad3899018a94fd20908c459932353c6a76609650f0a973c2ab456484cb",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_bounded_column_room.gd",
+      "category": "#160-protected-input",
+      "expected_sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b",
+      "actual_sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_glb.py",
+      "category": "#160-protected-input",
+      "expected_sha256": "9e70fc2ee976628c228fee2c83df258fd9666943150935c380ab58910f6eca44",
+      "actual_sha256": "9e70fc2ee976628c228fee2c83df258fd9666943150935c380ab58910f6eca44",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_pocket_room.gd",
+      "category": "#160-protected-input",
+      "expected_sha256": "b8278f360020a6541236e8777593a47a74e54d5c15219f0eef5ece135f031722",
+      "actual_sha256": "b8278f360020a6541236e8777593a47a74e54d5c15219f0eef5ece135f031722",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_room_geometry.gd",
+      "category": "#160-protected-input",
+      "expected_sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500",
+      "actual_sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/library_column_room.gd",
+      "category": "#160-protected-input",
+      "expected_sha256": "ca48944a11e87c476fc9f8e5e4002f07b82b1952758e68ba6411eac7cdcdcba4",
+      "actual_sha256": "ca48944a11e87c476fc9f8e5e4002f07b82b1952758e68ba6411eac7cdcdcba4",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/library_pocket_room.gd",
+      "category": "#160-protected-input",
+      "expected_sha256": "3d399dd1cf7411f05b36faafa8ef5e20409afbe2241285757888cbfaabec3d8e",
+      "actual_sha256": "3d399dd1cf7411f05b36faafa8ef5e20409afbe2241285757888cbfaabec3d8e",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/run_issue160_gpu.py",
+      "category": "#160-protected-input",
+      "expected_sha256": "af80bac9b634ebef94d6d20b9d21c454fbb33ac41cbc3e244a39fda0e9122ac8",
+      "actual_sha256": "af80bac9b634ebef94d6d20b9d21c454fbb33ac41cbc3e244a39fda0e9122ac8",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/test_issue160.gd",
+      "category": "#160-protected-input",
+      "expected_sha256": "fd12e9d005c47569988716dee212c782316e1f96131c4273c845a5e18e82529c",
+      "actual_sha256": "fd12e9d005c47569988716dee212c782316e1f96131c4273c845a5e18e82529c",
+      "verified": true
+    }
+  ],
+  "catalog_dependencies": [
+    {
+      "path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "actual_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "verified": true
+    },
+    {
+      "path": "data/scenes/corridor_travel/video.mp4",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4",
+      "actual_sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "01f0d0182ddf3676d4ab85b19179fbd199ad4afce13bef3d781e98264e984376",
+      "actual_sha256": "01f0d0182ddf3676d4ab85b19179fbd199ad4afce13bef3d781e98264e984376",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/column_source_video.png",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "327f69745cc5f6c2cc3c8e600a484af7b681b9e14961955d3f661ea10f16b9bc",
+      "actual_sha256": "327f69745cc5f6c2cc3c8e600a484af7b681b9e14961955d3f661ea10f16b9bc",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "75dd78545085a49a12ef2b1268821c3aff6ccca6dcdf10620c2e3d7ee4b14bb7",
+      "actual_sha256": "75dd78545085a49a12ef2b1268821c3aff6ccca6dcdf10620c2e3d7ee4b14bb7",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "actual_sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "f1bfe1ab7aa9ffe416b68f5f24612ff6293d26e7d421c7fb95fda3c66c4210d4",
+      "actual_sha256": "f1bfe1ab7aa9ffe416b68f5f24612ff6293d26e7d421c7fb95fda3c66c4210d4",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/source_selection.json",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "d9cb2e90dd1bc16470b4dbed3c2759a7ad39ae46ada86b4c5bc68667549d5661",
+      "actual_sha256": "d9cb2e90dd1bc16470b4dbed3c2759a7ad39ae46ada86b4c5bc68667549d5661",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_collision.glb",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "0a4479f9c32cdf193d4a4196f8e6330474a7a2254426471b2725220a7b966246",
+      "actual_sha256": "0a4479f9c32cdf193d4a4196f8e6330474a7a2254426471b2725220a7b966246",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "0c2b5bb8a131b53a49a8243296121078caaec83bb14d2a2e5258ad0c6b52b28b",
+      "actual_sha256": "0c2b5bb8a131b53a49a8243296121078caaec83bb14d2a2e5258ad0c6b52b28b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5",
+      "actual_sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/REPORT.md",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "10be53fade6d67668cca24ad04676484eb652de3a2d3397066081ba280bffe5e",
+      "actual_sha256": "10be53fade6d67668cca24ad04676484eb652de3a2d3397066081ba280bffe5e",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/bounded_hunyuan_visual.glb",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898",
+      "actual_sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/mechanics/assembly/physics_candidate.json",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "ca6a9ebdb302ee7aa6d88bbd3f4aa6ba6b223a3a19d1dde4a913d3667b2e636a",
+      "actual_sha256": "ca6a9ebdb302ee7aa6d88bbd3f4aa6ba6b223a3a19d1dde4a913d3667b2e636a",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/room_readiness.json",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "427ca2556e4b71f1c7cb84579d370e2e4b410fc98f0c3385ca93856c4b9dd411",
+      "actual_sha256": "427ca2556e4b71f1c7cb84579d370e2e4b410fc98f0c3385ca93856c4b9dd411",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/visual_derivative.json",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "0d80879c9af0bd3d9c2c2b72ea22754ee50a7a004865dbff4dcd0a515510753c",
+      "actual_sha256": "0d80879c9af0bd3d9c2c2b72ea22754ee50a7a004865dbff4dcd0a515510753c",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue149_generated_walkthrough.tscn",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "b2b20cc9e9894d0459c088e150a5f826feab7b3067dd99b582bcc4feda1f6f35",
+      "actual_sha256": "b2b20cc9e9894d0459c088e150a5f826feab7b3067dd99b582bcc4feda1f6f35",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue149_pocket_pass_through.tscn",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "3ae9b0ee1fc099d7b8f074598e5486666b9c139ef33901a50c7ef9779866f8db",
+      "actual_sha256": "3ae9b0ee1fc099d7b8f074598e5486666b9c139ef33901a50c7ef9779866f8db",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue149_pocket_three_way.tscn",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "fee72ed41ca9028439aa9c62e674dc07d75a731580fd73c94e7f760ed45e8d6d",
+      "actual_sha256": "fee72ed41ca9028439aa9c62e674dc07d75a731580fd73c94e7f760ed45e8d6d",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue156_streamed_walkthrough.tscn",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "ce68752b9b84ed539f463a9ab5f585d9e136c2990e0304beaf00f6d9c63f9e2c",
+      "actual_sha256": "ce68752b9b84ed539f463a9ab5f585d9e136c2990e0304beaf00f6d9c63f9e2c",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_column_connector.tscn",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654",
+      "actual_sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_pocket_connector.tscn",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "078826e5824772c05dc4bf38c340f27fbc927abacfbba7dee6ec006a0bc967d3",
+      "actual_sha256": "078826e5824772c05dc4bf38c340f27fbc927abacfbba7dee6ec006a0bc967d3",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/player.tscn",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "2fc7064e58713029897facd54812886154f6661d8e4ba14c5f7a3d99bda5dbea",
+      "actual_sha256": "2fc7064e58713029897facd54812886154f6661d8e4ba14c5f7a3d99bda5dbea",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/generate_issue149_layout.py",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "31febae91c68dae862b6aa9f708af794694f5586823e74f612730e9a6eef20f4",
+      "actual_sha256": "31febae91c68dae862b6aa9f708af794694f5586823e74f612730e9a6eef20f4",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/hunyuan_psx_column_box.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "04142b33c1b39edd2725fbefa854c8b88561a43d45eaa06d94bafaba578be68b",
+      "actual_sha256": "04142b33c1b39edd2725fbefa854c8b88561a43d45eaa06d94bafaba578be68b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/hunyuan_psx_round1.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "e717a07e171247deb5f4af38e0cf6b364ae99a927bb419324004fb50c4b84971",
+      "actual_sha256": "e717a07e171247deb5f4af38e0cf6b364ae99a927bb419324004fb50c4b84971",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/hunyuan_psx_round3.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "ef306619ae6e57af2784092e1a55a7cee296014b2561496cf423786f7557d103",
+      "actual_sha256": "ef306619ae6e57af2784092e1a55a7cee296014b2561496cf423786f7557d103",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue149_generated_walkthrough.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "4008647293f80d3a57a47a012ca1d03b562b159ebc74720834dfa5883947c9e8",
+      "actual_sha256": "4008647293f80d3a57a47a012ca1d03b562b159ebc74720834dfa5883947c9e8",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue149_layout_core.py",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "0170c37c402018aad118894e380c681c7cdb070bb4ba9d7ba4f8908ca9e283bf",
+      "actual_sha256": "0170c37c402018aad118894e380c681c7cdb070bb4ba9d7ba4f8908ca9e283bf",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue149_pocket_topology.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "2d4ac057bd54ac3af6b4c951137d3481ce354cdc09d98461ccc011465f18a4eb",
+      "actual_sha256": "2d4ac057bd54ac3af6b4c951137d3481ce354cdc09d98461ccc011465f18a4eb",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue156_bounded_streamer.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "7bedff4140bc8a6abd2d482c5ecccc04f11ba02d2c4f4e990188f6a4df7aa608",
+      "actual_sha256": "7bedff4140bc8a6abd2d482c5ecccc04f11ba02d2c4f4e990188f6a4df7aa608",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue156_streamed_walkthrough.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "e4338cf18456dcc809719d5e43b6c118b46d591f54e6413f06a4aab8c8dcddf0",
+      "actual_sha256": "e4338cf18456dcc809719d5e43b6c118b46d591f54e6413f06a4aab8c8dcddf0",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_bounded_column_room.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b",
+      "actual_sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_pocket_room.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "b8278f360020a6541236e8777593a47a74e54d5c15219f0eef5ece135f031722",
+      "actual_sha256": "b8278f360020a6541236e8777593a47a74e54d5c15219f0eef5ece135f031722",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_room_geometry.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500",
+      "actual_sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/library_psx_preset.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87",
+      "actual_sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/player.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23",
+      "actual_sha256": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/psx/psx_post_effect.gd",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "5b06eff8e0f1fc0a5c98711633eb50d03db39db4c1e73b309433e444dd3c5795",
+      "actual_sha256": "5b06eff8e0f1fc0a5c98711633eb50d03db39db4c1e73b309433e444dd3c5795",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/psx/shaders/psx_post.glsl",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "b1a4c839f1346d64586dae4cda6175b06793d4de95cb0ada8ba57c0851e80ba5",
+      "actual_sha256": "b1a4c839f1346d64586dae4cda6175b06793d4de95cb0ada8ba57c0851e80ba5",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/shaders/library_psx_textured.gdshader",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c",
+      "actual_sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/shaders/library_psx_vertex.gdshader",
+      "category": "catalog-generation-dependency",
+      "expected_sha256": "7feecf393ff762b9dee1caaf43cc5e7e3a548371f0fb7a3c28d562c03be4176f",
+      "actual_sha256": "7feecf393ff762b9dee1caaf43cc5e7e3a548371f0fb7a3c28d562c03be4176f",
+      "verified": true
+    }
+  ],
+  "recorded_reference_assets": [
+    {
+      "path": "godot_walk/scenes/issue149_generated_walkthrough.tscn",
+      "exists": true,
+      "sha256": "b2b20cc9e9894d0459c088e150a5f826feab7b3067dd99b582bcc4feda1f6f35",
+      "category": "recorded_reference"
+    },
+    {
+      "path": "godot_walk/scripts/issue149_generated_walkthrough.gd",
+      "exists": true,
+      "sha256": "4008647293f80d3a57a47a012ca1d03b562b159ebc74720834dfa5883947c9e8",
+      "category": "recorded_reference"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-149/layout_seed_149.json",
+      "exists": true,
+      "sha256": "80bf95100493049973b767976cd555bb8b97d37bedb742960ca5793381bf34d4",
+      "category": "recorded_reference"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-149/layout_seed_149.svg",
+      "exists": true,
+      "sha256": "d32e7111ee0b35e0d2b570e2bb5794858fdb44ba209d5ff7b9934a92371ecaad",
+      "category": "recorded_reference"
+    },
+    {
+      "path": "godot_walk/scenes/issue160_assembled_walkthrough.tscn",
+      "exists": true,
+      "sha256": "deaa8f4b53456a803f15b412a670c2a1ec096bacb7978912936c1d61669098e2",
+      "category": "recorded_reference"
+    },
+    {
+      "path": "godot_walk/scripts/issue160_assembled_walkthrough.gd",
+      "exists": true,
+      "sha256": "61f867ad3899018a94fd20908c459932353c6a76609650f0a973c2ab456484cb",
+      "category": "recorded_reference"
+    },
+    {
+      "path": "godot_walk/scenes/corridor_splat.tscn",
+      "exists": true,
+      "sha256": "113a3be42c9da56dc877a1a28ff175db03fde948b4ccc1842bc3695955518386",
+      "category": "recorded_reference"
+    },
+    {
+      "path": "godot_walk/assets/corridor_splat/collision/corridor_splat.collision.glb",
+      "exists": true,
+      "sha256": "3d3111c6e1f953f7c3cc53f5bcb3094193c01c5318252e95597f9885e9146f0d",
+      "category": "recorded_reference"
+    },
+    {
+      "path": "godot_walk/assets/corridor_splat/alignment_manifest.json",
+      "exists": true,
+      "sha256": "85d5b51c8ca9df614b81a6f6dddf8c68015cca14b36e3b007c1a67f50be03598",
+      "category": "recorded_reference"
+    },
+    {
+      "path": "godot_walk/assets/corridor_splat/corridor_clean.ply",
+      "exists": true,
+      "sha256": "88a20a95dd4df4dde98203f7fb934d17db93a9cb5d98f9e8c1625d478e9d7af0",
+      "category": "recorded_reference"
+    }
+  ],
+  "reference_hash_note": "Reference asset hashes are recorded for this #156 bundle; only #160 provenance and catalog snapshot hashes have prior expected values verified here."
+}

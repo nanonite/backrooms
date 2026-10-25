@@ -1,0 +1,215 @@
+{
+  "round_id": "hunyuan-psx-r1",
+  "odiff_tool": "odiff-bin@4.5.0",
+  "scope": "Authored surface coverage changes; room bounds, collision and camera poses match.",
+  "odiff_threshold": 0.1,
+  "control_repeat_noise": [
+    {
+      "repeat": 2,
+      "views": [
+        {
+          "view_id": "patch_anchor",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "south_end",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "north_end",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "west_wall",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "east_wall",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "column_south",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "column_north",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "column_west",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "column_east",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        }
+      ],
+      "max_diff_pct": 0.0
+    },
+    {
+      "repeat": 3,
+      "views": [
+        {
+          "view_id": "patch_anchor",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "south_end",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "north_end",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "west_wall",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "east_wall",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "column_south",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "column_north",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "column_west",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        },
+        {
+          "view_id": "column_east",
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null
+        }
+      ],
+      "max_diff_pct": 0.0
+    }
+  ],
+  "per_view_noise_ceiling_pct": {
+    "patch_anchor": 0.0,
+    "south_end": 0.0,
+    "north_end": 0.0,
+    "west_wall": 0.0,
+    "east_wall": 0.0,
+    "column_south": 0.0,
+    "column_north": 0.0,
+    "column_west": 0.0,
+    "column_east": 0.0
+  },
+  "variant_pixel_deltas": [
+    {
+      "view_id": "patch_anchor",
+      "diff_pixels": 51620,
+      "diff_pct": 9.96,
+      "diff_image": "diffs/variant_delta/patch_anchor.png",
+      "control_repeat_noise_ceiling_pct": 0.0,
+      "interpretation": "measurable_pixel_change"
+    },
+    {
+      "view_id": "south_end",
+      "diff_pixels": 28575,
+      "diff_pct": 5.51,
+      "diff_image": "diffs/variant_delta/south_end.png",
+      "control_repeat_noise_ceiling_pct": 0.0,
+      "interpretation": "measurable_pixel_change"
+    },
+    {
+      "view_id": "north_end",
+      "diff_pixels": 106681,
+      "diff_pct": 20.58,
+      "diff_image": "diffs/variant_delta/north_end.png",
+      "control_repeat_noise_ceiling_pct": 0.0,
+      "interpretation": "measurable_pixel_change"
+    },
+    {
+      "view_id": "west_wall",
+      "diff_pixels": 81471,
+      "diff_pct": 15.72,
+      "diff_image": "diffs/variant_delta/west_wall.png",
+      "control_repeat_noise_ceiling_pct": 0.0,
+      "interpretation": "measurable_pixel_change"
+    },
+    {
+      "view_id": "east_wall",
+      "diff_pixels": 52656,
+      "diff_pct": 10.16,
+      "diff_image": "diffs/variant_delta/east_wall.png",
+      "control_repeat_noise_ceiling_pct": 0.0,
+      "interpretation": "measurable_pixel_change"
+    },
+    {
+      "view_id": "column_south",
+      "diff_pixels": 916,
+      "diff_pct": 0.18,
+      "diff_image": "diffs/variant_delta/column_south.png",
+      "control_repeat_noise_ceiling_pct": 0.0,
+      "interpretation": "measurable_pixel_change"
+    },
+    {
+      "view_id": "column_north",
+      "diff_pixels": 167069,
+      "diff_pct": 32.23,
+      "diff_image": "diffs/variant_delta/column_north.png",
+      "control_repeat_noise_ceiling_pct": 0.0,
+      "interpretation": "measurable_pixel_change"
+    },
+    {
+      "view_id": "column_west",
+      "diff_pixels": 172290,
+      "diff_pct": 33.23,
+      "diff_image": "diffs/variant_delta/column_west.png",
+      "control_repeat_noise_ceiling_pct": 0.0,
+      "interpretation": "measurable_pixel_change"
+    },
+    {
+      "view_id": "column_east",
+      "diff_pixels": 128422,
+      "diff_pct": 24.77,
+      "diff_image": "diffs/variant_delta/column_east.png",
+      "control_repeat_noise_ceiling_pct": 0.0,
+      "interpretation": "measurable_pixel_change"
+    }
+  ],
+  "interpretation": "ODiff is a visual-difference diagnostic, not an art-direction score.",
+  "rule": "A variant delta at or below its matched control-repeat noise ceiling is inconclusive."
+}

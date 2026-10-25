@@ -1,0 +1,39 @@
+{
+  "label": "issue157-floor-candidate-final",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--disable-vsync",
+    "--script",
+    "res://scripts/capture_issue157_floor_candidate.gd"
+  ],
+  "timeout_seconds": 180,
+  "timed_out": false,
+  "return_code": 0,
+  "error": null,
+  "elapsed_seconds": 5.471,
+  "finished_utc": "2026-10-23T16:42:45.693107+00:00",
+  "preflight": {
+    "free_vram_bytes": 10634657792,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 24,
+    "compute_apps": [],
+    "ram_available_bytes": 36167749632,
+    "vram_after_headroom_bytes": 8507726233,
+    "ram_after_headroom_bytes": 27125812224,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 2429358080,
+    "gpu_memory_start_bytes": 1810890752,
+    "peak_gpu_memory_used_bytes": 2376073216,
+    "peak_gpu_memory_delta_bytes": 565182464,
+    "gpu_sample_period_ms": 500
+  }
+}

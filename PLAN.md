@@ -1,10 +1,10 @@
 # Video -> Walkable Backrooms
 
-**Long-term target:** a first-person Bevy 0.18 Backrooms simulator assembled from a library of individually tested rooms. Source video informs each room's visual content and layout; collision remains explicit, validated geometry. A deterministic 2D room graph can later generate maze-like runs from approved modules.
+**Long-term target:** a first-person Godot Backrooms simulator assembled from a growing library of individually tested, PSX-ready rooms. Source videos inform visual content and layout; collision remains explicit, validated geometry. A seeded room graph and later bounded streaming extend the walk while preserving backtracking.
 
 ## Current Execution Context
 
-The workspace contains both the established Godot prototype/pipeline and the Bevy 0.18 crate in `splat_walk/`. Keep `data/scenes/corridor_travel/` and the #100 scene as protected reference inputs. Current Chainlink #104 is **Capture and reconstruct a fully covered synthetic Backrooms walkthrough**, not the former BE-4 alignment task. Do not reuse the old issue-number mapping.
+Operator direction on 2026-10-21 selects **Godot as the active runtime**. The Bevy implementation and its historical validation remain preserved but deferred. Earlier Bevy-specific milestones and issue descriptions below are historical context, not instructions to switch engines. First complete and approve PSX treatment on two independent Godot rooms, then validate their connection before seeded generation. Keep `data/scenes/corridor_travel/` and the #100 scene protected. Current Chainlink #104 is **Capture and reconstruct a fully covered synthetic Backrooms walkthrough**, not the former BE-4 alignment task.
 
 ## Working Milestone: Video To Walkable
 
@@ -30,14 +30,23 @@ Track A (#144) owns room inventory, module contracts, standalone Bevy validation
 | #101 | Verify the synthetic Backrooms PoC as a PSX-scale walking simulator | Open; #116 now carries the room-library and design-iteration direction |
 | #116 | Backrooms room library, design iteration, and layout generation | Open umbrella; starts from `milestone/video-to-walkable-working` |
 | #111 | Audit committed Backrooms artifacts for unnecessary binaries | Open; inventory and reference-check before any cleanup; user design work is out of scope |
-| #117 | Track B: establish the PSX design-iteration harness | Open; parallel to Track A, not a gate |
-| #121 | Run the first Gaussian-backed design iteration rounds | Open; operator-reviewed feedback loop under #117 |
+| #117 | Track B: establish the Hunyuan-to-PSX room-completion workflow | Open; Godot is the active walkable room runtime |
+| #121 | Continue Gaussian-backed PSX design iterations as a reference | Open; preserves the #100/#115 feedback history, not a Hunyuan prerequisite |
+| #151 | Build the Hunyuan-to-PSX room-completion workflow | Active under #117; confirmed rounds 1–2 are indexed with gates, decisions, and directives; feedback IDs validate against each manifest and confirmed submissions are append-only |
+| #153 | Assess PSX Retro Tools against the native Godot workflow | Assessment complete; current Godot materials and compositor cover demonstrated needs; no code port or new plugin justified |
+| #154 | Build a focused PSX rendering plugin for the Bevy walkthrough | Deferred; revisit only if the Godot workflow demonstrates a missing render effect |
+| #163 | Build another PSX-ready room from a distinct source video | Operator accepted the authored source-textured Godot room as a baseline; Hunyuan stopped before panorama output, and the room remains uncalibrated and outside the module catalog |
+| #152 | Evaluate SkillOpt for the PSX workflow skill | Deferred under #117 until enough operator-confirmed examples exist for evaluation |
+| #157 | Establish a shared Backrooms material and transition language across modules | Active under #144; 4× pocket floor retained; operator rejected the ceiling bridge and it remains off; wall materials already share texture and 4× UV scale, so next repair must target geometry/coverage |
+| #161 | Compare affine texture mapping profiles for the Godot PSX rooms | Operator selected affine-off after live review; project default updated and default render matches the accepted capture |
+| #156 | Stream connected Backrooms modules for effectively endless walking | Closed at the operator-accepted finite bounded-streaming milestone; general expansion deferred to #162 |
+| #162 | Scale seeded room streaming after the approved room library and workflow mature | Deferred low priority under #144; blocked by #151, #155, and #149 until workflow and room catalog are ready |
 | #144 | Track A: build a verified room catalog and modular Bevy scenes | Open; children #145-#149; #150 is a follow-up under #147 |
 | #145 | Inventory #100 source footage and propose a room plan | Closed after operator approval as inventory only; room count, connectivity, and scale remain unknown |
 | #146 | Define the validated Bevy room-module contract | Complete; versioned catalog, file/hash/connector/calibration validator, and tagged walkthrough reference entry |
 | #147 | Build and validate the first additional room module | Closed as the accepted iteration baseline; remains uncalibrated |
 | #150 | Accept the later-bay walkthrough as a playable design baseline | Closed after operator acceptance; core perspective accepted, authored shell is intentionally approximate, column far side remains non-blocking art polish; not yet catalog-admitted |
-| #148 | Stitch verified room modules through tested connectors | Ready next; catalog #150 as an uncalibrated standalone candidate and test an explicitly authored connector; source connectivity remains unknown |
+| #148 | Stitch verified room modules through tested connectors | Active; #150 admitted and both candidates pass standalone checks, but their shared later-bay convention overlaps and #145 leaves connectivity unknown; connector withheld pending operator direction |
 | #149 | Generate seeded 2D Backrooms layouts from verified modules | Open; blocked by #148 |
 | #103 | Measure standard cleanup of the existing splat | Open for operator review; candidate report recommends new coverage |
 | #104 | Capture and reconstruct a fully covered synthetic Backrooms walkthrough | Candidate trained; alignment found incomplete geometry coverage; keep open |
@@ -64,9 +73,15 @@ The first separate authored control is `godot_walk/scenes/corridor_psx_patch_ext
 
 Issue #114 follows only after #113 establishes a reproducible manual patch-to-room loop. Run a controlled initial batch of synthetic clips from the same Backrooms visual target, vary capture-motion/coverage factors systematically, and train only candidates that pass cheap capture and pose gates. Measure whether each clip yields a compact, visually reliable Gaussian patch and how much manual PSX extension work it needs. Use the findings to define a minimum-good-splat-patch capture recipe before scaling to larger video batches.
 
-The proposal in `PLAN_IMAGE_TO_PANORAMA_DESIGN_HARNESS.md` is decomposed under #116. Start with Track B, #117, and its design brief, deterministic capture, and first human-directed iteration tasks (#119-#121); #118 research is advisory. Treat replay as measured repeatability, not guaranteed determinism; use visual metrics as diagnostics, not provenance or unvalidated pass/fail gates. Track A, #122-#126, is blocked until #121 demonstrates a useful loop. Hunyuan input must be a registered raw frame from the #100 source video, never a Gaussian render; this does not change #104's reconstruction criteria or replace the #115 baseline.
+The proposal in `PLAN_IMAGE_TO_PANORAMA_DESIGN_HARNESS.md` is decomposed under #116. Hunyuan evaluation #122-#126 is complete using a registered frame directly from the #100 source video; it produced useful but uncalibrated visual output. Track B #117 now focuses on completing Hunyuan candidates as PSX-style walkable rooms. The accepted Bevy walkthrough is a gameplay-feel reference, not a geometry authority. Keep #121's Gaussian-backed rounds as separate, useful design history; they are not an input to Hunyuan or a prerequisite for #151. Treat replay as measured repeatability, not guaranteed determinism; use visual metrics as diagnostics, not provenance or unvalidated pass/fail gates. #151 must log provenance, authored changes, mechanical/render evidence, and operator decisions in structured round records. Defer SkillOpt to #152 until there are at least five operator-confirmed rounds and 30 labeled decision items, split by round; if the evidence is insufficient, continue collecting it. Every Hunyuan candidate must start from a direct frame of its original source video, never a Gaussian or rendered image; record the source and keep registration/scale claims separate. This does not change #104's reconstruction criteria or replace the protected #115 baseline.
 
-Track B #121 remains active after #120. Round 1 selected the frame-aligned
+### Track B Authoring Path (Updated 2026-10-24)
+
+The live deliverable is PSX-ready Godot room modules. The accepted four-sided column remains the first room's visual repair; the surrounding room still needs its PSX readiness review. Blender PSX Retro Tools by Fawkek is optional offline asset preparation, not a Godot runtime dependency. Its installed license permits game assets but prohibits copying or adapting its code. Use the public feature descriptions only to assess a Godot-native separation of geometry/texture preparation, per-material filtering, and the existing pixelation/color-quantization/dither compositor. Do not enable vertex wobble or snapping without a demonstrated visual need and a separate operator-reviewed candidate.
+
+The #153 assessment is complete: the existing Godot-native material settings and PSX compositor cover the demonstrated needs, so no Blender code port or new plugin is justified. Blender remains optional offline asset preparation. The operator accepts the two-room assembly as enough to exercise the workflow and directed the next experiment toward another room from a distinct source video. Issue #163 uses `data/videos/room_large.mp4`, with a seed frame decoded directly from that video. The operator accepted the authored, source-textured Godot room as a baseline. Panogen stopped at the GPU guard before producing a panorama; no Hunyuan or SceneGen visual was loaded. Authored geometry and collision remain separately identified. Keep calibration and registration false. Defer #154 unless a specific rendering gap appears, and keep SkillOpt #152 deferred until confirmed workflow examples support a meaningful evaluation set. The next active workflow task is #151.
+
+Track B #121 preserves the Gaussian-backed design loop as a reference. Round 1 selected the frame-aligned
 `door_flush` hatch. Round 2 found the `north_wall_smooth` wall shape promising,
 but it lost the Backrooms wallpaper; the lowered ceiling did not resolve its
 splat artifacts. Round 3 sampled wallpaper from registered frame 1 of the
@@ -87,8 +102,10 @@ support and zero SafetyNet contacts; floor and boundary negative controls fail
 as expected. Capped performance is 60.00 FPS (p95 16.85 ms, p99 16.94 ms),
 protected inputs are unchanged, and control repeat noise is at most 0.07%.
 ODiff changes are diagnostics, not a quality score. Review at
-`godot_walk/evidence/2026-10-14-psx-design-round-4-final/index.html`; keep #121
-open and #122 deferred until the operator reviews the new candidate. An earlier
+`godot_walk/evidence/2026-10-14-psx-design-round-4-final/index.html`; #121
+remains open for Gaussian-specific follow-up. This round was created while
+#122 was deferred; Hunyuan evaluation #122-#126 has since completed, with #151
+now responsible for room completion from the Hunyuan visual input. An earlier
 round-3 source check used the separate #107 video and is marked superseded in
 its evidence directory.
 
@@ -105,8 +122,9 @@ Round 5 passes the 13.067 m route with 100% floor support, zero SafetyNet
 contacts, expected boundary/floor negative-control failures, and capped 60 FPS.
 The corrected column cover reads as one column in the far-room comparison. The
 lower-ceiling variant still has visible Gaussian/bright artifacts and stronger
-trim, so it is not selected as a fix. Keep #121 open for the operator to review
-matched views and the live walk before choosing a next wall/ceiling iteration.
+trim, so it is not selected as a fix. Keep #121's matched views and live walk
+as operator-reviewed Gaussian design evidence; the next implementation loop is
+the Hunyuan-to-PSX workflow in #151.
 
 ### #115 Implementation Workflow
 

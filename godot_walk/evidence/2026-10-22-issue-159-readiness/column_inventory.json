@@ -1,0 +1,75 @@
+[
+  {
+    "id": "C01",
+    "classification": "inside proposed/current module; accepted authored visual box",
+    "visual_xz": [
+      0.06,
+      0.78,
+      0.3,
+      1.8
+    ],
+    "confidence": "high for authored bounds",
+    "collision_xz": [
+      -1.3768562,
+      0.4819264,
+      -0.8615601,
+      1.5085216
+    ],
+    "action": "Preserve accepted visual; independently align collision in a later approved change"
+  },
+  {
+    "id": "C02",
+    "classification": "inside current capsule-clear area and proposed module",
+    "source_surface": {
+      "selection_xz": [
+        -1.6,
+        0.1,
+        3.8,
+        5.4
+      ],
+      "selected_samples": 104,
+      "sample_extents_xz": [
+        -1.0,
+        -0.425000011920929,
+        4.02500009536743,
+        4.82499980926514
+      ],
+      "meaning": "Selected partial midheight surface samples, not a recovered complete solid"
+    },
+    "confidence": "high for visible partial upright and open side; unknown original complete shape",
+    "views": [
+      "V05_west",
+      "V09_C02_front",
+      "V10_C02_reverse"
+    ],
+    "collision": "No dedicated collider; capsule at estimated upright center is clear",
+    "action": "Repair all reachable exposed faces and add independently tested collision later"
+  },
+  {
+    "id": "C03",
+    "classification": "outside current east collision perimeter; visible background",
+    "source_surface": {
+      "selection_xz": [
+        4.45,
+        5.9,
+        4.0,
+        5.5
+      ],
+      "selected_samples": 78,
+      "sample_extents_xz": [
+        4.47499990463257,
+        5.55000019073486,
+        4.44999980926514,
+        5.07499980926514
+      ],
+      "meaning": "Selected partial midheight surface samples, not a recovered complete solid"
+    },
+    "confidence": "moderate for column-like upright; complete base/solid/source semantics uncertain",
+    "views": [
+      "V05_west",
+      "V09_C02_front"
+    ],
+    "collision": "No floor support at estimated center (5,4.7); beyond invisible east boundary",
+    "action": "Explicitly occlude/exclude from bounded playable module; repair if still visible"
+  }
+]

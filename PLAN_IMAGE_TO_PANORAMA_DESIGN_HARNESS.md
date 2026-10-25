@@ -1,46 +1,57 @@
-# Image-to-Panorama and Walkable Design Harness
+# Hunyuan-to-PSX Room Completion and Walkable Design Harness
 
-**Status:** decomposed under Chainlink epic #116. Track B is the active first
-track; Track A is deferred and blocked until the first Track B iteration round
-is useful.
+**Status:** Hunyuan evaluation #122-#126 is complete. Track B #117 now owns the
+Hunyuan-to-PSX room-completion workflow; #151 is its next implementation task.
+Gaussian-backed rounds in #121 remain useful precedent, not a prerequisite.
+SkillOpt is deferred to #152 until operator-confirmed workflow evidence exists.
 
 ## Goal
 
-Test whether a direct frame from the video that produced the current #100
-Gaussian splat can seed a HunyuanWorld panorama and layered-mesh candidate,
-import into Godot, and serve as an alternate visual source for the PSX
-walkable-simulator workflow. In parallel, make room-design iteration
-repeatable so variants can be compared and revised from operator feedback
-until one is accepted.
+Use the completed Hunyuan panorama/layered-mesh outputs, generated from a direct
+registered frame of the original #100 source video, as a visual candidate for
+manual PSX room completion. Preserve useful Hunyuan areas, author the missing
+PSX-style geometry and materials, add explicit collision where needed, and
+produce bounded walkable variants with matched evidence for operator review.
+The goal is a plausible, enjoyable simulator, not metric recovery of unseen
+geometry. The operator remains the design decision-maker.
 
 HunyuanWorld 1.0 gets an extracted source-video frame, never a rendered Gaussian
-screenshot or the Gaussian `.ply`. It documents image-to-panorama followed by
-panorama-to-layered-mesh export. This is a generated scene candidate, not a
-conversion of Gaussian embeddings and not recovered geometry. The design
-harness starts with the existing Gaussian walkthrough as its baseline; both
-source types can later use the same review loop.
+screenshot or the Gaussian `.ply`. The completed Hunyuan output is a generated
+visual candidate, not a conversion of Gaussian embeddings and not recovered or
+registered geometry. The accepted Bevy walkthrough from #150 is a
+gameplay-feel reference; the Gaussian-backed #100/#115 scene remains a
+protected, separate reference track.
 
 ## Protected Baseline
 
-- Use the current `corridor_psx_room_v2.tscn` walkthrough as the starting
-  experience and keep the #100 splat, `corridor_psx.tscn`, and #115 control
-  unchanged.
+- Use the imported Hunyuan candidate from completed #125 as the visual input
+  for PSX completion. Use the accepted #150 Bevy walkthrough as a gameplay-feel
+  reference, not as a geometry or scale authority.
+- Keep the #100 splat, `corridor_psx.tscn`, #115 control, Hunyuan source outputs,
+  and accepted #150 scene unchanged. Make new candidate scenes and evidence.
 - Use `data/scenes/corridor_travel/video.mp4` as the Hunyuan image source. The
   #100 alignment manifest names this video as the source for the walked splat;
   it is 1920x1080, 24 fps, 8 seconds, SHA-256
   `ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4` in the
   current checkout. Do not substitute the separate #107/#104 video at
   `data/scenes/backrooms_coverage_v1/video.mp4`.
-- Keep the Gaussian walkthrough as the design-harness baseline, not as
-  Hunyuan input. Record its scene commit and capture settings when generating
-  variant comparisons.
+- Keep the source video and Hunyuan output provenance attached to every
+  candidate. Do not use a Gaussian render or PLY as Hunyuan input.
 - Keep downloaded model weights and bulky generated outputs outside tracked
   source. Commit only scripts/configuration/reports that are intentionally
   adopted. Do not overwrite production assets or current evidence.
 
 ## Parallel Tracks
 
-### Track A: HunyuanWorld Image-to-Panorama to Godot
+### Completed Hunyuan Evaluation: Image-to-Panorama to Godot
+
+The feasibility, direct source-frame selection, panorama generation, layered
+mesh import, and visual/parallax/walkability evaluation in #122-#126 are
+complete. The resulting Hunyuan candidate is useful visual input, but its
+transform and scale are not accepted as calibrated. The #150 Bevy walkthrough
+uses Hunyuan visuals with separately authored collision. The detailed A0-A6
+steps below document the experiment and its provenance; they are not a gate
+for #151 and do not imply that generated mesh geometry is registered.
 
 **A0. Feasibility gate**
 
@@ -145,74 +156,81 @@ source types can later use the same review loop.
    harness; (b) geometry supports a safe walkable route. Passing (a) does not
    imply (b).
 
-### Track B: PSX Design-Iteration Harness
+### Track B: Hunyuan-to-PSX Room Completion
 
-This track starts immediately on the current Gaussian-splat walkthrough. The
-Hunyuan panorama or imported GLB becomes another selectable source only after
-Track A produces it.
+This is the next design task (#151). Use the imported Hunyuan candidate from
+#125 as visual input; use the accepted #150 Bevy walkthrough only as a
+gameplay-feel reference. Do not restart Hunyuan generation unless a later
+round explicitly needs another candidate. Do not use the Gaussian-backed
+#100/#115 scene as Hunyuan input or mutate it.
 
-**B0. Write the first-pass design brief**
+**B0. Define the room-completion brief**
 
-Use the operator's current review as the initial brief: walking is smooth and
-must stay that way; the room should feel intentionally composed and extendable;
-doors and landmarks should feel integrated rather than arbitrary; splat
-artifacts may remain when they read as intentional PSX texture, but obvious
-broken faces and raw joins need a considered treatment. Keep this brief
-editable and refine it from the operator's selections, not from an invented
-numeric aesthetic score.
+Preserve the useful Hunyuan visual areas and deliberately replace, cover, or
+extend weak areas with authored PSX geometry and sampled/created PSX materials.
+Give explicit collision only to authored, validated walkable surfaces and
+boundaries; Hunyuan visual meshes remain non-colliding by default. Treat the
+work as intentional room design, not reconstruction of unseen geometry. Keep
+the walkthrough smooth, avoid arbitrary doors/duplicate landmarks, and use
+operator feedback to refine the brief. Do not invent a numeric aesthetic score.
 
-**B1. Make variants addressable**
+**B1. Make edits and variants addressable**
 
-1. Keep the current room scene as a read-only baseline. Move only the design
-   knobs needed for experiments out of hardcoded construction code into a
-   small versioned room specification loaded by a separate candidate scene.
-2. Begin with a bounded schema for source type, room/transition layout,
-   doorway policy, column-face treatment, splat-to-authored junction treatment,
-   PSX material IDs, and collision extents. Every candidate gets a unique ID,
-   parent baseline, seed (where relevant), and change summary.
-3. Generate three intentionally different candidates per review round, each
-   expressing a clear hypothesis. Change one major design idea at a time so
-   operator feedback identifies what helped. Do not mutate the production
-   scene or generate unbounded random rooms.
+1. Keep the Hunyuan source assets and accepted walkthrough read-only. Create
+   separate candidate scenes/specifications with stable IDs, parent IDs, and
+   concise change summaries.
+2. For each visible region, record a deliberate `preserve`, `cover`, or
+   `replace` action and its rationale. Record which content is video-observed,
+   Hunyuan-generated, authored, or inferred. Mark unknown areas as unknown.
+3. Describe authored geometry, material IDs/texture sources, collision extents,
+   and Hunyuan-to-authored junction treatments in a versioned room spec. Keep
+   each round bounded and change one main design hypothesis at a time.
+4. Produce walkable candidates with explicit collision and stable route/camera
+   bookmarks. Do not silently use generated mesh topology as a floor or claim
+   that its uncalibrated scale/transform is registered.
 
-**B2. Make comparison repeatable**
+**B2. Validate and make a review bundle**
 
-1. Reuse the existing Godot capture and walk-verification scripts. Standardize
-   viewport, 75-degree FOV, camera eye positions, headings, settle frames, and
-   route. Capture the patch anchor, transition, column, and far-room views,
-   plus the same deterministic walkthrough for every variant.
-2. Run the `odiff` CLI on matching same-size screenshots. Save its diff image
-   and per-view changed-pixel count/percentage alongside a contact sheet.
-   First confirm repeat captures of the baseline are stable; if not, identify
-   renderer/splat noise before setting any comparison thresholds.
-3. Use ODiff to locate visual changes and catch accidental regressions, not to
-   grade room quality, infer surface ownership, or automatically choose a
-   winner. Its pixel comparison cannot decide whether a door feels motivated
-   or a route feels like a place worth exploring.
-4. Run mechanical checks before review: route support, boundary containment,
-   floor/boundary negative controls, black/floater metrics, and capped/uncapped
-   frame timing. Keep subjective judgments in a short review record.
+1. Reuse the existing Godot capture and walk-verification scripts where they
+   apply. Keep camera poses, viewport, FOV, route, and settle settings matched
+   across variants; record observed replay drift rather than assuming physics
+   determinism.
+2. Run route/floor/boundary checks, expected negative controls, and same-device
+   performance measurements before visual review. Report ODiff and other image
+   metrics with the measured repeat-noise floor; they are diagnostics, not
+   provenance or quality scores.
+3. Bundle runnable commands, matched captures, contact sheets, ODiff diffs and
+   per-view metrics, mechanical reports, and an operator feedback form. The
+   operator may choose a candidate, reject all, or request a new direction.
 
-**B3. Human-in-the-loop iteration**
+**B3. Log the loop for future SkillOpt evaluation**
 
-1. Present the three candidates as matched contact sheets plus a runnable
-   scene/command. Ask the operator to select, rank, or reject them and record
-   specific notes such as "keep this transition," "remove the service door,"
-   or "carry the column treatment forward."
-2. Use those notes to create the next small batch, inheriting only selected
-   traits. After each round, keep the best candidate as the new review parent;
-   retain rejected variants and their evidence for comparison.
-3. Run design-iteration rounds against the current Gaussian-backed walkable
-   scene first. Once Track A passes its scene-import gate, add the generated
-   Hunyuan scene as an alternate source and rerun the same camera bank, route,
-   report, and review questions. This isolates source quality from design
-   quality; the Gaussian scene is never fed to the panorama model.
-4. Converge only when the operator explicitly approves a candidate and its
-   walkability/performance checks pass. The harness organizes the search; it
-   does not pretend a scalar image score captures the operator's idea of a
-   walkable simulator.
+1. Each round writes a schema-validated manifest and operator feedback record
+   with stable round/variant/parent IDs; original source-video frame and Hunyuan
+   asset hashes; model/tool/config/seed provenance; region decisions and
+   rationale; authored geometry/material/collision changes; exact commands and
+   capture settings; mechanical results; image metrics and evidence paths; and
+   the operator's choices, reasons, unresolved problems, confidence, and
+   next-round directives.
+2. Preserve accepted round records append-only. Correct errors with a dated
+   addendum or superseding record, not silent edits. Attribute every claim to
+   operator text, direct observation, generated output, authored proposal, or
+   inference so later evaluation can separate evidence from interpretation.
+   Append each confirmed round to `godot_walk/design_rounds/hunyuan_track_record.jsonl`
+   with variant hypotheses and authored changes, per-view ODiff measurement
+   snapshots, mechanical evidence, operator choices, and stable directive IDs.
+   Exclude pending and diagnostic-only candidates.
+3. Complete an initial Hunyuan-to-PSX round and one follow-up directed by
+   operator feedback. The workflow skill organizes the work and summarizes
+   evidence; it never selects or promotes a design. No SkillOpt run is part of
+   #151. The first two confirmed Hunyuan rounds are indexed; the Round 3
+   placement diagnostic remains excluded because it has no confirmed feedback.
+4. Consider SkillOpt only under #152 after at least five operator-confirmed
+   rounds and 30 labeled decision items exist. Split data by round, hold out the
+   latest confirmed round, and keep gathering examples if the data are weak.
+   SkillOpt may improve the workflow skill, not make visual design decisions.
 
-## Shared Acceptance Gates
+## Original Hunyuan Evaluation Gates
 
 - **Input integrity:** original source-video path/hash, extracted frame index,
   timestamp/hash, registered camera pose, model/tool revisions, prompts/seeds,
@@ -232,23 +250,48 @@ numeric aesthetic score.
   lower coverage if a source cannot support it.
 - **Runtime:** report same-device capped and uncapped frame timing against the
   current v2 measurements.
-- **Design convergence:** operator approves the final variant after reviewing
-  repeatable views and a live walk. Human review remains the visual acceptance
-  gate; ODiff metrics are diagnostic evidence only.
+- **Design convergence:** for the later room-completion work, operator
+  approval follows review of repeatable views and a live walk. Human review
+  remains the visual acceptance gate; ODiff metrics are diagnostic evidence
+  only.
+
+## Room-Completion and Trace Gates
+
+- Preserve the imported Hunyuan assets and source provenance; keep the
+  Gaussian #100/#115 inputs unchanged and distinct from Hunyuan input.
+- Label source-observed, Hunyuan-generated, authored, inferred, and unknown
+  content separately. Do not turn a visually plausible generated extension
+  into a claim about source-video architecture, registration, or scale.
+- Every candidate has authored, validated collision for its walkable route and
+  explicit boundaries. Run route/floor/boundary checks and negative controls
+  before operator review; record performance on the same device.
+- Every round includes matched views, contact sheets, commands, metrics with
+  noise-floor context, and a schema-valid structured trace of variant changes
+  and operator feedback. Keep records append-only and reproducible.
+- The operator decides whether a design is useful. The workflow can organize
+  evidence and propose the next bounded experiment, but cannot select or
+  promote a winner.
+- Do not evaluate SkillOpt until #152's confirmed-round and labeled-item
+  readiness gates are met, the round-level holdout is defined, and the
+  operator approves the backend and budget.
 
 ## Research Prompt
 
 Use this prompt for the advisory research task in Chainlink #118:
 
-> Research practical techniques that complement a human-directed PSX room
-> design-iteration harness for a walkable Godot 4.6 Backrooms simulator. The
-> baseline is the current Gaussian-backed `corridor_psx_room_v2.tscn`, with
-> manually authored PSX room extensions. The goal is a smooth, intentional,
-> coherent, extensible walkable place. The proposed loop uses addressable room
+> Research practical techniques that complement a human-directed Hunyuan-to-PSX
+> room-completion workflow for a walkable Godot 4.6 Backrooms simulator. The
+> visual input is the existing Hunyuan candidate generated from a direct frame
+> of the #100 source video; the accepted Bevy walkthrough is a gameplay-feel
+> reference. The work preserves useful generated areas and manually authors
+> PSX geometry, materials, and collision to complete a plausible room. The goal
+> is a smooth, intentional, coherent, extensible walkable place. The proposed
+> loop uses addressable room
 > variants, deterministic route/camera captures, mechanical walkability and
 > performance checks, ODiff for same-pose pixel-change diagnostics, and
-> operator selection plus specific feedback. Track B starts from the Gaussian
-> walkthrough; do not feed a Gaussian render or PLY to HunyuanWorld.
+> operator selection plus specific feedback. Do not feed a Gaussian render or
+> PLY to HunyuanWorld. The workflow skill organizes evidence and next steps;
+> the operator chooses the design.
 >
 > Find 3-5 concrete, locally usable approaches that can complement this loop:
 > deterministic state capture/replay and camera bookmarks; bounded or
@@ -315,44 +358,49 @@ pilot into hard acceptance criteria:
   and a community-license review. Resolve this before spending time on setup.
 - The released scene-generation examples default to outdoor classes. If
   indoor panorama completion works but indoor layered-mesh reconstruction
-  does not, retain the panorama as an optional appearance reference and
-  continue the PSX geometry workflow around the Gaussian patch.
+  does not, retain the panorama as an appearance reference and continue with
+  manually authored PSX geometry and explicit collision. The Gaussian-backed
+  #100/#115 work remains a separate reference track.
 - Single-view generated geometry can look plausible while failing under
   translation. Do not equate a successful 360 panorama or GLB import with a
   navigable space.
-- If no useful mesh survives import/parallax checks, close the Hunyuan branch
-  with its evidence and keep the Gaussian-backed harness as the main path.
+- If no useful mesh survives import/parallax checks, keep the Hunyuan panorama
+  or source view as a visual reference and author the walkable room explicitly.
+  Do not promote the Gaussian-backed harness to the Hunyuan workflow by default.
 
 ## Chainlink Breakdown
 
-- **#116, umbrella epic:** PSX design harness and source-video panorama
-  experiment, under #101. Keep this distinct from #104 reconstruction
-  acceptance and #115's existing room-v2 review.
-- **#117, Track B epic (first):** establish the PSX design-iteration harness
-  around the current Gaussian-backed walkthrough.
+- **#116, umbrella epic:** room library and human-directed design workflow,
+  under #101. Keep it distinct from #104 reconstruction acceptance, #115's
+  existing Gaussian room, and Track A module stitching.
+- **#117, Track B epic:** complete the Hunyuan visual candidate as a PSX-style,
+  operator-reviewed walkable room. Log each design round for future workflow
+  skill evaluation.
 - **#118:** research complementary techniques. Advisory and non-blocking for
   the first implementation pass.
 - **#119:** define the design brief and addressable room variants.
 - **#120:** build deterministic capture and ODiff review bundles; blocked by
   #119.
-- **#121 (in progress):** run Gaussian-backed design-iteration rounds after
-  #120. Round 1 operator review selected the frame-aligned hatch and identified
-  the right-hand wall and ceiling artifacts as remaining issues. Round 2
-  carries the selected hatch forward and compares a smooth north-wall treatment
-  with a lowered PSX ceiling grid around the same splat, route, and collision.
-  Round 3 carries forward the smooth wall shape and compares its flat finish
-  with a source-video wallpaper crop from the registered #100 input. Review
-  mechanically passing candidates with the operator; continue from selected
-  traits or reject all until a useful candidate is explicitly approved.
-- **#122, Track A epic (deferred):** evaluate HunyuanWorld from the direct
-  #100 source-video frame and import the result into Godot; blocked by #121.
-- **#123:** preflight Hunyuan and select a registered source-video frame;
-  blocked by #121.
-- **#124:** generate and inspect panorama candidates; blocked by #123.
-- **#125:** convert layered meshes and import a separate Godot candidate;
-  blocked by #124.
-- **#126:** evaluate alignment, parallax, and walkability in the harness;
-  blocked by #125 and #121.
+- **#121 (open, reference track):** preserve and continue the Gaussian-backed
+  design rounds around the protected #100/#115 scene. The operator selected
+  door, wall-texture, floor, ceiling, and column treatments across rounds 1-5.
+  These rounds establish useful review patterns but are not Hunyuan inputs or a
+  gate for #151.
+- **#122, Hunyuan evaluation epic (closed):** direct registered #100 source
+  frame through panorama generation, mesh import, and walkability review.
+  Hunyuan output is useful visual input, not calibrated geometry.
+- **#123-#126 (closed):** preflight/source selection, panorama review, layered
+  mesh conversion/import, and alignment/parallax/walkability evaluation.
+- **#151 (active, high):** implement the Hunyuan-to-PSX workflow, author
+  bounded walkable variants and matched review bundles, and log each round in
+  a schema-valid, append-only record. Initial and feedback-directed rounds are
+  recorded; operator review remains pending. No SkillOpt run or automatic
+  winner selection.
+- **#152 (planned, blocked by #151):** evaluate SkillOpt on the workflow skill
+  only after at least five operator-confirmed rounds and 30 labeled decision
+  items exist, split by round with the latest round held out. Require operator
+  approval for model/backend and budget; keep the operator as visual decision
+  maker.
 
 ### #121 Round 1 Results (2026-10-13)
 
@@ -410,16 +458,19 @@ unchanged. Control-repeat noise is at most 0.11%. ODiff reports 1.623% mean
 change for the source-textured wall and 3.238% for the flat wall relative to
 `door_flush`; these values locate changed pixels and do not rank visual quality.
 Await operator judgment on wallpaper scale, color, and whether it restores the
-Backrooms identity. #121 stays open; #122 remains deferred.
+Backrooms identity. #121 stays open for Gaussian-specific follow-up. At that
+time #122 was deferred; Hunyuan evaluation #122-#126 was later completed, and
+#151 now applies operator-led design iteration to the Hunyuan visual candidate.
 
 An initial crop check mistakenly used the separate #107 coverage clip. Its
 bundle, `godot_walk/evidence/2026-10-13-psx-design-round-3/`, is retained but
 marked superseded and must not be used for the operator decision.
 
-The #100 source for Track A is the original `data/scenes/corridor_travel/video.mp4`;
-select a registered raw video frame. Never substitute a Gaussian screenshot,
-PLY, or the separate #107/#104 video. Any Hunyuan output is a generated
-alternative, not a substitute for #104 or a claim of splat recovery.
+For the Hunyuan experiment, the #100 source is the original
+`data/scenes/corridor_travel/video.mp4`; select a registered raw video frame.
+Never substitute a Gaussian screenshot, PLY, or the separate #107/#104 video.
+Any Hunyuan output is generated content, not a substitute for #104 or a claim
+of splat recovery.
 
 ## References
 

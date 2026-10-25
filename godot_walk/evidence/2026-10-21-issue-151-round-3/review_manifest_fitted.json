@@ -1,0 +1,130 @@
+{
+  "round_id": "hunyuan-psx-r3",
+  "issue": 151,
+  "status": "diagnostic_not_accepted",
+  "toolchain": "Godot 4.6.3 / Vulkan / existing PSX compositor",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "visual_input": {
+    "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb",
+    "sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf"
+  },
+  "collision_input": {
+    "path": "godot_walk/evidence/2026-10-20-issue-150/authored_room_collision.glb",
+    "sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9"
+  },
+  "source_crop": {
+    "source_frame": "data/scenes/corridor_travel/images/frame_0152.jpg",
+    "source_frame_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+    "source_size_px": [
+      1920,
+      1080
+    ],
+    "crop_xyxy_px": [
+      734,
+      150,
+      1128,
+      900
+    ],
+    "crop_size_px": [
+      394,
+      750
+    ],
+    "operation": "direct source-video pixel crop; no grading, resizing, or generation",
+    "output": "godot_walk/evidence/2026-10-21-issue-151-round-3/source/frame_0152_column_front.png",
+    "output_sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+    "runtime_asset": "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png",
+    "runtime_asset_sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a"
+  },
+  "capture": {
+    "issue": 151,
+    "registration_accepted": false,
+    "round_id": "hunyuan-psx-r3",
+    "scale_calibrated": false,
+    "views": [
+      {
+        "forward": [
+          -0.690999984741211,
+          0.0,
+          -0.72299998998642
+        ],
+        "position": [
+          2.920978307724,
+          -0.100299999117851,
+          3.70350790023804
+        ],
+        "resolution": [
+          960,
+          540
+        ],
+        "settle_frames": 20,
+        "variant_id": "preserve_hunyuan",
+        "view_id": "patch_anchor"
+      },
+      {
+        "forward": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "position": [
+          2.36999988555908,
+          -0.100299999117851,
+          0.323000013828278
+        ],
+        "resolution": [
+          960,
+          540
+        ],
+        "settle_frames": 20,
+        "variant_id": "preserve_hunyuan",
+        "view_id": "column_east"
+      },
+      {
+        "forward": [
+          -0.690999984741211,
+          0.0,
+          -0.72299998998642
+        ],
+        "position": [
+          2.920978307724,
+          -0.100299999117851,
+          3.70350790023804
+        ],
+        "resolution": [
+          960,
+          540
+        ],
+        "settle_frames": 20,
+        "variant_id": "column_face_extrusion",
+        "view_id": "patch_anchor"
+      },
+      {
+        "forward": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "position": [
+          2.36999988555908,
+          -0.100299999117851,
+          0.323000013828278
+        ],
+        "resolution": [
+          960,
+          540
+        ],
+        "settle_frames": 20,
+        "variant_id": "column_face_extrusion",
+        "view_id": "column_east"
+      }
+    ]
+  },
+  "geometry": {
+    "column_height_convention_m": 2.4,
+    "face_width_m": 1.5,
+    "extrusion_depth_m": 0.025,
+    "placement": "positive-X/east face; manually offset +0.62 m along Z to align with the visible Hunyuan column in the matched east view; visual-only and uncalibrated",
+    "other_faces_and_depth": "left to the Hunyuan visual input"
+  }
+}

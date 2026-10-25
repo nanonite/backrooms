@@ -1,0 +1,11 @@
+{
+  "free_vram_bytes": 10587471872,
+  "total_vram_bytes": 12878610432,
+  "utilization_pct": 5,
+  "compute_apps": [],
+  "ram_available_bytes": 36797349888,
+  "vram_after_headroom_bytes": 8469977497,
+  "ram_after_headroom_bytes": 27598012416,
+  "vram_headroom_fraction": 0.2,
+  "ram_headroom_fraction": 0.25
+}

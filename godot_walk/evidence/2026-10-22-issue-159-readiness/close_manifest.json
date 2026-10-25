@@ -1,0 +1,44 @@
+[
+	{
+		"eye": [
+			-2.0,
+			-0.17099049,
+			3.20000004768372
+		],
+		"fov": 75.0,
+		"id": "V09_C02_front",
+		"path": "res://evidence/2026-10-22-issue-159-readiness/captures/V09_C02_front.png",
+		"preset": "existing URSC enabled; native post enabled",
+		"resolution": [
+			960,
+			540
+		],
+		"settle_frames": 20,
+		"target": [
+			-0.699999988079071,
+			-0.170990496873856,
+			4.44999980926514
+		]
+	},
+	{
+		"eye": [
+			0.0,
+			-0.17099049,
+			5.59999990463257
+		],
+		"fov": 75.0,
+		"id": "V10_C02_reverse",
+		"path": "res://evidence/2026-10-22-issue-159-readiness/captures/V10_C02_reverse.png",
+		"preset": "existing URSC enabled; native post enabled",
+		"resolution": [
+			960,
+			540
+		],
+		"settle_frames": 20,
+		"target": [
+			-0.699999988079071,
+			-0.170990496873856,
+			4.44999980926514
+		]
+	}
+]

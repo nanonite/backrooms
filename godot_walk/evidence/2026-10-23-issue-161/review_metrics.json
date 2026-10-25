@@ -1,0 +1,160 @@
+{
+  "odiff_version": "odiff-bin@4.5.0",
+  "odiff_threshold": 0.1,
+  "profiles": {
+    "affine_on": {
+      "affine_texture_mapping": true,
+      "texture_filtering": false,
+      "vertex_snap_intensity": 1
+    },
+    "affine_off": {
+      "affine_texture_mapping": false,
+      "texture_filtering": false,
+      "vertex_snap_intensity": 1
+    }
+  },
+  "repeat_noise": [
+    {
+      "profile": "affine_on",
+      "samples": [
+        {
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        }
+      ]
+    },
+    {
+      "profile": "affine_off",
+      "samples": [
+        {
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        },
+        {
+          "diff_pixels": 0,
+          "diff_pct": 0.0,
+          "diff_image": null,
+          "odiff_threshold": 0.1
+        }
+      ]
+    }
+  ],
+  "noise_ceiling_pct": 0.0,
+  "matched_views": [
+    {
+      "view_id": "branch_center",
+      "room_instance": "R006",
+      "surfaces": "wall, floor, ceiling",
+      "diff_pixels": 71491,
+      "diff_pct": 7.76,
+      "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-161/diffs/profiles/branch_center.png",
+      "odiff_threshold": 0.1,
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "ceiling_walk_line",
+      "room_instance": "R006",
+      "surfaces": "ceiling, wall",
+      "diff_pixels": 81030,
+      "diff_pct": 8.79,
+      "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-161/diffs/profiles/ceiling_walk_line.png",
+      "odiff_threshold": 0.1,
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "column_east_wall",
+      "room_instance": "R000",
+      "surfaces": "wall, floor, ceiling",
+      "diff_pixels": 238122,
+      "diff_pct": 25.84,
+      "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-161/diffs/profiles/column_east_wall.png",
+      "odiff_threshold": 0.1,
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "column_patch_anchor",
+      "room_instance": "R000",
+      "surfaces": "column, wall, floor, ceiling",
+      "diff_pixels": 36899,
+      "diff_pct": 4.0,
+      "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-161/diffs/profiles/column_patch_anchor.png",
+      "odiff_threshold": 0.1,
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "floor_walk_line",
+      "room_instance": "R006",
+      "surfaces": "floor, wall",
+      "diff_pixels": 61514,
+      "diff_pct": 6.67,
+      "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-161/diffs/profiles/floor_walk_line.png",
+      "odiff_threshold": 0.1,
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "hall_step_left",
+      "room_instance": "R006",
+      "surfaces": "wall, floor, ceiling",
+      "diff_pixels": 69988,
+      "diff_pct": 7.59,
+      "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-161/diffs/profiles/hall_step_left.png",
+      "odiff_threshold": 0.1,
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "hall_step_right",
+      "room_instance": "R006",
+      "surfaces": "wall, floor, ceiling",
+      "diff_pixels": 72836,
+      "diff_pct": 7.9,
+      "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-161/diffs/profiles/hall_step_right.png",
+      "odiff_threshold": 0.1,
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "wall_pan_left",
+      "room_instance": "R006",
+      "surfaces": "wall, floor, ceiling",
+      "diff_pixels": 61710,
+      "diff_pct": 6.7,
+      "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-161/diffs/profiles/wall_pan_left.png",
+      "odiff_threshold": 0.1,
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "wall_pan_right",
+      "room_instance": "R006",
+      "surfaces": "wall, floor, ceiling",
+      "diff_pixels": 53795,
+      "diff_pct": 5.84,
+      "diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-161/diffs/profiles/wall_pan_right.png",
+      "odiff_threshold": 0.1,
+      "above_repeat_noise": true
+    }
+  ],
+  "operator_choice": "affine_off",
+  "operator_review_status": "accepted after live walkthrough on 2026-10-23",
+  "interpretation": "ODiff is a pixel-change diagnostic, not an art-direction score.",
+  "inconclusive_rule": "A matched view at or below the maximum control-repeat noise is inconclusive.",
+  "project_default_render_check": {
+    "affine_texture_mapping": false,
+    "capture": "captures/project_default/branch_center.png",
+    "reference": "captures/affine_off/branch_center.png",
+    "noise_ceiling_pct": 0.0,
+    "matches_affine_off_within_noise": true,
+    "diff_pixels": 0,
+    "diff_pct": 0.0,
+    "diff_image": null,
+    "odiff_threshold": 0.1
+  }
+}

@@ -1,0 +1,200 @@
+{
+	"cached_module_count": 3,
+	"catalog_sha256": "beb756ff8dcb7a4191b7579baf93881c7149de1d4be2ee636047d9d526f367d1",
+	"frame_samples": 450,
+	"frame_time_ms": {
+		"max": 4.565,
+		"p50": 0.273,
+		"p95": 1.786,
+		"p99": 1.897
+	},
+	"layout_id": "issue149_seed_0000000149_n10",
+	"load_events": 16,
+	"max_resident": 4.0,
+	"peak_resident": 4,
+	"scene_load_ms": 2108.748,
+	"total_module_instances": 5,
+	"unload_events": 14,
+	"window_radius": 1.0,
+	"window_transitions": [
+		{
+			"cached_types": 0,
+			"center_id": "R000",
+			"frame": 0,
+			"refresh_ms": 0.039,
+			"resident_count": 2,
+			"resident_ids": [
+				"R000",
+				"R001"
+			]
+		},
+		{
+			"cached_types": 0,
+			"center_id": "R001",
+			"frame": 30,
+			"refresh_ms": 10.25,
+			"resident_count": 3,
+			"resident_ids": [
+				"R000",
+				"R001",
+				"R002"
+			]
+		},
+		{
+			"cached_types": 1,
+			"center_id": "R002",
+			"frame": 60,
+			"refresh_ms": 11.626,
+			"resident_count": 3,
+			"resident_ids": [
+				"R001",
+				"R002",
+				"R003"
+			]
+		},
+		{
+			"cached_types": 1,
+			"center_id": "R003",
+			"frame": 90,
+			"refresh_ms": 1.079,
+			"resident_count": 3,
+			"resident_ids": [
+				"R002",
+				"R003",
+				"R004"
+			]
+		},
+		{
+			"cached_types": 1,
+			"center_id": "R004",
+			"frame": 120,
+			"refresh_ms": 0.739,
+			"resident_count": 3,
+			"resident_ids": [
+				"R003",
+				"R004",
+				"R005"
+			]
+		},
+		{
+			"cached_types": 2,
+			"center_id": "R005",
+			"frame": 150,
+			"refresh_ms": 12.127,
+			"resident_count": 3,
+			"resident_ids": [
+				"R004",
+				"R005",
+				"R006"
+			]
+		},
+		{
+			"cached_types": 1,
+			"center_id": "R006",
+			"frame": 180,
+			"refresh_ms": 12.36,
+			"resident_count": 4,
+			"resident_ids": [
+				"R005",
+				"R006",
+				"R007",
+				"R008"
+			]
+		},
+		{
+			"cached_types": 2,
+			"center_id": "R007",
+			"frame": 210,
+			"refresh_ms": 1.211,
+			"resident_count": 2,
+			"resident_ids": [
+				"R006",
+				"R007"
+			]
+		},
+		{
+			"cached_types": 1,
+			"center_id": "R006",
+			"frame": 240,
+			"refresh_ms": 11.469,
+			"resident_count": 4,
+			"resident_ids": [
+				"R005",
+				"R006",
+				"R007",
+				"R008"
+			]
+		},
+		{
+			"cached_types": 2,
+			"center_id": "R005",
+			"frame": 270,
+			"refresh_ms": 1.385,
+			"resident_count": 3,
+			"resident_ids": [
+				"R004",
+				"R005",
+				"R006"
+			]
+		},
+		{
+			"cached_types": 3,
+			"center_id": "R004",
+			"frame": 300,
+			"refresh_ms": 11.907,
+			"resident_count": 3,
+			"resident_ids": [
+				"R003",
+				"R004",
+				"R005"
+			]
+		},
+		{
+			"cached_types": 3,
+			"center_id": "R003",
+			"frame": 330,
+			"refresh_ms": 1.518,
+			"resident_count": 3,
+			"resident_ids": [
+				"R002",
+				"R003",
+				"R004"
+			]
+		},
+		{
+			"cached_types": 3,
+			"center_id": "R002",
+			"frame": 360,
+			"refresh_ms": 0.997,
+			"resident_count": 3,
+			"resident_ids": [
+				"R001",
+				"R002",
+				"R003"
+			]
+		},
+		{
+			"cached_types": 3,
+			"center_id": "R001",
+			"frame": 390,
+			"refresh_ms": 0.724,
+			"resident_count": 3,
+			"resident_ids": [
+				"R000",
+				"R001",
+				"R002"
+			]
+		},
+		{
+			"cached_types": 3,
+			"center_id": "R000",
+			"frame": 420,
+			"refresh_ms": 0.783,
+			"resident_count": 2,
+			"resident_ids": [
+				"R000",
+				"R001"
+			]
+		}
+	]
+}

@@ -1,0 +1,43 @@
+{
+	"branch_window": {
+		"cached_module_types": 1,
+		"center": "R006",
+		"frontier_caps": 2,
+		"loaded_count": 4,
+		"loaded_ids": [
+			"R005",
+			"R006",
+			"R007",
+			"R008"
+		],
+		"total_module_instances": 5
+	},
+	"catalog_sha256": "beb756ff8dcb7a4191b7579baf93881c7149de1d4be2ee636047d9d526f367d1",
+	"failures": [],
+	"layout_id": "issue149_seed_0000000149_n10",
+	"load_events": 14,
+	"peak_resident": 4,
+	"return_window": {
+		"cached_module_types": 3,
+		"center": "R000",
+		"frontier_caps": 1,
+		"loaded_count": 2,
+		"loaded_ids": [
+			"R000",
+			"R001"
+		],
+		"total_module_instances": 5
+	},
+	"spawn_window": {
+		"cached_module_types": 0,
+		"center": "R000",
+		"frontier_caps": 1,
+		"loaded_count": 2,
+		"loaded_ids": [
+			"R000",
+			"R001"
+		],
+		"total_module_instances": 2
+	},
+	"unload_events": 12
+}

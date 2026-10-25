@@ -1,0 +1,227 @@
+[
+	{
+		"eye": [
+			2.5,
+			-0.170990496873856,
+			3.09999990463257
+		],
+		"fov": 75.0,
+		"group": "issue160-regression",
+		"id": "accepted_pair_column_to_pocket",
+		"layout_id": "issue160_assembled_walkthrough",
+		"path": "res://evidence/2026-10-22-issue-149/captures/issue160-regression/accepted_pair_column_to_pocket.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"scene": "res://scenes/issue160_assembled_walkthrough.tscn",
+		"scene_load_to_ready_ms": 1924,
+		"settle_frames": 24,
+		"target": [
+			5.19999980926514,
+			-0.170990496873856,
+			3.09999990463257
+		]
+	},
+	{
+		"eye": [
+			4.30000019073486,
+			-0.170990496873856,
+			3.09999990463257
+		],
+		"fov": 75.0,
+		"group": "issue160-regression",
+		"id": "accepted_pair_pocket_return",
+		"layout_id": "issue160_assembled_walkthrough",
+		"path": "res://evidence/2026-10-22-issue-149/captures/issue160-regression/accepted_pair_pocket_return.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"scene": "res://scenes/issue160_assembled_walkthrough.tscn",
+		"scene_load_to_ready_ms": 1924,
+		"settle_frames": 24,
+		"target": [
+			2.40000009536743,
+			-0.170990496873856,
+			3.09999990463257
+		]
+	},
+	{
+		"eye": [
+			8.69999980926514,
+			-0.170990496873856,
+			9.0
+		],
+		"fov": 75.0,
+		"group": "issue160-regression",
+		"id": "accepted_pair_pocket_far_end",
+		"layout_id": "issue160_assembled_walkthrough",
+		"path": "res://evidence/2026-10-22-issue-149/captures/issue160-regression/accepted_pair_pocket_far_end.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"scene": "res://scenes/issue160_assembled_walkthrough.tscn",
+		"scene_load_to_ready_ms": 1924,
+		"settle_frames": 24,
+		"target": [
+			4.30000019073486,
+			-0.170990496873856,
+			9.19999980926514
+		]
+	},
+	{
+		"eye": [
+			2.5,
+			-0.170990496873856,
+			3.09999990463257
+		],
+		"fov": 75.0,
+		"group": "seed-149",
+		"id": "seed_start_connector",
+		"layout_id": "issue149_seed_0000000149_n10",
+		"path": "res://evidence/2026-10-22-issue-149/captures/seed-149/seed_start_connector.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"scene": "res://scenes/issue149_generated_walkthrough.tscn",
+		"scene_load_to_ready_ms": 2601,
+		"settle_frames": 24,
+		"target": [
+			5.19999980926514,
+			-0.170990496873856,
+			3.09999990463257
+		]
+	},
+	{
+		"eye": [
+			8.5,
+			-0.170990496873856,
+			3.10000014305115
+		],
+		"fov": 75.0,
+		"group": "seed-149",
+		"id": "seed_pass_through",
+		"layout_id": "issue149_seed_0000000149_n10",
+		"path": "res://evidence/2026-10-22-issue-149/captures/seed-149/seed_pass_through.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"scene": "res://scenes/issue149_generated_walkthrough.tscn",
+		"scene_load_to_ready_ms": 2601,
+		"settle_frames": 24,
+		"target": [
+			10.5,
+			-0.170990496873856,
+			3.10000014305115
+		]
+	},
+	{
+		"eye": [
+			36.5,
+			-0.170990496873856,
+			3.10000014305115
+		],
+		"fov": 75.0,
+		"group": "seed-149",
+		"id": "seed_branch_opening",
+		"layout_id": "issue149_seed_0000000149_n10",
+		"path": "res://evidence/2026-10-22-issue-149/captures/seed-149/seed_branch_opening.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"scene": "res://scenes/issue149_generated_walkthrough.tscn",
+		"scene_load_to_ready_ms": 2601,
+		"settle_frames": 24,
+		"target": [
+			36.5,
+			-0.170990496873856,
+			8.19999980926514
+		]
+	},
+	{
+		"eye": [
+			36.5,
+			-0.170990496873856,
+			10.8000001907349
+		],
+		"fov": 75.0,
+		"group": "seed-149",
+		"id": "seed_branch_dead_end",
+		"layout_id": "issue149_seed_0000000149_n10",
+		"path": "res://evidence/2026-10-22-issue-149/captures/seed-149/seed_branch_dead_end.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"scene": "res://scenes/issue149_generated_walkthrough.tscn",
+		"scene_load_to_ready_ms": 2601,
+		"settle_frames": 24,
+		"target": [
+			36.5,
+			-0.170990496873856,
+			13.0
+		]
+	},
+	{
+		"eye": [
+			46.2999992370605,
+			-0.170990496873856,
+			3.10000014305115
+		],
+		"fov": 75.0,
+		"group": "seed-149",
+		"id": "seed_terminal_dead_end",
+		"layout_id": "issue149_seed_0000000149_n10",
+		"path": "res://evidence/2026-10-22-issue-149/captures/seed-149/seed_terminal_dead_end.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"scene": "res://scenes/issue149_generated_walkthrough.tscn",
+		"scene_load_to_ready_ms": 2601,
+		"settle_frames": 24,
+		"target": [
+			50.7000007629395,
+			-0.170990496873856,
+			3.10000014305115
+		]
+	},
+	{
+		"eye": [
+			36.5,
+			-0.170990496873856,
+			3.10000014305115
+		],
+		"fov": 75.0,
+		"group": "seed-149",
+		"id": "seed_branch_return_to_trunk",
+		"layout_id": "issue149_seed_0000000149_n10",
+		"path": "res://evidence/2026-10-22-issue-149/captures/seed-149/seed_branch_return_to_trunk.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"scene": "res://scenes/issue149_generated_walkthrough.tscn",
+		"scene_load_to_ready_ms": 2601,
+		"settle_frames": 24,
+		"target": [
+			41.5,
+			-0.170990496873856,
+			3.10000014305115
+		]
+	}
+]

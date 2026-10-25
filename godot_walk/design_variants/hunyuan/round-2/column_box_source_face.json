@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "round_id": "hunyuan-psx-r2",
+  "variant_id": "column_box_source_face",
+  "parent_id": "hunyuan-psx-r1/preserve_hunyuan",
+  "hypothesis": "A complete authored box over the incomplete Hunyuan column, textured only from the visible front face in source frame 0152, will read as one deliberate column without disturbing the accepted floor or ceiling.",
+  "region_decisions": [
+    {
+      "id": "floor",
+      "action": "preserve",
+      "provenance": "authored",
+      "evidence": "Round 1 operator feedback; floor is acceptable",
+      "reason": "Keep the floor unchanged while isolating the column treatment."
+    },
+    {
+      "id": "ceiling",
+      "action": "preserve",
+      "provenance": "hunyuan-generated",
+      "evidence": "Round 1 operator feedback; ceiling is acceptable",
+      "reason": "Keep the ceiling unchanged while isolating the column treatment."
+    },
+    {
+      "id": "walls",
+      "action": "preserve",
+      "provenance": "hunyuan-generated",
+      "evidence": "Round 1 matched views",
+      "reason": "Keep wall appearance matched to the control."
+    },
+    {
+      "id": "column",
+      "action": "cover",
+      "provenance": "authored",
+      "evidence": "Round 1 column_north, column_west, and column_east operator feedback; direct frame-0152 face crop",
+      "reason": "Establish a full box first and apply one directly sampled source face to each box face."
+    }
+  ],
+  "authored_changes": [
+    {
+      "id": "column_box_source_face",
+      "geometry": "Axis-aligned box matching the existing 1.8587826 x 2.4 x 2.3700817 m column obstacle at its current center",
+      "material": "column_face_frame_0152.png, direct 320 x 400 source crop, UV scale 1",
+      "collision": "Visual-only cover; existing ColumnObstacle remains the sole column collider"
+    }
+  ],
+  "texture_provenance": {
+    "source_frame": "data/scenes/corridor_travel/images/frame_0152.jpg",
+    "source_frame_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+    "crop_xyxy": [780, 300, 1100, 700],
+    "crop_method": "Direct pixel crop; no recoloring, grading, or generated texture",
+    "texture_path": "godot_walk/assets/psx_extension/textures/column_face_frame_0152.png"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "label": "fps-capped-seed149",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "960x540",
+    "--disable-vsync",
+    "--max-fps",
+    "60",
+    "--script",
+    "res://scripts/measure_bounded_fps.gd",
+    "--",
+    "--capped",
+    "--scene=res://scenes/issue149_generated_walkthrough.tscn",
+    "--out-dir=res://evidence/2026-10-22-issue-149/mechanics/generated-seed-149-final",
+    "--label=issue149_seed149"
+  ],
+  "timeout_seconds": 180,
+  "timed_out": false,
+  "return_code": 0,
+  "error": null,
+  "elapsed_seconds": 67.919,
+  "finished_utc": "2026-10-22T21:10:07.773184+00:00",
+  "preflight": {
+    "free_vram_bytes": 10708058112,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 2,
+    "compute_apps": [],
+    "ram_available_bytes": 48095600640,
+    "vram_after_headroom_bytes": 8566446489,
+    "ram_after_headroom_bytes": 36071700480,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 2425741312,
+    "gpu_memory_start_bytes": 1738539008,
+    "peak_gpu_memory_used_bytes": 2319450112,
+    "peak_gpu_memory_delta_bytes": 580911104,
+    "gpu_sample_period_ms": 500
+  }
+}

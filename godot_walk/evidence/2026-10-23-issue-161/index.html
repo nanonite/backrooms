@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Issue 161 PSX affine UV comparison</title>
+<style>body{font:16px system-ui,sans-serif;max-width:1500px;margin:24px auto;padding:0 18px;background:#171b1d;color:#e8e6dc}
+p{line-height:1.5;max-width:980px}img{width:100%;height:auto}table{border-collapse:collapse;width:100%}
+td,th{padding:8px;text-align:left;border-bottom:1px solid #50585b}a{color:#9dd6de}</style>
+<h1>Issue 161: PSX affine UV comparison</h1>
+<p>A preserves the pinned URSC affine texture mapping. B disables only affine mapping. Both keep nearest sampling and vertex snap intensity 1. The room, UVs, camera poses, and streamed layout are matched. ODiff records changed pixels; it does not score image quality.</p>
+<p>Operator review selected B after a live walkthrough. Affine mapping off is now the project default.</p>
+<p>Rendered default check: 0.0000% changed pixels from the captured affine-off reference; repeat-noise ceiling 0.0000%. Matches within noise: True.</p>
+<p>Maximum repeated-control noise: 0.0000%. Differences at or below this ceiling are inconclusive.</p>
+<p><a href="REPORT.md">Evidence report</a> · <a href="COMMANDS.md">Commands</a> · <a href="review_metrics.json">Metrics JSON</a> · <a href="project_default_comparison.json">Default render check</a> · <a href="source_hashes.json">Source hashes</a></p>
+<h2>Matched views</h2><img src="comparison.jpg" alt="A/B contact sheet">
+<table><thead><tr><th>View</th><th>Surfaces</th><th>ODiff changed pixels</th><th>Compared with repeat noise</th></tr></thead><tbody><tr><td>branch_center</td><td>wall, floor, ceiling</td><td>7.7600%</td><td>above noise</td></tr><tr><td>ceiling_walk_line</td><td>ceiling, wall</td><td>8.7900%</td><td>above noise</td></tr><tr><td>column_east_wall</td><td>wall, floor, ceiling</td><td>25.8400%</td><td>above noise</td></tr><tr><td>column_patch_anchor</td><td>column, wall, floor, ceiling</td><td>4.0000%</td><td>above noise</td></tr><tr><td>floor_walk_line</td><td>floor, wall</td><td>6.6700%</td><td>above noise</td></tr><tr><td>hall_step_left</td><td>wall, floor, ceiling</td><td>7.5900%</td><td>above noise</td></tr><tr><td>hall_step_right</td><td>wall, floor, ceiling</td><td>7.9000%</td><td>above noise</td></tr><tr><td>wall_pan_left</td><td>wall, floor, ceiling</td><td>6.7000%</td><td>above noise</td></tr><tr><td>wall_pan_right</td><td>wall, floor, ceiling</td><td>5.8400%</td><td>above noise</td></tr></tbody></table>
+<h2>Control-repeat noise</h2><ul><li>affine_on: 0.0000%, 0.0000%</li><li>affine_off: 0.0000%, 0.0000%</li></ul>
+<h2>Operator review</h2><p>The operator selected B after a live walkthrough. The F7 comparison scene remains available to revisit profile A on surfaces where it may be useful. Treat the measurements as evidence, not an art-direction score.</p>
+</html>

@@ -1,0 +1,107 @@
+[
+  {
+    "path": "godot_walk/project.godot",
+    "exists": true,
+    "sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7"
+  },
+  {
+    "path": "godot_walk/scripts/library_psx_preset.gd",
+    "exists": true,
+    "sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87"
+  },
+  {
+    "path": "godot_walk/shaders/library_psx_textured.gdshader",
+    "exists": true,
+    "sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c"
+  },
+  {
+    "path": "godot_walk/vendor/ursc/common.gdshaderinc",
+    "exists": true,
+    "sha256": "c2bba1e4d8491d91684efd246458196d7750a4951a21c1bbef58b82537288a49"
+  },
+  {
+    "path": "godot_walk/scenes/issue156_streamed_walkthrough.tscn",
+    "exists": true,
+    "sha256": "ce68752b9b84ed539f463a9ab5f585d9e136c2990e0304beaf00f6d9c63f9e2c"
+  },
+  {
+    "path": "godot_walk/scripts/issue156_streamed_walkthrough.gd",
+    "exists": true,
+    "sha256": "e4338cf18456dcc809719d5e43b6c118b46d591f54e6413f06a4aab8c8dcddf0"
+  },
+  {
+    "path": "godot_walk/scenes/issue161_render_profile_review.tscn",
+    "exists": true,
+    "sha256": "292e086a4e21aee279790b913407b3c1e03fe865be0dbb2434c90ceba9420e78"
+  },
+  {
+    "path": "godot_walk/scripts/issue161_render_profile_review.gd",
+    "exists": true,
+    "sha256": "01d8fa72ee04ea7b0004f9d24e379e6903b9c42a06e5a97c9e642301ae18fa1c"
+  },
+  {
+    "path": "godot_walk/scripts/capture_issue161.gd",
+    "exists": true,
+    "sha256": "bad7e61a6afc7edda89b5e1d4af9521c16af7c34b1ffe75b198c999fa9ef2efb"
+  },
+  {
+    "path": "godot_walk/scripts/capture_issue161_default.gd",
+    "exists": true,
+    "sha256": "541f725071614e5e30d4a2b4ae4d72bc8fb68dcb64517baa1f91c52852b5e493"
+  },
+  {
+    "path": "godot_walk/scripts/measure_issue161_profiles.gd",
+    "exists": true,
+    "sha256": "0380b459e4ea0cab526fbf97cb0e9a72aebf4e17b3608e7fed0af42d675f4766"
+  },
+  {
+    "path": "godot_walk/scripts/build_issue161_review.py",
+    "exists": true,
+    "sha256": "0dc1bef720affdd3ab13110cc2fac9700a7d12bdc382ac828b7ac6d1c9e9285a"
+  },
+  {
+    "path": "godot_walk/evidence/2026-10-23-issue-156/layout_seed_149.json",
+    "exists": true,
+    "sha256": "e55fc622a620b4739f2cbaa4defaa270ddd5293732cff49183980b1ed560a3f2"
+  },
+  {
+    "path": "godot_walk/evidence/2026-10-23-issue-156/catalog_snapshot.json",
+    "exists": true,
+    "sha256": "beb756ff8dcb7a4191b7579baf93881c7149de1d4be2ee636047d9d526f367d1"
+  },
+  {
+    "path": "godot_walk/evidence/2026-10-22-issue-160/bounded_hunyuan_visual.glb",
+    "exists": true,
+    "sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898"
+  },
+  {
+    "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+    "exists": true,
+    "sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5"
+  },
+  {
+    "path": "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+    "exists": true,
+    "sha256": "f1bfe1ab7aa9ffe416b68f5f24612ff6293d26e7d421c7fb95fda3c66c4210d4"
+  },
+  {
+    "path": "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+    "exists": true,
+    "sha256": "75dd78545085a49a12ef2b1268821c3aff6ccca6dcdf10620c2e3d7ee4b14bb7"
+  },
+  {
+    "path": "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+    "exists": true,
+    "sha256": "01f0d0182ddf3676d4ab85b19179fbd199ad4afce13bef3d781e98264e984376"
+  },
+  {
+    "path": "godot_walk/assets/psx_extension/textures/column_source_video.png",
+    "exists": true,
+    "sha256": "327f69745cc5f6c2cc3c8e600a484af7b681b9e14961955d3f661ea10f16b9bc"
+  },
+  {
+    "path": "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png",
+    "exists": true,
+    "sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a"
+  }
+]

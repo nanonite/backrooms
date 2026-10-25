@@ -1,0 +1,7 @@
+TypeError: EnumProperty(...): 'default' can only be an integer when 'items' is a function
+/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-21-issue-153-godot-compatibility/authoring/probe_addon.py:28: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  material.use_nodes = True
+00:01.278  lib.icons        | ERROR no icon for icon ID: 147
+00:01.278  lib.icons        | ERROR no icon for icon ID: 4
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:34:58)
+Writing: /tmp/blender.crash.txt

@@ -1,0 +1,12 @@
+{
+	"baseline": false,
+	"capped_at_60": true,
+	"counter": "RenderingServer.frame_post_draw",
+	"elapsed_s": 13.982788,
+	"fps": 60.0023400197443,
+	"frames": 839,
+	"p95_frame_ms": 16.789,
+	"p99_frame_ms": 16.891,
+	"poses": 14,
+	"scene": "res://scenes/issue160_bounded_column_room.tscn"
+}

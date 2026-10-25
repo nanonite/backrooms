@@ -1,0 +1,38 @@
+{
+  "label": "issue161-default-smoke",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--script",
+    "res://scripts/test_issue161_default.gd"
+  ],
+  "timeout_seconds": 90,
+  "timed_out": false,
+  "return_code": 1,
+  "error": null,
+  "elapsed_seconds": 2.818,
+  "finished_utc": "2026-10-23T16:29:16.734815+00:00",
+  "preflight": {
+    "free_vram_bytes": 10630463488,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 12,
+    "compute_apps": [],
+    "ram_available_bytes": 35546337280,
+    "vram_after_headroom_bytes": 8504370790,
+    "ram_after_headroom_bytes": 26659752960,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 2429083648,
+    "gpu_memory_start_bytes": 1816133632,
+    "peak_gpu_memory_used_bytes": 2380267520,
+    "peak_gpu_memory_delta_bytes": 564133888,
+    "gpu_sample_period_ms": 500
+  }
+}

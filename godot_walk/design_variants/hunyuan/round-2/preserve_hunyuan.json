@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "round_id": "hunyuan-psx-r2",
+  "variant_id": "preserve_hunyuan",
+  "parent_id": "hunyuan-psx-r1/preserve_hunyuan",
+  "hypothesis": "Keep the current Hunyuan column and room surfaces as the matched control for a column-only authored box treatment.",
+  "region_decisions": [
+    {
+      "id": "floor",
+      "action": "preserve",
+      "provenance": "authored",
+      "evidence": "Round 1 operator feedback; floor is acceptable",
+      "reason": "Hold the floor constant in this column-focused comparison."
+    },
+    {
+      "id": "ceiling",
+      "action": "preserve",
+      "provenance": "hunyuan-generated",
+      "evidence": "Round 1 operator feedback; ceiling is acceptable",
+      "reason": "Hold the ceiling constant in this column-focused comparison."
+    },
+    {
+      "id": "walls",
+      "action": "preserve",
+      "provenance": "hunyuan-generated",
+      "evidence": "Round 1 matched views",
+      "reason": "Avoid changing wall appearance while evaluating the column."
+    },
+    {
+      "id": "column",
+      "action": "preserve",
+      "provenance": "hunyuan-generated",
+      "evidence": "Round 1 preserve_hunyuan treatment",
+      "reason": "Keep the current rendered column as the comparison control."
+    }
+  ],
+  "authored_changes": [
+    {
+      "id": "shared_walkable_shell",
+      "geometry": "Existing room bounds and column obstacle proxy",
+      "material": "Existing round 1 material assignments",
+      "collision": "Unchanged authored floor, room boundaries, and column obstacle"
+    }
+  ]
+}

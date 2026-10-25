@@ -1,0 +1,349 @@
+{
+	"baseline": "unchanged accepted #160 assembly",
+	"candidate": "column-side-source-textured-ceiling-bridge",
+	"collision_added": false,
+	"geometry": {
+		"center_m": [
+			2.85,
+			1.10400951,
+			3.1
+		],
+		"size_m": [
+			1.3,
+			2.0
+		]
+	},
+	"production_assets_changed": false,
+	"records": [
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				1.39999997615814,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"camera_target": [
+				6.30000019073486,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"candidate": "unchanged accepted assembly",
+			"floor_uv_scale": [
+				4.0,
+				4.0
+			],
+			"path": "captures/ceiling_repeat_a/column_into_pocket.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"variant_id": "ceiling_repeat_a",
+			"view_id": "column_into_pocket"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				5.69999980926514,
+				-0.170990496873856,
+				3.10000014305115
+			],
+			"camera_target": [
+				0.5,
+				-0.170990496873856,
+				3.10000014305115
+			],
+			"candidate": "unchanged accepted assembly",
+			"floor_uv_scale": [
+				4.0,
+				4.0
+			],
+			"path": "captures/ceiling_repeat_a/pocket_into_column.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R001",
+			"settle_frames": 18,
+			"variant_id": "ceiling_repeat_a",
+			"view_id": "pocket_into_column"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				1.79999995231628,
+				-0.170990496873856,
+				4.59999990463257
+			],
+			"camera_target": [
+				2.84999990463257,
+				1.10900950431824,
+				3.09999990463257
+			],
+			"candidate": "unchanged accepted assembly",
+			"floor_uv_scale": [
+				4.0,
+				4.0
+			],
+			"path": "captures/ceiling_repeat_a/threshold_ceiling.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"variant_id": "ceiling_repeat_a",
+			"view_id": "threshold_ceiling"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				2.0,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"camera_target": [
+				2.84999990463257,
+				1.10900950431824,
+				3.09999990463257
+			],
+			"candidate": "unchanged accepted assembly",
+			"floor_uv_scale": [
+				4.0,
+				4.0
+			],
+			"path": "captures/ceiling_repeat_a/ceiling_under_bridge.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"variant_id": "ceiling_repeat_a",
+			"view_id": "ceiling_under_bridge"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				1.39999997615814,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"camera_target": [
+				6.30000019073486,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"candidate": "unchanged accepted assembly",
+			"floor_uv_scale": [
+				4.0,
+				4.0
+			],
+			"path": "captures/ceiling_repeat_b/column_into_pocket.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"variant_id": "ceiling_repeat_b",
+			"view_id": "column_into_pocket"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				5.69999980926514,
+				-0.170990496873856,
+				3.10000014305115
+			],
+			"camera_target": [
+				0.5,
+				-0.170990496873856,
+				3.10000014305115
+			],
+			"candidate": "unchanged accepted assembly",
+			"floor_uv_scale": [
+				4.0,
+				4.0
+			],
+			"path": "captures/ceiling_repeat_b/pocket_into_column.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R001",
+			"settle_frames": 18,
+			"variant_id": "ceiling_repeat_b",
+			"view_id": "pocket_into_column"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				1.79999995231628,
+				-0.170990496873856,
+				4.59999990463257
+			],
+			"camera_target": [
+				2.84999990463257,
+				1.10900950431824,
+				3.09999990463257
+			],
+			"candidate": "unchanged accepted assembly",
+			"floor_uv_scale": [
+				4.0,
+				4.0
+			],
+			"path": "captures/ceiling_repeat_b/threshold_ceiling.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"variant_id": "ceiling_repeat_b",
+			"view_id": "threshold_ceiling"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				2.0,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"camera_target": [
+				2.84999990463257,
+				1.10900950431824,
+				3.09999990463257
+			],
+			"candidate": "unchanged accepted assembly",
+			"floor_uv_scale": [
+				4.0,
+				4.0
+			],
+			"path": "captures/ceiling_repeat_b/ceiling_under_bridge.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"variant_id": "ceiling_repeat_b",
+			"view_id": "ceiling_under_bridge"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				1.39999997615814,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"camera_target": [
+				6.30000019073486,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"candidate": "source-textured column-side ceiling bridge",
+			"floor_uv_scale": [
+				4.0,
+				4.0
+			],
+			"path": "captures/ceiling_source_bridge/column_into_pocket.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"variant_id": "ceiling_source_bridge",
+			"view_id": "column_into_pocket"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				5.69999980926514,
+				-0.170990496873856,
+				3.10000014305115
+			],
+			"camera_target": [
+				0.5,
+				-0.170990496873856,
+				3.10000014305115
+			],
+			"candidate": "source-textured column-side ceiling bridge",
+			"floor_uv_scale": [
+				4.0,
+				4.0
+			],
+			"path": "captures/ceiling_source_bridge/pocket_into_column.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R001",
+			"settle_frames": 18,
+			"variant_id": "ceiling_source_bridge",
+			"view_id": "pocket_into_column"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				1.79999995231628,
+				-0.170990496873856,
+				4.59999990463257
+			],
+			"camera_target": [
+				2.84999990463257,
+				1.10900950431824,
+				3.09999990463257
+			],
+			"candidate": "source-textured column-side ceiling bridge",
+			"floor_uv_scale": [
+				4.0,
+				4.0
+			],
+			"path": "captures/ceiling_source_bridge/threshold_ceiling.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"variant_id": "ceiling_source_bridge",
+			"view_id": "threshold_ceiling"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				2.0,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"camera_target": [
+				2.84999990463257,
+				1.10900950431824,
+				3.09999990463257
+			],
+			"candidate": "source-textured column-side ceiling bridge",
+			"floor_uv_scale": [
+				4.0,
+				4.0
+			],
+			"path": "captures/ceiling_source_bridge/ceiling_under_bridge.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"variant_id": "ceiling_source_bridge",
+			"view_id": "ceiling_under_bridge"
+		}
+	],
+	"source_texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+	"uv_scale": [
+		5.2,
+		8.0
+	],
+	"visual_only": true
+}

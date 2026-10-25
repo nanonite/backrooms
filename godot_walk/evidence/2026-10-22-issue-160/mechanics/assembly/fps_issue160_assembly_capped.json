@@ -1,0 +1,12 @@
+{
+	"baseline": false,
+	"capped_at_60": true,
+	"counter": "RenderingServer.frame_post_draw",
+	"elapsed_s": 20.017699,
+	"fps": 59.8969941550225,
+	"frames": 1199,
+	"p95_frame_ms": 16.806,
+	"p99_frame_ms": 21.636,
+	"poses": 20,
+	"scene": "res://scenes/issue160_assembled_walkthrough.tscn"
+}

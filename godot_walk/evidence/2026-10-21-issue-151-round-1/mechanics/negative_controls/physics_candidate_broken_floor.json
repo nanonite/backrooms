@@ -1,0 +1,271 @@
+{
+	"boundary_pushes": {
+		"0": {
+			"end": [
+				3.29999995231628,
+				-21.8100299835205,
+				-14.1011610031128
+			],
+			"trace": {
+				"distance_m": 15.9344942569733,
+				"floor_fraction": 0.504166666666667,
+				"max_step_m": 0.328067362308502,
+				"safety_contacts": 118,
+				"support_bodies": {
+					"SafetyNet": 118
+				},
+				"ticks": 240
+			}
+		},
+		"1": {
+			"end": [
+				-8.01473808288574,
+				-8.93187046051025,
+				-9.4147310256958
+			],
+			"trace": {
+				"distance_m": 15.9347840473056,
+				"floor_fraction": 0.716666666666667,
+				"max_step_m": 0.194191202521324,
+				"safety_contacts": 167,
+				"support_bodies": {
+					"SafetyNet": 167
+				},
+				"ticks": 240
+			}
+		},
+		"2": {
+			"end": [
+				-12.7008600234985,
+				-14.0923643112183,
+				1.89999997615814
+			],
+			"trace": {
+				"distance_m": 15.9341933727264,
+				"floor_fraction": 0.616666666666667,
+				"max_step_m": 0.25653550028801,
+				"safety_contacts": 145,
+				"support_bodies": {
+					"SafetyNet": 145
+				},
+				"ticks": 240
+			}
+		},
+		"3": {
+			"end": [
+				-8.0139856338501,
+				-8.92986297607422,
+				13.2139511108398
+			],
+			"trace": {
+				"distance_m": 15.9337006509304,
+				"floor_fraction": 0.716666666666667,
+				"max_step_m": 0.194191321730614,
+				"safety_contacts": 167,
+				"support_bodies": {
+					"SafetyNet": 167
+				},
+				"ticks": 240
+			}
+		},
+		"4": {
+			"end": [
+				3.29999995231628,
+				-21.8081474304199,
+				17.9004497528076
+			],
+			"trace": {
+				"distance_m": 15.9337830543518,
+				"floor_fraction": 0.504166666666667,
+				"max_step_m": 0.328067570924759,
+				"safety_contacts": 118,
+				"support_bodies": {
+					"SafetyNet": 118
+				},
+				"ticks": 240
+			}
+		},
+		"5": {
+			"end": [
+				14.6144208908081,
+				-51.088134765625,
+				13.2144289016724
+			],
+			"trace": {
+				"distance_m": 15.9343464896083,
+				"floor_fraction": 0.2125,
+				"max_step_m": 0.516103565692902,
+				"safety_contacts": 46,
+				"support_bodies": {
+					"SafetyNet": 46
+				},
+				"ticks": 240
+			}
+		},
+		"6": {
+			"end": [
+				19.3007392883301,
+				-59.088550567627,
+				1.89999997615814
+			],
+			"trace": {
+				"distance_m": 15.9340727329254,
+				"floor_fraction": 0.15,
+				"max_step_m": 0.556619167327881,
+				"safety_contacts": 33,
+				"support_bodies": {
+					"SafetyNet": 33
+				},
+				"ticks": 240
+			}
+		},
+		"7": {
+			"end": [
+				14.6141901016235,
+				-51.0881385803223,
+				-9.41422557830811
+			],
+			"trace": {
+				"distance_m": 15.9340393692255,
+				"floor_fraction": 0.2125,
+				"max_step_m": 0.516103565692902,
+				"safety_contacts": 46,
+				"support_bodies": {
+					"SafetyNet": 46
+				},
+				"ticks": 240
+			}
+		}
+	},
+	"failures": [
+		"Support, safety or step gate failed: { \"ticks\": 823, \"floor_fraction\": 1.0, \"distance_m\": 54.8000043258071, \"max_step_m\": 0.06666687130928, \"safety_contacts\": 823, \"support_bodies\": { \"SafetyNet\": 823 } }",
+		"No configured walkable floor support observed: [\"AuthoredFloor\"]",
+		"Escaped bounded envelope",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.50416666666667, \"distance_m\": 15.9344942569733, \"max_step_m\": 0.3280673623085, \"safety_contacts\": 118, \"support_bodies\": { \"SafetyNet\": 118 } }",
+		"No configured walkable floor support observed: [\"AuthoredFloor\"]",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.71666666666667, \"distance_m\": 15.9347840473056, \"max_step_m\": 0.19419120252132, \"safety_contacts\": 167, \"support_bodies\": { \"SafetyNet\": 167 } }",
+		"No configured walkable floor support observed: [\"AuthoredFloor\"]",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.61666666666667, \"distance_m\": 15.9341933727264, \"max_step_m\": 0.25653550028801, \"safety_contacts\": 145, \"support_bodies\": { \"SafetyNet\": 145 } }",
+		"No configured walkable floor support observed: [\"AuthoredFloor\"]",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.71666666666667, \"distance_m\": 15.9337006509304, \"max_step_m\": 0.19419132173061, \"safety_contacts\": 167, \"support_bodies\": { \"SafetyNet\": 167 } }",
+		"No configured walkable floor support observed: [\"AuthoredFloor\"]",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.50416666666667, \"distance_m\": 15.9337830543518, \"max_step_m\": 0.32806757092476, \"safety_contacts\": 118, \"support_bodies\": { \"SafetyNet\": 118 } }",
+		"No configured walkable floor support observed: [\"AuthoredFloor\"]",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.2125, \"distance_m\": 15.9343464896083, \"max_step_m\": 0.5161035656929, \"safety_contacts\": 46, \"support_bodies\": { \"SafetyNet\": 46 } }",
+		"No configured walkable floor support observed: [\"AuthoredFloor\"]",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.15, \"distance_m\": 15.9340727329254, \"max_step_m\": 0.55661916732788, \"safety_contacts\": 33, \"support_bodies\": { \"SafetyNet\": 33 } }",
+		"No configured walkable floor support observed: [\"AuthoredFloor\"]",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.2125, \"distance_m\": 15.9340393692255, \"max_step_m\": 0.5161035656929, \"safety_contacts\": 46, \"support_bodies\": { \"SafetyNet\": 46 } }",
+		"No configured walkable floor support observed: [\"AuthoredFloor\"]"
+	],
+	"out_and_back": {
+		"distance_m": 54.8000043258071,
+		"floor_fraction": 1.0,
+		"max_step_m": 0.0666668713092804,
+		"safety_contacts": 823,
+		"support_bodies": {
+			"SafetyNet": 823
+		},
+		"ticks": 823
+	},
+	"route_segments": [
+		{
+			"player": [
+				-4.40000009536743,
+				-2.64572930335999,
+				-4.0
+			],
+			"reached": true,
+			"target": [
+				-4.40000009536743,
+				-4.0
+			]
+		},
+		{
+			"player": [
+				3.4666645526886,
+				-2.64572930335999,
+				-4.0
+			],
+			"reached": true,
+			"target": [
+				3.5,
+				-4.0
+			]
+		},
+		{
+			"player": [
+				3.49981164932251,
+				-2.64572930335999,
+				7.73329401016235
+			],
+			"reached": true,
+			"target": [
+				3.5,
+				7.80000019073486
+			]
+		},
+		{
+			"player": [
+				-4.36657190322876,
+				-2.64572930335999,
+				7.79971790313721
+			],
+			"reached": true,
+			"target": [
+				-4.40000009536743,
+				7.80000019073486
+			]
+		},
+		{
+			"player": [
+				3.43342614173889,
+				-2.64572930335999,
+				7.79999780654907
+			],
+			"reached": true,
+			"target": [
+				3.5,
+				7.80000019073486
+			]
+		},
+		{
+			"player": [
+				3.49962282180786,
+				-2.64572930335999,
+				-3.93315482139587
+			],
+			"reached": true,
+			"target": [
+				3.5,
+				-4.0
+			]
+		},
+		{
+			"player": [
+				-4.36676073074341,
+				-2.64572930335999,
+				-3.99971866607666
+			],
+			"reached": true,
+			"target": [
+				-4.40000009536743,
+				-4.0
+			]
+		}
+	],
+	"scene": "res://scenes/hunyuan_psx_round1.tscn",
+	"spawn_eye": [
+		-4.40000009536743,
+		-2.14572930335999,
+		-4.0
+	],
+	"walkable_area": {
+		"grid_step_m": 0.1,
+		"method": "10 cm capsule grid, 2 cm floor clearance, floor rays, 4-neighbor connectivity",
+		"spawn_connected_area_estimate_m2": 0.0,
+		"spawn_connected_center_samples": 0,
+		"spawn_sample_offset_m": -1.0,
+		"walkable_center_samples": 0
+	}
+}

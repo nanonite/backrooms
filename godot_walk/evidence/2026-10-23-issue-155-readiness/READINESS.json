@@ -1,0 +1,54 @@
+{
+  "issue": 155,
+  "recorded_date": "2026-10-23",
+  "status": "bounded_pair_accepted_for_first_pass_use",
+  "engine": "Godot 4.6.3",
+  "calibration": {
+    "registration_accepted": false,
+    "scale_calibrated": false
+  },
+  "accepted_scope": {
+    "modules": [
+      "godot_later_bay_column_bounded_v1",
+      "godot_early_pocket_single_west_v1"
+    ],
+    "connector": "column_east__pocket_west_v1",
+    "operator_acceptance": "First-pass logical connection and fall-free traversal for this exact pair.",
+    "evidence": "godot_walk/evidence/2026-10-23-issue-160-review/operator_review.json"
+  },
+  "mechanical_checks": {
+    "standalone_column": "pass: all configured routes reached, 100% floor support, zero SafetyNet contacts",
+    "standalone_pocket": "pass: all configured routes reached, 100% floor support, zero SafetyNet contacts",
+    "assembled_pair": "pass: bidirectional route reached, 100% floor support, zero SafetyNet contacts",
+    "negative_controls": "six expected floor/boundary failures observed",
+    "godot_contract_test": "ISSUE160_ROOM_CONTRACT: PASS"
+  },
+  "rendering_decisions": {
+    "affine_texture_mapping": false,
+    "texture_filtering": false,
+    "vertex_snap_intensity": 1,
+    "pocket_floor_uv_scale": 4,
+    "ceiling_bridge": "off"
+  },
+  "not_approved_by_this_record": [
+    "arbitrary module placements or new socket combinations",
+    "the provisional pocket pass-through and three-way variants",
+    "general branching, loops, or an expanded room library",
+    "metric registration or scale calibration"
+  ],
+  "source_flags": {
+    "generation_ready_for_general_layouts": false,
+    "registration_accepted": false,
+    "scale_calibrated": false
+  },
+  "hashes": {
+    "godot_walk/room_catalog/catalog.json": "d3fb1a1cbd47b48c9195fd3896b97ea30aa5403fd6b95bd608e6f3b021b01ac2",
+    "godot_walk/evidence/2026-10-23-issue-160-review/operator_review.json": "0b70b9006c082f2612b5ae5de274f1bfa4e3b760b8a79732b51aad71df9fcc75",
+    "godot_walk/evidence/2026-10-22-issue-160/mechanics/column/physics_candidate.json": "77b2f1fd3f943bb754a770b9fd3e2356fc9116690792afd87e3fecc65fec90ce",
+    "godot_walk/evidence/2026-10-22-issue-160/mechanics/pocket/physics_candidate.json": "f07b929a00cd7d3820967809da0a7b1bbfd9024f5a30a3f3d0d2181e18cadb2d",
+    "godot_walk/evidence/2026-10-22-issue-160/mechanics/assembly/physics_candidate.json": "ca6a9ebdb302ee7aa6d88bbd3f4aa6ba6b223a3a19d1dde4a913d3667b2e636a",
+    "godot_walk/evidence/2026-10-23-issue-157/operator_feedback.json": "9f8d710253599475a99d97919a29368efecee06fc8bd79c381b215c1a6667d1d",
+    "godot_walk/evidence/2026-10-23-issue-161/project_default_comparison.json": "a711dd2029dfc8d176e320388fde21b3eee91cec90b0ef89ae500372de8b42d6",
+    "godot_walk/project.godot": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7"
+  }
+}

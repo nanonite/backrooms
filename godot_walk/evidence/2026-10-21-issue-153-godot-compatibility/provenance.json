@@ -1,0 +1,66 @@
+{
+  "issue": 153,
+  "active_runtime": "Godot",
+  "bevy_status": "deferred",
+  "addon_version": "1.6.1",
+  "addon_install_directory": "/home/goya/.config/blender/5.0/scripts/addons/PSX tools",
+  "addon_license": "/home/goya/.config/blender/5.0/scripts/addons/PSX tools/LICENSE.txt",
+  "addon_sha256": {
+    "psx_addon.py": "9ed0ab1d5e1606ce56b971135eebfa0b5ea9e5432fe43f080c304abc60f095c3",
+    "Readme.txt": "d87f09d3c4aa9614ab01889dc92323f13cd7f517c4b7c85fb51e75232b6b48b2",
+    ".DS_Store": "aec7a9869c0cafda435c388ff2a71972f2fcc685abb4e2c95e6ee5c5520f967b",
+    "LICENSE.txt": "1fe4bd019ee42c0cca6f780fb0ed0f9a84166f996f3b35cb9fb0a91a6808216c",
+    "vertex_snapping.blend": "d2f93774c271483f70adfb865fb7772cd4de6b8b42c696a91de51029563b2400",
+    "__init__.py": "a3304e50c68793fb669154e7dc4d1e3f239670047c49e5e8e70af03f1fde9b90"
+  },
+  "native_sha256": {
+    "scripts/psx/psx_post_effect.gd": "5b06eff8e0f1fc0a5c98711633eb50d03db39db4c1e73b309433e444dd3c5795",
+    "scripts/psx/shaders/psx_post.glsl": "b1a4c839f1346d64586dae4cda6175b06793d4de95cb0ada8ba57c0851e80ba5",
+    "scripts/hunyuan_psx_column_box.gd": "04142b33c1b39edd2725fbefa854c8b88561a43d45eaa06d94bafaba578be68b",
+    "scripts/hunyuan_psx_round1.gd": "e717a07e171247deb5f4af38e0cf6b364ae99a927bb419324004fb50c4b84971",
+    "scripts/hunyuan_psx_round3.gd": "ef306619ae6e57af2784092e1a55a7cee296014b2561496cf423786f7557d103"
+  },
+  "protected_hashes": [
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb",
+      "sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+      "matches_prior": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/authored_room_collision.glb",
+      "sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9",
+      "matches_prior": true
+    },
+    {
+      "path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+      "sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "matches_prior": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-151-round-3/source/frame_0152_column_front.png",
+      "sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "matches_prior": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png",
+      "sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "matches_prior": true
+    }
+  ],
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "blender_smoke": {
+    "exit_code": 139,
+    "operation": "psx_texture_bake",
+    "assets_exported": false,
+    "limitation": "Background popup_menu crash; not an interactive compatibility verdict"
+  },
+  "godot_column_regression": "PASS",
+  "readiness": {
+    "first_room_column": "operator_accepted",
+    "first_room_whole_psx_review": "pending",
+    "second_independent_godot_room": "pending",
+    "both_rooms_psx_review": "pending",
+    "connector_validation": "pending"
+  }
+}

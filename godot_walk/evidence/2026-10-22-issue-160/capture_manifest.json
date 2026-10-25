@@ -1,0 +1,362 @@
+[
+	{
+		"eye": [
+			-3.5,
+			-0.170990496873856,
+			0.0
+		],
+		"fov": 75.0,
+		"id": "spawn_to_C01",
+		"path": "res://evidence/2026-10-22-issue-160/captures/column/spawn_to_C01.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "column",
+		"scene": "res://scenes/issue160_bounded_column_room.tscn",
+		"scene_load_to_ready_ms": 1608,
+		"settle_frames": 24,
+		"target": [
+			0.419999986886978,
+			-0.170990496873856,
+			1.04999995231628
+		]
+	},
+	{
+		"eye": [
+			-1.5,
+			-0.170990496873856,
+			1.04999995231628
+		],
+		"fov": 75.0,
+		"id": "C01_west",
+		"path": "res://evidence/2026-10-22-issue-160/captures/column/C01_west.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "column",
+		"scene": "res://scenes/issue160_bounded_column_room.tscn",
+		"scene_load_to_ready_ms": 1608,
+		"settle_frames": 24,
+		"target": [
+			0.419999986886978,
+			-0.170990496873856,
+			1.04999995231628
+		]
+	},
+	{
+		"eye": [
+			0.419999986886978,
+			-0.170990496873856,
+			3.79999995231628
+		],
+		"fov": 75.0,
+		"id": "C01_north",
+		"path": "res://evidence/2026-10-22-issue-160/captures/column/C01_north.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "column",
+		"scene": "res://scenes/issue160_bounded_column_room.tscn",
+		"scene_load_to_ready_ms": 1608,
+		"settle_frames": 24,
+		"target": [
+			0.419999986886978,
+			-0.170990496873856,
+			1.04999995231628
+		]
+	},
+	{
+		"eye": [
+			-2.0,
+			-0.170990496873856,
+			3.20000004768372
+		],
+		"fov": 75.0,
+		"id": "C02_front",
+		"path": "res://evidence/2026-10-22-issue-160/captures/column/C02_front.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "column",
+		"scene": "res://scenes/issue160_bounded_column_room.tscn",
+		"scene_load_to_ready_ms": 1608,
+		"settle_frames": 24,
+		"target": [
+			-0.712499976158142,
+			-0.170990496873856,
+			4.42500019073486
+		]
+	},
+	{
+		"eye": [
+			0.0,
+			-0.170990496873856,
+			5.19999980926514
+		],
+		"fov": 75.0,
+		"id": "C02_reverse",
+		"path": "res://evidence/2026-10-22-issue-160/captures/column/C02_reverse.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "column",
+		"scene": "res://scenes/issue160_bounded_column_room.tscn",
+		"scene_load_to_ready_ms": 1608,
+		"settle_frames": 24,
+		"target": [
+			-0.712499976158142,
+			-0.170990496873856,
+			4.42500019073486
+		]
+	},
+	{
+		"eye": [
+			2.5,
+			-0.170990496873856,
+			3.09999990463257
+		],
+		"fov": 75.0,
+		"id": "east_socket_closed",
+		"path": "res://evidence/2026-10-22-issue-160/captures/column/east_socket_closed.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "column",
+		"scene": "res://scenes/issue160_bounded_column_room.tscn",
+		"scene_load_to_ready_ms": 1608,
+		"settle_frames": 24,
+		"target": [
+			3.5,
+			-0.170990496873856,
+			3.09999990463257
+		]
+	},
+	{
+		"eye": [
+			0.800000011920929,
+			-0.170990496873856,
+			0.800000011920929
+		],
+		"fov": 75.0,
+		"id": "entry",
+		"path": "res://evidence/2026-10-22-issue-160/captures/pocket/entry.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "pocket",
+		"scene": "res://scenes/issue160_bounded_pocket_room.tscn",
+		"scene_load_to_ready_ms": 45,
+		"settle_frames": 24,
+		"target": [
+			5.19999980926514,
+			-0.170990496873856,
+			0.800000011920929
+		]
+	},
+	{
+		"eye": [
+			5.19999980926514,
+			-0.170990496873856,
+			13.0
+		],
+		"fov": 75.0,
+		"id": "far_end",
+		"path": "res://evidence/2026-10-22-issue-160/captures/pocket/far_end.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "pocket",
+		"scene": "res://scenes/issue160_bounded_pocket_room.tscn",
+		"scene_load_to_ready_ms": 45,
+		"settle_frames": 24,
+		"target": [
+			0.800000011920929,
+			-0.170990496873856,
+			13.0
+		]
+	},
+	{
+		"eye": [
+			1.0,
+			-0.170990496873856,
+			6.90000009536743
+		],
+		"fov": 75.0,
+		"id": "west_socket_closed",
+		"path": "res://evidence/2026-10-22-issue-160/captures/pocket/west_socket_closed.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "pocket",
+		"scene": "res://scenes/issue160_bounded_pocket_room.tscn",
+		"scene_load_to_ready_ms": 45,
+		"settle_frames": 24,
+		"target": [
+			0.0,
+			-0.170990496873856,
+			6.90000009536743
+		]
+	},
+	{
+		"eye": [
+			5.0,
+			-0.170990496873856,
+			6.90000009536743
+		],
+		"fov": 75.0,
+		"id": "east_wall",
+		"path": "res://evidence/2026-10-22-issue-160/captures/pocket/east_wall.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "pocket",
+		"scene": "res://scenes/issue160_bounded_pocket_room.tscn",
+		"scene_load_to_ready_ms": 45,
+		"settle_frames": 24,
+		"target": [
+			6.0,
+			-0.170990496873856,
+			6.90000009536743
+		]
+	},
+	{
+		"eye": [
+			2.5,
+			-0.170990496873856,
+			3.09999990463257
+		],
+		"fov": 75.0,
+		"id": "column_approach",
+		"path": "res://evidence/2026-10-22-issue-160/captures/assembly/column_approach.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "assembly",
+		"scene": "res://scenes/issue160_assembled_walkthrough.tscn",
+		"scene_load_to_ready_ms": 1578,
+		"settle_frames": 24,
+		"target": [
+			4.30000019073486,
+			-0.170990496873856,
+			3.09999990463257
+		]
+	},
+	{
+		"eye": [
+			3.5,
+			-0.170990496873856,
+			3.09999990463257
+		],
+		"fov": 75.0,
+		"id": "connector_midpoint",
+		"path": "res://evidence/2026-10-22-issue-160/captures/assembly/connector_midpoint.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "assembly",
+		"scene": "res://scenes/issue160_assembled_walkthrough.tscn",
+		"scene_load_to_ready_ms": 1578,
+		"settle_frames": 24,
+		"target": [
+			5.19999980926514,
+			-0.170990496873856,
+			3.09999990463257
+		]
+	},
+	{
+		"eye": [
+			4.30000019073486,
+			-0.170990496873856,
+			3.09999990463257
+		],
+		"fov": 75.0,
+		"id": "pocket_return",
+		"path": "res://evidence/2026-10-22-issue-160/captures/assembly/pocket_return.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "assembly",
+		"scene": "res://scenes/issue160_assembled_walkthrough.tscn",
+		"scene_load_to_ready_ms": 1578,
+		"settle_frames": 24,
+		"target": [
+			2.20000004768372,
+			-0.170990496873856,
+			3.09999990463257
+		]
+	},
+	{
+		"eye": [
+			8.69999980926514,
+			-0.170990496873856,
+			9.0
+		],
+		"fov": 75.0,
+		"id": "pocket_far",
+		"path": "res://evidence/2026-10-22-issue-160/captures/assembly/pocket_far.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "assembly",
+		"scene": "res://scenes/issue160_assembled_walkthrough.tscn",
+		"scene_load_to_ready_ms": 1578,
+		"settle_frames": 24,
+		"target": [
+			4.30000019073486,
+			-0.170990496873856,
+			9.19999980926514
+		]
+	},
+	{
+		"eye": [
+			3.09999990463257,
+			-0.920990467071533,
+			3.09999990463257
+		],
+		"fov": 75.0,
+		"id": "seam_floor",
+		"path": "res://evidence/2026-10-22-issue-160/captures/assembly/seam_floor.png",
+		"psx_preset": "URSC 1.5 subset / existing compositor",
+		"resolution": [
+			960,
+			540
+		],
+		"room": "assembly",
+		"scene": "res://scenes/issue160_assembled_walkthrough.tscn",
+		"scene_load_to_ready_ms": 1578,
+		"settle_frames": 24,
+		"target": [
+			3.90000009536743,
+			-0.920990467071533,
+			3.09999990463257
+		]
+	}
+]

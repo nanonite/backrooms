@@ -1,0 +1,12 @@
+{
+	"baseline": false,
+	"capped_at_60": true,
+	"counter": "RenderingServer.frame_post_draw",
+	"elapsed_s": 13.982462,
+	"fps": 60.0037389695749,
+	"frames": 839,
+	"p95_frame_ms": 16.795,
+	"p99_frame_ms": 16.901,
+	"poses": 14,
+	"scene": "res://scenes/library_pocket_room.tscn"
+}

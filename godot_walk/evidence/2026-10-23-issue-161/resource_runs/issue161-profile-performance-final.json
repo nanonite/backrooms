@@ -1,0 +1,39 @@
+{
+  "label": "issue161-profile-performance-final",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--disable-vsync",
+    "--script",
+    "res://scripts/measure_issue161_profiles.gd"
+  ],
+  "timeout_seconds": 180,
+  "timed_out": false,
+  "return_code": 0,
+  "error": null,
+  "elapsed_seconds": 3.018,
+  "finished_utc": "2026-10-23T16:12:43.774857+00:00",
+  "preflight": {
+    "free_vram_bytes": 10606346240,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 5,
+    "compute_apps": [],
+    "ram_available_bytes": 37426028544,
+    "vram_after_headroom_bytes": 8485076992,
+    "ram_after_headroom_bytes": 28069521408,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 2429652992,
+    "gpu_memory_start_bytes": 1840250880,
+    "peak_gpu_memory_used_bytes": 2397044736,
+    "peak_gpu_memory_delta_bytes": 556793856,
+    "gpu_sample_period_ms": 500
+  }
+}

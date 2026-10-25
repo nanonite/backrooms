@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "round_id": "hunyuan-psx-r1",
+  "variant_id": "preserve_hunyuan",
+  "parent_id": "issue-150-accepted-design-baseline",
+  "hypothesis": "Keep the generated room surfaces visible while replacing only the floor with the direct-video sampled PSX floor texture and using authored collision boundaries.",
+  "region_decisions": [
+    {"id": "floor", "action": "cover", "provenance": "authored", "evidence": "source-video sampled texture floor_source_video.png", "reason": "Provide a continuous, clean walk surface without relying on Hunyuan topology."},
+    {"id": "walls", "action": "preserve", "provenance": "hunyuan-generated", "evidence": "issue-147 Hunyuan layers", "reason": "Expose the generated room appearance for comparison."},
+    {"id": "ceiling", "action": "preserve", "provenance": "hunyuan-generated", "evidence": "issue-147 Hunyuan layers", "reason": "Keep ceiling artifacts visible as a control condition."},
+    {"id": "column", "action": "preserve", "provenance": "hunyuan-generated", "evidence": "issue-147 Hunyuan layers", "reason": "Keep the generated column coverage visible as a control condition."}
+  ],
+  "authored_changes": [
+    {"id": "room_floor", "geometry": "9.9 x 13.8 m box-top convention floor", "material": "floor_source_video.png", "collision": "explicit authored box floor"},
+    {"id": "room_boundaries", "geometry": "four authored 2.4 m high boxes", "material": "none; collision-only", "collision": "explicit authored safety boundaries"}
+  ]
+}

@@ -1,0 +1,20 @@
+{
+	"affine_texture_mapping": false,
+	"camera_eye": [
+		36.5,
+		-0.17099049,
+		2.4
+	],
+	"camera_target": [
+		36.5,
+		-0.17099049,
+		8.0
+	],
+	"path": "res://evidence/2026-10-23-issue-161/captures/project_default/branch_center.png",
+	"resolution": [
+		1280,
+		720
+	],
+	"settle_frames": 18,
+	"source": "project.godot shader global; no runtime override"
+}

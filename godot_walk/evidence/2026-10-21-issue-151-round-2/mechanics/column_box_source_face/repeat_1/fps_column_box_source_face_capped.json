@@ -1,0 +1,12 @@
+{
+	"baseline": false,
+	"capped_at_60": true,
+	"counter": "RenderingServer.frame_post_draw",
+	"elapsed_s": 11.982803,
+	"fps": 60.0026554721796,
+	"frames": 719,
+	"p95_frame_ms": 16.884,
+	"p99_frame_ms": 17.119,
+	"poses": 12,
+	"scene": "res://scenes/hunyuan_psx_round2.tscn"
+}

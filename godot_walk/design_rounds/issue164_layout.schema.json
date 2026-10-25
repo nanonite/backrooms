@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/issue164-layout.schema.json",
+  "title": "Issue 164 three-room walkthrough candidate",
+  "type": "object",
+  "required": [
+    "schema_version", "layout_id", "catalog_id", "catalog_version",
+    "catalog_sha256", "catalog_snapshot_path", "seed", "settings",
+    "registration_accepted", "scale_calibrated", "mechanical_status",
+    "operator_status", "topology", "placements", "connections",
+    "walk_route_xz", "layout_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "layout_id": {"const": "issue164_three_room_chain_seed_164"},
+    "catalog_id": {"const": "godot_psx_room_kit"},
+    "catalog_version": {"type": "string", "minLength": 1},
+    "catalog_sha256": {"$ref": "#/$defs/sha256"},
+    "catalog_snapshot_path": {"type": "string", "pattern": "^res://evidence/"},
+    "seed": {"const": 164},
+    "settings": {
+      "type": "object",
+      "required": ["placement_count", "branch_required", "loops", "layout_bounds_m"],
+      "properties": {
+        "placement_count": {"const": 3},
+        "branch_required": {"const": false},
+        "loops": {"const": false},
+        "layout_bounds_m": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number"}}
+      },
+      "additionalProperties": false
+    },
+    "registration_accepted": {"const": false},
+    "scale_calibrated": {"const": false},
+    "mechanical_status": {"enum": ["candidate_validation_pending", "mechanically_validated"]},
+    "operator_status": {"const": "review_pending"},
+    "topology": {"type": "object", "properties": {"type": {"const": "three_distinct_design_chain"}}},
+    "placements": {"type": "array", "minItems": 3, "maxItems": 3},
+    "connections": {"type": "array", "minItems": 2, "maxItems": 2},
+    "walk_route_xz": {"type": "array", "minItems": 2, "items": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}}},
+    "layout_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "additionalProperties": true,
+  "$defs": {"sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+}

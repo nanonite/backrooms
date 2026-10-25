@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/schemas/hunyuan-round.schema.json",
+  "title": "Hunyuan PSX design round",
+  "type": "object",
+  "required": ["schema_version", "round_id", "issue", "status", "provenance", "convention", "variants", "capture", "toolchain", "mechanics", "review_bundle", "operator_feedback"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "round_id": {"type": "string", "pattern": "^hunyuan-psx-r[0-9]+$"},
+    "issue": {"const": 151},
+    "status": {"enum": ["awaiting_operator_review", "operator_reviewed", "superseded"]},
+    "parent_round_id": {"type": ["string", "null"]},
+    "provenance": {
+      "type": "object",
+      "required": ["source_video", "seed_frame", "hunyuan_asset", "generation"],
+      "properties": {
+        "source_video": {"$ref": "#/$defs/asset"},
+        "seed_frame": {"$ref": "#/$defs/asset"},
+        "hunyuan_asset": {"$ref": "#/$defs/asset"},
+        "generation": {
+          "type": "object",
+          "required": ["model", "commit", "panorama", "scene_generation", "reused_output"],
+          "properties": {
+            "model": {"type": "string"},
+            "commit": {"type": "string"},
+            "panorama": {"type": "object"},
+            "scene_generation": {"type": "object"},
+            "reused_output": {"type": "boolean"}
+          }
+        }
+      }
+    },
+    "convention": {
+      "type": "object",
+      "required": ["registration_accepted", "scale_calibrated", "bounds_m", "visual_collision_policy"],
+      "properties": {
+        "registration_accepted": {"const": false},
+        "scale_calibrated": {"const": false},
+        "bounds_m": {"type": "object"},
+        "transform_source": {"type": "string"},
+        "visual_collision_policy": {"const": "Hunyuan visual only; collision authored and separately validated"}
+      }
+    },
+    "variants": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/variant"}},
+    "capture": {"type": "object", "required": ["resolution", "fov_degrees", "settle_frames", "view_ids", "replay_note"]},
+    "toolchain": {
+      "type": "object",
+      "required": ["godot", "python", "odiff"],
+      "properties": {
+        "godot": {"type": "string", "minLength": 1},
+        "python": {"type": "string", "minLength": 1},
+        "odiff": {"const": "odiff-bin@4.5.0"}
+      }
+    },
+    "mechanics": {"type": "object", "required": ["walkability_report", "expected_negative_controls"]},
+    "review_bundle": {"type": "object", "required": ["index", "contact_sheet", "layout", "commands", "capture_directories"]},
+    "operator_feedback": {
+      "type": "object",
+      "required": ["path", "status"],
+      "properties": {
+        "path": {"type": "string"},
+        "status": {"enum": ["pending_operator_review", "confirmed"]}
+      }
+    }
+  },
+  "$defs": {
+    "asset": {
+      "type": "object",
+      "required": ["path", "sha256", "role"],
+      "properties": {
+        "path": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "role": {"type": "string"}
+      }
+    },
+    "variant": {
+      "type": "object",
+      "required": ["variant_id", "parent_id", "hypothesis", "region_decisions", "authored_changes"],
+      "properties": {
+        "variant_id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+        "parent_id": {"type": ["string", "null"]},
+        "hypothesis": {"type": "string"},
+        "region_decisions": {"type": "array", "items": {"type": "object"}},
+        "authored_changes": {"type": "array", "items": {"type": "object"}}
+      }
+    }
+  }
+}

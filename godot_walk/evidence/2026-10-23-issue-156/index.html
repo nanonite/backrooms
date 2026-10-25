@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Issue 156 bounded streaming review</title>
+<style>
+body{font:16px system-ui,sans-serif;background:#15191b;color:#e6e5dc;margin:24px;max-width:1400px}
+h1{font-size:24px;font-weight:600}p{max-width:880px;line-height:1.5;color:#bdc5c5}
+.views{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px}
+figure{margin:0;background:#22292b;border:1px solid #394143;padding:8px}
+img{width:100%;height:auto;display:block}figcaption{padding:9px 2px 2px;font-size:14px}
+code{color:#d8c890}a{color:#9bc5cf}
+</style>
+<h1>Issue 156: bounded room streaming</h1>
+<p>Finite seed-149 layout, streamed with the current room and its graph neighbors. Unloaded connected openings are shown with authored solid caps. This is an authored layout, not recovered source-video connectivity.</p>
+<p><a href="layout_seed_149.svg">Layout diagram</a> · <a href="REPORT.md">Evidence report</a> ·
+  Walkthrough command: <code>godot4 --path godot_walk --rendering-driver vulkan --resolution 1280x720 res://scenes/issue156_streamed_walkthrough.tscn</code></p>
+<div class="views"><figure><img src="captures/spawn_connector.png" alt="spawn_connector"><figcaption>spawn_connector (R000) | resident: R000, R001 | frontier caps: 1</figcaption></figure>
+<figure><img src="captures/three_way_branch.png" alt="three_way_branch"><figcaption>three_way_branch (R006) | resident: R005, R006, R007, R008 | frontier caps: 2</figcaption></figure>
+<figure><img src="captures/branch_leaf.png" alt="branch_leaf"><figcaption>branch_leaf (R007) | resident: R006, R007 | frontier caps: 2</figcaption></figure>
+<figure><img src="captures/far_terminal.png" alt="far_terminal"><figcaption>far_terminal (R009) | resident: R008, R009 | frontier caps: 1</figcaption></figure></div>
+</html>

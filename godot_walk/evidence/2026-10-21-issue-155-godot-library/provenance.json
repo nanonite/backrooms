@@ -1,0 +1,67 @@
+{
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "protected": [
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb",
+      "sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+      "matches": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/authored_room_collision.glb",
+      "sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9",
+      "matches": true
+    },
+    {
+      "path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+      "sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "matches": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-151-round-3/source/frame_0152_column_front.png",
+      "sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "matches": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png",
+      "sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "matches": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+      "sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5",
+      "matches": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_collision.glb",
+      "sha256": "0a4479f9c32cdf193d4a4196f8e6330474a7a2254426471b2725220a7b966246",
+      "matches": true
+    }
+  ],
+  "plugin": {
+    "upstream": "https://github.com/Zorochase/ultimate-retro-shader-collection",
+    "release": "1.5",
+    "commit": "8cd971d0a275ef126151a99adf49cae1a64614c4",
+    "license": "MIT",
+    "engine_tested_here": "4.6.3.stable.official.7d41c59c4",
+    "renderer_tested_here": "Vulkan Forward+ / NVIDIA RTX 4070 Ti",
+    "files": {
+      "godot_walk/vendor/ursc/utilities.gdshaderinc": "0a56e85852069315945e54fdb692dd5f9140dee9ae2ad15bce958987c7b0f011",
+      "godot_walk/vendor/ursc/LICENSE.md": "53b502faa24b85d6a2116abcd9e692c997303a2ee18d058efc51fc120856bcff",
+      "godot_walk/vendor/ursc/README.md": "3af83ae23d515dd86a5955607f454cc8b0fdce6e987e8b1a308163c1d2b69484",
+      "godot_walk/vendor/ursc/common.gdshaderinc": "c2bba1e4d8491d91684efd246458196d7750a4951a21c1bbef58b82537288a49"
+    },
+    "modifications": "No effect code changes. utilities.gdshaderinc gains a final newline; common and license are byte-identical.",
+    "upstream_utilities_sha256": "c54ed193069b8b50042de833df7ec810d11a2d0f5b9c6a4f229d5ecd0ee0c2d5",
+    "integration": "Macro-only unshaded, double-sided configurations; original UV scale/texture/albedo passed through. Process-lifetime globals; no editor setup/project mutation."
+  },
+  "source_textures": {
+    "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png": "f1bfe1ab7aa9ffe416b68f5f24612ff6293d26e7d421c7fb95fda3c66c4210d4",
+    "godot_walk/assets/psx_extension/textures/floor_source_video.png": "75dd78545085a49a12ef2b1268821c3aff6ccca6dcdf10620c2e3d7ee4b14bb7",
+    "godot_walk/assets/psx_extension/textures/ceiling_source_video.png": "01f0d0182ddf3676d4ab85b19179fbd199ad4afce13bef3d781e98264e984376",
+    "godot_walk/assets/psx_extension/textures/column_source_video.png": "327f69745cc5f6c2cc3c8e600a484af7b681b9e14961955d3f661ea10f16b9bc"
+  },
+  "texture_provenance": "Existing source-video crops, reused unchanged. Historical generation: godot_walk/scripts/run_psx_design_round_4.py (wallpaper/floor/ceiling/column); accepted column direct frame0152 crop retained separately.",
+  "source_frame": "data/scenes/corridor_travel/images/frame_0001.jpg",
+  "source_crop_manifest": "godot_walk/scripts/run_psx_design_round_4.py:26"
+}

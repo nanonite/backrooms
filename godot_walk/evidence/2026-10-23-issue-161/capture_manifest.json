@@ -1,0 +1,650 @@
+[
+	{
+		"affine_texture_mapping": true,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			-0.170990496873856,
+			8.0
+		],
+		"capture_id": "repeat_noise_1",
+		"path": "captures/affine_on/repeat_noise_1.png",
+		"profile_id": "affine_on",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "repeat_noise"
+	},
+	{
+		"affine_texture_mapping": true,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			-0.170990496873856,
+			8.0
+		],
+		"capture_id": "repeat_noise_2",
+		"path": "captures/affine_on/repeat_noise_2.png",
+		"profile_id": "affine_on",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "repeat_noise"
+	},
+	{
+		"affine_texture_mapping": true,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			-0.170990496873856,
+			8.0
+		],
+		"capture_id": "repeat_noise_3",
+		"path": "captures/affine_on/repeat_noise_3.png",
+		"profile_id": "affine_on",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "repeat_noise"
+	},
+	{
+		"affine_texture_mapping": true,
+		"camera_eye": [
+			2.9210000038147,
+			-0.170990496873856,
+			3.7039999961853
+		],
+		"camera_target": [
+			-1.2150000333786,
+			-0.170990496873856,
+			-0.634999990463257
+		],
+		"capture_id": "column_patch_anchor",
+		"path": "captures/affine_on/column_patch_anchor.png",
+		"profile_id": "affine_on",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R000",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "column, wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "column_patch_anchor"
+	},
+	{
+		"affine_texture_mapping": true,
+		"camera_eye": [
+			2.36999988555908,
+			-0.170990496873856,
+			0.323000013828278
+		],
+		"camera_target": [
+			-3.63000011444092,
+			-0.170990496873856,
+			0.323000013828278
+		],
+		"capture_id": "column_east_wall",
+		"path": "captures/affine_on/column_east_wall.png",
+		"profile_id": "affine_on",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R000",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "column_east_wall"
+	},
+	{
+		"affine_texture_mapping": true,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			-0.170990496873856,
+			8.0
+		],
+		"capture_id": "branch_center",
+		"path": "captures/affine_on/branch_center.png",
+		"profile_id": "affine_on",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "branch_center"
+	},
+	{
+		"affine_texture_mapping": true,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			34.5846862792969,
+			-0.170990496873856,
+			7.66227912902832
+		],
+		"capture_id": "wall_pan_left",
+		"path": "captures/affine_on/wall_pan_left.png",
+		"profile_id": "affine_on",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "wall_pan_left"
+	},
+	{
+		"affine_texture_mapping": true,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			38.4153137207031,
+			-0.170990496873856,
+			7.66227912902832
+		],
+		"capture_id": "wall_pan_right",
+		"path": "captures/affine_on/wall_pan_right.png",
+		"profile_id": "affine_on",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "wall_pan_right"
+	},
+	{
+		"affine_texture_mapping": true,
+		"camera_eye": [
+			36.2999992370605,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.2999992370605,
+			-0.170990496873856,
+			8.0
+		],
+		"capture_id": "hall_step_left",
+		"path": "captures/affine_on/hall_step_left.png",
+		"profile_id": "affine_on",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "hall_step_left"
+	},
+	{
+		"affine_texture_mapping": true,
+		"camera_eye": [
+			36.7000007629395,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.7000007629395,
+			-0.170990496873856,
+			8.0
+		],
+		"capture_id": "hall_step_right",
+		"path": "captures/affine_on/hall_step_right.png",
+		"profile_id": "affine_on",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "hall_step_right"
+	},
+	{
+		"affine_texture_mapping": true,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			-1.22099053859711,
+			8.0
+		],
+		"capture_id": "floor_walk_line",
+		"path": "captures/affine_on/floor_walk_line.png",
+		"profile_id": "affine_on",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "floor, wall",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "floor_walk_line"
+	},
+	{
+		"affine_texture_mapping": true,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			1.04999995231628,
+			8.0
+		],
+		"capture_id": "ceiling_walk_line",
+		"path": "captures/affine_on/ceiling_walk_line.png",
+		"profile_id": "affine_on",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "ceiling, wall",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "ceiling_walk_line"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			-0.170990496873856,
+			8.0
+		],
+		"capture_id": "repeat_noise_1",
+		"path": "captures/affine_off/repeat_noise_1.png",
+		"profile_id": "affine_off",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "repeat_noise"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			-0.170990496873856,
+			8.0
+		],
+		"capture_id": "repeat_noise_2",
+		"path": "captures/affine_off/repeat_noise_2.png",
+		"profile_id": "affine_off",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "repeat_noise"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			-0.170990496873856,
+			8.0
+		],
+		"capture_id": "repeat_noise_3",
+		"path": "captures/affine_off/repeat_noise_3.png",
+		"profile_id": "affine_off",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "repeat_noise"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			2.9210000038147,
+			-0.170990496873856,
+			3.7039999961853
+		],
+		"camera_target": [
+			-1.2150000333786,
+			-0.170990496873856,
+			-0.634999990463257
+		],
+		"capture_id": "column_patch_anchor",
+		"path": "captures/affine_off/column_patch_anchor.png",
+		"profile_id": "affine_off",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R000",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "column, wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "column_patch_anchor"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			2.36999988555908,
+			-0.170990496873856,
+			0.323000013828278
+		],
+		"camera_target": [
+			-3.63000011444092,
+			-0.170990496873856,
+			0.323000013828278
+		],
+		"capture_id": "column_east_wall",
+		"path": "captures/affine_off/column_east_wall.png",
+		"profile_id": "affine_off",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R000",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "column_east_wall"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			-0.170990496873856,
+			8.0
+		],
+		"capture_id": "branch_center",
+		"path": "captures/affine_off/branch_center.png",
+		"profile_id": "affine_off",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "branch_center"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			34.5846862792969,
+			-0.170990496873856,
+			7.66227912902832
+		],
+		"capture_id": "wall_pan_left",
+		"path": "captures/affine_off/wall_pan_left.png",
+		"profile_id": "affine_off",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "wall_pan_left"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			38.4153137207031,
+			-0.170990496873856,
+			7.66227912902832
+		],
+		"capture_id": "wall_pan_right",
+		"path": "captures/affine_off/wall_pan_right.png",
+		"profile_id": "affine_off",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "wall_pan_right"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			36.2999992370605,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.2999992370605,
+			-0.170990496873856,
+			8.0
+		],
+		"capture_id": "hall_step_left",
+		"path": "captures/affine_off/hall_step_left.png",
+		"profile_id": "affine_off",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "hall_step_left"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			36.7000007629395,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.7000007629395,
+			-0.170990496873856,
+			8.0
+		],
+		"capture_id": "hall_step_right",
+		"path": "captures/affine_off/hall_step_right.png",
+		"profile_id": "affine_off",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "wall, floor, ceiling",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "hall_step_right"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			-1.22099053859711,
+			8.0
+		],
+		"capture_id": "floor_walk_line",
+		"path": "captures/affine_off/floor_walk_line.png",
+		"profile_id": "affine_off",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "floor, wall",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "floor_walk_line"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			36.5,
+			-0.170990496873856,
+			2.39999985694885
+		],
+		"camera_target": [
+			36.5,
+			1.04999995231628,
+			8.0
+		],
+		"capture_id": "ceiling_walk_line",
+		"path": "captures/affine_off/ceiling_walk_line.png",
+		"profile_id": "affine_off",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R006",
+		"scene_load_to_ready_ms": 2110,
+		"settle_frames": 18,
+		"surfaces": "ceiling, wall",
+		"texture_filtering": false,
+		"vertex_snap_intensity": 1,
+		"view_id": "ceiling_walk_line"
+	}
+]

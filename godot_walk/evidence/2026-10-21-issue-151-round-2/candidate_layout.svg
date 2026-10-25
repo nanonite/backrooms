@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430">
+<rect width="900" height="430" fill="#f4f4ee"/>
+<text x="32" y="40" font-family="sans-serif" font-size="22" font-weight="700" fill="#202724">#151 Round 2 | Column-only proposal</text>
+<text x="32" y="68" font-family="sans-serif" font-size="14" fill="#843f34">Uncalibrated authored bounds. The diagram is not a recovered floor plan.</text>
+<rect x="110" y="105" width="305" height="255" fill="#dedbcf" stroke="#313b35" stroke-width="3"/>
+<rect x="232" y="203" width="57" height="44" fill="#bac1b5" stroke="#426d62" stroke-width="3"/>
+<rect x="228" y="199" width="65" height="52" fill="none" stroke="#ad503c" stroke-width="2" stroke-dasharray="6 4"/>
+<path d="M142 328 L142 120 L360 120" fill="none" stroke="#356f67" stroke-width="3" stroke-dasharray="8 6"/>
+<text x="110" y="386" font-family="sans-serif" font-size="13" fill="#29332e">Existing room bounds and test route; dimensions remain uncalibrated.</text>
+<text x="455" y="128" font-family="sans-serif" font-size="16" font-weight="700" fill="#29332e">Round 2 changes</text>
+<text x="455" y="160" font-family="sans-serif" font-size="14" fill="#29332e">Control: current Hunyuan column.</text>
+<text x="455" y="184" font-family="sans-serif" font-size="14" fill="#29332e">Candidate: authored box at the same obstacle bounds,</text>
+<text x="455" y="206" font-family="sans-serif" font-size="14" fill="#29332e">with a direct crop from the visible frame-0152 face.</text>
+<text x="455" y="248" font-family="sans-serif" font-size="14" fill="#29332e">Floor, ceiling, walls, route, and collision stay fixed.</text>
+<text x="455" y="272" font-family="sans-serif" font-size="14" fill="#29332e">No registration or scale claim; no unseen space added.</text>
+<rect x="456" y="315" width="22" height="18" fill="#bac1b5" stroke="#426d62" stroke-width="2"/><text x="488" y="329" font-family="sans-serif" font-size="13" fill="#29332e">shared column obstacle bounds</text>
+<rect x="456" y="346" width="22" height="18" fill="none" stroke="#ad503c" stroke-width="2" stroke-dasharray="5 3"/><text x="488" y="360" font-family="sans-serif" font-size="13" fill="#29332e">authored visual cover in candidate only</text>
+</svg>

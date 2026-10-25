@@ -1,0 +1,70 @@
+{
+  "status": "provisional_godot_review_only",
+  "ready_for_generation": false,
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "preset": {
+    "vertex_snap_intensity": 1,
+    "affine_texture_mapping": true,
+    "texture_filtering": false,
+    "texture_lod_halve_distance": 0,
+    "cull_distance": 0,
+    "unshaded": true,
+    "two_sided": true,
+    "native_post": {
+      "pixel_size": 3,
+      "color_levels": 24,
+      "instances": 1
+    },
+    "toggle": "F6 changes only packaged material effects; native post remains ON"
+  },
+  "rooms": [
+    {
+      "id": "godot_later_bay_column_v1",
+      "scene": "res://scenes/library_column_room.tscn",
+      "footprint": {
+        "x": [
+          -5.4,
+          4.5
+        ],
+        "z": [
+          -5.0,
+          8.8
+        ]
+      },
+      "floor_y": -1.27099049,
+      "height": 2.4,
+      "source": "#147 Hunyuan visual, reference frames 85-192; #151 accepted frame0152 column face",
+      "authored": "Floor, perimeter collision, column collision proxy and accepted visual box; reference alignment uncalibrated",
+      "mechanically_validated": true,
+      "psx_applied": true,
+      "operator_approved": false,
+      "column_repair_approved": true,
+      "connectors": [],
+      "socket_status": "Closed collision perimeter; no Godot connector tested"
+    },
+    {
+      "id": "godot_authored_early_pocket_v1",
+      "scene": "res://scenes/library_pocket_room.tscn",
+      "footprint": {
+        "x": [
+          0.0,
+          6.0
+        ],
+        "z": [
+          0.0,
+          13.8
+        ]
+      },
+      "floor_y": -1.27099049,
+      "height": 2.4,
+      "source": "#148 authored early pocket inspired by frames13-27; no confirmed second source room or connection",
+      "authored": "Original50 collision triangles; original floor/ceiling visual geometry with generated planar visual UVs; report wall/grid/light boxes with existing source textures",
+      "mechanically_validated": true,
+      "psx_applied": true,
+      "operator_approved": false,
+      "connectors": [],
+      "socket_status": "Closed collision perimeter; no Godot connector tested"
+    }
+  ]
+}

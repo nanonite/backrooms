@@ -1,0 +1,420 @@
+{
+  "issue": 160,
+  "reference_manifest": "godot_walk/evidence/2026-10-20-issue-150/module_manifest.json",
+  "protected_inputs": [
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb",
+      "expected_sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+      "actual_sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/authored_room_collision.glb",
+      "expected_sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9",
+      "actual_sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/source_selection.json",
+      "expected_sha256": "d9cb2e90dd1bc16470b4dbed3c2759a7ad39ae46ada86b4c5bc68667549d5661",
+      "actual_sha256": "d9cb2e90dd1bc16470b4dbed3c2759a7ad39ae46ada86b4c5bc68667549d5661",
+      "verified": true
+    },
+    {
+      "path": "data/scenes/corridor_travel/video.mp4",
+      "expected_sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4",
+      "actual_sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4",
+      "verified": true
+    },
+    {
+      "path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+      "expected_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "actual_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/source_frame_0152.png",
+      "expected_sha256": "4846fcf6f510017f02e67f12d9dd71ab2dc1cd0a71bc4750ab1956fb60a4a7ad",
+      "actual_sha256": "4846fcf6f510017f02e67f12d9dd71ab2dc1cd0a71bc4750ab1956fb60a4a7ad",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/panogen_input_frame_0152.png",
+      "expected_sha256": "fd165eeb0c2d5a14101f2314290feedcc44aeb73148b9d1272fa52d26f819401",
+      "actual_sha256": "fd165eeb0c2d5a14101f2314290feedcc44aeb73148b9d1272fa52d26f819401",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/panorama_1280x640.png",
+      "expected_sha256": "135dd2a83e4865c2516d8d66a2b1670ba6dd65fbef9c7204438cc62e45f3d3d5",
+      "actual_sha256": "135dd2a83e4865c2516d8d66a2b1670ba6dd65fbef9c7204438cc62e45f3d3d5",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/panogen_run_manifest.json",
+      "expected_sha256": "1cfff60109b8876a91e14ef0b8e09ea36bf8444e295184f786c508f969c9346e",
+      "actual_sha256": "1cfff60109b8876a91e14ef0b8e09ea36bf8444e295184f786c508f969c9346e",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/scenegen_manifest.json",
+      "expected_sha256": "07e2fb3b0066cb284bca3d969077cee9acef7b1377d123b6fbfac5da6ffdd4cb",
+      "actual_sha256": "07e2fb3b0066cb284bca3d969077cee9acef7b1377d123b6fbfac5da6ffdd4cb",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_conversion.json",
+      "expected_sha256": "7e420195d62538a74c1f88bd3f669f93ad25fbf1c149a06d926ba2214294105b",
+      "actual_sha256": "7e420195d62538a74c1f88bd3f669f93ad25fbf1c149a06d926ba2214294105b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/route_report.json",
+      "expected_sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+      "actual_sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/capture_poses.json",
+      "expected_sha256": "979a3dc9849fbc5c0f8ce28dba558876182046d3b9fdda1f2b9fd1c28accfc8d",
+      "actual_sha256": "979a3dc9849fbc5c0f8ce28dba558876182046d3b9fdda1f2b9fd1c28accfc8d",
+      "verified": true
+    }
+  ],
+  "additional_references": [
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+      "sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_collision.glb",
+      "sha256": "0a4479f9c32cdf193d4a4196f8e6330474a7a2254426471b2725220a7b966246"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json",
+      "sha256": "0c2b5bb8a131b53a49a8243296121078caaec83bb14d2a2e5258ad0c6b52b28b"
+    },
+    {
+      "path": "godot_walk/scenes/library_column_room.tscn",
+      "sha256": "957904553423659dd06676fba8ae32d7a9bc4310f1a239d6f60972f2228bb5ff"
+    },
+    {
+      "path": "godot_walk/scenes/library_pocket_room.tscn",
+      "sha256": "21d2f4091578803264eb333abd0fe314b5d725cd6faa6a1157e56715be175389"
+    },
+    {
+      "path": "godot_walk/scripts/library_column_room.gd",
+      "sha256": "ca48944a11e87c476fc9f8e5e4002f07b82b1952758e68ba6411eac7cdcdcba4"
+    },
+    {
+      "path": "godot_walk/scripts/library_pocket_room.gd",
+      "sha256": "3d399dd1cf7411f05b36faafa8ef5e20409afbe2241285757888cbfaabec3d8e"
+    },
+    {
+      "path": "godot_walk/scripts/hunyuan_psx_column_box.gd",
+      "sha256": "04142b33c1b39edd2725fbefa854c8b88561a43d45eaa06d94bafaba578be68b"
+    },
+    {
+      "path": "godot_walk/scripts/hunyuan_psx_round3.gd",
+      "sha256": "ef306619ae6e57af2784092e1a55a7cee296014b2561496cf423786f7557d103"
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png",
+      "sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a"
+    }
+  ],
+  "new_implementation_files": [
+    {
+      "path": "godot_walk/scripts/issue160_glb.py",
+      "sha256": "9e70fc2ee976628c228fee2c83df258fd9666943150935c380ab58910f6eca44"
+    },
+    {
+      "path": "godot_walk/scripts/build_issue160_bounded_visual.py",
+      "sha256": "b23f68ff355e881d88ae8a9ffdef5545720adddd7bcca94bd4d03116a9de1fb3"
+    },
+    {
+      "path": "godot_walk/scripts/issue160_room_geometry.gd",
+      "sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500"
+    },
+    {
+      "path": "godot_walk/scripts/issue160_bounded_column_room.gd",
+      "sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b"
+    },
+    {
+      "path": "godot_walk/scripts/issue160_pocket_room.gd",
+      "sha256": "b8278f360020a6541236e8777593a47a74e54d5c15219f0eef5ece135f031722"
+    },
+    {
+      "path": "godot_walk/scripts/issue160_assembled_walkthrough.gd",
+      "sha256": "61f867ad3899018a94fd20908c459932353c6a76609650f0a973c2ab456484cb"
+    },
+    {
+      "path": "godot_walk/scripts/capture_issue160.gd",
+      "sha256": "53393220c20489e926d5f7f1df98eeaeb55b3a26a9e6b68c6e838b200155ef18"
+    },
+    {
+      "path": "godot_walk/scripts/test_issue160.gd",
+      "sha256": "fd12e9d005c47569988716dee212c782316e1f96131c4273c845a5e18e82529c"
+    },
+    {
+      "path": "godot_walk/scripts/run_issue160_gpu.py",
+      "sha256": "af80bac9b634ebef94d6d20b9d21c454fbb33ac41cbc3e244a39fda0e9122ac8"
+    },
+    {
+      "path": "godot_walk/scenes/issue160_bounded_column_room.tscn",
+      "sha256": "3b31049ab24536d2f9862e8f8f30398589f987409252e60ca081f02185649ccb"
+    },
+    {
+      "path": "godot_walk/scenes/issue160_bounded_pocket_room.tscn",
+      "sha256": "23e75bb03aff06eae8d7c1ebce5b026365a0168548ecd67c81d83a08d8f42f50"
+    },
+    {
+      "path": "godot_walk/scenes/issue160_column_connector.tscn",
+      "sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654"
+    },
+    {
+      "path": "godot_walk/scenes/issue160_pocket_connector.tscn",
+      "sha256": "078826e5824772c05dc4bf38c340f27fbc927abacfbba7dee6ec006a0bc967d3"
+    },
+    {
+      "path": "godot_walk/scenes/issue160_assembled_walkthrough.tscn",
+      "sha256": "deaa8f4b53456a803f15b412a670c2a1ec096bacb7978912936c1d61669098e2"
+    }
+  ],
+  "bounded_visual": {
+    "issue": 160,
+    "method": "retain only source triangles whose three transformed vertices lie within the proposed authored polygon and floor-to-ceiling range",
+    "source_path": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb",
+    "source_sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+    "output_path": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-22-issue-160/bounded_hunyuan_visual.glb",
+    "output_sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898",
+    "output_bytes": 201223176,
+    "output_vertex_validation": "all output vertices inside authored xz polygon and floor/ceiling bounds",
+    "room_polygon_xz_authored": [
+      [
+        -4.4,
+        -1.2
+      ],
+      [
+        0.0,
+        -1.2
+      ],
+      [
+        3.5,
+        1.2
+      ],
+      [
+        3.5,
+        5.6
+      ],
+      [
+        -0.3,
+        5.6
+      ],
+      [
+        -4.1,
+        3.7
+      ]
+    ],
+    "floor_y": -1.27099049,
+    "ceiling_y": 1.12900951,
+    "C02_source_mask_xz_authored": [
+      [
+        -1.6,
+        3.8
+      ],
+      [
+        -0.15,
+        5.0
+      ]
+    ],
+    "layers": [
+      {
+        "source_mesh": "mesh_layer0",
+        "source_vertices": 290884,
+        "source_triangles": 599516,
+        "retained_vertices": 66050,
+        "retained_triangles": 137261,
+        "retained_triangle_fraction": 0.228953,
+        "C02_source_mask_enabled": true,
+        "source_vertices_in_C02_mask": 43574,
+        "bounds_min": [
+          -2.0550765991210938,
+          -1.193109154701233,
+          -0.3459133505821228
+        ],
+        "bounds_max": [
+          0.7443331480026245,
+          0.8281016945838928,
+          4.110520839691162
+        ]
+      },
+      {
+        "source_mesh": "mesh_layer1",
+        "source_vertices": 7372800,
+        "source_triangles": 14783952,
+        "retained_vertices": 4954080,
+        "retained_triangles": 9937693,
+        "retained_triangle_fraction": 0.672195,
+        "C02_source_mask_enabled": false,
+        "source_vertices_in_C02_mask": 0,
+        "bounds_min": [
+          -4.3832902908325195,
+          -1.2709969282150269,
+          -1.1999512910842896
+        ],
+        "bounds_max": [
+          3.500001907348633,
+          0.924773097038269,
+          5.599999904632568
+        ]
+      }
+    ],
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "generation_ready": false,
+    "limitations": [
+      "The polygon is an authored room proposal, not surveyed source geometry.",
+      "The derivative removes geometry outside its bounds; it does not reconstruct hidden surfaces.",
+      "Triangle retention can leave interior holes where source triangles crossed the authored boundary.",
+      "C02 mesh-layer-0 geometry inside the mask is omitted and replaced by the estimated authored prism."
+    ]
+  },
+  "candidate_asset_hashes": {
+    "visual": {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/bounded_hunyuan_visual.glb",
+      "sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898"
+    },
+    "authored_shell_definition_sources": [
+      {
+        "path": "godot_walk/scripts/issue160_room_geometry.gd",
+        "sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500"
+      },
+      {
+        "path": "godot_walk/scripts/issue160_bounded_column_room.gd",
+        "sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b"
+      },
+      {
+        "path": "godot_walk/scenes/issue160_bounded_column_room.tscn",
+        "sha256": "3b31049ab24536d2f9862e8f8f30398589f987409252e60ca081f02185649ccb"
+      }
+    ],
+    "authored_collision_definition_sources": [
+      {
+        "path": "godot_walk/scripts/issue160_room_geometry.gd",
+        "sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500"
+      },
+      {
+        "path": "godot_walk/scripts/issue160_bounded_column_room.gd",
+        "sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b"
+      },
+      {
+        "path": "godot_walk/scripts/issue160_pocket_room.gd",
+        "sha256": "b8278f360020a6541236e8777593a47a74e54d5c15219f0eef5ece135f031722"
+      },
+      {
+        "path": "godot_walk/scripts/issue160_assembled_walkthrough.gd",
+        "sha256": "61f867ad3899018a94fd20908c459932353c6a76609650f0a973c2ab456484cb"
+      },
+      {
+        "path": "godot_walk/scenes/issue160_bounded_column_room.tscn",
+        "sha256": "3b31049ab24536d2f9862e8f8f30398589f987409252e60ca081f02185649ccb"
+      },
+      {
+        "path": "godot_walk/scenes/issue160_bounded_pocket_room.tscn",
+        "sha256": "23e75bb03aff06eae8d7c1ebce5b026365a0168548ecd67c81d83a08d8f42f50"
+      },
+      {
+        "path": "godot_walk/scenes/issue160_column_connector.tscn",
+        "sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654"
+      },
+      {
+        "path": "godot_walk/scenes/issue160_pocket_connector.tscn",
+        "sha256": "078826e5824772c05dc4bf38c340f27fbc927abacfbba7dee6ec006a0bc967d3"
+      },
+      {
+        "path": "godot_walk/scenes/issue160_assembled_walkthrough.tscn",
+        "sha256": "deaa8f4b53456a803f15b412a670c2a1ec096bacb7978912936c1d61669098e2"
+      }
+    ],
+    "capture_images": [
+      {
+        "id": "spawn_to_C01",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/spawn_to_C01.png",
+        "sha256": "9e720971e31e1144b976cb16c342a6287e45f9a194f79dcf1cef3ecebe8d3f32"
+      },
+      {
+        "id": "C01_west",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/C01_west.png",
+        "sha256": "c7f54833ca0c5d51251bedad95a3f70c218fee6394fbeaf69fcf562c6d50b093"
+      },
+      {
+        "id": "C01_north",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/C01_north.png",
+        "sha256": "9d57d81162bb1d85d3e902e33b3019084c6ec89079e7d46905a26a8c2bba1e01"
+      },
+      {
+        "id": "C02_front",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/C02_front.png",
+        "sha256": "7c4f237a7cf929154bf146d030ff4baf0b9263389ae110a8fe95c517405e4fce"
+      },
+      {
+        "id": "C02_reverse",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/C02_reverse.png",
+        "sha256": "09628d532c939dea959fb9e4cadc4a6b72cc3805db442d8a3c8d8bfee843cdc3"
+      },
+      {
+        "id": "east_socket_closed",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/east_socket_closed.png",
+        "sha256": "981a2177c8dd3d9f647a325c6bfe31efa0615b7d29ec6cb5b98483517ce0b767"
+      },
+      {
+        "id": "entry",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/pocket/entry.png",
+        "sha256": "c2b907b6e5e0ab2fbb4bd25aba1f57d2c413a484cf6b8a329daaa44ae56b20e9"
+      },
+      {
+        "id": "far_end",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/pocket/far_end.png",
+        "sha256": "37027dc31eeecc3bedec780873c4c763faae1c0ac65251615510d4757f27aba4"
+      },
+      {
+        "id": "west_socket_closed",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/pocket/west_socket_closed.png",
+        "sha256": "11275401e5548f01aadcf37b53f57e78387154cd10c0b273595370597fc7a3c8"
+      },
+      {
+        "id": "east_wall",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/pocket/east_wall.png",
+        "sha256": "aa9d6f1bf089ee99db8c8b442ac6d27bfbdaaef9b4668ba1cf3399a29605d86c"
+      },
+      {
+        "id": "column_approach",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/column_approach.png",
+        "sha256": "39aa2849791ea3aa98bb4bb416fb2f24b501d395df849b2bbcf900fd2576c434"
+      },
+      {
+        "id": "connector_midpoint",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/connector_midpoint.png",
+        "sha256": "5b31f892e139afc97d3b963646df911f8381718773dada654c80ecfefc745c84"
+      },
+      {
+        "id": "pocket_return",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/pocket_return.png",
+        "sha256": "34b6cc77a17517bfa1014eef4592d9de982f57d00117cd83e785703bae0032a0"
+      },
+      {
+        "id": "pocket_far",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/pocket_far.png",
+        "sha256": "383bff83c2822c2c1c453ac57eaabe9a7db0550702470488b9ef6ad7a22631ac"
+      },
+      {
+        "id": "seam_floor",
+        "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/seam_floor.png",
+        "sha256": "ad5717be227ac9083429a54ff38a46109bc35677ed7b6436f97f55b61ff1ee2f"
+      }
+    ],
+    "collision_hash_semantics": "Authored Godot collision shapes are procedural; hashes identify their scene/script definitions, not a separately exported collision GLB."
+  },
+  "preservation": "No listed source, accepted standalone scene, or reference asset is modified by this candidate."
+}

@@ -1,0 +1,59 @@
+{
+  "protected_hashes": [
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb",
+      "sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+      "matches": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/authored_room_collision.glb",
+      "sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9",
+      "matches": true
+    },
+    {
+      "path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+      "sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "matches": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-151-round-3/source/frame_0152_column_front.png",
+      "sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "matches": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png",
+      "sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "matches": true
+    }
+  ],
+  "tests": {
+    "column_box_godot": "PASS",
+    "bounded_physics": "PASS",
+    "round1_godot": "PASS",
+    "round2_godot": "PASS",
+    "hunyuan_python_unittest": {
+      "passed": 13,
+      "failed": 0
+    }
+  },
+  "captures": {
+    "captures/four_sided_box/column_east.png": "d69a9536bbdc618fb7606b49a5277c321a30fa306185e39783c988fc3beeb2c9",
+    "captures/four_sided_box/patch_anchor.png": "789d6003856dc52766e6636b12f7ce482b3664275f2451e35daf0b358cf7c165",
+    "captures/preserve_hunyuan/column_east.png": "924ac503306c01890b4fe85b4d6c29376edb1052165337aaf3b82ecd1ccf1f33",
+    "captures/preserve_hunyuan/patch_anchor.png": "33c7e15167bde173ef7f68e507dd2a3af40f468f1c4789b46d5d9b81482e8399"
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "status": "accepted_visual_repair",
+  "operator_decision": {
+    "column_task_complete": true,
+    "feedback": "very nice; column issue resolved",
+    "texture_matching": "deferred_nonblocking_polish",
+    "default_scene_promoted": false,
+    "catalog_promoted": false,
+    "umbrella_issues_completed": false,
+    "historical_capture_status": "candidate_not_selected; captures predate operator approval",
+    "committed": false
+  },
+  "collision_changed": false
+}

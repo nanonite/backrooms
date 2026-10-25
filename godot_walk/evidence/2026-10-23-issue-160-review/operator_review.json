@@ -1,0 +1,35 @@
+{
+  "issue": 160,
+  "recorded_date": "2026-10-23",
+  "source": "explicit_operator_decision_recorded_in_local_chainlink",
+  "operator_decision_timestamp": "2026-10-22T20:39:46.302290633+00:00",
+  "accepted_scope": {
+    "status": "first_pass_logical_stitching_and_fall_free_traversal_accepted",
+    "assembly_scene": "godot_walk/scenes/issue160_assembled_walkthrough.tscn",
+    "connector_pair": "column_east__pocket_west_v1",
+    "meaning": "The reviewed two-room pair reads as logically connected and supports fall-free traversal.",
+    "limitations": [
+      "This approval applies to this exact assembled pair only.",
+      "It does not approve arbitrary module placements, new openings, branching layouts, or metric calibration.",
+      "It does not claim that every visual detail is finished."
+    ]
+  },
+  "current_catalog_state": {
+    "catalog": "godot_walk/room_catalog/catalog.json",
+    "connector_status": "operator_accepted_first_pass_pair",
+    "registration_accepted": false,
+    "scale_calibrated": false
+  },
+  "remaining_review": [
+    "C02 and other bounded-room visual polish beyond the accepted traversal milestone.",
+    "Do not generalize the approved socket pair to untested module variants.",
+    "Keep registration and scale calibration false."
+  ],
+  "unchanged_reference_hashes": {
+    "godot_walk/evidence/2026-10-22-issue-160/REPORT.md": "10be53fade6d67668cca24ad04676484eb652de3a2d3397066081ba280bffe5e",
+    "godot_walk/evidence/2026-10-22-issue-160/room_readiness.json": "427ca2556e4b71f1c7cb84579d370e2e4b410fc98f0c3385ca93856c4b9dd411",
+    "godot_walk/evidence/2026-10-22-issue-160/mechanics/assembly/physics_candidate.json": "ca6a9ebdb302ee7aa6d88bbd3f4aa6ba6b223a3a19d1dde4a913d3667b2e636a",
+    "godot_walk/scenes/issue160_assembled_walkthrough.tscn": "deaa8f4b53456a803f15b412a670c2a1ec096bacb7978912936c1d61669098e2",
+    "godot_walk/room_catalog/catalog.json": "d3fb1a1cbd47b48c9195fd3896b97ea30aa5403fd6b95bd608e6f3b021b01ac2"
+  }
+}

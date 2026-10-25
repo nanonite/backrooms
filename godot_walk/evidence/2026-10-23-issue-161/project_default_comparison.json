@@ -1,0 +1,11 @@
+{
+  "affine_texture_mapping": false,
+  "capture": "captures/project_default/branch_center.png",
+  "reference": "captures/affine_off/branch_center.png",
+  "noise_ceiling_pct": 0.0,
+  "matches_affine_off_within_noise": true,
+  "diff_pixels": 0,
+  "diff_pct": 0.0,
+  "diff_image": null,
+  "odiff_threshold": 0.1
+}

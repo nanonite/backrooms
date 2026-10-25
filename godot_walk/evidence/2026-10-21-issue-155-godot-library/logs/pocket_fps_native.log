@@ -1,0 +1,27 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+Vulkan 1.4.329 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Ti
+
+FPS_JSON {"baseline":false,"capped_at_60":true,"counter":"RenderingServer.frame_post_draw","elapsed_s":13.982809,"fps":60.0022499055805,"frames":839,"p95_frame_ms":16.816,"p99_frame_ms":16.913,"poses":14,"scene":"res://scenes/library_pocket_room.tscn"}
+	Command being timed: "godot4 --path godot_walk --rendering-driver vulkan --resolution 960x540 --disable-vsync --max-fps 60 --script res://scripts/measure_bounded_fps.gd -- --capped --scene=res://scenes/library_pocket_room.tscn --out-dir=res://evidence/2026-10-21-issue-155-godot-library/mechanics/pocket --label=native --native-baseline"
+	User time (seconds): 0.86
+	System time (seconds): 0.75
+	Percent of CPU this job got: 8%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:18.29
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 538884
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 30
+	Minor (reclaiming a frame) page faults: 46892
+	Voluntary context switches: 58272
+	Involuntary context switches: 249
+	Swaps: 0
+	File system inputs: 1868
+	File system outputs: 546
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

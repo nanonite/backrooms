@@ -1,0 +1,657 @@
+{
+  "schema_version": 1,
+  "layout_id": "issue149_seed_0000000149_n10",
+  "generator_version": "0.1.0",
+  "catalog_id": "godot_psx_room_kit",
+  "catalog_version": "0.1.0",
+  "catalog_sha256": "beb756ff8dcb7a4191b7579baf93881c7149de1d4be2ee636047d9d526f367d1",
+  "catalog_snapshot_path": "res://evidence/2026-10-23-issue-156/catalog_snapshot.json",
+  "seed": 149,
+  "settings": {
+    "placement_count": 10,
+    "branch_required": true,
+    "loops": false,
+    "layout_bounds_m": [
+      -160.0,
+      -30.0,
+      180.0,
+      35.0
+    ],
+    "streaming": {
+      "mode": "bounded_graph_window",
+      "graph_radius": 1,
+      "max_resident_modules": 4,
+      "retain_backtracking": true
+    }
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "mechanical_status": "candidate_validation_pending",
+  "operator_status": "review_pending",
+  "topology": {
+    "type": "connected_tree_with_one_three_way_branch",
+    "branch_instance_id": "R006",
+    "branch_yaw_degrees": 0,
+    "branch_side": "north",
+    "pass_throughs_before_branch": 5,
+    "edge_count": 9,
+    "cycle_rank": 0,
+    "dead_end_count": 3
+  },
+  "module_counts": {
+    "godot_later_bay_column_bounded_v1": 1,
+    "godot_early_pocket_pass_through_v1": 6,
+    "godot_early_pocket_three_way_v1": 1,
+    "godot_early_pocket_single_west_v1": 2
+  },
+  "unique_module_designs": 4,
+  "repeated_instances": 6,
+  "spawn": {
+    "instance_id": "R000",
+    "local_position": [
+      -3.5,
+      -0.67099049,
+      0.0
+    ]
+  },
+  "walk_route_xz": [
+    [
+      -3.5,
+      0.0
+    ],
+    [
+      -3.4,
+      2.6
+    ],
+    [
+      -1.8,
+      2.6
+    ],
+    [
+      2.4,
+      2.6
+    ],
+    [
+      2.4,
+      3.1
+    ],
+    [
+      3.3,
+      3.1
+    ],
+    [
+      4.3,
+      3.1
+    ],
+    [
+      8.7,
+      3.1
+    ],
+    [
+      10.3,
+      3.1
+    ],
+    [
+      14.7,
+      3.1
+    ],
+    [
+      16.3,
+      3.1
+    ],
+    [
+      20.7,
+      3.1
+    ],
+    [
+      22.3,
+      3.1
+    ],
+    [
+      26.7,
+      3.1
+    ],
+    [
+      28.3,
+      3.1
+    ],
+    [
+      32.7,
+      3.1
+    ],
+    [
+      34.3,
+      3.1
+    ],
+    [
+      36.5,
+      3.1
+    ],
+    [
+      36.5,
+      8.2
+    ],
+    [
+      36.5,
+      10.8
+    ],
+    [
+      36.5,
+      13.0
+    ],
+    [
+      36.5,
+      8.2
+    ],
+    [
+      38.7,
+      3.1
+    ],
+    [
+      40.3,
+      3.1
+    ],
+    [
+      44.7,
+      3.1
+    ],
+    [
+      46.3,
+      3.1
+    ],
+    [
+      48.5,
+      3.1
+    ],
+    [
+      46.3,
+      3.1
+    ],
+    [
+      44.7,
+      3.1
+    ],
+    [
+      40.3,
+      3.1
+    ],
+    [
+      38.7,
+      3.1
+    ],
+    [
+      36.5,
+      8.2
+    ],
+    [
+      36.5,
+      13.0
+    ],
+    [
+      36.5,
+      10.8
+    ],
+    [
+      36.5,
+      8.2
+    ],
+    [
+      36.5,
+      3.1
+    ],
+    [
+      34.3,
+      3.1
+    ],
+    [
+      32.7,
+      3.1
+    ],
+    [
+      28.3,
+      3.1
+    ],
+    [
+      26.7,
+      3.1
+    ],
+    [
+      22.3,
+      3.1
+    ],
+    [
+      20.7,
+      3.1
+    ],
+    [
+      16.3,
+      3.1
+    ],
+    [
+      14.7,
+      3.1
+    ],
+    [
+      10.3,
+      3.1
+    ],
+    [
+      8.7,
+      3.1
+    ],
+    [
+      4.3,
+      3.1
+    ],
+    [
+      3.3,
+      3.1
+    ],
+    [
+      2.4,
+      3.1
+    ],
+    [
+      2.4,
+      2.6
+    ],
+    [
+      -1.8,
+      2.6
+    ],
+    [
+      -3.4,
+      2.6
+    ],
+    [
+      -3.5,
+      0.0
+    ]
+  ],
+  "placements": [
+    {
+      "instance_id": "R000",
+      "module_id": "godot_later_bay_column_bounded_v1",
+      "module_version": 1,
+      "scene": "res://scenes/issue160_column_connector.tscn",
+      "scene_sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654",
+      "operator_status": "operator_accepted_as_part_of_issue160_pair_only",
+      "transform": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_degrees": 0
+      },
+      "open_sockets": [
+        "east"
+      ],
+      "connected_sockets": {
+        "east": "R001/west"
+      }
+    },
+    {
+      "instance_id": "R001",
+      "module_id": "godot_early_pocket_pass_through_v1",
+      "module_version": 1,
+      "scene": "res://scenes/issue149_pocket_pass_through.tscn",
+      "scene_sha256": "3ae9b0ee1fc099d7b8f074598e5486666b9c139ef33901a50c7ef9779866f8db",
+      "operator_status": "provisional_operator_review_pending",
+      "transform": {
+        "position": [
+          3.5,
+          0.0,
+          -3.8
+        ],
+        "yaw_degrees": 0
+      },
+      "open_sockets": [
+        "west",
+        "east"
+      ],
+      "connected_sockets": {
+        "west": "R000/east",
+        "east": "R002/west"
+      }
+    },
+    {
+      "instance_id": "R002",
+      "module_id": "godot_early_pocket_pass_through_v1",
+      "module_version": 1,
+      "scene": "res://scenes/issue149_pocket_pass_through.tscn",
+      "scene_sha256": "3ae9b0ee1fc099d7b8f074598e5486666b9c139ef33901a50c7ef9779866f8db",
+      "operator_status": "provisional_operator_review_pending",
+      "transform": {
+        "position": [
+          9.5,
+          0.0,
+          -3.8
+        ],
+        "yaw_degrees": 0
+      },
+      "open_sockets": [
+        "west",
+        "east"
+      ],
+      "connected_sockets": {
+        "west": "R001/east",
+        "east": "R003/west"
+      }
+    },
+    {
+      "instance_id": "R003",
+      "module_id": "godot_early_pocket_pass_through_v1",
+      "module_version": 1,
+      "scene": "res://scenes/issue149_pocket_pass_through.tscn",
+      "scene_sha256": "3ae9b0ee1fc099d7b8f074598e5486666b9c139ef33901a50c7ef9779866f8db",
+      "operator_status": "provisional_operator_review_pending",
+      "transform": {
+        "position": [
+          15.5,
+          0.0,
+          -3.8
+        ],
+        "yaw_degrees": 0
+      },
+      "open_sockets": [
+        "west",
+        "east"
+      ],
+      "connected_sockets": {
+        "west": "R002/east",
+        "east": "R004/west"
+      }
+    },
+    {
+      "instance_id": "R004",
+      "module_id": "godot_early_pocket_pass_through_v1",
+      "module_version": 1,
+      "scene": "res://scenes/issue149_pocket_pass_through.tscn",
+      "scene_sha256": "3ae9b0ee1fc099d7b8f074598e5486666b9c139ef33901a50c7ef9779866f8db",
+      "operator_status": "provisional_operator_review_pending",
+      "transform": {
+        "position": [
+          21.5,
+          0.0,
+          -3.8
+        ],
+        "yaw_degrees": 0
+      },
+      "open_sockets": [
+        "west",
+        "east"
+      ],
+      "connected_sockets": {
+        "west": "R003/east",
+        "east": "R005/west"
+      }
+    },
+    {
+      "instance_id": "R005",
+      "module_id": "godot_early_pocket_pass_through_v1",
+      "module_version": 1,
+      "scene": "res://scenes/issue149_pocket_pass_through.tscn",
+      "scene_sha256": "3ae9b0ee1fc099d7b8f074598e5486666b9c139ef33901a50c7ef9779866f8db",
+      "operator_status": "provisional_operator_review_pending",
+      "transform": {
+        "position": [
+          27.5,
+          0.0,
+          -3.8
+        ],
+        "yaw_degrees": 0
+      },
+      "open_sockets": [
+        "west",
+        "east"
+      ],
+      "connected_sockets": {
+        "west": "R004/east",
+        "east": "R006/west"
+      }
+    },
+    {
+      "instance_id": "R006",
+      "module_id": "godot_early_pocket_three_way_v1",
+      "module_version": 1,
+      "scene": "res://scenes/issue149_pocket_three_way.tscn",
+      "scene_sha256": "fee72ed41ca9028439aa9c62e674dc07d75a731580fd73c94e7f760ed45e8d6d",
+      "operator_status": "provisional_operator_review_pending",
+      "transform": {
+        "position": [
+          33.5,
+          0.0,
+          -3.8
+        ],
+        "yaw_degrees": 0
+      },
+      "open_sockets": [
+        "west",
+        "east",
+        "north"
+      ],
+      "connected_sockets": {
+        "west": "R005/east",
+        "north": "R007/west",
+        "east": "R008/west"
+      }
+    },
+    {
+      "instance_id": "R007",
+      "module_id": "godot_early_pocket_single_west_v1",
+      "module_version": 1,
+      "scene": "res://scenes/issue160_pocket_connector.tscn",
+      "scene_sha256": "078826e5824772c05dc4bf38c340f27fbc927abacfbba7dee6ec006a0bc967d3",
+      "operator_status": "operator_accepted_as_part_of_issue160_pair_only",
+      "transform": {
+        "position": [
+          43.4,
+          0.0,
+          10.0
+        ],
+        "yaw_degrees": 270
+      },
+      "open_sockets": [
+        "west"
+      ],
+      "connected_sockets": {
+        "west": "R006/north"
+      }
+    },
+    {
+      "instance_id": "R008",
+      "module_id": "godot_early_pocket_pass_through_v1",
+      "module_version": 1,
+      "scene": "res://scenes/issue149_pocket_pass_through.tscn",
+      "scene_sha256": "3ae9b0ee1fc099d7b8f074598e5486666b9c139ef33901a50c7ef9779866f8db",
+      "operator_status": "provisional_operator_review_pending",
+      "transform": {
+        "position": [
+          39.5,
+          0.0,
+          -3.8
+        ],
+        "yaw_degrees": 0
+      },
+      "open_sockets": [
+        "west",
+        "east"
+      ],
+      "connected_sockets": {
+        "west": "R006/east",
+        "east": "R009/west"
+      }
+    },
+    {
+      "instance_id": "R009",
+      "module_id": "godot_early_pocket_single_west_v1",
+      "module_version": 1,
+      "scene": "res://scenes/issue160_pocket_connector.tscn",
+      "scene_sha256": "078826e5824772c05dc4bf38c340f27fbc927abacfbba7dee6ec006a0bc967d3",
+      "operator_status": "operator_accepted_as_part_of_issue160_pair_only",
+      "transform": {
+        "position": [
+          45.5,
+          0.0,
+          -3.8
+        ],
+        "yaw_degrees": 0
+      },
+      "open_sockets": [
+        "west"
+      ],
+      "connected_sockets": {
+        "west": "R008/east"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "id": "R000.east__R001.west",
+      "from": {
+        "instance_id": "R000",
+        "socket_id": "east"
+      },
+      "to": {
+        "instance_id": "R001",
+        "socket_id": "west"
+      },
+      "compatibility_type": "level_doorway_2m_v1",
+      "mechanical_status": "provisional_layout_candidate",
+      "operator_status": "review_pending"
+    },
+    {
+      "id": "R001.east__R002.west",
+      "from": {
+        "instance_id": "R001",
+        "socket_id": "east"
+      },
+      "to": {
+        "instance_id": "R002",
+        "socket_id": "west"
+      },
+      "compatibility_type": "level_doorway_2m_v1",
+      "mechanical_status": "provisional_layout_candidate",
+      "operator_status": "review_pending"
+    },
+    {
+      "id": "R002.east__R003.west",
+      "from": {
+        "instance_id": "R002",
+        "socket_id": "east"
+      },
+      "to": {
+        "instance_id": "R003",
+        "socket_id": "west"
+      },
+      "compatibility_type": "level_doorway_2m_v1",
+      "mechanical_status": "provisional_layout_candidate",
+      "operator_status": "review_pending"
+    },
+    {
+      "id": "R003.east__R004.west",
+      "from": {
+        "instance_id": "R003",
+        "socket_id": "east"
+      },
+      "to": {
+        "instance_id": "R004",
+        "socket_id": "west"
+      },
+      "compatibility_type": "level_doorway_2m_v1",
+      "mechanical_status": "provisional_layout_candidate",
+      "operator_status": "review_pending"
+    },
+    {
+      "id": "R004.east__R005.west",
+      "from": {
+        "instance_id": "R004",
+        "socket_id": "east"
+      },
+      "to": {
+        "instance_id": "R005",
+        "socket_id": "west"
+      },
+      "compatibility_type": "level_doorway_2m_v1",
+      "mechanical_status": "provisional_layout_candidate",
+      "operator_status": "review_pending"
+    },
+    {
+      "id": "R005.east__R006.west",
+      "from": {
+        "instance_id": "R005",
+        "socket_id": "east"
+      },
+      "to": {
+        "instance_id": "R006",
+        "socket_id": "west"
+      },
+      "compatibility_type": "level_doorway_2m_v1",
+      "mechanical_status": "provisional_layout_candidate",
+      "operator_status": "review_pending"
+    },
+    {
+      "id": "R006.north__R007.west",
+      "from": {
+        "instance_id": "R006",
+        "socket_id": "north"
+      },
+      "to": {
+        "instance_id": "R007",
+        "socket_id": "west"
+      },
+      "compatibility_type": "level_doorway_2m_v1",
+      "mechanical_status": "provisional_layout_candidate",
+      "operator_status": "review_pending"
+    },
+    {
+      "id": "R006.east__R008.west",
+      "from": {
+        "instance_id": "R006",
+        "socket_id": "east"
+      },
+      "to": {
+        "instance_id": "R008",
+        "socket_id": "west"
+      },
+      "compatibility_type": "level_doorway_2m_v1",
+      "mechanical_status": "provisional_layout_candidate",
+      "operator_status": "review_pending"
+    },
+    {
+      "id": "R008.east__R009.west",
+      "from": {
+        "instance_id": "R008",
+        "socket_id": "east"
+      },
+      "to": {
+        "instance_id": "R009",
+        "socket_id": "west"
+      },
+      "compatibility_type": "level_doorway_2m_v1",
+      "mechanical_status": "provisional_layout_candidate",
+      "operator_status": "review_pending"
+    }
+  ],
+  "supported_constraints": [
+    "connected",
+    "one_three_way_branch",
+    "two_terminal_branches",
+    "closed_unused_sides",
+    "no_cycles"
+  ],
+  "unsupported_constraints": [
+    "loops",
+    "unbounded_streaming",
+    "arbitrary_socket_types",
+    "unreviewed_source_connectivity"
+  ],
+  "walk_envelope": [
+    -4.4,
+    -3.8,
+    55.9,
+    19.8
+  ],
+  "layout_sha256": "10ef8772ab660cd067f62c12bc9f11907d73a48ac8339d5040c979ff37967b50"
+}

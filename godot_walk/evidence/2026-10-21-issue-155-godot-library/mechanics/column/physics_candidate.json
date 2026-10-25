@@ -1,0 +1,251 @@
+{
+	"boundary_pushes": {
+		"0": {
+			"end": [
+				3.29999995231628,
+				-0.670990467071533,
+				-4.69998264312744
+			],
+			"trace": {
+				"distance_m": 6.53331589698792,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666667222976685,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 98
+				},
+				"ticks": 240
+			}
+		},
+		"1": {
+			"end": [
+				-5.09991884231567,
+				-0.670050144195557,
+				-4.699059009552
+			],
+			"trace": {
+				"distance_m": 11.2657568119466,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666667073965073,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 184
+				},
+				"ticks": 240
+			}
+		},
+		"2": {
+			"end": [
+				-5.09999370574951,
+				-0.670990467071533,
+				1.89999997615814
+			],
+			"trace": {
+				"distance_m": 8.33332705497742,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666667222976685,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 125
+				},
+				"ticks": 240
+			}
+		},
+		"3": {
+			"end": [
+				-5.09099912643433,
+				-0.670047581195831,
+				8.49905681610107
+			],
+			"trace": {
+				"distance_m": 11.0580106675625,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666667893528938,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 177
+				},
+				"ticks": 240
+			}
+		},
+		"4": {
+			"end": [
+				3.29999995231628,
+				-0.670990467071533,
+				8.49992942810059
+			],
+			"trace": {
+				"distance_m": 6.53326272964478,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666670799255371,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 98
+				},
+				"ticks": 240
+			}
+		},
+		"5": {
+			"end": [
+				4.19566774368286,
+				-0.670050144195557,
+				8.49966812133789
+			],
+			"trace": {
+				"distance_m": 6.90399941802025,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666666999459267,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 139
+				},
+				"ticks": 240
+			}
+		},
+		"6": {
+			"end": [
+				4.1997389793396,
+				-0.670990467071533,
+				1.89999997615814
+			],
+			"trace": {
+				"distance_m": 0.833072423934937,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.066666841506958,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 13
+				},
+				"ticks": 240
+			}
+		},
+		"7": {
+			"end": [
+				4.19566774368286,
+				-0.670165121555328,
+				-4.69966220855713
+			],
+			"trace": {
+				"distance_m": 6.90399289131165,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666667893528938,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 139
+				},
+				"ticks": 240
+			}
+		}
+	},
+	"failures": [],
+	"out_and_back": {
+		"distance_m": 54.8000043258071,
+		"floor_fraction": 1.0,
+		"max_step_m": 0.0666668713092804,
+		"safety_contacts": 0,
+		"support_bodies": {
+			"AuthoredFloor": 823
+		},
+		"ticks": 823
+	},
+	"route_segments": [
+		{
+			"player": [
+				-4.40000009536743,
+				-0.670990467071533,
+				-4.0
+			],
+			"reached": true,
+			"target": [
+				-4.40000009536743,
+				-4.0
+			]
+		},
+		{
+			"player": [
+				3.4666645526886,
+				-0.670990467071533,
+				-4.0
+			],
+			"reached": true,
+			"target": [
+				3.5,
+				-4.0
+			]
+		},
+		{
+			"player": [
+				3.49981164932251,
+				-0.670990467071533,
+				7.73329401016235
+			],
+			"reached": true,
+			"target": [
+				3.5,
+				7.80000019073486
+			]
+		},
+		{
+			"player": [
+				-4.36657190322876,
+				-0.670990467071533,
+				7.79971790313721
+			],
+			"reached": true,
+			"target": [
+				-4.40000009536743,
+				7.80000019073486
+			]
+		},
+		{
+			"player": [
+				3.43342614173889,
+				-0.670990467071533,
+				7.79999780654907
+			],
+			"reached": true,
+			"target": [
+				3.5,
+				7.80000019073486
+			]
+		},
+		{
+			"player": [
+				3.49962282180786,
+				-0.670990467071533,
+				-3.93315482139587
+			],
+			"reached": true,
+			"target": [
+				3.5,
+				-4.0
+			]
+		},
+		{
+			"player": [
+				-4.36676073074341,
+				-0.670990467071533,
+				-3.99971866607666
+			],
+			"reached": true,
+			"target": [
+				-4.40000009536743,
+				-4.0
+			]
+		}
+	],
+	"scene": "res://scenes/library_column_room.tscn",
+	"spawn_eye": [
+		-4.40000009536743,
+		-0.170990467071533,
+		-4.0
+	],
+	"walkable_area": {
+		"grid_step_m": 0.1,
+		"method": "10 cm capsule grid, 2 cm floor clearance, floor rays, 4-neighbor connectivity",
+		"spawn_connected_area_estimate_m2": 113.38,
+		"spawn_connected_center_samples": 11338,
+		"spawn_sample_offset_m": 0.0,
+		"walkable_center_samples": 11338
+	}
+}

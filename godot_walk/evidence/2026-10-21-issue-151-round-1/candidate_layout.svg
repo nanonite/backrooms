@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="780" viewBox="0 0 1040 780">
+  <rect width="1040" height="780" fill="#f5f5ef"/>
+  <text x="48" y="48" font-family="sans-serif" font-size="24" font-weight="700" fill="#202724">#151 Round 1 | Authored Room Proposal</text>
+  <text x="48" y="78" font-family="sans-serif" font-size="14" fill="#8a3d32">One authored room with one column. Not a recovered floor plan; registration and scale remain unaccepted.</text>
+  <g transform="translate(115 140) scale(43.5)">
+    <rect x="-5.4" y="-5" width="9.9" height="13.8" fill="#dddac9" stroke="#313b35" stroke-width="0.06"/>
+    <rect x="-1.376" y="-0.8616" width="1.8588" height="2.3701" fill="#b7b9ad" stroke="#57625a" stroke-width="0.045"/>
+    <path d="M-4.4 -4 L3.5 -4 L3.5 7.8 L-4.4 7.8 Z" fill="none" stroke="#356f67" stroke-width="0.055" stroke-dasharray="0.18 0.13"/>
+    <path d="M2.921 3.704 l-0.691 -0.723" fill="none" stroke="#b24b3c" stroke-width="0.05"/>
+    <circle cx="2.921" cy="3.704" r="0.105" fill="#b24b3c" stroke="#fff" stroke-width="0.03"/>
+    <circle cx="-4.4" cy="-4" r="0.09" fill="#356f67"/>
+  </g>
+  <g font-family="sans-serif" fill="#29332e">
+    <text x="575" y="165" font-size="17" font-weight="700">Shared authored convention</text>
+    <text x="575" y="193" font-size="14">Bounds: x [-5.4, 4.5], z [-5.0, 8.8]</text>
+    <text x="575" y="216" font-size="14">Floor-to-ceiling: 2.4 m</text>
+    <text x="575" y="239" font-size="14">All dimensions reuse #150 as a design convention,</text>
+    <text x="575" y="259" font-size="14">not calibrated video measurements.</text>
+    <text x="575" y="309" font-size="17" font-weight="700">Matched review views</text>
+    <text x="575" y="337" font-size="14">Frame-0152 anchor; both room ends;</text>
+    <text x="575" y="359" font-size="14">west/east walls; four column faces.</text>
+    <text x="575" y="409" font-size="17" font-weight="700">Variant proposals</text>
+    <text x="575" y="437" font-size="14">A. preserve_hunyuan</text>
+    <text x="595" y="459" font-size="14">Keep Hunyuan walls, ceiling and column visible;</text>
+    <text x="595" y="481" font-size="14">use source-video floor texture and authored collision.</text>
+    <text x="575" y="521" font-size="14">B. source_surface_cleanup</text>
+    <text x="595" y="543" font-size="14">Add source-video textures to four walls, ceiling,</text>
+    <text x="595" y="565" font-size="14">floor and a complete smooth column cover.</text>
+    <text x="575" y="615" font-size="17" font-weight="700">Not proposed</text>
+    <text x="575" y="643" font-size="14">No door, room connection, or unseen room.</text>
+    <text x="575" y="665" font-size="14">The player route and all shell geometry are authored.</text>
+  </g>
+  <g font-family="sans-serif" font-size="13" fill="#29332e">
+    <line x1="110" y1="718" x2="154" y2="718" stroke="#313b35" stroke-width="3"/><text x="164" y="723">authored room bounds / collision</text>
+    <line x1="392" y1="718" x2="436" y2="718" stroke="#356f67" stroke-width="3" stroke-dasharray="8 5"/><text x="446" y="723">authored test route</text>
+    <circle cx="668" cy="718" r="6" fill="#b24b3c"/><text x="682" y="723">frame-0152 camera anchor (registration not accepted)</text>
+  </g>
+</svg>

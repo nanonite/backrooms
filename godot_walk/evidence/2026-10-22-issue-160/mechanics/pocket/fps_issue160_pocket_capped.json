@@ -1,0 +1,12 @@
+{
+	"baseline": false,
+	"capped_at_60": true,
+	"counter": "RenderingServer.frame_post_draw",
+	"elapsed_s": 13.982877,
+	"fps": 60.0019581091931,
+	"frames": 839,
+	"p95_frame_ms": 16.816,
+	"p99_frame_ms": 16.932,
+	"poses": 14,
+	"scene": "res://scenes/issue160_bounded_pocket_room.tscn"
+}

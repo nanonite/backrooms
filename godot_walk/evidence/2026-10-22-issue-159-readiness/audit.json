@@ -1,0 +1,172 @@
+{
+	"capsule": {
+		"height": 1.20000004768372,
+		"radius": 0.300000011920929
+	},
+	"collisions": [
+		{
+			"center": [
+				-5.46000003814697,
+				-0.0709904879331589,
+				1.89999997615814
+			],
+			"path": "AuthoredBoundaries/WestBoundary/CollisionShape3D",
+			"size": [
+				0.119999997317791,
+				2.40000009536743,
+				13.8000001907349
+			],
+			"type": "BoxShape3D"
+		},
+		{
+			"center": [
+				4.55999994277954,
+				-0.0709904879331589,
+				1.89999997615814
+			],
+			"path": "AuthoredBoundaries/EastBoundary/CollisionShape3D",
+			"size": [
+				0.119999997317791,
+				2.40000009536743,
+				13.8000001907349
+			],
+			"type": "BoxShape3D"
+		},
+		{
+			"center": [
+				-0.449999988079071,
+				-0.0709904879331589,
+				-5.05999994277954
+			],
+			"path": "AuthoredBoundaries/SouthBoundary/CollisionShape3D",
+			"size": [
+				9.89999961853027,
+				2.40000009536743,
+				0.119999997317791
+			],
+			"type": "BoxShape3D"
+		},
+		{
+			"center": [
+				-0.449999988079071,
+				-0.0709904879331589,
+				8.85999965667725
+			],
+			"path": "AuthoredBoundaries/NorthBoundary/CollisionShape3D",
+			"size": [
+				9.89999961853027,
+				2.40000009536743,
+				0.119999997317791
+			],
+			"type": "BoxShape3D"
+		},
+		{
+			"center": [
+				-0.447464883327484,
+				-0.0709904432296753,
+				0.323480784893036
+			],
+			"path": "AuthoredBoundaries/ColumnObstacle/CollisionShape3D",
+			"size": [
+				1.85878264904022,
+				2.40000009536743,
+				2.37008166313171
+			],
+			"type": "BoxShape3D"
+		},
+		{
+			"center": [
+				-0.449999988079071,
+				-1.33099043369293,
+				1.89999997615814
+			],
+			"path": "AuthoredFloor/CollisionShape3D",
+			"size": [
+				9.89999961853027,
+				0.119999997317791,
+				13.8000001907349
+			],
+			"type": "BoxShape3D"
+		},
+		{
+			"center": [
+				-0.449999988079071,
+				-3.2709903717041,
+				1.89999997615814
+			],
+			"path": "SafetyNet/CollisionShape3D",
+			"size": [
+				11.8999996185303,
+				0.0500000007450581,
+				15.8000001907349
+			],
+			"type": "BoxShape3D"
+		}
+	],
+	"floor_y": -1.27099049,
+	"grid_step": 0.1,
+	"measurement": {
+		"grid_step_m": 0.1,
+		"method": "10 cm capsule grid, 2 cm floor clearance, floor rays, 4-neighbor connectivity",
+		"spawn_connected_area_estimate_m2": 113.38,
+		"spawn_connected_center_samples": 11338,
+		"spawn_sample_offset_m": 0.0,
+		"walkable_center_samples": 11338
+	},
+	"point_probes": [
+		{
+			"floor": "AuthoredFloor",
+			"standing_capsule_hits": [],
+			"xz": [
+				-0.699999988079071,
+				4.44999980926514
+			]
+		},
+		{
+			"floor": "AuthoredFloor",
+			"standing_capsule_hits": [],
+			"xz": [
+				-2.0,
+				3.20000004768372
+			]
+		},
+		{
+			"floor": "AuthoredFloor",
+			"standing_capsule_hits": [],
+			"xz": [
+				0.0,
+				5.59999990463257
+			]
+		},
+		{
+			"floor": null,
+			"standing_capsule_hits": [],
+			"xz": [
+				5.0,
+				4.69999980926514
+			]
+		}
+	],
+	"registration_accepted": false,
+	"scale_calibrated": false,
+	"source_geometry": {
+		"bounds_are_walkable": false,
+		"midheight_slice_y": [
+			-0.1,
+			0.1
+		],
+		"slice_points": 3377,
+		"slice_quantization": 0.025,
+		"vertex_entries": 7663684,
+		"world_bounds_max": [
+			6.74960327148438,
+			1.04845142364502,
+			7.05920219421387
+		],
+		"world_bounds_min": [
+			-14.8681030273438,
+			-1.42165589332581,
+			-11.0788650512695
+		]
+	}
+}

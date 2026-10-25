@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "round_id": "hunyuan-psx-r1",
+  "variant_id": "source_surface_cleanup",
+  "parent_id": "issue-150-accepted-design-baseline",
+  "hypothesis": "Cover the floor, ceiling, four walls, and column artifact with simple PSX surfaces textured from the original source video while preserving the Hunyuan model as a visible-only backing layer.",
+  "region_decisions": [
+    {"id": "floor", "action": "cover", "provenance": "authored", "evidence": "source-video sampled texture floor_source_video.png", "reason": "Create a continuous visual and collision floor."},
+    {"id": "walls", "action": "cover", "provenance": "authored", "evidence": "source-video sampled texture wallpaper_source_video.png", "reason": "Give the room explicit right-angle walls where Hunyuan surfaces are irregular."},
+    {"id": "ceiling", "action": "cover", "provenance": "authored", "evidence": "source-video sampled texture ceiling_source_video.png", "reason": "Test whether a flat sampled ceiling reduces generated ceiling artifacts."},
+    {"id": "column", "action": "cover", "provenance": "authored", "evidence": "source-video sampled texture column_source_video.png", "reason": "Test a complete authored cover over the incomplete generated column."}
+  ],
+  "authored_changes": [
+    {"id": "source_textured_shell", "geometry": "same room convention and collision as preserve_hunyuan", "material": "floor/wallpaper/ceiling source-video textures", "collision": "visual-only surfaces; collision shell unchanged"},
+    {"id": "column_cover", "geometry": "1.8588 x 2.4 x 2.3701 m box per #150 convention", "material": "column_source_video.png", "collision": "reuses separate authored obstacle proxy"}
+  ]
+}

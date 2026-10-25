@@ -1,0 +1,23 @@
+{
+  "source_frame": "data/scenes/corridor_travel/images/frame_0152.jpg",
+  "source_frame_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+  "source_size_px": [
+    1920,
+    1080
+  ],
+  "crop_xyxy_px": [
+    734,
+    150,
+    1128,
+    900
+  ],
+  "crop_size_px": [
+    394,
+    750
+  ],
+  "operation": "direct source-video pixel crop; no grading, resizing, or generation",
+  "output": "godot_walk/evidence/2026-10-21-issue-151-round-3/source/frame_0152_column_front.png",
+  "output_sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+  "runtime_asset": "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png",
+  "runtime_asset_sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a"
+}

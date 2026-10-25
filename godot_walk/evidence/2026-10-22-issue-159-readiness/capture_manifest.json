@@ -1,0 +1,170 @@
+[
+	{
+		"eye": [
+			-4.40000009536743,
+			-0.17099049,
+			-4.0
+		],
+		"fov": 75.0,
+		"id": "V01_spawn",
+		"path": "res://evidence/2026-10-22-issue-159-readiness/captures/V01_spawn.png",
+		"preset": "existing URSC enabled; native post enabled",
+		"resolution": [
+			960,
+			540
+		],
+		"settle_frames": 20,
+		"target": [
+			0.419999986886978,
+			-0.170990496873856,
+			1.04999995231628
+		]
+	},
+	{
+		"eye": [
+			3.5,
+			-0.17099049,
+			-4.0
+		],
+		"fov": 75.0,
+		"id": "V02_southeast",
+		"path": "res://evidence/2026-10-22-issue-159-readiness/captures/V02_southeast.png",
+		"preset": "existing URSC enabled; native post enabled",
+		"resolution": [
+			960,
+			540
+		],
+		"settle_frames": 20,
+		"target": [
+			0.419999986886978,
+			-0.170990496873856,
+			1.04999995231628
+		]
+	},
+	{
+		"eye": [
+			3.5,
+			-0.17099049,
+			7.80000019073486
+		],
+		"fov": 75.0,
+		"id": "V03_northeast",
+		"path": "res://evidence/2026-10-22-issue-159-readiness/captures/V03_northeast.png",
+		"preset": "existing URSC enabled; native post enabled",
+		"resolution": [
+			960,
+			540
+		],
+		"settle_frames": 20,
+		"target": [
+			0.419999986886978,
+			-0.170990496873856,
+			1.04999995231628
+		]
+	},
+	{
+		"eye": [
+			-4.40000009536743,
+			-0.17099049,
+			7.80000019073486
+		],
+		"fov": 75.0,
+		"id": "V04_northwest",
+		"path": "res://evidence/2026-10-22-issue-159-readiness/captures/V04_northwest.png",
+		"preset": "existing URSC enabled; native post enabled",
+		"resolution": [
+			960,
+			540
+		],
+		"settle_frames": 20,
+		"target": [
+			0.419999986886978,
+			-0.170990496873856,
+			1.04999995231628
+		]
+	},
+	{
+		"eye": [
+			-4.40000009536743,
+			-0.17099049,
+			1.89999997615814
+		],
+		"fov": 75.0,
+		"id": "V05_west",
+		"path": "res://evidence/2026-10-22-issue-159-readiness/captures/V05_west.png",
+		"preset": "existing URSC enabled; native post enabled",
+		"resolution": [
+			960,
+			540
+		],
+		"settle_frames": 20,
+		"target": [
+			4.5,
+			-0.170990496873856,
+			1.89999997615814
+		]
+	},
+	{
+		"eye": [
+			3.5,
+			-0.17099049,
+			1.89999997615814
+		],
+		"fov": 75.0,
+		"id": "V06_east",
+		"path": "res://evidence/2026-10-22-issue-159-readiness/captures/V06_east.png",
+		"preset": "existing URSC enabled; native post enabled",
+		"resolution": [
+			960,
+			540
+		],
+		"settle_frames": 20,
+		"target": [
+			-5.40000009536743,
+			-0.170990496873856,
+			1.89999997615814
+		]
+	},
+	{
+		"eye": [
+			-0.449999988079071,
+			-0.17099049,
+			7.80000019073486
+		],
+		"fov": 75.0,
+		"id": "V07_north_outward",
+		"path": "res://evidence/2026-10-22-issue-159-readiness/captures/V07_north_outward.png",
+		"preset": "existing URSC enabled; native post enabled",
+		"resolution": [
+			960,
+			540
+		],
+		"settle_frames": 20,
+		"target": [
+			-0.449999988079071,
+			-0.170990496873856,
+			12.0
+		]
+	},
+	{
+		"eye": [
+			-0.449999988079071,
+			-0.17099049,
+			-4.0
+		],
+		"fov": 75.0,
+		"id": "V08_south_outward",
+		"path": "res://evidence/2026-10-22-issue-159-readiness/captures/V08_south_outward.png",
+		"preset": "existing URSC enabled; native post enabled",
+		"resolution": [
+			960,
+			540
+		],
+		"settle_frames": 20,
+		"target": [
+			-0.449999988079071,
+			-0.170990496873856,
+			-9.0
+		]
+	}
+]

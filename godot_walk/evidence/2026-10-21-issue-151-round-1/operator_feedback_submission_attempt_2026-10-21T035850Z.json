@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "round_id": "hunyuan-psx-r1",
+  "status": "confirmed",
+  "reviewer_timestamp": "2026-10-21T03:58:50.880Z",
+  "view_choices": [
+    {
+      "view_id": "patch_anchor",
+      "choice": null,
+      "reason": null
+    },
+    {
+      "view_id": "south_end",
+      "choice": null,
+      "reason": null
+    },
+    {
+      "view_id": "north_end",
+      "choice": null,
+      "reason": null
+    },
+    {
+      "view_id": "west_wall",
+      "choice": null,
+      "reason": null
+    },
+    {
+      "view_id": "east_wall",
+      "choice": null,
+      "reason": null
+    },
+    {
+      "view_id": "column_south",
+      "choice": null,
+      "reason": null
+    },
+    {
+      "view_id": "column_north",
+      "choice": null,
+      "reason": null
+    },
+    {
+      "view_id": "column_west",
+      "choice": null,
+      "reason": null
+    },
+    {
+      "view_id": "column_east",
+      "choice": null,
+      "reason": null
+    }
+  ],
+  "variant_decisions": [
+    {
+      "variant_id": "preserve_hunyuan",
+      "decision": "keep",
+      "reason": "original version is still good"
+    },
+    {
+      "variant_id": "source_surface_cleanup",
+      "decision": "iterate",
+      "reason": "too much randomly place textures, the psx render should follow after the column is defined"
+    }
+  ],
+  "overall_walkthrough_notes": "the column that has the guassian artifiacts needs a clealry defined box made first and the source exture should be the same of the fact that is visible",
+  "remaining_problems": [
+    {
+      "area": "column_east",
+      "severity": 3,
+      "description": "the column that has the guassian artifiacts needs a clealry defined box made first and the source exture should be the same of the fact that is visible"
+    }
+  ],
+  "next_round_directives": [
+    "focus on the column , the ceiling and floor are good , no need to focus on that"
+  ],
+  "confidence": 4
+}

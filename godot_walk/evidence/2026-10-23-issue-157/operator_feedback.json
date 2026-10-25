@@ -1,0 +1,22 @@
+{
+  "issue": 157,
+  "round_id": "pocket-floor-uv-density-1",
+  "recorded_date": "2026-10-23",
+  "source": "explicit_operator_message",
+  "operator_text": "I think the 4x is fine.",
+  "decision": "keep_current",
+  "selected_variant": "pocket-floor-uv-scale-4",
+  "rejected_variant": "pocket-floor-uv-scale-16",
+  "reason": "The operator prefers the existing 4x floor scale.",
+  "production_materials_changed": false,
+  "ceiling_bridge_review": {
+    "recorded_date": "2026-10-23",
+    "source": "explicit_operator_message",
+    "operator_text": "i can barely tell the difference , i would say keep the bridge off",
+    "decision": "reject_candidate_keep_disabled",
+    "selected_variant": "ceiling_bridge_off",
+    "rejected_variant": "source-textured-doorway-ceiling-bridge",
+    "reason": "The operator can barely distinguish a benefit and prefers the bridge off.",
+    "production_assets_changed": false
+  }
+}

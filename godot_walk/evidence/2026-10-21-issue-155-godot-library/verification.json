@@ -1,0 +1,31 @@
+{
+  "engine": "4.6.3.stable.official.7d41c59c4",
+  "renderer": "Vulkan Forward+",
+  "room_contracts": "PASS",
+  "column_route_and_eight_boundary_probes": "PASS",
+  "pocket_route_and_eight_boundary_probes": "PASS",
+  "column_obstacle_ray": "PASS",
+  "column_collision_snapshot_unchanged": true,
+  "pocket_original_collision_triangles": 50,
+  "pocket_collision_faces_and_transforms_identical": true,
+  "negative_controls": {
+    "column_floor_removed": "FAIL_AS_EXPECTED: lost allowed floor support",
+    "column_east_boundary_removed": "FAIL_AS_EXPECTED: escaped bounded envelope",
+    "pocket_floor_removed": "FAIL_AS_EXPECTED: lost allowed floor support",
+    "pocket_east_boundary_removed": "FAIL_AS_EXPECTED: escaped bounded envelope"
+  },
+  "protected_source_hashes_matching": 7,
+  "existing_godot_regressions": [
+    "test_hunyuan_psx_column_box PASS",
+    "test_hunyuan_psx_round1 PASS",
+    "test_hunyuan_psx_round2 PASS"
+  ],
+  "python_discovery": {"passed": 18, "failed": 0},
+  "matched_capture_count": 8,
+  "final_capture_shader_or_script_errors": 0,
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "operator_approved": false,
+  "catalog_promoted": false,
+  "committed": false
+}

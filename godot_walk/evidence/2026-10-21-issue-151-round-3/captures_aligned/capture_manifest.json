@@ -1,0 +1,84 @@
+{
+	"issue": 151,
+	"registration_accepted": false,
+	"round_id": "hunyuan-psx-r3",
+	"scale_calibrated": false,
+	"views": [
+		{
+			"forward": [
+				-0.690999984741211,
+				0.0,
+				-0.72299998998642
+			],
+			"position": [
+				2.920978307724,
+				-0.100299999117851,
+				3.70350790023804
+			],
+			"resolution": [
+				960,
+				540
+			],
+			"settle_frames": 20,
+			"variant_id": "preserve_hunyuan",
+			"view_id": "patch_anchor"
+		},
+		{
+			"forward": [
+				-1.0,
+				0.0,
+				0.0
+			],
+			"position": [
+				2.36999988555908,
+				-0.100299999117851,
+				0.323000013828278
+			],
+			"resolution": [
+				960,
+				540
+			],
+			"settle_frames": 20,
+			"variant_id": "preserve_hunyuan",
+			"view_id": "column_east"
+		},
+		{
+			"forward": [
+				-0.690999984741211,
+				0.0,
+				-0.72299998998642
+			],
+			"position": [
+				2.920978307724,
+				-0.100299999117851,
+				3.70350790023804
+			],
+			"resolution": [
+				960,
+				540
+			],
+			"settle_frames": 20,
+			"variant_id": "column_face_extrusion",
+			"view_id": "patch_anchor"
+		},
+		{
+			"forward": [
+				-1.0,
+				0.0,
+				0.0
+			],
+			"position": [
+				2.36999988555908,
+				-0.100299999117851,
+				0.323000013828278
+			],
+			"resolution": [
+				960,
+				540
+			],
+			"settle_frames": 20,
+			"variant_id": "column_face_extrusion",
+			"view_id": "column_east"
+		}
+	]
+}

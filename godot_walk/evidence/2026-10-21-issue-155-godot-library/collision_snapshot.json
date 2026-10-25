@@ -1,0 +1,37 @@
+[
+	{
+		"path": "AuthoredBoundaries/WestBoundary/CollisionShape3D",
+		"size": "(0.12, 2.4, 13.8)",
+		"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-5.46, -0.07099, 1.9)]"
+	},
+	{
+		"path": "AuthoredBoundaries/EastBoundary/CollisionShape3D",
+		"size": "(0.12, 2.4, 13.8)",
+		"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (4.56, -0.07099, 1.9)]"
+	},
+	{
+		"path": "AuthoredBoundaries/SouthBoundary/CollisionShape3D",
+		"size": "(9.9, 2.4, 0.12)",
+		"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-0.45, -0.07099, -5.06)]"
+	},
+	{
+		"path": "AuthoredBoundaries/NorthBoundary/CollisionShape3D",
+		"size": "(9.9, 2.4, 0.12)",
+		"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-0.45, -0.07099, 8.86)]"
+	},
+	{
+		"path": "AuthoredBoundaries/ColumnObstacle/CollisionShape3D",
+		"size": "(1.858783, 2.4, 2.370082)",
+		"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-0.447465, -0.07099, 0.323481)]"
+	},
+	{
+		"path": "AuthoredFloor/CollisionShape3D",
+		"size": "(9.9, 0.12, 13.8)",
+		"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-0.45, -1.33099, 1.9)]"
+	},
+	{
+		"path": "SafetyNet/CollisionShape3D",
+		"size": "(11.9, 0.05, 15.8)",
+		"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-0.45, -3.27099, 1.9)]"
+	}
+]

@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "round_id": "hunyuan-psx-r2",
+  "status": "confirmed",
+  "reviewer_timestamp": "2026-10-21T04:28:08.590482+00:00",
+  "view_choices": [
+    {
+      "view_id": "patch_anchor",
+      "choice": "none",
+      "reason": "Auto-filled from the operator's overall feedback: the column issue remains unresolved; no individual choice was supplied for this view."
+    },
+    {
+      "view_id": "south_end",
+      "choice": "tie",
+      "reason": "Auto-filled as tie: Round 2 is unchanged in this end view (0% ODiff); no separate choice was supplied."
+    },
+    {
+      "view_id": "north_end",
+      "choice": "tie",
+      "reason": "Auto-filled as tie: Round 2 is unchanged in this end view (0% ODiff); no separate choice was supplied."
+    },
+    {
+      "view_id": "west_wall",
+      "choice": "none",
+      "reason": "Auto-filled from the operator's overall feedback: the column issue remains unresolved; no individual choice was supplied for this view."
+    },
+    {
+      "view_id": "east_wall",
+      "choice": "none",
+      "reason": "Auto-filled from the operator's overall feedback: the column issue remains unresolved; no individual choice was supplied for this view."
+    },
+    {
+      "view_id": "column_south",
+      "choice": "none",
+      "reason": "Auto-filled from the operator's overall feedback: the column issue remains unresolved; no individual choice was supplied for this view."
+    },
+    {
+      "view_id": "column_north",
+      "choice": "none",
+      "reason": "Auto-filled from the operator's overall feedback: the column issue remains unresolved; no individual choice was supplied for this view."
+    },
+    {
+      "view_id": "column_west",
+      "choice": "none",
+      "reason": "Auto-filled from the operator's overall feedback: the column issue remains unresolved; no individual choice was supplied for this view."
+    },
+    {
+      "view_id": "column_east",
+      "choice": "none",
+      "reason": "Auto-filled from the operator's overall feedback: the column issue remains unresolved; no individual choice was supplied for this view."
+    }
+  ],
+  "variant_decisions": [
+    {
+      "variant_id": "preserve_hunyuan",
+      "decision": "keep",
+      "reason": "Retain as a comparison control, consistent with the prior Round 1 decision; this does not resolve the column."
+    },
+    {
+      "variant_id": "column_box_source_face",
+      "decision": "iterate",
+      "reason": "The operator reports that the column issue has not been addressed."
+    }
+  ],
+  "overall_walkthrough_notes": "Operator feedback: the Round 2 column issue has not been addressed. Per-view choices were auto-filled from that overall note and the unchanged end-view captures; they were not separately provided. Confidence 3 is a neutral form default, not an operator-stated rating.",
+  "remaining_problems": [
+    {
+      "area": "column",
+      "description": "The column still does not read as resolved in the Hunyuan-to-PSX room.",
+      "severity": 3
+    }
+  ],
+  "next_round_directives": [
+    "Continue iterating on the column until the visible column reads as complete.",
+    "Keep the accepted floor and ceiling treatments unchanged while testing the column."
+  ],
+  "confidence": 3
+}

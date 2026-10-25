@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/issue149_pocket_topology.gd" id="1_topology"]
+
+[node name="Issue149PocketPassThrough" type="Node3D"]
+script = ExtResource("1_topology")
+connector_open = true
+include_player = false
+enable_environment = false
+apply_psx_preset = false
+additional_open_sockets = PackedStringArray("east")

@@ -1,0 +1,306 @@
+{
+	"boundary_pushes": {
+		"0": {
+			"end": [
+				-0.111882224678993,
+				-0.67082017660141,
+				-0.824337542057037
+			],
+			"trace": {
+				"distance_m": 5.23362486064434,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666667222976685,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 116
+				},
+				"ticks": 240
+			}
+		},
+		"1": {
+			"end": [
+				-4.0174388885498,
+				-0.670882284641266,
+				-0.839058399200439
+			],
+			"trace": {
+				"distance_m": 8.91900414973497,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666668191552162,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 153
+				},
+				"ticks": 240
+			}
+		},
+		"2": {
+			"end": [
+				-3.76667189598083,
+				-0.670990467071533,
+				3.09999990463257
+			],
+			"trace": {
+				"distance_m": 6.20000529289246,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666725039482117,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 94
+				},
+				"ticks": 240
+			}
+		},
+		"3": {
+			"end": [
+				-0.446459978818893,
+				-0.670074999332428,
+				5.12415742874146
+			],
+			"trace": {
+				"distance_m": 3.85355232851543,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.06667310744524,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 68
+				},
+				"ticks": 240
+			}
+		},
+		"4": {
+			"end": [
+				2.5,
+				-0.670990467071533,
+				5.23333644866943
+			],
+			"trace": {
+				"distance_m": 2.06666994094849,
+				"floor_fraction": 1.0,
+				"max_step_m": 0.0666718482971191,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 32
+				},
+				"ticks": 240
+			}
+		},
+		"5": {
+			"end": [
+				13.8148784637451,
+				-42.2940902709961,
+				14.4148740768433
+			],
+			"trace": {
+				"distance_m": 15.9349850416183,
+				"floor_fraction": 0.129166666666667,
+				"max_step_m": 0.467557191848755,
+				"safety_contacts": 3,
+				"support_bodies": {
+					"AuthoredFloor": 21,
+					"SafetyNet": 3
+				},
+				"ticks": 240
+			}
+		},
+		"6": {
+			"end": [
+				18.500171661377,
+				-67.5245666503906,
+				3.09999990463257
+			],
+			"trace": {
+				"distance_m": 15.9335050582886,
+				"floor_fraction": 0.075,
+				"max_step_m": 0.60529088973999,
+				"safety_contacts": 0,
+				"support_bodies": {
+					"AuthoredFloor": 15
+				},
+				"ticks": 240
+			}
+		},
+		"7": {
+			"end": [
+				13.8141803741455,
+				-42.2920608520508,
+				-8.21421718597412
+			],
+			"trace": {
+				"distance_m": 15.9340265467763,
+				"floor_fraction": 0.129166666666667,
+				"max_step_m": 0.467557191848755,
+				"safety_contacts": 3,
+				"support_bodies": {
+					"AuthoredFloor": 21,
+					"SafetyNet": 3
+				},
+				"ticks": 240
+			}
+		}
+	},
+	"failures": [
+		"Escaped bounded envelope",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.12916666666667, \"distance_m\": 15.9349850416183, \"max_step_m\": 0.46755719184875, \"safety_contacts\": 3, \"support_bodies\": { \"AuthoredFloor\": 21, \"SafetyNet\": 3 } }",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.075, \"distance_m\": 15.9335050582886, \"max_step_m\": 0.60529088973999, \"safety_contacts\": 0, \"support_bodies\": { \"AuthoredFloor\": 15 } }",
+		"Support, safety or step gate failed: { \"ticks\": 240, \"floor_fraction\": 0.12916666666667, \"distance_m\": 15.9340265467763, \"max_step_m\": 0.46755719184875, \"safety_contacts\": 3, \"support_bodies\": { \"AuthoredFloor\": 21, \"SafetyNet\": 3 } }"
+	],
+	"out_and_back": {
+		"distance_m": 20.1333162635565,
+		"floor_fraction": 1.0,
+		"max_step_m": 0.0666697546839714,
+		"safety_contacts": 0,
+		"support_bodies": {
+			"AuthoredFloor": 303
+		},
+		"ticks": 303
+	},
+	"route_segments": [
+		{
+			"player": [
+				-3.5,
+				-0.670990467071533,
+				0.0
+			],
+			"reached": true,
+			"target": [
+				-3.5,
+				0.0
+			]
+		},
+		{
+			"player": [
+				-3.40263605117798,
+				-0.670990467071533,
+				2.53146314620972
+			],
+			"reached": true,
+			"target": [
+				-3.40000009536743,
+				2.59999990463257
+			]
+		},
+		{
+			"player": [
+				-1.87070441246033,
+				-0.670990467071533,
+				2.59697604179382
+			],
+			"reached": true,
+			"target": [
+				-1.79999995231628,
+				2.59999990463257
+			]
+		},
+		{
+			"player": [
+				2.32928419113159,
+				-0.670990467071533,
+				2.59995007514954
+			],
+			"reached": true,
+			"target": [
+				2.40000009536743,
+				2.59999990463257
+			]
+		},
+		{
+			"player": [
+				2.39462900161743,
+				-0.670990467071533,
+				3.06201887130737
+			],
+			"reached": true,
+			"target": [
+				2.40000009536743,
+				3.09999990463257
+			]
+		},
+		{
+			"player": [
+				2.39985823631287,
+				-0.670990467071533,
+				4.46200752258301
+			],
+			"reached": true,
+			"target": [
+				2.40000009536743,
+				4.5
+			]
+		},
+		{
+			"player": [
+				2.3999969959259,
+				-0.670990467071533,
+				3.12867546081543
+			],
+			"reached": true,
+			"target": [
+				2.40000009536743,
+				3.09999990463257
+			]
+		},
+		{
+			"player": [
+				2.39999985694885,
+				-0.670990467071533,
+				2.66200923919678
+			],
+			"reached": true,
+			"target": [
+				2.40000009536743,
+				2.59999990463257
+			]
+		},
+		{
+			"player": [
+				-1.73288118839264,
+				-0.670990467071533,
+				2.60099077224731
+			],
+			"reached": true,
+			"target": [
+				-1.79999995231628,
+				2.59999990463257
+			]
+		},
+		{
+			"player": [
+				-3.33287978172302,
+				-0.670990467071533,
+				2.60003995895386
+			],
+			"reached": true,
+			"target": [
+				-3.40000009536743,
+				2.59999990463257
+			]
+		},
+		{
+			"player": [
+				-3.49537706375122,
+				-0.670990467071533,
+				0.071924090385437
+			],
+			"reached": true,
+			"target": [
+				-3.5,
+				0.0
+			]
+		}
+	],
+	"scene": "res://scenes/issue160_bounded_column_room.tscn",
+	"spawn_eye": [
+		-3.5,
+		-0.170990467071533,
+		0.0
+	],
+	"walkable_area": {
+		"grid_step_m": 0.1,
+		"method": "10 cm capsule grid, 2 cm floor clearance, floor rays, 4-neighbor connectivity",
+		"spawn_connected_area_estimate_m2": 33.13,
+		"spawn_connected_center_samples": 3313,
+		"spawn_sample_offset_m": 0.0,
+		"walkable_center_samples": 3313
+	}
+}

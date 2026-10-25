@@ -1,0 +1,39 @@
+{
+  "label": "issue157-transition-captures",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--disable-vsync",
+    "--script",
+    "res://scripts/capture_issue157_transition.gd"
+  ],
+  "timeout_seconds": 180,
+  "timed_out": false,
+  "return_code": 0,
+  "error": null,
+  "elapsed_seconds": 4.269,
+  "finished_utc": "2026-10-23T16:39:15.363049+00:00",
+  "preflight": {
+    "free_vram_bytes": 10629414912,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 26,
+    "compute_apps": [],
+    "ram_available_bytes": 36009910272,
+    "vram_after_headroom_bytes": 8503531929,
+    "ram_after_headroom_bytes": 27007432704,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 2431225856,
+    "gpu_memory_start_bytes": 1816133632,
+    "peak_gpu_memory_used_bytes": 2381316096,
+    "peak_gpu_memory_delta_bytes": 565182464,
+    "gpu_sample_period_ms": 500
+  }
+}

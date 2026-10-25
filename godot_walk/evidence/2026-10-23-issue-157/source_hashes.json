@@ -1,0 +1,98 @@
+[
+  {
+    "path": "godot_walk/project.godot",
+    "sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7"
+  },
+  {
+    "path": "godot_walk/scripts/capture_issue157_transition.gd",
+    "sha256": "dfaa8e704cc9b5006643701f28a3770f71c586a2890666f5cad5b944c781ac1b"
+  },
+  {
+    "path": "godot_walk/scripts/capture_issue157_floor_candidate.gd",
+    "sha256": "af2a3c87a2be98b5faa775ee1fe6c42c177506e62eb0ce46dd2c27721e23f087"
+  },
+  {
+    "path": "godot_walk/scripts/capture_issue157_ceiling_candidate.gd",
+    "sha256": "1c0663b438422e4146e68874703ce50586bb232d8f8168a9db9fc0a5f47a2fdc"
+  },
+  {
+    "path": "godot_walk/scripts/issue157_transition_review.gd",
+    "sha256": "21573390e8392e42f7c3f65de9db119082eefa186efa047d1bd42d51701d54e3"
+  },
+  {
+    "path": "godot_walk/scripts/test_issue157_transition_review.gd",
+    "sha256": "0ef8edb50959221bb98049836dfdfbb464c9c51339cdcd407d8e7b8e9fb11b01"
+  },
+  {
+    "path": "godot_walk/scenes/issue157_transition_review.tscn",
+    "sha256": "0507dfccdf1b08a0ca0a484af8ebbf86d8c6ab3b7434cb70a2e17bf98d1240ff"
+  },
+  {
+    "path": "godot_walk/scripts/build_issue157_transition_review.py",
+    "sha256": "37b25e7620a3e26757115e855142b49682aaa41dc68ebb9e0704094964ce13a6"
+  },
+  {
+    "path": "godot_walk/scripts/library_psx_preset.gd",
+    "sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87"
+  },
+  {
+    "path": "godot_walk/scripts/issue160_bounded_column_room.gd",
+    "sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b"
+  },
+  {
+    "path": "godot_walk/scripts/issue160_pocket_room.gd",
+    "sha256": "b8278f360020a6541236e8777593a47a74e54d5c15219f0eef5ece135f031722"
+  },
+  {
+    "path": "godot_walk/scripts/issue160_room_geometry.gd",
+    "sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500"
+  },
+  {
+    "path": "godot_walk/scripts/issue149_pocket_topology.gd",
+    "sha256": "2d4ac057bd54ac3af6b4c951137d3481ce354cdc09d98461ccc011465f18a4eb"
+  },
+  {
+    "path": "godot_walk/scripts/hunyuan_psx_round1.gd",
+    "sha256": "e717a07e171247deb5f4af38e0cf6b364ae99a927bb419324004fb50c4b84971"
+  },
+  {
+    "path": "godot_walk/shaders/library_psx_textured.gdshader",
+    "sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c"
+  },
+  {
+    "path": "godot_walk/vendor/ursc/common.gdshaderinc",
+    "sha256": "c2bba1e4d8491d91684efd246458196d7750a4951a21c1bbef58b82537288a49"
+  },
+  {
+    "path": "godot_walk/evidence/2026-10-22-issue-160/bounded_hunyuan_visual.glb",
+    "sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898"
+  },
+  {
+    "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+    "sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5"
+  },
+  {
+    "path": "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+    "sha256": "75dd78545085a49a12ef2b1268821c3aff6ccca6dcdf10620c2e3d7ee4b14bb7"
+  },
+  {
+    "path": "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+    "sha256": "f1bfe1ab7aa9ffe416b68f5f24612ff6293d26e7d421c7fb95fda3c66c4210d4"
+  },
+  {
+    "path": "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+    "sha256": "01f0d0182ddf3676d4ab85b19179fbd199ad4afce13bef3d781e98264e984376"
+  },
+  {
+    "path": "godot_walk/assets/psx_extension/textures/column_source_video.png",
+    "sha256": "327f69745cc5f6c2cc3c8e600a484af7b681b9e14961955d3f661ea10f16b9bc"
+  },
+  {
+    "path": "godot_walk/evidence/2026-10-23-issue-156/layout_seed_149.json",
+    "sha256": "e55fc622a620b4739f2cbaa4defaa270ddd5293732cff49183980b1ed560a3f2"
+  },
+  {
+    "path": "godot_walk/evidence/2026-10-23-issue-157/operator_feedback.json",
+    "sha256": "9f8d710253599475a99d97919a29368efecee06fc8bd79c381b215c1a6667d1d"
+  }
+]

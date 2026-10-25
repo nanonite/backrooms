@@ -1,0 +1,52 @@
+{
+  "odiff_version": "odiff-bin@4.5.0",
+  "odiff_threshold": 0.1,
+  "candidate": "source-textured-doorway-ceiling-bridge",
+  "source_texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+  "geometry": {
+    "center_m": [
+      3.5,
+      1.06900951,
+      3.1
+    ],
+    "drop_below_ceiling_center_m": 0.06,
+    "size_m": [
+      2.6,
+      2.0
+    ]
+  },
+  "visual_only": true,
+  "collision_added": false,
+  "repeat_noise_ceiling_pct": 0.17,
+  "interpretation": "ODiff reports changed pixels; it is not a visual quality score.",
+  "views": [
+    {
+      "view_id": "column_into_pocket",
+      "repeat_noise_pct": 0.17,
+      "candidate_changed_pct": 0.29,
+      "candidate_diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-157/diffs/ceiling_source_bridge/column_into_pocket.png",
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "pocket_into_column",
+      "repeat_noise_pct": 0.0,
+      "candidate_changed_pct": 0.81,
+      "candidate_diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-157/diffs/ceiling_source_bridge/pocket_into_column.png",
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "threshold_ceiling",
+      "repeat_noise_pct": 0.0,
+      "candidate_changed_pct": 0.3,
+      "candidate_diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-157/diffs/ceiling_source_bridge/threshold_ceiling.png",
+      "above_repeat_noise": true
+    },
+    {
+      "view_id": "ceiling_under_bridge",
+      "repeat_noise_pct": 0.0,
+      "candidate_changed_pct": 0.85,
+      "candidate_diff_image": "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-23-issue-157/diffs/ceiling_source_bridge/ceiling_under_bridge.png",
+      "above_repeat_noise": true
+    }
+  ]
+}

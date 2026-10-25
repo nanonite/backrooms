@@ -1,0 +1,134 @@
+[
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			1.39999997615814,
+			-0.170990496873856,
+			3.09999990463257
+		],
+		"camera_target": [
+			6.30000019073486,
+			-0.170990496873856,
+			3.09999990463257
+		],
+		"path": "captures/column_into_pocket.png",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R000",
+		"settle_frames": 18,
+		"surfaces": "door, walls, floor, ceiling",
+		"view_id": "column_into_pocket"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			5.69999980926514,
+			-0.170990496873856,
+			3.10000014305115
+		],
+		"camera_target": [
+			0.5,
+			-0.170990496873856,
+			3.10000014305115
+		],
+		"path": "captures/pocket_into_column.png",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R001",
+		"settle_frames": 18,
+		"surfaces": "door, walls, floor, ceiling",
+		"view_id": "pocket_into_column"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			1.79999995231628,
+			-0.370990484952927,
+			4.59999990463257
+		],
+		"camera_target": [
+			3.5,
+			-1.2909904718399,
+			3.09999990463257
+		],
+		"path": "captures/threshold_floor.png",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R000",
+		"settle_frames": 18,
+		"surfaces": "floor, threshold, jambs",
+		"view_id": "threshold_floor"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			1.79999995231628,
+			-0.170990496873856,
+			4.59999990463257
+		],
+		"camera_target": [
+			3.5,
+			1.10900950431824,
+			3.09999990463257
+		],
+		"path": "captures/threshold_ceiling.png",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R000",
+		"settle_frames": 18,
+		"surfaces": "ceiling, lintel, walls",
+		"view_id": "threshold_ceiling"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			2.09999990463257,
+			-0.170990496873856,
+			1.70000004768372
+		],
+		"camera_target": [
+			3.5,
+			-0.170990496873856,
+			3.20000004768372
+		],
+		"path": "captures/column_socket_jamb.png",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R000",
+		"settle_frames": 18,
+		"surfaces": "wall, jamb, column-room floor",
+		"view_id": "column_socket_jamb"
+	},
+	{
+		"affine_texture_mapping": false,
+		"camera_eye": [
+			5.30000019073486,
+			-0.170990496873856,
+			1.00000023841858
+		],
+		"camera_target": [
+			3.5,
+			-0.170990496873856,
+			3.10000014305115
+		],
+		"path": "captures/pocket_socket_jamb.png",
+		"resolution": [
+			1280,
+			720
+		],
+		"room_instance": "R001",
+		"settle_frames": 18,
+		"surfaces": "wall, jamb, pocket floor",
+		"view_id": "pocket_socket_jamb"
+	}
+]

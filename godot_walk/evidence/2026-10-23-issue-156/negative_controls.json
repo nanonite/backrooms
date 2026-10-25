@@ -1,0 +1,21 @@
+{
+	"blocked_connector": {
+		"blocked": true,
+		"player_x": 3.02473902702332,
+		"remained_on_floor": true
+	},
+	"failures": [],
+	"missing_floor": {
+		"fell_below_floor": true,
+		"on_lower_collision": true,
+		"player_y": -2.64572930335999
+	},
+	"open_boundary": {
+		"escaped_or_fell": true,
+		"player_position": [
+			-13.4343748092651,
+			-24.9845161437988,
+			0.000000434246629765767
+		]
+	}
+}

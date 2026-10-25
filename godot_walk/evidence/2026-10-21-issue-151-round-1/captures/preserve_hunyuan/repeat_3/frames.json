@@ -1,0 +1,159 @@
+{
+	"captured_view_ids": [
+		"patch_anchor",
+		"south_end",
+		"north_end",
+		"west_wall",
+		"east_wall",
+		"column_south",
+		"column_north",
+		"column_west",
+		"column_east"
+	],
+	"registration_accepted": false,
+	"resolution": [
+		960,
+		540
+	],
+	"scale_calibrated": false,
+	"settle_frames": 12,
+	"variant_id": "preserve_hunyuan",
+	"vertical_fov_degrees": 75.0,
+	"views": [
+		{
+			"camera_forward": [
+				-0.691,
+				0.0,
+				-0.723
+			],
+			"camera_position": [
+				2.9209783,
+				-0.1003,
+				3.703508
+			],
+			"filename": "patch_anchor.png",
+			"heading": 0,
+			"station": "patch_anchor"
+		},
+		{
+			"camera_forward": [
+				0.0,
+				0.0,
+				1.0
+			],
+			"camera_position": [
+				-0.45,
+				-0.1003,
+				-4.0
+			],
+			"filename": "south_end.png",
+			"heading": 0,
+			"station": "far_room"
+		},
+		{
+			"camera_forward": [
+				0.0,
+				0.0,
+				-1.0
+			],
+			"camera_position": [
+				-0.45,
+				-0.1003,
+				7.8
+			],
+			"filename": "north_end.png",
+			"heading": 180,
+			"station": "far_room"
+		},
+		{
+			"camera_forward": [
+				1.0,
+				0.0,
+				0.0
+			],
+			"camera_position": [
+				-4.4,
+				-0.1003,
+				1.9
+			],
+			"filename": "west_wall.png",
+			"heading": 270,
+			"station": "transition"
+		},
+		{
+			"camera_forward": [
+				-1.0,
+				0.0,
+				0.0
+			],
+			"camera_position": [
+				3.5,
+				-0.1003,
+				1.9
+			],
+			"filename": "east_wall.png",
+			"heading": 90,
+			"station": "transition"
+		},
+		{
+			"camera_forward": [
+				0.0,
+				0.0,
+				1.0
+			],
+			"camera_position": [
+				-0.447,
+				-0.1003,
+				-2.74
+			],
+			"filename": "column_south.png",
+			"heading": 180,
+			"station": "column"
+		},
+		{
+			"camera_forward": [
+				0.0,
+				0.0,
+				-1.0
+			],
+			"camera_position": [
+				-0.447,
+				-0.1003,
+				3.39
+			],
+			"filename": "column_north.png",
+			"heading": 0,
+			"station": "column"
+		},
+		{
+			"camera_forward": [
+				1.0,
+				0.0,
+				0.0
+			],
+			"camera_position": [
+				-3.26,
+				-0.1003,
+				0.323
+			],
+			"filename": "column_west.png",
+			"heading": 270,
+			"station": "column"
+		},
+		{
+			"camera_forward": [
+				-1.0,
+				0.0,
+				0.0
+			],
+			"camera_position": [
+				2.37,
+				-0.1003,
+				0.323
+			],
+			"filename": "column_east.png",
+			"heading": 90,
+			"station": "column"
+		}
+	]
+}

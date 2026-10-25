@@ -1,0 +1,303 @@
+{
+	"baseline_uv_scale": [
+		4.0,
+		4.0
+	],
+	"candidate": "pocket-floor-uv-scale-16",
+	"candidate_uv_scale": [
+		16.0,
+		16.0
+	],
+	"reason": "Matches the column polygon's UV units per meter before the shared material scale.",
+	"records": [
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				1.39999997615814,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"camera_target": [
+				6.30000019073486,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"floor_uv_scale_candidate": "(4.0, 4.0)",
+			"path": "captures/repeat/column_into_pocket.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"surfaces": "door, walls, floor, ceiling",
+			"variant_id": "repeat",
+			"view_id": "column_into_pocket"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				5.69999980926514,
+				-0.170990496873856,
+				3.10000014305115
+			],
+			"camera_target": [
+				0.5,
+				-0.170990496873856,
+				3.10000014305115
+			],
+			"floor_uv_scale_candidate": "(4.0, 4.0)",
+			"path": "captures/repeat/pocket_into_column.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R001",
+			"settle_frames": 18,
+			"surfaces": "door, walls, floor, ceiling",
+			"variant_id": "repeat",
+			"view_id": "pocket_into_column"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				1.79999995231628,
+				-0.370990484952927,
+				4.59999990463257
+			],
+			"camera_target": [
+				3.5,
+				-1.2909904718399,
+				3.09999990463257
+			],
+			"floor_uv_scale_candidate": "(4.0, 4.0)",
+			"path": "captures/repeat/threshold_floor.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"surfaces": "floor, threshold, jambs",
+			"variant_id": "repeat",
+			"view_id": "threshold_floor"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				1.79999995231628,
+				-0.170990496873856,
+				4.59999990463257
+			],
+			"camera_target": [
+				3.5,
+				1.10900950431824,
+				3.09999990463257
+			],
+			"floor_uv_scale_candidate": "(4.0, 4.0)",
+			"path": "captures/repeat/threshold_ceiling.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"surfaces": "ceiling, lintel, walls",
+			"variant_id": "repeat",
+			"view_id": "threshold_ceiling"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				2.09999990463257,
+				-0.170990496873856,
+				1.70000004768372
+			],
+			"camera_target": [
+				3.5,
+				-0.170990496873856,
+				3.20000004768372
+			],
+			"floor_uv_scale_candidate": "(4.0, 4.0)",
+			"path": "captures/repeat/column_socket_jamb.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"surfaces": "wall, jamb, column-room floor",
+			"variant_id": "repeat",
+			"view_id": "column_socket_jamb"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				5.30000019073486,
+				-0.170990496873856,
+				1.00000023841858
+			],
+			"camera_target": [
+				3.5,
+				-0.170990496873856,
+				3.10000014305115
+			],
+			"floor_uv_scale_candidate": "(4.0, 4.0)",
+			"path": "captures/repeat/pocket_socket_jamb.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R001",
+			"settle_frames": 18,
+			"surfaces": "wall, jamb, pocket floor",
+			"variant_id": "repeat",
+			"view_id": "pocket_socket_jamb"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				1.39999997615814,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"camera_target": [
+				6.30000019073486,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"floor_uv_scale_candidate": "(16.0, 16.0)",
+			"path": "captures/floor_uv_16/column_into_pocket.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"surfaces": "door, walls, floor, ceiling",
+			"variant_id": "floor_uv_16",
+			"view_id": "column_into_pocket"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				5.69999980926514,
+				-0.170990496873856,
+				3.10000014305115
+			],
+			"camera_target": [
+				0.5,
+				-0.170990496873856,
+				3.10000014305115
+			],
+			"floor_uv_scale_candidate": "(16.0, 16.0)",
+			"path": "captures/floor_uv_16/pocket_into_column.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R001",
+			"settle_frames": 18,
+			"surfaces": "door, walls, floor, ceiling",
+			"variant_id": "floor_uv_16",
+			"view_id": "pocket_into_column"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				1.79999995231628,
+				-0.370990484952927,
+				4.59999990463257
+			],
+			"camera_target": [
+				3.5,
+				-1.2909904718399,
+				3.09999990463257
+			],
+			"floor_uv_scale_candidate": "(16.0, 16.0)",
+			"path": "captures/floor_uv_16/threshold_floor.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"surfaces": "floor, threshold, jambs",
+			"variant_id": "floor_uv_16",
+			"view_id": "threshold_floor"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				1.79999995231628,
+				-0.170990496873856,
+				4.59999990463257
+			],
+			"camera_target": [
+				3.5,
+				1.10900950431824,
+				3.09999990463257
+			],
+			"floor_uv_scale_candidate": "(16.0, 16.0)",
+			"path": "captures/floor_uv_16/threshold_ceiling.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"surfaces": "ceiling, lintel, walls",
+			"variant_id": "floor_uv_16",
+			"view_id": "threshold_ceiling"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				2.09999990463257,
+				-0.170990496873856,
+				1.70000004768372
+			],
+			"camera_target": [
+				3.5,
+				-0.170990496873856,
+				3.20000004768372
+			],
+			"floor_uv_scale_candidate": "(16.0, 16.0)",
+			"path": "captures/floor_uv_16/column_socket_jamb.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R000",
+			"settle_frames": 18,
+			"surfaces": "wall, jamb, column-room floor",
+			"variant_id": "floor_uv_16",
+			"view_id": "column_socket_jamb"
+		},
+		{
+			"affine_texture_mapping": false,
+			"camera_eye": [
+				5.30000019073486,
+				-0.170990496873856,
+				1.00000023841858
+			],
+			"camera_target": [
+				3.5,
+				-0.170990496873856,
+				3.10000014305115
+			],
+			"floor_uv_scale_candidate": "(16.0, 16.0)",
+			"path": "captures/floor_uv_16/pocket_socket_jamb.png",
+			"resolution": [
+				1280,
+				720
+			],
+			"room_instance": "R001",
+			"settle_frames": 18,
+			"surfaces": "wall, jamb, pocket floor",
+			"variant_id": "floor_uv_16",
+			"view_id": "pocket_socket_jamb"
+		}
+	],
+	"visual_only": true
+}
