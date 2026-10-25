@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "stage_id": "performance_v2",
+  "adaptation_id": "corridor-corner-authored-l-corridor-v1",
+  "candidate_fingerprint": "7cb87e7dffdc08292d2e20587ca9370549d0315a78470fef46fbdcd5e11f5b48",
+  "command": [
+    "python3",
+    "godot_walk/scripts/run_issue149_gpu.py",
+    "--label",
+    "issue165_fps_v2",
+    "--timeout-seconds",
+    "240",
+    "--evidence-dir",
+    "godot_walk/evidence/2026-10-25-issue-165",
+    "--",
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--script",
+    "res://scripts/measure_bounded_fps.gd",
+    "--",
+    "--scene=res://scenes/issue165_corridor_corner_transfer.tscn",
+    "--out-dir=res://evidence/2026-10-25-issue-165/mechanics/runner_v2/bounded",
+    "--label=issue165_transfer_v2"
+  ],
+  "expected_exit_code": 0,
+  "return_code": 0,
+  "elapsed_seconds": 21.67,
+  "finished_at_utc": "2026-10-25T07:06:45.799068+00:00",
+  "artifacts": [
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v2/bounded/fps_issue165_transfer_v2.json",
+      "sha256": "0613840ba2353badb485ac5b35c3d402626e5c14a55a3bcb36952593bf9ab270",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v2/bounded/fps_issue165_transfer_v2.png",
+      "sha256": "cc7d4960c3cc93ea04700abe58cb68c7ca15cf63b5d699196a7d5b650b083189",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/resource_runs/issue165_fps_v2.json",
+      "sha256": "fd61bb78a415b608537d186c378af680bcc81d24a46af92741d48af418c41b70",
+      "role": "explicit workflow stage output"
+    }
+  ],
+  "stdout_sha256": "c0bdc74bf17ce5818b25e436ee145a96a73bbc28a4826675b24daeb0462091bf",
+  "stderr_sha256": "d298c4d33712caa65a396d4cc116af80b67f687e6a74419b08360962c120ac5d"
+}

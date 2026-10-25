@@ -1,0 +1,997 @@
+{
+  "schema_version": 1,
+  "contract_id": "godot_video_room_completion",
+  "contract_version": "1.0.0",
+  "contract_freeze": {
+    "path": "godot_walk/room_catalog/contract_freeze_v1.json",
+    "sha256": "e6ccc0971e368e17a736f294ffdff47107b99c4f3dc9a09a555ef6c5b22d9d77"
+  },
+  "adaptation_id": "corridor-corner-authored-l-corridor-v2",
+  "status": "accepted_reference",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_observations": {
+    "video": {
+      "path": "data/videos/corridor_corner.mp4",
+      "sha256": "51abd379f94b8f84799c79927113f37c03014b41b0d5f0d4c23095d3d67587e0",
+      "width": 1920,
+      "height": 1080,
+      "fps": 24.0,
+      "frame_count": 96,
+      "duration_seconds": 4.0
+    },
+    "suitability": {
+      "decision": "proceed_with_limitations",
+      "rationale": [
+        "This is the best available local transfer fixture with visibly different room-and-corridor context from accepted room_large.mp4.",
+        "It is a synthetic clip and was previously inspected as part of capture-gate inventory, so it is not a pristine unfamiliar holdout.",
+        "Its short camera path shows ceiling and wall discontinuities; this tests a bounded authored completion under visible source uncertainty.",
+        "No other local clip was found that is both sufficiently different and useful for an authored walkable room without new video generation.",
+        "corridor_travel.mp4 is familiar regression evidence and was not counted as a clean transfer fixture."
+      ]
+    },
+    "frames": [
+      {
+        "frame_id": "frame_0001",
+        "index_zero_based": 0,
+        "timestamp_seconds": 0.0,
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0001.png",
+        "sha256": "870721029e26f1f3a58c347ade1167c47d13755d68497d9e96e5f056acc3f8f4",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": [
+          {
+            "role": "wallpaper",
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/wallpaper_source_frame_0001.png",
+            "sha256": "01c888290865329b4a08f3dd0411954e959a58a2c8222bbdac677f0703ccdd62",
+            "source_pixel_bounds_xyxy": [
+              100,
+              390,
+              510,
+              650
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "floor",
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/floor_source_frame_0001.png",
+            "sha256": "8ba029d1c90f12a2627cc2c06fdb51382ee76a75b3bc187461a228346d13d01d",
+            "source_pixel_bounds_xyxy": [
+              120,
+              820,
+              520,
+              1035
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "ceiling",
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/ceiling_source_frame_0001.png",
+            "sha256": "7145766118232230d31f986c488ad43df1edc34b98e0c5b345447d0457ea9b0f",
+            "source_pixel_bounds_xyxy": [
+              100,
+              0,
+              520,
+              220
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "column",
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/column_source_frame_0001.png",
+            "sha256": "7e2ad7a75731757e0d28cc8f7d1c9bdb94decf8386b88c44236657f49babb40f",
+            "source_pixel_bounds_xyxy": [
+              555,
+              300,
+              710,
+              720
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          }
+        ]
+      },
+      {
+        "frame_id": "frame_0013",
+        "index_zero_based": 12,
+        "timestamp_seconds": 0.5,
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0013.png",
+        "sha256": "4bbad25a2c35d9ca5417c76458ee379c9ed1a84fbb3706a6f91ed451aa0717b0",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      },
+      {
+        "frame_id": "frame_0036",
+        "index_zero_based": 35,
+        "timestamp_seconds": 1.4583333333333333,
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0036.png",
+        "sha256": "2547c27819bbe10a6a1284d9a62acf5fedda49608f24428ce02a03e9a872482c",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      },
+      {
+        "frame_id": "frame_0059",
+        "index_zero_based": 58,
+        "timestamp_seconds": 2.4166666666666665,
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0059.png",
+        "sha256": "bae3bf14a5dbe7b5988ec4e7afd70d590ba1e9c725631d31e6a14f14387c89a3",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      },
+      {
+        "frame_id": "frame_0085",
+        "index_zero_based": 84,
+        "timestamp_seconds": 3.5,
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0085.png",
+        "sha256": "dd090d960ed62b13dcf3891793741da6d45b6df5a10a2c4e7775981f620dde8e",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      },
+      {
+        "frame_id": "frame_0096",
+        "index_zero_based": 95,
+        "timestamp_seconds": 3.9583333333333335,
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0096.png",
+        "sha256": "0d5bd24a19c3e3b73526aa478c35cf481c3151d9183b7419d6654e5391fc150f",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      }
+    ],
+    "observations": [
+      {
+        "claim": "The initial view contains patterned wallpaper, carpet-like flooring, a tiled ceiling, square column faces, and a large open room with partitions.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_0001",
+          "frame_0013"
+        ]
+      },
+      {
+        "claim": "Later views show a long straight hallway with repeated ceiling lights and wallpapered side walls.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_0085",
+          "frame_0096"
+        ]
+      },
+      {
+        "claim": "A turn between the open room and hallway is visible in sampled viewpoints, but continuous navigable connectivity through the filmed camera path is not established.",
+        "certainty": "partially_observed",
+        "frame_ids": [
+          "frame_0036",
+          "frame_0059"
+        ]
+      },
+      {
+        "claim": "Several sampled frames contain bright streaks or inconsistent geometry around ceiling lights, and the wallpaper/floor appearance shifts across the corridor views.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_0013",
+          "frame_0036",
+          "frame_0059"
+        ]
+      },
+      {
+        "claim": "The observed column has multiple visible faces, but its hidden/back faces and exact solid footprint are occluded.",
+        "certainty": "partially_observed",
+        "frame_ids": [
+          "frame_0001",
+          "frame_0013",
+          "frame_0036"
+        ]
+      },
+      {
+        "claim": "The exact room dimensions, metric scale, camera registration, and unseen spaces beyond the visible corridor are not established by this clip.",
+        "certainty": "unknown",
+        "frame_ids": []
+      }
+    ],
+    "unknowns": [
+      "The footage does not calibrate scene scale or camera-to-room registration.",
+      "The camera path and occlusions do not establish the complete floor plan, room count, or connectivity between the open room and later hallway views.",
+      "The far side and hidden faces of the visible column are unknown; the candidate uses an authored four-sided box proposal.",
+      "The true continuation beyond the visible hallway, all off-camera boundaries, and geometry behind the apparent corner remain unknown.",
+      "Ceiling streaks and changes in wallpaper/floor appearance are present in the synthetic source; whether they represent intended features or generation artifacts is unknown.",
+      "The candidate layout does not reconstruct camera poses or source perspective; source frame comparisons are context references, not registered view matches."
+    ]
+  },
+  "reusable_requirements": {
+    "coordinate_convention": "Godot local X/Y/Z with +Y up; design units only, no metric scale claim.",
+    "supported_footprint_representation": "Finite simple orthogonal polygon in XZ; multiple floor regions require explicit unions.",
+    "player": {
+      "controller_scene": "godot_walk/scenes/player.tscn",
+      "capsule_radius": 0.3,
+      "capsule_height": 1.2,
+      "safe_spawn_and_reset": "Spawn in capsule-clear supported floor; R resets to that pose and clears velocity."
+    },
+    "floor_and_ceiling": "Record floor elevation, ceiling envelope, supported route and clearance separately; floor support must remain continuous over traversal.",
+    "collision_policy": "Keep floor, closed room boundaries and obstacle collision authored and tested separately from visual meshes.",
+    "render_placement_policy": "Record a conservative envelope for every visible room mesh and background mesh; rendered placement does not imply walkable support.",
+    "socket_policy": "Distinguish observed source openings, authored sockets and tested connectors. Close unused perimeter edges. A candidate with no tested connector makes no stitchability claim.",
+    "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+    "additional_constraints": [
+      "Keep geometry origin, texture origin, placement assumptions and collision origin as independent provenance fields.",
+      "Source-derived crops may provide appearance for explicitly authored geometry.",
+      "Keep registration_accepted=false and scale_calibrated=false.",
+      "Use existing Godot 4.6.3 controller and frozen material/PSX contract v1.0.0."
+    ]
+  },
+  "resolved_adaptation": {
+    "candidate_version": "corridor-corner-authored-l-corridor-v2",
+    "catalog_admission": "candidate_not_admitted",
+    "scene_path": "godot_walk/scenes/issue165_corridor_corner_transfer.tscn",
+    "catalog_module_refs": [],
+    "walkable_space": {
+      "coordinate_system": "Local Godot X/Z, +Y up; uncalibrated design units.",
+      "footprint": {
+        "representation": "simple_orthogonal_polygon_xz",
+        "vertices_xz": [
+          [
+            -6,
+            -2
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -7
+          ],
+          [
+            4,
+            -7
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            -6,
+            2
+          ]
+        ]
+      },
+      "floor_elevation": 0,
+      "safe_spawn_xyz": [
+        -5,
+        0.6,
+        0
+      ],
+      "measurement": {
+        "method": "Godot bounded verifier: 0.1 design-unit capsule grid, 0.02 floor clearance, downward floor rays and four-neighbor flood from spawn; support tested on route and perimeter pushes.",
+        "resolution": 0.1,
+        "spawn_connected_area": 44.99,
+        "status": "measured"
+      }
+    },
+    "boundary_and_obstacle_collision": {
+      "collision_origin": "Separate authored Godot StaticBody3D colliders; floor and each perimeter boundary are independent from their matching visual meshes.",
+      "floor_bodies": [
+        "WalkableFloor"
+      ],
+      "boundaries": [
+        "Boundary_WestOuter",
+        "Boundary_SouthMain",
+        "Boundary_InnerElbow",
+        "Boundary_FarCap",
+        "Boundary_EastOuter",
+        "Boundary_NorthMain"
+      ],
+      "obstacles": [
+        "SourceObservedColumnObstacle"
+      ],
+      "exposed_boundary_policy": "All six perimeter edges are closed with visible geometry and matching collision; the single box column has full four-sided visual coverage and a separate full-height capsule blocker. No connector is opened."
+    },
+    "rendered_placement_envelope": {
+      "representation": "conservative_aabb_xyz",
+      "bounds_xyz": {
+        "min": [
+          -6.08,
+          -0.08,
+          -7.08
+        ],
+        "max": [
+          4.08,
+          3.08,
+          2.08
+        ]
+      },
+      "footprint": {
+        "representation": "simple_orthogonal_polygon_xz",
+        "vertices_xz": [
+          [
+            -6.08,
+            -2.08
+          ],
+          [
+            0.08,
+            -2.08
+          ],
+          [
+            0.08,
+            -7.08
+          ],
+          [
+            4.08,
+            -7.08
+          ],
+          [
+            4.08,
+            2.08
+          ],
+          [
+            -6.08,
+            2.08
+          ]
+        ]
+      },
+      "background_geometry": [],
+      "containment_method": "Every MeshInstance3D local AABB corner transformed to world coordinates and checked against the declared conservative AABB; zero escaped meshes across 16 meshes."
+    },
+    "surfaces": [
+      {
+        "surface_id": "wallpaper-shell",
+        "geometry_origin": "Manually authored orthogonal wall geometry; dimensions and L layout are design proposals.",
+        "appearance_origin": "Direct 410x260 source pixel crop from frame_0001 at xyxy [100,390,510,650]; nearest-neighbor unshaded material, no resize/color edit.",
+        "placement_basis": "Approximate room and corridor composition selected to test a bounded L-turn; not a camera-registered source placement.",
+        "collision_origin": "Separate authored perimeter wall StaticBody3D shapes.",
+        "evidence_refs": [
+          "frame_0001",
+          "frame_0013"
+        ]
+      },
+      {
+        "surface_id": "carpet-floor",
+        "geometry_origin": "Two authored rectangular floor slabs forming a continuous L-shaped union.",
+        "appearance_origin": "Direct 400x215 source pixel crop from frame_0001 at xyxy [120,820,520,1035]; no resize/color edit.",
+        "placement_basis": "Layout follows a candidate walkable polygon, not recovered source geometry.",
+        "collision_origin": "Separate authored WalkableFloor body with two collision boxes.",
+        "evidence_refs": [
+          "frame_0001",
+          "frame_0036",
+          "frame_0085"
+        ]
+      },
+      {
+        "surface_id": "tiled-ceiling",
+        "geometry_origin": "Two authored rectangular ceiling planes matching the L-shaped visual floor footprint.",
+        "appearance_origin": "Direct 420x220 source pixel crop from frame_0001 at xyxy [100,0,520,220]; no resize/color edit.",
+        "placement_basis": "3 design-unit ceiling height selected for playable headroom; not measured from footage.",
+        "collision_origin": "No ceiling collision.",
+        "evidence_refs": [
+          "frame_0001",
+          "frame_0036",
+          "frame_0085"
+        ]
+      },
+      {
+        "surface_id": "four-sided-column",
+        "geometry_origin": "One authored 0.9x3.0x0.9 box around the observed column location; complete hidden faces are a design completion.",
+        "appearance_origin": "Direct 155x420 source pixel crop from frame_0001 at xyxy [555,300,710,720]; no resize/color edit.",
+        "placement_basis": "Placed in the first room leg as an authored obstacle; source pixels do not establish its footprint or exact pose.",
+        "collision_origin": "Separate authored full-height box collider matching visible bounds.",
+        "evidence_refs": [
+          "frame_0001",
+          "frame_0013",
+          "frame_0036"
+        ]
+      },
+      {
+        "surface_id": "ceiling-light-panels",
+        "geometry_origin": "Five authored ceiling light panels.",
+        "appearance_origin": "Solid pale material consistent with the source light panels; no source crop applied to emissive lights.",
+        "placement_basis": "Regular spacing along both legs for visual continuity; positions are manual design choices.",
+        "collision_origin": "No collision.",
+        "evidence_refs": [
+          "frame_0001",
+          "frame_0036",
+          "frame_0085"
+        ]
+      }
+    ],
+    "sockets": [
+      {
+        "id": "source-room-passage-visible-frame-0001",
+        "kind": "observed_opening",
+        "status": "source_observation_only",
+        "closure_behavior": "Source-visible gap is not reproduced or claimed as a traversable socket in this standalone bounded candidate; the adapted scene closes all six perimeter edges."
+      }
+    ],
+    "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+    "dependencies": [
+      {
+        "path": "godot_walk/scenes/issue165_corridor_corner_transfer.tscn",
+        "sha256": "92611e55f242c8e6e564a3f7ac23a8d7bab53322bd6ca8c3bb6a8041fab2924d",
+        "role": "playable candidate scene"
+      },
+      {
+        "path": "godot_walk/scripts/issue165_transfer_room.gd",
+        "sha256": "31962aabf66d971ff2c52aa12aa3990c237d26f8f93bae0c6bc0b747db656f0a",
+        "role": "candidate root and controller integration"
+      },
+      {
+        "path": "godot_walk/scripts/issue165_room_geometry.gd",
+        "sha256": "88ca199ef123bd29b390020c653f41d559cfdc36b9cc2719dbef101282da5105",
+        "role": "authored room geometry and collision"
+      },
+      {
+        "path": "godot_walk/scripts/capture_issue165.gd",
+        "sha256": "962030ee42c53bfdaa421308c21c7b0bb14ecbfa4af093657c42118c3b323c12",
+        "role": "review capture stage"
+      },
+      {
+        "path": "godot_walk/scripts/test_issue165_transfer_room.gd",
+        "sha256": "1da789a7bafc76bd4dc8bfe6e3e1663c18750e9030bd4b776b6b2ca3fea1f6fa",
+        "role": "candidate mechanical and containment test"
+      },
+      {
+        "path": "godot_walk/scripts/verify_bounded_psx.gd",
+        "sha256": "6de5a37e81a7c776736f2af52d87d6c5150a1e9d9834969207c0e238989c848b",
+        "role": "bounded route and boundary verifier"
+      },
+      {
+        "path": "godot_walk/scripts/measure_bounded_fps.gd",
+        "sha256": "66a933855ddde79fac98f835a60c89980c924a0ef9f00ef370b799c52ef66ceb",
+        "role": "frame-time measurement runner"
+      },
+      {
+        "path": "godot_walk/scenes/player.tscn",
+        "sha256": "2fc7064e58713029897facd54812886154f6661d8e4ba14c5f7a3d99bda5dbea",
+        "role": "shared player and capsule scene"
+      },
+      {
+        "path": "godot_walk/scripts/player.gd",
+        "sha256": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23",
+        "role": "shared player controller"
+      },
+      {
+        "path": "godot_walk/scripts/library_psx_preset.gd",
+        "sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87",
+        "role": "accepted PSX material preset"
+      },
+      {
+        "path": "godot_walk/scripts/psx/psx_post_effect.gd",
+        "sha256": "5b06eff8e0f1fc0a5c98711633eb50d03db39db4c1e73b309433e444dd3c5795",
+        "role": "accepted PSX post effect"
+      },
+      {
+        "path": "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "sha256": "b1a4c839f1346d64586dae4cda6175b06793d4de95cb0ada8ba57c0851e80ba5",
+        "role": "accepted PSX post shader"
+      },
+      {
+        "path": "godot_walk/shaders/library_psx_textured.gdshader",
+        "sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c",
+        "role": "accepted textured material shader"
+      },
+      {
+        "path": "godot_walk/shaders/library_psx_vertex.gdshader",
+        "sha256": "7feecf393ff762b9dee1caaf43cc5e7e3a548371f0fb7a3c28d562c03be4176f",
+        "role": "accepted vertex material shader"
+      },
+      {
+        "path": "godot_walk/project.godot",
+        "sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+        "role": "Godot runtime and shader-global settings"
+      },
+      {
+        "path": "godot_walk/room_catalog/catalog.json",
+        "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+        "role": "frozen room catalog identity"
+      },
+      {
+        "path": "godot_walk/room_catalog/MATERIAL_LANGUAGE.md",
+        "sha256": "0e479479da8069ecbce0a56914517e43fbfa6ae564b173c76aba6390587fcc86",
+        "role": "accepted material language"
+      },
+      {
+        "path": "godot_walk/room_catalog/video_adaptation.schema.json",
+        "sha256": "c29358b1ff1b240b0eeebe77b7f6b111e4bd254fe2f94bd14149669e564a7f5b",
+        "role": "frozen adaptation record schema"
+      },
+      {
+        "path": "godot_walk/room_catalog/video_adaptation_contract_v1.md",
+        "sha256": "fd5538855d85ab93fdc58faebf40b7ba646ae3bcc95f543338f2cf43acbeeea8",
+        "role": "frozen shared workflow contract"
+      },
+      {
+        "path": "godot_walk/room_catalog/contract_freeze_v1.json",
+        "sha256": "e6ccc0971e368e17a736f294ffdff47107b99c4f3dc9a09a555ef6c5b22d9d77",
+        "role": "shared contract freeze manifest"
+      },
+      {
+        "path": "godot_walk/room_catalog/contract_freeze_v1.sha256",
+        "sha256": "c044232ce38025a660282f93499f2e262c632db2f5c9d2dfe42bbd8ff9df930d",
+        "role": "shared contract freeze sidecar"
+      },
+      {
+        "path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+        "sha256": "3e8310f3012ed63d588e496e1b7bfbe5f4377638a6129a2e8b38fa510c52d286",
+        "role": "accepted #163/#164 workflow reference record"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_runner.py",
+        "sha256": "a95e536fe097ed9e1ca2b3d333b8dc73b0ef5e0c3bc35cdd9795aa5c19088a3c",
+        "role": "workflow stage runner"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_sources.py",
+        "sha256": "f58e85ea7c935389366de251defac44b55f247f5159d68ca9b9e7a6cd66c20cc",
+        "role": "source extraction stages"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_validation.py",
+        "sha256": "6518f0077f66738f35acc45e88af6269059c6cba9faa892cefa46b32070f1333",
+        "role": "read-only validator and artifact binding"
+      },
+      {
+        "path": "godot_walk/scripts/run_issue149_gpu.py",
+        "sha256": "d67cc9dfc8d11fe46ff7cf092f7adfced2e19dcb3a753b20ca9e91057abafcde",
+        "role": "shared guarded GPU/RAM capture runner"
+      },
+      {
+        "path": "godot_walk/scripts/psx_design_round_resources.py",
+        "sha256": "98444163f9d29337dae413541c604f8a9956c3066f55c9d1b04b03f12d9877f5",
+        "role": "shared resource preflight and sampler"
+      },
+      {
+        "path": "data/videos/corridor_corner.mp4",
+        "sha256": "51abd379f94b8f84799c79927113f37c03014b41b0d5f0d4c23095d3d67587e0",
+        "role": "transfer source video"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/extraction_manifest.json",
+        "sha256": "81f1ea166b6e55a854021960e6636e032217d0ab3558a512aad8ae4672c9b537",
+        "role": "direct source frame extraction manifest"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/crop_manifest.json",
+        "sha256": "8a29377e154ab2e49b467a7effedb3820cca4ba08e2766c04c821d3afffa6055",
+        "role": "direct source crop manifest"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/crop_plan.json",
+        "sha256": "c6a5bed70362bb467fec72d52e5ea0b67e7fd439b9e725b082eaa43743f58531",
+        "role": "source crop bounds and semantic roles"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0001.png",
+        "sha256": "870721029e26f1f3a58c347ade1167c47d13755d68497d9e96e5f056acc3f8f4",
+        "role": "direct source frame_0001 frame"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0013.png",
+        "sha256": "4bbad25a2c35d9ca5417c76458ee379c9ed1a84fbb3706a6f91ed451aa0717b0",
+        "role": "direct source frame_0013 frame"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0036.png",
+        "sha256": "2547c27819bbe10a6a1284d9a62acf5fedda49608f24428ce02a03e9a872482c",
+        "role": "direct source frame_0036 frame"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0059.png",
+        "sha256": "bae3bf14a5dbe7b5988ec4e7afd70d590ba1e9c725631d31e6a14f14387c89a3",
+        "role": "direct source frame_0059 frame"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0085.png",
+        "sha256": "dd090d960ed62b13dcf3891793741da6d45b6df5a10a2c4e7775981f620dde8e",
+        "role": "direct source frame_0085 frame"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0096.png",
+        "sha256": "0d5bd24a19c3e3b73526aa478c35cf481c3151d9183b7419d6654e5391fc150f",
+        "role": "direct source frame_0096 frame"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/wallpaper_source_frame_0001.png",
+        "sha256": "01c888290865329b4a08f3dd0411954e959a58a2c8222bbdac677f0703ccdd62",
+        "role": "direct source wallpaper_source_frame_0001 appearance crop"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/floor_source_frame_0001.png",
+        "sha256": "8ba029d1c90f12a2627cc2c06fdb51382ee76a75b3bc187461a228346d13d01d",
+        "role": "direct source floor_source_frame_0001 appearance crop"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/ceiling_source_frame_0001.png",
+        "sha256": "7145766118232230d31f986c488ad43df1edc34b98e0c5b345447d0457ea9b0f",
+        "role": "direct source ceiling_source_frame_0001 appearance crop"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/column_source_frame_0001.png",
+        "sha256": "7e2ad7a75731757e0d28cc8f7d1c9bdb94decf8386b88c44236657f49babb40f",
+        "role": "direct source column_source_frame_0001 appearance crop"
+      }
+    ],
+    "authoring_log": {
+      "manual_decisions": [
+        "Selected corridor_corner.mp4 after a CPU-only inventory of local clips; it is distinct from the accepted room_large.mp4, but not a pristine unseen fixture.",
+        "Selected frame_0001 crops for wallpaper, floor, ceiling and column appearance; the source pixels are used only for appearance.",
+        "Authored an L-shaped bounded room and full shell because source footage does not establish a reliable room footprint or complete boundaries.",
+        "Authored a single full-height box column to complete hidden faces and add a collision-tested obstacle.",
+        "Omitted source-visible openings from the adapted boundary and did not claim a connection to the separately seen hallway.",
+        "Kept fixed current controller, Godot 4.6.3, PSX preset, and false registration/calibration flags.",
+        "Updated the shared GPU preflight to resolve the executable behind nvidia-smi graphics entries, retain the explicit desktop allowlist, and record guard-policy version 2.1.0; the policy still blocks compute jobs and unknown render processes.",
+        "Version 2 preserves the same playable geometry and adds direct capsule/collision checks for all six visible perimeter walls and their supported approach positions; version 1 evidence remains archived under its original fingerprint.",
+        "The frame-0001 column appearance crop is repeated across all four authored faces; the sampled crop carries a pale-base/lighting gradient that appears as visible bands on the completed box."
+      ],
+      "operator_interventions": 0,
+      "effort": "Active effort was not instrumented. The tracked interval from the contract freeze at 2026-10-25 06:41 UTC through the first guarded capture and performance run at 07:06 UTC was about 25 minutes; source inventory and pre-freeze work add unmeasured time."
+    }
+  },
+  "validation": {
+    "mechanical_status": "passed",
+    "stages": [
+      {
+        "stage_id": "frozen_contract_and_accepted_fixture",
+        "status": "passed",
+        "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+        "artifacts": [
+          {
+            "path": "godot_walk/room_catalog/contract_freeze_v1.json",
+            "sha256": "e6ccc0971e368e17a736f294ffdff47107b99c4f3dc9a09a555ef6c5b22d9d77",
+            "role": "Frozen shared contract and already accepted example provenance"
+          },
+          {
+            "path": "godot_walk/room_catalog/contract_freeze_v1.sha256",
+            "sha256": "c044232ce38025a660282f93499f2e262c632db2f5c9d2dfe42bbd8ff9df930d",
+            "role": "Frozen shared contract and already accepted example provenance"
+          },
+          {
+            "path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+            "sha256": "3e8310f3012ed63d588e496e1b7bfbe5f4377638a6129a2e8b38fa510c52d286",
+            "role": "Frozen shared contract and already accepted example provenance"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/REPORT.md",
+            "sha256": "7fda54eb93d8f40dacdfa8d0422f16da960d2301285c7b0229ab542cf7ea3e9b",
+            "role": "Frozen shared contract and already accepted example provenance"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/operator_review.json",
+            "sha256": "ad2c6e98ebe9581179e8c453666acfe4ec0b516b99d3cf35ae366257354b96d0",
+            "role": "Frozen shared contract and already accepted example provenance"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-164/REPORT.md",
+            "sha256": "4b7b3faa54b1f7e64a6870aadd9b8fc5e2c171161dac9b730819cae3f9e36286",
+            "role": "Frozen shared contract and already accepted example provenance"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-164/operator_review.json",
+            "sha256": "bf83dc2f7fd389c581020487e8aaa082dea0201122d5791ed778a0befba6772e",
+            "role": "Frozen shared contract and already accepted example provenance"
+          }
+        ],
+        "notes": [
+          "The accepted #163/#164 design was referenced unchanged; its review was not reopened."
+        ]
+      },
+      {
+        "stage_id": "direct_source_frames_and_crops",
+        "status": "passed",
+        "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+        "artifacts": [
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/extraction_manifest.json",
+            "sha256": "81f1ea166b6e55a854021960e6636e032217d0ab3558a512aad8ae4672c9b537",
+            "role": "Direct source-video observation or direct crop evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0001.png",
+            "sha256": "870721029e26f1f3a58c347ade1167c47d13755d68497d9e96e5f056acc3f8f4",
+            "role": "Direct source-video observation or direct crop evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0013.png",
+            "sha256": "4bbad25a2c35d9ca5417c76458ee379c9ed1a84fbb3706a6f91ed451aa0717b0",
+            "role": "Direct source-video observation or direct crop evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0036.png",
+            "sha256": "2547c27819bbe10a6a1284d9a62acf5fedda49608f24428ce02a03e9a872482c",
+            "role": "Direct source-video observation or direct crop evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0059.png",
+            "sha256": "bae3bf14a5dbe7b5988ec4e7afd70d590ba1e9c725631d31e6a14f14387c89a3",
+            "role": "Direct source-video observation or direct crop evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0085.png",
+            "sha256": "dd090d960ed62b13dcf3891793741da6d45b6df5a10a2c4e7775981f620dde8e",
+            "role": "Direct source-video observation or direct crop evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0096.png",
+            "sha256": "0d5bd24a19c3e3b73526aa478c35cf481c3151d9183b7419d6654e5391fc150f",
+            "role": "Direct source-video observation or direct crop evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/crop_manifest.json",
+            "sha256": "8a29377e154ab2e49b467a7effedb3820cca4ba08e2766c04c821d3afffa6055",
+            "role": "Direct source-video observation or direct crop evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/wallpaper_source_frame_0001.png",
+            "sha256": "01c888290865329b4a08f3dd0411954e959a58a2c8222bbdac677f0703ccdd62",
+            "role": "Direct source-video observation or direct crop evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/floor_source_frame_0001.png",
+            "sha256": "8ba029d1c90f12a2627cc2c06fdb51382ee76a75b3bc187461a228346d13d01d",
+            "role": "Direct source-video observation or direct crop evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/ceiling_source_frame_0001.png",
+            "sha256": "7145766118232230d31f986c488ad43df1edc34b98e0c5b345447d0457ea9b0f",
+            "role": "Direct source-video observation or direct crop evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/column_source_frame_0001.png",
+            "sha256": "7e2ad7a75731757e0d28cc8f7d1c9bdb94decf8386b88c44236657f49babb40f",
+            "role": "Direct source-video observation or direct crop evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_reference_contact_sheet_v2.jpg",
+            "sha256": "d0820fbe5fd87884e7a853e9b5981069f3384ca7f2d34a540b726f911c675cf0",
+            "role": "Direct source-video observation or direct crop evidence"
+          }
+        ],
+        "notes": [
+          "Selected frames were decoded from corridor_corner.mp4 without resizing or image edits; crops are direct rectangles from frame 0001."
+        ]
+      },
+      {
+        "stage_id": "authored_shell_column_and_perimeter",
+        "status": "passed",
+        "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+        "artifacts": [
+          {
+            "path": "godot_walk/room_catalog/adaptations/stage_receipts/corridor-corner-authored-l-corridor-v2/mechanics_and_perimeter.json",
+            "sha256": "56c7a4cafa662eb7cd9ede5961a7761c0942cc61b4c4e97e248aa69b4e858321",
+            "role": "Fingerprint-bound mechanics stage receipt"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/transfer_room_runtime.json",
+            "sha256": "94e1a4088ad7a5df81e20f2d45f2747b5f6af40d53abdcf7a51e328de9fcfdee",
+            "role": "Authored geometry, collision and perimeter verification"
+          }
+        ],
+        "notes": [
+          "All six visible boundary walls block the player capsule; each approach remains clear and floor-supported. Column visual and collider match."
+        ]
+      },
+      {
+        "stage_id": "bounded_walk_and_floor_support",
+        "status": "passed",
+        "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+        "artifacts": [
+          {
+            "path": "godot_walk/room_catalog/adaptations/stage_receipts/corridor-corner-authored-l-corridor-v2/bounded_route.json",
+            "sha256": "502aa042a2b4cdc9b71d875855b995065093195191a32d9cea542578992aedd5",
+            "role": "Fingerprint-bound bounded route receipt"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/bounded/physics_candidate.json",
+            "sha256": "1e894d982f0d8653ec3a8f534d5b14e68fa453a676207e37954dcb5d5a1c44e9",
+            "role": "Bounded traversal, support and perimeter-push evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/bounded/boundary_positions.json",
+            "sha256": "f9670dc4648266fa33c37f6b90e27cf1307eed5c8b5c321c06a3493ea58b29d0",
+            "role": "Bounded traversal, support and perimeter-push evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/bounded/route_positions.json",
+            "sha256": "beb3e4ff420e2963f2a76a6dd358f3676322b76a51c881fe11c8de73a63ba79a",
+            "role": "Bounded traversal, support and perimeter-push evidence"
+          }
+        ],
+        "notes": [
+          "11 out-and-back waypoints over 25.60 design units; 100% measured floor support; zero SafetyNet contacts."
+        ]
+      },
+      {
+        "stage_id": "negative_boundary_and_floor_controls",
+        "status": "passed",
+        "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+        "artifacts": [
+          {
+            "path": "godot_walk/room_catalog/adaptations/stage_receipts/corridor-corner-authored-l-corridor-v2/negative_boundary.json",
+            "sha256": "35f0e5bd8f663c889890a2e98f801def42b01765cfd168da176954273fe76c2f",
+            "role": "Expected failing boundary-removal verification receipt"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/negative_boundary/physics_candidate_broken_boundary.json",
+            "sha256": "f6e9422d8b5fda22a1f4dfc44eb12c3a3db7ba2ee97397b370acb2ecf44dee86",
+            "role": "Boundary-removal negative-control output"
+          },
+          {
+            "path": "godot_walk/room_catalog/adaptations/stage_receipts/corridor-corner-authored-l-corridor-v2/negative_floor.json",
+            "sha256": "ee8321036ec77b11cd1d7e45f065b269a4a6b75d0ff23436c9e2d91b32d7992d",
+            "role": "Expected failing floor-removal verification receipt"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/negative_floor/physics_candidate_broken_floor.json",
+            "sha256": "53d102f9cf6a347e54c29a840e03ad50840e64111a1f43bfee8cc0bfe5e2d204",
+            "role": "Floor-removal negative-control output"
+          }
+        ],
+        "notes": [
+          "Both controls were detected: removing the east boundary permits escape; removing the walkable floor removes support and triggers SafetyNet."
+        ]
+      },
+      {
+        "stage_id": "guarded_vulkan_capture_bundle",
+        "status": "passed",
+        "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+        "artifacts": [
+          {
+            "path": "godot_walk/room_catalog/adaptations/stage_receipts/corridor-corner-authored-l-corridor-v2/bounded_capture_v2.json",
+            "sha256": "b79717f2f28a89d3cf8f51d25c38e1746f37e38b80340d32b179b99a08719840",
+            "role": "Fingerprint-bound guarded capture receipt"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/capture_manifest.json",
+            "sha256": "b6bd01fac894e082a7abdba7628188747e0326d932e3bafdc7b7477ee4624fe1",
+            "role": "Guarded Vulkan captures and resource report"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/entry_column.png",
+            "sha256": "6e790c2711ca2fe10d6ecf621a93b54370f0f202cb64bf9fe25547ddfcee7afb",
+            "role": "Guarded Vulkan captures and resource report"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/main_leg_turn.png",
+            "sha256": "64d195e7e5f00c7c6a63d030ebf60a7c2a6c34b1e0ea67029131be55109e6e68",
+            "role": "Guarded Vulkan captures and resource report"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/turn_back_to_main.png",
+            "sha256": "320f1d38b69e491e4480c72998f312188c47fcf01e8482f483c05aedddce0711",
+            "role": "Guarded Vulkan captures and resource report"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/far_leg_end.png",
+            "sha256": "a5dce1014f56d532fb8dd59150967053bf58a6d0959b308c68e6e2a5b40c1d9b",
+            "role": "Guarded Vulkan captures and resource report"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/far_leg_back.png",
+            "sha256": "3d3d64cecc25fea4468b80ec3fa4606cce91b547ab20abc2bb322b1e6966f625",
+            "role": "Guarded Vulkan captures and resource report"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/column_face_south.png",
+            "sha256": "4bcf95af64b39727dcb4ad32ccea26f9e84ac5113481a54a6e7d7ed5bf435e44",
+            "role": "Guarded Vulkan captures and resource report"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/column_face_north.png",
+            "sha256": "ed7d9da07ac5a081e41386505050e25555ebc4ee5e7257a6b418f2b2f53313db",
+            "role": "Guarded Vulkan captures and resource report"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/column_face_east.png",
+            "sha256": "42a57cbdd04289938f7c72819ab1563744a470909f58c21e3820fc91ea616af9",
+            "role": "Guarded Vulkan captures and resource report"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/column_face_west.png",
+            "sha256": "2b9aa9c8121753753dee6e2110d826ff9e89c438c0edf33dd8b151668213bec4",
+            "role": "Guarded Vulkan captures and resource report"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/resource_runs/issue165_capture_v2.json",
+            "sha256": "e43638fe9e3ceb96cdce72a8ac8d9e2822726b18960bdbdef9c813925383cdee",
+            "role": "Guarded Vulkan captures and resource report"
+          }
+        ],
+        "notes": [
+          "Nine 1280x720 views; scene ready in 44 ms; 240-second timeout and GPU/RAM preflight passed."
+        ]
+      },
+      {
+        "stage_id": "guarded_performance_sample",
+        "status": "passed",
+        "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+        "artifacts": [
+          {
+            "path": "godot_walk/room_catalog/adaptations/stage_receipts/corridor-corner-authored-l-corridor-v2/performance_v2.json",
+            "sha256": "bc6d29e81a72f5b79539dee8d5f8ac16e0d1c67ed6d202d386ffcfb293c83012",
+            "role": "Fingerprint-bound guarded performance receipt"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/bounded/fps_issue165_transfer_v3.json",
+            "sha256": "067777c2f26436f91bc570fcb092441694ea5adba6e2b197dac88d4900799126",
+            "role": "Frame-time sample and measured host resource report"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/bounded/fps_issue165_transfer_v3.png",
+            "sha256": "9b5fffb005da81444cb989ffe55f4e41c78fdea4b64dac5d6866e8af2ca8e374",
+            "role": "Frame-time sample and measured host resource report"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/resource_runs/issue165_fps_v3.json",
+            "sha256": "90ad63ce4532f0ddf6e04ac56c8a874dc8c2462a9faf0ecd087231849805973c",
+            "role": "Frame-time sample and measured host resource report"
+          }
+        ],
+        "notes": [
+          "Uncapped sample: 4,199 frames across 14 poses; 239.863 average FPS, 5.254 ms p95 and 5.527 ms p99."
+        ]
+      },
+      {
+        "stage_id": "workflow_tests_and_operator_review_bundle",
+        "status": "passed",
+        "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+        "artifacts": [
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/tests/workflow-test-summary.json",
+            "sha256": "f551f7504180576b61a95c10a5ac149fce6091070d55a5f7c97345b0e57075f1",
+            "role": "Passing workflow checks and read-only operator review material"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_reference_contact_sheet_v2.jpg",
+            "sha256": "d0820fbe5fd87884e7a853e9b5981069f3384ca7f2d34a540b726f911c675cf0",
+            "role": "Passing workflow checks and read-only operator review material"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/adapted_room_contact_sheet_v2.jpg",
+            "sha256": "186ab4e893703b898567c65ccca1a9831f034a625681bf463f4eab98abd6036c",
+            "role": "Passing workflow checks and read-only operator review material"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_vs_adaptation_contact_sheet_v2.jpg",
+            "sha256": "b6e8488e62dbe53decb7ec543c0bb352fc874a1fa55f5222701b06a23e7f56d8",
+            "role": "Passing workflow checks and read-only operator review material"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/authored_layout_proposal_v2.svg",
+            "sha256": "7891caec97840de8fdc88b77f8e9182a2daf25b8f1d242f727eeda0fa6d7ca04",
+            "role": "Passing workflow checks and read-only operator review material"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/index_v2.html",
+            "sha256": "d5bc90b99bc04023af53b9a3913e1cf6bf8f20d0f3f4968707a4955e88356a1e",
+            "role": "Passing workflow checks and read-only operator review material"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/REPORT.md",
+            "sha256": "bea2e92353e8b64d7053a845c87c16a4d4d02280f6f91a8e5538e4342b522c70",
+            "role": "Passing workflow checks and read-only operator review material"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/COMMANDS.md",
+            "sha256": "6ffaa627de9575ec48d5751c0f4608484e32766390220ec1b2b9d3101c0b40f0",
+            "role": "Passing workflow checks and read-only operator review material"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/operator_review.json",
+            "sha256": "2391743b583a7815baf422a13ec4cc48c9ed9055db100d300cd8b0acb9c0096f",
+            "role": "Operator acceptance bound to the exact candidate fingerprint"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-25-issue-165/index_reviewed.html",
+            "sha256": "3a1aafac41e02f5a236087e9a4524a86cef78f283b43c3d8a89e3ebad4edbc7e",
+            "role": "Operator-reviewed walkthrough and source comparison page"
+          }
+        ],
+        "notes": [
+          "Seven Python tests passed and Godot 4.6.3 parsed the capture script.",
+          "The operator accepted this exact candidate as a supervised transfer reference; wall artifacts were accepted for this version.",
+          "Reusable catalog admission, registration, scale, source connectivity and stitchability remain unapproved."
+        ]
+      }
+    ]
+  },
+  "operator_decision": {
+    "status": "accepted",
+    "decision_record_path": "godot_walk/evidence/2026-10-25-issue-165/operator_review.json",
+    "decision_sha256": "2391743b583a7815baf422a13ec4cc48c9ed9055db100d300cd8b0acb9c0096f",
+    "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+    "scope": "Operator accepted this exact bounded transfer candidate as a supervised workflow reference. Wall artifacts are acceptable in this version. No reusable catalog admission, registration, scale calibration, source connectivity, stitchability, or unattended ingestion is approved."
+  }
+}

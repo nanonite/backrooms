@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "stage_id": "negative_boundary",
+  "adaptation_id": "corridor-corner-authored-l-corridor-v2",
+  "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+  "command": [
+    "godot4",
+    "--headless",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://scripts/verify_bounded_psx.gd",
+    "--",
+    "--scene=res://scenes/issue165_corridor_corner_transfer.tscn",
+    "--out-dir=res://evidence/2026-10-25-issue-165/mechanics/runner_v3/negative_boundary",
+    "--break=boundary"
+  ],
+  "expected_exit_code": 1,
+  "return_code": 1,
+  "elapsed_seconds": 47.58,
+  "finished_at_utc": "2026-10-25T07:13:31.189426+00:00",
+  "artifacts": [
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/negative_boundary/physics_candidate_broken_boundary.json",
+      "sha256": "f6e9422d8b5fda22a1f4dfc44eb12c3a3db7ba2ee97397b370acb2ecf44dee86",
+      "role": "explicit workflow stage output"
+    }
+  ],
+  "stdout_sha256": "97b0f1519708b29373bb377e45433a4c8cef870f03d0602a3073ad2820d580b7",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

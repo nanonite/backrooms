@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>Issue 163 room review</title>
+<style>
+body{font:16px system-ui,sans-serif;background:#22231f;color:#eee8d6;max-width:1240px;margin:2rem auto;padding:0 1rem}
+h1,h2{color:#f4e7c2} .notice{padding:1rem;background:#3c382b;border-left:4px solid #e7c45d}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:1rem}
+figure{margin:0;background:#30312b;padding:.6rem} img{max-width:100%;height:auto} figcaption{padding:.4rem}
+code{background:#363730;padding:.2rem .35rem} a{color:#b6e1d2}
+</style>
+<h1>Issue 163 · another source-video room</h1>
+<div class="notice"><b>Operator accepted as an authored room baseline.</b> This room uses direct crops from frame 0013 of <code>data/videos/room_large.mp4</code>. The local Panogen attempts stopped at the GPU memory guard before producing a panorama; no SceneGen mesh was created. Authored boundaries and collision are separate from the source-textured visuals. Physical scale and registration remain unaccepted; the room is not catalog-admitted.</div>
+<p><a href="candidate_contact_sheet.jpg">Contact sheet</a> · <a href="source_candidates_contact.jpg">Source-video candidates</a> · <a href="source_textures_contact.jpg">Direct-source texture crops</a> · <a href="layout_proposal.svg">Authored layout proposal</a></p>
+<h2>Evidence views</h2><div class="grid"><figure><img src="room_large_frame_0013.png" alt="Source video · frame 0013"><figcaption>Source video · frame 0013</figcaption></figure>
+<figure><img src="captures_final/spawn_column.png" alt="Godot · spawn view"><figcaption>Godot · spawn view</figcaption></figure>
+<figure><img src="captures_final/column_south.png" alt="Godot · column south face"><figcaption>Godot · column south face</figcaption></figure>
+<figure><img src="captures_final/column_west.png" alt="Godot · column west face"><figcaption>Godot · column west face</figcaption></figure>
+<figure><img src="captures_final/open_passage.png" alt="Godot · open passage"><figcaption>Godot · open passage</figcaption></figure>
+<figure><img src="captures_final/hallway_end.png" alt="Godot · hallway end"><figcaption>Godot · hallway end</figcaption></figure>
+<figure><img src="captures_final/hallway_return.png" alt="Godot · hallway return"><figcaption>Godot · hallway return</figcaption></figure>
+<figure><img src="captures_final/room_corner.png" alt="Godot · room corner"><figcaption>Godot · room corner</figcaption></figure></div>
+<h2>Walkthrough</h2>
+<p>From the workspace root:</p>
+<pre><code>godot4 --path godot_walk --rendering-driver vulkan --resolution 1280x720 res://evidence/2026-10-24-issue-163/issue163_room.tscn</code></pre>
+<p>Use WASD and mouse; Escape releases the pointer. F6 toggles the packaged URSC material pass.</p>
+<h2>Mechanical and render evidence</h2>
+<ul><li>Godot 4.6.3; Vulkan captures use 960×540, 75° FOV, 12 settle frames.</li>
+<li>Bounded route: 35.73 m out-and-back; 100% floor support; zero SafetyNet contacts.</li>
+<li>Boundary removal and floor removal both fail the mechanical verifier, as expected.</li>
+<li>Capture preflight and process resource measurements are in <code>captures_final_status.json</code>.</li>
+<li>Per-view IDs and positions: <code>captures_final/capture_manifest.json</code>.</li></ul>
+<h2>Source and constraints</h2>
+<p><a href="REPORT.md">Full evidence report</a> · <a href="operator_review.json">Operator decision</a> · <a href="SOURCE_SELECTION.md">Source selection</a> · <a href="source_manifest.json">Source hashes and frames</a> · <a href="worldgen/">Panogen attempt logs and resource samples</a> · <a href="mechanics_final/physics_candidate.json">Walk verification</a></p>
+<p><code>registration_accepted=false</code>; <code>scale_calibrated=false</code>. Authored layout dimensions are a design convention, not recovered video geometry. The open passage is local room geometry, not a tested connector to another module.</p>
+</html>

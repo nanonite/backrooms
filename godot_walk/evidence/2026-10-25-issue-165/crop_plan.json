@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "source_frame_id": "frame_0001",
+  "crops": [
+    { "name": "wallpaper_source_frame_0001", "frame_id": "frame_0001", "source_pixel_bounds_xyxy": [100, 390, 510, 650] },
+    { "name": "floor_source_frame_0001", "frame_id": "frame_0001", "source_pixel_bounds_xyxy": [120, 820, 520, 1035] },
+    { "name": "ceiling_source_frame_0001", "frame_id": "frame_0001", "source_pixel_bounds_xyxy": [100, 0, 520, 220] },
+    { "name": "column_source_frame_0001", "frame_id": "frame_0001", "source_pixel_bounds_xyxy": [555, 300, 710, 720] }
+  ],
+  "rationale": "Frame 0001 directly shows wallpaper, carpet, ceiling tiles and one column face. These are appearance samples only; crop placement does not register geometry or reveal hidden faces."
+}

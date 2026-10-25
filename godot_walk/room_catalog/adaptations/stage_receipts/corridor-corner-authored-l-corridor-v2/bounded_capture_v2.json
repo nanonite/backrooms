@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "stage_id": "bounded_capture_v2",
+  "adaptation_id": "corridor-corner-authored-l-corridor-v2",
+  "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+  "command": [
+    "python3",
+    "godot_walk/scripts/run_issue149_gpu.py",
+    "--label",
+    "issue165_capture_v2",
+    "--timeout-seconds",
+    "240",
+    "--evidence-dir",
+    "godot_walk/evidence/2026-10-25-issue-165",
+    "--",
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--script",
+    "res://scripts/capture_issue165.gd",
+    "--",
+    "--out-dir=res://evidence/2026-10-25-issue-165/captures/v2"
+  ],
+  "expected_exit_code": 0,
+  "return_code": 0,
+  "elapsed_seconds": 4.6,
+  "finished_at_utc": "2026-10-25T07:14:31.640307+00:00",
+  "artifacts": [
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/capture_manifest.json",
+      "sha256": "b6bd01fac894e082a7abdba7628188747e0326d932e3bafdc7b7477ee4624fe1",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/entry_column.png",
+      "sha256": "6e790c2711ca2fe10d6ecf621a93b54370f0f202cb64bf9fe25547ddfcee7afb",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/main_leg_turn.png",
+      "sha256": "64d195e7e5f00c7c6a63d030ebf60a7c2a6c34b1e0ea67029131be55109e6e68",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/turn_back_to_main.png",
+      "sha256": "320f1d38b69e491e4480c72998f312188c47fcf01e8482f483c05aedddce0711",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/far_leg_end.png",
+      "sha256": "a5dce1014f56d532fb8dd59150967053bf58a6d0959b308c68e6e2a5b40c1d9b",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/far_leg_back.png",
+      "sha256": "3d3d64cecc25fea4468b80ec3fa4606cce91b547ab20abc2bb322b1e6966f625",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/column_face_south.png",
+      "sha256": "4bcf95af64b39727dcb4ad32ccea26f9e84ac5113481a54a6e7d7ed5bf435e44",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/column_face_north.png",
+      "sha256": "ed7d9da07ac5a081e41386505050e25555ebc4ee5e7257a6b418f2b2f53313db",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/column_face_east.png",
+      "sha256": "42a57cbdd04289938f7c72819ab1563744a470909f58c21e3820fc91ea616af9",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/captures/v2/column_face_west.png",
+      "sha256": "2b9aa9c8121753753dee6e2110d826ff9e89c438c0edf33dd8b151668213bec4",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/resource_runs/issue165_capture_v2.json",
+      "sha256": "e43638fe9e3ceb96cdce72a8ac8d9e2822726b18960bdbdef9c813925383cdee",
+      "role": "explicit workflow stage output"
+    }
+  ],
+  "stdout_sha256": "c790dc3fc51336a30f89b0b21e46c37d00040b995e4461011c69da72c2059825",
+  "stderr_sha256": "94bd402230e620ec88eada0eb4b0692b95dc2e21ef63499da84d285f054315aa"
+}

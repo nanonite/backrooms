@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "stage_id": "negative_floor",
+  "adaptation_id": "corridor-corner-authored-l-corridor-v2",
+  "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+  "command": [
+    "godot4",
+    "--headless",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://scripts/verify_bounded_psx.gd",
+    "--",
+    "--scene=res://scenes/issue165_corridor_corner_transfer.tscn",
+    "--out-dir=res://evidence/2026-10-25-issue-165/mechanics/runner_v3/negative_floor",
+    "--break=floor"
+  ],
+  "expected_exit_code": 1,
+  "return_code": 1,
+  "elapsed_seconds": 47.578,
+  "finished_at_utc": "2026-10-25T07:14:21.597066+00:00",
+  "artifacts": [
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/negative_floor/physics_candidate_broken_floor.json",
+      "sha256": "53d102f9cf6a347e54c29a840e03ad50840e64111a1f43bfee8cc0bfe5e2d204",
+      "role": "explicit workflow stage output"
+    }
+  ],
+  "stdout_sha256": "ec7527aa91c756833bcee4ebe2b144f0ec657f4aae5518eaa8229b30788f526d",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

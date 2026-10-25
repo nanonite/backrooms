@@ -1,0 +1,15 @@
+{
+  "issue": 165,
+  "candidate_version": "corridor-corner-authored-l-corridor-v2",
+  "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+  "reviewed_at_local_date": "2026-10-25",
+  "decision": "accepted_with_limitations",
+  "operator_feedback_text": "ok I see an L shaped room, it looks ok. some artifiacts on the wall can be cleaned up but its acceptable as is",
+  "accepted_scope": "The bounded L-shaped room is accepted as the supervised transfer example. The wall artifacts are acceptable for this version; cleaning them up is optional future polish.",
+  "limitations": [
+    "Acceptance applies to this exact candidate fingerprint only.",
+    "No source scale or camera registration is accepted.",
+    "No source connectivity, tested connector, or stitchability is accepted.",
+    "The candidate is not admitted as a reusable room module and does not establish unattended or universal video ingestion."
+  ]
+}

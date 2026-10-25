@@ -1,0 +1,70 @@
+{
+  "source_frame": "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0013.png",
+  "source_frame_sha256": "b75558f58ac9ccd169e444c9978b961179ca5bc2b0d77db97acd81aa65e842ae",
+  "source_video": "data/videos/room_large.mp4",
+  "method": "direct rectangular pixel crops; no resizing, color edit, or synthesis",
+  "crops": [
+    {
+      "name": "wallpaper",
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/wallpaper.png",
+      "source_pixel_bounds_xyxy": [
+        1490,
+        390,
+        1830,
+        650
+      ],
+      "dimensions": [
+        340,
+        260
+      ],
+      "sha256": "22a0c83f148483612c8fd2ce9b353a62bb5cefbc6e3f69fa3a4c09a2377240ca"
+    },
+    {
+      "name": "floor",
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/floor.png",
+      "source_pixel_bounds_xyxy": [
+        1060,
+        810,
+        1430,
+        1040
+      ],
+      "dimensions": [
+        370,
+        230
+      ],
+      "sha256": "b65b0dd9a188da9a4b55c87adfab30d3c685440f2ece4f3a4aff20a428a8941f"
+    },
+    {
+      "name": "ceiling",
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/ceiling.png",
+      "source_pixel_bounds_xyxy": [
+        790,
+        10,
+        1050,
+        155
+      ],
+      "dimensions": [
+        260,
+        145
+      ],
+      "sha256": "ab48519f1f5b564a7f7aa755402700bdb1ba23d68e013db52c905c9462c66b34"
+    },
+    {
+      "name": "column_face",
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/column_face.png",
+      "source_pixel_bounds_xyxy": [
+        466,
+        330,
+        590,
+        720
+      ],
+      "dimensions": [
+        124,
+        390
+      ],
+      "sha256": "4a3adba21ca30f7b157a66b5010d9cef6ee9c01ae7c7184b33cb316732ea81bc"
+    }
+  ],
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

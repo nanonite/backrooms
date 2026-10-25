@@ -1,0 +1,78 @@
+{
+	"camera_fov_degrees": 75.0,
+	"issue": 164,
+	"layout": "layout_three_room.json",
+	"scene": "res://scenes/issue164_three_room_walkthrough.tscn",
+	"scene_ready_ms": 2575,
+	"settle_frames": 24,
+	"views": [
+		{
+			"eye": [
+				8.35000038146973,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"height": 720,
+			"id": "pocket_to_new_room",
+			"path": "res://evidence/2026-10-24-issue-164/captures/pocket_to_new_room.png",
+			"scene_ready_ms": 2575,
+			"target": [
+				11.3999996185303,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"width": 1280
+		},
+		{
+			"eye": [
+				10.6999998092651,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"height": 720,
+			"id": "new_room_to_pocket",
+			"path": "res://evidence/2026-10-24-issue-164/captures/new_room_to_pocket.png",
+			"scene_ready_ms": 2575,
+			"target": [
+				7.65000009536743,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"width": 1280
+		},
+		{
+			"eye": [
+				18.0,
+				-0.0709904879331589,
+				1.60000002384186
+			],
+			"height": 720,
+			"id": "large_room_hall_entry",
+			"path": "res://evidence/2026-10-24-issue-164/captures/large_room_hall_entry.png",
+			"scene_ready_ms": 2575,
+			"target": [
+				11.0,
+				-0.170990496873856,
+				3.09999990463257
+			],
+			"width": 1280
+		},
+		{
+			"eye": [
+				20.0,
+				-0.170990496873856,
+				-0.200000002980232
+			],
+			"height": 720,
+			"id": "large_room_column_and_hall",
+			"path": "res://evidence/2026-10-24-issue-164/captures/large_room_column_and_hall.png",
+			"scene_ready_ms": 2575,
+			"target": [
+				15.3000001907349,
+				-0.170990496873856,
+				2.20000004768372
+			],
+			"width": 1280
+		}
+	]
+}

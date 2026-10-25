@@ -1,0 +1,179 @@
+{
+	"camera_fov_degrees": 75.0,
+	"issue": 165,
+	"scene": "res://scenes/issue165_corridor_corner_transfer.tscn",
+	"scene_ready_ms": 44,
+	"views": [
+		{
+			"eye": [
+				-5.0,
+				1.10000002384186,
+				1.39999997615814
+			],
+			"height": 720,
+			"id": "entry_column",
+			"path": "res://evidence/2026-10-25-issue-165/captures/v1/entry_column.png",
+			"scene_ready_ms": 44,
+			"settle_frames": 24,
+			"source_frame_id": "frame_0001",
+			"target": [
+				-2.5,
+				1.10000002384186,
+				0.0
+			],
+			"width": 1280
+		},
+		{
+			"eye": [
+				-0.800000011920929,
+				1.10000002384186,
+				1.0
+			],
+			"height": 720,
+			"id": "main_leg_turn",
+			"path": "res://evidence/2026-10-25-issue-165/captures/v1/main_leg_turn.png",
+			"scene_ready_ms": 44,
+			"settle_frames": 24,
+			"source_frame_id": "frame_0036",
+			"target": [
+				1.70000004768372,
+				1.10000002384186,
+				-2.29999995231628
+			],
+			"width": 1280
+		},
+		{
+			"eye": [
+				2.0,
+				1.10000002384186,
+				-2.20000004768372
+			],
+			"height": 720,
+			"id": "turn_back_to_main",
+			"path": "res://evidence/2026-10-25-issue-165/captures/v1/turn_back_to_main.png",
+			"scene_ready_ms": 44,
+			"settle_frames": 24,
+			"source_frame_id": "frame_0059",
+			"target": [
+				-0.800000011920929,
+				1.10000002384186,
+				0.800000011920929
+			],
+			"width": 1280
+		},
+		{
+			"eye": [
+				2.0,
+				1.10000002384186,
+				-5.59999990463257
+			],
+			"height": 720,
+			"id": "far_leg_end",
+			"path": "res://evidence/2026-10-25-issue-165/captures/v1/far_leg_end.png",
+			"scene_ready_ms": 44,
+			"settle_frames": 24,
+			"source_frame_id": "frame_0085",
+			"target": [
+				2.0,
+				1.10000002384186,
+				-2.59999990463257
+			],
+			"width": 1280
+		},
+		{
+			"eye": [
+				2.0,
+				1.10000002384186,
+				-2.70000004768372
+			],
+			"height": 720,
+			"id": "far_leg_back",
+			"path": "res://evidence/2026-10-25-issue-165/captures/v1/far_leg_back.png",
+			"scene_ready_ms": 44,
+			"settle_frames": 24,
+			"source_frame_id": "frame_0096",
+			"target": [
+				2.0,
+				1.10000002384186,
+				-5.80000019073486
+			],
+			"width": 1280
+		},
+		{
+			"eye": [
+				-2.5,
+				1.10000002384186,
+				1.20000004768372
+			],
+			"height": 720,
+			"id": "column_face_south",
+			"path": "res://evidence/2026-10-25-issue-165/captures/v1/column_face_south.png",
+			"scene_ready_ms": 44,
+			"settle_frames": 24,
+			"source_frame_id": "frame_0001",
+			"target": [
+				-2.5,
+				1.10000002384186,
+				0.0
+			],
+			"width": 1280
+		},
+		{
+			"eye": [
+				-2.5,
+				1.10000002384186,
+				-1.20000004768372
+			],
+			"height": 720,
+			"id": "column_face_north",
+			"path": "res://evidence/2026-10-25-issue-165/captures/v1/column_face_north.png",
+			"scene_ready_ms": 44,
+			"settle_frames": 24,
+			"source_frame_id": "frame_0001",
+			"target": [
+				-2.5,
+				1.10000002384186,
+				0.0
+			],
+			"width": 1280
+		},
+		{
+			"eye": [
+				-1.20000004768372,
+				1.10000002384186,
+				0.0
+			],
+			"height": 720,
+			"id": "column_face_east",
+			"path": "res://evidence/2026-10-25-issue-165/captures/v1/column_face_east.png",
+			"scene_ready_ms": 44,
+			"settle_frames": 24,
+			"source_frame_id": "frame_0001",
+			"target": [
+				-2.5,
+				1.10000002384186,
+				0.0
+			],
+			"width": 1280
+		},
+		{
+			"eye": [
+				-3.79999995231628,
+				1.10000002384186,
+				0.0
+			],
+			"height": 720,
+			"id": "column_face_west",
+			"path": "res://evidence/2026-10-25-issue-165/captures/v1/column_face_west.png",
+			"scene_ready_ms": 44,
+			"settle_frames": 24,
+			"source_frame_id": "frame_0001",
+			"target": [
+				-2.5,
+				1.10000002384186,
+				0.0
+			],
+			"width": 1280
+		}
+	]
+}

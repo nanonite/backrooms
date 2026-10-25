@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/bin/python",
+    "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-24-issue-163/run_issue163_panogen.py",
+    "--width",
+    "768",
+    "--height",
+    "384",
+    "--output-dir",
+    "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen-768x384-final"
+  ],
+  "elapsed_seconds": 78.54,
+  "exit_code": 124,
+  "status": "stopped_by_guard",
+  "stop_reason": "free VRAM fell below 2048 MiB",
+  "peak_process_group_rss_kib": 21952196,
+  "peak_gpu_used_mib": 9996,
+  "minimum_gpu_free_mib": 1874,
+  "minimum_ram_available_bytes": 9169817600,
+  "minimum_swap_free_bytes": 55395811328,
+  "sample_count": 68
+}

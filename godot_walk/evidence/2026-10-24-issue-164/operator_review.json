@@ -1,0 +1,13 @@
+{
+  "issue": 164,
+  "recorded_at_utc": "2026-10-25T02:28:49Z",
+  "reviewer": "operator",
+  "decision": "accepted_for_this_layout",
+  "reviewed_layout_id": "issue164_three_room_chain_seed_164",
+  "reviewed_connection_id": "R001.east__R002.hall_end",
+  "operator_feedback": "excellent yes it feels coherent , walkable , its the basis of what we want a workflow to produce for any input video",
+  "scope": "Accepts the exact seed-164 three-room layout and pocket-to-third-room connection as a workflow prototype. Does not establish source-video connectivity, calibrated scale, or suitability of this connector for other videos.",
+  "workflow_target": "For each input video, produce a coherent, comfortably walkable authored PSX room completion around video-supported visual content, with evidence and an operator review checkpoint.",
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

@@ -1,0 +1,30 @@
+{
+	"column_obstacle": {
+		"approach_clear": [
+			true,
+			true,
+			true,
+			true
+		],
+		"negative_open": true,
+		"positive_blocked": true
+	},
+	"failures": [],
+	"registration_accepted": false,
+	"render_containment": {
+		"background_geometry_count": 0,
+		"bounds_min": "(-6.08, -0.08, -7.08)",
+		"bounds_size": "(10.16, 3.16, 9.16)",
+		"escaped_meshes": [],
+		"mesh_count": 16
+	},
+	"scale_calibrated": false,
+	"scene": "res://scenes/issue165_corridor_corner_transfer.tscn",
+	"walkable_grid": {
+		"clear_supported_samples": 1168,
+		"method": "0.2-unit capsule and floor-ray grid; 4-neighbor flood from spawn",
+		"resolution": 0.2,
+		"spawn_connected_area_estimate": 46.72,
+		"spawn_connected_samples": 1168
+	}
+}

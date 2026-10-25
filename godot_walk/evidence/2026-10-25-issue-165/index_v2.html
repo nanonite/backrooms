@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chainlink #165 · supervised video-to-PSX transfer review</title>
+<style>
+body{font:16px/1.5 system-ui,sans-serif;margin:0;background:#141414;color:#eee}main{max-width:1400px;margin:auto;padding:24px}h1,h2{line-height:1.2}a{color:#f0c674}.notice{background:#2a261b;border-left:4px solid #d99a3b;padding:14px}.images{display:grid;grid-template-columns:1fr 1fr;gap:12px}figure{margin:0;background:#222;padding:8px}img{width:100%;height:auto;display:block}figcaption{padding:8px 0 0}.pair{border-top:1px solid #555;padding:18px 0}code{overflow-wrap:anywhere}@media(max-width:850px){.images{grid-template-columns:1fr}}
+</style></head><body><main>
+<h1>Chainlink #165 · source video to bounded PSX room</h1>
+<div class="notice"><strong>Review scope:</strong> inspect the new <code>corridor_corner.mp4</code> adaptation. The candidate is provisional; it does not inherit #163/#164 design approval.</div>
+<h2>Source and adaptation</h2><p>The source frames are decoded directly from the original 1920×1080, 24 fps video. Candidate views use the same material profile and controller as the existing Godot project.</p>
+<p>Each pair uses a source frame as context only. The camera positions are not registered, pose-matched, or scale-calibrated. The authored L-shaped boundary is a design choice, not a recovered plan. The source footage is synthetic and has visible ceiling/geometry discontinuities.</p>
+<p><a href="source_reference_contact_sheet_v2.jpg">Source frame sheet</a> · <a href="adapted_room_contact_sheet_v2.jpg">Adapted room sheet</a> · <a href="source_vs_adaptation_contact_sheet_v2.jpg">Paired comparison sheet</a> · <a href="authored_layout_proposal_v2.svg">Authored layout proposal</a> · <a href="../../room_catalog/adaptations/corridor-corner-v2.json">Transfer adaptation v2 record</a> · <a href="../../room_catalog/adaptations/room-large-v1.json">Accepted #163/#164 record</a> · <a href="REPORT.md">Report</a> · <a href="COMMANDS.md">Commands</a></p>
+<h2>Authored layout and walkthrough</h2><p>The candidate has one completed box column, an L-shaped walkable union, a closed visible shell, and separate boundary/obstacle collision. It has no connector. Walk the full turn and backtrack before judging whether the source appearance and authored footprint work together.</p>
+<p>FPS walkthrough: <code>godot4 --path godot_walk --rendering-driver vulkan --resolution 1280x720 res://scenes/issue165_corridor_corner_transfer.tscn</code> · WASD to move, mouse to look, Escape to release the pointer, R to reset.</p>
+<h2>Operator question</h2><p>Does this authored L-shaped room, with direct source-cropped wallpaper/floor/ceiling and a completed four-sided column, feel like a useful playable adaptation of <code>corridor_corner.mp4</code> despite the unregistered layout?</p>
+<h2>View comparisons</h2>
+<article class="pair"><h2>entry_column</h2>
+ <p>Source anchor: frame_0001, t=0.000s. Perspective is not registered or matched.</p>
+ <div class="images"><figure><img src="source_frames/frame_0001.png" alt="Direct source frame frame_0001"><figcaption>Direct source frame frame_0001</figcaption></figure>
+ <figure><img src="captures/v2/entry_column.png" alt="Authored candidate view entry_column"><figcaption>Godot candidate view entry_column</figcaption></figure></div></article>
+<article class="pair"><h2>main_leg_turn</h2>
+ <p>Source anchor: frame_0036, t=1.458s. Perspective is not registered or matched.</p>
+ <div class="images"><figure><img src="source_frames/frame_0036.png" alt="Direct source frame frame_0036"><figcaption>Direct source frame frame_0036</figcaption></figure>
+ <figure><img src="captures/v2/main_leg_turn.png" alt="Authored candidate view main_leg_turn"><figcaption>Godot candidate view main_leg_turn</figcaption></figure></div></article>
+<article class="pair"><h2>turn_back_to_main</h2>
+ <p>Source anchor: frame_0059, t=2.417s. Perspective is not registered or matched.</p>
+ <div class="images"><figure><img src="source_frames/frame_0059.png" alt="Direct source frame frame_0059"><figcaption>Direct source frame frame_0059</figcaption></figure>
+ <figure><img src="captures/v2/turn_back_to_main.png" alt="Authored candidate view turn_back_to_main"><figcaption>Godot candidate view turn_back_to_main</figcaption></figure></div></article>
+<article class="pair"><h2>far_leg_end</h2>
+ <p>Source anchor: frame_0085, t=3.500s. Perspective is not registered or matched.</p>
+ <div class="images"><figure><img src="source_frames/frame_0085.png" alt="Direct source frame frame_0085"><figcaption>Direct source frame frame_0085</figcaption></figure>
+ <figure><img src="captures/v2/far_leg_end.png" alt="Authored candidate view far_leg_end"><figcaption>Godot candidate view far_leg_end</figcaption></figure></div></article>
+<article class="pair"><h2>far_leg_back</h2>
+ <p>Source anchor: frame_0096, t=3.958s. Perspective is not registered or matched.</p>
+ <div class="images"><figure><img src="source_frames/frame_0096.png" alt="Direct source frame frame_0096"><figcaption>Direct source frame frame_0096</figcaption></figure>
+ <figure><img src="captures/v2/far_leg_back.png" alt="Authored candidate view far_leg_back"><figcaption>Godot candidate view far_leg_back</figcaption></figure></div></article>
+<article class="pair"><h2>column_face_south</h2>
+ <p>Source anchor: frame_0001, t=0.000s. Perspective is not registered or matched.</p>
+ <div class="images"><figure><img src="source_frames/frame_0001.png" alt="Direct source frame frame_0001"><figcaption>Direct source frame frame_0001</figcaption></figure>
+ <figure><img src="captures/v2/column_face_south.png" alt="Authored candidate view column_face_south"><figcaption>Godot candidate view column_face_south</figcaption></figure></div></article>
+<article class="pair"><h2>column_face_north</h2>
+ <p>Source anchor: frame_0001, t=0.000s. Perspective is not registered or matched.</p>
+ <div class="images"><figure><img src="source_frames/frame_0001.png" alt="Direct source frame frame_0001"><figcaption>Direct source frame frame_0001</figcaption></figure>
+ <figure><img src="captures/v2/column_face_north.png" alt="Authored candidate view column_face_north"><figcaption>Godot candidate view column_face_north</figcaption></figure></div></article>
+<article class="pair"><h2>column_face_east</h2>
+ <p>Source anchor: frame_0001, t=0.000s. Perspective is not registered or matched.</p>
+ <div class="images"><figure><img src="source_frames/frame_0001.png" alt="Direct source frame frame_0001"><figcaption>Direct source frame frame_0001</figcaption></figure>
+ <figure><img src="captures/v2/column_face_east.png" alt="Authored candidate view column_face_east"><figcaption>Godot candidate view column_face_east</figcaption></figure></div></article>
+<article class="pair"><h2>column_face_west</h2>
+ <p>Source anchor: frame_0001, t=0.000s. Perspective is not registered or matched.</p>
+ <div class="images"><figure><img src="source_frames/frame_0001.png" alt="Direct source frame frame_0001"><figcaption>Direct source frame frame_0001</figcaption></figure>
+ <figure><img src="captures/v2/column_face_west.png" alt="Authored candidate view column_face_west"><figcaption>Godot candidate view column_face_west</figcaption></figure></div></article>
+<footer><p>Capture bundle: 9 views at the project resolution; scene ready in 44 ms. This is one supervised transfer example, not a universal or unattended ingestion claim.</p></footer>
+</main></body></html>

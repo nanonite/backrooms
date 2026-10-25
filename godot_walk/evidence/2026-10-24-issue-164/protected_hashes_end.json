@@ -1,0 +1,446 @@
+{
+  "issue": 164,
+  "verified_at_utc": "2026-10-25T02:19:45.474078+00:00",
+  "protected_file_count": 73,
+  "all_verified": true,
+  "files": [
+    {
+      "path": "data/scenes/corridor_travel/images/frame_0152.jpg",
+      "expected_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "actual_sha256": "94b2643eee79583a1b3d4f0151577dc87e4cd37b3639c947edcb5396c15f5b12",
+      "verified": true
+    },
+    {
+      "path": "data/scenes/corridor_travel/video.mp4",
+      "expected_sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4",
+      "actual_sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4",
+      "verified": true
+    },
+    {
+      "path": "data/videos/room_large.mp4",
+      "expected_sha256": "ef0ec21cd4ae7b2699d5d9ec08467eddb6d62582d659c4035dc995e78df4b418",
+      "actual_sha256": "ef0ec21cd4ae7b2699d5d9ec08467eddb6d62582d659c4035dc995e78df4b418",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png",
+      "expected_sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "actual_sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_conversion.json",
+      "expected_sha256": "7e420195d62538a74c1f88bd3f669f93ad25fbf1c149a06d926ba2214294105b",
+      "actual_sha256": "7e420195d62538a74c1f88bd3f669f93ad25fbf1c149a06d926ba2214294105b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb",
+      "expected_sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+      "actual_sha256": "5b3e879c0309448887cd3ceb7b29eaca49476566ac75010f7e5c5253443a23bf",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/panogen_input_frame_0152.png",
+      "expected_sha256": "fd165eeb0c2d5a14101f2314290feedcc44aeb73148b9d1272fa52d26f819401",
+      "actual_sha256": "fd165eeb0c2d5a14101f2314290feedcc44aeb73148b9d1272fa52d26f819401",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/panogen_run_manifest.json",
+      "expected_sha256": "1cfff60109b8876a91e14ef0b8e09ea36bf8444e295184f786c508f969c9346e",
+      "actual_sha256": "1cfff60109b8876a91e14ef0b8e09ea36bf8444e295184f786c508f969c9346e",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/panorama_1280x640.png",
+      "expected_sha256": "135dd2a83e4865c2516d8d66a2b1670ba6dd65fbef9c7204438cc62e45f3d3d5",
+      "actual_sha256": "135dd2a83e4865c2516d8d66a2b1670ba6dd65fbef9c7204438cc62e45f3d3d5",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/scenegen_manifest.json",
+      "expected_sha256": "07e2fb3b0066cb284bca3d969077cee9acef7b1377d123b6fbfac5da6ffdd4cb",
+      "actual_sha256": "07e2fb3b0066cb284bca3d969077cee9acef7b1377d123b6fbfac5da6ffdd4cb",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/source_frame_0152.png",
+      "expected_sha256": "4846fcf6f510017f02e67f12d9dd71ab2dc1cd0a71bc4750ab1956fb60a4a7ad",
+      "actual_sha256": "4846fcf6f510017f02e67f12d9dd71ab2dc1cd0a71bc4750ab1956fb60a4a7ad",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-147/source_selection.json",
+      "expected_sha256": "d9cb2e90dd1bc16470b4dbed3c2759a7ad39ae46ada86b4c5bc68667549d5661",
+      "actual_sha256": "d9cb2e90dd1bc16470b4dbed3c2759a7ad39ae46ada86b4c5bc68667549d5661",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/authored_room_collision.glb",
+      "expected_sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9",
+      "actual_sha256": "1dfdf15153194eb4b1c9f8d276bd54286168488cd693de27b1d9fa91f3b28ad9",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/capture_poses.json",
+      "expected_sha256": "979a3dc9849fbc5c0f8ce28dba558876182046d3b9fdda1f2b9fd1c28accfc8d",
+      "actual_sha256": "979a3dc9849fbc5c0f8ce28dba558876182046d3b9fdda1f2b9fd1c28accfc8d",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-20-issue-150/route_report.json",
+      "expected_sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+      "actual_sha256": "e8f0bbb5c0abca8c17d716350f494b2f75e4e163ef6f06cd2dfb409956cd5af8",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_collision.glb",
+      "expected_sha256": "0a4479f9c32cdf193d4a4196f8e6330474a7a2254426471b2725220a7b966246",
+      "actual_sha256": "0a4479f9c32cdf193d4a4196f8e6330474a7a2254426471b2725220a7b966246",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json",
+      "expected_sha256": "0c2b5bb8a131b53a49a8243296121078caaec83bb14d2a2e5258ad0c6b52b28b",
+      "actual_sha256": "0c2b5bb8a131b53a49a8243296121078caaec83bb14d2a2e5258ad0c6b52b28b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+      "expected_sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5",
+      "actual_sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-149/catalog_snapshot.json",
+      "expected_sha256": "2b343ce4d71eb791c9b6032a960022b60245aa5e55f17a90a78e6263bff1ae8a",
+      "actual_sha256": "2b343ce4d71eb791c9b6032a960022b60245aa5e55f17a90a78e6263bff1ae8a",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-149/layout_seed_149.json",
+      "expected_sha256": "80bf95100493049973b767976cd555bb8b97d37bedb742960ca5793381bf34d4",
+      "actual_sha256": "80bf95100493049973b767976cd555bb8b97d37bedb742960ca5793381bf34d4",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-149/layout_seed_149.json.sha256",
+      "expected_sha256": "ae57d3b918eb5c660e633d239681b2a4e0eaeda441005aee2592ec9169278c31",
+      "actual_sha256": "ae57d3b918eb5c660e633d239681b2a4e0eaeda441005aee2592ec9169278c31",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/COMMANDS.md",
+      "expected_sha256": "9ba23cb24ebde83b4591f63f0af40fba7737f7dbbe5123c2b7d44fd6839281bd",
+      "actual_sha256": "9ba23cb24ebde83b4591f63f0af40fba7737f7dbbe5123c2b7d44fd6839281bd",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/REPORT.md",
+      "expected_sha256": "10be53fade6d67668cca24ad04676484eb652de3a2d3397066081ba280bffe5e",
+      "actual_sha256": "10be53fade6d67668cca24ad04676484eb652de3a2d3397066081ba280bffe5e",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/bounded_hunyuan_visual.glb",
+      "expected_sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898",
+      "actual_sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/column_approach.png",
+      "expected_sha256": "39aa2849791ea3aa98bb4bb416fb2f24b501d395df849b2bbcf900fd2576c434",
+      "actual_sha256": "39aa2849791ea3aa98bb4bb416fb2f24b501d395df849b2bbcf900fd2576c434",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/connector_midpoint.png",
+      "expected_sha256": "5b31f892e139afc97d3b963646df911f8381718773dada654c80ecfefc745c84",
+      "actual_sha256": "5b31f892e139afc97d3b963646df911f8381718773dada654c80ecfefc745c84",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/pocket_far.png",
+      "expected_sha256": "383bff83c2822c2c1c453ac57eaabe9a7db0550702470488b9ef6ad7a22631ac",
+      "actual_sha256": "383bff83c2822c2c1c453ac57eaabe9a7db0550702470488b9ef6ad7a22631ac",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/pocket_return.png",
+      "expected_sha256": "34b6cc77a17517bfa1014eef4592d9de982f57d00117cd83e785703bae0032a0",
+      "actual_sha256": "34b6cc77a17517bfa1014eef4592d9de982f57d00117cd83e785703bae0032a0",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/assembly/seam_floor.png",
+      "expected_sha256": "ad5717be227ac9083429a54ff38a46109bc35677ed7b6436f97f55b61ff1ee2f",
+      "actual_sha256": "ad5717be227ac9083429a54ff38a46109bc35677ed7b6436f97f55b61ff1ee2f",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/C01_north.png",
+      "expected_sha256": "9d57d81162bb1d85d3e902e33b3019084c6ec89079e7d46905a26a8c2bba1e01",
+      "actual_sha256": "9d57d81162bb1d85d3e902e33b3019084c6ec89079e7d46905a26a8c2bba1e01",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/C01_west.png",
+      "expected_sha256": "c7f54833ca0c5d51251bedad95a3f70c218fee6394fbeaf69fcf562c6d50b093",
+      "actual_sha256": "c7f54833ca0c5d51251bedad95a3f70c218fee6394fbeaf69fcf562c6d50b093",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/C02_front.png",
+      "expected_sha256": "7c4f237a7cf929154bf146d030ff4baf0b9263389ae110a8fe95c517405e4fce",
+      "actual_sha256": "7c4f237a7cf929154bf146d030ff4baf0b9263389ae110a8fe95c517405e4fce",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/C02_reverse.png",
+      "expected_sha256": "09628d532c939dea959fb9e4cadc4a6b72cc3805db442d8a3c8d8bfee843cdc3",
+      "actual_sha256": "09628d532c939dea959fb9e4cadc4a6b72cc3805db442d8a3c8d8bfee843cdc3",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/east_socket_closed.png",
+      "expected_sha256": "981a2177c8dd3d9f647a325c6bfe31efa0615b7d29ec6cb5b98483517ce0b767",
+      "actual_sha256": "981a2177c8dd3d9f647a325c6bfe31efa0615b7d29ec6cb5b98483517ce0b767",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/column/spawn_to_C01.png",
+      "expected_sha256": "9e720971e31e1144b976cb16c342a6287e45f9a194f79dcf1cef3ecebe8d3f32",
+      "actual_sha256": "9e720971e31e1144b976cb16c342a6287e45f9a194f79dcf1cef3ecebe8d3f32",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/pocket/east_wall.png",
+      "expected_sha256": "aa9d6f1bf089ee99db8c8b442ac6d27bfbdaaef9b4668ba1cf3399a29605d86c",
+      "actual_sha256": "aa9d6f1bf089ee99db8c8b442ac6d27bfbdaaef9b4668ba1cf3399a29605d86c",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/pocket/entry.png",
+      "expected_sha256": "c2b907b6e5e0ab2fbb4bd25aba1f57d2c413a484cf6b8a329daaa44ae56b20e9",
+      "actual_sha256": "c2b907b6e5e0ab2fbb4bd25aba1f57d2c413a484cf6b8a329daaa44ae56b20e9",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/pocket/far_end.png",
+      "expected_sha256": "37027dc31eeecc3bedec780873c4c763faae1c0ac65251615510d4757f27aba4",
+      "actual_sha256": "37027dc31eeecc3bedec780873c4c763faae1c0ac65251615510d4757f27aba4",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/captures/pocket/west_socket_closed.png",
+      "expected_sha256": "11275401e5548f01aadcf37b53f57e78387154cd10c0b273595370597fc7a3c8",
+      "actual_sha256": "11275401e5548f01aadcf37b53f57e78387154cd10c0b273595370597fc7a3c8",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/room_readiness.json",
+      "expected_sha256": "427ca2556e4b71f1c7cb84579d370e2e4b410fc98f0c3385ca93856c4b9dd411",
+      "actual_sha256": "427ca2556e4b71f1c7cb84579d370e2e4b410fc98f0c3385ca93856c4b9dd411",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/REPORT.md",
+      "expected_sha256": "7fda54eb93d8f40dacdfa8d0422f16da960d2301285c7b0229ab542cf7ea3e9b",
+      "actual_sha256": "7fda54eb93d8f40dacdfa8d0422f16da960d2301285c7b0229ab542cf7ea3e9b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/issue163_room.gd",
+      "expected_sha256": "61c2c9506a63dcdccda1c262dfa0474c1abc074e12d8447272b9fce7b9a8ef73",
+      "actual_sha256": "61c2c9506a63dcdccda1c262dfa0474c1abc074e12d8447272b9fce7b9a8ef73",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/issue163_room.tscn",
+      "expected_sha256": "987d4e173705b989c2e831481bc4b63c5721764b7ab0c26af5f418cc28a32d12",
+      "actual_sha256": "987d4e173705b989c2e831481bc4b63c5721764b7ab0c26af5f418cc28a32d12",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/operator_review.json",
+      "expected_sha256": "ad2c6e98ebe9581179e8c453666acfe4ec0b516b99d3cf35ae366257354b96d0",
+      "actual_sha256": "ad2c6e98ebe9581179e8c453666acfe4ec0b516b99d3cf35ae366257354b96d0",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0013.png",
+      "expected_sha256": "b75558f58ac9ccd169e444c9978b961179ca5bc2b0d77db97acd81aa65e842ae",
+      "actual_sha256": "b75558f58ac9ccd169e444c9978b961179ca5bc2b0d77db97acd81aa65e842ae",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_manifest.json",
+      "expected_sha256": "e8d7d51aec2432316e167a18871af18601a456e629c40609c42546ce72440152",
+      "actual_sha256": "e8d7d51aec2432316e167a18871af18601a456e629c40609c42546ce72440152",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/ceiling.png",
+      "expected_sha256": "ab48519f1f5b564a7f7aa755402700bdb1ba23d68e013db52c905c9462c66b34",
+      "actual_sha256": "ab48519f1f5b564a7f7aa755402700bdb1ba23d68e013db52c905c9462c66b34",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/column_face.png",
+      "expected_sha256": "4a3adba21ca30f7b157a66b5010d9cef6ee9c01ae7c7184b33cb316732ea81bc",
+      "actual_sha256": "4a3adba21ca30f7b157a66b5010d9cef6ee9c01ae7c7184b33cb316732ea81bc",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/crop_manifest.json",
+      "expected_sha256": "477c6b8e35cbccaa9d2ac83cdb342a847fe755dd77f9a699aeaf4c5f4c7ad2d7",
+      "actual_sha256": "477c6b8e35cbccaa9d2ac83cdb342a847fe755dd77f9a699aeaf4c5f4c7ad2d7",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/floor.png",
+      "expected_sha256": "b65b0dd9a188da9a4b55c87adfab30d3c685440f2ece4f3a4aff20a428a8941f",
+      "actual_sha256": "b65b0dd9a188da9a4b55c87adfab30d3c685440f2ece4f3a4aff20a428a8941f",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/wallpaper.png",
+      "expected_sha256": "22a0c83f148483612c8fd2ce9b353a62bb5cefbc6e3f69fa3a4c09a2377240ca",
+      "actual_sha256": "22a0c83f148483612c8fd2ce9b353a62bb5cefbc6e3f69fa3a4c09a2377240ca",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/project.godot",
+      "expected_sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+      "actual_sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/room_catalog/MATERIAL_LANGUAGE.md",
+      "expected_sha256": "0e479479da8069ecbce0a56914517e43fbfa6ae564b173c76aba6390587fcc86",
+      "actual_sha256": "0e479479da8069ecbce0a56914517e43fbfa6ae564b173c76aba6390587fcc86",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_assembled_walkthrough.tscn",
+      "expected_sha256": "deaa8f4b53456a803f15b412a670c2a1ec096bacb7978912936c1d61669098e2",
+      "actual_sha256": "deaa8f4b53456a803f15b412a670c2a1ec096bacb7978912936c1d61669098e2",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_bounded_column_room.tscn",
+      "expected_sha256": "3b31049ab24536d2f9862e8f8f30398589f987409252e60ca081f02185649ccb",
+      "actual_sha256": "3b31049ab24536d2f9862e8f8f30398589f987409252e60ca081f02185649ccb",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_bounded_pocket_room.tscn",
+      "expected_sha256": "23e75bb03aff06eae8d7c1ebce5b026365a0168548ecd67c81d83a08d8f42f50",
+      "actual_sha256": "23e75bb03aff06eae8d7c1ebce5b026365a0168548ecd67c81d83a08d8f42f50",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_column_connector.tscn",
+      "expected_sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654",
+      "actual_sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_pocket_connector.tscn",
+      "expected_sha256": "078826e5824772c05dc4bf38c340f27fbc927abacfbba7dee6ec006a0bc967d3",
+      "actual_sha256": "078826e5824772c05dc4bf38c340f27fbc927abacfbba7dee6ec006a0bc967d3",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/library_column_room.tscn",
+      "expected_sha256": "957904553423659dd06676fba8ae32d7a9bc4310f1a239d6f60972f2228bb5ff",
+      "actual_sha256": "957904553423659dd06676fba8ae32d7a9bc4310f1a239d6f60972f2228bb5ff",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scenes/library_pocket_room.tscn",
+      "expected_sha256": "21d2f4091578803264eb333abd0fe314b5d725cd6faa6a1157e56715be175389",
+      "actual_sha256": "21d2f4091578803264eb333abd0fe314b5d725cd6faa6a1157e56715be175389",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/build_issue160_bounded_visual.py",
+      "expected_sha256": "b23f68ff355e881d88ae8a9ffdef5545720adddd7bcca94bd4d03116a9de1fb3",
+      "actual_sha256": "b23f68ff355e881d88ae8a9ffdef5545720adddd7bcca94bd4d03116a9de1fb3",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/capture_issue160.gd",
+      "expected_sha256": "53393220c20489e926d5f7f1df98eeaeb55b3a26a9e6b68c6e838b200155ef18",
+      "actual_sha256": "53393220c20489e926d5f7f1df98eeaeb55b3a26a9e6b68c6e838b200155ef18",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/hunyuan_psx_column_box.gd",
+      "expected_sha256": "04142b33c1b39edd2725fbefa854c8b88561a43d45eaa06d94bafaba578be68b",
+      "actual_sha256": "04142b33c1b39edd2725fbefa854c8b88561a43d45eaa06d94bafaba578be68b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/hunyuan_psx_round3.gd",
+      "expected_sha256": "ef306619ae6e57af2784092e1a55a7cee296014b2561496cf423786f7557d103",
+      "actual_sha256": "ef306619ae6e57af2784092e1a55a7cee296014b2561496cf423786f7557d103",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_assembled_walkthrough.gd",
+      "expected_sha256": "61f867ad3899018a94fd20908c459932353c6a76609650f0a973c2ab456484cb",
+      "actual_sha256": "61f867ad3899018a94fd20908c459932353c6a76609650f0a973c2ab456484cb",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_bounded_column_room.gd",
+      "expected_sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b",
+      "actual_sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_glb.py",
+      "expected_sha256": "9e70fc2ee976628c228fee2c83df258fd9666943150935c380ab58910f6eca44",
+      "actual_sha256": "9e70fc2ee976628c228fee2c83df258fd9666943150935c380ab58910f6eca44",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_pocket_room.gd",
+      "expected_sha256": "b8278f360020a6541236e8777593a47a74e54d5c15219f0eef5ece135f031722",
+      "actual_sha256": "b8278f360020a6541236e8777593a47a74e54d5c15219f0eef5ece135f031722",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_room_geometry.gd",
+      "expected_sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500",
+      "actual_sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/library_column_room.gd",
+      "expected_sha256": "ca48944a11e87c476fc9f8e5e4002f07b82b1952758e68ba6411eac7cdcdcba4",
+      "actual_sha256": "ca48944a11e87c476fc9f8e5e4002f07b82b1952758e68ba6411eac7cdcdcba4",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/library_pocket_room.gd",
+      "expected_sha256": "3d399dd1cf7411f05b36faafa8ef5e20409afbe2241285757888cbfaabec3d8e",
+      "actual_sha256": "3d399dd1cf7411f05b36faafa8ef5e20409afbe2241285757888cbfaabec3d8e",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/run_issue160_gpu.py",
+      "expected_sha256": "af80bac9b634ebef94d6d20b9d21c454fbb33ac41cbc3e244a39fda0e9122ac8",
+      "actual_sha256": "af80bac9b634ebef94d6d20b9d21c454fbb33ac41cbc3e244a39fda0e9122ac8",
+      "verified": true
+    },
+    {
+      "path": "godot_walk/scripts/test_issue160.gd",
+      "expected_sha256": "fd12e9d005c47569988716dee212c782316e1f96131c4273c845a5e18e82529c",
+      "actual_sha256": "fd12e9d005c47569988716dee212c782316e1f96131c4273c845a5e18e82529c",
+      "verified": true
+    }
+  ]
+}

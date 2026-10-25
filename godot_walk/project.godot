@@ -54,3 +54,10 @@ jump={
 [rendering]
 
 renderer/rendering_method.mobile="forward_plus"
+
+[shader_globals]
+
+affine_texture_mapping={
+"type": "bool",
+"value": false
+}

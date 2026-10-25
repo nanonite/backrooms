@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/issue164_room_large_connector.tscn" id="1_connector"]
+
+[node name="Issue164RoomLargeConnectorStandalone" instance=ExtResource("1_connector")]
+include_player = true

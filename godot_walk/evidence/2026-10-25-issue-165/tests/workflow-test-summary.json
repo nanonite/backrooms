@@ -1,0 +1,18 @@
+{
+  "issue": 165,
+  "finished_at_local_date": "2026-10-25",
+  "commands": [
+    {
+      "command": "python3 -m pytest -q godot_walk/scripts/test_psx_design_round_resources.py godot_walk/scripts/test_video_adaptation_workflow.py",
+      "result": "passed",
+      "passed": 7,
+      "failed": 0
+    },
+    {
+      "command": "godot4 --headless --path godot_walk --check-only --script res://scripts/capture_issue165.gd",
+      "result": "passed",
+      "engine": "Godot 4.6.3.stable.official.7d41c59c4"
+    }
+  ],
+  "scope": "Adaptation workflow safety/contracts and the capture-script parse check. Runtime traversal, captures and performance are recorded in separate stage evidence."
+}

@@ -1,0 +1,41 @@
+{
+  "command": [
+    "/home/goya/.local/bin/godot4",
+    "--fixed-fps",
+    "60",
+    "--path",
+    "/mnt/sharedOs/backrooms-workspace/godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "960x540",
+    "--disable-vsync",
+    "--script",
+    "res://evidence/2026-10-24-issue-163/capture_issue163_room.gd",
+    "--",
+    "--out=res://evidence/2026-10-24-issue-163/captures"
+  ],
+  "status": "complete",
+  "exit_code": 0,
+  "stop_reason": null,
+  "preflight": {
+    "free_vram_bytes": 10267656192,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 1,
+    "compute_apps": [],
+    "ram_available_bytes": 19478794240,
+    "vram_after_headroom_bytes": 8214124953,
+    "ram_after_headroom_bytes": 14609095680,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 544161792,
+    "gpu_memory_start_bytes": 2178940928,
+    "peak_gpu_memory_used_bytes": 2228224000,
+    "peak_gpu_memory_delta_bytes": 49283072,
+    "gpu_sample_period_ms": 500
+  },
+  "output_directory": "godot_walk/evidence/2026-10-24-issue-163/captures",
+  "timeout_seconds": 300
+}

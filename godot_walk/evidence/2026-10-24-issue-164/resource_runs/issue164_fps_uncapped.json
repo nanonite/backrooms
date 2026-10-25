@@ -1,0 +1,42 @@
+{
+  "label": "issue164_fps_uncapped",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--script",
+    "res://scripts/measure_bounded_fps.gd",
+    "--",
+    "--scene=res://scenes/issue164_three_room_walkthrough.tscn",
+    "--out-dir=res://evidence/2026-10-24-issue-164/mechanics/assembled",
+    "--label=issue164_uncapped"
+  ],
+  "timeout_seconds": 240,
+  "timed_out": false,
+  "return_code": 0,
+  "error": null,
+  "elapsed_seconds": 37.841,
+  "finished_utc": "2026-10-25T02:14:53.463885+00:00",
+  "preflight": {
+    "free_vram_bytes": 10396631040,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 2,
+    "compute_apps": [],
+    "ram_available_bytes": 16697954304,
+    "vram_after_headroom_bytes": 8317304832,
+    "ram_after_headroom_bytes": 12523465728,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 2426056704,
+    "gpu_memory_start_bytes": 2049966080,
+    "peak_gpu_memory_used_bytes": 2646605824,
+    "peak_gpu_memory_delta_bytes": 596639744,
+    "gpu_sample_period_ms": 500
+  }
+}

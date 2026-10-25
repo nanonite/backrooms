@@ -1,0 +1,66 @@
+{
+  "issue": 163,
+  "proposed_source_video": {
+    "path": "data/videos/room_large.mp4",
+    "sha256": "ef0ec21cd4ae7b2699d5d9ec08467eddb6d62582d659c4035dc995e78df4b418",
+    "size_bytes": 12604667,
+    "metadata": {
+      "codec_name": "h264",
+      "width": 1920,
+      "height": 1080,
+      "r_frame_rate": "24/1",
+      "duration": "4.000000",
+      "nb_frames": "96"
+    }
+  },
+  "prior_room_source": {
+    "path": "data/scenes/corridor_travel/video.mp4",
+    "sha256": "ac5cd0d1aa11aadd39cc45ff460af5e00372f8417d2514fce1bfa7c7837895c4"
+  },
+  "distinct_from_prior_source": true,
+  "candidate_frames": [
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0013.png",
+      "source_frame_index_zero_based": 12,
+      "source_frame_number_one_based": 13,
+      "timestamp_seconds": 0.5,
+      "decoded_frame_sha256": "b75558f58ac9ccd169e444c9978b961179ca5bc2b0d77db97acd81aa65e842ae",
+      "operation": "direct decoded video frame; no resize, crop, color edit, or synthesis"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0049.png",
+      "source_frame_index_zero_based": 48,
+      "source_frame_number_one_based": 49,
+      "timestamp_seconds": 2.0,
+      "decoded_frame_sha256": "b330de31186a515823bb9013fd0740b7d617d40dc26a959b8bfee6498604cb66",
+      "operation": "direct decoded video frame; no resize, crop, color edit, or synthesis"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0085.png",
+      "source_frame_index_zero_based": 84,
+      "source_frame_number_one_based": 85,
+      "timestamp_seconds": 3.5,
+      "decoded_frame_sha256": "3a240ddda431dd47c3128bf4d6f0add8c7c9f1fd7cba37d6e9e9485490f73e8b",
+      "operation": "direct decoded video frame; no resize, crop, color edit, or synthesis"
+    }
+  ],
+  "contact_sheet": {
+    "path": "godot_walk/evidence/2026-10-24-issue-163/source_candidates_contact.jpg",
+    "samples_per_video": 3,
+    "sample_times_seconds": [
+      0.5,
+      2.0,
+      3.5
+    ],
+    "videos": [
+      "corridor_corner.mp4",
+      "corridor_straight.mp4",
+      "corridor_t.mp4",
+      "corridor_x.mp4",
+      "dead_end.mp4",
+      "room_large.mp4"
+    ]
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

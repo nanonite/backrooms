@@ -1,0 +1,123 @@
+{
+	"camera_fov_degrees": 75.0,
+	"hunyuan_visual_loaded": false,
+	"poses": [
+		{
+			"height": 540,
+			"path": "res://evidence/2026-10-24-issue-163/captures_final/spawn_column.png",
+			"position": [
+				-4.0,
+				0.600000023841858,
+				2.59999990463257
+			],
+			"target": [
+				-2.0,
+				1.60000002384186,
+				0.0
+			],
+			"view_id": "spawn_column",
+			"width": 960
+		},
+		{
+			"height": 540,
+			"path": "res://evidence/2026-10-24-issue-163/captures_final/column_south.png",
+			"position": [
+				-2.0,
+				0.600000023841858,
+				2.0
+			],
+			"target": [
+				-2.0,
+				1.60000002384186,
+				0.0
+			],
+			"view_id": "column_south",
+			"width": 960
+		},
+		{
+			"height": 540,
+			"path": "res://evidence/2026-10-24-issue-163/captures_final/column_west.png",
+			"position": [
+				-4.0,
+				0.600000023841858,
+				0.0
+			],
+			"target": [
+				-2.0,
+				1.60000002384186,
+				0.0
+			],
+			"view_id": "column_west",
+			"width": 960
+		},
+		{
+			"height": 540,
+			"path": "res://evidence/2026-10-24-issue-163/captures_final/open_passage.png",
+			"position": [
+				4.0,
+				0.600000023841858,
+				0.0
+			],
+			"target": [
+				8.0,
+				1.20000004768372,
+				0.0
+			],
+			"view_id": "open_passage",
+			"width": 960
+		},
+		{
+			"height": 540,
+			"path": "res://evidence/2026-10-24-issue-163/captures_final/hallway_end.png",
+			"position": [
+				8.0,
+				0.600000023841858,
+				0.0
+			],
+			"target": [
+				12.5,
+				1.20000004768372,
+				0.0
+			],
+			"view_id": "hallway_end",
+			"width": 960
+		},
+		{
+			"height": 540,
+			"path": "res://evidence/2026-10-24-issue-163/captures_final/hallway_return.png",
+			"position": [
+				8.0,
+				0.600000023841858,
+				0.0
+			],
+			"target": [
+				4.0,
+				1.20000004768372,
+				0.0
+			],
+			"view_id": "hallway_return",
+			"width": 960
+		},
+		{
+			"height": 540,
+			"path": "res://evidence/2026-10-24-issue-163/captures_final/room_corner.png",
+			"position": [
+				4.0,
+				0.600000023841858,
+				3.0
+			],
+			"target": [
+				5.5,
+				1.5,
+				4.69999980926514
+			],
+			"view_id": "room_corner",
+			"width": 960
+		}
+	],
+	"registration_accepted": false,
+	"renderer": "Vulkan; Godot project PSX compositor enabled",
+	"scale_calibrated": false,
+	"scene": "res://evidence/2026-10-24-issue-163/issue163_room.tscn",
+	"settle_frames": 12
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "stage_id": "mechanics_contract",
+  "adaptation_id": "corridor-corner-authored-l-corridor-v1",
+  "candidate_fingerprint": "cdfe4cda3dc944adbf84e914729fe56bff58f7650c57595f66819a1f018f44a4",
+  "command": [
+    "godot4",
+    "--headless",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://scripts/test_issue165_transfer_room.gd",
+    "--",
+    "--out=res://evidence/2026-10-25-issue-165/mechanics/runner/transfer_room_runtime.json"
+  ],
+  "expected_exit_code": 0,
+  "return_code": 0,
+  "elapsed_seconds": 0.273,
+  "finished_at_utc": "2026-10-25T06:56:34.819789+00:00",
+  "artifacts": [
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner/transfer_room_runtime.json",
+      "sha256": "853ff74b6b2e0a3ba7a8070f3bb86d8f8e60652ecda9311fcd51f81065a19938",
+      "role": "explicit workflow stage output"
+    }
+  ],
+  "stdout_sha256": "277c06eef5937211bbb26e0dc5329b75f39eb7b375f94fb932fa88783ec5b5e1",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

@@ -1,0 +1,12 @@
+{
+	"baseline": false,
+	"capped_at_60": true,
+	"counter": "RenderingServer.frame_post_draw",
+	"elapsed_s": 6.245885,
+	"fps": 239.998014692874,
+	"frames": 1499,
+	"p95_frame_ms": 4.309,
+	"p99_frame_ms": 4.382,
+	"poses": 25,
+	"scene": "res://scenes/issue164_three_room_walkthrough.tscn"
+}

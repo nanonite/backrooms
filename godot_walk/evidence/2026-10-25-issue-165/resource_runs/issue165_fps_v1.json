@@ -1,0 +1,43 @@
+{
+  "label": "issue165_fps_v1",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--script",
+    "res://scripts/measure_bounded_fps.gd",
+    "--",
+    "--scene=res://scenes/issue165_corridor_corner_transfer.tscn",
+    "--out-dir=res://evidence/2026-10-25-issue-165/mechanics/performance",
+    "--label=issue165_transfer_v1"
+  ],
+  "timeout_seconds": 240,
+  "timed_out": false,
+  "return_code": 1,
+  "error": null,
+  "elapsed_seconds": 0.965,
+  "finished_utc": "2026-10-25T07:06:09.858118+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 10586423296,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 0,
+    "compute_apps": [],
+    "ram_available_bytes": 18270986240,
+    "vram_after_headroom_bytes": 8469138636,
+    "ram_after_headroom_bytes": 13703239680,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 543260672,
+    "gpu_memory_start_bytes": 1860173824,
+    "peak_gpu_memory_used_bytes": 2018508800,
+    "peak_gpu_memory_delta_bytes": 158334976,
+    "gpu_sample_period_ms": 500
+  }
+}

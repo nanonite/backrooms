@@ -1,0 +1,12 @@
+{
+	"baseline": false,
+	"capped_at_60": false,
+	"counter": "RenderingServer.frame_post_draw",
+	"elapsed_s": 17.505807,
+	"fps": 239.863263658739,
+	"frames": 4199,
+	"p95_frame_ms": 5.254,
+	"p99_frame_ms": 5.527,
+	"poses": 14,
+	"scene": "res://scenes/issue165_corridor_corner_transfer.tscn"
+}

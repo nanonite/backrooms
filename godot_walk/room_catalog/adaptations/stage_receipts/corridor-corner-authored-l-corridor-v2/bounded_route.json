@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "stage_id": "bounded_route",
+  "adaptation_id": "corridor-corner-authored-l-corridor-v2",
+  "candidate_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+  "command": [
+    "godot4",
+    "--headless",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://scripts/verify_bounded_psx.gd",
+    "--",
+    "--scene=res://scenes/issue165_corridor_corner_transfer.tscn",
+    "--out-dir=res://evidence/2026-10-25-issue-165/mechanics/runner_v3/bounded"
+  ],
+  "expected_exit_code": 0,
+  "return_code": 0,
+  "elapsed_seconds": 47.579,
+  "finished_at_utc": "2026-10-25T07:12:40.679804+00:00",
+  "artifacts": [
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/bounded/physics_candidate.json",
+      "sha256": "1e894d982f0d8653ec3a8f534d5b14e68fa453a676207e37954dcb5d5a1c44e9",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/bounded/boundary_positions.json",
+      "sha256": "f9670dc4648266fa33c37f6b90e27cf1307eed5c8b5c321c06a3493ea58b29d0",
+      "role": "explicit workflow stage output"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/mechanics/runner_v3/bounded/route_positions.json",
+      "sha256": "beb3e4ff420e2963f2a76a6dd358f3676322b76a51c881fe11c8de73a63ba79a",
+      "role": "explicit workflow stage output"
+    }
+  ],
+  "stdout_sha256": "7d8c855d1f3c34693adcdf456687203296eae54f453d332c9096276aad74a354",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

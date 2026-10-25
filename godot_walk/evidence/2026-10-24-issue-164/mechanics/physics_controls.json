@@ -1,0 +1,27 @@
+{
+	"controls": {
+		"blocked_connector": {
+			"blocked_crossing_collides": true,
+			"unblocked_crossing_clear": true
+		},
+		"missing_floor": {
+			"fall_path_clear_after_removal": true,
+			"floor_blocks_fall_before_removal": true
+		},
+		"open_boundary": {
+			"closed_boundary_blocks_escape": true,
+			"removed_boundary_allows_escape": true
+		},
+		"source_room_column_obstacle": {
+			"approach_collides": true,
+			"center_world": [
+				24.5599994659424,
+				0.329009503126144,
+				3.09999990463257
+			],
+			"collision_node_present": true
+		}
+	},
+	"failures": [],
+	"issue": 164
+}

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/issue164_three_room_walkthrough.gd" id="1_walkthrough"]
+
+[node name="Issue164ThreeRoomWalkthrough" type="Node3D"]
+script = ExtResource("1_walkthrough")

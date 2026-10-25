@@ -1,0 +1,18 @@
+{
+  "candidate_id": "room_large_video_psx_v1",
+  "decision": "accepted_as_authored_room_baseline",
+  "reviewed_at": "2026-10-24",
+  "operator_statement": "looks pretty good to me, we can run with that, i approve",
+  "approval_scope": [
+    "authored source-textured Godot room design",
+    "walkable room and hallway baseline for the room-completion workflow"
+  ],
+  "not_approved": [
+    "Hunyuan-generated panorama or mesh",
+    "video registration",
+    "metric scale calibration",
+    "module catalog admission"
+  ],
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

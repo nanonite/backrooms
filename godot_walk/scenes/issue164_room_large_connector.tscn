@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://evidence/2026-10-24-issue-163/issue163_room.tscn" id="1_baseline"]
+[ext_resource type="Script" path="res://scripts/issue164_room_large_connector.gd" id="2_adapter"]
+
+[node name="Issue164RoomLargeConnector" instance=ExtResource("1_baseline")]
+script = ExtResource("2_adapter")
+include_player = false

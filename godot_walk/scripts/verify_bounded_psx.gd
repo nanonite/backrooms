@@ -38,7 +38,12 @@ func _verify() -> void:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(evidence_dir))
 	scene = packed.instantiate()
 	root.add_child(scene)
-	player = scene.get_node("Player")
+	await process_frame
+	player = scene.get_node_or_null("Player") as CharacterBody3D
+	if player == null:
+		printerr("Requested scene did not provide a Player after initialization")
+		quit(1)
+		return
 	if not _apply_mutation():
 		return
 	await _settle()
@@ -55,29 +60,91 @@ func _apply_mutation() -> bool:
 	if mutation == "boundary":
 		var boundary_path: String = scene.get_meta(
 			"boundary_test_path", "AuthoredBoundaries/EastPartition")
-		var boundary := scene.get_node_or_null(boundary_path)
-		if boundary == null:
-			printerr("Boundary negative control target is missing: %s" % boundary_path)
-			quit(1)
-			return false
-		boundary.queue_free()
+		if scene.has_method("stream_set_boundary_negative"):
+			var path_parts := boundary_path.split("/", false)
+			if path_parts.size() < 2 or not scene.call("stream_set_boundary_negative",
+					path_parts[0], "/".join(path_parts.slice(1))):
+				printerr("Boundary negative control target is missing: %s" % boundary_path)
+				quit(1)
+				return false
+		else:
+			var boundary := scene.get_node_or_null(boundary_path)
+			if boundary == null:
+				printerr("Boundary negative control target is missing: %s" % boundary_path)
+				quit(1)
+				return false
+			boundary.queue_free()
 	elif mutation == "floor":
 		var floor_bodies: PackedStringArray = scene.get_meta(
 			"walk_floor_bodies", PackedStringArray(["GeneratedCollision"]))
-		for body_name in floor_bodies:
-			var floor_body := scene.find_child(body_name, true, false)
-			if floor_body != null:
-				floor_body.queue_free()
+		var removed := 0
+		if scene.has_method("stream_set_floor_negative"):
+			for body_name in floor_bodies:
+				var pattern := "ConnectorThreshold*" if body_name == "ConnectorThreshold" else body_name
+				removed += scene.find_children(pattern, "StaticBody3D", true, false).size()
+			scene.call("stream_set_floor_negative", true)
+		else:
+			removed = _remove_configured_floors(floor_bodies)
+		if removed == 0:
+			printerr("Floor negative control found no configured floor bodies")
+			quit(1)
+			return false
+		print("FLOOR_NEGATIVE_CONTROL removed=%d" % removed)
+	elif mutation == "connector":
+		if not _block_first_connector():
+			return false
 	elif mutation != "":
-		printerr("Mutation requires a bounded scene and boundary or floor")
+		printerr("Mutation requires a bounded scene and boundary, floor or connector")
 		quit(1)
 		return false
 	return true
 
 
+func _block_first_connector() -> bool:
+	var connections: Array = scene.get_meta("candidate_connections", [])
+	if connections.is_empty() or not scene.has_method("get_connection_socket_world"):
+		printerr("Connector negative control requires generated connection metadata")
+		quit(1)
+		return false
+	var socket: Dictionary = scene.call("get_connection_socket_world", connections[0].from)
+	if socket.is_empty():
+		printerr("Connector negative control could not resolve a socket")
+		quit(1)
+		return false
+	var center: Vector3 = socket.position
+	var normal: Vector3 = socket.normal
+	var size: Array = socket.size
+	var clear_height := float(size[1])
+	var clear_width := float(size[0])
+	var dimensions := Vector3(0.35, clear_height, clear_width) if absf(normal.x) > 0.9 else Vector3(clear_width, clear_height, 0.35)
+	var blocker := StaticBody3D.new()
+	blocker.name = "NegativeControlBlockedConnector"
+	blocker.position = center + Vector3.UP * (clear_height * 0.5)
+	var collision := CollisionShape3D.new()
+	var shape := BoxShape3D.new()
+	shape.size = dimensions
+	collision.shape = shape
+	blocker.add_child(collision)
+	scene.add_child(blocker)
+	print("CONNECTOR_NEGATIVE_CONTROL blocked=%s" % connections[0].id)
+	return true
+
+
+func _remove_configured_floors(floor_bodies: PackedStringArray) -> int:
+	var removed := 0
+	for body_name in floor_bodies:
+		var pattern := "ConnectorThreshold*" if body_name == "ConnectorThreshold" else body_name
+		for floor_body in scene.find_children(pattern, "StaticBody3D", true, false):
+			floor_body.queue_free()
+			removed += 1
+	return removed
+
+
 func _finish_results() -> void:
 	results["failures"] = failures
 	results["scene"] = scene_path
+	if scene.get_meta("streaming_enabled", false):
+		results["streaming"] = _streaming_report()
 	var label := "candidate" if scene.has_node("AuthoredBoundaries") else "baseline"
 	if mutation != "":
 		label += "_broken_" + mutation
@@ -91,6 +158,22 @@ func _finish_results() -> void:
 	file.store_string(JSON.stringify(results, "\t") + "\n")
 	print("BOUNDED_PHYSICS " + JSON.stringify(results))
 	quit(0 if failures.is_empty() else 1)
+
+
+func _streaming_report() -> Dictionary:
+	return {
+		"center_id": scene.get_meta("stream_center_id", ""),
+		"loaded_ids": scene.get_meta("stream_loaded_ids", PackedStringArray()),
+		"loaded_count": scene.get_meta("stream_loaded_count", 0),
+		"peak_resident": scene.get_meta("stream_peak_resident", 0),
+		"cached_module_count": scene.get_meta("stream_cached_module_count", 0),
+		"total_module_instances": scene.get_meta("stream_total_module_instances", 0),
+		"max_cached_module_types": scene.get_meta("stream_max_cached_module_types", 0),
+		"max_resident": scene.get_meta("stream_max_resident", 0),
+		"load_events": scene.get_meta("stream_load_events", 0),
+		"unload_events": scene.get_meta("stream_unload_events", 0),
+		"frontier_caps": scene.get_meta("stream_frontier_cap_count", 0),
+	}
 
 
 func _route() -> void:
@@ -214,6 +297,10 @@ func _write_route_positions(route_points: Array) -> void:
 
 
 func _measure_walkable_area() -> void:
+	if scene.get_meta("streaming_enabled", false):
+		results["walkable_area"] = {"measured": false,
+			"reason": "bounded layout streaming exposes only the resident window to the physics query"}
+		return
 	var collision := player.get_node_or_null("CollisionShape3D") as CollisionShape3D
 	if (collision == null or collision.shape == null
 			or not (collision.shape is CapsuleShape3D)):

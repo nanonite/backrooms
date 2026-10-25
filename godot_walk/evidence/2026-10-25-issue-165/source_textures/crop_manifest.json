@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "frame_manifest": "godot_walk/evidence/2026-10-25-issue-165/source_frames/extraction_manifest.json",
+  "frame_manifest_sha256": "81f1ea166b6e55a854021960e6636e032217d0ab3558a512aad8ae4672c9b537",
+  "operation": "direct_rectangular_crop_no_resize_or_color_edit",
+  "crops": [
+    {
+      "name": "wallpaper_source_frame_0001",
+      "frame_id": "frame_0001",
+      "source_pixel_bounds_xyxy": [
+        100,
+        390,
+        510,
+        650
+      ],
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/wallpaper_source_frame_0001.png",
+      "dimensions": [
+        410,
+        260
+      ],
+      "sha256": "01c888290865329b4a08f3dd0411954e959a58a2c8222bbdac677f0703ccdd62"
+    },
+    {
+      "name": "floor_source_frame_0001",
+      "frame_id": "frame_0001",
+      "source_pixel_bounds_xyxy": [
+        120,
+        820,
+        520,
+        1035
+      ],
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/floor_source_frame_0001.png",
+      "dimensions": [
+        400,
+        215
+      ],
+      "sha256": "8ba029d1c90f12a2627cc2c06fdb51382ee76a75b3bc187461a228346d13d01d"
+    },
+    {
+      "name": "ceiling_source_frame_0001",
+      "frame_id": "frame_0001",
+      "source_pixel_bounds_xyxy": [
+        100,
+        0,
+        520,
+        220
+      ],
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/ceiling_source_frame_0001.png",
+      "dimensions": [
+        420,
+        220
+      ],
+      "sha256": "7145766118232230d31f986c488ad43df1edc34b98e0c5b345447d0457ea9b0f"
+    },
+    {
+      "name": "column_source_frame_0001",
+      "frame_id": "frame_0001",
+      "source_pixel_bounds_xyxy": [
+        555,
+        300,
+        710,
+        720
+      ],
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/column_source_frame_0001.png",
+      "dimensions": [
+        155,
+        420
+      ],
+      "sha256": "7e2ad7a75731757e0d28cc8f7d1c9bdb94decf8386b88c44236657f49babb40f"
+    }
+  ]
+}

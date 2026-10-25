@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/layout.schema.json",
+  "title": "Finite generated Godot room layout",
+  "type": "object",
+  "required": [
+    "schema_version", "layout_id", "generator_version", "catalog_id",
+    "catalog_version", "catalog_sha256", "catalog_snapshot_path", "seed",
+    "settings", "registration_accepted", "scale_calibrated", "mechanical_status",
+    "operator_status", "topology", "placements", "connections", "walk_route_xz",
+    "layout_sha256"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "layout_id": { "type": "string", "minLength": 1 },
+    "generator_version": { "type": "string", "minLength": 1 },
+    "catalog_id": { "const": "godot_psx_room_kit" },
+    "catalog_version": { "type": "string", "minLength": 1 },
+    "catalog_sha256": { "$ref": "#/$defs/sha256" },
+    "catalog_snapshot_path": { "type": "string", "pattern": "^res://evidence/" },
+    "seed": { "type": "integer", "minimum": 0, "maximum": 4294967295 },
+    "registration_accepted": { "const": false },
+    "scale_calibrated": { "const": false },
+    "mechanical_status": { "enum": ["candidate_validation_pending", "mechanically_validated"] },
+    "operator_status": { "const": "review_pending" },
+    "settings": {
+      "type": "object",
+      "required": ["placement_count", "branch_required", "loops", "layout_bounds_m"],
+      "properties": {
+        "placement_count": { "type": "integer", "minimum": 10, "maximum": 20 },
+        "branch_required": { "const": true },
+        "loops": { "const": false },
+        "layout_bounds_m": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 },
+        "streaming": {
+          "type": "object",
+          "required": ["mode", "graph_radius", "max_resident_modules", "retain_backtracking"],
+          "properties": {
+            "mode": { "const": "bounded_graph_window" },
+            "graph_radius": { "const": 1 },
+            "max_resident_modules": { "const": 4 },
+            "retain_backtracking": { "const": true }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "topology": { "type": "object", "required": ["type", "edge_count", "cycle_rank", "dead_end_count"] },
+    "placements": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "required": ["instance_id", "module_id", "module_version", "scene", "scene_sha256", "operator_status", "transform", "open_sockets", "connected_sockets"],
+        "properties": {
+          "instance_id": { "type": "string" },
+          "module_id": { "type": "string" },
+          "module_version": { "type": "integer", "minimum": 1 },
+          "scene": { "type": "string", "pattern": "^res://scenes/" },
+          "scene_sha256": { "$ref": "#/$defs/sha256" },
+          "operator_status": { "type": "string" },
+          "transform": {
+            "type": "object",
+            "required": ["position", "yaw_degrees"],
+            "properties": {
+              "position": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+              "yaw_degrees": { "enum": [0, 90, 180, 270] }
+            },
+            "additionalProperties": false
+          },
+          "open_sockets": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+          "connected_sockets": { "type": "object" }
+        }
+      }
+    },
+    "connections": { "type": "array", "items": { "type": "object", "required": ["id", "from", "to", "compatibility_type", "mechanical_status", "operator_status"] } },
+    "walk_route_xz": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 }
+    },
+    "layout_sha256": { "$ref": "#/$defs/sha256" }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

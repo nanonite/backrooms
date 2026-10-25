@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="700" viewBox="0 0 1040 700">
+  <rect width="1040" height="700" fill="#20211e"/>
+  <text x="38" y="46" fill="#f3e8c3" font-family="sans-serif" font-size="26" font-weight="bold">#163 — authored room proposal</text>
+  <text x="38" y="76" fill="#d7cda9" font-family="sans-serif" font-size="15">Inspired by source frame 0013 from room_large.mp4 · plan orientation and dimensions are author choices</text>
+  <g transform="translate(106 130)" font-family="sans-serif">
+    <rect x="0" y="0" width="480" height="400" fill="#9c8f5c" stroke="#f3e8c3" stroke-width="9"/>
+    <rect x="480" y="140" width="280" height="120" fill="#9c8f5c" stroke="#f3e8c3" stroke-width="9"/>
+    <rect x="0" y="0" width="480" height="400" fill="none" stroke="#766b48" stroke-width="1"/>
+    <rect x="142" y="142" width="56" height="56" fill="#b9aa6e" stroke="#f3e8c3" stroke-width="3"/>
+    <text x="112" y="230" fill="#28271f" font-size="15" font-weight="bold">ONE BOX COLUMN</text>
+    <circle cx="89" cy="220" r="9" fill="#7ed0c0" stroke="#172521" stroke-width="3"/>
+    <path d="M89 220 L89 320 L290 320 L420 320 L520 200 L700 200" fill="none" stroke="#71d8c9" stroke-width="7" stroke-dasharray="12 8"/>
+    <path d="M480 140 L480 0 M480 400 L480 260" fill="none" stroke="#f3e8c3" stroke-width="9"/>
+    <text x="505" y="190" fill="#20211e" font-size="14" font-weight="bold">OPEN PASSAGE</text>
+    <text x="685" y="187" fill="#f3e8c3" font-size="14">HALL END</text>
+    <text x="195" y="48" fill="#28271f" font-size="18" font-weight="bold">LARGE ROOM</text>
+    <text x="555" y="292" fill="#d7cda9" font-size="14">authored extension</text>
+    <text x="34" y="378" fill="#d7cda9" font-size="13">AUTHORED FLOOR / WALL / CEILING SHELL</text>
+    <text x="0" y="432" fill="#d7cda9" font-size="13">Design convention only; no physical scale or source registration</text>
+  </g>
+  <g transform="translate(780 140)" font-family="sans-serif">
+    <text x="0" y="0" fill="#f3e8c3" font-size="18" font-weight="bold">VIDEO OBSERVATION</text>
+    <text x="0" y="32" fill="#d7cda9" font-size="14">Frame 0013 directly shows:</text>
+    <text x="0" y="60" fill="#d7cda9" font-size="14">• wallpapered interior</text>
+    <text x="0" y="86" fill="#d7cda9" font-size="14">• a foreground column</text>
+    <text x="0" y="112" fill="#d7cda9" font-size="14">• ceiling grid and lights</text>
+    <text x="0" y="138" fill="#d7cda9" font-size="14">• carpet-like floor</text>
+    <text x="0" y="164" fill="#d7cda9" font-size="14">• open view into a passage</text>
+    <text x="0" y="220" fill="#f3e8c3" font-size="18" font-weight="bold">NOT ESTABLISHED</text>
+    <text x="0" y="252" fill="#d7cda9" font-size="14">• room bounds and dimensions</text>
+    <text x="0" y="278" fill="#d7cda9" font-size="14">• unseen wall placement</text>
+    <text x="0" y="304" fill="#d7cda9" font-size="14">• other-room connectivity</text>
+    <text x="0" y="330" fill="#d7cda9" font-size="14">• camera FOV / metric scale</text>
+    <text x="0" y="384" fill="#80d5c6" font-size="14">Dashed line = designed route</text>
+    <text x="0" y="410" fill="#f3e8c3" font-size="14">Green circle = spawn</text>
+    <text x="0" y="458" fill="#d7cda9" font-size="13">No connector to another</text>
+    <text x="0" y="478" fill="#d7cda9" font-size="13">module is implied.</text>
+  </g>
+</svg>
