@@ -1,0 +1,70 @@
+{
+  "scene": "res://scenes/issue166_four_room_walkthrough.tscn",
+  "placements": 4,
+  "distinct_module_designs": 4,
+  "out_and_back": {
+    "distance_m": 107.466902181506,
+    "floor_fraction": 1.0,
+    "max_step_m": 0.0666751861572266,
+    "safety_contacts": 0,
+    "stale_contact_references": 0,
+    "support_bodies": {
+      "AuthoredFloor": 291,
+      "AuthoredPlanarRouteFloor": 889,
+      "ConnectorThreshold_000": 5,
+      "ConnectorThreshold_001": 8,
+      "ConnectorThreshold_002": 4,
+      "WalkableFloor": 417
+    },
+    "ticks": 1613
+  },
+  "route_targets_reached": 51,
+  "route_target_count": 51,
+  "new_connection_crossings": {
+    "seam_x": 28.56,
+    "large_room_to_corridor_count": 1,
+    "corridor_to_large_room_count": 1,
+    "large_room_to_corridor": [
+      {
+        "from": [
+          28.5559940338135,
+          -0.670990467071533,
+          3.09979844093323
+        ],
+        "to": [
+          28.6226615905762,
+          -0.670990467071533,
+          3.09981441497803
+        ],
+        "tick": 598
+      }
+    ],
+    "corridor_to_large_room": [
+      {
+        "from": [
+          28.6215782165527,
+          -0.670990467071533,
+          3.10428500175476
+        ],
+        "to": [
+          28.5549240112305,
+          -0.670990467071533,
+          3.10299587249756
+        ],
+        "tick": 1015
+      }
+    ]
+  },
+  "negative_controls": {
+    "blocked_connector": true,
+    "missing_floor": {
+      "floor_blocks_fall": true,
+      "removed_floor_allows_fall": true
+    },
+    "open_boundary": {
+      "closed_wall_blocks": true,
+      "removed_wall_allows_escape": true
+    }
+  },
+  "failures": []
+}

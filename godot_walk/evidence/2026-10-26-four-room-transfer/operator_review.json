@@ -1,0 +1,16 @@
+{
+  "issue": 166,
+  "recorded_at_utc": "2026-10-26T14:13:14.140701+00:00",
+  "reviewer": "operator",
+  "decision": "accepted",
+  "review_outcome": "accepted_for_this_layout",
+  "adaptation_id": "corridor-corner-socket-candidate-v1",
+  "candidate_identity": "d5aaeacd623ada369b4826e576d216c19fc2829754a1630a7c2f9bdcb5b0ae0f",
+  "reviewed_layout_id": "issue166_four_distinct_room_chain_seed_166",
+  "reviewed_connection_id": "R002.west_back__R003.west",
+  "operator_feedback": "The current four-room state looks very good; the connection and layout look right.",
+  "review_method": "Operator live walkthrough and visual review. Agent captures remain pending because the GPU guard is occupied.",
+  "scope": "Accepts this exact seed-166 four-room layout and authored R002.west_back to R003.west connection. Does not admit either candidate module to the shared catalog, approve metric scale or source registration, establish source-video connectivity, or generalize the connector.",
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

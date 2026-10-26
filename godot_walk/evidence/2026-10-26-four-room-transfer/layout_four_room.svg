@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="500" viewBox="0 0 1120 500" role="img" aria-labelledby="title desc">
+  <title id="title">Seed 166 four-room authored connection candidate</title>
+  <desc id="desc">A schematic chain of four distinct room designs. The new connector between the accepted source-textured room and the corridor is authored and does not imply source-video connectivity.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#f4d35e"/></marker>
+    <style>
+      text { font-family: sans-serif; fill: #f3f2ee; }
+      .room { stroke: #e8e4dc; stroke-width: 2; rx: 10; }
+      .accepted { fill: #344b45; }
+      .candidate { fill: #51403a; stroke-dasharray: 8 5; }
+      .small { font-size: 14px; fill: #d5d2ca; }
+      .label { font-size: 18px; font-weight: 700; }
+      .edge { stroke: #f4d35e; stroke-width: 4; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1120" height="500" fill="#15191d"/>
+  <text x="36" y="42" class="label">Finite playable comparison · seed 166 · 4 distinct designs / 3 connections</text>
+  <text x="36" y="70" class="small">Schematic order only; not a recovered floor plan. Registration and metric scale are unaccepted.</text>
+
+  <rect x="42" y="190" width="205" height="130" class="room accepted"/>
+  <text x="62" y="222" class="label">R000 · #160</text>
+  <text x="62" y="249" class="small">Column room</text>
+  <text x="62" y="274" class="small">Accepted #164 prefix</text>
+
+  <rect x="310" y="190" width="150" height="130" class="room accepted"/>
+  <text x="330" y="222" class="label">R001 · #149</text>
+  <text x="330" y="249" class="small">Pocket</text>
+  <text x="330" y="274" class="small">Accepted #164 prefix</text>
+
+  <rect x="525" y="158" width="248" height="194" class="room candidate"/>
+  <text x="547" y="194" class="label">R002 · #163 adapter</text>
+  <text x="547" y="225" class="small">Source-textured room</text>
+  <text x="547" y="251" class="small">Accepted design; new west socket</text>
+  <text x="547" y="277" class="small">Candidate connection only</text>
+  <text x="547" y="320" class="small">Unused openings capped standalone</text>
+
+  <path d="M811 185 h180 v140 h-180 v-46 h-55 v-48 h55 z" class="room candidate"/>
+  <text x="837" y="222" class="label">R003 · #165 adapter</text>
+  <text x="837" y="250" class="small">L-shaped corridor</text>
+  <text x="837" y="276" class="small">Accepted design; west socket</text>
+  <text x="837" y="301" class="small">Other edges closed</text>
+
+  <line x1="247" y1="255" x2="309" y2="255" class="edge"/>
+  <line x1="460" y1="255" x2="524" y2="255" class="edge"/>
+  <line x1="773" y1="255" x2="811" y2="255" class="edge"/>
+  <rect x="661" y="125" width="12" height="260" fill="#f4d35e" opacity=".24"/>
+  <text x="523" y="396" class="small">NEW · authored gameplay doorway, not source-proven</text>
+  <text x="42" y="448" class="small">Accepted prefix connections are regression references. New connector and candidate catalog admission await operator review.</text>
+  <text x="42" y="474" class="small">Walkable footprints meet at the socket; visual placement envelopes overlap at the door-frame seam.</text>
+</svg>

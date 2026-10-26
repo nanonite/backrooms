@@ -1,0 +1,33 @@
+{
+	"godot_version": "4.6.3-stable (official)",
+	"scene": "res://scenes/issue166_four_room_walkthrough.tscn",
+	"scene_ready_ms": 2352.201,
+	"views": [
+		{
+			"camera_position": [
+				26.6000003814697,
+				0.330000013113022,
+				3.09999990463257
+			],
+			"look_at": [
+				30.5,
+				0.330000013113022,
+				3.09999990463257
+			],
+			"path": "connection_large_room_to_corridor.png"
+		},
+		{
+			"camera_position": [
+				30.5,
+				0.330000013113022,
+				3.09999990463257
+			],
+			"look_at": [
+				26.6000003814697,
+				0.330000013113022,
+				3.09999990463257
+			],
+			"path": "connection_corridor_to_large_room.png"
+		}
+	]
+}

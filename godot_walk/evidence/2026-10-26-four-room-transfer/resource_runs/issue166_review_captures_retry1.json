@@ -1,0 +1,41 @@
+{
+  "label": "issue166_review_captures_retry1",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--script",
+    "res://scripts/capture_issue166_four_room.gd",
+    "--",
+    "--out-dir=res://evidence/2026-10-26-four-room-transfer/captures"
+  ],
+  "timeout_seconds": 240,
+  "timed_out": false,
+  "return_code": 0,
+  "error": null,
+  "elapsed_seconds": 3.519,
+  "finished_utc": "2026-10-26T14:14:47.758105+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11421089792,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 19,
+    "compute_apps": [],
+    "ram_available_bytes": 45647142912,
+    "vram_after_headroom_bytes": 9136871833,
+    "ram_after_headroom_bytes": 34235357184,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 2425970688,
+    "gpu_memory_start_bytes": 1025507328,
+    "peak_gpu_memory_used_bytes": 1593835520,
+    "peak_gpu_memory_delta_bytes": 568328192,
+    "gpu_sample_period_ms": 500
+  }
+}

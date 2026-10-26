@@ -1,0 +1,1159 @@
+{
+  "schema_version": 3,
+  "contract_id": "godot_video_room_completion",
+  "contract_version": "3.0.0",
+  "contract_freeze": {
+    "path": "godot_walk/room_catalog/contract_freeze_v3.json",
+    "sha256": "91c0cb1b47f980193a47d8e221b366f2d452256fa7b383adc818a177c9813ba1"
+  },
+  "adaptation_id": "corridor-corner-socket-candidate-v1",
+  "status": "accepted_reference",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_observations": {
+    "video": {
+      "path": "data/videos/corridor_corner.mp4",
+      "sha256": "51abd379f94b8f84799c79927113f37c03014b41b0d5f0d4c23095d3d67587e0",
+      "width": 1920,
+      "height": 1080,
+      "fps": 24.0,
+      "frame_count": 96,
+      "duration_seconds": 4.0
+    },
+    "suitability": {
+      "decision": "proceed_with_limitations",
+      "rationale": [
+        "This is the best available local transfer fixture with visibly different room-and-corridor context from accepted room_large.mp4.",
+        "It is a synthetic clip and was previously inspected as part of capture-gate inventory, so it is not a pristine unfamiliar holdout.",
+        "Its short camera path shows ceiling and wall discontinuities; this tests a bounded authored completion under visible source uncertainty.",
+        "No other local clip was found that is both sufficiently different and useful for an authored walkable room without new video generation.",
+        "corridor_travel.mp4 is familiar regression evidence and was not counted as a clean transfer fixture."
+      ]
+    },
+    "frames": [
+      {
+        "frame_id": "frame_0001",
+        "index_zero_based": 0,
+        "timestamp_seconds": 0.0,
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0001.png",
+        "sha256": "870721029e26f1f3a58c347ade1167c47d13755d68497d9e96e5f056acc3f8f4",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": [
+          {
+            "role": "wallpaper",
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/wallpaper_source_frame_0001.png",
+            "sha256": "01c888290865329b4a08f3dd0411954e959a58a2c8222bbdac677f0703ccdd62",
+            "source_pixel_bounds_xyxy": [
+              100,
+              390,
+              510,
+              650
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "floor",
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/floor_source_frame_0001.png",
+            "sha256": "8ba029d1c90f12a2627cc2c06fdb51382ee76a75b3bc187461a228346d13d01d",
+            "source_pixel_bounds_xyxy": [
+              120,
+              820,
+              520,
+              1035
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "ceiling",
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/ceiling_source_frame_0001.png",
+            "sha256": "7145766118232230d31f986c488ad43df1edc34b98e0c5b345447d0457ea9b0f",
+            "source_pixel_bounds_xyxy": [
+              100,
+              0,
+              520,
+              220
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "column",
+            "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/column_source_frame_0001.png",
+            "sha256": "7e2ad7a75731757e0d28cc8f7d1c9bdb94decf8386b88c44236657f49babb40f",
+            "source_pixel_bounds_xyxy": [
+              555,
+              300,
+              710,
+              720
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          }
+        ]
+      },
+      {
+        "frame_id": "frame_0013",
+        "index_zero_based": 12,
+        "timestamp_seconds": 0.5,
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0013.png",
+        "sha256": "4bbad25a2c35d9ca5417c76458ee379c9ed1a84fbb3706a6f91ed451aa0717b0",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      },
+      {
+        "frame_id": "frame_0036",
+        "index_zero_based": 35,
+        "timestamp_seconds": 1.4583333333333333,
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0036.png",
+        "sha256": "2547c27819bbe10a6a1284d9a62acf5fedda49608f24428ce02a03e9a872482c",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      },
+      {
+        "frame_id": "frame_0059",
+        "index_zero_based": 58,
+        "timestamp_seconds": 2.4166666666666665,
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0059.png",
+        "sha256": "bae3bf14a5dbe7b5988ec4e7afd70d590ba1e9c725631d31e6a14f14387c89a3",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      },
+      {
+        "frame_id": "frame_0085",
+        "index_zero_based": 84,
+        "timestamp_seconds": 3.5,
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0085.png",
+        "sha256": "dd090d960ed62b13dcf3891793741da6d45b6df5a10a2c4e7775981f620dde8e",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      },
+      {
+        "frame_id": "frame_0096",
+        "index_zero_based": 95,
+        "timestamp_seconds": 3.9583333333333335,
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0096.png",
+        "sha256": "0d5bd24a19c3e3b73526aa478c35cf481c3151d9183b7419d6654e5391fc150f",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      }
+    ],
+    "observations": [
+      {
+        "claim": "The initial view contains patterned wallpaper, carpet-like flooring, a tiled ceiling, square column faces, and a large open room with partitions.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_0001",
+          "frame_0013"
+        ]
+      },
+      {
+        "claim": "Later views show a long straight hallway with repeated ceiling lights and wallpapered side walls.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_0085",
+          "frame_0096"
+        ]
+      },
+      {
+        "claim": "A turn between the open room and hallway is visible in sampled viewpoints, but continuous navigable connectivity through the filmed camera path is not established.",
+        "certainty": "partially_observed",
+        "frame_ids": [
+          "frame_0036",
+          "frame_0059"
+        ]
+      },
+      {
+        "claim": "Several sampled frames contain bright streaks or inconsistent geometry around ceiling lights, and the wallpaper/floor appearance shifts across the corridor views.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_0013",
+          "frame_0036",
+          "frame_0059"
+        ]
+      },
+      {
+        "claim": "The observed column has multiple visible faces, but its hidden/back faces and exact solid footprint are occluded.",
+        "certainty": "partially_observed",
+        "frame_ids": [
+          "frame_0001",
+          "frame_0013",
+          "frame_0036"
+        ]
+      },
+      {
+        "claim": "The exact room dimensions, metric scale, camera registration, and unseen spaces beyond the visible corridor are not established by this clip.",
+        "certainty": "unknown",
+        "frame_ids": []
+      }
+    ],
+    "unknowns": [
+      "The footage does not calibrate scene scale or camera-to-room registration.",
+      "The camera path and occlusions do not establish the complete floor plan, room count, or connectivity between the open room and later hallway views.",
+      "The far side and hidden faces of the visible column are unknown; the candidate uses an authored four-sided box proposal.",
+      "The true continuation beyond the visible hallway, all off-camera boundaries, and geometry behind the apparent corner remain unknown.",
+      "Ceiling streaks and changes in wallpaper/floor appearance are present in the synthetic source; whether they represent intended features or generation artifacts is unknown.",
+      "The candidate layout does not reconstruct camera poses or source perspective; source frame comparisons are context references, not registered view matches."
+    ]
+  },
+  "reusable_requirements": {
+    "coordinate_convention": "Godot local X/Y/Z with +Y up; design units only, no metric scale claim.",
+    "supported_footprint_representation": "Finite simple orthogonal polygon in XZ; multiple floor regions require explicit unions.",
+    "player": {
+      "controller_scene": "godot_walk/scenes/player.tscn",
+      "capsule_radius": 0.3,
+      "capsule_height": 1.2,
+      "safe_spawn_and_reset": "Spawn in capsule-clear supported floor; R resets to that pose and clears velocity."
+    },
+    "floor_and_ceiling": "Record floor elevation, ceiling envelope, supported route and clearance separately; floor support must remain continuous over traversal.",
+    "collision_policy": "Keep floor, closed room boundaries and obstacle collision authored and tested separately from visual meshes.",
+    "render_placement_policy": "Record a conservative envelope for every visible room mesh and background mesh; rendered placement does not imply walkable support.",
+    "socket_policy": "Distinguish observed source openings, authored sockets and tested connectors. Close unused perimeter edges. A candidate with no tested connector makes no stitchability claim.",
+    "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+    "additional_constraints": [
+      "Keep geometry origin, texture origin, placement assumptions and collision origin as independent provenance fields.",
+      "Source-derived crops may provide appearance for explicitly authored geometry.",
+      "Keep registration_accepted=false and scale_calibrated=false.",
+      "Use existing Godot 4.6.3 controller and frozen material/PSX contract v1.0.0."
+    ]
+  },
+  "resolved_adaptation": {
+    "candidate_version": "corridor-corner-socket-candidate-v1",
+    "catalog_admission": "candidate_not_admitted",
+    "scene_path": "res://scenes/issue166_transfer_room_socket.tscn",
+    "catalog_module_refs": [],
+    "walkable_space": {
+      "coordinate_system": "Local Godot X/Z, +Y up; uncalibrated design units.",
+      "footprint": {
+        "representation": "simple_orthogonal_polygon_xz",
+        "vertices_xz": [
+          [
+            -6,
+            -2
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -7
+          ],
+          [
+            4,
+            -7
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            -6,
+            2
+          ]
+        ]
+      },
+      "floor_elevation": 0.0,
+      "safe_spawn_xyz": [
+        -5.0,
+        0.6,
+        0.0
+      ],
+      "measurement": {
+        "method": "10 cm capsule grid, 2 cm floor clearance, floor rays, 4-neighbor connectivity",
+        "resolution": 0.1,
+        "spawn_connected_area": 44.99,
+        "status": "measured"
+      }
+    },
+    "boundary_and_obstacle_collision": {
+      "collision_origin": "Separate Godot StaticBody3D floor, perimeter and obstacle colliders; the authored west socket uses matching return/header visuals and collision.",
+      "floor_bodies": [
+        "AuthoredBoundaries/WalkableFloor"
+      ],
+      "boundaries": [
+        "AuthoredBoundaries/Boundary_SouthMain",
+        "AuthoredBoundaries/Boundary_InnerElbow",
+        "AuthoredBoundaries/Boundary_FarCap",
+        "AuthoredBoundaries/Boundary_EastOuter",
+        "AuthoredBoundaries/Boundary_NorthMain",
+        "AuthoredBoundaries/WestSocketReturn_Left",
+        "AuthoredBoundaries/WestSocketReturn_Right",
+        "AuthoredBoundaries/WestSocketHeader"
+      ],
+      "obstacles": [
+        "AuthoredBoundaries/SourceObservedColumnObstacle"
+      ],
+      "exposed_boundary_policy": "The west edge is open only in the provisional connection scene. All other edges stay closed. The standalone scene restores the original full west wall; runtime tests probe every closed corridor edge."
+    },
+    "rendered_placement_envelope": {
+      "representation": "conservative_aabb_xyz",
+      "bounds_xyz": {
+        "min": [
+          -6.08,
+          -0.08,
+          -7.08
+        ],
+        "max": [
+          4.08,
+          3.08,
+          2.08
+        ]
+      },
+      "footprint": {
+        "representation": "simple_orthogonal_polygon_xz",
+        "vertices_xz": [
+          [
+            -6.08,
+            -2.08
+          ],
+          [
+            0.08,
+            -2.08
+          ],
+          [
+            0.08,
+            -7.08
+          ],
+          [
+            4.08,
+            -7.08
+          ],
+          [
+            4.08,
+            2.08
+          ],
+          [
+            -6.08,
+            2.08
+          ]
+        ]
+      },
+      "background_geometry": [],
+      "containment_method": "Every MeshInstance3D local AABB corner transformed to world coordinates and checked against the declared conservative AABB; zero escaped meshes across 16 meshes."
+    },
+    "surfaces": [
+      {
+        "surface_id": "wallpaper-shell",
+        "geometry_origin": "Manually authored orthogonal wall geometry; dimensions and L layout are design proposals.",
+        "appearance_origin": "Direct 410x260 source pixel crop from frame_0001 at xyxy [100,390,510,650]; nearest-neighbor unshaded material, no resize/color edit.",
+        "placement_basis": "Approximate room and corridor composition selected to test a bounded L-turn; not a camera-registered source placement.",
+        "collision_origin": "Separate authored perimeter wall StaticBody3D shapes.",
+        "evidence_refs": [
+          "frame_0001",
+          "frame_0013"
+        ]
+      },
+      {
+        "surface_id": "carpet-floor",
+        "geometry_origin": "Two authored rectangular floor slabs forming a continuous L-shaped union.",
+        "appearance_origin": "Direct 400x215 source pixel crop from frame_0001 at xyxy [120,820,520,1035]; no resize/color edit.",
+        "placement_basis": "Layout follows a candidate walkable polygon, not recovered source geometry.",
+        "collision_origin": "Separate authored WalkableFloor body with two collision boxes.",
+        "evidence_refs": [
+          "frame_0001",
+          "frame_0036",
+          "frame_0085"
+        ]
+      },
+      {
+        "surface_id": "tiled-ceiling",
+        "geometry_origin": "Two authored rectangular ceiling planes matching the L-shaped visual floor footprint.",
+        "appearance_origin": "Direct 420x220 source pixel crop from frame_0001 at xyxy [100,0,520,220]; no resize/color edit.",
+        "placement_basis": "3 design-unit ceiling height selected for playable headroom; not measured from footage.",
+        "collision_origin": "No ceiling collision.",
+        "evidence_refs": [
+          "frame_0001",
+          "frame_0036",
+          "frame_0085"
+        ]
+      },
+      {
+        "surface_id": "four-sided-column",
+        "geometry_origin": "One authored 0.9x3.0x0.9 box around the observed column location; complete hidden faces are a design completion.",
+        "appearance_origin": "Direct 155x420 source pixel crop from frame_0001 at xyxy [555,300,710,720]; no resize/color edit.",
+        "placement_basis": "Placed in the first room leg as an authored obstacle; source pixels do not establish its footprint or exact pose.",
+        "collision_origin": "Separate authored full-height box collider matching visible bounds.",
+        "evidence_refs": [
+          "frame_0001",
+          "frame_0013",
+          "frame_0036"
+        ]
+      },
+      {
+        "surface_id": "ceiling-light-panels",
+        "geometry_origin": "Five authored ceiling light panels.",
+        "appearance_origin": "Solid pale material consistent with the source light panels; no source crop applied to emissive lights.",
+        "placement_basis": "Regular spacing along both legs for visual continuity; positions are manual design choices.",
+        "collision_origin": "No collision.",
+        "evidence_refs": [
+          "frame_0001",
+          "frame_0036",
+          "frame_0085"
+        ]
+      }
+    ],
+    "sockets": [
+      {
+        "id": "source-room-passage-visible-frame-0001",
+        "kind": "observed_opening",
+        "status": "source_observation_only",
+        "closure_behavior": "Source-visible gap remains a video observation only; it does not establish the authored game connection."
+      },
+      {
+        "id": "west",
+        "kind": "authored_doorway",
+        "status": "tested_connector",
+        "local_floor_center_xyz": [
+          -6.0,
+          0.0,
+          0.0
+        ],
+        "outward_normal_xyz": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "clear_size": [
+          2.0,
+          2.1
+        ],
+        "approach_clearance": 1.2,
+        "compatibility_type": "level_doorway_2m_v1",
+        "tested_connection_ref": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/traversal_analysis_final_v2.json#R002.west_back__R003.west",
+        "closure_behavior": "Open in the four-room comparison adapter only; capped in the standalone module. Unused corridor edges remain closed.",
+        "floor_elevation": 0.0,
+        "approach_region_xz": {
+          "representation": "simple_orthogonal_polygon_xz",
+          "vertices_xz": [
+            [
+              -5.7,
+              -0.8
+            ],
+            [
+              -4.8,
+              -0.8
+            ],
+            [
+              -4.8,
+              0.8
+            ],
+            [
+              -5.7,
+              0.8
+            ]
+          ]
+        }
+      }
+    ],
+    "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+    "dependencies": [
+      {
+        "path": "data/videos/corridor_corner.mp4",
+        "sha256": "51abd379f94b8f84799c79927113f37c03014b41b0d5f0d4c23095d3d67587e0",
+        "role": "direct source video provenance"
+      },
+      {
+        "path": "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+        "sha256": "01f0d0182ddf3676d4ab85b19179fbd199ad4afce13bef3d781e98264e984376",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/assets/psx_extension/textures/column_source_video.png",
+        "sha256": "327f69745cc5f6c2cc3c8e600a484af7b681b9e14961955d3f661ea10f16b9bc",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+        "sha256": "75dd78545085a49a12ef2b1268821c3aff6ccca6dcdf10620c2e3d7ee4b14bb7",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png",
+        "sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+        "sha256": "f1bfe1ab7aa9ffe416b68f5f24612ff6293d26e7d421c7fb95fda3c66c4210d4",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_collision.glb",
+        "sha256": "0a4479f9c32cdf193d4a4196f8e6330474a7a2254426471b2725220a7b966246",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json",
+        "sha256": "0c2b5bb8a131b53a49a8243296121078caaec83bb14d2a2e5258ad0c6b52b28b",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+        "sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-22-issue-160/bounded_hunyuan_visual.glb",
+        "sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-24-issue-163/issue163_room.gd",
+        "sha256": "61c2c9506a63dcdccda1c262dfa0474c1abc074e12d8447272b9fce7b9a8ef73",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-24-issue-163/issue163_room.tscn",
+        "sha256": "987d4e173705b989c2e831481bc4b63c5721764b7ab0c26af5f418cc28a32d12",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/ceiling.png",
+        "sha256": "ab48519f1f5b564a7f7aa755402700bdb1ba23d68e013db52c905c9462c66b34",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/column_face.png",
+        "sha256": "4a3adba21ca30f7b157a66b5010d9cef6ee9c01ae7c7184b33cb316732ea81bc",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/floor.png",
+        "sha256": "b65b0dd9a188da9a4b55c87adfab30d3c685440f2ece4f3a4aff20a428a8941f",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/wallpaper.png",
+        "sha256": "22a0c83f148483612c8fd2ce9b353a62bb5cefbc6e3f69fa3a4c09a2377240ca",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-24-issue-164/catalog_snapshot.json",
+        "sha256": "d3bc973aff634f293d97bbafd2937bc95a6e0c1ec359707827d2d154e9576dda",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-24-issue-164/layout_three_room.json",
+        "sha256": "b2744d199a3f0596042780b5cc425d76b39fbc4f4e01d4ec6b46786b692723b7",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/REPORT.md",
+        "sha256": "bea2e92353e8b64d7053a845c87c16a4d4d02280f6f91a8e5538e4342b522c70",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/crop_plan.json",
+        "sha256": "c6a5bed70362bb467fec72d52e5ea0b67e7fd439b9e725b082eaa43743f58531",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/extraction_manifest.json",
+        "sha256": "81f1ea166b6e55a854021960e6636e032217d0ab3558a512aad8ae4672c9b537",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0001.png",
+        "sha256": "870721029e26f1f3a58c347ade1167c47d13755d68497d9e96e5f056acc3f8f4",
+        "role": "directly decoded source frame provenance"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0013.png",
+        "sha256": "4bbad25a2c35d9ca5417c76458ee379c9ed1a84fbb3706a6f91ed451aa0717b0",
+        "role": "directly decoded source frame provenance"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0036.png",
+        "sha256": "2547c27819bbe10a6a1284d9a62acf5fedda49608f24428ce02a03e9a872482c",
+        "role": "directly decoded source frame provenance"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0059.png",
+        "sha256": "bae3bf14a5dbe7b5988ec4e7afd70d590ba1e9c725631d31e6a14f14387c89a3",
+        "role": "directly decoded source frame provenance"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0085.png",
+        "sha256": "dd090d960ed62b13dcf3891793741da6d45b6df5a10a2c4e7775981f620dde8e",
+        "role": "directly decoded source frame provenance"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0096.png",
+        "sha256": "0d5bd24a19c3e3b73526aa478c35cf481c3151d9183b7419d6654e5391fc150f",
+        "role": "directly decoded source frame provenance"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/ceiling_source_frame_0001.png",
+        "sha256": "7145766118232230d31f986c488ad43df1edc34b98e0c5b345447d0457ea9b0f",
+        "role": "direct rectangular source texture crop"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/column_source_frame_0001.png",
+        "sha256": "7e2ad7a75731757e0d28cc8f7d1c9bdb94decf8386b88c44236657f49babb40f",
+        "role": "direct rectangular source texture crop"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/crop_manifest.json",
+        "sha256": "8a29377e154ab2e49b467a7effedb3820cca4ba08e2766c04c821d3afffa6055",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/floor_source_frame_0001.png",
+        "sha256": "8ba029d1c90f12a2627cc2c06fdb51382ee76a75b3bc187461a228346d13d01d",
+        "role": "direct rectangular source texture crop"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/wallpaper_source_frame_0001.png",
+        "sha256": "01c888290865329b4a08f3dd0411954e959a58a2c8222bbdac677f0703ccdd62",
+        "role": "direct rectangular source texture crop"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/candidate_manifest.json",
+        "sha256": "4d6ea6e2aa51b4eb0ef353b9538d86bcd6b69c378442fe525f45a3b03e643502",
+        "role": "four-room candidate layout or module snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/catalog_snapshot.json",
+        "sha256": "d516b32ff16fb9f04bde3330a1eeb1c4e562c8b74d01205cf702fa03f649e54a",
+        "role": "four-room candidate layout or module snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/layout_four_room.json",
+        "sha256": "85b298b3efd408007bfdd9145adb0e3bc5cc8e5850d9a2d7ecf22725fa957b18",
+        "role": "four-room candidate layout or module snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/layout_four_room.json.sha256",
+        "sha256": "0d0634515bfeea3db0ca4685d13492291dec64110229f88c971b744e8098c436",
+        "role": "four-room candidate layout or module snapshot"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/assembled_final_v3/boundary_positions.json",
+        "sha256": "1c8f187151a79d91e1d2fdf257604011e9dc616543ace9b34a4d6c218b0acaaa",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/assembled_final_v3/physics_candidate.json",
+        "sha256": "f1b95c73423cd3f28bba739d2f2bcb23777a2b4106664a7bd4589e5f069a3b7f",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/assembled_final_v3/route_positions.json",
+        "sha256": "799e61f365eea64ca6cb502a6317114e6b614ce96a035beb69a1075c9bdf1630",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/connection_controls_final.json",
+        "sha256": "f7527b7918301eba30e2b5ae28fc1cde2e7ca95cb99c8bfd98f2e43f3980ddbd",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/corridor_standalone_final_v2/boundary_positions.json",
+        "sha256": "f9670dc4648266fa33c37f6b90e27cf1307eed5c8b5c321c06a3493ea58b29d0",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/corridor_standalone_final_v2/physics_candidate.json",
+        "sha256": "d900a8edb654b53fcf94dd3b06fc80d502c0404f3b51faa652e516b1702a2aff",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/corridor_standalone_final_v2/route_positions.json",
+        "sha256": "beb3e4ff420e2963f2a76a6dd358f3676322b76a51c881fe11c8de73a63ba79a",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/issue164_regression_verified/boundary_positions.json",
+        "sha256": "01c6330f225e499888744c4ce71d3003d984915b8a859724f7f5408b4bb0d6b7",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/issue164_regression_verified/physics_candidate.json",
+        "sha256": "e2641735e91c73bc658d5cc61f5988e58e1650fe5be7fc03154aedfe92115700",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/issue164_regression_verified/route_positions.json",
+        "sha256": "12e80d2dad52be19ca001f031b1367f2a472b62270062c9d138859b2cd289735",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/large_room_standalone_final_v2/boundary_positions.json",
+        "sha256": "328552ef4c06460d9b5b54a9274bdf20dc228c56cc4b5c7731e3ff5223a2662e",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/large_room_standalone_final_v2/physics_candidate.json",
+        "sha256": "fe819907e07e8c4ac7e036da8b06ea915d12ffdd7a627f61216ff8fd248f89c2",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/large_room_standalone_final_v2/route_positions.json",
+        "sha256": "af8013cdd1220b43052ca7224941be4f5d0b00f196a4a0e8d4a7b0ea45305f40",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/traversal_analysis_final_v2.json",
+        "sha256": "26efa8ae036450ef2997ea3443672a93c572ed31b767f068f60a20b48898efd9",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/protected_asset_hashes.json",
+        "sha256": "abe2b03116efb9e1f877788fa2254ed20cb99108cf2cbedc8fdd92332c3977b0",
+        "role": "read-only integrity record for accepted inputs"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/resource_runs/issue166_four_room_fps.json",
+        "sha256": "298a7e8db533802fe1f1d2cfd34dce5120a9739ae1fc52c1d0ec00110540325e",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/evidence/2026-10-26-four-room-transfer/resource_runs/issue166_review_captures.json",
+        "sha256": "e292118cf0548abc6057ac9c324fd6b53ccf5db0e4b3b24e875464b756e903b2",
+        "role": "measured candidate verification or review evidence"
+      },
+      {
+        "path": "godot_walk/project.godot",
+        "sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/room_catalog/MATERIAL_LANGUAGE.md",
+        "sha256": "0e479479da8069ecbce0a56914517e43fbfa6ae564b173c76aba6390587fcc86",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+        "sha256": "3e8310f3012ed63d588e496e1b7bfbe5f4377638a6129a2e8b38fa510c52d286",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+        "role": "immutable contract catalog snapshot"
+      },
+      {
+        "path": "godot_walk/room_catalog/contract_freeze_v1.json",
+        "sha256": "e6ccc0971e368e17a736f294ffdff47107b99c4f3dc9a09a555ef6c5b22d9d77",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/room_catalog/contract_freeze_v1.sha256",
+        "sha256": "c044232ce38025a660282f93499f2e262c632db2f5c9d2dfe42bbd8ff9df930d",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/room_catalog/video_adaptation.schema.json",
+        "sha256": "c29358b1ff1b240b0eeebe77b7f6b111e4bd254fe2f94bd14149669e564a7f5b",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/room_catalog/video_adaptation_contract_v1.md",
+        "sha256": "fd5538855d85ab93fdc58faebf40b7ba646ae3bcc95f543338f2cf43acbeeea8",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scenes/issue149_pocket_pass_through.tscn",
+        "sha256": "3ae9b0ee1fc099d7b8f074598e5486666b9c139ef33901a50c7ef9779866f8db",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scenes/issue149_pocket_three_way.tscn",
+        "sha256": "fee72ed41ca9028439aa9c62e674dc07d75a731580fd73c94e7f760ed45e8d6d",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scenes/issue160_column_connector.tscn",
+        "sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scenes/issue160_pocket_connector.tscn",
+        "sha256": "078826e5824772c05dc4bf38c340f27fbc927abacfbba7dee6ec006a0bc967d3",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scenes/issue164_room_large_baseline.tscn",
+        "sha256": "853c13cad4e87253bacdf73c0cf68834a39d2ce91fe4c106c6ac74de9ed455b9",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scenes/issue164_room_large_connector.tscn",
+        "sha256": "5909f99dfba27e8caceba6278fbbe46400747f1529ecede13034b838e5adef02",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scenes/issue165_corridor_corner_transfer.tscn",
+        "sha256": "92611e55f242c8e6e564a3f7ac23a8d7bab53322bd6ca8c3bb6a8041fab2924d",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scenes/issue166_room_large_dual_socket.tscn",
+        "sha256": "a481ff1cfc9dc7c6ee26ac7abc37978f9d38e95c0e7e21f516671871325837dd",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scenes/issue166_transfer_room_socket.tscn",
+        "sha256": "02fdf3e55ffed5b44bcecab7be623af96f5bc64a5198768d4c2b041de3d9e892",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scenes/issue166_transfer_room_socket_standalone.tscn",
+        "sha256": "06b87aaa913d5ce7043452f1e85b4d3694630abbe95ac2ae8e6bb9e1a5f7fa99",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scenes/player.tscn",
+        "sha256": "2fc7064e58713029897facd54812886154f6661d8e4ba14c5f7a3d99bda5dbea",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/analyze_issue166_traversal.py",
+        "sha256": "3e0153674fea9f1a0d27da54fe37f12cb3074f680e46c73793c988db029b9c7e",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/scripts/build_issue166_candidate.py",
+        "sha256": "807a124ead82f7e3e8d61b77a8c6dca516f755ff498fe5b540abc823c115045a",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/scripts/capture_issue165.gd",
+        "sha256": "962030ee42c53bfdaa421308c21c7b0bb14ecbfa4af093657c42118c3b323c12",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/capture_issue166_four_room.gd",
+        "sha256": "3928121f530aec57348ec700278e630534d4e231096a184caecdc09791c1f7ed",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/scripts/hunyuan_psx_column_box.gd",
+        "sha256": "04142b33c1b39edd2725fbefa854c8b88561a43d45eaa06d94bafaba578be68b",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/hunyuan_psx_round1.gd",
+        "sha256": "e717a07e171247deb5f4af38e0cf6b364ae99a927bb419324004fb50c4b84971",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/hunyuan_psx_round3.gd",
+        "sha256": "ef306619ae6e57af2784092e1a55a7cee296014b2561496cf423786f7557d103",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/issue149_pocket_topology.gd",
+        "sha256": "2d4ac057bd54ac3af6b4c951137d3481ce354cdc09d98461ccc011465f18a4eb",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/issue160_bounded_column_room.gd",
+        "sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/issue160_pocket_room.gd",
+        "sha256": "b8278f360020a6541236e8777593a47a74e54d5c15219f0eef5ece135f031722",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/issue160_room_geometry.gd",
+        "sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/issue164_room_large_connector.gd",
+        "sha256": "281cd3766dcf28c52706492cae62449bf7bf1fc1d5ca7cf68b63a884ad28215d",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/issue165_room_geometry.gd",
+        "sha256": "88ca199ef123bd29b390020c653f41d559cfdc36b9cc2719dbef101282da5105",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/issue165_transfer_room.gd",
+        "sha256": "31962aabf66d971ff2c52aa12aa3990c237d26f8f93bae0c6bc0b747db656f0a",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/issue166_room_large_dual_socket.gd",
+        "sha256": "4d122d3f2d8bdababb47b32d33b5db1ee8c380f12dd434dcd58db540ea002498",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/issue166_transfer_room_socket.gd",
+        "sha256": "b68bee1825d4314c3d000c30e38560fb2bc15491ff0fde889b03a3d1d0d50b2c",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/library_psx_preset.gd",
+        "sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/measure_bounded_fps.gd",
+        "sha256": "66a933855ddde79fac98f835a60c89980c924a0ef9f00ef370b799c52ef66ceb",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/scripts/player.gd",
+        "sha256": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/psx/psx_post_effect.gd",
+        "sha256": "5b06eff8e0f1fc0a5c98711633eb50d03db39db4c1e73b309433e444dd3c5795",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "sha256": "b1a4c839f1346d64586dae4cda6175b06793d4de95cb0ada8ba57c0851e80ba5",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/psx_design_round_resources.py",
+        "sha256": "98444163f9d29337dae413541c604f8a9956c3066f55c9d1b04b03f12d9877f5",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/run_issue149_gpu.py",
+        "sha256": "d67cc9dfc8d11fe46ff7cf092f7adfced2e19dcb3a753b20ca9e91057abafcde",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/scripts/test_issue165_transfer_room.gd",
+        "sha256": "1da789a7bafc76bd4dc8bfe6e3e1663c18750e9030bd4b776b6b2ca3fea1f6fa",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/test_issue166_four_room_candidate.gd",
+        "sha256": "98a26cf34917456aadb3d9d0dd788a68ac61156820fc173b909fc9f461f08aa2",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/scripts/test_issue166_layout_validation.py",
+        "sha256": "dbe3b34cd17863a8709c0d06cc7ed17f59be8a5195a062495c0bf1a34fa9aae3",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/scripts/validate_issue166_layout.py",
+        "sha256": "1dd41cc24cee034b1fe1a1adc43ca8cb7d9dfe8f4de45b1615b8341388a13509",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/scripts/verify_bounded_psx.gd",
+        "sha256": "6de5a37e81a7c776736f2af52d87d6c5150a1e9d9834969207c0e238989c848b",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_runner.py",
+        "sha256": "62f2fb131bd49a278082abe3b353c0ff863a6628c5b2abe7c74ba175d30e7f17",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_sources.py",
+        "sha256": "1beb4fa947d757c30c6c55a1f7e8161bad6f94d0d0a5b84a33b97ab6b93afc1b",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_validation.py",
+        "sha256": "44803981db7ef2563c76832f7ea3ce6dd48a51274b51d9aa47cc04e0d6aff8cd",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/scripts/write_issue166_adaptation_record.py",
+        "sha256": "75355a77844d4c6c7290ccadd609dafbe0a2c868f015418fe524bb1d43388d1e",
+        "role": "candidate authoring or validation provenance"
+      },
+      {
+        "path": "godot_walk/shaders/library_psx_textured.gdshader",
+        "sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/shaders/library_psx_vertex.gdshader",
+        "sha256": "7feecf393ff762b9dee1caaf43cc5e7e3a548371f0fb7a3c28d562c03be4176f",
+        "role": "versioned room module dependency from candidate catalog snapshot"
+      },
+      {
+        "path": "godot_walk/vendor/ursc/common.gdshaderinc",
+        "sha256": "c2bba1e4d8491d91684efd246458196d7750a4951a21c1bbef58b82537288a49",
+        "role": "transitive Godot scene, script, shader, texture or controller dependency"
+      },
+      {
+        "path": "godot_walk/vendor/ursc/utilities.gdshaderinc",
+        "sha256": "0a56e85852069315945e54fdb692dd5f9140dee9ae2ad15bce958987c7b0f011",
+        "role": "transitive Godot scene, script, shader, texture or controller dependency"
+      }
+    ],
+    "authoring_log": {
+      "manual_decisions": [
+        "Author an east/west doorway pair on the unregistered west shell edge; footage does not prove a connection here.",
+        "Reuse the accepted #164 room arrangement as the regression prefix and add the #165 corridor as a fourth distinct room.",
+        "Keep all unused #165 perimeter edges closed and retain an independent closed standalone variant."
+      ],
+      "operator_interventions": 0,
+      "effort": "One versioned room adapter, one receiver adapter, a four-room layout, and bounded runtime verification; no source video, inference, or retraining."
+    },
+    "room_clearance": {
+      "floor_elevation": 0.0,
+      "ceiling_elevation": 3.0,
+      "basis": "authored"
+    },
+    "dynamic_resource_declarations": [
+      {
+        "script_path": "godot_walk/scripts/library_psx_preset.gd",
+        "line": 49,
+        "call_index": 0,
+        "expression": "\"res://shaders/library_psx_%s.gdshader\" % shader_name",
+        "resource_paths": [
+          "godot_walk/shaders/library_psx_textured.gdshader",
+          "godot_walk/shaders/library_psx_vertex.gdshader"
+        ]
+      },
+      {
+        "script_path": "godot_walk/scripts/issue165_transfer_room.gd",
+        "line": 88,
+        "call_index": 0,
+        "expression": "path",
+        "resource_paths": [
+          "godot_walk/evidence/2026-10-25-issue-165/source_textures/wallpaper_source_frame_0001.png",
+          "godot_walk/evidence/2026-10-25-issue-165/source_textures/floor_source_frame_0001.png",
+          "godot_walk/evidence/2026-10-25-issue-165/source_textures/ceiling_source_frame_0001.png",
+          "godot_walk/evidence/2026-10-25-issue-165/source_textures/column_source_frame_0001.png"
+        ]
+      }
+    ]
+  },
+  "validation": {
+    "mechanical_status": "passed",
+    "stages": [
+      {
+        "stage_id": "standalone_and_bidirectional_traversal",
+        "status": "passed",
+        "candidate_fingerprint": "d5aaeacd623ada369b4826e576d216c19fc2829754a1630a7c2f9bdcb5b0ae0f",
+        "artifacts": [
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/connection_controls_final.json",
+            "sha256": "f7527b7918301eba30e2b5ae28fc1cde2e7ca95cb99c8bfd98f2e43f3980ddbd",
+            "role": "candidate runtime evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/traversal_analysis_final_v2.json",
+            "sha256": "26efa8ae036450ef2997ea3443672a93c572ed31b767f068f60a20b48898efd9",
+            "role": "candidate runtime evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/assembled_final_v3/physics_candidate.json",
+            "sha256": "f1b95c73423cd3f28bba739d2f2bcb23777a2b4106664a7bd4589e5f069a3b7f",
+            "role": "candidate runtime evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/corridor_standalone_final_v2/physics_candidate.json",
+            "sha256": "d900a8edb654b53fcf94dd3b06fc80d502c0404f3b51faa652e516b1702a2aff",
+            "role": "candidate runtime evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/large_room_standalone_final_v2/physics_candidate.json",
+            "sha256": "fe819907e07e8c4ac7e036da8b06ea915d12ffdd7a627f61216ff8fd248f89c2",
+            "role": "candidate runtime evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/issue164_regression_verified/physics_candidate.json",
+            "sha256": "e2641735e91c73bc658d5cc61f5988e58e1650fe5be7fc03154aedfe92115700",
+            "role": "candidate runtime evidence"
+          }
+        ],
+        "notes": [
+          "Godot route, floor support, closed perimeters, approach clearance and negative controls are recorded."
+        ]
+      },
+      {
+        "stage_id": "guarded_visual_capture",
+        "status": "passed",
+        "candidate_fingerprint": "d5aaeacd623ada369b4826e576d216c19fc2829754a1630a7c2f9bdcb5b0ae0f",
+        "artifacts": [
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/captures_final/capture_manifest.json",
+            "sha256": "c7dc035e651e7e61b0980bbac1c585d7bff3f962d171a5ed9e74f225570a5898",
+            "role": "guarded capture manifest"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/captures_final/connection_large_room_to_corridor.png",
+            "sha256": "2758576a596b6d1a9c9e7f06d802e5772c7ddcd001a3bfed8e531c4fc0a77f9e",
+            "role": "guarded visual evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/captures_final/connection_corridor_to_large_room.png",
+            "sha256": "00905ceefde82b21ae833ba89cf87bdce0ed4c6ebfee8ea7630cec8f5b66b19f",
+            "role": "guarded visual evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/resource_runs/issue166_review_captures_final.json",
+            "sha256": "433721f2655da14ee8c2cebc8751a7f6fad64f42702c221ab84adbf113ac549f",
+            "role": "GPU/RAM guard resource receipt"
+          },
+          {
+            "path": "godot_walk/scripts/capture_issue166_review_views.gd",
+            "sha256": "4945a4735c542d498f64e994a30e1a53130b2f06b301497c53625d451a5d3507",
+            "role": "capture harness"
+          },
+          {
+            "path": "godot_walk/scripts/run_issue149_gpu.py",
+            "sha256": "d67cc9dfc8d11fe46ff7cf092f7adfced2e19dcb3a753b20ca9e91057abafcde",
+            "role": "GPU/RAM guard implementation"
+          }
+        ],
+        "notes": [
+          "Guarded 1280x720 captures completed after the operator closed the active graphics client.",
+          "Both connection directions and the capture camera poses are recorded; captures are supplemental evidence for the exact reviewed candidate."
+        ]
+      },
+      {
+        "stage_id": "guarded_frame_profile",
+        "status": "passed",
+        "candidate_fingerprint": "d5aaeacd623ada369b4826e576d216c19fc2829754a1630a7c2f9bdcb5b0ae0f",
+        "artifacts": [
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/assembled_final_v3/fps_issue166_four_room.json",
+            "sha256": "e662a2b7db688cf42c695c7bf36237ef0beac0fce612cbeeeeebe036e2ff833a",
+            "role": "guarded frame-time profile"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/mechanics/assembled_final_v3/fps_issue166_four_room.png",
+            "sha256": "38d523752452a2da4f21062788517857ec3907839a54a73aeca9291d35a24dbf",
+            "role": "profile viewport capture"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-26-four-room-transfer/resource_runs/issue166_four_room_fps_retry1.json",
+            "sha256": "6d3b4936cc07332306809a10f1387097823c1f6a1f84db0588f69012342585bc",
+            "role": "GPU/RAM guard resource receipt"
+          },
+          {
+            "path": "godot_walk/scripts/measure_bounded_fps.gd",
+            "sha256": "66a933855ddde79fac98f835a60c89980c924a0ef9f00ef370b799c52ef66ceb",
+            "role": "frame profiling harness"
+          }
+        ],
+        "notes": [
+          "Uncapped frame profile: 34 poses and 10,199 frames; average 239.86 FPS, p95 4.287 ms, p99 4.403 ms.",
+          "Guard receipt records 48.749 s elapsed, peak child RSS 2,425,692,160 bytes, and peak GPU-memory delta 583,008,256 bytes."
+        ]
+      }
+    ]
+  },
+  "operator_decision": {
+    "status": "accepted",
+    "decision_record_path": "godot_walk/evidence/2026-10-26-four-room-transfer/operator_review.json",
+    "decision_sha256": "04fc973b94b054deb3c0fcd7b4cc39e5ad36e5eaea90d264bd8fec9f2f432eaf",
+    "candidate_fingerprint": "d5aaeacd623ada369b4826e576d216c19fc2829754a1630a7c2f9bdcb5b0ae0f",
+    "scope": "Accepts this exact seed-166 four-room layout and authored R002.west_back to R003.west connection. Does not admit either candidate module to the shared catalog, approve metric scale or source registration, establish source-video connectivity, or generalize the connector."
+  },
+  "catalog_snapshot": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+    "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+    "catalog_id": "godot_psx_room_kit",
+    "catalog_version": "0.2.0"
+  },
+  "candidate_identity": "d5aaeacd623ada369b4826e576d216c19fc2829754a1630a7c2f9bdcb5b0ae0f"
+}

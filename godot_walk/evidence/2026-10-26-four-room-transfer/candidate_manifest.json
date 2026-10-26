@@ -1,0 +1,17 @@
+{
+  "candidate_id": "issue166-four-room-transfer-v1",
+  "candidate_snapshot": "godot_walk/evidence/2026-10-26-four-room-transfer/catalog_snapshot.json",
+  "candidate_snapshot_sha256": "d516b32ff16fb9f04bde3330a1eeb1c4e562c8b74d01205cf702fa03f649e54a",
+  "layout": "godot_walk/evidence/2026-10-26-four-room-transfer/layout_four_room.json",
+  "layout_sha256": "85b298b3efd408007bfdd9145adb0e3bc5cc8e5850d9a2d7ecf22725fa957b18",
+  "mechanical_status": "mechanically_validated",
+  "modules": [
+    "godot_source_textured_large_room_dual_socket_candidate_v1",
+    "godot_corridor_corner_socket_candidate_v1"
+  ],
+  "operator_status": "review_pending",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_catalog_snapshot": "godot_walk/evidence/2026-10-24-issue-164/catalog_snapshot.json",
+  "source_catalog_snapshot_sha256": "d3bc973aff634f293d97bbafd2937bc95a6e0c1ec359707827d2d154e9576dda"
+}

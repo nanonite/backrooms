@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/issue166_room_large_dual_socket.tscn" id="1_candidate"]
+
+[node name="Issue166RoomLargeDualSocketStandalone" instance=ExtResource("1_candidate")]
+include_player = true
+open_hall_end = false
+open_west_back = false

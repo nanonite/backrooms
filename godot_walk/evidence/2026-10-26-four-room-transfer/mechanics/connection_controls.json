@@ -1,0 +1,58 @@
+{
+	"blocked_connector_negative_control": true,
+	"corridor_closed_perimeter": {
+		"Boundary_EastOuter": true,
+		"Boundary_FarCap": true,
+		"Boundary_InnerElbow": true,
+		"Boundary_NorthMain": true,
+		"Boundary_SouthMain": true,
+		"Boundary_WestOuter": true
+	},
+	"corridor_standalone": {
+		"open_socket_ids": [],
+		"reset_clears_velocity": true,
+		"reset_restores_spawn": true,
+		"safe_spawn": true,
+		"spawn_floor_supported": true
+	},
+	"failures": [],
+	"four_distinct_room_designs": true,
+	"large_room_caps_closed": {
+		"hall_end_cap": true,
+		"west_cap": true
+	},
+	"large_room_standalone": {
+		"open_socket_ids": [],
+		"reset_clears_velocity": true,
+		"reset_restores_spawn": true,
+		"safe_spawn": true,
+		"spawn_floor_supported": true
+	},
+	"missing_floor_negative_control": {
+		"floor_blocks_fall": true,
+		"removed_floor_allows_fall": true
+	},
+	"new_connection": {
+		"approach_capsule_clear_both_sides": true,
+		"clear_size": [
+			2.0,
+			2.1
+		],
+		"floor_support_across_seam": true,
+		"id": "R002.west_back__R003.west",
+		"jamb_header_visual_collision_match": true,
+		"normal_dot": -1.0,
+		"rendered_meshes_within_declared_envelopes": true,
+		"socket_center": [
+			28.5599994659424,
+			-1.27099049091339,
+			3.09999942779541
+		]
+	},
+	"open_boundary_negative_control": {
+		"closed_wall_blocks": true,
+		"removed_wall_allows_escape": true
+	},
+	"registration_accepted": false,
+	"scale_calibrated": false
+}

@@ -1,0 +1,511 @@
+{
+  "purpose": "Read-only integrity check for accepted modules, source assets and operator decisions. Legacy validation-tool pins are excluded because the validation contract has since been versioned and hardened.",
+  "file_count": 72,
+  "all_hashes_verified": true,
+  "files": [
+    {
+      "path": "data/videos/corridor_corner.mp4",
+      "sha256": "51abd379f94b8f84799c79927113f37c03014b41b0d5f0d4c23095d3d67587e0",
+      "pinned_sha256": "51abd379f94b8f84799c79927113f37c03014b41b0d5f0d4c23095d3d67587e0",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+      "sha256": "01f0d0182ddf3676d4ab85b19179fbd199ad4afce13bef3d781e98264e984376",
+      "pinned_sha256": "01f0d0182ddf3676d4ab85b19179fbd199ad4afce13bef3d781e98264e984376",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/column_source_video.png",
+      "sha256": "327f69745cc5f6c2cc3c8e600a484af7b681b9e14961955d3f661ea10f16b9bc",
+      "pinned_sha256": "327f69745cc5f6c2cc3c8e600a484af7b681b9e14961955d3f661ea10f16b9bc",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+      "sha256": "75dd78545085a49a12ef2b1268821c3aff6ccca6dcdf10620c2e3d7ee4b14bb7",
+      "pinned_sha256": "75dd78545085a49a12ef2b1268821c3aff6ccca6dcdf10620c2e3d7ee4b14bb7",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png",
+      "sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "pinned_sha256": "36bb108c2b1b0314a23b629e0e66139ecb3bbc2cee630a870f046539ee9fda8a",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+      "sha256": "f1bfe1ab7aa9ffe416b68f5f24612ff6293d26e7d421c7fb95fda3c66c4210d4",
+      "pinned_sha256": "f1bfe1ab7aa9ffe416b68f5f24612ff6293d26e7d421c7fb95fda3c66c4210d4",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json",
+      "sha256": "0c2b5bb8a131b53a49a8243296121078caaec83bb14d2a2e5258ad0c6b52b28b",
+      "pinned_sha256": "0c2b5bb8a131b53a49a8243296121078caaec83bb14d2a2e5258ad0c6b52b28b",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+      "sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5",
+      "pinned_sha256": "bd375ac6758a3904a8064d2b3751387bdbb4c21ae1d38e14ef3c0effcebbf2c5",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-22-issue-160/bounded_hunyuan_visual.glb",
+      "sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898",
+      "pinned_sha256": "8767ebc268389197416fe1986d78553889b196fcb9ee227f46e7b81d3882c898",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/issue163_room.gd",
+      "sha256": "61c2c9506a63dcdccda1c262dfa0474c1abc074e12d8447272b9fce7b9a8ef73",
+      "pinned_sha256": "61c2c9506a63dcdccda1c262dfa0474c1abc074e12d8447272b9fce7b9a8ef73",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/issue163_room.tscn",
+      "sha256": "987d4e173705b989c2e831481bc4b63c5721764b7ab0c26af5f418cc28a32d12",
+      "pinned_sha256": "987d4e173705b989c2e831481bc4b63c5721764b7ab0c26af5f418cc28a32d12",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/ceiling.png",
+      "sha256": "ab48519f1f5b564a7f7aa755402700bdb1ba23d68e013db52c905c9462c66b34",
+      "pinned_sha256": "ab48519f1f5b564a7f7aa755402700bdb1ba23d68e013db52c905c9462c66b34",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/column_face.png",
+      "sha256": "4a3adba21ca30f7b157a66b5010d9cef6ee9c01ae7c7184b33cb316732ea81bc",
+      "pinned_sha256": "4a3adba21ca30f7b157a66b5010d9cef6ee9c01ae7c7184b33cb316732ea81bc",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/floor.png",
+      "sha256": "b65b0dd9a188da9a4b55c87adfab30d3c685440f2ece4f3a4aff20a428a8941f",
+      "pinned_sha256": "b65b0dd9a188da9a4b55c87adfab30d3c685440f2ece4f3a4aff20a428a8941f",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_textures/wallpaper.png",
+      "sha256": "22a0c83f148483612c8fd2ce9b353a62bb5cefbc6e3f69fa3a4c09a2377240ca",
+      "pinned_sha256": "22a0c83f148483612c8fd2ce9b353a62bb5cefbc6e3f69fa3a4c09a2377240ca",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-164/REPORT.md",
+      "sha256": "4b7b3faa54b1f7e64a6870aadd9b8fc5e2c171161dac9b730819cae3f9e36286",
+      "pinned_sha256": null,
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-164/catalog_snapshot.json",
+      "sha256": "d3bc973aff634f293d97bbafd2937bc95a6e0c1ec359707827d2d154e9576dda",
+      "pinned_sha256": null,
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-164/layout_three_room.json",
+      "sha256": "b2744d199a3f0596042780b5cc425d76b39fbc4f4e01d4ec6b46786b692723b7",
+      "pinned_sha256": null,
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-164/layout_three_room.json.sha256",
+      "sha256": "deb1dbca60702cb873cc70b3b055228dcfceaaea454c3c4266f60cd6c580416f",
+      "pinned_sha256": null,
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-164/operator_review.json",
+      "sha256": "bf83dc2f7fd389c581020487e8aaa082dea0201122d5791ed778a0befba6772e",
+      "pinned_sha256": null,
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/REPORT.md",
+      "sha256": "bea2e92353e8b64d7053a845c87c16a4d4d02280f6f91a8e5538e4342b522c70",
+      "pinned_sha256": null,
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/crop_plan.json",
+      "sha256": "c6a5bed70362bb467fec72d52e5ea0b67e7fd439b9e725b082eaa43743f58531",
+      "pinned_sha256": "c6a5bed70362bb467fec72d52e5ea0b67e7fd439b9e725b082eaa43743f58531",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/operator_review.json",
+      "sha256": "2391743b583a7815baf422a13ec4cc48c9ed9055db100d300cd8b0acb9c0096f",
+      "pinned_sha256": null,
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/extraction_manifest.json",
+      "sha256": "81f1ea166b6e55a854021960e6636e032217d0ab3558a512aad8ae4672c9b537",
+      "pinned_sha256": "81f1ea166b6e55a854021960e6636e032217d0ab3558a512aad8ae4672c9b537",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0001.png",
+      "sha256": "870721029e26f1f3a58c347ade1167c47d13755d68497d9e96e5f056acc3f8f4",
+      "pinned_sha256": "870721029e26f1f3a58c347ade1167c47d13755d68497d9e96e5f056acc3f8f4",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0013.png",
+      "sha256": "4bbad25a2c35d9ca5417c76458ee379c9ed1a84fbb3706a6f91ed451aa0717b0",
+      "pinned_sha256": "4bbad25a2c35d9ca5417c76458ee379c9ed1a84fbb3706a6f91ed451aa0717b0",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0036.png",
+      "sha256": "2547c27819bbe10a6a1284d9a62acf5fedda49608f24428ce02a03e9a872482c",
+      "pinned_sha256": "2547c27819bbe10a6a1284d9a62acf5fedda49608f24428ce02a03e9a872482c",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0059.png",
+      "sha256": "bae3bf14a5dbe7b5988ec4e7afd70d590ba1e9c725631d31e6a14f14387c89a3",
+      "pinned_sha256": "bae3bf14a5dbe7b5988ec4e7afd70d590ba1e9c725631d31e6a14f14387c89a3",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0085.png",
+      "sha256": "dd090d960ed62b13dcf3891793741da6d45b6df5a10a2c4e7775981f620dde8e",
+      "pinned_sha256": "dd090d960ed62b13dcf3891793741da6d45b6df5a10a2c4e7775981f620dde8e",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0096.png",
+      "sha256": "0d5bd24a19c3e3b73526aa478c35cf481c3151d9183b7419d6654e5391fc150f",
+      "pinned_sha256": "0d5bd24a19c3e3b73526aa478c35cf481c3151d9183b7419d6654e5391fc150f",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/ceiling_source_frame_0001.png",
+      "sha256": "7145766118232230d31f986c488ad43df1edc34b98e0c5b345447d0457ea9b0f",
+      "pinned_sha256": "7145766118232230d31f986c488ad43df1edc34b98e0c5b345447d0457ea9b0f",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/column_source_frame_0001.png",
+      "sha256": "7e2ad7a75731757e0d28cc8f7d1c9bdb94decf8386b88c44236657f49babb40f",
+      "pinned_sha256": "7e2ad7a75731757e0d28cc8f7d1c9bdb94decf8386b88c44236657f49babb40f",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/crop_manifest.json",
+      "sha256": "8a29377e154ab2e49b467a7effedb3820cca4ba08e2766c04c821d3afffa6055",
+      "pinned_sha256": "8a29377e154ab2e49b467a7effedb3820cca4ba08e2766c04c821d3afffa6055",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/floor_source_frame_0001.png",
+      "sha256": "8ba029d1c90f12a2627cc2c06fdb51382ee76a75b3bc187461a228346d13d01d",
+      "pinned_sha256": "8ba029d1c90f12a2627cc2c06fdb51382ee76a75b3bc187461a228346d13d01d",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_textures/wallpaper_source_frame_0001.png",
+      "sha256": "01c888290865329b4a08f3dd0411954e959a58a2c8222bbdac677f0703ccdd62",
+      "pinned_sha256": "01c888290865329b4a08f3dd0411954e959a58a2c8222bbdac677f0703ccdd62",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/project.godot",
+      "sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+      "pinned_sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/room_catalog/MATERIAL_LANGUAGE.md",
+      "sha256": "0e479479da8069ecbce0a56914517e43fbfa6ae564b173c76aba6390587fcc86",
+      "pinned_sha256": "0e479479da8069ecbce0a56914517e43fbfa6ae564b173c76aba6390587fcc86",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/room_catalog/adaptations/corridor-corner-v1.json",
+      "sha256": "9da53dc04c01a62ee2fcd01db9071571c976b163fa1db72bc57acf439685ae5e",
+      "pinned_sha256": null,
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json",
+      "sha256": "101aedfb45085daec421d05a684704f79d97eee4f4fcc4b2b38f70fc9cb3021d",
+      "pinned_sha256": null,
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+      "sha256": "3e8310f3012ed63d588e496e1b7bfbe5f4377638a6129a2e8b38fa510c52d286",
+      "pinned_sha256": "3e8310f3012ed63d588e496e1b7bfbe5f4377638a6129a2e8b38fa510c52d286",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/room_catalog/catalog.json",
+      "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+      "pinned_sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/room_catalog/contract_freeze_v1.json",
+      "sha256": "e6ccc0971e368e17a736f294ffdff47107b99c4f3dc9a09a555ef6c5b22d9d77",
+      "pinned_sha256": "e6ccc0971e368e17a736f294ffdff47107b99c4f3dc9a09a555ef6c5b22d9d77",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/room_catalog/contract_freeze_v1.sha256",
+      "sha256": "c044232ce38025a660282f93499f2e262c632db2f5c9d2dfe42bbd8ff9df930d",
+      "pinned_sha256": "c044232ce38025a660282f93499f2e262c632db2f5c9d2dfe42bbd8ff9df930d",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/room_catalog/video_adaptation.schema.json",
+      "sha256": "c29358b1ff1b240b0eeebe77b7f6b111e4bd254fe2f94bd14149669e564a7f5b",
+      "pinned_sha256": "c29358b1ff1b240b0eeebe77b7f6b111e4bd254fe2f94bd14149669e564a7f5b",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/room_catalog/video_adaptation_contract_v1.md",
+      "sha256": "fd5538855d85ab93fdc58faebf40b7ba646ae3bcc95f543338f2cf43acbeeea8",
+      "pinned_sha256": "fd5538855d85ab93fdc58faebf40b7ba646ae3bcc95f543338f2cf43acbeeea8",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scenes/issue149_pocket_pass_through.tscn",
+      "sha256": "3ae9b0ee1fc099d7b8f074598e5486666b9c139ef33901a50c7ef9779866f8db",
+      "pinned_sha256": "3ae9b0ee1fc099d7b8f074598e5486666b9c139ef33901a50c7ef9779866f8db",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scenes/issue160_column_connector.tscn",
+      "sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654",
+      "pinned_sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scenes/issue164_room_large_connector.tscn",
+      "sha256": "5909f99dfba27e8caceba6278fbbe46400747f1529ecede13034b838e5adef02",
+      "pinned_sha256": "5909f99dfba27e8caceba6278fbbe46400747f1529ecede13034b838e5adef02",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scenes/issue165_corridor_corner_transfer.tscn",
+      "sha256": "92611e55f242c8e6e564a3f7ac23a8d7bab53322bd6ca8c3bb6a8041fab2924d",
+      "pinned_sha256": "92611e55f242c8e6e564a3f7ac23a8d7bab53322bd6ca8c3bb6a8041fab2924d",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scenes/player.tscn",
+      "sha256": "2fc7064e58713029897facd54812886154f6661d8e4ba14c5f7a3d99bda5dbea",
+      "pinned_sha256": "2fc7064e58713029897facd54812886154f6661d8e4ba14c5f7a3d99bda5dbea",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/capture_issue165.gd",
+      "sha256": "962030ee42c53bfdaa421308c21c7b0bb14ecbfa4af093657c42118c3b323c12",
+      "pinned_sha256": "962030ee42c53bfdaa421308c21c7b0bb14ecbfa4af093657c42118c3b323c12",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/hunyuan_psx_column_box.gd",
+      "sha256": "04142b33c1b39edd2725fbefa854c8b88561a43d45eaa06d94bafaba578be68b",
+      "pinned_sha256": "04142b33c1b39edd2725fbefa854c8b88561a43d45eaa06d94bafaba578be68b",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/hunyuan_psx_round1.gd",
+      "sha256": "e717a07e171247deb5f4af38e0cf6b364ae99a927bb419324004fb50c4b84971",
+      "pinned_sha256": "e717a07e171247deb5f4af38e0cf6b364ae99a927bb419324004fb50c4b84971",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/hunyuan_psx_round3.gd",
+      "sha256": "ef306619ae6e57af2784092e1a55a7cee296014b2561496cf423786f7557d103",
+      "pinned_sha256": "ef306619ae6e57af2784092e1a55a7cee296014b2561496cf423786f7557d103",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/issue149_pocket_topology.gd",
+      "sha256": "2d4ac057bd54ac3af6b4c951137d3481ce354cdc09d98461ccc011465f18a4eb",
+      "pinned_sha256": "2d4ac057bd54ac3af6b4c951137d3481ce354cdc09d98461ccc011465f18a4eb",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_bounded_column_room.gd",
+      "sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b",
+      "pinned_sha256": "1c15557bef5582f7162c3996b97c1c34886f2d82b74bf664cb3e11e9ed80e17b",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_pocket_room.gd",
+      "sha256": "b8278f360020a6541236e8777593a47a74e54d5c15219f0eef5ece135f031722",
+      "pinned_sha256": "b8278f360020a6541236e8777593a47a74e54d5c15219f0eef5ece135f031722",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/issue160_room_geometry.gd",
+      "sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500",
+      "pinned_sha256": "2187db3962eef9c9e2e3513de96ab8d97b8777e077c376f28f80528e42ff2500",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/issue164_room_large_connector.gd",
+      "sha256": "281cd3766dcf28c52706492cae62449bf7bf1fc1d5ca7cf68b63a884ad28215d",
+      "pinned_sha256": "281cd3766dcf28c52706492cae62449bf7bf1fc1d5ca7cf68b63a884ad28215d",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/issue165_room_geometry.gd",
+      "sha256": "88ca199ef123bd29b390020c653f41d559cfdc36b9cc2719dbef101282da5105",
+      "pinned_sha256": "88ca199ef123bd29b390020c653f41d559cfdc36b9cc2719dbef101282da5105",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/issue165_transfer_room.gd",
+      "sha256": "31962aabf66d971ff2c52aa12aa3990c237d26f8f93bae0c6bc0b747db656f0a",
+      "pinned_sha256": "31962aabf66d971ff2c52aa12aa3990c237d26f8f93bae0c6bc0b747db656f0a",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/library_psx_preset.gd",
+      "sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87",
+      "pinned_sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/measure_bounded_fps.gd",
+      "sha256": "66a933855ddde79fac98f835a60c89980c924a0ef9f00ef370b799c52ef66ceb",
+      "pinned_sha256": "66a933855ddde79fac98f835a60c89980c924a0ef9f00ef370b799c52ef66ceb",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/player.gd",
+      "sha256": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23",
+      "pinned_sha256": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/psx/psx_post_effect.gd",
+      "sha256": "5b06eff8e0f1fc0a5c98711633eb50d03db39db4c1e73b309433e444dd3c5795",
+      "pinned_sha256": "5b06eff8e0f1fc0a5c98711633eb50d03db39db4c1e73b309433e444dd3c5795",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/psx/shaders/psx_post.glsl",
+      "sha256": "b1a4c839f1346d64586dae4cda6175b06793d4de95cb0ada8ba57c0851e80ba5",
+      "pinned_sha256": "b1a4c839f1346d64586dae4cda6175b06793d4de95cb0ada8ba57c0851e80ba5",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/psx_design_round_resources.py",
+      "sha256": "98444163f9d29337dae413541c604f8a9956c3066f55c9d1b04b03f12d9877f5",
+      "pinned_sha256": "98444163f9d29337dae413541c604f8a9956c3066f55c9d1b04b03f12d9877f5",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/run_issue149_gpu.py",
+      "sha256": "d67cc9dfc8d11fe46ff7cf092f7adfced2e19dcb3a753b20ca9e91057abafcde",
+      "pinned_sha256": "d67cc9dfc8d11fe46ff7cf092f7adfced2e19dcb3a753b20ca9e91057abafcde",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/test_issue165_transfer_room.gd",
+      "sha256": "1da789a7bafc76bd4dc8bfe6e3e1663c18750e9030bd4b776b6b2ca3fea1f6fa",
+      "pinned_sha256": "1da789a7bafc76bd4dc8bfe6e3e1663c18750e9030bd4b776b6b2ca3fea1f6fa",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/scripts/verify_bounded_psx.gd",
+      "sha256": "6de5a37e81a7c776736f2af52d87d6c5150a1e9d9834969207c0e238989c848b",
+      "pinned_sha256": "6de5a37e81a7c776736f2af52d87d6c5150a1e9d9834969207c0e238989c848b",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/shaders/library_psx_textured.gdshader",
+      "sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c",
+      "pinned_sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    },
+    {
+      "path": "godot_walk/shaders/library_psx_vertex.gdshader",
+      "sha256": "7feecf393ff762b9dee1caaf43cc5e7e3a548371f0fb7a3c28d562c03be4176f",
+      "pinned_sha256": "7feecf393ff762b9dee1caaf43cc5e7e3a548371f0fb7a3c28d562c03be4176f",
+      "matches_pinned_hash": true,
+      "matches_head": true
+    }
+  ]
+}

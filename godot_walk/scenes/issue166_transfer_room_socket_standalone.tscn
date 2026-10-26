@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/issue166_transfer_room_socket.tscn" id="1_candidate"]
+
+[node name="Issue166TransferRoomSocketStandalone" instance=ExtResource("1_candidate")]
+socket_open = false
+include_player = true

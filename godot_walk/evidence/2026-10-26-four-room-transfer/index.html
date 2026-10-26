@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Four-room authored connection candidate</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.5 system-ui, sans-serif; background: #15191d; color: #f3f2ee; }
+    body { max-width: 1000px; margin: 2rem auto; padding: 0 1rem 4rem; }
+    a { color: #f4d35e; } h1, h2 { line-height: 1.2; }
+    .status { border-left: 4px solid #f4d35e; padding: .75rem 1rem; background: #252a2f; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 1rem; }
+    .card { background: #22272c; padding: 1rem; border-radius: .5rem; }
+    img { max-width: 100%; border: 1px solid #566; background: #202428; }
+    code { overflow-wrap: anywhere; }
+    .missing { color: #d9a45c; }
+  </style>
+</head>
+<body>
+  <h1>Four-room authored connection candidate</h1>
+  <p class="status"><strong>Operator accepted this exact layout and connection.</strong> Candidate modules remain unadmitted to the shared catalog. The new doorway is authored game geometry; source footage does not establish that these spaces connect. The accepted #164 three-room layout is preserved as a regression prefix. Calibration flags remain false.</p>
+  <p><a href="REPORT.md">Read the report</a> · <a href="COMMANDS.md">Launch and verification commands</a> · <a href="layout_four_room.json">Serialized layout</a> · <a href="catalog_snapshot.json">Candidate module snapshot</a> · <a href="corridor_socket_adaptation_v3.json">Adaptation record</a> · <a href="operator_review.json">Operator decision</a> · <a href="protected_asset_hashes.json">Protected-input hashes</a></p>
+  <h2>Layout</h2>
+  <img src="layout_four_room.svg" alt="Schematic four-room chain showing the newly authored connection">
+  <h2>Connection views</h2>
+  <p>Guarded 1280×720 captures of the new authored doorway from both sides. The capture manifest includes the scene-ready time and camera poses.</p>
+  <div class="grid">
+    <section class="card"><h3>Large room → corridor</h3><img src="captures_final/connection_large_room_to_corridor.png" alt="Large room looking into the new corridor connection"></section>
+    <section class="card"><h3>Corridor → large room</h3><img src="captures_final/connection_corridor_to_large_room.png" alt="Corridor looking back through the new connection"></section>
+  </div>
+  <p><a href="captures_final/capture_manifest.json">Capture manifest</a></p>
+  <h2>Evidence</h2>
+  <p>Source context: <a href="../2026-10-24-issue-163/candidate_contact_sheet.jpg">accepted #163 room reference</a> · <a href="../2026-10-25-issue-165/source_vs_adaptation_contact_sheet_v2.jpg">accepted #165 corridor transfer comparison</a>. These are separate inputs; neither proves the new game connection.</p>
+  <ul>
+    <li><a href="mechanics/connection_controls_final.json">Socket alignment, approach, floor, frame, cap and negative-control checks</a></li>
+    <li><a href="mechanics/traversal_analysis_final_v2.json">Bidirectional traversal summary</a></li>
+    <li><a href="mechanics/assembled_final_v3/physics_candidate.json">Four-room route and boundary checks</a></li>
+    <li><a href="mechanics/issue164_regression_verified/physics_candidate.json">Unchanged #164 regression route</a></li>
+    <li><a href="candidate_manifest.json">Candidate manifest (catalog admission pending)</a></li>
+    <li><a href="protected_asset_hashes.json">Protected accepted input hashes</a></li>
+    <li><a href="mechanics/assembled_final_v3/fps_issue166_four_room.json">Frame profile: 34 poses, 10,199 frames, 239.86 average uncapped FPS</a></li>
+    <li><a href="resource_runs/issue166_review_captures_final.json">Successful guarded capture and resource receipt</a> · <a href="resource_runs/issue166_four_room_fps_retry1.json">Successful guarded profiling and resource receipt</a></li>
+    <li>Earlier blocked preflight receipts remain available: <a href="resource_runs/issue166_review_captures.json">capture attempt</a> · <a href="resource_runs/issue166_four_room_fps.json">frame-profile attempt</a></li>
+  </ul>
+  <h2>Operator decision</h2>
+  <p>Accepted for this exact four-room layout after live walkthrough. Catalog admission, metric scale, source registration, source-video connectivity, and connector generalization remain unapproved.</p>
+  <p>The supplemental captures and uncapped frame profile were recorded afterward under the GPU/RAM guard. They document the accepted candidate and do not change its scope.</p>
+</body>
+</html>

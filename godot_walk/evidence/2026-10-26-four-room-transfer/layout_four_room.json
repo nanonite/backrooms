@@ -1,0 +1,313 @@
+{
+  "catalog_id": "godot_psx_room_kit",
+  "catalog_sha256": "d516b32ff16fb9f04bde3330a1eeb1c4e562c8b74d01205cf702fa03f649e54a",
+  "catalog_snapshot_path": "res://evidence/2026-10-26-four-room-transfer/catalog_snapshot.json",
+  "catalog_version": "0.2.0+issue166-candidate",
+  "connections": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "from": {
+        "instance_id": "R000",
+        "socket_id": "east"
+      },
+      "id": "R000.east__R001.west",
+      "mechanical_status": "mechanically_validated_review_pending",
+      "operator_status": "review_pending",
+      "to": {
+        "instance_id": "R001",
+        "socket_id": "west"
+      }
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "from": {
+        "instance_id": "R001",
+        "socket_id": "east"
+      },
+      "id": "R001.east__R002.hall_end",
+      "mechanical_status": "mechanically_validated_review_pending",
+      "operator_status": "review_pending",
+      "to": {
+        "instance_id": "R002",
+        "socket_id": "hall_end"
+      }
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "from": {
+        "instance_id": "R002",
+        "socket_id": "west_back"
+      },
+      "id": "R002.west_back__R003.west",
+      "mechanical_status": "mechanically_validated",
+      "operator_status": "review_pending",
+      "to": {
+        "instance_id": "R003",
+        "socket_id": "west"
+      }
+    }
+  ],
+  "generator_version": "0.1.0",
+  "layout_id": "issue166_four_distinct_room_chain_seed_166",
+  "layout_sha256": "21a446e00cb40d0d16358729d4a1bf3493f9dc4e387237be0fac55882e32c056",
+  "mechanical_status": "mechanically_validated",
+  "module_counts": {
+    "godot_corridor_corner_socket_candidate_v1": 1,
+    "godot_early_pocket_pass_through_v1": 1,
+    "godot_later_bay_column_bounded_v1": 1,
+    "godot_source_textured_large_room_dual_socket_candidate_v1": 1
+  },
+  "operator_status": "review_pending",
+  "placements": [
+    {
+      "connected_sockets": {
+        "east": "R001/west"
+      },
+      "instance_id": "R000",
+      "module_id": "godot_later_bay_column_bounded_v1",
+      "module_version": 1,
+      "open_sockets": [
+        "east"
+      ],
+      "operator_status": "accepted_issue164_regression_reference",
+      "scene": "res://scenes/issue160_column_connector.tscn",
+      "scene_sha256": "413aafe129efafb037e286dcc7d99df51f729c3dbb8c431850185312c2922654",
+      "transform": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_degrees": 0
+      }
+    },
+    {
+      "connected_sockets": {
+        "east": "R002/hall_end",
+        "west": "R000/east"
+      },
+      "instance_id": "R001",
+      "module_id": "godot_early_pocket_pass_through_v1",
+      "module_version": 1,
+      "open_sockets": [
+        "west",
+        "east"
+      ],
+      "operator_status": "accepted_issue164_regression_reference",
+      "scene": "res://scenes/issue149_pocket_pass_through.tscn",
+      "scene_sha256": "3ae9b0ee1fc099d7b8f074598e5486666b9c139ef33901a50c7ef9779866f8db",
+      "transform": {
+        "position": [
+          3.5,
+          0.0,
+          -3.8
+        ],
+        "yaw_degrees": 0
+      }
+    },
+    {
+      "connected_sockets": {
+        "hall_end": "R001/east",
+        "west_back": "R003/west"
+      },
+      "instance_id": "R002",
+      "module_id": "godot_source_textured_large_room_dual_socket_candidate_v1",
+      "module_version": 1,
+      "open_sockets": [
+        "hall_end",
+        "west_back"
+      ],
+      "operator_status": "provisional_operator_review_pending",
+      "scene": "res://scenes/issue166_room_large_dual_socket.tscn",
+      "scene_sha256": "a481ff1cfc9dc7c6ee26ac7abc37978f9d38e95c0e7e21f516671871325837dd",
+      "transform": {
+        "position": [
+          22.56,
+          0.0,
+          3.1
+        ],
+        "yaw_degrees": 180
+      }
+    },
+    {
+      "connected_sockets": {
+        "west": "R002/west_back"
+      },
+      "instance_id": "R003",
+      "module_id": "godot_corridor_corner_socket_candidate_v1",
+      "module_version": 1,
+      "open_sockets": [
+        "west"
+      ],
+      "operator_status": "provisional_operator_review_pending",
+      "scene": "res://scenes/issue166_transfer_room_socket.tscn",
+      "scene_sha256": "02fdf3e55ffed5b44bcecab7be623af96f5bc64a5198768d4c2b041de3d9e892",
+      "transform": {
+        "position": [
+          34.56,
+          -1.27099049,
+          3.1
+        ],
+        "yaw_degrees": 0
+      }
+    }
+  ],
+  "registration_accepted": false,
+  "repeated_instances": 0,
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "seed": 166,
+  "settings": {
+    "branch_required": false,
+    "layout_bounds_m": [
+      -4.4,
+      -3.98,
+      38.64,
+      10.0
+    ],
+    "loops": false,
+    "placement_count": 4
+  },
+  "spawn": {
+    "instance_id": "R000",
+    "local_position": [
+      -3.5,
+      -0.67099049,
+      0.0
+    ]
+  },
+  "supported_constraints": [
+    "reproduce_exact_issue164_three_room_chain_as_regression_prefix",
+    "four_distinct_room_designs",
+    "authored_west_back_socket_on_issue163_room_adapter",
+    "authored_west_socket_on_issue165_corridor_adapter",
+    "closed_unused_perimeter_boundaries",
+    "safe_spawn_and_reset",
+    "bidirectional_backtracking"
+  ],
+  "topology": {
+    "cycle_rank": 0,
+    "dead_end_count": 2,
+    "edge_count": 3,
+    "type": "four_distinct_room_chain"
+  },
+  "unique_module_designs": 4,
+  "unsupported_constraints": [
+    "source-video-proven connectivity at the new connection",
+    "metric-scale calibration",
+    "arbitrary room stitching",
+    "unbounded streaming"
+  ],
+  "walk_envelope": [
+    -4.4,
+    -3.98,
+    43.04,
+    13.98
+  ],
+  "walk_route_xz": [
+    [
+      -3.5,
+      0.0
+    ],
+    [
+      -3.4,
+      2.6
+    ],
+    [
+      -1.8,
+      2.6
+    ],
+    [
+      2.4,
+      2.6
+    ],
+    [
+      2.4,
+      3.1
+    ],
+    [
+      3.3,
+      3.1
+    ],
+    [
+      4.3,
+      3.1
+    ],
+    [
+      6.5,
+      3.1
+    ],
+    [
+      8.7,
+      3.1
+    ],
+    [
+      9.5,
+      3.1
+    ],
+    [
+      12.5,
+      3.1
+    ],
+    [
+      16.56,
+      3.1
+    ],
+    [
+      18.56,
+      3.1
+    ],
+    [
+      18.56,
+      0.5
+    ],
+    [
+      22.56,
+      0.5
+    ],
+    [
+      26.56,
+      0.5
+    ],
+    [
+      26.56,
+      3.1
+    ],
+    [
+      27.5,
+      3.1
+    ],
+    [
+      28.4,
+      3.1
+    ],
+    [
+      29.4,
+      3.1
+    ],
+    [
+      30.56,
+      4.25
+    ],
+    [
+      33.56,
+      4.25
+    ],
+    [
+      35.0,
+      4.0
+    ],
+    [
+      35.36,
+      3.6
+    ],
+    [
+      36.56,
+      1.0
+    ],
+    [
+      36.56,
+      -2.7
+    ]
+  ]
+}

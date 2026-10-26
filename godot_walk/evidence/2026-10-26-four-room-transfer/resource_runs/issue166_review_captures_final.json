@@ -1,0 +1,41 @@
+{
+  "label": "issue166_review_captures_final",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--script",
+    "res://scripts/capture_issue166_review_views.gd",
+    "--",
+    "--out-dir=res://evidence/2026-10-26-four-room-transfer/captures_final"
+  ],
+  "timeout_seconds": 240,
+  "timed_out": false,
+  "return_code": 0,
+  "error": null,
+  "elapsed_seconds": 3.418,
+  "finished_utc": "2026-10-26T14:17:38.246694+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11432624128,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 8,
+    "compute_apps": [],
+    "ram_available_bytes": 44558266368,
+    "vram_after_headroom_bytes": 9146099302,
+    "ram_after_headroom_bytes": 33418699776,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 2426236928,
+    "gpu_memory_start_bytes": 1012924416,
+    "peak_gpu_memory_used_bytes": 1592786944,
+    "peak_gpu_memory_delta_bytes": 579862528,
+    "gpu_sample_period_ms": 500
+  }
+}

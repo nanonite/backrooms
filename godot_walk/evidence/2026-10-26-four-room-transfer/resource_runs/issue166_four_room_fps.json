@@ -1,0 +1,27 @@
+{
+  "label": "issue166_four_room_fps",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--script",
+    "res://scripts/measure_bounded_fps.gd",
+    "--",
+    "--scene=res://scenes/issue166_four_room_walkthrough.tscn",
+    "--out-dir=res://evidence/2026-10-26-four-room-transfer/mechanics/assembled_final_v3",
+    "--label=issue166_four_room",
+    "--capped"
+  ],
+  "timeout_seconds": 240,
+  "timed_out": false,
+  "return_code": 125,
+  "error": "GPU preflight blocked by active GPU process(es): pid=201115 type=G command=gnome-text-editor",
+  "elapsed_seconds": 0.0,
+  "finished_utc": "2026-10-26T07:32:12.445326+00:00",
+  "preflight": null,
+  "resources": null
+}

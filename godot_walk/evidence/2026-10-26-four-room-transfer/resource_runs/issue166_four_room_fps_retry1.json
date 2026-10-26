@@ -1,0 +1,43 @@
+{
+  "label": "issue166_four_room_fps_retry1",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--script",
+    "res://scripts/measure_bounded_fps.gd",
+    "--",
+    "--scene=res://scenes/issue166_four_room_walkthrough.tscn",
+    "--out-dir=res://evidence/2026-10-26-four-room-transfer/mechanics/assembled_final_v3",
+    "--label=issue166_four_room"
+  ],
+  "timeout_seconds": 240,
+  "timed_out": false,
+  "return_code": 0,
+  "error": null,
+  "elapsed_seconds": 48.749,
+  "finished_utc": "2026-10-26T14:16:35.201331+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11433672704,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 1,
+    "compute_apps": [],
+    "ram_available_bytes": 44259586048,
+    "vram_after_headroom_bytes": 9146938163,
+    "ram_after_headroom_bytes": 33194689536,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 2425692160,
+    "gpu_memory_start_bytes": 1012924416,
+    "peak_gpu_memory_used_bytes": 1595932672,
+    "peak_gpu_memory_delta_bytes": 583008256,
+    "gpu_sample_period_ms": 500
+  }
+}
