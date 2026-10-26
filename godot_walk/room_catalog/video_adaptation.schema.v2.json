@@ -1,0 +1,1081 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/video_adaptation.schema.v2.json",
+  "title": "Video-to-PSX room adaptation record, contract v2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "contract_id",
+    "contract_version",
+    "adaptation_id",
+    "status",
+    "registration_accepted",
+    "scale_calibrated",
+    "source_observations",
+    "reusable_requirements",
+    "resolved_adaptation",
+    "validation",
+    "operator_decision",
+    "candidate_identity",
+    "catalog_snapshot",
+    "contract_freeze"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "contract_id": {
+      "const": "godot_video_room_completion"
+    },
+    "contract_version": {
+      "const": "2.0.0"
+    },
+    "contract_freeze": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "adaptation_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "status": {
+      "enum": [
+        "accepted_reference",
+        "candidate_pending_review",
+        "rejected"
+      ]
+    },
+    "registration_accepted": {
+      "const": false
+    },
+    "scale_calibrated": {
+      "const": false
+    },
+    "source_observations": {
+      "type": "object",
+      "required": [
+        "video",
+        "suitability",
+        "frames",
+        "observations",
+        "unknowns"
+      ],
+      "properties": {
+        "video": {
+          "$ref": "#/$defs/sourceVideo"
+        },
+        "suitability": {
+          "$ref": "#/$defs/suitability"
+        },
+        "frames": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/frame"
+          }
+        },
+        "observations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/observation"
+          }
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "reusable_requirements": {
+      "type": "object",
+      "required": [
+        "coordinate_convention",
+        "supported_footprint_representation",
+        "player",
+        "floor_and_ceiling",
+        "collision_policy",
+        "render_placement_policy",
+        "socket_policy",
+        "psx_profile_id"
+      ],
+      "properties": {
+        "coordinate_convention": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supported_footprint_representation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "player": {
+          "type": "object",
+          "required": [
+            "controller_scene",
+            "capsule_radius",
+            "capsule_height",
+            "safe_spawn_and_reset"
+          ],
+          "properties": {
+            "controller_scene": {
+              "type": "string",
+              "minLength": 1
+            },
+            "capsule_radius": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "capsule_height": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "safe_spawn_and_reset": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        "floor_and_ceiling": {
+          "type": "string",
+          "minLength": 1
+        },
+        "collision_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "render_placement_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "socket_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "psx_profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "additional_constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "resolved_adaptation": {
+      "type": "object",
+      "required": [
+        "candidate_version",
+        "catalog_admission",
+        "scene_path",
+        "catalog_module_refs",
+        "walkable_space",
+        "boundary_and_obstacle_collision",
+        "rendered_placement_envelope",
+        "surfaces",
+        "sockets",
+        "psx_profile_id",
+        "dependencies"
+      ],
+      "properties": {
+        "candidate_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "catalog_admission": {
+          "enum": [
+            "accepted_existing_module",
+            "candidate_not_admitted",
+            "admitted"
+          ]
+        },
+        "scene_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "catalog_module_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/moduleRef"
+          }
+        },
+        "walkable_space": {
+          "$ref": "#/$defs/walkableSpace"
+        },
+        "boundary_and_obstacle_collision": {
+          "$ref": "#/$defs/collisionContract"
+        },
+        "rendered_placement_envelope": {
+          "$ref": "#/$defs/renderEnvelope"
+        },
+        "surfaces": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/surface"
+          }
+        },
+        "sockets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/socket"
+          }
+        },
+        "psx_profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dependencies": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/fileArtifact"
+          }
+        },
+        "authoring_log": {
+          "type": "object",
+          "required": [
+            "manual_decisions",
+            "operator_interventions",
+            "effort"
+          ],
+          "properties": {
+            "manual_decisions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "operator_interventions": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "effort": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "validation": {
+      "type": "object",
+      "required": [
+        "mechanical_status",
+        "stages"
+      ],
+      "properties": {
+        "mechanical_status": {
+          "enum": [
+            "pending",
+            "passed",
+            "failed",
+            "stale"
+          ]
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stageResult"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "operator_decision": {
+      "type": "object",
+      "required": [
+        "status",
+        "decision_record_path"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "accepted",
+            "pending",
+            "rejected",
+            "superseded"
+          ]
+        },
+        "decision_record_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decision_sha256": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "candidate_fingerprint": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scope": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidate_identity": {
+      "$ref": "#/$defs/sha256"
+    },
+    "catalog_snapshot": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256",
+        "catalog_id",
+        "catalog_version"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "catalog_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "catalog_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "fileArtifact": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256",
+        "role"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "sourceVideo": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256",
+        "width",
+        "height",
+        "fps",
+        "frame_count",
+        "duration_seconds"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "fps": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "frame_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "duration_seconds": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "suitability": {
+      "type": "object",
+      "required": [
+        "decision",
+        "rationale"
+      ],
+      "properties": {
+        "decision": {
+          "enum": [
+            "proceed",
+            "proceed_with_limitations",
+            "reject"
+          ]
+        },
+        "rationale": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "frame": {
+      "type": "object",
+      "required": [
+        "frame_id",
+        "index_zero_based",
+        "timestamp_seconds",
+        "path",
+        "sha256",
+        "decode_operation"
+      ],
+      "properties": {
+        "frame_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "index_zero_based": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "timestamp_seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "decode_operation": {
+          "const": "direct_source_video_decode_no_resize_or_edit"
+        },
+        "crops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/crop"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "crop": {
+      "type": "object",
+      "required": [
+        "role",
+        "path",
+        "sha256",
+        "source_pixel_bounds_xyxy",
+        "operation"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_pixel_bounds_xyxy": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "integer",
+              "minimum": 1
+            }
+          ],
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "operation": {
+          "const": "direct_rectangular_crop_no_resize_or_color_edit"
+        }
+      },
+      "additionalProperties": false
+    },
+    "observation": {
+      "type": "object",
+      "required": [
+        "claim",
+        "certainty",
+        "frame_ids"
+      ],
+      "properties": {
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "certainty": {
+          "enum": [
+            "directly_observed",
+            "partially_observed",
+            "unknown"
+          ]
+        },
+        "frame_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "moduleRef": {
+      "type": "object",
+      "required": [
+        "catalog_id",
+        "version",
+        "role",
+        "status"
+      ],
+      "properties": {
+        "catalog_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "polygon": {
+      "type": "object",
+      "required": [
+        "representation",
+        "vertices_xz"
+      ],
+      "properties": {
+        "representation": {
+          "const": "simple_orthogonal_polygon_xz"
+        },
+        "vertices_xz": {
+          "type": "array",
+          "minItems": 4,
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "minItems": 2,
+            "maxItems": 2
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "walkableSpace": {
+      "type": "object",
+      "required": [
+        "coordinate_system",
+        "footprint",
+        "floor_elevation",
+        "safe_spawn_xyz",
+        "measurement"
+      ],
+      "properties": {
+        "coordinate_system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "footprint": {
+          "$ref": "#/$defs/polygon"
+        },
+        "floor_elevation": {
+          "type": "number"
+        },
+        "safe_spawn_xyz": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "measurement": {
+          "type": "object",
+          "required": [
+            "method",
+            "resolution",
+            "spawn_connected_area"
+          ],
+          "properties": {
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "resolution": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "spawn_connected_area": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "status": {
+              "enum": [
+                "measured",
+                "estimated",
+                "pending"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "collisionContract": {
+      "type": "object",
+      "required": [
+        "collision_origin",
+        "floor_bodies",
+        "boundaries",
+        "obstacles",
+        "exposed_boundary_policy"
+      ],
+      "properties": {
+        "collision_origin": {
+          "type": "string",
+          "minLength": 1
+        },
+        "floor_bodies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "boundaries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "obstacles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exposed_boundary_policy": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "renderEnvelope": {
+      "type": "object",
+      "required": [
+        "representation",
+        "bounds_xyz",
+        "background_geometry",
+        "containment_method"
+      ],
+      "properties": {
+        "representation": {
+          "enum": [
+            "conservative_aabb_xyz",
+            "polygon_extrusion_xz",
+            "union_of_prisms"
+          ]
+        },
+        "bounds_xyz": {
+          "type": "object",
+          "required": [
+            "min",
+            "max"
+          ],
+          "properties": {
+            "min": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "max": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "minItems": 3,
+              "maxItems": 3
+            }
+          },
+          "additionalProperties": false
+        },
+        "footprint": {
+          "$ref": "#/$defs/polygon"
+        },
+        "background_geometry": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "containment_method": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "surface": {
+      "type": "object",
+      "required": [
+        "surface_id",
+        "geometry_origin",
+        "appearance_origin",
+        "placement_basis",
+        "collision_origin",
+        "evidence_refs"
+      ],
+      "properties": {
+        "surface_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "geometry_origin": {
+          "type": "string",
+          "minLength": 1
+        },
+        "appearance_origin": {
+          "type": "string",
+          "minLength": 1
+        },
+        "placement_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "collision_origin": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "socket": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "status",
+        "closure_behavior"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "authored_doorway",
+            "observed_opening"
+          ]
+        },
+        "status": {
+          "enum": [
+            "closed",
+            "open_untested",
+            "tested_connector",
+            "source_observation_only"
+          ]
+        },
+        "local_floor_center_xyz": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "outward_normal_xyz": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "clear_size": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "approach_clearance": {
+          "type": "number",
+          "minimum": 0
+        },
+        "compatibility_type": {
+          "type": "string"
+        },
+        "tested_connection_ref": {
+          "type": "string"
+        },
+        "closure_behavior": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "stageResult": {
+      "type": "object",
+      "required": [
+        "stage_id",
+        "status",
+        "candidate_fingerprint",
+        "artifacts"
+      ],
+      "properties": {
+        "stage_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "passed",
+            "failed",
+            "stale"
+          ]
+        },
+        "candidate_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fileArtifact"
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "accepted_reference"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "operator_decision": {
+            "required": [
+              "status",
+              "decision_record_path",
+              "decision_sha256",
+              "candidate_fingerprint"
+            ],
+            "properties": {
+              "status": {
+                "const": "accepted"
+              },
+              "decision_record_path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "decision_sha256": {
+                "$ref": "#/$defs/sha256"
+              },
+              "candidate_fingerprint": {
+                "$ref": "#/$defs/sha256"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "operator_decision": {
+            "properties": {
+              "status": {
+                "const": "accepted"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "operator_decision"
+        ]
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "const": "accepted_reference"
+          }
+        }
+      }
+    }
+  ]
+}

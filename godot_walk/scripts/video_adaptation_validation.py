@@ -7,31 +7,45 @@ import json
 from pathlib import Path
 from typing import Any
 
-import jsonschema
-
-ROOT = Path(__file__).resolve().parents[2]
-SCHEMA_PATH = ROOT / "godot_walk/room_catalog/video_adaptation.schema.json"
-FREEZE_PATH = ROOT / "godot_walk/room_catalog/contract_freeze_v1.json"
-FREEZE_HASH_PATH = FREEZE_PATH.with_suffix(".sha256")
-
-
-class AdaptationValidationError(ValueError):
-    """Raised when a record or its bound artifacts do not match the contract."""
-
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for block in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
+from video_adaptation_compatibility import (
+    read_compatibility_extension,
+    read_compatibility_record,
+    verify_legacy_source_record,
+)
+from video_adaptation_contracts import (
+    V1_FREEZE,
+    V2_FREEZE,
+    V3_FREEZE,
+    candidate_identity_v2,
+    sha256_file,  # noqa: F401 - public compatibility export for workflow scripts
+    verify_versioned_freezes,
+)
+from video_adaptation_decisions import verify_stage_receipts as _verify_stage_receipts
+from video_adaptation_errors import AdaptationValidationError
+from video_adaptation_evidence import (
+    validate_record_schema as _validate_record_schema,
+)
+from video_adaptation_evidence import (
+    verify_catalog_snapshot_binding as _verify_catalog_snapshot_binding,
+)
+from video_adaptation_evidence import (
+    verify_dependency_manifest as _verify_dependency_manifest,
+)
+from video_adaptation_evidence import (
+    verify_frame_artifacts as _verify_frame_artifacts,
+)
+from video_adaptation_evidence import (
+    verify_record_results as _verify_record_results,
+)
+from video_adaptation_paths import ROOT, resolve_repo_path, validate_adaptation_id
+from video_adaptation_scene_dependencies import validate_required_scene_dependencies
+from video_adaptation_semantics import (
+    validate_static_spatial_contract,
+)
 
 
 def repo_file(relative_path: str) -> Path:
-    candidate = (ROOT / relative_path).resolve()
-    if not candidate.is_relative_to(ROOT) or not candidate.is_file():
-        raise AdaptationValidationError(f"Missing or out-of-repository file: {relative_path}")
-    return candidate
+    return resolve_repo_path(relative_path, ROOT, require_file=True)
 
 
 def canonical_fingerprint(artifacts: list[dict[str, str]]) -> str:
@@ -40,100 +54,137 @@ def canonical_fingerprint(artifacts: list[dict[str, str]]) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
-def _verify_artifacts(artifacts: list[dict[str, str]]) -> None:
-    for artifact in artifacts:
-        path = repo_file(artifact["path"])
-        actual = sha256_file(path)
-        if actual != artifact["sha256"]:
-            raise AdaptationValidationError(f"Hash mismatch: {artifact['path']}")
-
-
-def _verify_contract_freeze() -> str:
-    manifest_hash = sha256_file(FREEZE_PATH)
-    sidecar = FREEZE_HASH_PATH.read_text(encoding="utf-8").split()[0]
-    if manifest_hash != sidecar:
-        raise AdaptationValidationError("Contract freeze manifest hash differs from its sidecar")
-    manifest = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
-    _verify_artifacts(list(manifest["files"].values()))
-    catalog = json.loads(repo_file(manifest["files"]["catalog"]["path"]).read_text(encoding="utf-8"))
-    if catalog["catalog_version"] != manifest["catalog_identity"]["catalog_version"]:
-        raise AdaptationValidationError("Frozen catalog version changed")
-    return manifest_hash
-
-
-def _validate_record_schema(record: dict[str, Any]) -> None:
-    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
-    jsonschema.Draft202012Validator.check_schema(schema)
-    errors = sorted(
-        jsonschema.Draft202012Validator(schema).iter_errors(record),
-        key=lambda error: list(error.absolute_path),
-    )
-    if errors:
-        first = errors[0]
-        field = "/".join(str(part) for part in first.absolute_path) or "record"
-        raise AdaptationValidationError(f"Schema error at {field}: {first.message}")
-
-
-def _verify_frame_artifacts(record: dict[str, Any]) -> None:
-    observations = record["source_observations"]
-    _verify_artifacts([observations["video"]])
-    for frame in observations["frames"]:
-        _verify_artifacts([{"path": frame["path"], "sha256": frame["sha256"]}])
-        _verify_artifacts(frame.get("crops", []))
-
-
-def _verify_module_refs(record: dict[str, Any]) -> None:
-    catalog = json.loads(repo_file("godot_walk/room_catalog/catalog.json").read_text(encoding="utf-8"))
-    modules = {module["id"]: module["version"] for module in catalog["modules"]}
-    for module_ref in record["resolved_adaptation"]["catalog_module_refs"]:
-        module_id = module_ref["catalog_id"]
-        if modules.get(module_id) != module_ref["version"]:
-            raise AdaptationValidationError(f"Catalog module reference is missing or changed: {module_id}")
-
-
-def _verify_record_results(record: dict[str, Any], fingerprint: str) -> None:
-    decision = record["operator_decision"]
-    if decision["candidate_fingerprint"] not in (None, fingerprint):
-        raise AdaptationValidationError("Operator decision is bound to a different candidate version")
-    if decision["decision_record_path"] is not None:
-        decision_artifact = {
-            "path": decision["decision_record_path"],
-            "sha256": decision["decision_sha256"],
-        }
-        _verify_artifacts([decision_artifact])
-    for stage in record["validation"]["stages"]:
-        if stage["status"] == "passed" and stage["candidate_fingerprint"] != fingerprint:
-            raise AdaptationValidationError(f"Passed result is stale: {stage['stage_id']}")
-        _verify_artifacts(stage["artifacts"])
-
-
-def _verify_stage_receipts(bundle_path: Path, adaptation_id: str, fingerprint: str) -> None:
-    receipt_dir = bundle_path.parent / "stage_receipts" / adaptation_id
-    if not receipt_dir.is_dir():
-        return
-    for receipt_path in sorted(receipt_dir.glob("*.json")):
-        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
-        if receipt["candidate_fingerprint"] != fingerprint:
-            raise AdaptationValidationError(f"Stage receipt is stale: {receipt_path.name}")
-        _verify_artifacts(receipt["artifacts"])
-
-
 def validate_bundle(bundle_path: Path) -> tuple[dict[str, Any], str]:
     """Validate a bundle without writing or launching a subprocess."""
-    resolved = bundle_path.resolve()
-    if not resolved.is_relative_to(ROOT) or not resolved.is_file():
-        raise AdaptationValidationError("Bundle must be an existing file inside the repository")
-    freeze_hash = _verify_contract_freeze()
-    record = json.loads(resolved.read_text(encoding="utf-8"))
-    _validate_record_schema(record)
-    _verify_frame_artifacts(record)
-    _verify_artifacts(record["resolved_adaptation"]["dependencies"])
-    _verify_module_refs(record)
-    fingerprint = canonical_fingerprint(record["resolved_adaptation"]["dependencies"])
-    _verify_record_results(record, fingerprint)
-    _verify_stage_receipts(resolved, record["adaptation_id"], fingerprint)
-    reference = record.get("contract_freeze")
-    if reference and (reference["path"] != FREEZE_PATH.relative_to(ROOT).as_posix()
-                      or reference["sha256"] != freeze_hash):
-        raise AdaptationValidationError("Adaptation references a different frozen contract")
+    resolved, record, version = _read_bundle(bundle_path)
+    _, v3_freeze = verify_versioned_freezes()
+    fingerprint = _validate_bundle_content(record, resolved, version, v3_freeze)
+    _verify_stage_receipts(
+        resolved,
+        record["adaptation_id"],
+        fingerprint,
+        candidate_identity=candidate_identity_v2(record),
+    )
     return record, fingerprint
+
+
+def _read_bundle(bundle_path: Path) -> tuple[Path, dict[str, Any], int]:
+    resolved = bundle_path.resolve(strict=True)
+    if not resolved.is_relative_to(ROOT.resolve()) or not resolved.is_file():
+        raise AdaptationValidationError(
+            "Bundle must be an existing file inside the repository"
+        )
+    record = json.loads(resolved.read_text(encoding="utf-8"))
+    validate_adaptation_id(record.get("adaptation_id"))
+    version = _contract_version(record)
+    _validate_record_schema(record, version)
+    return resolved, record, version
+
+
+def _validate_bundle_content(
+    record: dict[str, Any], resolved: Path, version: int, v3_freeze: dict[str, Any]
+) -> str:
+    _verify_frozen_contract_reference(record, version)
+    _verify_frame_artifacts(record)
+    dependencies = record["resolved_adaptation"]["dependencies"]
+    _verify_candidate_catalog_dependency(record, dependencies, version)
+    compatibility = (
+        read_compatibility_record(resolved, v3_freeze) if version == 1 else {}
+    )
+    extension = (
+        read_compatibility_extension(resolved, record, compatibility, v3_freeze)
+        if version == 1
+        else {}
+    )
+    snapshot_reference = (
+        compatibility["catalog_snapshot"]
+        if version == 1
+        else record["catalog_snapshot"]
+    )
+    _verify_catalog_snapshot_binding(snapshot_reference, v3_freeze)
+    _verify_dependency_manifest(dependencies, compatibility, v3_freeze, extension)
+    validate_static_spatial_contract(record)
+    dynamic_declarations = (
+        extension.get("dynamic_resource_declarations", [])
+        if version == 1
+        else record["resolved_adaptation"].get("dynamic_resource_declarations", [])
+    )
+    validate_required_scene_dependencies(
+        record,
+        _load_snapshot(snapshot_reference),
+        dynamic_declarations=dynamic_declarations,
+        supplemental_dependencies=extension.get("supplemental_dependencies", []),
+    )
+    return _validate_fingerprints(record, resolved, version, compatibility)
+
+
+def _verify_candidate_catalog_dependency(
+    record: dict[str, Any], dependencies: list[dict[str, str]], version: int
+) -> None:
+    if version == 1:
+        return
+    snapshot = record["catalog_snapshot"]
+    by_path = {item["path"]: item for item in dependencies}
+    if "godot_walk/room_catalog/catalog.json" in by_path:
+        raise AdaptationValidationError(
+            "Versioned candidates must depend on the frozen catalog snapshot, not the live catalog"
+        )
+    artifact = by_path.get(snapshot["path"])
+    if artifact is None or artifact["sha256"] != snapshot["sha256"]:
+        raise AdaptationValidationError(
+            "Versioned candidate dependency manifest must include its exact catalog snapshot"
+        )
+
+
+def _validate_fingerprints(
+    record: dict[str, Any], resolved: Path, version: int, compatibility: dict[str, Any]
+) -> str:
+    dependency_fingerprint = canonical_fingerprint(
+        record["resolved_adaptation"]["dependencies"]
+    )
+    if version == 1:
+        verify_legacy_source_record(record, resolved, compatibility)
+        fingerprint = dependency_fingerprint
+    else:
+        fingerprint = candidate_identity_v2(record)
+        if record["candidate_identity"] != fingerprint:
+            raise AdaptationValidationError("Candidate identity is stale")
+    _verify_record_results(record, fingerprint, version, canonical_fingerprint)
+    return fingerprint
+
+
+def _contract_version(record: dict[str, Any]) -> int:
+    if record.get("contract_id") != "godot_video_room_completion":
+        raise AdaptationValidationError("Unknown video-adaptation contract ID")
+    if record.get("contract_version") == "1.0.0" and record.get("schema_version") == 1:
+        return 1
+    if record.get("contract_version") == "2.0.0" and record.get("schema_version") == 2:
+        return 2
+    if record.get("contract_version") == "3.0.0" and record.get("schema_version") == 3:
+        return 3
+    raise AdaptationValidationError("Unsupported video-adaptation contract version")
+
+
+def _verify_frozen_contract_reference(record: dict[str, Any], version: int) -> None:
+    reference = record.get("contract_freeze")
+    if reference is None:
+        if version >= 2:
+            raise AdaptationValidationError(
+                "Versioned adaptation records must reference their frozen contract manifest"
+            )
+        return
+    expected_path = {1: V1_FREEZE, 2: V2_FREEZE, 3: V3_FREEZE}[version]
+    expected = repo_file(expected_path)
+    if reference["path"] != expected_path:
+        raise AdaptationValidationError(
+            "Adaptation references an unknown frozen contract"
+        )
+    if reference["sha256"] != hashlib.sha256(expected.read_bytes()).hexdigest():
+        raise AdaptationValidationError(
+            "Adaptation references a different contract freeze"
+        )
+
+
+def _load_snapshot(reference: dict[str, Any]) -> dict[str, Any]:
+    path = repo_file(reference["path"])
+    return json.loads(path.read_text(encoding="utf-8"))

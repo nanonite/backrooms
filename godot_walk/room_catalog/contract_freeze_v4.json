@@ -1,0 +1,321 @@
+{
+  "freeze_version": 4,
+  "validator_version": "4.0.0",
+  "contract_id": "godot_video_room_completion",
+  "contract_version": "3.0.0",
+  "issue": 165,
+  "migration_from": {
+    "validator_version": "3.0.0",
+    "freeze_path": "godot_walk/room_catalog/contract_freeze_v3.json"
+  },
+  "ancestors": {
+    "v3_freeze_sha256": "91c0cb1b47f980193a47d8e221b366f2d452256fa7b383adc818a177c9813ba1"
+  },
+  "files": {
+    "active_compatibility": {
+      "path": "godot_walk/scripts/video_adaptation_compatibility.py",
+      "sha256": "fbffc9bbd3633aee73814eb0d51a5b7f29eb23d0039980dc31c789c79a81ecbd"
+    },
+    "active_contracts_v4": {
+      "path": "godot_walk/scripts/video_adaptation_contracts.py",
+      "sha256": "a593e9dbe076c332f3e68b31a88e669f07f537da760264f6e97df7ef6bfd7460"
+    },
+    "active_decisions": {
+      "path": "godot_walk/scripts/video_adaptation_decisions.py",
+      "sha256": "56616c3b97e51576b41056365633f37ff88d2368b2654b7588ca82bc4d1fb239"
+    },
+    "active_errors": {
+      "path": "godot_walk/scripts/video_adaptation_errors.py",
+      "sha256": "9ee2aed02c0c15638f497d63a73f45d77309aa3610fba08e05c529acf8caf542"
+    },
+    "active_evidence": {
+      "path": "godot_walk/scripts/video_adaptation_evidence.py",
+      "sha256": "ceeddaba528ac8eea42ac5a209ad02337ea86e5ab78100009c28c8c6b6be59ed"
+    },
+    "active_paths": {
+      "path": "godot_walk/scripts/video_adaptation_paths.py",
+      "sha256": "bc4e9b18ceb09958658ba744a6bf8747312a1f8adf5f7dbdb8c181bac4b9ed2e"
+    },
+    "active_polygon": {
+      "path": "godot_walk/scripts/video_adaptation_polygon.py",
+      "sha256": "03c3007a00d674bfada6489e5cfd97d30e7ffc41ad35424440cc027506baa78d"
+    },
+    "active_resource_graph_v4": {
+      "path": "godot_walk/scripts/video_adaptation_resource_graph.py",
+      "sha256": "84f0677bda60d2ff4b07664abc8c70e2fc815f4d002eda4af5d581473cb44cb0"
+    },
+    "active_runner": {
+      "path": "godot_walk/scripts/video_adaptation_runner.py",
+      "sha256": "62f2fb131bd49a278082abe3b353c0ff863a6628c5b2abe7c74ba175d30e7f17"
+    },
+    "active_scene_dependencies": {
+      "path": "godot_walk/scripts/video_adaptation_scene_dependencies.py",
+      "sha256": "eb2bb8dd577a61318d4bd7a13f82c5b2b8728204c6fd658bfdb733d1a894e232"
+    },
+    "active_semantics": {
+      "path": "godot_walk/scripts/video_adaptation_semantics.py",
+      "sha256": "535f61ff66ba697d71e4bc1f0ae1049bf386b131fb72c71a91e25e72578a5daf"
+    },
+    "active_socket_validation": {
+      "path": "godot_walk/scripts/video_adaptation_socket_validation.py",
+      "sha256": "36ee7c5134e11200f347a6cd31b8b0f6ecc4bc2d08bd3d4a1e00ef921b25cd2e"
+    },
+    "active_sources": {
+      "path": "godot_walk/scripts/video_adaptation_sources.py",
+      "sha256": "1beb4fa947d757c30c6c55a1f7e8161bad6f94d0d0a5b84a33b97ab6b93afc1b"
+    },
+    "active_stage": {
+      "path": "godot_walk/scripts/video_adaptation_stage.py",
+      "sha256": "3470acbf2dbcb74e13a0b546b2cf680e5b0c2d1494e1e14abcc1433931226d4e"
+    },
+    "active_validation": {
+      "path": "godot_walk/scripts/video_adaptation_validation.py",
+      "sha256": "44803981db7ef2563c76832f7ea3ce6dd48a51274b51d9aa47cc04e0d6aff8cd"
+    },
+    "archive_v2_video_adaptation_compatibility": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_compatibility.py",
+      "sha256": "45a6268c871686cc7a3b5704a9a4bad1bcf0d3e25943613672a107442f007927"
+    },
+    "archive_v2_video_adaptation_contracts": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_contracts.py",
+      "sha256": "4fdbe39407a7bcfcfaefab5e375899c5d1d7a3c35e04cdf1633dc426ae828a62"
+    },
+    "archive_v2_video_adaptation_decisions": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_decisions.py",
+      "sha256": "56616c3b97e51576b41056365633f37ff88d2368b2654b7588ca82bc4d1fb239"
+    },
+    "archive_v2_video_adaptation_errors": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_errors.py",
+      "sha256": "9ee2aed02c0c15638f497d63a73f45d77309aa3610fba08e05c529acf8caf542"
+    },
+    "archive_v2_video_adaptation_evidence": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_evidence.py",
+      "sha256": "6931f871088192b9764f2b34b2e9d6c8cf9d13f0b341a4ffdf746e17671240ce"
+    },
+    "archive_v2_video_adaptation_paths": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_paths.py",
+      "sha256": "bc4e9b18ceb09958658ba744a6bf8747312a1f8adf5f7dbdb8c181bac4b9ed2e"
+    },
+    "archive_v2_video_adaptation_polygon": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_polygon.py",
+      "sha256": "7b1dd23d87e9b51a8bd1d2f822fb24d1f9b23d7f8d4a03d9ec0c2f1c5ba7db27"
+    },
+    "archive_v2_video_adaptation_runner": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_runner.py",
+      "sha256": "62f2fb131bd49a278082abe3b353c0ff863a6628c5b2abe7c74ba175d30e7f17"
+    },
+    "archive_v2_video_adaptation_scene_dependencies": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_scene_dependencies.py",
+      "sha256": "93018cd67e10007d35a32c2dbfc828117ca680d107867f01ea5ca6a2cbcf9ea3"
+    },
+    "archive_v2_video_adaptation_semantics": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_semantics.py",
+      "sha256": "fc4e9bdebf080e2f6c6086739b04f0fa65a19e29b0030e0adadd125027294919"
+    },
+    "archive_v2_video_adaptation_sources": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_sources.py",
+      "sha256": "1beb4fa947d757c30c6c55a1f7e8161bad6f94d0d0a5b84a33b97ab6b93afc1b"
+    },
+    "archive_v2_video_adaptation_stage": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_stage.py",
+      "sha256": "3470acbf2dbcb74e13a0b546b2cf680e5b0c2d1494e1e14abcc1433931226d4e"
+    },
+    "archive_v2_video_adaptation_validation": {
+      "path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_validation.py",
+      "sha256": "34ad7b2f968c0d7fe6c3dde2134009d9c933903dc7d6dd8d6e2334d4b0ce0e0b"
+    },
+    "archive_v3_active_contracts": {
+      "path": "godot_walk/room_catalog/archives/contract_v3/video_adaptation_contracts.py",
+      "sha256": "9c39e12a9b131a8f0140eeabfdd7aef8344a61103cf4f93517215e9c5e28b4e7"
+    },
+    "archive_v3_active_resource_graph": {
+      "path": "godot_walk/room_catalog/archives/contract_v3/video_adaptation_resource_graph.py",
+      "sha256": "733d582678bfe02b6896fdb8322099589f1ee6a62a0f4cab7054c08fb2fd0966"
+    },
+    "catalog_snapshot": {
+      "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+      "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d"
+    },
+    "compatibility_v3_corridor-corner-authored-l-corridor-v2": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v3/corridor-corner-authored-l-corridor-v2.json",
+      "sha256": "df3666336825f7223286362461eaa175bbda229316a5eb9ed56ea7d8815f0c49"
+    },
+    "compatibility_v3_room-large-source-textured-v1": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v3/room-large-source-textured-v1.json",
+      "sha256": "aba35d9f6f099db420eaba6a2d5b36641759f4d346571df9d31b864fb243f40e"
+    },
+    "contract_v3": {
+      "path": "godot_walk/room_catalog/video_adaptation_contract_v3.md",
+      "sha256": "6427ef470d48ae48a82551f344b671310cc64f7770247281bcec2801b93d8b75"
+    },
+    "schema_v2": {
+      "path": "godot_walk/room_catalog/video_adaptation.schema.v2.json",
+      "sha256": "badf544a43d053249a106a32ee7d497c5532d70c28efc99ad8ecadf74f73d698"
+    },
+    "schema_v3": {
+      "path": "godot_walk/room_catalog/video_adaptation.schema.v3.json",
+      "sha256": "4b91796b8e1058c00a212fe5184a737db5d9b483a7ae32b50f7bd90a42111176"
+    },
+    "v1_freeze_manifest": {
+      "path": "godot_walk/room_catalog/contract_freeze_v1.json",
+      "sha256": "e6ccc0971e368e17a736f294ffdff47107b99c4f3dc9a09a555ef6c5b22d9d77"
+    },
+    "v1_freeze_sidecar": {
+      "path": "godot_walk/room_catalog/contract_freeze_v1.sha256",
+      "sha256": "c044232ce38025a660282f93499f2e262c632db2f5c9d2dfe42bbd8ff9df930d"
+    },
+    "v2_freeze_manifest": {
+      "path": "godot_walk/room_catalog/contract_freeze_v2.json",
+      "sha256": "5b7ea416e7b7b7a69012960295e06dea5952a125fb297e1456335bdc5d44263e"
+    },
+    "v2_freeze_sidecar": {
+      "path": "godot_walk/room_catalog/contract_freeze_v2.sha256",
+      "sha256": "972b189a1bba22c2e6083f01f7eb24c6fb57c1afab855d58c5a70289ffae7f5e"
+    },
+    "v3_freeze_manifest": {
+      "path": "godot_walk/room_catalog/contract_freeze_v3.json",
+      "sha256": "91c0cb1b47f980193a47d8e221b366f2d452256fa7b383adc818a177c9813ba1"
+    },
+    "v3_freeze_sidecar": {
+      "path": "godot_walk/room_catalog/contract_freeze_v3.sha256",
+      "sha256": "b6a17cd82c3b60616934861a9ea6a93d01c680516ab431daba2a2401e92547aa"
+    },
+    "validator_v4_doc": {
+      "path": "godot_walk/room_catalog/video_adaptation_validator_v4.md",
+      "sha256": "9b6461ff6f173d302b5afcb2d815c85021bcf3f7cc6297191e4ddaeace64224a"
+    }
+  },
+  "catalog_snapshot": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+    "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+    "catalog_id": "godot_psx_room_kit",
+    "catalog_version": "0.2.0"
+  },
+  "compatibility_records": {
+    "room-large-source-textured-v1": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v2/room-large-source-textured-v1.json",
+      "sha256": "68f4bf9cba45d7abbf1b913c5d071bf859b211a8af8c8f951e5d1d5d9cbc74b7",
+      "source_record": {
+        "path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+        "sha256": "3e8310f3012ed63d588e496e1b7bfbe5f4377638a6129a2e8b38fa510c52d286"
+      }
+    },
+    "corridor-corner-authored-l-corridor-v2": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v2/corridor-corner-authored-l-corridor-v2.json",
+      "sha256": "30e73fcd236de54795c10aae7b8fce53e43cc71d75ab0f223cecbdbc377565d0",
+      "source_record": {
+        "path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json",
+        "sha256": "101aedfb45085daec421d05a684704f79d97eee4f4fcc4b2b38f70fc9cb3021d"
+      }
+    }
+  },
+  "compatibility_extensions": {
+    "corridor-corner-authored-l-corridor-v2": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v3/corridor-corner-authored-l-corridor-v2.json",
+      "sha256": "df3666336825f7223286362461eaa175bbda229316a5eb9ed56ea7d8815f0c49",
+      "source_record": {
+        "path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json",
+        "sha256": "101aedfb45085daec421d05a684704f79d97eee4f4fcc4b2b38f70fc9cb3021d"
+      },
+      "v2_compatibility": {
+        "path": "godot_walk/room_catalog/adaptations/compatibility_v2/corridor-corner-authored-l-corridor-v2.json",
+        "sha256": "30e73fcd236de54795c10aae7b8fce53e43cc71d75ab0f223cecbdbc377565d0"
+      }
+    },
+    "room-large-source-textured-v1": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v3/room-large-source-textured-v1.json",
+      "sha256": "aba35d9f6f099db420eaba6a2d5b36641759f4d346571df9d31b864fb243f40e",
+      "source_record": {
+        "path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+        "sha256": "3e8310f3012ed63d588e496e1b7bfbe5f4377638a6129a2e8b38fa510c52d286"
+      },
+      "v2_compatibility": {
+        "path": "godot_walk/room_catalog/adaptations/compatibility_v2/room-large-source-textured-v1.json",
+        "sha256": "68f4bf9cba45d7abbf1b913c5d071bf859b211a8af8c8f951e5d1d5d9cbc74b7"
+      }
+    }
+  },
+  "archived_v2_artifacts": [
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_compatibility.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_compatibility.py",
+      "sha256": "45a6268c871686cc7a3b5704a9a4bad1bcf0d3e25943613672a107442f007927"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_contracts.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_contracts.py",
+      "sha256": "4fdbe39407a7bcfcfaefab5e375899c5d1d7a3c35e04cdf1633dc426ae828a62"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_decisions.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_decisions.py",
+      "sha256": "56616c3b97e51576b41056365633f37ff88d2368b2654b7588ca82bc4d1fb239"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_errors.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_errors.py",
+      "sha256": "9ee2aed02c0c15638f497d63a73f45d77309aa3610fba08e05c529acf8caf542"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_evidence.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_evidence.py",
+      "sha256": "6931f871088192b9764f2b34b2e9d6c8cf9d13f0b341a4ffdf746e17671240ce"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_paths.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_paths.py",
+      "sha256": "bc4e9b18ceb09958658ba744a6bf8747312a1f8adf5f7dbdb8c181bac4b9ed2e"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_polygon.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_polygon.py",
+      "sha256": "7b1dd23d87e9b51a8bd1d2f822fb24d1f9b23d7f8d4a03d9ec0c2f1c5ba7db27"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_runner.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_runner.py",
+      "sha256": "62f2fb131bd49a278082abe3b353c0ff863a6628c5b2abe7c74ba175d30e7f17"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_scene_dependencies.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_scene_dependencies.py",
+      "sha256": "93018cd67e10007d35a32c2dbfc828117ca680d107867f01ea5ca6a2cbcf9ea3"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_semantics.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_semantics.py",
+      "sha256": "fc4e9bdebf080e2f6c6086739b04f0fa65a19e29b0030e0adadd125027294919"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_sources.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_sources.py",
+      "sha256": "1beb4fa947d757c30c6c55a1f7e8161bad6f94d0d0a5b84a33b97ab6b93afc1b"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_stage.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_stage.py",
+      "sha256": "3470acbf2dbcb74e13a0b546b2cf680e5b0c2d1494e1e14abcc1433931226d4e"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_validation.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v2/video_adaptation_validation.py",
+      "sha256": "34ad7b2f968c0d7fe6c3dde2134009d9c933903dc7d6dd8d6e2334d4b0ce0e0b"
+    }
+  ],
+  "archived_v3_artifacts": [
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_contracts.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v3/video_adaptation_contracts.py",
+      "sha256": "9c39e12a9b131a8f0140eeabfdd7aef8344a61103cf4f93517215e9c5e28b4e7"
+    },
+    {
+      "original_path": "godot_walk/scripts/video_adaptation_resource_graph.py",
+      "archive_path": "godot_walk/room_catalog/archives/contract_v3/video_adaptation_resource_graph.py",
+      "sha256": "733d582678bfe02b6896fdb8322099589f1ee6a62a0f4cab7054c08fb2fd0966"
+    }
+  ],
+  "calibration_flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false
+  }
+}

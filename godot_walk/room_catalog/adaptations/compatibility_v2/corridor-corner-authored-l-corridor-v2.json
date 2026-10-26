@@ -1,0 +1,54 @@
+{
+  "compatibility_version": 2,
+  "adaptation_id": "corridor-corner-authored-l-corridor-v2",
+  "source_record": {
+    "path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json",
+    "schema_version": 1,
+    "contract_version": "1.0.0"
+  },
+  "source_record_sha256": "101aedfb45085daec421d05a684704f79d97eee4f4fcc4b2b38f70fc9cb3021d",
+  "legacy_dependency_fingerprint": "c5676167f0227e08db966346f813d94a6386603507bba2293db5920af282f6d5",
+  "candidate_identity_v2": "675fee79a288abff9b1480ce368fc237b2628acb08b1056453f59f8c034c4871",
+  "catalog_snapshot": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+    "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+    "catalog_id": "godot_psx_room_kit",
+    "catalog_version": "0.2.0"
+  },
+  "decision_artifact": {
+    "path": "godot_walk/evidence/2026-10-25-issue-165/operator_review.json",
+    "sha256": "2391743b583a7815baf422a13ec4cc48c9ed9055db100d300cd8b0acb9c0096f"
+  },
+  "decision_contract": {
+    "format": "version_fingerprint_decision",
+    "candidate_version": "corridor-corner-authored-l-corridor-v2",
+    "accepted_decisions": [
+      "accepted_with_limitations"
+    ]
+  },
+  "migrated_tool_dependencies": [
+    {
+      "record_dependency_path": "godot_walk/scripts/video_adaptation_runner.py",
+      "legacy_sha256": "a95e536fe097ed9e1ca2b3d333b8dc73b0ef5e0c3bc35cdd9795aa5c19088a3c",
+      "archived_source_path": "godot_walk/room_catalog/adaptations/compatibility_v2/tooling_v1/video_adaptation_runner.py",
+      "active_tool_path": "godot_walk/scripts/video_adaptation_runner.py",
+      "active_tool_sha256": "62f2fb131bd49a278082abe3b353c0ff863a6628c5b2abe7c74ba175d30e7f17"
+    },
+    {
+      "record_dependency_path": "godot_walk/scripts/video_adaptation_sources.py",
+      "legacy_sha256": "f58e85ea7c935389366de251defac44b55f247f5159d68ca9b9e7a6cd66c20cc",
+      "archived_source_path": "godot_walk/room_catalog/adaptations/compatibility_v2/tooling_v1/video_adaptation_sources.py",
+      "active_tool_path": "godot_walk/scripts/video_adaptation_sources.py",
+      "active_tool_sha256": "1beb4fa947d757c30c6c55a1f7e8161bad6f94d0d0a5b84a33b97ab6b93afc1b"
+    },
+    {
+      "record_dependency_path": "godot_walk/scripts/video_adaptation_validation.py",
+      "legacy_sha256": "6518f0077f66738f35acc45e88af6269059c6cba9faa892cefa46b32070f1333",
+      "archived_source_path": "godot_walk/room_catalog/adaptations/compatibility_v2/tooling_v1/video_adaptation_validation.py",
+      "active_tool_path": "godot_walk/scripts/video_adaptation_validation.py",
+      "active_tool_sha256": "34ad7b2f968c0d7fe6c3dde2134009d9c933903dc7d6dd8d6e2334d4b0ce0e0b"
+    }
+  ],
+  "approval_interpretation": "Original operator approval retained; this sidecar derives a stricter compatibility validation and does not create a new design approval.",
+  "runtime_evidence_interpretation": "Existing fingerprinted Godot receipts remain the runtime evidence; static v2 checks do not certify geometry or traversal."
+}

@@ -1,0 +1,132 @@
+{
+  "freeze_version": 2,
+  "contract_id": "godot_video_room_completion",
+  "contract_version": "2.0.0",
+  "issue": 165,
+  "migration_from": {
+    "contract_version": "1.0.0",
+    "freeze_path": "godot_walk/room_catalog/contract_freeze_v1.json"
+  },
+  "files": {
+    "schema_v2": {
+      "path": "godot_walk/room_catalog/video_adaptation.schema.v2.json",
+      "sha256": "badf544a43d053249a106a32ee7d497c5532d70c28efc99ad8ecadf74f73d698"
+    },
+    "contract_v2": {
+      "path": "godot_walk/room_catalog/video_adaptation_contract_v2.md",
+      "sha256": "53ee359f77f54f5e3d6b9e6950e7a2f63e605a4d63cdc613ecb28ac29188efed"
+    },
+    "catalog_snapshot": {
+      "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+      "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d"
+    },
+    "v1_freeze_manifest": {
+      "path": "godot_walk/room_catalog/contract_freeze_v1.json",
+      "sha256": "e6ccc0971e368e17a736f294ffdff47107b99c4f3dc9a09a555ef6c5b22d9d77"
+    },
+    "v1_freeze_sidecar": {
+      "path": "godot_walk/room_catalog/contract_freeze_v1.sha256",
+      "sha256": "c044232ce38025a660282f93499f2e262c632db2f5c9d2dfe42bbd8ff9df930d"
+    },
+    "compatibility_room-large-source-textured-v1": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v2/room-large-source-textured-v1.json",
+      "sha256": "68f4bf9cba45d7abbf1b913c5d071bf859b211a8af8c8f951e5d1d5d9cbc74b7"
+    },
+    "compatibility_corridor-corner-authored-l-corridor-v2": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v2/corridor-corner-authored-l-corridor-v2.json",
+      "sha256": "30e73fcd236de54795c10aae7b8fce53e43cc71d75ab0f223cecbdbc377565d0"
+    },
+    "tool_video_adaptation_compatibility": {
+      "path": "godot_walk/scripts/video_adaptation_compatibility.py",
+      "sha256": "45a6268c871686cc7a3b5704a9a4bad1bcf0d3e25943613672a107442f007927"
+    },
+    "tool_video_adaptation_contracts": {
+      "path": "godot_walk/scripts/video_adaptation_contracts.py",
+      "sha256": "4fdbe39407a7bcfcfaefab5e375899c5d1d7a3c35e04cdf1633dc426ae828a62"
+    },
+    "tool_video_adaptation_decisions": {
+      "path": "godot_walk/scripts/video_adaptation_decisions.py",
+      "sha256": "56616c3b97e51576b41056365633f37ff88d2368b2654b7588ca82bc4d1fb239"
+    },
+    "tool_video_adaptation_errors": {
+      "path": "godot_walk/scripts/video_adaptation_errors.py",
+      "sha256": "9ee2aed02c0c15638f497d63a73f45d77309aa3610fba08e05c529acf8caf542"
+    },
+    "tool_video_adaptation_evidence": {
+      "path": "godot_walk/scripts/video_adaptation_evidence.py",
+      "sha256": "6931f871088192b9764f2b34b2e9d6c8cf9d13f0b341a4ffdf746e17671240ce"
+    },
+    "tool_video_adaptation_paths": {
+      "path": "godot_walk/scripts/video_adaptation_paths.py",
+      "sha256": "bc4e9b18ceb09958658ba744a6bf8747312a1f8adf5f7dbdb8c181bac4b9ed2e"
+    },
+    "tool_video_adaptation_polygon": {
+      "path": "godot_walk/scripts/video_adaptation_polygon.py",
+      "sha256": "7b1dd23d87e9b51a8bd1d2f822fb24d1f9b23d7f8d4a03d9ec0c2f1c5ba7db27"
+    },
+    "tool_video_adaptation_runner": {
+      "path": "godot_walk/scripts/video_adaptation_runner.py",
+      "sha256": "62f2fb131bd49a278082abe3b353c0ff863a6628c5b2abe7c74ba175d30e7f17"
+    },
+    "tool_video_adaptation_scene_dependencies": {
+      "path": "godot_walk/scripts/video_adaptation_scene_dependencies.py",
+      "sha256": "93018cd67e10007d35a32c2dbfc828117ca680d107867f01ea5ca6a2cbcf9ea3"
+    },
+    "tool_video_adaptation_semantics": {
+      "path": "godot_walk/scripts/video_adaptation_semantics.py",
+      "sha256": "fc4e9bdebf080e2f6c6086739b04f0fa65a19e29b0030e0adadd125027294919"
+    },
+    "tool_video_adaptation_sources": {
+      "path": "godot_walk/scripts/video_adaptation_sources.py",
+      "sha256": "1beb4fa947d757c30c6c55a1f7e8161bad6f94d0d0a5b84a33b97ab6b93afc1b"
+    },
+    "tool_video_adaptation_stage": {
+      "path": "godot_walk/scripts/video_adaptation_stage.py",
+      "sha256": "3470acbf2dbcb74e13a0b546b2cf680e5b0c2d1494e1e14abcc1433931226d4e"
+    },
+    "tool_video_adaptation_validation": {
+      "path": "godot_walk/scripts/video_adaptation_validation.py",
+      "sha256": "34ad7b2f968c0d7fe6c3dde2134009d9c933903dc7d6dd8d6e2334d4b0ce0e0b"
+    },
+    "archive_video_adaptation_runner": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v2/tooling_v1/video_adaptation_runner.py",
+      "sha256": "a95e536fe097ed9e1ca2b3d333b8dc73b0ef5e0c3bc35cdd9795aa5c19088a3c"
+    },
+    "archive_video_adaptation_sources": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v2/tooling_v1/video_adaptation_sources.py",
+      "sha256": "f58e85ea7c935389366de251defac44b55f247f5159d68ca9b9e7a6cd66c20cc"
+    },
+    "archive_video_adaptation_validation": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v2/tooling_v1/video_adaptation_validation.py",
+      "sha256": "6518f0077f66738f35acc45e88af6269059c6cba9faa892cefa46b32070f1333"
+    }
+  },
+  "catalog_snapshot": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+    "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+    "catalog_id": "godot_psx_room_kit",
+    "catalog_version": "0.2.0"
+  },
+  "compatibility_records": {
+    "room-large-source-textured-v1": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v2/room-large-source-textured-v1.json",
+      "sha256": "68f4bf9cba45d7abbf1b913c5d071bf859b211a8af8c8f951e5d1d5d9cbc74b7",
+      "source_record": {
+        "path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+        "sha256": "3e8310f3012ed63d588e496e1b7bfbe5f4377638a6129a2e8b38fa510c52d286"
+      }
+    },
+    "corridor-corner-authored-l-corridor-v2": {
+      "path": "godot_walk/room_catalog/adaptations/compatibility_v2/corridor-corner-authored-l-corridor-v2.json",
+      "sha256": "30e73fcd236de54795c10aae7b8fce53e43cc71d75ab0f223cecbdbc377565d0",
+      "source_record": {
+        "path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json",
+        "sha256": "101aedfb45085daec421d05a684704f79d97eee4f4fcc4b2b38f70fc9cb3021d"
+      }
+    }
+  },
+  "calibration_flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false
+  }
+}

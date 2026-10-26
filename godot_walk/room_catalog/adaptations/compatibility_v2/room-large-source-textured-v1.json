@@ -1,0 +1,35 @@
+{
+  "compatibility_version": 2,
+  "adaptation_id": "room-large-source-textured-v1",
+  "source_record": {
+    "path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+    "schema_version": 1,
+    "contract_version": "1.0.0"
+  },
+  "source_record_sha256": "3e8310f3012ed63d588e496e1b7bfbe5f4377638a6129a2e8b38fa510c52d286",
+  "legacy_dependency_fingerprint": "e938b6049c46a95a490ce449f446533c5b37ed688c19ba625b633918822673d5",
+  "candidate_identity_v2": "eab6815bd30e8074caf8cef6d7a51e57572755c93b5025a019d95da11fb76ba3",
+  "catalog_snapshot": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+    "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+    "catalog_id": "godot_psx_room_kit",
+    "catalog_version": "0.2.0"
+  },
+  "decision_artifact": {
+    "path": "godot_walk/evidence/2026-10-24-issue-164/operator_review.json",
+    "sha256": "bf83dc2f7fd389c581020487e8aaa082dea0201122d5791ed778a0befba6772e"
+  },
+  "decision_contract": {
+    "format": "accepted_layout_decision",
+    "accepted_decisions": [
+      "accepted_for_this_layout"
+    ],
+    "issue": 164,
+    "reviewer": "operator",
+    "layout_id": "issue164_three_room_chain_seed_164",
+    "connection_id": "R001.east__R002.hall_end"
+  },
+  "migrated_tool_dependencies": [],
+  "approval_interpretation": "Original operator approval retained; this sidecar derives a stricter compatibility validation and does not create a new design approval.",
+  "runtime_evidence_interpretation": "Existing fingerprinted Godot receipts remain the runtime evidence; static v2 checks do not certify geometry or traversal."
+}

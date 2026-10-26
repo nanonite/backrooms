@@ -8,11 +8,11 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import video_adaptation_runner
+from video_adaptation_decisions import verify_stage_receipts
 from video_adaptation_validation import (
     ROOT,
     canonical_fingerprint,
@@ -20,17 +20,20 @@ from video_adaptation_validation import (
     validate_bundle,
 )
 
-
 REFERENCE_BUNDLE = ROOT / "godot_walk/room_catalog/adaptations/room-large-v1.json"
 TRANSFER_BUNDLE = ROOT / "godot_walk/room_catalog/adaptations/corridor-corner-v2.json"
 
 
 class VideoAdaptationWorkflowTests(unittest.TestCase):
     def test_both_fixture_records_validate_without_rewriting_them(self) -> None:
-        before = {path: sha256_file(path) for path in (REFERENCE_BUNDLE, TRANSFER_BUNDLE)}
+        before = {
+            path: sha256_file(path) for path in (REFERENCE_BUNDLE, TRANSFER_BUNDLE)
+        }
         reference, _ = validate_bundle(REFERENCE_BUNDLE)
         transfer, _ = validate_bundle(TRANSFER_BUNDLE)
-        after = {path: sha256_file(path) for path in (REFERENCE_BUNDLE, TRANSFER_BUNDLE)}
+        after = {
+            path: sha256_file(path) for path in (REFERENCE_BUNDLE, TRANSFER_BUNDLE)
+        }
 
         self.assertEqual(before, after)
         self.assertEqual(reference["operator_decision"]["status"], "accepted")
@@ -42,7 +45,9 @@ class VideoAdaptationWorkflowTests(unittest.TestCase):
         original = [{"path": "candidate.tscn", "sha256": "a" * 64, "role": "scene"}]
         changed = [{"path": "candidate.tscn", "sha256": "b" * 64, "role": "scene"}]
 
-        self.assertNotEqual(canonical_fingerprint(original), canonical_fingerprint(changed))
+        self.assertNotEqual(
+            canonical_fingerprint(original), canonical_fingerprint(changed)
+        )
 
     def test_stage_output_cannot_escape_repository(self) -> None:
         with self.assertRaises(ValueError):
@@ -52,7 +57,7 @@ class VideoAdaptationWorkflowTests(unittest.TestCase):
         arguments = argparse.Namespace(
             bundle=TRANSFER_BUNDLE,
             stage="overwrite_guard_test",
-            output=["PLAN.md"],
+            output=["godot_walk/evidence/2026-10-25-issue-165/operator_review.json"],
             requires_gpu=False,
             command=["python3", "-c", "raise SystemExit(99)"],
             timeout_seconds=1,
@@ -67,15 +72,15 @@ class VideoAdaptationWorkflowTests(unittest.TestCase):
             receipt_dir = Path(temporary) / "stage_receipts" / "candidate-v1"
             receipt_dir.mkdir(parents=True)
             receipt = {
+                "adaptation_id": "candidate-v1",
                 "candidate_fingerprint": "0" * 64,
                 "artifacts": [],
             }
             (receipt_dir / "old.json").write_text(json.dumps(receipt), encoding="utf-8")
-            with patch("video_adaptation_validation._verify_artifacts"):
-                with self.assertRaisesRegex(ValueError, "Stage receipt is stale"):
-                    from video_adaptation_validation import _verify_stage_receipts
-
-                    _verify_stage_receipts(bundle, "candidate-v1", "1" * 64)
+            with self.assertRaisesRegex(ValueError, "Stage receipt is stale"):
+                verify_stage_receipts(
+                    bundle, "candidate-v1", "1" * 64, root=Path(temporary)
+                )
 
 
 if __name__ == "__main__":
