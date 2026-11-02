@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Issue 168 — debris-window rock room</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.55 system-ui, sans-serif; background: #171b1c; color: #ece7da; }
+    body { max-width: 1100px; margin: 2rem auto; padding: 0 1rem 4rem; }
+    h1, h2 { line-height: 1.2; }
+    .notice { border-left: 4px solid #ffcc80; padding: .75rem 1rem; background: #252b2d; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+    figure { margin: 0; padding: .7rem; background: #252b2d; border: 1px solid #41494b; }
+    img { display: block; max-width: 100%; height: auto; }
+    figcaption { margin-top: .5rem; color: #c8d0d0; }
+    code { overflow-wrap: anywhere; }
+    a { color: #9bd7ff; }
+  </style>
+</head>
+<body>
+  <h1>Debris-window rock room candidate</h1>
+  <p class="notice"><strong>Pending standalone review.</strong> This is an authored room layout, not a recovered source floor plan. Registration and scale calibration remain false. All four boundaries are closed; no connector is proposed here.</p>
+  <p>The direct video shows a window band, beams, painted walls and mixed debris. The approved attempt-006 panorama and the operator’s “lots of rocks” direction informed an authored PSX rock field. The footage itself does not prove that its debris is natural rock or that nearby dark passages connect to this room.</p>
+
+  <h2>Candidate render</h2>
+  <figure><a href="candidate_contact_sheet_final.jpg"><img src="candidate_contact_sheet_final.jpg" alt="Five Godot views of the rock-room candidate"></a><figcaption>Five guarded Godot captures. Select to open the full contact sheet.</figcaption></figure>
+
+  <h2>Source comparison</h2>
+  <div class="grid">
+    <figure><a href="../../source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png"><img src="../../source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png" alt="Directly decoded source seed frame 4560"></a><figcaption>Direct source seed: frame_4560, index 4559, PTS 151.966667 s. SHA-256 is recorded in the adaptation candidate.</figcaption></figure>
+    <figure><a href="../../source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-006/panorama/panorama.png"><img src="../../source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-006/panorama/panorama.png" alt="Operator-approved 512 by 256 Hunyuan panorama"></a><figcaption>Attempt-006 panorama: approved composition reference only; not rendered behind the room.</figcaption></figure>
+    <figure><a href="source_context_contact_sheet.png"><img src="source_context_contact_sheet.png" alt="Selected source frames around 145 to 165 seconds"></a><figcaption>Direct-source context frames across 144.5–164.5 s. The dark passage at 164.5 s has unknown relation to the selected zone.</figcaption></figure>
+    <figure><a href="source_texture_crops.png"><img src="source_texture_crops.png" alt="Direct source appearance crop samples"></a><figcaption>Unedited crops from the source frames. Some were used locally; the floor crop was not tiled across the room.</figcaption></figure>
+  </div>
+
+  <h2>Authored layout proposal</h2>
+  <figure><a href="layout.svg"><img src="layout.svg" alt="Authored bounded room arrangement"></a><figcaption>The orientation, shell, rock positions and 12×10 design-unit dimensions are authored.</figcaption></figure>
+
+  <h2>Run and evidence</h2>
+  <ul>
+    <li><a href="COMMANDS.md">Launch and test commands</a></li>
+    <li><a href="REPORT.md">Report, limitations and measurements</a></li>
+    <li><a href="../../source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/adaptation_candidate.json">Versioned pending adaptation record</a></li>
+    <li><a href="capture_resource_run_final.json">Guarded GPU/RAM capture receipt</a></li>
+  </ul>
+</body>
+</html>

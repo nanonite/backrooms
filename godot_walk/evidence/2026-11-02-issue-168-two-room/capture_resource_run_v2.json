@@ -1,0 +1,38 @@
+{
+  "label": "issue168-two-room-review-capture-v2",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://scripts/capture_issue168_two_room_walkthrough.gd",
+    "--",
+    "--out-dir=res://evidence/2026-11-02-issue-168-two-room/captures-v2"
+  ],
+  "output_dir": "godot_walk/evidence/2026-11-02-issue-168-two-room/captures-v2",
+  "timeout_seconds": 240,
+  "return_code": 0,
+  "timed_out": false,
+  "error": null,
+  "elapsed_seconds": 0.99,
+  "finished_at_utc": "2026-11-02T01:47:13.543450+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11947474944,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 12,
+    "compute_apps": [],
+    "ram_available_bytes": 54248316928,
+    "vram_after_headroom_bytes": 9557979955,
+    "ram_after_headroom_bytes": 40686237696,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "peak_resources": {
+    "peak_child_rss_bytes": 560967680,
+    "gpu_memory_start_bytes": 499122176,
+    "peak_gpu_memory_used_bytes": 658505728,
+    "peak_gpu_memory_delta_bytes": 159383552,
+    "gpu_sample_period_ms": 500
+  }
+}

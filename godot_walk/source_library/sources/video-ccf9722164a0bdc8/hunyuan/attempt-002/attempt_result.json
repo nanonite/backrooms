@@ -1,0 +1,14 @@
+{
+  "status": "failed",
+  "return_code": 1,
+  "elapsed_seconds": 116.009,
+  "resources": {
+    "peak_child_rss_bytes": 25293377536,
+    "gpu_memory_start_bytes": 1039138816,
+    "peak_gpu_memory_used_bytes": 12422479872,
+    "peak_gpu_memory_delta_bytes": 11383341056,
+    "gpu_sample_period_ms": 500
+  },
+  "outputs": [],
+  "finished_at_utc": "2026-10-27T03:29:44.538429+00:00"
+}

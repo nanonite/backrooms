@@ -1,0 +1,201 @@
+/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/transformers/utils/hub.py:105: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Couldn't connect to the Hub: Cannot reach https://huggingface.co/api/models/black-forest-labs/FLUX.1-Fill-dev: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable..
+Will try to load from local cache.
+
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]
+Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:02,  2.70it/s]You set `add_prefix_space`. The tokenizer needs to be converted from the slow tokenizers
+
+Loading pipeline components...:  29%|██▊       | 2/7 [00:00<00:01,  4.02it/s]
+Loading pipeline components...:  71%|███████▏  | 5/7 [00:00<00:00,  9.91it/s]
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s][A
+
+Loading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00, 27.68it/s][A
+Loading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00, 27.64it/s]
+
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][A
+
+Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 18.49it/s][A
+Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 18.47it/s]
+
+Loading pipeline components...: 100%|██████████| 7/7 [00:00<00:00,  8.70it/s]
+Loading pipeline components...: 100%|██████████| 7/7 [00:00<00:00,  7.51it/s]
+No LoRA keys associated to CLIPTextModel found with the prefix='text_encoder'. This is safe to ignore if LoRA state dict didn't originally have any CLIPTextModel related params. You can also try specifying `prefix=None` to resolve the warning. Otherwise, open an issue if you think it's unexpected: https://github.com/huggingface/diffusers/issues/new
+
+Quantizing weights to fp8:   0%|          | 0/1279 [00:00<?, ?it/s]
+Quantizing weights to fp8:   2%|▏         | 23/1279 [00:00<00:12, 104.45it/s]
+Quantizing weights to fp8:   3%|▎         | 34/1279 [00:00<00:17, 69.94it/s] 
+Quantizing weights to fp8:   4%|▍         | 55/1279 [00:00<00:13, 91.39it/s]
+Quantizing weights to fp8:   5%|▌         | 65/1279 [00:01<00:23, 51.48it/s]
+Quantizing weights to fp8:   6%|▌         | 72/1279 [00:01<00:22, 52.77it/s]
+Quantizing weights to fp8:   7%|▋         | 93/1279 [00:01<00:18, 65.21it/s]
+Quantizing weights to fp8:   8%|▊         | 101/1279 [00:02<00:43, 26.83it/s]
+Quantizing weights to fp8:   8%|▊         | 107/1279 [00:02<00:42, 27.81it/s]
+Quantizing weights to fp8:  10%|█         | 131/1279 [00:02<00:24, 47.20it/s]
+Quantizing weights to fp8:  11%|█         | 139/1279 [00:03<00:29, 38.19it/s]
+Quantizing weights to fp8:  11%|█▏        | 146/1279 [00:03<00:31, 36.05it/s]
+Quantizing weights to fp8:  12%|█▏        | 152/1279 [00:03<00:32, 34.35it/s]
+Quantizing weights to fp8:  13%|█▎        | 169/1279 [00:03<00:22, 50.08it/s]
+Quantizing weights to fp8:  14%|█▍        | 176/1279 [00:03<00:26, 41.29it/s]
+Quantizing weights to fp8:  14%|█▍        | 182/1279 [00:04<00:26, 40.70it/s]
+Quantizing weights to fp8:  16%|█▌        | 207/1279 [00:04<00:15, 69.29it/s]
+Quantizing weights to fp8:  17%|█▋        | 216/1279 [00:04<00:19, 53.58it/s]
+Quantizing weights to fp8:  17%|█▋        | 223/1279 [00:04<00:21, 50.09it/s]
+Quantizing weights to fp8:  19%|█▉        | 245/1279 [00:04<00:14, 72.59it/s]
+Quantizing weights to fp8:  20%|█▉        | 254/1279 [00:05<00:17, 58.87it/s]
+Quantizing weights to fp8:  20%|██        | 262/1279 [00:05<00:18, 56.16it/s]
+Quantizing weights to fp8:  22%|██▏       | 283/1279 [00:05<00:12, 79.38it/s]
+Quantizing weights to fp8:  23%|██▎       | 293/1279 [00:05<00:18, 53.64it/s]
+Quantizing weights to fp8:  25%|██▌       | 321/1279 [00:05<00:11, 82.49it/s]
+Quantizing weights to fp8:  26%|██▌       | 333/1279 [00:06<00:16, 58.08it/s]
+Quantizing weights to fp8:  28%|██▊       | 359/1279 [00:06<00:11, 80.39it/s]
+Quantizing weights to fp8:  29%|██▉       | 371/1279 [00:07<00:16, 54.87it/s]
+Quantizing weights to fp8:  31%|███       | 397/1279 [00:07<00:11, 75.39it/s]
+Quantizing weights to fp8:  32%|███▏      | 409/1279 [00:07<00:17, 48.96it/s]
+Quantizing weights to fp8:  34%|███▍      | 435/1279 [00:07<00:12, 69.13it/s]
+Quantizing weights to fp8:  35%|███▍      | 447/1279 [00:08<00:16, 51.38it/s]
+Quantizing weights to fp8:  37%|███▋      | 473/1279 [00:08<00:11, 71.74it/s]
+Quantizing weights to fp8:  38%|███▊      | 485/1279 [00:08<00:15, 51.57it/s]
+Quantizing weights to fp8:  40%|███▉      | 511/1279 [00:09<00:10, 70.75it/s]
+Quantizing weights to fp8:  41%|████      | 523/1279 [00:09<00:13, 55.06it/s]
+Quantizing weights to fp8:  43%|████▎     | 549/1279 [00:09<00:09, 77.31it/s]
+Quantizing weights to fp8:  44%|████▍     | 562/1279 [00:10<00:12, 58.74it/s]
+Quantizing weights to fp8:  46%|████▌     | 587/1279 [00:10<00:08, 80.79it/s]
+Quantizing weights to fp8:  47%|████▋     | 601/1279 [00:10<00:11, 60.63it/s]
+Quantizing weights to fp8:  48%|████▊     | 612/1279 [00:10<00:12, 53.80it/s]
+Quantizing weights to fp8:  49%|████▉     | 625/1279 [00:11<00:11, 58.66it/s]
+Quantizing weights to fp8:  50%|████▉     | 634/1279 [00:11<00:17, 37.92it/s]
+Quantizing weights to fp8:  50%|█████     | 641/1279 [00:11<00:16, 38.43it/s]
+Quantizing weights to fp8:  52%|█████▏    | 663/1279 [00:11<00:10, 56.04it/s]
+Quantizing weights to fp8:  52%|█████▏    | 671/1279 [00:12<00:12, 50.15it/s]
+Quantizing weights to fp8:  53%|█████▎    | 678/1279 [00:12<00:12, 49.86it/s]
+Quantizing weights to fp8:  55%|█████▍    | 701/1279 [00:12<00:08, 69.19it/s]
+Quantizing weights to fp8:  55%|█████▌    | 709/1279 [00:12<00:09, 58.94it/s]
+Quantizing weights to fp8:  56%|█████▌    | 716/1279 [00:12<00:10, 56.08it/s]
+Quantizing weights to fp8:  58%|█████▊    | 739/1279 [00:13<00:07, 74.95it/s]
+Quantizing weights to fp8:  58%|█████▊    | 747/1279 [00:13<00:07, 68.06it/s]
+Quantizing weights to fp8:  59%|█████▉    | 754/1279 [00:13<00:09, 57.48it/s]
+Quantizing weights to fp8:  59%|█████▉    | 760/1279 [00:13<00:09, 57.06it/s]
+Quantizing weights to fp8:  60%|█████▉    | 766/1279 [00:13<00:10, 49.55it/s]
+Quantizing weights to fp8:  61%|██████    | 774/1279 [00:13<00:09, 51.90it/s]
+Quantizing weights to fp8:  61%|██████    | 780/1279 [00:14<00:12, 40.10it/s]
+Quantizing weights to fp8:  62%|██████▏   | 788/1279 [00:14<00:10, 45.74it/s]
+Quantizing weights to fp8:  62%|██████▏   | 794/1279 [00:14<00:12, 39.95it/s]
+Quantizing weights to fp8:  63%|██████▎   | 802/1279 [00:14<00:10, 46.28it/s]
+Quantizing weights to fp8:  63%|██████▎   | 808/1279 [00:14<00:11, 41.96it/s]
+Quantizing weights to fp8:  64%|██████▍   | 816/1279 [00:14<00:09, 47.91it/s]
+Quantizing weights to fp8:  64%|██████▍   | 822/1279 [00:15<00:10, 41.78it/s]
+Quantizing weights to fp8:  65%|██████▍   | 830/1279 [00:15<00:10, 42.47it/s]
+Quantizing weights to fp8:  65%|██████▌   | 835/1279 [00:15<00:11, 38.02it/s]
+Quantizing weights to fp8:  66%|██████▌   | 844/1279 [00:15<00:09, 44.32it/s]
+Quantizing weights to fp8:  66%|██████▋   | 849/1279 [00:15<00:12, 35.43it/s]
+Quantizing weights to fp8:  67%|██████▋   | 858/1279 [00:15<00:09, 43.97it/s]
+Quantizing weights to fp8:  67%|██████▋   | 863/1279 [00:16<00:11, 37.37it/s]
+Quantizing weights to fp8:  68%|██████▊   | 868/1279 [00:16<00:10, 38.81it/s]
+Quantizing weights to fp8:  68%|██████▊   | 874/1279 [00:16<00:10, 38.63it/s]
+Quantizing weights to fp8:  69%|██████▊   | 879/1279 [00:16<00:09, 40.91it/s]
+Quantizing weights to fp8:  69%|██████▉   | 886/1279 [00:16<00:08, 45.05it/s]
+Quantizing weights to fp8:  70%|██████▉   | 891/1279 [00:16<00:12, 32.31it/s]
+Quantizing weights to fp8:  70%|███████   | 900/1279 [00:17<00:09, 40.84it/s]
+Quantizing weights to fp8:  71%|███████   | 905/1279 [00:17<00:14, 26.37it/s]
+Quantizing weights to fp8:  71%|███████   | 910/1279 [00:17<00:12, 29.19it/s]
+Quantizing weights to fp8:  71%|███████▏  | 914/1279 [00:17<00:12, 29.54it/s]
+Quantizing weights to fp8:  72%|███████▏  | 918/1279 [00:18<00:16, 22.03it/s]
+Quantizing weights to fp8:  73%|███████▎  | 928/1279 [00:18<00:11, 29.90it/s]
+Quantizing weights to fp8:  73%|███████▎  | 932/1279 [00:18<00:15, 22.69it/s]
+Quantizing weights to fp8:  74%|███████▎  | 942/1279 [00:18<00:12, 27.52it/s]
+Quantizing weights to fp8:  74%|███████▍  | 946/1279 [00:19<00:15, 21.75it/s]
+Quantizing weights to fp8:  75%|███████▍  | 956/1279 [00:19<00:10, 30.14it/s]
+Quantizing weights to fp8:  75%|███████▌  | 960/1279 [00:19<00:13, 23.59it/s]
+Quantizing weights to fp8:  76%|███████▌  | 970/1279 [00:19<00:09, 31.02it/s]
+Quantizing weights to fp8:  76%|███████▌  | 974/1279 [00:20<00:12, 24.30it/s]
+Quantizing weights to fp8:  77%|███████▋  | 984/1279 [00:20<00:09, 30.83it/s]
+Quantizing weights to fp8:  77%|███████▋  | 988/1279 [00:20<00:10, 27.54it/s]
+Quantizing weights to fp8:  78%|███████▊  | 998/1279 [00:20<00:07, 36.30it/s]
+Quantizing weights to fp8:  78%|███████▊  | 1003/1279 [00:20<00:09, 30.65it/s]
+Quantizing weights to fp8:  79%|███████▉  | 1012/1279 [00:21<00:07, 36.00it/s]
+Quantizing weights to fp8:  80%|███████▉  | 1017/1279 [00:21<00:08, 32.12it/s]
+Quantizing weights to fp8:  80%|████████  | 1026/1279 [00:21<00:06, 39.32it/s]
+Quantizing weights to fp8:  81%|████████  | 1031/1279 [00:21<00:07, 34.92it/s]
+Quantizing weights to fp8:  81%|████████▏ | 1040/1279 [00:21<00:05, 41.80it/s]
+Quantizing weights to fp8:  82%|████████▏ | 1045/1279 [00:22<00:06, 36.49it/s]
+Quantizing weights to fp8:  82%|████████▏ | 1054/1279 [00:22<00:05, 44.87it/s]
+Quantizing weights to fp8:  83%|████████▎ | 1060/1279 [00:22<00:05, 36.73it/s]
+Quantizing weights to fp8:  84%|████████▎ | 1068/1279 [00:22<00:05, 41.30it/s]
+Quantizing weights to fp8:  84%|████████▍ | 1073/1279 [00:22<00:05, 36.20it/s]
+Quantizing weights to fp8:  85%|████████▍ | 1082/1279 [00:22<00:04, 45.06it/s]
+Quantizing weights to fp8:  85%|████████▌ | 1088/1279 [00:23<00:04, 39.97it/s]
+Quantizing weights to fp8:  86%|████████▌ | 1096/1279 [00:23<00:03, 46.59it/s]
+Quantizing weights to fp8:  86%|████████▌ | 1102/1279 [00:23<00:05, 34.96it/s]
+Quantizing weights to fp8:  87%|████████▋ | 1110/1279 [00:23<00:04, 38.55it/s]
+Quantizing weights to fp8:  87%|████████▋ | 1115/1279 [00:23<00:05, 28.89it/s]
+Quantizing weights to fp8:  88%|████████▊ | 1124/1279 [00:24<00:04, 37.28it/s]
+Quantizing weights to fp8:  88%|████████▊ | 1129/1279 [00:24<00:04, 33.48it/s]
+Quantizing weights to fp8:  89%|████████▉ | 1138/1279 [00:24<00:03, 41.96it/s]
+Quantizing weights to fp8:  89%|████████▉ | 1144/1279 [00:24<00:03, 35.65it/s]
+Quantizing weights to fp8:  90%|█████████ | 1152/1279 [00:24<00:03, 40.45it/s]
+Quantizing weights to fp8:  90%|█████████ | 1157/1279 [00:24<00:03, 33.89it/s]
+Quantizing weights to fp8:  91%|█████████ | 1166/1279 [00:25<00:02, 42.20it/s]
+Quantizing weights to fp8:  92%|█████████▏| 1171/1279 [00:25<00:03, 35.42it/s]
+Quantizing weights to fp8:  92%|█████████▏| 1180/1279 [00:25<00:02, 44.78it/s]
+Quantizing weights to fp8:  93%|█████████▎| 1186/1279 [00:25<00:02, 39.88it/s]
+Quantizing weights to fp8:  93%|█████████▎| 1194/1279 [00:25<00:01, 45.01it/s]
+Quantizing weights to fp8:  94%|█████████▍| 1200/1279 [00:25<00:01, 40.26it/s]
+Quantizing weights to fp8:  94%|█████████▍| 1208/1279 [00:26<00:01, 46.60it/s]
+Quantizing weights to fp8:  95%|█████████▍| 1214/1279 [00:26<00:01, 41.52it/s]
+Quantizing weights to fp8:  96%|█████████▌| 1222/1279 [00:26<00:01, 47.66it/s]
+Quantizing weights to fp8:  96%|█████████▌| 1228/1279 [00:26<00:01, 39.79it/s]
+Quantizing weights to fp8:  97%|█████████▋| 1236/1279 [00:26<00:00, 45.11it/s]
+Quantizing weights to fp8:  97%|█████████▋| 1241/1279 [00:26<00:01, 36.56it/s]
+Quantizing weights to fp8:  98%|█████████▊| 1250/1279 [00:27<00:00, 43.37it/s]
+Quantizing weights to fp8:  98%|█████████▊| 1255/1279 [00:27<00:00, 34.41it/s]
+Quantizing weights to fp8:  99%|█████████▉| 1264/1279 [00:27<00:00, 39.72it/s]
+Quantizing weights to fp8:  99%|█████████▉| 1269/1279 [00:27<00:00, 28.96it/s]
+Quantizing weights to fp8: 100%|██████████| 1279/1279 [00:27<00:00, 45.84it/s]
+
+  0%|          | 0/50 [00:00<?, ?it/s]
+  0%|          | 0/50 [00:39<?, ?it/s]
+Traceback (most recent call last):
+  File "/mnt/sharedOs/backrooms-workspace/godot_walk/scripts/run_source_panogen.py", line 110, in <module>
+    raise SystemExit(main())
+  File "/mnt/sharedOs/backrooms-workspace/godot_walk/scripts/run_source_panogen.py", line 34, in main
+    demo.run(
+  File "/mnt/sharedOs/backrooms-track-a-runtime/HunyuanWorld-1.0/demo_panogen.py", line 214, in run
+    image = self.pipe(
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/HunyuanWorld-1.0/hy3dworld/models/pano_generator.py", line 236, in __call__
+    return self._call_shared(is_inpainting=True, early_steps=3, blend_extra_chanel=True, **kwargs)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/HunyuanWorld-1.0/hy3dworld/models/pipelines.py", line 1153, in _call_shared
+    noise_pred = self._predict_noise(
+  File "/mnt/sharedOs/backrooms-track-a-runtime/HunyuanWorld-1.0/hy3dworld/models/pipelines.py", line 609, in _predict_noise
+    return self.transformer(**transformer_inputs)[0]
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/HunyuanWorld-1.0/hy3dworld/AngelSlim/cache_helper.py", line 104, in wrapped_forward
+    result = self.function_dict['model_forward'](*args, **kwargs)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/accelerate/hooks.py", line 171, in new_forward
+    args, kwargs = module._hf_hook.pre_forward(module, *args, **kwargs)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/accelerate/hooks.py", line 721, in pre_forward
+    module.to(self.execution_device)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/diffusers/models/modeling_utils.py", line 1383, in to
+    return super().to(*args, **kwargs)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1340, in to
+    return self._apply(convert)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 900, in _apply
+    module._apply(fn)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 900, in _apply
+    module._apply(fn)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 900, in _apply
+    module._apply(fn)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 927, in _apply
+    param_applied = fn(param)
+  File "/mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1326, in convert
+    return t.to(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 36.00 MiB. GPU 0 has a total capacity of 11.59 GiB of which 30.25 MiB is free. Including non-PyTorch memory, this process has 10.66 GiB memory in use. Of the allocated memory 10.40 GiB is allocated by PyTorch, and 23.40 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

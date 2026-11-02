@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="590" viewBox="0 0 900 590" role="img" aria-labelledby="title desc">
+  <title id="title">Issue 168 two-room authored layout proposal</title>
+  <desc id="desc">An industrial hall and a debris-window rock room are joined by one explicitly authored doorway. Source footage shows separate time intervals and does not establish a connection.</desc>
+  <rect width="900" height="590" fill="#181c1d"/>
+  <text x="34" y="38" fill="#eee8d9" font-family="sans-serif" font-size="22" font-weight="bold">Issue 168 · authored two-room connection</text>
+  <text x="34" y="65" fill="#d8cba9" font-family="sans-serif" font-size="14">Proposed placement only · design units · +Z downward · floor Y=0 · registration and scale remain false</text>
+
+  <rect x="180" y="105" width="540" height="175" rx="4" fill="#344047" stroke="#9aa8a8" stroke-width="3"/>
+  <text x="205" y="137" fill="#f2eee2" font-family="sans-serif" font-size="20" font-weight="bold">Industrial hall · accepted #167 base</text>
+  <text x="205" y="163" fill="#d8e0df" font-family="sans-serif" font-size="14">Source frame_1097 · index 1096 · 36.533333 s</text>
+  <text x="205" y="185" fill="#d8e0df" font-family="sans-serif" font-size="14">Footprint X=[−8,8], Z=[−6.5,6.5]</text>
+  <text x="205" y="207" fill="#d8e0df" font-family="sans-serif" font-size="14">6 supports and floor obstacles; socket is a new authored adapter</text>
+  <line x1="180" y1="280" x2="382" y2="280" stroke="#9aa8a8" stroke-width="5"/>
+  <line x1="518" y1="280" x2="720" y2="280" stroke="#9aa8a8" stroke-width="5"/>
+  <rect x="382" y="268" width="136" height="24" fill="#b78243" stroke="#f1d19a" stroke-width="2"/>
+  <text x="450" y="307" fill="#f0d6ae" text-anchor="middle" font-family="sans-serif" font-size="13">Authored doorway 2.4 × 2.2 · shared wall depth 0.6</text>
+
+  <rect x="250" y="330" width="400" height="175" rx="4" fill="#48443b" stroke="#c2ad87" stroke-width="3"/>
+  <text x="276" y="365" fill="#f2eee2" font-family="sans-serif" font-size="20" font-weight="bold">Debris-window rock room · reviewed standalone design</text>
+  <text x="276" y="391" fill="#e1d7c6" font-family="sans-serif" font-size="14">Source frames_4336–4936 · seed frame_4560 · 151.966667 s</text>
+  <text x="276" y="413" fill="#e1d7c6" font-family="sans-serif" font-size="14">Footprint X=[−6,6], world Z=[6.5,16.5]</text>
+  <text x="276" y="435" fill="#e1d7c6" font-family="sans-serif" font-size="14">Authored rock field around a clear central route; north socket is new</text>
+  <text x="276" y="474" fill="#e1d7c6" font-family="sans-serif" font-size="14">The video does not prove these zones connect or that the debris is rock.</text>
+
+  <path d="M 76 260 L 155 260 L 180 278" fill="none" stroke="#8db6a9" stroke-width="2"/>
+  <text x="34" y="232" fill="#a9d5c7" font-family="sans-serif" font-size="14">Observed zone</text>
+  <text x="34" y="251" fill="#a9d5c7" font-family="sans-serif" font-size="14">reference only</text>
+
+  <path d="M 745 290 L 812 310 L 812 342" fill="none" stroke="#f1bd80" stroke-width="2"/>
+  <text x="738" y="367" fill="#f1bd80" font-family="sans-serif" font-size="14">Authored game</text>
+  <text x="738" y="386" fill="#f1bd80" font-family="sans-serif" font-size="14">connection</text>
+  <text x="34" y="557" fill="#b9c1bf" font-family="sans-serif" font-size="14">Observed video establishes two different views at different timestamps; adjacency, scale, and connectivity here are design choices.</text>
+</svg>

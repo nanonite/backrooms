@@ -1,0 +1,29 @@
+{
+	"engine": "4.6.3-stable (official)",
+	"frame_profile": {
+		"mean_frame_ms": 16.6643966666667,
+		"measured_frames": 300,
+		"p95_frame_ms": 16.752,
+		"p99_frame_ms": 16.807,
+		"warmup_frames": 120
+	},
+	"scene": "res://scenes/issue168_two_room_walkthrough.tscn",
+	"scene_ready_ms": 63.158,
+	"views": [
+		{
+			"camera_position": "(0.0, 1.42, 4.85)",
+			"look_at": "(0.0, 1.3, 8.2)",
+			"path": "from_industrial_hall_to_rock_room.png"
+		},
+		{
+			"camera_position": "(0.0, 1.42, 8.15)",
+			"look_at": "(0.0, 1.3, 4.7)",
+			"path": "from_rock_room_to_industrial_hall.png"
+		},
+		{
+			"camera_position": "(-1.0, 1.42, 9.0)",
+			"look_at": "(-4.0, 1.1, 8.35)",
+			"path": "rock_room_entry_and_banks.png"
+		}
+	]
+}

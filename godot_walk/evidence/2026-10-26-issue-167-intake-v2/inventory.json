@@ -1,0 +1,330 @@
+{
+  "sources": [
+    {
+      "source_id": "video-d92fc1fa764aa3a2",
+      "source_path": "data/videos/Angel (Joseph Cornell, 1957).mp4",
+      "source_sha256": "d92fc1fa764aa3a25a40910f01858def4b72dd3b51ca4af8d5d012d788567428",
+      "metadata": {
+        "width": 636,
+        "height": 480,
+        "fps": 29.97003,
+        "frame_count": 6782,
+        "duration_seconds": 226.348118
+      },
+      "samples": [
+        {
+          "time_seconds": 33.952,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 113.174,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 192.396,
+          "preview_only": true
+        }
+      ]
+    },
+    {
+      "source_id": "video-22909eb734e4d8e2",
+      "source_path": "data/videos/Antelope Canyon in 4K - World's Most Iconic Slot Canyon - UHD 4K.mp4",
+      "source_sha256": "22909eb734e4d8e2feede084e0305ae0aecefcc6dd5b46ca7ef884277e2a274a",
+      "metadata": {
+        "width": 1280,
+        "height": 720,
+        "fps": 29.97003,
+        "frame_count": 1541,
+        "duration_seconds": 51.478639
+      },
+      "samples": [
+        {
+          "time_seconds": 7.722,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 25.739,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 43.757,
+          "preview_only": true
+        }
+      ]
+    },
+    {
+      "source_id": "video-c9115d943f6c3fe4",
+      "source_path": "data/videos/Backrooms - Found Footage #55 (Hills of Synthetic Verdure).mp4",
+      "source_sha256": "c9115d943f6c3fe46fbe79b826c8c76e6378c8339736ae885e7a5a3d21ee9fae",
+      "metadata": {
+        "width": 1280,
+        "height": 720,
+        "fps": 23.976024,
+        "frame_count": 13937,
+        "duration_seconds": 581.381224
+      },
+      "samples": [
+        {
+          "time_seconds": 87.207,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 290.691,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 494.174,
+          "preview_only": true
+        }
+      ]
+    },
+    {
+      "source_id": "video-b9161c467ed2d30a",
+      "source_path": "data/videos/Bill Viola 'The Sleep of Reason' 1988.mp4",
+      "source_sha256": "b9161c467ed2d30aefa6bf2969c2ed63fc79a387d93016197e356e9bf531ddaa",
+      "metadata": {
+        "width": 1280,
+        "height": 720,
+        "fps": 30.0,
+        "frame_count": 5459,
+        "duration_seconds": 182.021224
+      },
+      "samples": [
+        {
+          "time_seconds": 27.303,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 91.011,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 154.718,
+          "preview_only": true
+        }
+      ]
+    },
+    {
+      "source_id": "video-51abd379f94b8f84",
+      "source_path": "data/videos/corridor_corner.mp4",
+      "source_sha256": "51abd379f94b8f84799c79927113f37c03014b41b0d5f0d4c23095d3d67587e0",
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24.0,
+        "frame_count": 96,
+        "duration_seconds": 4.0
+      },
+      "samples": [
+        {
+          "time_seconds": 0.6,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 2.0,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 3.4,
+          "preview_only": true
+        }
+      ]
+    },
+    {
+      "source_id": "video-102caf53423018b7",
+      "source_path": "data/videos/corridor_straight.mp4",
+      "source_sha256": "102caf53423018b75dfd1976b5a2346b0576bdd316429f246aee87a884ba3d4b",
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24.0,
+        "frame_count": 96,
+        "duration_seconds": 4.0
+      },
+      "samples": [
+        {
+          "time_seconds": 0.6,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 2.0,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 3.4,
+          "preview_only": true
+        }
+      ]
+    },
+    {
+      "source_id": "video-2671b32f256a4ee7",
+      "source_path": "data/videos/corridor_t.mp4",
+      "source_sha256": "2671b32f256a4ee7f326fae67290bcec2143efabb4f1000fc4bcfa9507260409",
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24.0,
+        "frame_count": 96,
+        "duration_seconds": 4.0
+      },
+      "samples": [
+        {
+          "time_seconds": 0.6,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 2.0,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 3.4,
+          "preview_only": true
+        }
+      ]
+    },
+    {
+      "source_id": "video-61b91dbeb9026dc7",
+      "source_path": "data/videos/corridor_x.mp4",
+      "source_sha256": "61b91dbeb9026dc7b404657f7ba7e081b5588a7e7a4a2abfa553be765d1a7f04",
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24.0,
+        "frame_count": 96,
+        "duration_seconds": 4.0
+      },
+      "samples": [
+        {
+          "time_seconds": 0.6,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 2.0,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 3.4,
+          "preview_only": true
+        }
+      ]
+    },
+    {
+      "source_id": "video-f657e9bc27813df8",
+      "source_path": "data/videos/dead_end.mp4",
+      "source_sha256": "f657e9bc27813df8759acf720d7dd57060320d18270acf80c15c42c7cc7f3770",
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24.0,
+        "frame_count": 96,
+        "duration_seconds": 4.0
+      },
+      "samples": [
+        {
+          "time_seconds": 0.6,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 2.0,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 3.4,
+          "preview_only": true
+        }
+      ]
+    },
+    {
+      "source_id": "video-ccf9722164a0bdc8",
+      "source_path": "data/videos/GoPro Awards_ Haunting FPV Drone Flight Through Abandoned Building.mp4",
+      "source_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+      "metadata": {
+        "width": 1280,
+        "height": 720,
+        "fps": 30.0,
+        "frame_count": 7292,
+        "duration_seconds": 243.136145
+      },
+      "samples": [
+        {
+          "time_seconds": 36.47,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 121.568,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 206.666,
+          "preview_only": true
+        }
+      ]
+    },
+    {
+      "source_id": "video-d857abe7a94da9d1",
+      "source_path": "data/videos/Max Cooper - Repetition (Official Video By Kevin McGloughlin).mp4",
+      "source_sha256": "d857abe7a94da9d19a4a1410a707e7632c32df6f3ded1ddd4d77317df1732bb8",
+      "metadata": {
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "frame_count": 8556,
+        "duration_seconds": 356.565624
+      },
+      "samples": [
+        {
+          "time_seconds": 53.485,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 178.283,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 303.081,
+          "preview_only": true
+        }
+      ]
+    },
+    {
+      "source_id": "video-ef0ec21cd4ae7b26",
+      "source_path": "data/videos/room_large.mp4",
+      "source_sha256": "ef0ec21cd4ae7b2699d5d9ec08467eddb6d62582d659c4035dc995e78df4b418",
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24.0,
+        "frame_count": 96,
+        "duration_seconds": 4.0
+      },
+      "samples": [
+        {
+          "time_seconds": 0.6,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 2.0,
+          "preview_only": true
+        },
+        {
+          "time_seconds": 3.4,
+          "preview_only": true
+        }
+      ]
+    }
+  ],
+  "contact_sheet": "godot_walk/evidence/2026-10-26-issue-167-intake-v2/source_contact_sheet.jpg",
+  "candidate_source_ids": [
+    "video-d92fc1fa764aa3a2",
+    "video-22909eb734e4d8e2",
+    "video-c9115d943f6c3fe4",
+    "video-b9161c467ed2d30a",
+    "video-ccf9722164a0bdc8",
+    "video-d857abe7a94da9d1"
+  ],
+  "candidate_contact_sheet": "godot_walk/evidence/2026-10-26-issue-167-intake-v2/new_source_candidates.jpg",
+  "schema_version": 1,
+  "created_at_utc": "2026-10-26T21:24:54.016238+00:00",
+  "sampling": "CPU ffmpeg seeks; resized/padded previews for source selection only",
+  "seed_rule": "A Hunyuan seed must later be decoded directly from the chosen source at original resolution."
+}

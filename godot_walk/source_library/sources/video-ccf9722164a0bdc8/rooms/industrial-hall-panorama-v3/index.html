@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Industrial hall room candidate — #167</title>
+<style>
+body{font:16px system-ui,sans-serif;background:#181a1c;color:#eee8d8;max-width:1100px;margin:2rem auto;padding:0 1rem}
+header,section{margin:1.5rem 0}img{max-width:100%;height:auto;background:#25282a;border:1px solid #555}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}.card{background:#222527;padding:1rem;border-radius:6px}
+code{background:#292d30;padding:.2rem .35rem;border-radius:3px;overflow-wrap:anywhere}.note{color:#d6b780}
+</style>
+<header><h1>Industrial hall · bounded room candidate</h1><p>Chainlink #167 · operator-accepted reference <code>industrial-hall-panorama-v3</code> · catalog admission pending.</p>
+<p class="note">The 512×256 Hunyuan panorama is a broad layout reference only. The playable scene uses authored geometry and direct crops from source frame 1097; no fixed panorama is rendered behind the player.</p></header>
+<section><h2>Contact sheet</h2><a href="contact_sheet_v3_final.png"><img src="contact_sheet_v3_final.png" alt="Source frame, Hunyuan panorama, and four Godot room views"></a></section>
+<section><h2>Walkthrough captures</h2><div class="grid">
+<div class="card"><h3>Spawn toward windows</h3><a href="captures-v3-final/spawn_toward_windows.png"><img src="captures-v3-final/spawn_toward_windows.png" alt="Spawn looking toward the window wall"></a></div>
+<div class="card"><h3>Support rows</h3><a href="captures-v3-final/support_rows.png"><img src="captures-v3-final/support_rows.png" alt="Rows of authored supports"></a></div>
+<div class="card"><h3>Roof grid</h3><a href="captures-v3-final/roof_grid.png"><img src="captures-v3-final/roof_grid.png" alt="Authored roof grid"></a></div>
+<div class="card"><h3>Far boundary</h3><a href="captures-v3-final/far_boundary.png"><img src="captures-v3-final/far_boundary.png" alt="Closed far boundary"></a></div>
+</div></section>
+<section><h2>Source references</h2><div class="grid">
+<div class="card"><h3>Direct video frame 1097</h3><p>Zero-based frame 1096, PTS 36.533333 s, 1280×720.</p><a href="../../frames/seed-check-36s/frame_1097.png"><img src="../../frames/seed-check-36s/frame_1097.png" alt="Direct source frame 1097"></a></div>
+<div class="card"><h3>Hunyuan panorama</h3><p>512×256, attempt 005. Used for layout reference, not runtime projection or texture.</p><a href="../../hunyuan/attempt-005/panorama/panorama.png"><img src="../../hunyuan/attempt-005/panorama/panorama.png" alt="Hunyuan panorama"></a></div>
+</div></section>
+<section><h2>Run and inspect</h2><p>From workspace root:</p><p><code>godot4 --path godot_walk res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.tscn</code></p><p>WASD + mouse to walk/look; press R to reset to the safe spawn; Esc releases the mouse.</p>
+<p><a href="REPORT.md">Candidate report</a> · <a href="layout.svg">Authored layout diagram</a> · <a href="adaptation_candidate.json">Versioned adaptation record</a></p></section>
+<section><h2>Operator decision</h2><p><a href="operator_review.json">View the candidate-bound acceptance record</a>. Catalog admission, registration and scale calibration remain pending.</p></section>
+</html>

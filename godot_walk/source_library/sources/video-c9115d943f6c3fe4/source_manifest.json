@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "source_id": "video-c9115d943f6c3fe4",
+  "created_at_utc": "2026-10-26T21:23:22.340427+00:00",
+  "canonical_video": {
+    "path": "data/videos/Backrooms - Found Footage #55 (Hills of Synthetic Verdure).mp4",
+    "sha256": "c9115d943f6c3fe46fbe79b826c8c76e6378c8339736ae885e7a5a3d21ee9fae",
+    "metadata": {
+      "width": 1280,
+      "height": 720,
+      "fps": 23.976024,
+      "frame_count": 13937,
+      "duration_seconds": 581.381224
+    }
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_review": {
+    "status": "pending_operator_review",
+    "decision": null
+  },
+  "frame_references": [],
+  "hunyuan": {
+    "status": "not_attempted",
+    "historical_invocations": 0,
+    "attempts": []
+  },
+  "room_adaptations": [],
+  "historical_artifacts": [],
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity."
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "source_id": "video-d857abe7a94da9d1",
+  "created_at_utc": "2026-10-26T21:23:23.085904+00:00",
+  "canonical_video": {
+    "path": "data/videos/Max Cooper - Repetition (Official Video By Kevin McGloughlin).mp4",
+    "sha256": "d857abe7a94da9d19a4a1410a707e7632c32df6f3ded1ddd4d77317df1732bb8",
+    "metadata": {
+      "width": 1280,
+      "height": 720,
+      "fps": 24.0,
+      "frame_count": 8556,
+      "duration_seconds": 356.565624
+    }
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_review": {
+    "status": "pending_operator_review",
+    "decision": null
+  },
+  "frame_references": [],
+  "hunyuan": {
+    "status": "not_attempted",
+    "historical_invocations": 0,
+    "attempts": []
+  },
+  "room_adaptations": [],
+  "historical_artifacts": [],
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity."
+}

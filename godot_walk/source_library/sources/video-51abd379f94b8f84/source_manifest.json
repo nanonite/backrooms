@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "source_id": "video-51abd379f94b8f84",
+  "created_at_utc": "2026-10-26T21:23:22.553328+00:00",
+  "canonical_video": {
+    "path": "data/videos/corridor_corner.mp4",
+    "sha256": "51abd379f94b8f84799c79927113f37c03014b41b0d5f0d4c23095d3d67587e0",
+    "metadata": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 24.0,
+      "frame_count": 96,
+      "duration_seconds": 4.0
+    }
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_review": {
+    "status": "pending_operator_review",
+    "decision": null
+  },
+  "frame_references": [
+    {
+      "frame_id": "frame_0001",
+      "index_zero_based": 0,
+      "timestamp_seconds": 0.0,
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0001.png",
+      "sha256": "870721029e26f1f3a58c347ade1167c47d13755d68497d9e96e5f056acc3f8f4",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+      "historical_record_path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json"
+    },
+    {
+      "frame_id": "frame_0013",
+      "index_zero_based": 12,
+      "timestamp_seconds": 0.5,
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0013.png",
+      "sha256": "4bbad25a2c35d9ca5417c76458ee379c9ed1a84fbb3706a6f91ed451aa0717b0",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+      "historical_record_path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json"
+    },
+    {
+      "frame_id": "frame_0036",
+      "index_zero_based": 35,
+      "timestamp_seconds": 1.4583333333333333,
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0036.png",
+      "sha256": "2547c27819bbe10a6a1284d9a62acf5fedda49608f24428ce02a03e9a872482c",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+      "historical_record_path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json"
+    },
+    {
+      "frame_id": "frame_0059",
+      "index_zero_based": 58,
+      "timestamp_seconds": 2.4166666666666665,
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0059.png",
+      "sha256": "bae3bf14a5dbe7b5988ec4e7afd70d590ba1e9c725631d31e6a14f14387c89a3",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+      "historical_record_path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json"
+    },
+    {
+      "frame_id": "frame_0085",
+      "index_zero_based": 84,
+      "timestamp_seconds": 3.5,
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0085.png",
+      "sha256": "dd090d960ed62b13dcf3891793741da6d45b6df5a10a2c4e7775981f620dde8e",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+      "historical_record_path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json"
+    },
+    {
+      "frame_id": "frame_0096",
+      "index_zero_based": 95,
+      "timestamp_seconds": 3.9583333333333335,
+      "path": "godot_walk/evidence/2026-10-25-issue-165/source_frames/frame_0096.png",
+      "sha256": "0d5bd24a19c3e3b73526aa478c35cf481c3151d9183b7419d6654e5391fc150f",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+      "historical_record_path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json"
+    }
+  ],
+  "hunyuan": {
+    "status": "historical_manual_adaptation_without_attempt",
+    "historical_invocations": 0,
+    "historical_attempts": [],
+    "policy_invocation_limit": 3,
+    "attempts": [],
+    "policy_note": "Historical invocations are preserved separately and do not authorize a new run."
+  },
+  "room_adaptations": [
+    {
+      "issue": 165,
+      "adaptation_id": "corridor-corner-authored-l-corridor-v2",
+      "adaptation_path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json",
+      "adaptation_sha256": "101aedfb45085daec421d05a684704f79d97eee4f4fcc4b2b38f70fc9cb3021d",
+      "decision_path": "godot_walk/evidence/2026-10-25-issue-165/operator_review.json",
+      "decision_sha256": "2391743b583a7815baf422a13ec4cc48c9ed9055db100d300cd8b0acb9c0096f",
+      "decision_status": "accepted"
+    }
+  ],
+  "historical_artifacts": [
+    {
+      "role": "adaptation",
+      "path": "godot_walk/room_catalog/adaptations/corridor-corner-v2.json",
+      "sha256": "101aedfb45085daec421d05a684704f79d97eee4f4fcc4b2b38f70fc9cb3021d"
+    },
+    {
+      "role": "decision",
+      "path": "godot_walk/evidence/2026-10-25-issue-165/operator_review.json",
+      "sha256": "2391743b583a7815baf422a13ec4cc48c9ed9055db100d300cd8b0acb9c0096f"
+    },
+    {
+      "role": "report",
+      "path": "godot_walk/evidence/2026-10-25-issue-165/REPORT.md",
+      "sha256": "bea2e92353e8b64d7053a845c87c16a4d4d02280f6f91a8e5538e4342b522c70"
+    }
+  ],
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity."
+}

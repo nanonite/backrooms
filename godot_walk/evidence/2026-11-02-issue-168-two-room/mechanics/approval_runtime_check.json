@@ -1,0 +1,48 @@
+{
+	"bidirectional_traversal": {
+		"final_z": 4.09999990463257,
+		"forward_z": 16.1999912261963,
+		"reached_rock_room": true,
+		"reset_restored_spawn": true,
+		"returned_to_spawn_area": true
+	},
+	"blocked_connector_negative_control": true,
+	"candidate_status": "pending_operator_review",
+	"failures": [],
+	"floor_seam_supported": true,
+	"hall_standalone": {
+		"socket_capped": true,
+		"spawn_supported": true,
+		"walk_and_reset": true
+	},
+	"missing_floor_negative_control": true,
+	"open_boundary_negative_control": {
+		"closed_wall_blocks": true,
+		"disabled_wall_allows": true
+	},
+	"outer_boundary_probes": 4,
+	"registration_accepted": false,
+	"render_containment": {
+		"bounds": [
+			"(-8.3, -0.3, -6.8)",
+			"(16.6, 5.4, 23.6)"
+		],
+		"escaped_meshes": 0
+	},
+	"rocks_standalone": {
+		"socket_capped": true,
+		"spawn_supported": true,
+		"walk_and_reset": true
+	},
+	"scale_calibrated": false,
+	"schema_version": 1,
+	"socket_pair": {
+		"aligned_centers": true,
+		"capsule_samples_clear": 25,
+		"clear_size": [
+			2.4,
+			2.2
+		],
+		"opposed_normals": true
+	}
+}

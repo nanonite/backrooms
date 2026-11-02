@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "source_id": "video-ccf9722164a0bdc8",
+  "created_at_utc": "2026-10-26T21:23:22.990009+00:00",
+  "canonical_video": {
+    "path": "data/videos/GoPro Awards_ Haunting FPV Drone Flight Through Abandoned Building.mp4",
+    "sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+    "metadata": {
+      "width": 1280,
+      "height": 720,
+      "fps": 30.0,
+      "frame_count": 7292,
+      "duration_seconds": 243.136145
+    }
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_review": {
+    "status": "pending_operator_review",
+    "decision": null
+  },
+  "frame_references": [],
+  "hunyuan": {
+    "status": "not_attempted",
+    "historical_invocations": 0,
+    "attempts": []
+  },
+  "room_adaptations": [
+    {
+      "issue": 167,
+      "adaptation_id": "industrial-hall-panorama-v3",
+      "adaptation_version": "industrial-hall-panorama-v3-catalog-v1",
+      "candidate_identity": "175a52589ca162c12726583ea2e60792637d871e175947b5a601331e27ab131f",
+      "adaptation_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/adaptation_catalog_v1.json",
+      "adaptation_sha256": "abab50f14cc428e81e3b6780325f14e5641d266850a3aac3ad57c82caaf56ecd",
+      "decision_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/catalog_admission_decision.json",
+      "decision_sha256": "d56badbff2898ebbf26dceeb6a68c17fb36c71e72e9a5de92f4beafb61748d48",
+      "decision_status": "accepted_catalog_admission",
+      "scene_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.tscn",
+      "scene_sha256": "bbce2153e8886d577273e162fd6f5ed52ef48a807858cf3556fc8fdee522ccf6",
+      "catalog_snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.3.0.json",
+      "catalog_snapshot_sha256": "31bec038c5e6721976c039b72df5906975b40be8f6741bd3813634ef06d04c5a",
+      "catalog_admission": {
+        "status": "admitted",
+        "module_id": "godot_gopro_industrial_hall_frame1097_v1",
+        "module_version": 1,
+        "catalog_version": "0.3.0"
+      }
+    },
+    {
+      "issue": 168,
+      "adaptation_id": "video-ccf9722164a0bdc8-debris-window-rock-room-v1",
+      "adaptation_version": "debris-window-rock-room-v1",
+      "candidate_identity": "016fab6e6cc1edff5088bb6da3b81fdf0d8bca5bdabb70b62cb11476cc9f8214",
+      "adaptation_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/adaptation_standalone_accepted_v1.json",
+      "adaptation_sha256": "ba874680accbf8c6a62d619f2e32b511fe4f55f0d4e4f6c1d3af0aeac89d1db0",
+      "decision_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/operator_review.json",
+      "decision_sha256": "139d1d3397852e62fde4b7a8159cc099a2802eba90ecdf6a3d6ca3c16aa1d1f0",
+      "decision_status": "accepted_standalone_room_review",
+      "scene_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.tscn",
+      "scene_sha256": "0c27f917020cf25c9eee16bcfd55b4b15695f4dee466b6c2eae57871f23fcb07",
+      "catalog_snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.4.0.json",
+      "catalog_snapshot_sha256": "1dd47544d4cd9182f6a3e90c2a6cb8d0f35114c82e1d15f06257eb9b4bdbb10f",
+      "catalog_admission": {
+        "status": "admitted_scoped_pair",
+        "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+        "module_version": 1,
+        "catalog_version": "0.4.0",
+        "decision_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/catalog_admission_decision.json",
+        "decision_sha256": "b610e5c4e68e9d522421fc9ee93efffb40c50360adefb56bcef2ed1230385fe0"
+      }
+    },
+    {
+      "issue": 168,
+      "adaptation_id": "video-ccf9722164a0bdc8-two-room-connection-v1",
+      "adaptation_version": "issue168-two-room-connection-v1",
+      "candidate_identity": "6b83313eb701f9c1a212087ab41b27e85c6ada90f5a5bf1b37b9834533402bff",
+      "adaptation_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/adaptation_accepted_v1.json",
+      "adaptation_sha256": "ec8a2a65adfd4f24886136aa0937730936f201c0576beb647b9dd3030300b235",
+      "decision_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/operator_review.json",
+      "decision_sha256": "bde4b2feb853507c696a2ec9579a5318aeb411995584cb086ec92465699b8bea",
+      "decision_status": "accepted_exact_connector_pair",
+      "scene_path": "godot_walk/scenes/issue168_two_room_walkthrough.tscn",
+      "scene_sha256": "a694c411ac10e58a0d2bc708dc71bd8472342315c44e059defc5908187b25ccb",
+      "catalog_snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.4.0.json",
+      "catalog_snapshot_sha256": "1dd47544d4cd9182f6a3e90c2a6cb8d0f35114c82e1d15f06257eb9b4bdbb10f",
+      "catalog_admission": {
+        "status": "admitted_exact_pair",
+        "connector_pair_id": "issue168_industrial_hall_south__debris_rock_north_v1",
+        "catalog_version": "0.4.0",
+        "decision_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/catalog_admission_decision.json",
+        "decision_sha256": "b610e5c4e68e9d522421fc9ee93efffb40c50360adefb56bcef2ed1230385fe0"
+      }
+    }
+  ],
+  "historical_artifacts": [
+    {
+      "role": "issue168_catalog_admission_decision",
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/catalog_admission_decision.json",
+      "sha256": "b610e5c4e68e9d522421fc9ee93efffb40c50360adefb56bcef2ed1230385fe0"
+    },
+    {
+      "role": "issue168_source_event_snapshot",
+      "path": "godot_walk/evidence/2026-11-02-issue-168-two-room/source_events_snapshot.jsonl",
+      "sha256": "a3116ec66f6cd45a5fea7734593101f258f2c2ddfb0faa3e0a66f6e995c2461e"
+    },
+    {
+      "role": "issue168_runtime_test",
+      "path": "godot_walk/evidence/2026-11-02-issue-168-two-room/mechanics/traversal.json",
+      "sha256": "d8a28607197cd512ad7a88380150542d0f7fa0d9e3b3f962b6182e0829abc29f"
+    },
+    {
+      "role": "issue168_capture_manifest",
+      "path": "godot_walk/evidence/2026-11-02-issue-168-two-room/captures-v3/capture_manifest.json",
+      "sha256": "ba15720e69a3dde757db2c417ea5ef10966241eaf296dd3c4301f1725628d96f"
+    }
+  ],
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity.",
+  "manifest_version": 3,
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/source_manifest-v2.json",
+    "sha256": "d515aaf2c7815952adb81b0ed543298109a15b5424fd8b62b0066be8d670c9c0"
+  },
+  "recorded_at_utc": "2026-11-02T03:14:27.537101+00:00"
+}

@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "frame_manifest": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/extraction_manifest.json",
+  "frame_manifest_sha256": "a94b45dd1749afb5d5b5179b3f77e8ac706d27dc604b0674ada4a1662e047a1c",
+  "operation": "direct_rectangular_crop_no_resize_or_color_edit",
+  "crops": [
+    {
+      "name": "concrete_floor",
+      "frame_id": "frame_1097",
+      "source_pixel_bounds_xyxy": [
+        760,
+        505,
+        1080,
+        650
+      ],
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v2/textures/concrete_floor.png",
+      "dimensions": [
+        320,
+        145
+      ],
+      "sha256": "ca291fe11268a284d4c903a8a20fa9b11e010857ee687ae54e4bd48508f70aca"
+    },
+    {
+      "name": "concrete_wall",
+      "frame_id": "frame_1097",
+      "source_pixel_bounds_xyxy": [
+        742,
+        186,
+        830,
+        278
+      ],
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v2/textures/concrete_wall.png",
+      "dimensions": [
+        88,
+        92
+      ],
+      "sha256": "df43f93606c42cf476062026e795f99fa7d12fcbe1accec47e56c7874a2c1370"
+    },
+    {
+      "name": "window_grid",
+      "frame_id": "frame_1097",
+      "source_pixel_bounds_xyxy": [
+        638,
+        284,
+        818,
+        390
+      ],
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v2/textures/window_grid.png",
+      "dimensions": [
+        180,
+        106
+      ],
+      "sha256": "6f673208034fae49d90dac2c457efc16ae293462226c8b1087cc265d64814018"
+    },
+    {
+      "name": "roof_beams",
+      "frame_id": "frame_1097",
+      "source_pixel_bounds_xyxy": [
+        430,
+        145,
+        650,
+        248
+      ],
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v2/textures/roof_beams.png",
+      "dimensions": [
+        220,
+        103
+      ],
+      "sha256": "ee44a2a068921ce2bf4b7f6ab362e9cf4491e5e06c6372b4035bc517f89bccff"
+    },
+    {
+      "name": "support_post",
+      "frame_id": "frame_1097",
+      "source_pixel_bounds_xyxy": [
+        816,
+        240,
+        870,
+        464
+      ],
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v2/textures/support_post.png",
+      "dimensions": [
+        54,
+        224
+      ],
+      "sha256": "9a3c8ad45f7eab6720f98081a98472e35c89434dad4861f1cb00437c8179ab5f"
+    }
+  ]
+}

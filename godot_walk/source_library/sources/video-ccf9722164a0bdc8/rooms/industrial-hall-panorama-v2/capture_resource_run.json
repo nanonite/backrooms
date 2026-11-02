@@ -1,0 +1,38 @@
+{
+  "label": "industrial-hall-panorama-v1-capture",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v2/capture_room.gd",
+    "--",
+    "--out=res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v2/captures"
+  ],
+  "output_dir": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v2/captures",
+  "timeout_seconds": 240,
+  "return_code": 0,
+  "timed_out": false,
+  "error": null,
+  "elapsed_seconds": 3.156,
+  "finished_at_utc": "2026-11-01T20:50:28.508204+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11662262272,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 11,
+    "compute_apps": [],
+    "ram_available_bytes": 50327875584,
+    "vram_after_headroom_bytes": 9329809817,
+    "ram_after_headroom_bytes": 37745906688,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "peak_resources": {
+    "peak_child_rss_bytes": 546131968,
+    "gpu_memory_start_bytes": 784334848,
+    "peak_gpu_memory_used_bytes": 941621248,
+    "peak_gpu_memory_delta_bytes": 157286400,
+    "gpu_sample_period_ms": 500
+  }
+}

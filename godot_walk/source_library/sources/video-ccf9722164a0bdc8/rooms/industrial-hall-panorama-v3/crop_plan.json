@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source_frame_id": "frame_1097",
+  "source_frame_sha256": "61ca4b37295a948c8aa61686c912da51c7cff6dd16aac012b5c2f02bf051b2af",
+  "crops": [
+    {
+      "name": "concrete_floor",
+      "frame_id": "frame_1097",
+      "source_pixel_bounds_xyxy": [760, 505, 1080, 650]
+    },
+    {
+      "name": "concrete_wall",
+      "frame_id": "frame_1097",
+      "source_pixel_bounds_xyxy": [742, 186, 830, 278]
+    },
+    {
+      "name": "window_grid",
+      "frame_id": "frame_1097",
+      "source_pixel_bounds_xyxy": [640, 297, 795, 379]
+    },
+    {
+      "name": "roof_beams",
+      "frame_id": "frame_1097",
+      "source_pixel_bounds_xyxy": [430, 145, 650, 248]
+    },
+    {
+      "name": "support_post",
+      "frame_id": "frame_1097",
+      "source_pixel_bounds_xyxy": [816, 240, 870, 464]
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "source_video": "data/videos/GoPro Awards_ Haunting FPV Drone Flight Through Abandoned Building.mp4",
+  "source_video_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+  "metadata": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30.0,
+    "frame_count": 7292,
+    "duration_seconds": 243.136145
+  },
+  "decoder": "ffmpeg select by decoded zero-based frame index",
+  "created_at_utc": "2026-10-27T03:16:49.236263+00:00",
+  "frames": [
+    {
+      "frame_id": "frame_1090",
+      "index_zero_based": 1089,
+      "timestamp_seconds": 36.3,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1090.png",
+      "sha256": "6a0067bfeaaf5fcf8bfd3eb4c1704cf81499ad84b4dcd7eecffb62f069ea2fc0",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_1091",
+      "index_zero_based": 1090,
+      "timestamp_seconds": 36.333333333333336,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1091.png",
+      "sha256": "ef86af7bbddab029794774ae96bfce625b6eff18caacca6dd45df0f6a3c4e659",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_1092",
+      "index_zero_based": 1091,
+      "timestamp_seconds": 36.36666666666667,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1092.png",
+      "sha256": "334091569f2d04b2dc3ae8d848d5c214df61365f2b029c8313767a06e70ba65b",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_1093",
+      "index_zero_based": 1092,
+      "timestamp_seconds": 36.4,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1093.png",
+      "sha256": "c03cc2a9bbff2b3a220763d0e6efea28de5b884af4a345f364ddb447ba09e3b2",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_1094",
+      "index_zero_based": 1093,
+      "timestamp_seconds": 36.43333333333333,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1094.png",
+      "sha256": "2ae4233825622d693e58851a690d85a44996f704836f140dbbe2dcdc39459bd2",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_1095",
+      "index_zero_based": 1094,
+      "timestamp_seconds": 36.46666666666667,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1095.png",
+      "sha256": "cf9f5a67eb64b2e6449ae765fd48b8830a78d732518c7d166332711df39960a0",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_1096",
+      "index_zero_based": 1095,
+      "timestamp_seconds": 36.5,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1096.png",
+      "sha256": "186ea0601c455bbbeb3e4146747679e0771354e22e4075476226608708f6cd4c",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_1097",
+      "index_zero_based": 1096,
+      "timestamp_seconds": 36.53333333333333,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+      "sha256": "61ca4b37295a948c8aa61686c912da51c7cff6dd16aac012b5c2f02bf051b2af",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_1098",
+      "index_zero_based": 1097,
+      "timestamp_seconds": 36.56666666666667,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1098.png",
+      "sha256": "6a911aec61dd815c993e820dc6954689f5326b5d5642170dce6c44bba68f55f3",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_1099",
+      "index_zero_based": 1098,
+      "timestamp_seconds": 36.6,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1099.png",
+      "sha256": "d6d43dbb2e44715bb52ac7edc628f04c0d5fc5e42f38c7e5a6c1b1c4ce837294",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_1100",
+      "index_zero_based": 1099,
+      "timestamp_seconds": 36.63333333333333,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1100.png",
+      "sha256": "e40b1244ec33c902b01ac9f5c54546b57192ab19a19b1ef8fcf09ccb67f75aa4",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    }
+  ]
+}

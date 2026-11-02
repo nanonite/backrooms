@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:backrooms:source-library:source-manifest-v2",
+  "title": "Versioned per-video source snapshot",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "manifest_version",
+    "supersedes",
+    "source_id",
+    "canonical_video",
+    "registration_accepted",
+    "scale_calibrated",
+    "source_review",
+    "frame_references",
+    "hunyuan",
+    "room_adaptations",
+    "historical_artifacts"
+  ],
+  "properties": {
+    "schema_version": {"const": 2},
+    "manifest_version": {"type": "integer", "minimum": 2},
+    "supersedes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^godot_walk/source_library/sources/video-[0-9a-f]{16}/source_manifest(-v([2-9]|[1-9][0-9]+))?\\.json$"
+        },
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "source_id": {"type": "string", "pattern": "^video-[0-9a-f]{16}$"},
+    "canonical_video": {"type": "object"},
+    "registration_accepted": {"const": false},
+    "scale_calibrated": {"const": false},
+    "source_review": {"type": "object"},
+    "frame_references": {"type": "array"},
+    "hunyuan": {"type": "object"},
+    "room_adaptations": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/room_adaptation"}
+    },
+    "historical_artifacts": {"type": "array"},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "recorded_at_utc": {"type": "string", "format": "date-time"},
+    "modeling_note": {"type": "string"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "room_adaptation": {
+      "type": "object",
+      "required": [
+        "adaptation_id",
+        "adaptation_path",
+        "adaptation_sha256",
+        "decision_path",
+        "decision_sha256",
+        "decision_status"
+      ],
+      "properties": {
+        "issue": {"type": "integer", "minimum": 1},
+        "adaptation_id": {"type": "string", "minLength": 1},
+        "adaptation_version": {"type": "string", "minLength": 1},
+        "candidate_identity": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "adaptation_path": {"type": "string", "minLength": 1},
+        "adaptation_sha256": {"$ref": "#/$defs/sha256"},
+        "decision_path": {"type": "string", "minLength": 1},
+        "decision_sha256": {"$ref": "#/$defs/sha256"},
+        "decision_status": {"type": "string", "minLength": 1},
+        "scene_path": {"type": "string", "minLength": 1},
+        "scene_sha256": {"$ref": "#/$defs/sha256"},
+        "catalog_snapshot_path": {"type": "string", "minLength": 1},
+        "catalog_snapshot_sha256": {"$ref": "#/$defs/sha256"},
+        "catalog_admission": {"type": "object"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,49 @@
+{
+	"godot_static_memory_bytes": 55231055,
+	"panorama_role": "attempt-006 is a layout reference only and is not rendered in the room",
+	"registration_accepted": false,
+	"renderer": "Godot Forward+ Vulkan with the accepted project PSX compositor",
+	"sampled_frame_time_ms": {
+		"basis": "SceneTree process-frame intervals after a 120-frame warmup; includes display synchronization",
+		"mean": 0.219776666666666,
+		"p95": 0.272,
+		"p99": 0.323,
+		"samples": 300
+	},
+	"scale_calibrated": false,
+	"scene": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.tscn",
+	"scene_instantiate_ms": 0.029,
+	"scene_load_ms": 9.617,
+	"views": [
+		{
+			"height": 720,
+			"id": "spawn_into_rock_field",
+			"path": "res://evidence/2026-11-01-issue-168-room-candidate/captures/spawn_into_rock_field.png",
+			"width": 1280
+		},
+		{
+			"height": 720,
+			"id": "window_and_pier",
+			"path": "res://evidence/2026-11-01-issue-168-room-candidate/captures/window_and_pier.png",
+			"width": 1280
+		},
+		{
+			"height": 720,
+			"id": "west_rock_bank",
+			"path": "res://evidence/2026-11-01-issue-168-room-candidate/captures/west_rock_bank.png",
+			"width": 1280
+		},
+		{
+			"height": 720,
+			"id": "ceiling_beams_and_floor",
+			"path": "res://evidence/2026-11-01-issue-168-room-candidate/captures/ceiling_beams_and_floor.png",
+			"width": 1280
+		},
+		{
+			"height": 720,
+			"id": "closed_far_boundary",
+			"path": "res://evidence/2026-11-01-issue-168-room-candidate/captures/closed_far_boundary.png",
+			"width": 1280
+		}
+	]
+}

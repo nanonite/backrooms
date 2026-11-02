@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:backrooms:source-library:source-manifest-v1",
+  "title": "Per-video source record",
+  "type": "object",
+  "required": ["schema_version", "source_id", "canonical_video", "registration_accepted", "scale_calibrated", "source_review", "frame_references", "hunyuan", "room_adaptations", "historical_artifacts"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "source_id": {"type": "string", "pattern": "^video-[0-9a-f]{16}$"},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "canonical_video": {
+      "type": "object",
+      "required": ["path", "sha256", "metadata"],
+      "properties": {
+        "path": {"type": "string", "pattern": "^data/videos/[^/]+$"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "metadata": {
+          "type": "object",
+          "required": ["width", "height", "fps", "frame_count", "duration_seconds"],
+          "properties": {
+            "width": {"type": "integer", "minimum": 1},
+            "height": {"type": "integer", "minimum": 1},
+            "fps": {"type": "number", "exclusiveMinimum": 0},
+            "frame_count": {"type": ["integer", "null"], "minimum": 1},
+            "duration_seconds": {"type": "number", "exclusiveMinimum": 0}
+          }
+        }
+      }
+    },
+    "registration_accepted": {"const": false},
+    "scale_calibrated": {"const": false},
+    "source_review": {"type": "object"},
+    "frame_references": {"type": "array"},
+    "hunyuan": {"type": "object"},
+    "room_adaptations": {"type": "array"},
+    "historical_artifacts": {"type": "array"},
+    "modeling_note": {"type": "string"}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

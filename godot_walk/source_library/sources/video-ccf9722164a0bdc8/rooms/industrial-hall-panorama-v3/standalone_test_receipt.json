@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "candidate_id": "industrial-hall-panorama-v3",
+  "stage": "standalone_runtime_checks",
+  "status": "passed",
+  "engine": "Godot 4.6.3.stable.official.7d41c59c4",
+  "command": "godot4 --headless --path godot_walk --script res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/test_room.gd",
+  "output": [
+    "Industrial hall candidate reset to safe spawn",
+    "INDUSTRIAL_HALL_TESTS_PASSED"
+  ],
+  "checks": {
+    "spawn_floor_support": "passed",
+    "floor_support_ray": "passed",
+    "all_four_closed_boundary_rays": "passed",
+    "support_post_collision": "passed",
+    "capsule_blocked_by_support_post": "passed",
+    "walk_and_backtrack": "passed",
+    "no_boundary_escape": "passed",
+    "missing_floor_negative_control": "passed",
+    "open_boundary_negative_control": "passed",
+    "safe_spawn_reset": "passed"
+  },
+  "artifacts": [
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/test_room.gd",
+      "sha256": "274409be9454bac697ef19e90ae54858bb8c11e56d1932e2353e609845f797ff"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.tscn",
+      "sha256": "bbce2153e8886d577273e162fd6f5ed52ef48a807858cf3556fc8fdee522ccf6"
+    }
+  ],
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "recorded_at_utc": "2026-11-01T20:54:31.316851+00:00"
+}

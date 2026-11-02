@@ -1,0 +1,1016 @@
+{
+  "schema_version": 3,
+  "contract_id": "godot_video_room_completion",
+  "contract_version": "3.0.0",
+  "contract_freeze": {
+    "path": "godot_walk/room_catalog/contract_freeze_v3.json",
+    "sha256": "91c0cb1b47f980193a47d8e221b366f2d452256fa7b383adc818a177c9813ba1"
+  },
+  "adaptation_id": "video-ccf9722164a0bdc8-two-room-connection-v1",
+  "status": "candidate_pending_review",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_observations": {
+    "video": {
+      "path": "data/videos/GoPro Awards_ Haunting FPV Drone Flight Through Abandoned Building.mp4",
+      "sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+      "width": 1280,
+      "height": 720,
+      "fps": 30.0,
+      "frame_count": 7292,
+      "duration_seconds": 243.136145
+    },
+    "suitability": {
+      "decision": "proceed_with_limitations",
+      "rationale": [
+        "The operator accepted the standalone industrial hall as #167 and approved the separate debris/window rock-room candidate for its exact candidate identity.",
+        "Frames 1097 and 4560 show distinct source views at different timeline positions; their spatial relationship and connectivity are unknown.",
+        "The assembled connection is an explicit authored game doorway. It is not recovered from the source video.",
+        "The Hunyuan panoramas are broad visual references; neither is rendered as a world background in the room assembly."
+      ]
+    },
+    "frames": [
+      {
+        "frame_id": "frame_1097",
+        "index_zero_based": 1096,
+        "timestamp_seconds": 36.533333,
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+        "sha256": "61ca4b37295a948c8aa61686c912da51c7cff6dd16aac012b5c2f02bf051b2af",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": [
+          {
+            "role": "floor_texture_sample",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+            "sha256": "ca291fe11268a284d4c903a8a20fa9b11e010857ee687ae54e4bd48508f70aca",
+            "source_pixel_bounds_xyxy": [
+              760,
+              505,
+              1080,
+              650
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "wall_texture_sample_not_used_in_final_mesh",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_wall.png",
+            "sha256": "df43f93606c42cf476062026e795f99fa7d12fcbe1accec47e56c7874a2c1370",
+            "source_pixel_bounds_xyxy": [
+              742,
+              186,
+              830,
+              278
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "far_wall_window_panel",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/window_grid.png",
+            "sha256": "f278524580ad434e2483128dd9dd149864ecabd0bcc209d00b440c7d9102ab61",
+            "source_pixel_bounds_xyxy": [
+              640,
+              297,
+              795,
+              379
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "roof_texture_sample_not_used_in_final_mesh",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/roof_beams.png",
+            "sha256": "ee44a2a068921ce2bf4b7f6ab362e9cf4491e5e06c6372b4035bc517f89bccff",
+            "source_pixel_bounds_xyxy": [
+              430,
+              145,
+              650,
+              248
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "support_texture_sample_not_used_in_final_mesh",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/support_post.png",
+            "sha256": "9a3c8ad45f7eab6720f98081a98472e35c89434dad4861f1cb00437c8179ab5f",
+            "source_pixel_bounds_xyxy": [
+              816,
+              240,
+              870,
+              464
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          }
+        ]
+      },
+      {
+        "frame_id": "frame_4336",
+        "index_zero_based": 4335,
+        "timestamp_seconds": 144.5,
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4336.png",
+        "sha256": "1ccf721a47f0c302a4983a860810d5ce8cc0647c2d60241bd8669ac92b58ee50",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": [
+          {
+            "role": "concrete_floor",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/concrete_floor.png",
+            "sha256": "7758bb236c56c10519941f15c3b527b193c438a05036c27dda02c89fe270b0f6",
+            "source_pixel_bounds_xyxy": [
+              300,
+              545,
+              650,
+              700
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          }
+        ]
+      },
+      {
+        "frame_id": "frame_4486",
+        "index_zero_based": 4485,
+        "timestamp_seconds": 149.5,
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4486.png",
+        "sha256": "e31f129e0ab9be43f9e6a8dd3e27e2b730de2e69ac5771535b97bc819736be2e",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": [
+          {
+            "role": "mixed_debris",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/mixed_debris.png",
+            "sha256": "6ef7eee499990ec754afd44252da97a77d209a15574e2ecc721c43de1a98a6ed",
+            "source_pixel_bounds_xyxy": [
+              260,
+              440,
+              880,
+              670
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          }
+        ]
+      },
+      {
+        "frame_id": "frame_4560",
+        "index_zero_based": 4559,
+        "timestamp_seconds": 151.96666666666667,
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png",
+        "sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": [
+          {
+            "role": "window_band",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/window_band.png",
+            "sha256": "cee4d654b77794236b555c941b91b9f8204ec9855ce74eb8b613171ba6f3d810",
+            "source_pixel_bounds_xyxy": [
+              980,
+              15,
+              1275,
+              280
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "painted_wall",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png",
+            "sha256": "e2572197034ec11430498065f2c957e0c2e4da807538f68a8365254029e80c4d",
+            "source_pixel_bounds_xyxy": [
+              250,
+              185,
+              850,
+              350
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "ceiling_beam",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/ceiling_beam.png",
+            "sha256": "1e38583bda519ed69ea4f61e0f21182059b165966bbb15135e2355c532eb2e17",
+            "source_pixel_bounds_xyxy": [
+              80,
+              0,
+              550,
+              115
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          }
+        ]
+      },
+      {
+        "frame_id": "frame_4636",
+        "index_zero_based": 4635,
+        "timestamp_seconds": 154.5,
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4636.png",
+        "sha256": "79606f043d459d881b1db59203ed45c828cf1a4803b129ceaabccfec74e54966",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      },
+      {
+        "frame_id": "frame_4786",
+        "index_zero_based": 4785,
+        "timestamp_seconds": 159.5,
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4786.png",
+        "sha256": "2e08d25ae0dbf428e4718b37935474342f04d8ca8fd79b0fcc44712d0e1dd5cb",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      },
+      {
+        "frame_id": "frame_4936",
+        "index_zero_based": 4935,
+        "timestamp_seconds": 164.5,
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4936.png",
+        "sha256": "788e4e65c4109abf962a48754c7d776efa170051fe9d2312a1e658f4a83225af",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": []
+      }
+    ],
+    "observations": [
+      {
+        "claim": "Frame_1097 shows the directly observed industrial hall used as the first room design.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_1097"
+        ]
+      },
+      {
+        "claim": "Frames_4336\u20134936 show a visually distinct debris/window interior; the debris is observed, but natural rock is not established.",
+        "certainty": "partially_observed",
+        "frame_ids": [
+          "frame_4336",
+          "frame_4560",
+          "frame_4936"
+        ]
+      },
+      {
+        "claim": "The footage does not establish the two zones as adjacent or connected; the doorway and relative placement are authored.",
+        "certainty": "unknown",
+        "frame_ids": [
+          "frame_1097",
+          "frame_4560"
+        ]
+      }
+    ],
+    "unknowns": [
+      "Camera pose, world orientation, metric scale, room dimensions and true ceiling height are unknown.",
+      "The full perimeter and any hidden openings are not visible in the selected source coverage.",
+      "The relation between the dark passage in frame_4936 and this candidate is unknown; the candidate has no connection to it.",
+      "The source floor clutter is ambiguous. The rock and gravel field is an authored interpretation guided by the accepted panorama and operator direction, not a claim that rocks are directly observed.",
+      "The candidate shell is a bounded gameplay design, not a recovered source floor plan.",
+      "The source does not establish the adjacency, metric scale, or connectivity of the two selected zones.",
+      "The direct doorway position, width, height, wall depth, and room relative placement are authored game geometry."
+    ]
+  },
+  "reusable_requirements": {
+    "coordinate_convention": "Godot local X/Z with +Y up; all dimensions are uncalibrated design units.",
+    "supported_footprint_representation": "Finite simple orthogonal rectangle with one spawn-connected single-level walkable region.",
+    "player": {
+      "controller_scene": "godot_walk/scenes/player.tscn",
+      "capsule_radius": 0.3,
+      "capsule_height": 1.2,
+      "safe_spawn_and_reset": "Spawn at [0,0.6,4.1] in the industrial hall, facing the authored south doorway; R restores this exact pose and zero velocity."
+    },
+    "floor_and_ceiling": "Authored floor at Y=0 and closed ceiling underside at Y=3.92; values describe the candidate, not the footage.",
+    "collision_policy": "Separate floor and four perimeter colliders; 72 large rock-bank colliders, one pathside boulder collider and one pier collider; 336 small gravel meshes are visual only.",
+    "render_placement_policy": "Authored 12\u00d710-unit closed shell; no panorama or exterior background geometry is rendered.",
+    "socket_policy": "No authored sockets. All four candidate boundaries are closed; no source opening or video connectivity is inferred.",
+    "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+    "additional_constraints": [
+      "Godot 4.6.3 only.",
+      "Use the existing player controller and accepted PSX compositor/material profile.",
+      "Keep registration_accepted=false and scale_calibrated=false."
+    ]
+  },
+  "resolved_adaptation": {
+    "candidate_version": "issue168-two-room-connection-v1",
+    "catalog_admission": "candidate_not_admitted",
+    "scene_path": "godot_walk/scenes/issue168_two_room_walkthrough.tscn",
+    "catalog_module_refs": [],
+    "walkable_space": {
+      "coordinate_system": "World Godot X/Z with +Y up; authored design units are uncalibrated.",
+      "footprint": {
+        "representation": "simple_orthogonal_polygon_xz",
+        "vertices_xz": [
+          [
+            -8.0,
+            -6.5
+          ],
+          [
+            8.0,
+            -6.5
+          ],
+          [
+            8.0,
+            6.5
+          ],
+          [
+            6.0,
+            6.5
+          ],
+          [
+            6.0,
+            16.5
+          ],
+          [
+            -6.0,
+            16.5
+          ],
+          [
+            -6.0,
+            6.5
+          ],
+          [
+            -8.0,
+            6.5
+          ]
+        ]
+      },
+      "floor_elevation": 0.0,
+      "safe_spawn_xyz": [
+        0.0,
+        0.6,
+        4.1
+      ],
+      "measurement": {
+        "method": "Godot 4.6.3 tested standalone spawn/reset in both adapters; 25 capsule overlap probes through a 1.2-unit approach on both sides of the doorway; bidirectional player traversal/backtracking and floor/boundary controls. No exhaustive connected-area grid was run.",
+        "resolution": 0.1,
+        "spawn_connected_area": null,
+        "status": "measured"
+      }
+    },
+    "boundary_and_obstacle_collision": {
+      "collision_origin": "All floors, perimeter walls, doorway returns/headers, rocks, columns, and obstacles are explicit authored collision bodies separate from visual meshes. The continuous doorway floor-seam collider is a new authored bridge.",
+      "floor_bodies": [
+        "IndustrialHall/AuthoredBoundaries/WalkableFloor",
+        "DebrisWindowRockRoom/AuthoredBoundaries/WalkableFloor",
+        "AuthoredConnectorBoundaries/DoorwayFloorSeam"
+      ],
+      "boundaries": [
+        "IndustrialHall/AuthoredBoundaries/WestBoundary",
+        "IndustrialHall/AuthoredBoundaries/EastBoundary",
+        "IndustrialHall/AuthoredBoundaries/NorthBoundary",
+        "IndustrialHall/AuthoredBoundaries/SouthBoundaryWest",
+        "IndustrialHall/AuthoredBoundaries/SouthBoundaryEast",
+        "IndustrialHall/AuthoredBoundaries/SouthSocketHeader",
+        "DebrisWindowRockRoom/AuthoredBoundaries/WestBoundary",
+        "DebrisWindowRockRoom/AuthoredBoundaries/EastBoundary",
+        "DebrisWindowRockRoom/AuthoredBoundaries/SouthBoundary",
+        "DebrisWindowRockRoom/AuthoredBoundaries/NorthBoundaryWest",
+        "DebrisWindowRockRoom/AuthoredBoundaries/NorthBoundaryEast",
+        "DebrisWindowRockRoom/AuthoredBoundaries/NorthSocketHeader"
+      ],
+      "obstacles": [
+        "IndustrialHall/AuthoredObstacles/SupportPostCollision_00",
+        "IndustrialHall/AuthoredObstacles/SupportPostCollision_01",
+        "IndustrialHall/AuthoredObstacles/SupportPostCollision_02",
+        "IndustrialHall/AuthoredObstacles/SupportPostCollision_03",
+        "IndustrialHall/AuthoredObstacles/SupportPostCollision_04",
+        "IndustrialHall/AuthoredObstacles/SupportPostCollision_05",
+        "IndustrialHall/AuthoredObstacles/BrokenSlabObstacle",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_000Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_001Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_002Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_003Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_004Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_005Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_006Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_007Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_008Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_009Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_010Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_011Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_012Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_013Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_014Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_015Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_016Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_017Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_018Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_019Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_020Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_021Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_022Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_023Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_024Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_025Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_026Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_027Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_028Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_029Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_030Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_031Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_032Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_033Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_034Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_035Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_036Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_037Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_038Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_039Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_040Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_041Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_042Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_043Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_044Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_045Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_046Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_047Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_048Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_049Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_050Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_051Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_052Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_053Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_054Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_055Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_056Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_057Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_058Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_059Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_060Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_061Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_062Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_063Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_064Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_065Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_066Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_067Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_068Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_069Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_070Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/Stone_071Collision",
+        "DebrisWindowRockRoom/AuthoredObstacles/PathsideBoulderCollision",
+        "DebrisWindowRockRoom/AuthoredObstacles/BrickPierCollision"
+      ],
+      "exposed_boundary_policy": "All perimeter edges are closed except the matched hall-south/rock-north doorway; each socket is capped in its standalone adapter scene. SafetyNet bodies are fall recovery aids only."
+    },
+    "rendered_placement_envelope": {
+      "representation": "conservative_aabb_xyz",
+      "bounds_xyz": {
+        "min": [
+          -8.3,
+          -0.24,
+          -6.8
+        ],
+        "max": [
+          8.3,
+          5.0,
+          16.8
+        ]
+      },
+      "footprint": {
+        "representation": "simple_orthogonal_polygon_xz",
+        "vertices_xz": [
+          [
+            -8.3,
+            -6.8
+          ],
+          [
+            8.3,
+            -6.8
+          ],
+          [
+            8.3,
+            16.8
+          ],
+          [
+            -8.3,
+            16.8
+          ]
+        ]
+      },
+      "background_geometry": [],
+      "containment_method": "Two closed authored room shells with one matched doorway cut; the candidate runtime test checked every MeshInstance3D AABB corner against the declared combined envelope and found zero escapes. There is no panorama background geometry."
+    },
+    "surfaces": [
+      {
+        "surface_id": "industrial_hall_shell",
+        "geometry_origin": "Existing accepted #167 hall geometry through a versioned south-socket adapter; six support columns and floor obstacles retain their accepted placements.",
+        "appearance_origin": "The accepted #167 direct-source textures and PSX treatment are reused unchanged.",
+        "placement_basis": "World origin [0,0,0], authored footprint X=[-8,8], Z=[-6.5,6.5]; uncalibrated.",
+        "collision_origin": "Separate authored floor, wall, column and slab colliders; the south doorway is formed by matching visual wall segments and collision bodies.",
+        "evidence_refs": [
+          "frame_1097",
+          "godot_gopro_industrial_hall_frame1097_v1",
+          "godot_walk/evidence/2026-11-02-issue-168-two-room/captures-v3/from_rock_room_to_industrial_hall.png"
+        ]
+      },
+      {
+        "surface_id": "debris_window_rock_room_shell",
+        "geometry_origin": "The operator-reviewed standalone room geometry is reused through a versioned north-socket adapter; the central route remains open between authored rock banks.",
+        "appearance_origin": "Direct-source wall/window crops and authored low-poly rock palette remain unchanged from the reviewed standalone design.",
+        "placement_basis": "World origin [0,0,11.5], authored footprint X=[-6,6], world Z=[6.5,16.5]; uncalibrated. Rock interpretation is authored, not directly observed.",
+        "collision_origin": "Separate authored floor, wall, rock, pier and obstacle colliders; the north doorway replaces only its capped boundary in this assembly variant.",
+        "evidence_refs": [
+          "frame_4560",
+          "operator-approved standalone candidate 016fab6e6cc1edff5088bb6da3b81fdf0d8bca5bdabb70b62cb11476cc9f8214",
+          "godot_walk/evidence/2026-11-02-issue-168-two-room/captures-v3/rock_room_entry_and_banks.png"
+        ]
+      },
+      {
+        "surface_id": "authored_doorway_and_floor_seam",
+        "geometry_origin": "A new matched 2.4-by-2.2 opening at hall-south/rock-north, with a 0.6-unit combined wall depth, shared visual jamb/header trim, and a short threshold strip.",
+        "appearance_origin": "Untextured muted PSX trim chosen to bridge two room wall languages; this connection material is new and provisional.",
+        "placement_basis": "Socket centers both resolve to world [0,0,6.5]; normals oppose and both floors are at Y=0. Source footage does not place this doorway.",
+        "collision_origin": "Matching wall/header colliders preserve the opening; a separate floor seam box supports the doorway span. Runtime capsule probes and traversal checks passed.",
+        "evidence_refs": [
+          "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/connector_contract.json",
+          "godot_walk/evidence/2026-11-02-issue-168-two-room/captures-v3/from_industrial_hall_to_rock_room.png",
+          "godot_walk/evidence/2026-11-02-issue-168-two-room/captures-v3/from_rock_room_to_industrial_hall.png"
+        ]
+      }
+    ],
+    "sockets": [],
+    "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+    "dependencies": [
+      {
+        "path": "data/videos/GoPro Awards_ Haunting FPV Drone Flight Through Abandoned Building.mp4",
+        "sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+        "role": "canonical source video"
+      },
+      {
+        "path": "godot_walk/evidence/2026-11-01-issue-168-room-candidate/COMMANDS.md",
+        "sha256": "6d550cc8fcd27e22f9817a30bcd51b91255c7b4c224ad9718c4e847851e049dc",
+        "role": "launch and test instructions"
+      },
+      {
+        "path": "godot_walk/evidence/2026-11-01-issue-168-room-candidate/candidate_contact_sheet_final.jpg",
+        "sha256": "2e9724378cbd05383a8c0c0d65e66a4750f93bb6ab2361bb620f386382c6b5e9",
+        "role": "final candidate capture contact sheet"
+      },
+      {
+        "path": "godot_walk/evidence/2026-11-01-issue-168-room-candidate/index.html",
+        "sha256": "dcb35041b2e170f6ed6d50fd4105114b35daadb0e312ab0af74fe5867c9d481b",
+        "role": "local operator review page"
+      },
+      {
+        "path": "godot_walk/evidence/2026-11-01-issue-168-room-candidate/layout.svg",
+        "sha256": "1dea6a58e975c9d11de4c25b9e33da450e1edba83b58e55353035da091d2d6d4",
+        "role": "authored candidate layout diagram"
+      },
+      {
+        "path": "godot_walk/evidence/2026-11-01-issue-168-room-candidate/source_context_contact_sheet.png",
+        "sha256": "21de50954c9cae55379bcb96bfcf4336cfa8013db059d83afeb106190a101f0b",
+        "role": "source-frame context contact sheet"
+      },
+      {
+        "path": "godot_walk/evidence/2026-11-01-issue-168-room-candidate/source_texture_crops.png",
+        "sha256": "54585d620c011dfa3e95f018f9411f0f661241d4afb00fbe8c09956f8f3fc6f9",
+        "role": "direct source crop contact sheet"
+      },
+      {
+        "path": "godot_walk/evidence/2026-11-02-issue-168-two-room/source_events_snapshot.jsonl",
+        "sha256": "a3116ec66f6cd45a5fea7734593101f258f2c2ddfb0faa3e0a66f6e995c2461e",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/project.godot",
+        "sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+        "role": "Godot renderer and input settings"
+      },
+      {
+        "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+        "role": "immutable versioned catalog snapshot"
+      },
+      {
+        "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.3.0.json",
+        "sha256": "31bec038c5e6721976c039b72df5906975b40be8f6741bd3813634ef06d04c5a",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/room_catalog/contract_freeze_v3.json",
+        "sha256": "91c0cb1b47f980193a47d8e221b366f2d452256fa7b383adc818a177c9813ba1",
+        "role": "video adaptation contract freeze v3"
+      },
+      {
+        "path": "godot_walk/scenes/issue168_two_room_walkthrough.tscn",
+        "sha256": "a694c411ac10e58a0d2bc708dc71bd8472342315c44e059defc5908187b25ccb",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/scenes/player.tscn",
+        "sha256": "2fc7064e58713029897facd54812886154f6661d8e4ba14c5f7a3d99bda5dbea",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/scripts/gpu_job_lock.py",
+        "sha256": "1bca85202f82c6e192426ff8e0d774428534ae454dc4dea61b32a23f5f929db5",
+        "role": "shared exclusive GPU job lock"
+      },
+      {
+        "path": "godot_walk/scripts/issue168_two_room_walkthrough.gd",
+        "sha256": "a7120104dc5add6a03991956cd116a2044217081790624c50e0ddfcf76eb996e",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/scripts/library_psx_preset.gd",
+        "sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/scripts/player.gd",
+        "sha256": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/scripts/psx/psx_post_effect.gd",
+        "sha256": "5b06eff8e0f1fc0a5c98711633eb50d03db39db4c1e73b309433e444dd3c5795",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "sha256": "b1a4c839f1346d64586dae4cda6175b06793d4de95cb0ada8ba57c0851e80ba5",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/scripts/psx_design_round_resources.py",
+        "sha256": "98444163f9d29337dae413541c604f8a9956c3066f55c9d1b04b03f12d9877f5",
+        "role": "GPU/RAM preflight and resource sampler"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_resource_graph.py",
+        "sha256": "84f0677bda60d2ff4b07664abc8c70e2fc815f4d002eda4af5d581473cb44cb0",
+        "role": "resource graph dependency implementation"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_runner.py",
+        "sha256": "62f2fb131bd49a278082abe3b353c0ff863a6628c5b2abe7c74ba175d30e7f17",
+        "role": "read-only source crop workflow implementation"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_validation.py",
+        "sha256": "44803981db7ef2563c76832f7ea3ce6dd48a51274b51d9aa47cc04e0d6aff8cd",
+        "role": "read-only adaptation validator"
+      },
+      {
+        "path": "godot_walk/shaders/library_psx_textured.gdshader",
+        "sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/shaders/library_psx_vertex.gdshader",
+        "sha256": "7feecf393ff762b9dee1caaf43cc5e7e3a548371f0fb7a3c28d562c03be4176f",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/extraction_manifest.json",
+        "sha256": "0feef674732313f30c40304bc25e4e8f4ebeed5d2bdde0bfcdb3ad3bf7c8e3f8",
+        "role": "direct-source context extraction manifest"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4336.png",
+        "sha256": "1ccf721a47f0c302a4983a860810d5ce8cc0647c2d60241bd8669ac92b58ee50",
+        "role": "direct decoded source frame frame_4336"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4486.png",
+        "sha256": "e31f129e0ab9be43f9e6a8dd3e27e2b730de2e69ac5771535b97bc819736be2e",
+        "role": "direct decoded source frame frame_4486"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4560.png",
+        "sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f",
+        "role": "exact crop source alias for frame_4560; byte-identical to the approved Hunyuan seed frame"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4636.png",
+        "sha256": "79606f043d459d881b1db59203ed45c828cf1a4803b129ceaabccfec74e54966",
+        "role": "direct decoded source frame frame_4636"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4786.png",
+        "sha256": "2e08d25ae0dbf428e4718b37935474342f04d8ca8fd79b0fcc44712d0e1dd5cb",
+        "role": "direct decoded source frame frame_4786"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4936.png",
+        "sha256": "788e4e65c4109abf962a48754c7d776efa170051fe9d2312a1e658f4a83225af",
+        "role": "direct decoded source frame frame_4936"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/extraction_manifest.json",
+        "sha256": "2a6b81dc4f2fbc00bbaaff49cc22da2ce8b4cea7dca02ff93d1801fbf0b9ffe3",
+        "role": "exact Hunyuan seed extraction manifest"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png",
+        "sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f",
+        "role": "direct decoded source frame frame_4560"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/extraction_manifest.json",
+        "sha256": "a94b45dd1749afb5d5b5179b3f77e8ac706d27dc604b0674ada4a1662e047a1c",
+        "role": "direct source frame extraction manifest"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+        "sha256": "61ca4b37295a948c8aa61686c912da51c7cff6dd16aac012b5c2f02bf051b2af",
+        "role": "selected source frame decoded at 1280x720"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/attempt_config.json",
+        "sha256": "88e10033928c2be564de27dcc42847864f882be8673bca44b11be31c69e4efd2",
+        "role": "Hunyuan attempt configuration"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/attempt_result.json",
+        "sha256": "23296dadf98984e0f146ae0fc0be189a8c5f969a6819965e664608e1972d4ca2",
+        "role": "Hunyuan output hash and measured resource result"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/execution_guard.json",
+        "sha256": "db5270a1ae163d2297d06c7301630f4e473ab5effc0dc318fc49477407044c91",
+        "role": "Hunyuan execution-time and resource guard receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/gpu_guard.json",
+        "sha256": "cf099542bbd4f4cf28c99c62dc596aa8ed0d367fd1874104468d1ba8d12ee505",
+        "role": "Hunyuan GPU preflight receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/panorama/panorama.png",
+        "sha256": "ab6ed18a33d959d53612f63d5bbc0700fd6ff89220d4a4cfb0bccdccdaca5213",
+        "role": "operator-reviewed Hunyuan panorama used as layout reference"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/resource_samples.jsonl",
+        "sha256": "fed912d31f80f518796aabe71b011848f7f831fba3cb331f831679f9d5b36657",
+        "role": "Hunyuan sampled resource history"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/stderr.log",
+        "sha256": "f0e147f5523e2bf411534ce42ee0f13b74178f387f9406148680b86c3418366e",
+        "role": "Hunyuan stderr log"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/stdout.log",
+        "sha256": "022e240a8a36eccb82cb85828e1adc60d43fb25bbee2e81d7ee363361654e718",
+        "role": "Hunyuan stdout log"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-006/attempt_config.json",
+        "sha256": "a4777989aeb6b3e616072a3599698336ace9bacc523fd392be6ee8e707b5783e",
+        "role": "Hunyuan attempt-006 seed/runtime configuration"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-006/attempt_result.json",
+        "sha256": "1160934897493c3356a3446d0b9581159e2d5e929434d4c10b31664f6c982470",
+        "role": "Hunyuan output and resource result"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-006/panorama/panorama.png",
+        "sha256": "15b8c00629845935c38fe644e317bd57edbe129fa0605453d6ba1c906cd5cb65",
+        "role": "operator-approved composition reference"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/adaptation_standalone_accepted_v1.json",
+        "sha256": "ba874680accbf8c6a62d619f2e32b511fe4f55f0d4e4f6c1d3af0aeac89d1db0",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/capture_room.gd",
+        "sha256": "d75af52915d432e17e203a08fe3b7f848b988d448c1bcd8d390ba2b342eee716",
+        "role": "bounded capture/profile harness"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/crop_plan.json",
+        "sha256": "99114281e13fc1716c5c1993e17370e18f9de9f7d8d53c8c68018393c46feb30",
+        "role": "direct-source crop plan"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/operator_review.json",
+        "sha256": "139d1d3397852e62fde4b7a8159cc099a2802eba90ecdf6a3d6ca3c16aa1d1f0",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.gd",
+        "sha256": "37e00e7da7771f19b9b882a4a1279c291586a354a151c7638c357bb533b1642f",
+        "role": "transitive Godot scene/script/shader dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.tscn",
+        "sha256": "0c27f917020cf25c9eee16bcfd55b4b15695f4dee466b6c2eae57871f23fcb07",
+        "role": "transitive Godot scene/script/shader dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/run_capture_guarded.py",
+        "sha256": "5c58596decae171b1e2aa9a01b5bb5318d21a5726d7780c80a916a45525666b7",
+        "role": "GPU/RAM-guarded capture runner"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/test_room.gd",
+        "sha256": "1128257d15af7cfe523e63324214db963fceef272a1c582ae336d928e3e19cd1",
+        "role": "standalone traversal test"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/ceiling_beam.png",
+        "sha256": "1e38583bda519ed69ea4f61e0f21182059b165966bbb15135e2355c532eb2e17",
+        "role": "direct source crop ceiling_beam"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/concrete_floor.png",
+        "sha256": "7758bb236c56c10519941f15c3b527b193c438a05036c27dda02c89fe270b0f6",
+        "role": "direct source crop concrete_floor"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/crop_manifest.json",
+        "sha256": "d5484a4a29f205d9281b4bcca3b9570d7b701d3f37a7c6e13e9a9bdf8d4a5fe0",
+        "role": "direct-source crop manifest"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/mixed_debris.png",
+        "sha256": "6ef7eee499990ec754afd44252da97a77d209a15574e2ecc721c43de1a98a6ed",
+        "role": "direct source crop mixed_debris"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png",
+        "sha256": "e2572197034ec11430498065f2c957e0c2e4da807538f68a8365254029e80c4d",
+        "role": "direct source crop painted_wall"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/window_band.png",
+        "sha256": "cee4d654b77794236b555c941b91b9f8204ec9855ce74eb8b613171ba6f3d810",
+        "role": "direct source crop window_band"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/room.gd",
+        "sha256": "9ca0242a5e8f9059c057fb93fe0b33a3efb07245c99cfb3f98ad426838467bc2",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/room.tscn",
+        "sha256": "e9a3542d9993cc39e149b0fd34069d7289f7ee918d4fdb6f106a862ceca07e82",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/adaptation_candidate_pre_catalog_admission.json",
+        "sha256": "8a1aefe21c87194d67c252e6439ea620b5abb387666a33d552529146dc965792",
+        "role": "preserved operator-accepted pre-admission adaptation record"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/adaptation_catalog_v1.json",
+        "sha256": "abab50f14cc428e81e3b6780325f14e5641d266850a3aac3ad57c82caaf56ecd",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/capture_room.gd",
+        "sha256": "363d72205ad5f06ba1735097a0d9b7dc56e89e620a4639f9bcf661edc0e46880",
+        "role": "guarded visual capture and frame-profile harness"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/catalog_admission_decision.json",
+        "sha256": "d56badbff2898ebbf26dceeb6a68c17fb36c71e72e9a5de92f4beafb61748d48",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/crop_plan.json",
+        "sha256": "f516a10c026422bc58d9486bda95d5d4098779a7cc008e4b01bcff05d2cb2bf1",
+        "role": "direct source crop plan"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/layout.svg",
+        "sha256": "da7da17ed9dcdd3eef0f7e3501c355829d9634f941a021316b001ac1ee1e536a",
+        "role": "authored candidate layout diagram"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/operator_review.json",
+        "sha256": "9e44f8caaef2f7a3d1abf49076baba8bb7991a8dcb900559a9c3eb550b51bab6",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.gd",
+        "sha256": "b7044a56b9729b16bd15cfb40e4b053be06859c166a3b22d9d3d19c44ba971e7",
+        "role": "final candidate room geometry, rendering and collision script"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.tscn",
+        "sha256": "bbce2153e8886d577273e162fd6f5ed52ef48a807858cf3556fc8fdee522ccf6",
+        "role": "playable Godot room scene"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/run_capture_guarded.py",
+        "sha256": "e3fe3f557add93ca382c6d790ad594872dfab7abf6689b179d9fc5c29a2ff830",
+        "role": "shared-lock guarded capture runner"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/standalone_test_receipt.json",
+        "sha256": "4c7a84a5c0138e2b71a5f16182d0a1f04d80c28c0a0fbc555b79bc828ed1dd95",
+        "role": "standalone runtime test receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/standalone_test_receipt_v3_final.json",
+        "sha256": "2abbee417d8b20717697cb3923fe77032b9583d78bd1e85b0e4f911c342d2fcf",
+        "role": "fresh standalone runtime verification receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/test_room.gd",
+        "sha256": "274409be9454bac697ef19e90ae54858bb8c11e56d1932e2353e609845f797ff",
+        "role": "standalone spawn, traversal, collision and negative-control harness"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+        "sha256": "ca291fe11268a284d4c903a8a20fa9b11e010857ee687ae54e4bd48508f70aca",
+        "role": "direct frame crop provenance: concrete_floor"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_wall.png",
+        "sha256": "df43f93606c42cf476062026e795f99fa7d12fcbe1accec47e56c7874a2c1370",
+        "role": "direct frame crop provenance: concrete_wall"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/crop_manifest.json",
+        "sha256": "909e9df0816487d5a8e8fb85a3e746bbf5552aa36cfb483b40abc4cdd3a8d3ec",
+        "role": "direct source crop manifest"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/roof_beams.png",
+        "sha256": "ee44a2a068921ce2bf4b7f6ab362e9cf4491e5e06c6372b4035bc517f89bccff",
+        "role": "direct frame crop provenance: roof_beams"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/support_post.png",
+        "sha256": "9a3c8ad45f7eab6720f98081a98472e35c89434dad4861f1cb00437c8179ab5f",
+        "role": "direct frame crop provenance: support_post"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/window_grid.png",
+        "sha256": "f278524580ad434e2483128dd9dd149864ecabd0bcc209d00b440c7d9102ab61",
+        "role": "direct frame crop provenance: window_grid"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/room.gd",
+        "sha256": "8c5791f1c8deadde93948154b6b3715afd0e6b3a9272d0ee68bb7e5ed6e8825f",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/room.tscn",
+        "sha256": "a17f6a18bb2045f5412de95248ba4418e5a886f7205c14b0563c27d9124bf07b",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/connector_contract.json",
+        "sha256": "e4344ea2faa6fd039b06bc0224dcd3a9f250214428e7ad937702f2d2f11d1ca5",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/source_manifest-v2.json",
+        "sha256": "d515aaf2c7815952adb81b0ed543298109a15b5424fd8b62b0066be8d670c9c0",
+        "role": "candidate provenance, adapter, connector spec, or runtime dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/source_manifest.json",
+        "sha256": "1649a1031a3ae60eb0095beaf429f1760ef65c362fc2b73af0fbb70d2e1cb9bc",
+        "role": "source registration manifest; unchanged"
+      },
+      {
+        "path": "godot_walk/vendor/ursc/common.gdshaderinc",
+        "sha256": "c2bba1e4d8491d91684efd246458196d7750a4951a21c1bbef58b82537288a49",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/vendor/ursc/utilities.gdshaderinc",
+        "sha256": "0a56e85852069315945e54fdb692dd5f9140dee9ae2ad15bce958987c7b0f011",
+        "role": "transitive Godot scene, script or shader dependency"
+      }
+    ],
+    "authoring_log": {
+      "manual_decisions": [
+        "Keep the accepted standalone rock-room baseline unchanged and use a versioned north-socket adapter.",
+        "Cut one south socket into the accepted hall through a separate adapter; the original hall scene stays unchanged.",
+        "Align the two adapters at the shared z=6.5 wall with equal 2.4-by-2.2 opening and level floor.",
+        "Keep all unused boundaries capped and mark the connection as authored rather than source-proven."
+      ],
+      "operator_interventions": 1,
+      "effort": "Active authoring time not measured. Connector geometry and integration are manually authored."
+    },
+    "room_clearance": {
+      "floor_elevation": 0.0,
+      "ceiling_elevation": 3.92,
+      "basis": "authored"
+    },
+    "dynamic_resource_declarations": [
+      {
+        "script_path": "godot_walk/scripts/library_psx_preset.gd",
+        "line": 49,
+        "call_index": 0,
+        "expression": "\"res://shaders/library_psx_%s.gdshader\" % shader_name",
+        "resource_paths": [
+          "godot_walk/shaders/library_psx_textured.gdshader",
+          "godot_walk/shaders/library_psx_vertex.gdshader"
+        ]
+      }
+    ]
+  },
+  "validation": {
+    "mechanical_status": "passed",
+    "stages": []
+  },
+  "operator_decision": {
+    "status": "pending",
+    "decision_record_path": null,
+    "decision_sha256": null,
+    "candidate_fingerprint": null,
+    "scope": "Pending operator review of the new authored connection and assembled two-room layout. Standalone rock-room approval does not accept this connector or source-video connectivity."
+  },
+  "catalog_snapshot": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+    "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+    "catalog_id": "godot_psx_room_kit",
+    "catalog_version": "0.2.0"
+  },
+  "candidate_identity": "6b83313eb701f9c1a212087ab41b27e85c6ada90f5a5bf1b37b9834533402bff"
+}

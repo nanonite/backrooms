@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "adaptation_id": "video-ccf9722164a0bdc8-two-room-connection-v1",
+  "candidate_identity": "6b83313eb701f9c1a212087ab41b27e85c6ada90f5a5bf1b37b9834533402bff",
+  "decision": "accepted",
+  "reviewed_at_utc": "2026-11-02T01:59:29.431632+00:00",
+  "scope": "Operator accepts this exact two-room assembly, its authored hall-south to rock-room-north doorway, and the tested bidirectional traversal. It does not claim source-video connectivity, calibrated scale, or general socket compatibility.",
+  "operator_feedback": "The operator reviewed the assembled walkthrough and said: “yup looks good to me!”",
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

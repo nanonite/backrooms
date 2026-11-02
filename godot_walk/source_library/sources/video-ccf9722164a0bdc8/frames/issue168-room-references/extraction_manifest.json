@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "source_video": "data/videos/GoPro Awards_ Haunting FPV Drone Flight Through Abandoned Building.mp4",
+  "source_video_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+  "metadata": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30.0,
+    "frame_count": 7292,
+    "duration_seconds": 243.136145
+  },
+  "decoder": "ffmpeg select by decoded zero-based frame index",
+  "created_at_utc": "2026-11-01T22:05:53.571158+00:00",
+  "frames": [
+    {
+      "frame_id": "frame_4336",
+      "index_zero_based": 4335,
+      "timestamp_seconds": 144.5,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4336.png",
+      "sha256": "1ccf721a47f0c302a4983a860810d5ce8cc0647c2d60241bd8669ac92b58ee50",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_4486",
+      "index_zero_based": 4485,
+      "timestamp_seconds": 149.5,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4486.png",
+      "sha256": "e31f129e0ab9be43f9e6a8dd3e27e2b730de2e69ac5771535b97bc819736be2e",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_4560",
+      "index_zero_based": 4559,
+      "timestamp_seconds": 151.96666666666667,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4560.png",
+      "sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_4636",
+      "index_zero_based": 4635,
+      "timestamp_seconds": 154.5,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4636.png",
+      "sha256": "79606f043d459d881b1db59203ed45c828cf1a4803b129ceaabccfec74e54966",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_4786",
+      "index_zero_based": 4785,
+      "timestamp_seconds": 159.5,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4786.png",
+      "sha256": "2e08d25ae0dbf428e4718b37935474342f04d8ca8fd79b0fcc44712d0e1dd5cb",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_4936",
+      "index_zero_based": 4935,
+      "timestamp_seconds": 164.5,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/frame_4936.png",
+      "sha256": "788e4e65c4109abf962a48754c7d776efa170051fe9d2312a1e658f4a83225af",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "source_id": "video-102caf53423018b7",
+  "created_at_utc": "2026-10-26T21:23:22.638248+00:00",
+  "canonical_video": {
+    "path": "data/videos/corridor_straight.mp4",
+    "sha256": "102caf53423018b75dfd1976b5a2346b0576bdd316429f246aee87a884ba3d4b",
+    "metadata": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 24.0,
+      "frame_count": 96,
+      "duration_seconds": 4.0
+    }
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_review": {
+    "status": "pending_operator_review",
+    "decision": null
+  },
+  "frame_references": [],
+  "hunyuan": {
+    "status": "not_attempted",
+    "historical_invocations": 0,
+    "attempts": []
+  },
+  "room_adaptations": [],
+  "historical_artifacts": [],
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity."
+}

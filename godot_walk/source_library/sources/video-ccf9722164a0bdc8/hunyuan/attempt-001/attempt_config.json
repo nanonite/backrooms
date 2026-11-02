@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "source_id": "video-ccf9722164a0bdc8",
+  "source_video_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+  "source_manifest_sha256": "1649a1031a3ae60eb0095beaf429f1760ef65c362fc2b73af0fbb70d2e1cb9bc",
+  "attempt_id": "attempt-001",
+  "seed_frame": {
+    "frame_id": "frame_1097",
+    "index_zero_based": 1096,
+    "timestamp_seconds": 36.53333333333333,
+    "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+    "sha256": "61ca4b37295a948c8aa61686c912da51c7cff6dd16aac012b5c2f02bf051b2af",
+    "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+    "extraction_manifest": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/extraction_manifest.json",
+    "extraction_manifest_sha256": "a94b45dd1749afb5d5b5179b3f77e8ac706d27dc604b0674ada4a1662e047a1c",
+    "source_video_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+    "presentation_timestamp_seconds": 36.533333,
+    "presentation_timestamp_source": "ffprobe frame.best_effort_timestamp_time"
+  },
+  "model": "HunyuanWorld-1.0 Panogen local runtime",
+  "model_commit": "57fa9f3a79eae1079c279968cdb9d82c75fa7c86",
+  "prompt": "Panorama of the same abandoned industrial interior shown in the seed. Preserve its concrete walls, high grid windows, dusty floor, steel posts, beams, and visible mezzanine edge. Keep a coherent single-level interior with consistent wall, floor, and ceiling continuity. Do not add people, text, signage, or external landscapes. Use aged gray concrete and subdued industrial materials.",
+  "width": 768,
+  "height": 384,
+  "fov_degrees": 80.0,
+  "fov_source": "Pinned upstream Panogen default; source camera FOV unmeasured",
+  "diffusion_seed": 42,
+  "fp8_attention": true,
+  "fp8_gemm": true,
+  "run_id": "run-26551c69feb24eae92d3dc12acb0d4a5"
+}

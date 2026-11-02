@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/room.gd" id="1_room"]
+
+[node name="IndustrialHallSouthSocketAdapter" type="Node3D"]
+script = ExtResource("1_room")

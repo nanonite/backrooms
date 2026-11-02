@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "source_video_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+  "crops": [
+    {
+      "name": "concrete_floor",
+      "frame_id": "frame_4336",
+      "source_pixel_bounds_xyxy": [300, 545, 650, 700]
+    },
+    {
+      "name": "window_band",
+      "frame_id": "frame_4560",
+      "source_pixel_bounds_xyxy": [980, 15, 1275, 280]
+    },
+    {
+      "name": "painted_wall",
+      "frame_id": "frame_4560",
+      "source_pixel_bounds_xyxy": [250, 185, 850, 350]
+    },
+    {
+      "name": "ceiling_beam",
+      "frame_id": "frame_4560",
+      "source_pixel_bounds_xyxy": [80, 0, 550, 115]
+    },
+    {
+      "name": "mixed_debris",
+      "frame_id": "frame_4486",
+      "source_pixel_bounds_xyxy": [260, 440, 880, 670]
+    }
+  ]
+}

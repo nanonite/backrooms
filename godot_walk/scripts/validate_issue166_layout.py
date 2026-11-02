@@ -18,6 +18,12 @@ EXPECTED_DESIGNS = {
     "godot_corridor_corner_socket_candidate_v1",
 }
 TOLERANCE = 1e-3
+HISTORICAL_LAYOUT_TOOL_ARCHIVES = {
+    "godot_walk/scripts/issue149_layout_core.py": {
+        "sha256": "0170c37c402018aad118894e380c681c7cdb070bb4ba9d7ba4f8908ca9e283bf",
+        "archive_path": "godot_walk/scripts/archives/issue149_layout_core_before_source_scoped_catalog.py",
+    }
+}
 
 
 def validate_bundle(layout_path: Path) -> tuple[dict[str, Any], list[str]]:
@@ -92,9 +98,23 @@ def _snapshot_dependencies(snapshot: dict[str, Any]) -> list[str]:
                 "snapshot dependency is missing or escapes repository: "
                 + item.get("path", "")
             )
-        elif _sha256_file(path) != item.get("sha256"):
+        elif _sha256_file(path) != item.get(
+            "sha256"
+        ) and not _historical_archive_matches(item):
             errors.append("snapshot dependency hash mismatch: " + item["path"])
     return errors
+
+
+def _historical_archive_matches(item: dict[str, Any]) -> bool:
+    archive = HISTORICAL_LAYOUT_TOOL_ARCHIVES.get(item.get("path"))
+    if archive is None or item.get("sha256") != archive["sha256"]:
+        return False
+    archive_path = _repo_file(archive["archive_path"])
+    return (
+        archive_path is not None
+        and archive_path.is_file()
+        and _sha256_file(archive_path) == archive["sha256"]
+    )
 
 
 def _placements_and_connections(

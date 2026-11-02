@@ -1,0 +1,1252 @@
+{
+  "schema_version": 1,
+  "catalog_id": "godot_psx_room_kit",
+  "catalog_version": "0.3.0",
+  "engine": "Godot 4.6.3",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "psx_profile": {
+    "id": "library-psx-ursc-1.5-native-compositor",
+    "preset_script": "godot_walk/scripts/library_psx_preset.gd",
+    "shaders": [
+      "godot_walk/shaders/library_psx_textured.gdshader",
+      "godot_walk/shaders/library_psx_vertex.gdshader"
+    ],
+    "controller_scene": "godot_walk/scenes/player.tscn",
+    "controller_script": "godot_walk/scripts/player.gd",
+    "camera_eye_height_m": 0.5,
+    "registration_accepted": false,
+    "scale_calibrated": false
+  },
+  "generation_dependencies": [
+    "godot_walk/scripts/issue149_layout_core.py",
+    "godot_walk/scripts/generate_issue149_layout.py",
+    "godot_walk/scripts/issue149_generated_walkthrough.gd",
+    "godot_walk/scenes/issue149_generated_walkthrough.tscn",
+    "godot_walk/scripts/issue156_bounded_streamer.gd",
+    "godot_walk/scripts/issue156_streamed_walkthrough.gd",
+    "godot_walk/scenes/issue156_streamed_walkthrough.tscn",
+    "godot_walk/scripts/issue164_layout.py",
+    "godot_walk/scripts/issue164_layout_geometry.py",
+    "godot_walk/scripts/build_issue164_layout.py",
+    "godot_walk/scripts/validate_issue164_layout.py",
+    "godot_walk/scripts/issue164_three_room_walkthrough.gd",
+    "godot_walk/scenes/issue164_three_room_walkthrough.tscn"
+  ],
+  "tested_connector_pairs": [
+    {
+      "id": "column_east__pocket_west_v1",
+      "status": "operator_accepted_first_pass_pair",
+      "from": [
+        "godot_later_bay_column_bounded_v1",
+        "east"
+      ],
+      "to": [
+        "godot_early_pocket_single_west_v1",
+        "west"
+      ],
+      "evidence": [
+        "godot_walk/evidence/2026-10-22-issue-160/REPORT.md",
+        "godot_walk/evidence/2026-10-22-issue-160/room_readiness.json",
+        "godot_walk/evidence/2026-10-22-issue-160/mechanics/assembly/physics_candidate.json"
+      ],
+      "scope": "This pair only; does not approve arbitrary placements or new openings."
+    }
+  ],
+  "modules": [
+    {
+      "id": "godot_later_bay_column_bounded_v1",
+      "version": 1,
+      "kind": "authored_bounded_room",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://scenes/issue160_column_connector.tscn",
+      "variant_status": "operator_accepted_as_part_of_issue160_pair_only",
+      "source_provenance": [
+        "data/scenes/corridor_travel/video.mp4",
+        "data/scenes/corridor_travel/images/frame_0152.jpg",
+        "godot_walk/evidence/2026-10-20-issue-147/source_selection.json",
+        "godot_walk/evidence/2026-10-22-issue-160/visual_derivative.json"
+      ],
+      "visual_assets": [
+        "godot_walk/evidence/2026-10-22-issue-160/bounded_hunyuan_visual.glb",
+        "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png"
+      ],
+      "collision_provenance": "Procedural authored polygon floor, perimeter walls, C01/C02 colliders and socket opening; source collision is not used.",
+      "placement_footprint_xz": [
+        [
+          -4.4,
+          -1.2
+        ],
+        [
+          0.0,
+          -1.2
+        ],
+        [
+          3.5,
+          1.2
+        ],
+        [
+          3.5,
+          5.6
+        ],
+        [
+          -0.3,
+          5.6
+        ],
+        [
+          -4.1,
+          3.7
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          -4.4,
+          -1.2
+        ],
+        [
+          0.0,
+          -1.2
+        ],
+        [
+          3.5,
+          1.2
+        ],
+        [
+          3.5,
+          5.6
+        ],
+        [
+          -0.3,
+          5.6
+        ],
+        [
+          -4.1,
+          3.7
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          -4.4,
+          -1.2
+        ],
+        [
+          0.0,
+          -1.2
+        ],
+        [
+          3.5,
+          1.2
+        ],
+        [
+          3.5,
+          5.6
+        ],
+        [
+          -0.3,
+          5.6
+        ],
+        [
+          -4.1,
+          3.7
+        ]
+      ],
+      "observed_openings": [],
+      "floor_elevation_m": -1.27099049,
+      "ceiling_elevation_m": 1.12900951,
+      "closed_unused_sockets": "All non-east perimeter edges remain closed by visible wall and matching collider.",
+      "dependencies": [
+        "godot_walk/scenes/issue160_column_connector.tscn",
+        "godot_walk/scripts/issue160_bounded_column_room.gd",
+        "godot_walk/scripts/hunyuan_psx_column_box.gd",
+        "godot_walk/scripts/hunyuan_psx_round3.gd",
+        "godot_walk/scripts/hunyuan_psx_round1.gd",
+        "godot_walk/scripts/issue160_room_geometry.gd",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/evidence/2026-10-22-issue-160/bounded_hunyuan_visual.glb",
+        "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+        "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+        "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+        "godot_walk/assets/psx_extension/textures/column_source_video.png",
+        "godot_walk/assets/psx_extension/textures/hunyuan_round3_column_front.png"
+      ],
+      "sockets": [
+        {
+          "id": "east",
+          "local_floor_center": [
+            3.5,
+            -1.27099049,
+            3.1
+          ],
+          "outward_normal": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "floor_elevation_m": -1.27099049,
+          "approach_clearance_m": 1.2,
+          "compatibility_type": "level_doorway_2m_v1",
+          "closure_behavior": "Closed visual wall and collider in standalone room; open only in connector scene variant."
+        }
+      ]
+    },
+    {
+      "id": "godot_early_pocket_single_west_v1",
+      "version": 1,
+      "kind": "authored_room",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://scenes/issue160_pocket_connector.tscn",
+      "variant_status": "operator_accepted_as_part_of_issue160_pair_only",
+      "source_provenance": [
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json",
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb"
+      ],
+      "visual_assets": [
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb"
+      ],
+      "collision_provenance": "Procedural authored floor, perimeter walls and west socket; separate source collision is provenance only.",
+      "placement_footprint_xz": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          0.0
+        ],
+        [
+          6.0,
+          13.8
+        ],
+        [
+          0.0,
+          13.8
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          0.0
+        ],
+        [
+          6.0,
+          13.8
+        ],
+        [
+          0.0,
+          13.8
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          0.0
+        ],
+        [
+          6.0,
+          13.8
+        ],
+        [
+          0.0,
+          13.8
+        ]
+      ],
+      "observed_openings": [],
+      "floor_elevation_m": -1.27099049,
+      "ceiling_elevation_m": 1.12900951,
+      "closed_unused_sockets": "East, south and north remain closed by matching visual wall and collider.",
+      "dependencies": [
+        "godot_walk/scenes/issue160_pocket_connector.tscn",
+        "godot_walk/scripts/issue160_pocket_room.gd",
+        "godot_walk/scripts/hunyuan_psx_round1.gd",
+        "godot_walk/scripts/issue160_room_geometry.gd",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_collision.glb",
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json",
+        "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+        "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+        "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+        "godot_walk/assets/psx_extension/textures/column_source_video.png"
+      ],
+      "sockets": [
+        {
+          "id": "west",
+          "local_floor_center": [
+            0.0,
+            -1.27099049,
+            6.9
+          ],
+          "outward_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "floor_elevation_m": -1.27099049,
+          "approach_clearance_m": 1.2,
+          "compatibility_type": "level_doorway_2m_v1",
+          "closure_behavior": "Closed visual wall and collider unless explicitly opened by this scene variant."
+        }
+      ]
+    },
+    {
+      "id": "godot_early_pocket_pass_through_v1",
+      "version": 1,
+      "kind": "authored_room_variant",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://scenes/issue149_pocket_pass_through.tscn",
+      "variant_status": "provisional_operator_review_pending",
+      "source_provenance": [
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json"
+      ],
+      "visual_assets": [
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb"
+      ],
+      "collision_provenance": "Same procedural room collision as the accepted pocket with aligned west/east visual and collider openings.",
+      "placement_footprint_xz": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          0.0
+        ],
+        [
+          6.0,
+          13.8
+        ],
+        [
+          0.0,
+          13.8
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          0.0
+        ],
+        [
+          6.0,
+          13.8
+        ],
+        [
+          0.0,
+          13.8
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          0.0
+        ],
+        [
+          6.0,
+          13.8
+        ],
+        [
+          0.0,
+          13.8
+        ]
+      ],
+      "observed_openings": [],
+      "floor_elevation_m": -1.27099049,
+      "ceiling_elevation_m": 1.12900951,
+      "closed_unused_sockets": "South and north remain closed by matching visual wall and collider.",
+      "dependencies": [
+        "godot_walk/scenes/issue149_pocket_pass_through.tscn",
+        "godot_walk/scripts/issue149_pocket_topology.gd",
+        "godot_walk/scripts/issue160_pocket_room.gd",
+        "godot_walk/scripts/hunyuan_psx_round1.gd",
+        "godot_walk/scripts/issue160_room_geometry.gd",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json",
+        "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+        "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+        "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+        "godot_walk/assets/psx_extension/textures/column_source_video.png"
+      ],
+      "sockets": [
+        {
+          "id": "west",
+          "local_floor_center": [
+            0.0,
+            -1.27099049,
+            6.9
+          ],
+          "outward_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "floor_elevation_m": -1.27099049,
+          "approach_clearance_m": 1.2,
+          "compatibility_type": "level_doorway_2m_v1",
+          "closure_behavior": "Opened; must connect to exactly one opposing level doorway."
+        },
+        {
+          "id": "east",
+          "local_floor_center": [
+            6.0,
+            -1.27099049,
+            6.9
+          ],
+          "outward_normal": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "floor_elevation_m": -1.27099049,
+          "approach_clearance_m": 1.2,
+          "compatibility_type": "level_doorway_2m_v1",
+          "closure_behavior": "Opened; must connect to exactly one opposing level doorway."
+        }
+      ]
+    },
+    {
+      "id": "godot_early_pocket_three_way_v1",
+      "version": 1,
+      "kind": "authored_room_variant",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://scenes/issue149_pocket_three_way.tscn",
+      "variant_status": "provisional_operator_review_pending",
+      "source_provenance": [
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json"
+      ],
+      "visual_assets": [
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb"
+      ],
+      "collision_provenance": "Same procedural room collision as the accepted pocket with aligned west/east/north visual and collider openings.",
+      "placement_footprint_xz": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          0.0
+        ],
+        [
+          6.0,
+          13.8
+        ],
+        [
+          0.0,
+          13.8
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          0.0
+        ],
+        [
+          6.0,
+          13.8
+        ],
+        [
+          0.0,
+          13.8
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          0.0
+        ],
+        [
+          6.0,
+          13.8
+        ],
+        [
+          0.0,
+          13.8
+        ]
+      ],
+      "observed_openings": [],
+      "floor_elevation_m": -1.27099049,
+      "ceiling_elevation_m": 1.12900951,
+      "closed_unused_sockets": "South remains closed by matching visual wall and collider.",
+      "dependencies": [
+        "godot_walk/scenes/issue149_pocket_three_way.tscn",
+        "godot_walk/scripts/issue149_pocket_topology.gd",
+        "godot_walk/scripts/issue160_pocket_room.gd",
+        "godot_walk/scripts/hunyuan_psx_round1.gd",
+        "godot_walk/scripts/issue160_room_geometry.gd",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb",
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_scene_report.json",
+        "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+        "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+        "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+        "godot_walk/assets/psx_extension/textures/column_source_video.png"
+      ],
+      "sockets": [
+        {
+          "id": "west",
+          "local_floor_center": [
+            0.0,
+            -1.27099049,
+            6.9
+          ],
+          "outward_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "floor_elevation_m": -1.27099049,
+          "approach_clearance_m": 1.2,
+          "compatibility_type": "level_doorway_2m_v1",
+          "closure_behavior": "Opened; must connect to exactly one opposing level doorway."
+        },
+        {
+          "id": "east",
+          "local_floor_center": [
+            6.0,
+            -1.27099049,
+            6.9
+          ],
+          "outward_normal": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "floor_elevation_m": -1.27099049,
+          "approach_clearance_m": 1.2,
+          "compatibility_type": "level_doorway_2m_v1",
+          "closure_behavior": "Opened; must connect to exactly one opposing level doorway."
+        },
+        {
+          "id": "north",
+          "local_floor_center": [
+            3.0,
+            -1.27099049,
+            13.8
+          ],
+          "outward_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "floor_elevation_m": -1.27099049,
+          "approach_clearance_m": 1.2,
+          "compatibility_type": "level_doorway_2m_v1",
+          "closure_behavior": "Opened; must connect to exactly one opposing level doorway."
+        }
+      ]
+    },
+    {
+      "id": "godot_source_textured_large_room_v1",
+      "version": 1,
+      "kind": "authored_bounded_room",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://scenes/issue164_room_large_baseline.tscn",
+      "variant_status": "operator_accepted_as_authored_room_baseline",
+      "source_provenance": [
+        "data/videos/room_large.mp4",
+        "godot_walk/evidence/2026-10-24-issue-163/source_manifest.json",
+        "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0013.png",
+        "godot_walk/evidence/2026-10-24-issue-163/operator_review.json",
+        "godot_walk/evidence/2026-10-24-issue-163/REPORT.md"
+      ],
+      "visual_assets": [
+        "godot_walk/evidence/2026-10-24-issue-163/issue163_room.tscn",
+        "godot_walk/evidence/2026-10-24-issue-163/issue163_room.gd",
+        "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0013.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/crop_manifest.json",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/wallpaper.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/floor.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/ceiling.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/column_face.png"
+      ],
+      "collision_provenance": "Authored floor, shell, hallway, terminal cap, and single box-column obstacle. No source collision asset or Hunyuan mesh is used.",
+      "placement_footprint_xz": [
+        [
+          -6.0,
+          -5.0
+        ],
+        [
+          6.0,
+          -5.0
+        ],
+        [
+          6.0,
+          -1.5
+        ],
+        [
+          13.0,
+          -1.5
+        ],
+        [
+          13.0,
+          1.5
+        ],
+        [
+          6.0,
+          1.5
+        ],
+        [
+          6.0,
+          5.0
+        ],
+        [
+          -6.0,
+          5.0
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          -6.12,
+          -5.06
+        ],
+        [
+          6.12,
+          -5.06
+        ],
+        [
+          6.12,
+          -1.62
+        ],
+        [
+          13.12,
+          -1.62
+        ],
+        [
+          13.12,
+          1.62
+        ],
+        [
+          6.12,
+          1.62
+        ],
+        [
+          6.12,
+          5.06
+        ],
+        [
+          -6.12,
+          5.06
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          -6.12,
+          -5.06
+        ],
+        [
+          6.12,
+          -5.06
+        ],
+        [
+          6.12,
+          -1.62
+        ],
+        [
+          13.12,
+          -1.62
+        ],
+        [
+          13.12,
+          1.62
+        ],
+        [
+          6.12,
+          1.62
+        ],
+        [
+          6.12,
+          5.06
+        ],
+        [
+          -6.12,
+          5.06
+        ]
+      ],
+      "observed_openings": [
+        {
+          "id": "source_frame_0013_visible_passage",
+          "source_frame": "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0013.png",
+          "description": "A room-to-passage opening is visible in the seed frame; the footage does not establish where it leads.",
+          "tested_connector": false
+        }
+      ],
+      "floor_elevation_m": 0.0,
+      "ceiling_elevation_m": 3.2,
+      "closed_unused_sockets": "The hallway end cap is closed. The visible passage in source frame 0013 is not claimed as a tested connection.",
+      "obstacles": [
+        {
+          "id": "source_room_box_column",
+          "shape": "box",
+          "center_local_xyz": [
+            -2.0,
+            1.6,
+            0.0
+          ],
+          "size_xyz": [
+            1.4,
+            3.2,
+            1.4
+          ],
+          "collision_node": "AuthoredBoundaries/ColumnObstacle",
+          "provenance": "Authored from the visible column in direct source frame 0013; unseen faces are an authored box completion."
+        }
+      ],
+      "dependencies": [
+        "godot_walk/scenes/issue164_room_large_baseline.tscn",
+        "godot_walk/evidence/2026-10-24-issue-163/issue163_room.tscn",
+        "godot_walk/evidence/2026-10-24-issue-163/issue163_room.gd",
+        "godot_walk/project.godot",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/wallpaper.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/floor.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/ceiling.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/column_face.png"
+      ],
+      "sockets": [
+        {
+          "id": "hall_end",
+          "local_floor_center": [
+            13.06,
+            0.0,
+            0.0
+          ],
+          "outward_normal": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "floor_elevation_m": 0.0,
+          "approach_clearance_m": 1.2,
+          "compatibility_type": "level_doorway_2m_v1",
+          "closure_behavior": "Potential authored socket only; the accepted baseline wall and collider remain closed."
+        }
+      ]
+    },
+    {
+      "id": "godot_source_textured_large_room_hall_end_v1",
+      "version": 1,
+      "kind": "authored_room_variant",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://scenes/issue164_room_large_connector.tscn",
+      "variant_status": "provisional_operator_review_pending",
+      "source_provenance": [
+        "data/videos/room_large.mp4",
+        "godot_walk/evidence/2026-10-24-issue-163/source_manifest.json",
+        "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0013.png",
+        "godot_walk/evidence/2026-10-24-issue-163/operator_review.json",
+        "godot_walk/evidence/2026-10-24-issue-163/REPORT.md",
+        "godot_walk/room_catalog/MATERIAL_LANGUAGE.md"
+      ],
+      "visual_assets": [
+        "godot_walk/scenes/issue164_room_large_baseline.tscn",
+        "godot_walk/evidence/2026-10-24-issue-163/issue163_room.tscn",
+        "godot_walk/evidence/2026-10-24-issue-163/issue163_room.gd",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/wallpaper.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/floor.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/ceiling.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/column_face.png"
+      ],
+      "collision_provenance": "Separate adaptation of the accepted authored room. Replaces only the far hallway end cap with matching visual and collision side returns plus a header; the original standalone scene stays closed and unchanged.",
+      "placement_footprint_xz": [
+        [
+          -6.0,
+          -5.0
+        ],
+        [
+          6.0,
+          -5.0
+        ],
+        [
+          6.0,
+          -1.5
+        ],
+        [
+          13.06,
+          -1.5
+        ],
+        [
+          13.06,
+          1.5
+        ],
+        [
+          6.0,
+          1.5
+        ],
+        [
+          6.0,
+          5.0
+        ],
+        [
+          -6.0,
+          5.0
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          -6.12,
+          -5.06
+        ],
+        [
+          6.12,
+          -5.06
+        ],
+        [
+          6.12,
+          -1.62
+        ],
+        [
+          13.12,
+          -1.62
+        ],
+        [
+          13.12,
+          1.62
+        ],
+        [
+          6.12,
+          1.62
+        ],
+        [
+          6.12,
+          5.06
+        ],
+        [
+          -6.12,
+          5.06
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          -6.12,
+          -5.06
+        ],
+        [
+          6.12,
+          -5.06
+        ],
+        [
+          6.12,
+          -1.62
+        ],
+        [
+          13.12,
+          -1.62
+        ],
+        [
+          13.12,
+          1.62
+        ],
+        [
+          6.12,
+          1.62
+        ],
+        [
+          6.12,
+          5.06
+        ],
+        [
+          -6.12,
+          5.06
+        ]
+      ],
+      "observed_openings": [
+        {
+          "id": "source_frame_0013_visible_passage",
+          "source_frame": "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0013.png",
+          "description": "The room-to-hall opening is source-visible; the new hallway-end socket is authored and provisional.",
+          "tested_connector": false
+        }
+      ],
+      "floor_elevation_m": -1.27099049,
+      "ceiling_elevation_m": 3.2,
+      "closed_unused_sockets": "The room opening into its authored hallway remains part of the accepted room. The hallway-end socket is open only in this adapter; other shell boundaries remain closed.",
+      "obstacles": [
+        {
+          "id": "source_room_box_column",
+          "shape": "box",
+          "center_local_xyz": [
+            -2.0,
+            1.6,
+            0.0
+          ],
+          "size_xyz": [
+            1.4,
+            3.2,
+            1.4
+          ],
+          "collision_node": "AuthoredBoundaries/ColumnObstacle",
+          "provenance": "Preserved from the accepted #163 authored room."
+        }
+      ],
+      "dependencies": [
+        "godot_walk/scenes/issue164_room_large_connector.tscn",
+        "godot_walk/scripts/issue164_room_large_connector.gd",
+        "godot_walk/evidence/2026-10-24-issue-163/issue163_room.tscn",
+        "godot_walk/evidence/2026-10-24-issue-163/issue163_room.gd",
+        "godot_walk/project.godot",
+        "godot_walk/scripts/issue160_room_geometry.gd",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/wallpaper.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/floor.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/ceiling.png",
+        "godot_walk/evidence/2026-10-24-issue-163/source_textures/column_face.png"
+      ],
+      "sockets": [
+        {
+          "id": "hall_end",
+          "local_floor_center": [
+            13.06,
+            -1.27099049,
+            0.0
+          ],
+          "outward_normal": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "floor_elevation_m": -1.27099049,
+          "approach_clearance_m": 1.2,
+          "compatibility_type": "level_doorway_2m_v1",
+          "closure_behavior": "Open in this provisional adapter only; clear visual opening and collider share a 2.0 x 2.1 design-unit aperture."
+        }
+      ]
+    },
+    {
+      "id": "godot_gopro_industrial_hall_frame1097_v1",
+      "version": 1,
+      "kind": "authored_bounded_room",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.tscn",
+      "variant_status": "operator_accepted_standalone_room",
+      "layout_eligible": false,
+      "coordinate_units": "uncalibrated_design_units",
+      "source_provenance": [
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/source_manifest.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/events.jsonl",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/extraction_manifest.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/attempt_config.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/attempt_result.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/execution_guard.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/gpu_guard.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/panorama/panorama.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/resource_samples.jsonl",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/crop_plan.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/crop_manifest.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/adaptation_candidate_pre_catalog_admission.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/operator_review.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/adaptation_catalog_v1.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/catalog_admission_decision.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/CATALOG_ADMISSION.md",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/REPORT.md"
+      ],
+      "visual_assets": [
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.tscn",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.gd",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/window_grid.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-v3-final/spawn_toward_windows.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-v3-final/support_rows.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-v3-final/roof_grid.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-v3-final/far_boundary.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/contact_sheet_v3_final.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/layout.svg",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/test_room.gd",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/standalone_test_receipt_v3_final.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/capture_resource_run_v3_final.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-v3-final/capture_manifest.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/index.html",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/index_catalog_v1.html"
+      ],
+      "collision_provenance": "Authored floor, four closed perimeter walls, six separate square-post colliders and one low slab obstacle; visual geometry and collision are separate. The source video and Hunyuan panorama provide no collision. Bounds and coordinates are design units, not calibrated meters.",
+      "placement_footprint_xz": [
+        [
+          -8.0,
+          -6.5
+        ],
+        [
+          8.0,
+          -6.5
+        ],
+        [
+          8.0,
+          6.5
+        ],
+        [
+          -8.0,
+          6.5
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          -8.3,
+          -6.8
+        ],
+        [
+          8.3,
+          -6.8
+        ],
+        [
+          8.3,
+          6.8
+        ],
+        [
+          -8.3,
+          6.8
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          -8.3,
+          -6.8
+        ],
+        [
+          8.3,
+          -6.8
+        ],
+        [
+          8.3,
+          6.8
+        ],
+        [
+          -8.3,
+          6.8
+        ]
+      ],
+      "observed_openings": [
+        {
+          "id": "source_frame_1097_far_right_gap",
+          "source_frame": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+          "description": "A dark partial gap is visible near the far-right edge; continuation and destination are unknown.",
+          "tested_connector": false
+        }
+      ],
+      "floor_elevation_m": 0.0,
+      "ceiling_elevation_m": 4.78,
+      "closed_unused_sockets": "No authored sockets. All four candidate boundaries are closed. The observed source gap is not an opening in the module. Vertical bounds are uncalibrated design units.",
+      "obstacles": [
+        {
+          "id": "support_post_00",
+          "shape": "box",
+          "center_local_xyz": [
+            -5.6,
+            2.5,
+            -1.5
+          ],
+          "size_xyz": [
+            0.56,
+            5.0,
+            0.56
+          ],
+          "collision_node": "AuthoredObstacles/SupportPostCollision_00",
+          "provenance": "Authored from the repeated support rhythm in the panorama and direct seed frame; unseen faces are design completion."
+        },
+        {
+          "id": "support_post_01",
+          "shape": "box",
+          "center_local_xyz": [
+            -1.8,
+            2.5,
+            -1.5
+          ],
+          "size_xyz": [
+            0.56,
+            5.0,
+            0.56
+          ],
+          "collision_node": "AuthoredObstacles/SupportPostCollision_01",
+          "provenance": "Authored from the repeated support rhythm in the panorama and direct seed frame; unseen faces are design completion."
+        },
+        {
+          "id": "support_post_02",
+          "shape": "box",
+          "center_local_xyz": [
+            2.0,
+            2.5,
+            -1.5
+          ],
+          "size_xyz": [
+            0.56,
+            5.0,
+            0.56
+          ],
+          "collision_node": "AuthoredObstacles/SupportPostCollision_02",
+          "provenance": "Authored from the repeated support rhythm in the panorama and direct seed frame; unseen faces are design completion."
+        },
+        {
+          "id": "support_post_03",
+          "shape": "box",
+          "center_local_xyz": [
+            -5.6,
+            2.5,
+            1.8
+          ],
+          "size_xyz": [
+            0.56,
+            5.0,
+            0.56
+          ],
+          "collision_node": "AuthoredObstacles/SupportPostCollision_03",
+          "provenance": "Authored from the repeated support rhythm in the panorama and direct seed frame; unseen faces are design completion."
+        },
+        {
+          "id": "support_post_04",
+          "shape": "box",
+          "center_local_xyz": [
+            -1.8,
+            2.5,
+            1.8
+          ],
+          "size_xyz": [
+            0.56,
+            5.0,
+            0.56
+          ],
+          "collision_node": "AuthoredObstacles/SupportPostCollision_04",
+          "provenance": "Authored from the repeated support rhythm in the panorama and direct seed frame; unseen faces are design completion."
+        },
+        {
+          "id": "support_post_05",
+          "shape": "box",
+          "center_local_xyz": [
+            2.0,
+            2.5,
+            1.8
+          ],
+          "size_xyz": [
+            0.56,
+            5.0,
+            0.56
+          ],
+          "collision_node": "AuthoredObstacles/SupportPostCollision_05",
+          "provenance": "Authored from the repeated support rhythm in the panorama and direct seed frame; unseen faces are design completion."
+        },
+        {
+          "id": "low_slab",
+          "shape": "box",
+          "center_local_xyz": [
+            -3.4,
+            0.12,
+            -4.25
+          ],
+          "size_xyz": [
+            1.8,
+            0.24,
+            0.85
+          ],
+          "collision_node": "AuthoredObstacles/BrokenSlabObstacle",
+          "provenance": "Small authored floor obstacle; its exact shape is not established by the seed frame."
+        }
+      ],
+      "dependencies": [
+        "godot_walk/project.godot",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.tscn",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.gd",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/vendor/ursc/common.gdshaderinc",
+        "godot_walk/vendor/ursc/utilities.gdshaderinc",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/window_grid.png"
+      ],
+      "sockets": []
+    }
+  ]
+}

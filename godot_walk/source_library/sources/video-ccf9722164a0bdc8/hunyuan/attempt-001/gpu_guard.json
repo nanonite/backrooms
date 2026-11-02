@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "source_id": "video-ccf9722164a0bdc8",
+  "source_video_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+  "source_manifest_sha256": "1649a1031a3ae60eb0095beaf429f1760ef65c362fc2b73af0fbb70d2e1cb9bc",
+  "seed_frame_sha256": "61ca4b37295a948c8aa61686c912da51c7cff6dd16aac012b5c2f02bf051b2af",
+  "checked_at_utc": "2026-10-27T03:18:43.058560+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11206131712,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 4,
+    "compute_apps": [],
+    "ram_available_bytes": 21001187328,
+    "vram_after_headroom_bytes": 8964905369,
+    "ram_after_headroom_bytes": 15750890496,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  }
+}

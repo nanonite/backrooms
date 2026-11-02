@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-11-01T20:18:03.435298+00:00",
+  "resource_policy": {
+    "policy_version": "hunyuan-sequential-offload-1",
+    "min_start_ram_bytes": 34359738368,
+    "min_start_swap_free_bytes": 17179869184,
+    "min_start_vram_bytes": 8589934592,
+    "min_runtime_ram_bytes": 8589934592,
+    "min_runtime_swap_free_bytes": 17179869184,
+    "min_runtime_vram_bytes": 2147483648,
+    "max_swap_growth_bytes": 1073741824,
+    "max_execution_seconds": 2700,
+    "sample_period_seconds": 1.0
+  },
+  "start_snapshot": {
+    "timestamp_utc": "2026-11-01T20:18:03.434867+00:00",
+    "ram_available_bytes": 46616403968,
+    "swap_free_bytes": 102545743872,
+    "swap_total_bytes": 102546530304,
+    "gpu_free_bytes": 11787042816,
+    "gpu_used_bytes": 659554304,
+    "gpu_total_bytes": 12878610432,
+    "gpu_utilization_pct": 1,
+    "process_group_rss_bytes": 0
+  },
+  "reason": null
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:backrooms:source-library:event-v1",
+  "title": "Append-only per-video workflow event",
+  "type": "object",
+  "required": ["sequence", "event_type", "occurred_at_utc"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "sequence": {"type": "integer", "minimum": 1},
+    "event_type": {"type": "string", "pattern": "^[a-z][a-z0-9_]{1,63}$"},
+    "occurred_at_utc": {"type": "string", "format": "date-time"},
+    "source_id": {"type": "string", "pattern": "^video-[0-9a-f]{16}$"},
+    "source_video_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "source_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "payload": {"type": "object"}
+  },
+  "additionalProperties": false
+}

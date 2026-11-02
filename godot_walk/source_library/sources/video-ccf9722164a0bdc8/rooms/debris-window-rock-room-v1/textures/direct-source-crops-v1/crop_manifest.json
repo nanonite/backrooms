@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "frame_manifest": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-room-references/extraction_manifest.json",
+  "frame_manifest_sha256": "0feef674732313f30c40304bc25e4e8f4ebeed5d2bdde0bfcdb3ad3bf7c8e3f8",
+  "operation": "direct_rectangular_crop_no_resize_or_color_edit",
+  "crops": [
+    {
+      "name": "concrete_floor",
+      "frame_id": "frame_4336",
+      "source_pixel_bounds_xyxy": [
+        300,
+        545,
+        650,
+        700
+      ],
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/concrete_floor.png",
+      "dimensions": [
+        350,
+        155
+      ],
+      "sha256": "7758bb236c56c10519941f15c3b527b193c438a05036c27dda02c89fe270b0f6"
+    },
+    {
+      "name": "window_band",
+      "frame_id": "frame_4560",
+      "source_pixel_bounds_xyxy": [
+        980,
+        15,
+        1275,
+        280
+      ],
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/window_band.png",
+      "dimensions": [
+        295,
+        265
+      ],
+      "sha256": "cee4d654b77794236b555c941b91b9f8204ec9855ce74eb8b613171ba6f3d810"
+    },
+    {
+      "name": "painted_wall",
+      "frame_id": "frame_4560",
+      "source_pixel_bounds_xyxy": [
+        250,
+        185,
+        850,
+        350
+      ],
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png",
+      "dimensions": [
+        600,
+        165
+      ],
+      "sha256": "e2572197034ec11430498065f2c957e0c2e4da807538f68a8365254029e80c4d"
+    },
+    {
+      "name": "ceiling_beam",
+      "frame_id": "frame_4560",
+      "source_pixel_bounds_xyxy": [
+        80,
+        0,
+        550,
+        115
+      ],
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/ceiling_beam.png",
+      "dimensions": [
+        470,
+        115
+      ],
+      "sha256": "1e38583bda519ed69ea4f61e0f21182059b165966bbb15135e2355c532eb2e17"
+    },
+    {
+      "name": "mixed_debris",
+      "frame_id": "frame_4486",
+      "source_pixel_bounds_xyxy": [
+        260,
+        440,
+        880,
+        670
+      ],
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/mixed_debris.png",
+      "dimensions": [
+        620,
+        230
+      ],
+      "sha256": "6ef7eee499990ec754afd44252da97a77d209a15574e2ecc721c43de1a98a6ed"
+    }
+  ]
+}

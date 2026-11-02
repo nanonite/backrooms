@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="720" viewBox="0 0 920 720">
+  <rect width="920" height="720" fill="#17191b"/>
+  <text x="40" y="44" fill="#f0e9d6" font-family="sans-serif" font-size="24" font-weight="bold">INDUSTRIAL HALL — AUTHORED CANDIDATE LAYOUT</text>
+  <text x="40" y="73" fill="#e7a65d" font-family="sans-serif" font-size="15">Illustrative game design; not a recovered video floor plan. Dimensions are uncalibrated design units.</text>
+  <g transform="translate(185 145)">
+    <rect x="0" y="0" width="520" height="423" fill="#30363a" stroke="#d6c9a7" stroke-width="9"/>
+    <text x="260" y="-20" text-anchor="middle" fill="#c9c2b5" font-family="sans-serif" font-size="16">north / authored closed boundary</text>
+    <g fill="#a69e87" stroke="#24282a" stroke-width="5">
+      <rect x="72" y="135" width="28" height="28"/>
+      <rect x="196" y="135" width="28" height="28"/>
+      <rect x="320" y="135" width="28" height="28"/>
+      <rect x="72" y="243" width="28" height="28"/>
+      <rect x="196" y="243" width="28" height="28"/>
+      <rect x="320" y="243" width="28" height="28"/>
+    </g>
+    <g fill="#444c50" stroke="#80847c" stroke-width="2">
+      <rect x="185" y="28" width="150" height="32"/>
+      <path d="M195 28v32 M225 28v32 M255 28v32 M285 28v32 M315 28v32"/>
+    </g>
+    <text x="260" y="21" text-anchor="middle" fill="#c7c1b1" font-family="sans-serif" font-size="12">source-window crop on authored wall; no opening</text>
+    <rect x="258" y="342" width="44" height="20" fill="#e7a65d" stroke="#fff0cb" stroke-width="3"/>
+    <path d="M280 334v-70" stroke="#e7a65d" stroke-width="4" marker-end="url(#arrow)"/>
+    <text x="280" y="390" text-anchor="middle" fill="#f4d39e" font-family="sans-serif" font-size="14">safe spawn / start</text>
+    <rect x="97" y="320" width="70" height="34" fill="#5b5143" stroke="#cab88e" stroke-width="2"/>
+    <text x="132" y="313" text-anchor="middle" fill="#d4c6a8" font-family="sans-serif" font-size="12">low slab</text>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#e7a65d"/>
+    </marker>
+  </defs>
+  <text x="445" y="625" text-anchor="middle" fill="#b5b8b5" font-family="sans-serif" font-size="14">16 × 13 design units • 6 authored square posts • 4 capped boundaries • no authored sockets</text>
+  <text x="445" y="653" text-anchor="middle" fill="#b5b8b5" font-family="sans-serif" font-size="14">Observed source gap is recorded as unknown/source-only; it is not built as a connector.</text>
+</svg>

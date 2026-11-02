@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "adaptation_id": "video-ccf9722164a0bdc8-debris-window-rock-room-v1",
+  "candidate_identity": "016fab6e6cc1edff5088bb6da3b81fdf0d8bca5bdabb70b62cb11476cc9f8214",
+  "decision": "accepted",
+  "reviewed_at_utc": "2026-11-02T01:42:04.971414+00:00",
+  "scope": "Operator accepted the standalone debris/window rock-room design for this exact candidate identity. This accepts the authored rock interpretation and bounded standalone room appearance only. It does not accept catalog admission, any connector/socket variant, source-video connectivity, registration, metric scale, or any other room.",
+  "operator_feedback": "The operator reviewed the candidate contact sheet and said: \u201cyup looks good to me!\u201d",
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

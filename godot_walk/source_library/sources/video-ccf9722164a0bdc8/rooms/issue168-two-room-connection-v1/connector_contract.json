@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "candidate_version": "issue168-two-room-connection-v1",
+  "status": "provisional_pending_operator_review",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_video": {
+    "path": "data/videos/GoPro Awards_ Haunting FPV Drone Flight Through Abandoned Building.mp4",
+    "sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb"
+  },
+  "source_frames": [
+    {
+      "frame_id": "frame_1097",
+      "index_zero_based": 1096,
+      "pts_seconds": 36.533333,
+      "sha256": "61ca4b37295a948c8aa61686c912da51c7cff6dd16aac012b5c2f02bf051b2af",
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png"
+    },
+    {
+      "frame_id": "frame_4560",
+      "index_zero_based": 4559,
+      "pts_seconds": 151.966667,
+      "sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f",
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png"
+    }
+  ],
+  "source_spatial_relation": "unknown; video intervals do not establish adjacency or connectivity",
+  "frozen_catalog_reference": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+    "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+    "version": "0.2.0"
+  },
+  "module_placements": [
+    {
+      "module_id": "godot_gopro_industrial_hall_frame1097_v1",
+      "base_candidate_identity": "175a52589ca162c12726583ea2e60792637d871e175947b5a601331e27ab131f",
+      "base_adaptation_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/adaptation_catalog_v1.json",
+      "base_decision_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/catalog_admission_decision.json",
+      "connector_adapter_scene": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/room.tscn",
+      "world_origin_design_units": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "footprint_local_xz": [
+        [
+          -8.0,
+          -6.5
+        ],
+        [
+          8.0,
+          -6.5
+        ],
+        [
+          8.0,
+          6.5
+        ],
+        [
+          -8.0,
+          6.5
+        ]
+      ],
+      "authored_socket": {
+        "id": "south",
+        "local_floor_center": [
+          0.0,
+          0.0,
+          6.5
+        ],
+        "outward_normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "clear_width_height": [
+          2.4,
+          2.2
+        ],
+        "approach_clearance": 1.2,
+        "closure_when_standalone": "south wall and matching collider are restored"
+      }
+    },
+    {
+      "module_id": "video-ccf9722164a0bdc8-debris-window-rock-room-v1",
+      "base_candidate_identity": "016fab6e6cc1edff5088bb6da3b81fdf0d8bca5bdabb70b62cb11476cc9f8214",
+      "base_adaptation_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/adaptation_standalone_accepted_v1.json",
+      "base_decision_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/operator_review.json",
+      "connector_adapter_scene": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/room.tscn",
+      "world_origin_design_units": [
+        0.0,
+        0.0,
+        11.5
+      ],
+      "footprint_local_xz": [
+        [
+          -6.0,
+          -5.0
+        ],
+        [
+          6.0,
+          -5.0
+        ],
+        [
+          6.0,
+          5.0
+        ],
+        [
+          -6.0,
+          5.0
+        ]
+      ],
+      "authored_socket": {
+        "id": "north",
+        "local_floor_center": [
+          0.0,
+          0.0,
+          -5.0
+        ],
+        "outward_normal": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "clear_width_height": [
+          2.4,
+          2.2
+        ],
+        "approach_clearance": 1.2,
+        "closure_when_standalone": "north wall and matching collider are restored"
+      }
+    }
+  ],
+  "connection": {
+    "id": "industrial_hall_south__rock_room_north_v1",
+    "kind": "authored_direct_doorway_adapter",
+    "world_socket_center_design_units": [
+      0.0,
+      0.0,
+      6.5
+    ],
+    "center_alignment_tolerance": 0.001,
+    "outward_normal_dot_expected": -1.0,
+    "floor_y": 0.0,
+    "clear_width_height_design_units": [
+      2.4,
+      2.2
+    ],
+    "combined_wall_depth_design_units": 0.6,
+    "capsule_radius_height_design_units": [
+      0.3,
+      1.2
+    ],
+    "approach_clearance_design_units": 1.2,
+    "visuals": [
+      "AuthoredConnectorVisuals/SharedDoorJamb_-1.0",
+      "AuthoredConnectorVisuals/SharedDoorJamb_1.0",
+      "AuthoredConnectorVisuals/SharedDoorHeader",
+      "AuthoredConnectorVisuals/DoorwayThresholdVisual"
+    ],
+    "collision": [
+      "IndustrialHall/AuthoredBoundaries/SouthBoundaryWest",
+      "IndustrialHall/AuthoredBoundaries/SouthBoundaryEast",
+      "IndustrialHall/AuthoredBoundaries/SouthSocketHeader",
+      "DebrisWindowRockRoom/AuthoredBoundaries/NorthBoundaryWest",
+      "DebrisWindowRockRoom/AuthoredBoundaries/NorthBoundaryEast",
+      "DebrisWindowRockRoom/AuthoredBoundaries/NorthSocketHeader",
+      "AuthoredConnectorBoundaries/DoorwayFloorSeam"
+    ],
+    "unused_outer_boundaries": "All remaining perimeter edges are visually closed and collidable."
+  },
+  "evidence": {
+    "standalone_and_assembly_test": "godot_walk/evidence/2026-11-02-issue-168-two-room/mechanics/traversal.json",
+    "capture_manifest": "godot_walk/evidence/2026-11-02-issue-168-two-room/captures-v3/capture_manifest.json",
+    "resource_receipt": "godot_walk/evidence/2026-11-02-issue-168-two-room/capture_resource_run_v3.json",
+    "source_event_snapshot": {
+      "path": "godot_walk/evidence/2026-11-02-issue-168-two-room/source_events_snapshot.jsonl",
+      "sha256": "a3116ec66f6cd45a5fea7734593101f258f2c2ddfb0faa3e0a66f6e995c2461e"
+    }
+  }
+}

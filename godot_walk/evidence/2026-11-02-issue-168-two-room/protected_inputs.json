@@ -1,0 +1,66 @@
+{
+  "captured_at_utc": "2026-11-02T02:01:24.553203+00:00",
+  "note": "Read-only hashes captured after issue168 approval and catalog admission; all historical paths refer to existing assets.",
+  "artifacts": [
+    {
+      "path": "data/videos/GoPro Awards_ Haunting FPV Drone Flight Through Abandoned Building.mp4",
+      "sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/source_manifest.json",
+      "sha256": "1649a1031a3ae60eb0095beaf429f1760ef65c362fc2b73af0fbb70d2e1cb9bc"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/source_manifest-v2.json",
+      "sha256": "d515aaf2c7815952adb81b0ed543298109a15b5424fd8b62b0066be8d670c9c0"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/events.jsonl",
+      "sha256": "a3116ec66f6cd45a5fea7734593101f258f2c2ddfb0faa3e0a66f6e995c2461e"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+      "sha256": "61ca4b37295a948c8aa61686c912da51c7cff6dd16aac012b5c2f02bf051b2af"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png",
+      "sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-006/panorama/panorama.png",
+      "sha256": "15b8c00629845935c38fe644e317bd57edbe129fa0605453d6ba1c906cd5cb65"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.tscn",
+      "sha256": "bbce2153e8886d577273e162fd6f5ed52ef48a807858cf3556fc8fdee522ccf6"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/adaptation_catalog_v1.json",
+      "sha256": "abab50f14cc428e81e3b6780325f14e5641d266850a3aac3ad57c82caaf56ecd"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/catalog_admission_decision.json",
+      "sha256": "d56badbff2898ebbf26dceeb6a68c17fb36c71e72e9a5de92f4beafb61748d48"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.tscn",
+      "sha256": "0c27f917020cf25c9eee16bcfd55b4b15695f4dee466b6c2eae57871f23fcb07"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/adaptation_standalone_accepted_v1.json",
+      "sha256": "ba874680accbf8c6a62d619f2e32b511fe4f55f0d4e4f6c1d3af0aeac89d1db0"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/operator_review.json",
+      "sha256": "139d1d3397852e62fde4b7a8159cc099a2802eba90ecdf6a3d6ca3c16aa1d1f0"
+    },
+    {
+      "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+      "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d"
+    },
+    {
+      "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.3.0.json",
+      "sha256": "31bec038c5e6721976c039b72df5906975b40be8f6741bd3813634ef06d04c5a"
+    }
+  ]
+}

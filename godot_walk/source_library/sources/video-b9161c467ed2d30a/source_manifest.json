@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "source_id": "video-b9161c467ed2d30a",
+  "created_at_utc": "2026-10-26T21:23:22.450825+00:00",
+  "canonical_video": {
+    "path": "data/videos/Bill Viola 'The Sleep of Reason' 1988.mp4",
+    "sha256": "b9161c467ed2d30aefa6bf2969c2ed63fc79a387d93016197e356e9bf531ddaa",
+    "metadata": {
+      "width": 1280,
+      "height": 720,
+      "fps": 30.0,
+      "frame_count": 5459,
+      "duration_seconds": 182.021224
+    }
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_review": {
+    "status": "pending_operator_review",
+    "decision": null
+  },
+  "frame_references": [],
+  "hunyuan": {
+    "status": "not_attempted",
+    "historical_invocations": 0,
+    "attempts": []
+  },
+  "room_adaptations": [],
+  "historical_artifacts": [],
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity."
+}

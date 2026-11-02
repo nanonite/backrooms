@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/mnt/sharedOs/backrooms-workspace/godot_walk/scripts/run_source_panogen.py", line 110, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/mnt/sharedOs/backrooms-workspace/godot_walk/scripts/run_source_panogen.py", line 26, in main
+    from demo_panogen import Image2PanoramaDemo
+  File "/mnt/sharedOs/backrooms-track-a-runtime/HunyuanWorld-1.0/demo_panogen.py", line 15, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'

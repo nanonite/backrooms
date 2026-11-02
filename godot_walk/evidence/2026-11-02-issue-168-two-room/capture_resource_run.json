@@ -1,0 +1,38 @@
+{
+  "label": "debris-window-rock-room-v1-review-capture",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://scripts/capture_issue168_two_room_walkthrough.gd",
+    "--",
+    "--out-dir=res://evidence/2026-11-02-issue-168-two-room/captures"
+  ],
+  "output_dir": "godot_walk/evidence/2026-11-02-issue-168-two-room/captures",
+  "timeout_seconds": 240,
+  "return_code": 1,
+  "timed_out": false,
+  "error": null,
+  "elapsed_seconds": 0.891,
+  "finished_at_utc": "2026-11-02T01:46:37.509868+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11955863552,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 10,
+    "compute_apps": [],
+    "ram_available_bytes": 54416744448,
+    "vram_after_headroom_bytes": 9564690841,
+    "ram_after_headroom_bytes": 40812558336,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "peak_resources": {
+    "peak_child_rss_bytes": 560197632,
+    "gpu_memory_start_bytes": 490733568,
+    "peak_gpu_memory_used_bytes": 658505728,
+    "peak_gpu_memory_delta_bytes": 167772160,
+    "gpu_sample_period_ms": 500
+  }
+}

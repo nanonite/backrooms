@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "adaptation_id": "industrial-hall-panorama-v3",
+  "candidate_identity": "d3e84f32e439a3f5e0dad242ccd80b63f23eed3d49d7cb236059b5f323e26ca5",
+  "decision": "accepted",
+  "reviewed_at_utc": "2026-11-01T21:01:42.037279+00:00",
+  "scope": "Operator-approved as one bounded playable interpretation of the source hall. The panorama is accepted as a broad layout reference; low-resolution refinement is deferred until a larger room library exists. This does not admit the candidate to the catalog or approve registration, metric scale, source-video connectivity, or other room candidates.",
+  "operator_feedback": "The broad part of the panorama was captured well enough; resolution can be addressed later after building a larger library.",
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

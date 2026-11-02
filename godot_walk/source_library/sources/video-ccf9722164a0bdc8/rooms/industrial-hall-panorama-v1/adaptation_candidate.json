@@ -1,0 +1,621 @@
+{
+  "schema_version": 3,
+  "contract_id": "godot_video_room_completion",
+  "contract_version": "3.0.0",
+  "contract_freeze": {
+    "path": "godot_walk/room_catalog/contract_freeze_v3.json",
+    "sha256": "91c0cb1b47f980193a47d8e221b366f2d452256fa7b383adc818a177c9813ba1"
+  },
+  "adaptation_id": "industrial-hall-panorama-v1",
+  "status": "candidate_pending_review",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_observations": {
+    "video": {
+      "path": "data/videos/GoPro Awards_ Haunting FPV Drone Flight Through Abandoned Building.mp4",
+      "sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+      "width": 1280,
+      "height": 720,
+      "fps": 30.0,
+      "frame_count": 7292,
+      "duration_seconds": 243.136145
+    },
+    "suitability": {
+      "decision": "proceed_with_limitations",
+      "rationale": [
+        "The operator chose this source and direct frame seed for one bounded room candidate.",
+        "The operator reviewed attempt 005 and judged its 512x256 panorama good enough as a broad layout reference.",
+        "Fine appearance uses direct crops of the original frame; panorama is a camera-centered background, not geometry.",
+        "Approval covers one candidate only; it does not establish scale, video connectivity, catalog admission, or final room acceptance."
+      ]
+    },
+    "frames": [
+      {
+        "frame_id": "frame_1097",
+        "index_zero_based": 1096,
+        "timestamp_seconds": 36.533333,
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+        "sha256": "61ca4b37295a948c8aa61686c912da51c7cff6dd16aac012b5c2f02bf051b2af",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": [
+          {
+            "role": "floor_surface",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/concrete_floor.png",
+            "sha256": "69032589a93e8c792b59fe2e5a951553e918f6c8103ba0b32c78fdcbb8d3f267",
+            "source_pixel_bounds_xyxy": [
+              500,
+              496,
+              855,
+              650
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "wall_surface",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/concrete_wall.png",
+            "sha256": "df43f93606c42cf476062026e795f99fa7d12fcbe1accec47e56c7874a2c1370",
+            "source_pixel_bounds_xyxy": [
+              742,
+              186,
+              830,
+              278
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "far_window_reference",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/window_grid.png",
+            "sha256": "6f673208034fae49d90dac2c457efc16ae293462226c8b1087cc265d64814018",
+            "source_pixel_bounds_xyxy": [
+              638,
+              284,
+              818,
+              390
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "roof_grid",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/roof_beams.png",
+            "sha256": "eaccecf10d6e170e8f75548c2815ba45f258ada04ded83046307714e5f573106",
+            "source_pixel_bounds_xyxy": [
+              480,
+              150,
+              658,
+              244
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "support_columns",
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/support_post.png",
+            "sha256": "b603785a9220d3db61d27b3889244b7a615652768e965c765893dbe9e4637707",
+            "source_pixel_bounds_xyxy": [
+              416,
+              272,
+              462,
+              480
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          }
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "claim": "One large industrial interior is visible, with concrete floor, roof beams, repeated supports and a far wall of gridded windows.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_1097"
+        ]
+      },
+      {
+        "claim": "The seed view has foreground bars, clutter and uneven floor patches; occlusion limits the visible perimeter.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_1097"
+        ]
+      },
+      {
+        "claim": "A dark vertical gap appears near the far-right edge, but its size, continuation and destination are not established.",
+        "certainty": "partially_observed",
+        "frame_ids": [
+          "frame_1097"
+        ]
+      },
+      {
+        "claim": "Attempt 005 produced a coherent broad industrial panorama; it is a low-resolution design reference, not a registered mesh.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_1097"
+        ]
+      }
+    ],
+    "unknowns": [
+      "Real dimensions, camera pose, metric scale, hidden wall faces, full perimeter, and ceiling height are unknown.",
+      "The far-right gap does not establish an authored doorway, destination, or connection to another room.",
+      "The panorama is 512x256 and has no spatial parallax as the player moves.",
+      "The authored rectangular shell is an interpretation, not a claim that the full source room is rectangular."
+    ]
+  },
+  "reusable_requirements": {
+    "coordinate_convention": "Godot local X/Z with +Y up; authored design units, not calibrated meters.",
+    "supported_footprint_representation": "Finite simple orthogonal polygon in XZ; candidate uses one authored rectangle.",
+    "player": {
+      "controller_scene": "godot_walk/scenes/player.tscn",
+      "capsule_radius": 0.3,
+      "capsule_height": 1.2,
+      "safe_spawn_and_reset": "Spawn at [0,0.6,4.1] on the authored floor; R restores this pose with zero velocity."
+    },
+    "floor_and_ceiling": "Floor is authored at Y=0. Roof-beam undersides define authored clear height 4.76; no video-derived height is claimed.",
+    "collision_policy": "Separate authored floor, four perimeter boundaries, six support-post obstacles and one slab obstacle.",
+    "render_placement_policy": "Record authored room AABB separately from the camera-centered panorama background; panorama is not collision geometry.",
+    "socket_policy": "Far-right source gap is observation only. Candidate has no authored sockets and all playable edges are capped.",
+    "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+    "additional_constraints": [
+      "Godot 4.6.3 only.",
+      "Use existing player/controller, URSC 1.5 material conversion and native PSX compositor.",
+      "Keep registration_accepted=false and scale_calibrated=false."
+    ]
+  },
+  "resolved_adaptation": {
+    "candidate_version": "industrial-hall-panorama-v1",
+    "catalog_admission": "candidate_not_admitted",
+    "scene_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/room.tscn",
+    "catalog_module_refs": [],
+    "walkable_space": {
+      "coordinate_system": "local Godot X/Z, +Y up; uncalibrated design units",
+      "footprint": {
+        "representation": "simple_orthogonal_polygon_xz",
+        "vertices_xz": [
+          [
+            -8.0,
+            -6.5
+          ],
+          [
+            8.0,
+            -6.5
+          ],
+          [
+            8.0,
+            6.5
+          ],
+          [
+            -8.0,
+            6.5
+          ]
+        ]
+      },
+      "floor_elevation": 0.0,
+      "safe_spawn_xyz": [
+        0.0,
+        0.6,
+        4.1
+      ],
+      "measurement": {
+        "method": "Godot standalone CharacterBody3D traversal with floor and boundary ray checks; no capsule-clear area grid",
+        "resolution": 0.1,
+        "spawn_connected_area": null,
+        "status": "pending"
+      }
+    },
+    "boundary_and_obstacle_collision": {
+      "collision_origin": "Explicit StaticBody3D and BoxShape3D nodes in room.gd, separate from visible meshes.",
+      "floor_bodies": [
+        "AuthoredBoundaries/WalkableFloor"
+      ],
+      "boundaries": [
+        "AuthoredBoundaries/WestBoundary",
+        "AuthoredBoundaries/EastBoundary",
+        "AuthoredBoundaries/SouthBoundary",
+        "AuthoredBoundaries/NorthBoundary"
+      ],
+      "obstacles": [
+        "AuthoredObstacles/SupportPostCollision_00",
+        "AuthoredObstacles/SupportPostCollision_01",
+        "AuthoredObstacles/SupportPostCollision_02",
+        "AuthoredObstacles/SupportPostCollision_03",
+        "AuthoredObstacles/SupportPostCollision_04",
+        "AuthoredObstacles/SupportPostCollision_05",
+        "AuthoredObstacles/BrokenSlabObstacle"
+      ],
+      "exposed_boundary_policy": "All four edges are closed and collidable; no gameplay socket is open. SafetyNet is a recovery aid, not walkable area."
+    },
+    "rendered_placement_envelope": {
+      "representation": "conservative_aabb_xyz",
+      "bounds_xyz": {
+        "min": [
+          -8.3,
+          -0.24,
+          -6.8
+        ],
+        "max": [
+          8.3,
+          5.12,
+          6.8
+        ]
+      },
+      "footprint": {
+        "representation": "simple_orthogonal_polygon_xz",
+        "vertices_xz": [
+          [
+            -8.3,
+            -6.8
+          ],
+          [
+            8.3,
+            -6.8
+          ],
+          [
+            8.3,
+            6.8
+          ],
+          [
+            -8.3,
+            6.8
+          ]
+        ]
+      },
+      "background_geometry": [
+        "Attempt-005 panorama as camera-centered PanoramaSkyMaterial; not spatially bounded or collidable."
+      ],
+      "containment_method": "Authored walls close all playable sides. Panorama is a renderer background, not part of the authored room AABB."
+    },
+    "surfaces": [
+      {
+        "surface_id": "floor",
+        "geometry_origin": "Authored rectangular BoxMesh.",
+        "appearance_origin": "Direct concrete floor crop from frame_1097.",
+        "placement_basis": "Centered in the authored footprint at floor Y=0.",
+        "collision_origin": "Separate WalkableFloor StaticBody3D.",
+        "evidence_refs": [
+          "frame_1097",
+          "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/concrete_floor.png"
+        ]
+      },
+      {
+        "surface_id": "perimeter_walls",
+        "geometry_origin": "Authored four-sided closed shell.",
+        "appearance_origin": "Direct concrete wall crop from frame_1097.",
+        "placement_basis": "Edges follow the authored 16x13 design-unit footprint.",
+        "collision_origin": "Separate perimeter StaticBody3D boxes.",
+        "evidence_refs": [
+          "frame_1097",
+          "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/concrete_wall.png"
+        ]
+      },
+      {
+        "surface_id": "support_posts",
+        "geometry_origin": "Six authored square full-height posts.",
+        "appearance_origin": "Direct post crop from frame_1097.",
+        "placement_basis": "Regular three-by-two support rhythm is an authored interpretation of visible posts.",
+        "collision_origin": "One separate obstacle collider per post.",
+        "evidence_refs": [
+          "frame_1097",
+          "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/support_post.png"
+        ]
+      },
+      {
+        "surface_id": "roof_grid",
+        "geometry_origin": "Authored crossing beam grid without a continuous roof plane.",
+        "appearance_origin": "Direct roof crop with panorama visible through grid gaps.",
+        "placement_basis": "Manual PSX composition informed by seed frame and panorama.",
+        "collision_origin": "None; lowest beam underside is Y=4.76.",
+        "evidence_refs": [
+          "frame_1097",
+          "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/roof_beams.png",
+          "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/panorama/panorama.png"
+        ]
+      },
+      {
+        "surface_id": "far_window_panel",
+        "geometry_origin": "Authored shallow wall overlay and two mullions.",
+        "appearance_origin": "Direct source window-grid crop from frame_1097.",
+        "placement_basis": "Centered on far wall as a visual cue; not a socket.",
+        "collision_origin": "NorthBoundary remains continuous behind it.",
+        "evidence_refs": [
+          "frame_1097",
+          "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/window_grid.png"
+        ]
+      },
+      {
+        "surface_id": "panorama_background",
+        "geometry_origin": "No room mesh; renderer background only.",
+        "appearance_origin": "Hunyuan panorama generated from direct source seed frame.",
+        "placement_basis": "Camera-centered equirectangular projection; no translation parallax.",
+        "collision_origin": "None.",
+        "evidence_refs": [
+          "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/panorama/panorama.png"
+        ]
+      }
+    ],
+    "sockets": [
+      {
+        "id": "far-right-gap-frame-1097",
+        "kind": "observed_opening",
+        "status": "source_observation_only",
+        "closure_behavior": "Partial source observation only; candidate has no opening and keeps perimeter closed."
+      }
+    ],
+    "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+    "dependencies": [
+      {
+        "path": "data/videos/GoPro Awards_ Haunting FPV Drone Flight Through Abandoned Building.mp4",
+        "sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+        "role": "canonical source video"
+      },
+      {
+        "path": "godot_walk/project.godot",
+        "sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+        "role": "Godot project renderer and input settings"
+      },
+      {
+        "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+        "role": "immutable catalog snapshot"
+      },
+      {
+        "path": "godot_walk/room_catalog/contract_freeze_v3.json",
+        "sha256": "91c0cb1b47f980193a47d8e221b366f2d452256fa7b383adc818a177c9813ba1",
+        "role": "contract freeze v3"
+      },
+      {
+        "path": "godot_walk/scenes/player.tscn",
+        "sha256": "2fc7064e58713029897facd54812886154f6661d8e4ba14c5f7a3d99bda5dbea",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/scripts/gpu_job_lock.py",
+        "sha256": "1bca85202f82c6e192426ff8e0d774428534ae454dc4dea61b32a23f5f929db5",
+        "role": "shared exclusive GPU lock"
+      },
+      {
+        "path": "godot_walk/scripts/library_psx_preset.gd",
+        "sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/scripts/player.gd",
+        "sha256": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/scripts/psx/psx_post_effect.gd",
+        "sha256": "5b06eff8e0f1fc0a5c98711633eb50d03db39db4c1e73b309433e444dd3c5795",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "sha256": "b1a4c839f1346d64586dae4cda6175b06793d4de95cb0ada8ba57c0851e80ba5",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/scripts/psx_design_round_resources.py",
+        "sha256": "98444163f9d29337dae413541c604f8a9956c3066f55c9d1b04b03f12d9877f5",
+        "role": "shared GPU/RAM preflight and sampler"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_resource_graph.py",
+        "sha256": "84f0677bda60d2ff4b07664abc8c70e2fc815f4d002eda4af5d581473cb44cb0",
+        "role": "resource graph validator"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_runner.py",
+        "sha256": "62f2fb131bd49a278082abe3b353c0ff863a6628c5b2abe7c74ba175d30e7f17",
+        "role": "source crop pipeline implementation"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_validation.py",
+        "sha256": "44803981db7ef2563c76832f7ea3ce6dd48a51274b51d9aa47cc04e0d6aff8cd",
+        "role": "read-only adaptation validator"
+      },
+      {
+        "path": "godot_walk/shaders/library_psx_textured.gdshader",
+        "sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/shaders/library_psx_vertex.gdshader",
+        "sha256": "7feecf393ff762b9dee1caaf43cc5e7e3a548371f0fb7a3c28d562c03be4176f",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/extraction_manifest.json",
+        "sha256": "a94b45dd1749afb5d5b5179b3f77e8ac706d27dc604b0674ada4a1662e047a1c",
+        "role": "direct frame extraction manifest"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+        "sha256": "61ca4b37295a948c8aa61686c912da51c7cff6dd16aac012b5c2f02bf051b2af",
+        "role": "selected native-resolution source frame"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/attempt_config.json",
+        "sha256": "88e10033928c2be564de27dcc42847864f882be8673bca44b11be31c69e4efd2",
+        "role": "Hunyuan attempt configuration"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/attempt_result.json",
+        "sha256": "23296dadf98984e0f146ae0fc0be189a8c5f969a6819965e664608e1972d4ca2",
+        "role": "Hunyuan output and resource result"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/execution_guard.json",
+        "sha256": "db5270a1ae163d2297d06c7301630f4e473ab5effc0dc318fc49477407044c91",
+        "role": "Hunyuan runtime guard receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/gpu_guard.json",
+        "sha256": "cf099542bbd4f4cf28c99c62dc596aa8ed0d367fd1874104468d1ba8d12ee505",
+        "role": "Hunyuan GPU preflight receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/panorama/panorama.png",
+        "sha256": "ab6ed18a33d959d53612f63d5bbc0700fd6ff89220d4a4cfb0bccdccdaca5213",
+        "role": "reviewed 512x256 Hunyuan panorama"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/resource_samples.jsonl",
+        "sha256": "fed912d31f80f518796aabe71b011848f7f831fba3cb331f831679f9d5b36657",
+        "role": "Hunyuan resource samples"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/stderr.log",
+        "sha256": "f0e147f5523e2bf411534ce42ee0f13b74178f387f9406148680b86c3418366e",
+        "role": "Hunyuan stderr"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/stdout.log",
+        "sha256": "022e240a8a36eccb82cb85828e1adc60d43fb25bbee2e81d7ee363361654e718",
+        "role": "Hunyuan stdout"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/capture_room.gd",
+        "sha256": "71e7d853422a934e704c7f39d050173ac55dc6e725fcff42e2c7b20e625218f0",
+        "role": "capture and frame-profile harness"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/crop_plan.json",
+        "sha256": "5a55e6ef7e1fb4f6f26dbeda294474697a1c56b3fc278f4ac13ab071725b39a4",
+        "role": "direct source crop plan"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/room.gd",
+        "sha256": "c4826e8dbca9cd797554023a8ea502deb46c6ff6c9495f0afca8e2f380a711fe",
+        "role": "authored room geometry and gameplay script"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/room.tscn",
+        "sha256": "7e1f23e355473324fd79ab7fbffc82babf76603a984a09881df163988b1e1db8",
+        "role": "playable Godot scene"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/run_capture_guarded.py",
+        "sha256": "11d01800a766780ce741d1376f46ce744aab71d61f82f31e90f2cbaf8e33b5b1",
+        "role": "shared GPU lock and resource guard wrapper"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/standalone_test_receipt.json",
+        "sha256": "be8d9ef130488d2aa56d98c40066ee429b31193732299ea603485e7445f024fc",
+        "role": "standalone runtime test receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/test_room.gd",
+        "sha256": "bbdb45ec5c6198816092d1ad12222e3fe7fa5dc9e4d8bcb61fa3b42596648992",
+        "role": "standalone runtime test harness"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/concrete_floor.png",
+        "sha256": "69032589a93e8c792b59fe2e5a951553e918f6c8103ba0b32c78fdcbb8d3f267",
+        "role": "direct source appearance crop: concrete_floor"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/concrete_wall.png",
+        "sha256": "df43f93606c42cf476062026e795f99fa7d12fcbe1accec47e56c7874a2c1370",
+        "role": "direct source appearance crop: concrete_wall"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/crop_manifest.json",
+        "sha256": "ebc790fec7220f7aa911690bc2e66df0083c1733d14d056173daa06d8ff67887",
+        "role": "direct source crop manifest"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/roof_beams.png",
+        "sha256": "eaccecf10d6e170e8f75548c2815ba45f258ada04ded83046307714e5f573106",
+        "role": "direct source appearance crop: roof_beams"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/support_post.png",
+        "sha256": "b603785a9220d3db61d27b3889244b7a615652768e965c765893dbe9e4637707",
+        "role": "direct source appearance crop: support_post"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/textures/window_grid.png",
+        "sha256": "6f673208034fae49d90dac2c457efc16ae293462226c8b1087cc265d64814018",
+        "role": "direct source appearance crop: window_grid"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/source_manifest.json",
+        "sha256": "1649a1031a3ae60eb0095beaf429f1760ef65c362fc2b73af0fbb70d2e1cb9bc",
+        "role": "immutable source registration manifest"
+      },
+      {
+        "path": "godot_walk/vendor/ursc/common.gdshaderinc",
+        "sha256": "c2bba1e4d8491d91684efd246458196d7750a4951a21c1bbef58b82537288a49",
+        "role": "transitive Godot scene, script or shader dependency"
+      },
+      {
+        "path": "godot_walk/vendor/ursc/utilities.gdshaderinc",
+        "sha256": "0a56e85852069315945e54fdb692dd5f9140dee9ae2ad15bce958987c7b0f011",
+        "role": "transitive Godot scene, script or shader dependency"
+      }
+    ],
+    "authoring_log": {
+      "manual_decisions": [
+        "Author a 16x13 design-unit rectangle; no dimensions are inferred from the source.",
+        "Use panorama as a static visual background and direct source-frame crops for close surfaces.",
+        "Author six square posts, cross-beam roof grid, wall/window overlays and one low slab obstacle.",
+        "Close all four edges; do not turn the partial far-right gap into a connector.",
+        "Retain accepted controller and current PSX settings."
+      ],
+      "operator_interventions": 1,
+      "effort": "One bounded candidate authored; active authoring time was not separately instrumented."
+    },
+    "room_clearance": {
+      "floor_elevation": 0.0,
+      "ceiling_elevation": 4.76,
+      "basis": "authored"
+    },
+    "dynamic_resource_declarations": [
+      {
+        "script_path": "godot_walk/scripts/library_psx_preset.gd",
+        "line": 49,
+        "call_index": 0,
+        "expression": "\"res://shaders/library_psx_%s.gdshader\" % shader_name",
+        "resource_paths": [
+          "godot_walk/shaders/library_psx_textured.gdshader",
+          "godot_walk/shaders/library_psx_vertex.gdshader"
+        ]
+      }
+    ]
+  },
+  "validation": {
+    "mechanical_status": "passed",
+    "stages": [
+      {
+        "stage_id": "standalone_spawn_floor_boundary_reset",
+        "status": "passed",
+        "candidate_fingerprint": "642a4bc15641d1f8183c1582dd4a8f311544b40fd4458c477fb0b08a1cc5dbae",
+        "artifacts": [
+          {
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/standalone_test_receipt.json",
+            "sha256": "be8d9ef130488d2aa56d98c40066ee429b31193732299ea603485e7445f024fc",
+            "role": "Godot headless runtime controls"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v1/test_room.gd",
+            "sha256": "bbdb45ec5c6198816092d1ad12222e3fe7fa5dc9e4d8bcb61fa3b42596648992",
+            "role": "standalone test harness"
+          }
+        ],
+        "notes": [
+          "Runtime-tested support, boundary/post collision, walk and backtrack, no boundary escape, reset, and floor/boundary negative controls."
+        ]
+      }
+    ]
+  },
+  "operator_decision": {
+    "status": "pending",
+    "decision_record_path": null,
+    "decision_sha256": null,
+    "candidate_fingerprint": null,
+    "scope": "Panorama accepted only as a broad visual reference. Room appearance, traversal, catalog admission and promotion await operator review."
+  },
+  "catalog_snapshot": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+    "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+    "catalog_id": "godot_psx_room_kit",
+    "catalog_version": "0.2.0"
+  },
+  "candidate_identity": "642a4bc15641d1f8183c1582dd4a8f311544b40fd4458c477fb0b08a1cc5dbae"
+}

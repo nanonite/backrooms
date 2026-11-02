@@ -1,0 +1,33 @@
+{
+  "status": "blocked",
+  "source_id": "video-ccf9722164a0bdc8",
+  "attempt_id": "attempt-004",
+  "reason": "Inference preflight blocked: available host RAM is 21851205632 bytes; needs 34359738368 bytes",
+  "execution_guard_receipt": null,
+  "preflight_details": {
+    "snapshot": {
+      "timestamp_utc": "2026-10-27T04:05:28.676726+00:00",
+      "ram_available_bytes": 21851205632,
+      "swap_free_bytes": 89415864320,
+      "swap_total_bytes": 102546530304,
+      "gpu_free_bytes": 11481907200,
+      "gpu_used_bytes": 963641344,
+      "gpu_total_bytes": 12878610432,
+      "gpu_utilization_pct": 30,
+      "process_group_rss_bytes": 0
+    },
+    "resource_policy": {
+      "policy_version": "hunyuan-sequential-offload-1",
+      "min_start_ram_bytes": 34359738368,
+      "min_start_swap_free_bytes": 17179869184,
+      "min_start_vram_bytes": 8589934592,
+      "min_runtime_ram_bytes": 8589934592,
+      "min_runtime_swap_free_bytes": 17179869184,
+      "min_runtime_vram_bytes": 2147483648,
+      "max_swap_growth_bytes": 1073741824,
+      "max_execution_seconds": 2700,
+      "sample_period_seconds": 1.0
+    }
+  },
+  "checked_at_utc": "2026-10-27T04:05:28.676768+00:00"
+}

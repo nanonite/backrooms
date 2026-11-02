@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "adaptation_id": "video-ccf9722164a0bdc8-debris-window-rock-room-v1",
+  "candidate_identity": "016fab6e6cc1edff5088bb6da3b81fdf0d8bca5bdabb70b62cb11476cc9f8214",
+  "candidate_fingerprint": "016fab6e6cc1edff5088bb6da3b81fdf0d8bca5bdabb70b62cb11476cc9f8214",
+  "command": "godot4 --headless --path godot_walk --script res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/test_room.gd",
+  "result": "passed",
+  "checks": [
+    "safe spawn and floor support",
+    "four boundary rays and four capsule boundary probes",
+    "seeded boulder/gravel field and large-rock collision",
+    "central-lane traversal and backtracking",
+    "missing-floor and open-boundary negative controls",
+    "R safe-spawn reset"
+  ],
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "finished_at_utc": "2026-11-02T01:09:30.392170+00:00",
+  "dependency_fingerprint": "f94744d4bc6565c25531afc9454531a77efb1299a571614cf4c4a80a00bd05a5"
+}

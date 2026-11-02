@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "decision": "accepted_scoped_catalog_admission",
+  "issue": 168,
+  "adaptation_id": "video-ccf9722164a0bdc8-two-room-connection-v1",
+  "candidate_identity": "6b83313eb701f9c1a212087ab41b27e85c6ada90f5a5bf1b37b9834533402bff",
+  "standalone_room_candidate_identity": "016fab6e6cc1edff5088bb6da3b81fdf0d8bca5bdabb70b62cb11476cc9f8214",
+  "operator_review_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/operator_review.json",
+  "operator_review_sha256": "bde4b2feb853507c696a2ec9579a5318aeb411995584cb086ec92465699b8bea",
+  "catalog_path": "godot_walk/room_catalog/catalog.json",
+  "catalog_version": "0.4.0",
+  "catalog_snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.4.0.json",
+  "catalog_snapshot_sha256": "1dd47544d4cd9182f6a3e90c2a6cb8d0f35114c82e1d15f06257eb9b4bdbb10f",
+  "module_ids": [
+    "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+    "godot_gopro_industrial_hall_south_socket_v1",
+    "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1"
+  ],
+  "tested_connector_pair_id": "issue168_industrial_hall_south__debris_rock_north_v1",
+  "scope": "The operator-approved standalone room and the exact accepted hall-to-rock pair are catalogued for this pairing. Both socket adapter variants are pair-only; the original accepted base scenes and historical snapshots remain unchanged.",
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

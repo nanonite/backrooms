@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "adaptation_id": "industrial-hall-panorama-v3",
+  "candidate_identity": "175a52589ca162c12726583ea2e60792637d871e175947b5a601331e27ab131f",
+  "decision": "accepted",
+  "reviewed_at_utc": "2026-11-01T21:15:01.251523+00:00",
+  "scope": "Admit the already operator-accepted industrial hall room as a standalone module in godot_psx_room_kit 0.3.0. The module has no authored sockets and is not eligible for automatic stitched-layout generation until a connector adaptation is authored and tested. This decision does not accept registration, metric scale, source-video connectivity, or a higher-resolution panorama.",
+  "module_id": "godot_gopro_industrial_hall_frame1097_v1",
+  "module_version": 1,
+  "catalog_path": "godot_walk/room_catalog/catalog.json",
+  "catalog_version": "0.3.0",
+  "supersedes_decision_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/operator_review.json",
+  "supersedes_decision_sha256": "9e44f8caaef2f7a3d1abf49076baba8bb7991a8dcb900559a9c3eb550b51bab6",
+  "supersedes_candidate_identity": "d3e84f32e439a3f5e0dad242ccd80b63f23eed3d49d7cb236059b5f323e26ca5",
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

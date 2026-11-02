@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Issue 168 — two-room connection candidate</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.55 system-ui, sans-serif; background: #171b1c; color: #eee8da; }
+    body { max-width: 1180px; margin: 2rem auto; padding: 0 1rem 4rem; }
+    h1, h2 { line-height: 1.2; }
+    .notice { border-left: 4px solid #edb86f; padding: .75rem 1rem; background: #252b2d; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; }
+    figure { margin: 0; padding: .7rem; background: #252b2d; border: 1px solid #41494b; }
+    img { display: block; max-width: 100%; height: auto; }
+    figcaption { margin-top: .5rem; color: #c8d0d0; }
+    a { color: #9bd7ff; }
+    code { overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <h1>Two-room walkthrough candidate</h1>
+  <p class="notice"><strong>Accepted for this exact pair.</strong> The operator approved the authored doorway and assembled hall-to-rock walkthrough. The source video shows separate views; it does not prove this connection. The two socket adapters are catalogued for this pair only. Registration and scale calibration remain false.</p>
+  <p><a href="REPORT.md">Report</a> · <a href="COMMANDS.md">Run and test commands</a> · <a href="layout.svg">Authored layout diagram</a> · <a href="source_to_room_contact_v2.jpg">Source-to-room contact sheet</a> · <a href="protected_inputs.json">Protected input hashes</a> · <a href="ITERATIONS.md">Capture iterations</a> · <a href="../../source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/operator_review.json">Operator decision</a> · <a href="../../source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/catalog_admission_decision.json">Scoped catalog admission</a></p>
+  <h2>Direct source frames and assembled views</h2>
+  <p>The two video frames are from different timeline locations. They are provenance comparisons, not matched camera poses.</p>
+  <div class="grid">
+    <figure><img src="../../source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png" alt="Direct source frame 1097 from the industrial hall"><figcaption>Source frame_1097 · index 1096 · 36.533333 s · first room.</figcaption></figure>
+    <figure><img src="../../source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png" alt="Direct source frame 4560 from the debris and window zone"><figcaption>Source frame_4560 · index 4559 · 151.966667 s · second room reference.</figcaption></figure>
+    <figure><img src="captures-v3/from_industrial_hall_to_rock_room.png" alt="Looking from the industrial hall into the rock room"><figcaption>Godot candidate · hall toward rock room.</figcaption></figure>
+    <figure><img src="captures-v3/from_rock_room_to_industrial_hall.png" alt="Looking from the rock room back into the industrial hall"><figcaption>Godot candidate · rock room toward hall.</figcaption></figure>
+    <figure><img src="captures-v3/rock_room_entry_and_banks.png" alt="View of the rock-room entry and rock banks"><figcaption>Godot candidate · rock-room entry and banks.</figcaption></figure>
+    <figure><img src="source_to_room_contact_v2.jpg" alt="Contact sheet of source frames and Godot candidate views"><figcaption>Source and candidate contact sheet.</figcaption></figure>
+  </div>
+  <h2>What was authored</h2>
+  <ul>
+    <li>Two versioned wall adapters cut a 2.4 by 2.2 design-unit opening in the hall south wall and rock-room north wall. Standalone adapter scenes cap those openings by default.</li>
+    <li>The doorway centers align at world z=6.5; floors align at y=0; socket normals oppose. The two wall panels form a 0.6-unit deep passage.</li>
+    <li>A visible shared frame and an independently collidable seam floor complete the connection. All unrelated room boundaries stay closed.</li>
+  </ul>
+  <p>The first room is the accepted #167 hall. The second room uses the separately accepted standalone rock-room design. This exact connection is now accepted and catalogued as a tested pair; it does not claim source-video continuity or general socket reuse.</p>
+  <p><a href="../2026-11-01-issue-168-room-candidate/index.html">Standalone rock-room review</a> · <a href="../2026-11-01-issue-168-source-zone-survey/index.html">Source-zone survey</a></p>
+</body>
+</html>

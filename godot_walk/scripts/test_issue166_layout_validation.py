@@ -9,7 +9,11 @@ import unittest
 from pathlib import Path
 
 from issue149_layout_core import canonical_json
-from validate_issue166_layout import ROOT, validate_bundle
+from validate_issue166_layout import (
+    ROOT,
+    _historical_archive_matches,
+    validate_bundle,
+)
 
 LAYOUT = (
     ROOT / "godot_walk/evidence/2026-10-26-four-room-transfer/layout_four_room.json"
@@ -20,6 +24,15 @@ class Issue166LayoutValidationTests(unittest.TestCase):
     def test_candidate_layout_validates(self) -> None:
         _, errors = validate_bundle(LAYOUT)
         self.assertEqual(errors, [])
+
+    def test_only_the_pinned_historical_layout_tool_hash_uses_the_archive(self) -> None:
+        valid = {
+            "path": "godot_walk/scripts/issue149_layout_core.py",
+            "sha256": "0170c37c402018aad118894e380c681c7cdb070bb4ba9d7ba4f8908ca9e283bf",
+        }
+        changed = {**valid, "sha256": "0" * 64}
+        self.assertTrue(_historical_archive_matches(valid))
+        self.assertFalse(_historical_archive_matches(changed))
 
     def test_misaligned_socket_is_rejected(self) -> None:
         errors = _validate_mutation(lambda layout: _move(layout, "R003", 0.5, 0.0))

@@ -1,0 +1,43 @@
+{
+	"godot_static_memory_bytes": 54295777,
+	"panorama_role": "layout reference only; excluded from runtime render",
+	"registration_accepted": false,
+	"renderer": "Godot Forward+ Vulkan with the project PSX compositor",
+	"sampled_frame_time_ms": {
+		"basis": "SceneTree process-frame intervals after 120-frame warmup; includes display sync",
+		"mean": 4.16664,
+		"p95": 4.276,
+		"p99": 4.342,
+		"samples": 300
+	},
+	"scale_calibrated": false,
+	"scene": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.tscn",
+	"scene_instantiate_ms": 0.041,
+	"scene_load_ms": 9.122,
+	"views": [
+		{
+			"height": 648,
+			"id": "spawn_toward_windows",
+			"path": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-final/spawn_toward_windows.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "support_rows",
+			"path": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-final/support_rows.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "roof_grid",
+			"path": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-final/roof_grid.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "far_boundary",
+			"path": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-final/far_boundary.png",
+			"width": 1152
+		}
+	]
+}

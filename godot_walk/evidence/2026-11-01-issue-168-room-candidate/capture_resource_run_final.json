@@ -1,0 +1,45 @@
+{
+  "label": "debris-window-rock-room-v1-review-capture",
+  "command": [
+    "godot4",
+    "--max-fps",
+    "60",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--disable-vsync",
+    "--script",
+    "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/capture_room.gd",
+    "--",
+    "--out=res://evidence/2026-11-01-issue-168-room-candidate/captures-final"
+  ],
+  "output_dir": "godot_walk/evidence/2026-11-01-issue-168-room-candidate/captures-final",
+  "timeout_seconds": 240,
+  "return_code": 0,
+  "timed_out": false,
+  "error": null,
+  "elapsed_seconds": 9.543,
+  "finished_at_utc": "2026-11-02T01:05:48.120424+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11955863552,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 5,
+    "compute_apps": [],
+    "ram_available_bytes": 56143704064,
+    "vram_after_headroom_bytes": 9564690841,
+    "ram_after_headroom_bytes": 42107778048,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "peak_resources": {
+    "peak_child_rss_bytes": 554926080,
+    "gpu_memory_start_bytes": 490733568,
+    "peak_gpu_memory_used_bytes": 720371712,
+    "peak_gpu_memory_delta_bytes": 229638144,
+    "gpu_sample_period_ms": 500
+  }
+}

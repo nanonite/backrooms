@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "source_id": "video-22909eb734e4d8e2",
+  "created_at_utc": "2026-10-26T21:23:22.168156+00:00",
+  "canonical_video": {
+    "path": "data/videos/Antelope Canyon in 4K - World's Most Iconic Slot Canyon - UHD 4K.mp4",
+    "sha256": "22909eb734e4d8e2feede084e0305ae0aecefcc6dd5b46ca7ef884277e2a274a",
+    "metadata": {
+      "width": 1280,
+      "height": 720,
+      "fps": 29.97003,
+      "frame_count": 1541,
+      "duration_seconds": 51.478639
+    }
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_review": {
+    "status": "pending_operator_review",
+    "decision": null
+  },
+  "frame_references": [],
+  "hunyuan": {
+    "status": "not_attempted",
+    "historical_invocations": 0,
+    "attempts": []
+  },
+  "room_adaptations": [],
+  "historical_artifacts": [],
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity."
+}

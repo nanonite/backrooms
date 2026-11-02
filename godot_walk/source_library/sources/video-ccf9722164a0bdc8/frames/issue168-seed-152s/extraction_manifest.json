@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "source_video": "data/videos/GoPro Awards_ Haunting FPV Drone Flight Through Abandoned Building.mp4",
+  "source_video_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+  "metadata": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30.0,
+    "frame_count": 7292,
+    "duration_seconds": 243.136145
+  },
+  "decoder": "ffmpeg select by decoded zero-based frame index",
+  "created_at_utc": "2026-11-01T21:48:11.047594+00:00",
+  "frames": [
+    {
+      "frame_id": "frame_4560",
+      "index_zero_based": 4559,
+      "timestamp_seconds": 151.96666666666667,
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png",
+      "sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    }
+  ]
+}
