@@ -1,0 +1,223 @@
+{
+  "area_m2": 30.0,
+  "arm_width_m": 3,
+  "arms_xz": [
+    [
+      0.0,
+      6.0,
+      3.0,
+      9.0
+    ],
+    [
+      0.0,
+      6.0,
+      3.0,
+      7.5
+    ],
+    [
+      0.0,
+      6.0,
+      3.0,
+      9.0
+    ],
+    [
+      -3.0,
+      6.0,
+      1.5,
+      9.0
+    ],
+    [
+      0.0,
+      6.0,
+      3.0,
+      9.0
+    ],
+    [
+      1.5,
+      6.0,
+      7.0,
+      9.0
+    ],
+    [
+      0.0,
+      6.0,
+      3.0,
+      9.0
+    ]
+  ],
+  "ceiling_height_m": 4.3,
+  "cell_id": "c01",
+  "construction": "arms",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        -1
+      ],
+      "port_id": "c01:p0",
+      "pos_xz": [
+        1.5,
+        6.0
+      ],
+      "to_cell_id": "c00",
+      "to_port_id": "c00:p0",
+      "width_m": 2.0
+    },
+    {
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        -1,
+        0
+      ],
+      "port_id": "c01:p1",
+      "pos_xz": [
+        -3.0,
+        7.5
+      ],
+      "to_cell_id": "c02",
+      "to_port_id": "c02:p0",
+      "width_m": 2.0
+    },
+    {
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        1,
+        0
+      ],
+      "port_id": "c01:p2",
+      "pos_xz": [
+        7.0,
+        7.5
+      ],
+      "to_cell_id": "c06",
+      "to_port_id": "c06:p0",
+      "width_m": 2.0
+    }
+  ],
+  "envelope_xz": [
+    [
+      -3.0,
+      6.0
+    ],
+    [
+      7.0,
+      6.0
+    ],
+    [
+      7.0,
+      9.0
+    ],
+    [
+      -3.0,
+      9.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_grid",
+      "kind": "ceiling_lamp_grid",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c01:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c01:p1",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c01:p2",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "generator_version": "shape-room-0.2.0",
+  "lamps_xz": [
+    [
+      -1.5,
+      7.5
+    ],
+    [
+      2.5,
+      7.5
+    ]
+  ],
+  "map_id": "gmap-2-gmap-0.2.0",
+  "map_sha256": "e29032d7ea0c9930ba2f7758ae39bf5f65645184fda49c985a7104b8e1931d2d",
+  "material_source": "kit_default",
+  "materials": {
+    "ceiling_texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+    "floor_texture": "res://assets/psx_extension/textures/floor_source_video.png",
+    "lamp_color": [
+      1.0,
+      0.97,
+      0.76
+    ],
+    "trim_color": [
+      0.37,
+      0.34,
+      0.23
+    ],
+    "wallpaper_texture": "res://assets/psx_extension/textures/wallpaper_source_video.png"
+  },
+  "mode": "standard",
+  "original_cell_status": "shape_room_pending",
+  "outline_xz": [
+    [
+      -3.0,
+      6.0
+    ],
+    [
+      7.0,
+      6.0
+    ],
+    [
+      7.0,
+      9.0
+    ],
+    [
+      -3.0,
+      9.0
+    ]
+  ],
+  "primitive": "t_shape",
+  "primitive_class": "box",
+  "rarity_tier": 0,
+  "rects": [
+    [
+      -3.0,
+      6.0,
+      7.0,
+      9.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "ground",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 0
+}

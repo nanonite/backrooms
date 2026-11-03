@@ -12,7 +12,7 @@
   ],
   "properties": {
     "schema_version": { "const": 1 },
-    "generator_version": { "const": "shape-room-0.1.0" },
+    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0"] },
     "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
     "map_sha256": { "$ref": "#/$defs/sha256" },
     "cell_id": { "type": "string", "minLength": 1 },
@@ -77,6 +77,22 @@
         "additionalProperties": false
       }
     },
+    "mode": {
+      "description": "Optional (shape-room-0.2.0). The map cell's mode; degenerate rooms may carry corner doorways.",
+      "enum": ["standard", "degenerate"]
+    },
+    "degenerate_features": {
+      "description": "Optional (shape-room-0.2.0). Deliberate degenerate features of this room; empty for standard rooms.",
+      "type": "array",
+      "items": { "enum": ["corner_doorway"] },
+      "uniqueItems": true
+    },
+    "degenerate_port_ids": {
+      "description": "Optional (shape-room-0.2.0). Port ids whose doorway touches an envelope corner.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
     "registration_accepted": { "const": false },
     "scale_calibrated": { "const": false }
   },
@@ -92,7 +108,7 @@
       "required": ["schema_version", "generator_version", "map_id", "map_file", "mode", "rooms"],
       "properties": {
         "schema_version": { "const": 1 },
-        "generator_version": { "const": "shape-room-0.1.0" },
+        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0"] },
         "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
         "map_file": {
           "type": "object",
@@ -113,7 +129,8 @@
               "original_cell_status": { "type": "string", "minLength": 1 },
               "primitive": { "enum": ["dead_end", "straight", "l_shape", "t_shape", "cross", "u_shape"] },
               "primitive_class": { "enum": ["box", "l_shape", "rectilinear_polygon"] },
-              "construction": { "enum": ["box", "arms"] }
+              "construction": { "enum": ["box", "arms"] },
+              "mode": { "enum": ["standard", "degenerate"] }
             },
             "additionalProperties": false
           }

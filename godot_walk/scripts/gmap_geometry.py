@@ -9,6 +9,8 @@ Vec = tuple[int, int]
 
 MIN_OVERLAP_M = 2.4
 DOORWAY_HALF_M = 1.0
+STANDARD_MARGIN_M = 1.5  # gmap-0.2.0 standard doorway: 1 m half-width + 0.5 m of solid wall
+PORT_STEP_M = 0.5  # gmap-0.2.0 ports sit on a half-metre grid (centred in a 3 m overlap)
 MIN_PORT_SEPARATION_M = 2.0
 EPS = 1e-9
 SIDES: tuple[Vec, ...] = ((1, 0), (-1, 0), (0, 1), (0, -1))
@@ -78,21 +80,33 @@ def along(pos: tuple[float, float], normal: Vec) -> float:
     return pos[1] if normal[0] else pos[0]
 
 
+def lattice_number(value: float) -> float:
+    """An int when the value is whole, else the (half-metre) float."""
+    return int(value) if abs(value - round(value)) <= EPS else value
+
+
 def port_position(normal: Vec, coord: float, offset: float) -> Vec:
-    return (int(coord), int(offset)) if normal[0] else (int(offset), int(coord))
+    if normal[0]:
+        return (int(coord), lattice_number(offset))  # type: ignore[return-value]
+    return (lattice_number(offset), int(coord))  # type: ignore[return-value]
 
 
-def contact_port(a: Rect, b: Rect) -> tuple[Vec, Vec] | None:
-    """Snapped centre of the overlap segment and a's outward normal, or None."""
+def contact_port(a: Rect, b: Rect, centred: bool = False) -> tuple[Vec, Vec] | None:
+    """Centre of the overlap segment and a's outward normal, or None.
+
+    gmap-0.1.0 snaps the centre down to a whole metre (a 3 m overlap puts the port 1 m
+    from its low end); `centred` keeps the exact centre (1.5 m from both ends of 3 m).
+    """
     shared = contact(a, b)
     if shared is None or shared[3] - shared[2] + EPS < MIN_OVERLAP_M:
         return None
     normal, coord, lo, hi = shared
-    return port_position(normal, coord, lo + int((hi - lo) // 2)), normal
+    offset = lo + (hi - lo) / 2 if centred else lo + int((hi - lo) // 2)
+    return port_position(normal, coord, offset), normal
 
 
 def check_port_on_contact(
-    rect: Rect, pos: tuple[float, float], normal: Vec, other: Rect
+    rect: Rect, pos: tuple[float, float], normal: Vec, other: Rect, margin: float = DOORWAY_HALF_M
 ) -> str | None:
     """Error code if `pos` is not a valid doorway between `rect` and `other`."""
     shared = contact(rect, other)
@@ -107,7 +121,7 @@ def check_port_on_contact(
     if abs(on_wall - coord) > EPS:
         return "port_off_boundary"
     where = along(pos, normal)
-    if where < lo + DOORWAY_HALF_M - EPS or where > hi - DOORWAY_HALF_M + EPS:
+    if where < lo + margin - EPS or where > hi - margin + EPS:
         return "port_outside_overlap"
     return None
 

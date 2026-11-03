@@ -1,0 +1,948 @@
+{
+  "attempt": 0,
+  "catalog_snapshot": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.5.0.json",
+    "sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30"
+  },
+  "cells": [
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c00",
+      "envelope_xz": [
+        [
+          0,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          0,
+          10
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c00:p0",
+          "pos_xz": [
+            1.5,
+            0
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c00:p1",
+          "pos_xz": [
+            0,
+            8
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c00:p2",
+          "pos_xz": [
+            1.5,
+            10
+          ]
+        }
+      ],
+      "role": "ground"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c01",
+      "envelope_xz": [
+        [
+          -1,
+          -12
+        ],
+        [
+          7,
+          -12
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          -1,
+          0
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c01:p0",
+          "pos_xz": [
+            1.5,
+            0
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c01:p1",
+          "pos_xz": [
+            -1,
+            -10.5
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c01:p2",
+          "pos_xz": [
+            -1,
+            -3.5
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c01:p3",
+          "pos_xz": [
+            7,
+            -5
+          ]
+        }
+      ],
+      "role": "ground"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c02",
+      "envelope_xz": [
+        [
+          -8,
+          6
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          14
+        ],
+        [
+          -8,
+          14
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c02:p0",
+          "pos_xz": [
+            0,
+            8
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c02:p1",
+          "pos_xz": [
+            -6,
+            14
+          ]
+        }
+      ],
+      "role": "ground"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c03",
+      "envelope_xz": [
+        [
+          -11,
+          -12
+        ],
+        [
+          -1,
+          -12
+        ],
+        [
+          -1,
+          -9
+        ],
+        [
+          -11,
+          -9
+        ]
+      ],
+      "mode": "degenerate",
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c03:p0",
+          "pos_xz": [
+            -1,
+            -10.5
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "degenerate",
+          "port_id": "c03:p1",
+          "pos_xz": [
+            -11,
+            -11
+          ]
+        }
+      ],
+      "role": "threshold"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c04",
+      "envelope_xz": [
+        [
+          0,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          0,
+          13
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c04:p0",
+          "pos_xz": [
+            1.5,
+            10
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c04:p1",
+          "pos_xz": [
+            4.5,
+            10
+          ]
+        }
+      ],
+      "role": "threshold"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c05",
+      "envelope_xz": [
+        [
+          3,
+          2
+        ],
+        [
+          11,
+          2
+        ],
+        [
+          11,
+          10
+        ],
+        [
+          3,
+          10
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c05:p0",
+          "pos_xz": [
+            4.5,
+            10
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c05:p1",
+          "pos_xz": [
+            11,
+            8.5
+          ]
+        }
+      ],
+      "role": "ground"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c06",
+      "envelope_xz": [
+        [
+          -9,
+          -7
+        ],
+        [
+          -1,
+          -7
+        ],
+        [
+          -1,
+          1
+        ],
+        [
+          -9,
+          1
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c06:p0",
+          "pos_xz": [
+            -1,
+            -3.5
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c06:p1",
+          "pos_xz": [
+            -9,
+            -2
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c06:p2",
+          "pos_xz": [
+            -3.5,
+            1
+          ]
+        }
+      ],
+      "role": "ground"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c07",
+      "envelope_xz": [
+        [
+          -15,
+          -5
+        ],
+        [
+          -9,
+          -5
+        ],
+        [
+          -9,
+          1
+        ],
+        [
+          -15,
+          1
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c07:p0",
+          "pos_xz": [
+            -9,
+            -2
+          ]
+        }
+      ],
+      "role": "ground"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c08",
+      "envelope_xz": [
+        [
+          -23,
+          -15
+        ],
+        [
+          -11,
+          -15
+        ],
+        [
+          -11,
+          -7
+        ],
+        [
+          -23,
+          -7
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c08:p0",
+          "pos_xz": [
+            -11,
+            -11
+          ]
+        }
+      ],
+      "role": "ground"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        3.0,
+        6.0
+      ],
+      "cell_id": "c09",
+      "envelope_xz": [
+        [
+          -8,
+          14
+        ],
+        [
+          8,
+          14
+        ],
+        [
+          8,
+          27
+        ],
+        [
+          -8,
+          27
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 2,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c09:p0",
+          "pos_xz": [
+            -6,
+            14
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c09:p1",
+          "pos_xz": [
+            -8,
+            22.5
+          ]
+        }
+      ],
+      "role": "figure"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c10",
+      "envelope_xz": [
+        [
+          7,
+          -9
+        ],
+        [
+          15,
+          -9
+        ],
+        [
+          15,
+          -1
+        ],
+        [
+          7,
+          -1
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c10:p0",
+          "pos_xz": [
+            7,
+            -5
+          ]
+        }
+      ],
+      "role": "ground"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        3.0,
+        6.0
+      ],
+      "cell_id": "c11",
+      "envelope_xz": [
+        [
+          11,
+          3
+        ],
+        [
+          21,
+          3
+        ],
+        [
+          21,
+          15
+        ],
+        [
+          11,
+          15
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 2,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c11:p0",
+          "pos_xz": [
+            11,
+            8.5
+          ]
+        }
+      ],
+      "role": "figure"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c12",
+      "envelope_xz": [
+        [
+          -5,
+          1
+        ],
+        [
+          -2,
+          1
+        ],
+        [
+          -2,
+          4
+        ],
+        [
+          -5,
+          4
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c12:p0",
+          "pos_xz": [
+            -3.5,
+            1
+          ]
+        }
+      ],
+      "role": "void"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c13",
+      "envelope_xz": [
+        [
+          -11,
+          21
+        ],
+        [
+          -8,
+          21
+        ],
+        [
+          -8,
+          24
+        ],
+        [
+          -11,
+          24
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c13:p0",
+          "pos_xz": [
+            -8,
+            22.5
+          ]
+        }
+      ],
+      "role": "void"
+    }
+  ],
+  "degenerate_budget": {
+    "max": 1,
+    "used": 1
+  },
+  "distribution": {
+    "repetition_budget": {
+      "max_same_module_adjacent": 0,
+      "max_same_primitive_run": 3
+    },
+    "tier_curve": "2d6"
+  },
+  "edges": [
+    {
+      "connector": "direct",
+      "from": "c00:p0",
+      "to": "c01:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c00:p1",
+      "to": "c02:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c00:p2",
+      "to": "c04:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c01:p1",
+      "to": "c03:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c01:p2",
+      "to": "c06:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c01:p3",
+      "to": "c10:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c02:p1",
+      "to": "c09:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c03:p1",
+      "to": "c08:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c04:p1",
+      "to": "c05:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c05:p1",
+      "to": "c11:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c06:p1",
+      "to": "c07:p0"
+    },
+    {
+      "connector": "closed_visible",
+      "from": "c06:p2",
+      "to": "c12:p0"
+    },
+    {
+      "connector": "closed_visible",
+      "from": "c09:p1",
+      "to": "c13:p0"
+    }
+  ],
+  "generator_version": "gmap-0.2.0",
+  "lattice": {
+    "kind": "square",
+    "port_step_m": 0.5,
+    "port_unit": "level_doorway_2m_v1",
+    "unit_m": 1.0
+  },
+  "library_index": {
+    "path": "godot_walk/room_catalog/library_index/godot_psx_room_kit-0.5.0.json",
+    "sha256": "147b1cb9daaa96601bcab84bf355929134f2ddbd6b6f279bc255f7ddd849f49f"
+  },
+  "map_id": "gmap-3-gmap-0.2.0",
+  "registration_accepted": false,
+  "rules": [
+    "branch_required",
+    "degenerate_only_in_degenerate_cells",
+    "figure_not_adjacent",
+    "no_envelope_overlap",
+    "ports_on_lattice",
+    "ports_on_shared_edge",
+    "standard_doorway_margin",
+    "tree_no_loops",
+    "void_visible_from_walkable",
+    "voids_never_traversable"
+  ],
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "seed": 3,
+  "shape_stage_max": 1,
+  "void_budget": {
+    "max": 3,
+    "min": 1
+  }
+}

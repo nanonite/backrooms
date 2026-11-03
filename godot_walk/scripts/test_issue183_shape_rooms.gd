@@ -8,6 +8,7 @@ extends SceneTree
 const ASSEMBLY := preload("res://scripts/generative_map_assembly.gd")
 const ROOM_CHECKS := preload("res://scripts/issue183_room_checks.gd")
 const MAP_CHECKS := preload("res://scripts/issue183_map_checks.gd")
+const TRIM_CHECKS := preload("res://scripts/issue186_trim_checks.gd")
 const PROBE := preload("res://scripts/shape_room_probe.gd")
 const SCENE_PATH := "res://scenes/generative_map_walkthrough.tscn"
 
@@ -39,11 +40,13 @@ func _run() -> void:
 	report["failures"] = failures
 	_write_report(report)
 	var positive: Dictionary = report.positive
-	print("ISSUE183_SHAPE_ROOMS: %s map=%s mode=%s rooms=%d edges_both_ways=%d/%d closed_blocked=%d/%d flood_cells=%d/%d void_reached=%d controls=%s" % [
+	print("ISSUE183_SHAPE_ROOMS: %s map=%s mode=%s rooms=%d edges_both_ways=%d/%d closed_blocked=%d/%d flood_cells=%d/%d void_reached=%d trim_pairs=%d trim_coplanar=%d degenerate_trim=%d/%d controls=%s" % [
 		"PASS" if failures.is_empty() else "FAIL", map.map_id, index.mode, specs.size(),
 		positive.edges.passed_forward + positive.edges.passed_reverse, 2 * positive.edges.direct_edges_checked,
 		positive.edges.closed_blocked, positive.edges.closed_edges,
 		positive.flood.reached_cells, positive.flood.expected_cells, positive.flood.void_cells_reached,
+		positive.trim.pairs_checked, positive.trim.same_facing_count,
+		positive.trim.degenerate_conflicts, positive.trim.degenerate_trim_boxes,
 		str(report.negative_controls.keys())])
 	quit(0 if failures.is_empty() else 1)
 
@@ -56,8 +59,35 @@ func _check_contract() -> Dictionary:
 		_expect(spec.map_id == map.map_id, "%s: spec belongs to another map" % cell_id)
 		for feature: Dictionary in spec.features:
 			_expect(feature.sign == "symbol", "%s: feature %s is not a symbol" % [cell_id, feature.feature_id])
+		_check_margins(cell_id, spec)
 		checked += 1
 	return {"specs_checked": checked}
+
+
+## shape-room-0.2.0 (#186): a standard room keeps a full 0.5 m of solid wall on both sides
+## of every doorway; only a degenerate room lists corner doorways, exactly those with less.
+func _check_margins(cell_id: String, spec: Dictionary) -> void:
+	if not spec.has("mode"):
+		return
+	var corner: Array[String] = []
+	var low_xz := Vector2(spec.envelope_xz[0][0], spec.envelope_xz[0][1])
+	var high_xz := Vector2(spec.envelope_xz[2][0], spec.envelope_xz[2][1])
+	for doorway: Dictionary in spec.doorways:
+		var on_x_wall: bool = absf(float(doorway.normal[0])) > 0.5
+		var centre := float(doorway.pos_xz[1] if on_x_wall else doorway.pos_xz[0])
+		var side_low := low_xz.y if on_x_wall else low_xz.x
+		var side_high := high_xz.y if on_x_wall else high_xz.x
+		var margin := minf(centre - 1.0 - side_low, side_high - (centre + 1.0))
+		if margin < 0.5 - 0.0001:
+			corner.append(String(doorway.port_id))
+	corner.sort()
+	var listed: Array = spec.degenerate_port_ids.duplicate()
+	listed.sort()
+	if String(spec.mode) == "standard":
+		_expect(corner.is_empty() and listed.is_empty(), "%s: standard room has a doorway with < 0.5 m wall margin: %s" % [cell_id, str(corner)])
+	else:
+		_expect(listed == corner, "%s: degenerate_port_ids %s do not match corner doorways %s" % [cell_id, str(listed), str(corner)])
+		_expect(spec.degenerate_features == (["corner_doorway"] if not corner.is_empty() else []), "%s: degenerate_features mismatch" % cell_id)
 
 
 func _build(map_data: Dictionary, room_specs: Dictionary) -> Node3D:
@@ -85,8 +115,15 @@ func _run_positive() -> Dictionary:
 	failures.append_array(rooms.failures)
 	failures.append_array(edges.failures)
 	failures.append_array(flood.failures)
+	var trim := TRIM_CHECKS.check(assembly)
+	for conflict: Dictionary in trim.same_facing:
+		_fail("Trim %s is coplanar with %s (axis %d, plane %.3f)" % [conflict.trim, conflict.other, conflict.axis, conflict.plane])
+	var trim_controls := TRIM_CHECKS.negative_controls(assembly)
+	_expect(trim_controls.old_outside_trim_detected, "Trim control: pre-fix outside trim was not detected as coplanar")
+	_expect(trim_controls.shared_plane_detected, "Trim control: a trim box sharing a wall plane was not detected")
+	trim["negative_controls"] = trim_controls
 	await _release(assembly)
-	return {"rooms": rooms.rooms, "edges": edges, "flood": flood}
+	return {"rooms": rooms.rooms, "edges": edges, "flood": flood, "trim": trim}
 
 
 func _run_negative_controls() -> Dictionary:

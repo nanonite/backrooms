@@ -31,7 +31,7 @@ def keeps_ports(draft: Draft, cell: Cell, rect: Rect) -> bool:
     """Every existing doorway of `cell` stays valid for the replacement rectangle."""
     for port in cell.ports:
         other = draft.cells[other_cell(draft, port.port_id)]
-        if check_port_on_contact(rect, port.pos, port.normal, other.rect):
+        if check_port_on_contact(rect, port.pos, port.normal, other.rect, draft.margin):
             return False
     return not any(
         overlaps(rect, other.rect) for other in draft.cells.values() if other is not cell

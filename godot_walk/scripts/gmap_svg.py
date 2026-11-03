@@ -20,7 +20,12 @@ def cell_svg(cell: dict[str, Any], rect: Rect, ox: float, oz: float) -> list[str
     width, height = (rect[2] - rect[0]) * SCALE, (rect[3] - rect[1]) * SCALE
     stroke = "#000000"
     dash = ' stroke-dasharray="4 3"' if cell["role"] == "void" else ""
+    if cell.get("mode") == "degenerate":
+        dash = ' stroke-dasharray="8 3 2 3"'
+        stroke = "#8e44ad"
     label = f"{cell['cell_id']} t{cell['rarity_tier']}" if cell["role"] != "void" else cell["cell_id"]
+    if cell.get("mode") == "degenerate":
+        label += " degenerate"
     return [
         (
             f'<rect x="{x}" y="{z}" width="{width}" height="{height}" '

@@ -27,7 +27,12 @@
       "properties": {
         "kind": { "const": "square" },
         "unit_m": { "type": "number", "exclusiveMinimum": 0 },
-        "port_unit": { "type": "string", "minLength": 1 }
+        "port_unit": { "type": "string", "minLength": 1 },
+        "port_step_m": {
+          "description": "Optional (gmap-0.2.0). Grid step for port positions when finer than unit_m; default: unit_m.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
       },
       "additionalProperties": false
     },
@@ -55,13 +60,21 @@
                 "port_id": { "type": "string", "minLength": 1 },
                 "pos_xz": { "$ref": "#/$defs/point_xz" },
                 "normal": { "$ref": "#/$defs/direction8" },
-                "compatibility_type": { "type": "string", "minLength": 1 }
+                "compatibility_type": { "type": "string", "minLength": 1 },
+                "placement": {
+                  "description": "Optional (gmap-0.2.0), default standard. degenerate: the 2 m doorway touches an envelope corner (>= 1.5 m rule waived).",
+                  "enum": ["standard", "degenerate"]
+                }
               },
               "additionalProperties": false
             }
           },
           "role": { "enum": ["ground", "figure", "threshold", "void"] },
-          "rarity_tier": { "type": "integer", "minimum": 0, "maximum": 3 }
+          "rarity_tier": { "type": "integer", "minimum": 0, "maximum": 3 },
+          "mode": {
+            "description": "Optional (gmap-0.2.0), default standard. degenerate: may carry corner-hugging doorways (rare, budgeted).",
+            "enum": ["standard", "degenerate"]
+          }
         },
         "additionalProperties": false
       }
@@ -102,6 +115,16 @@
       "properties": {
         "min": { "type": "integer", "minimum": 0 },
         "max": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "degenerate_budget": {
+      "description": "Optional (required by gmap-0.2.0 rules). Rare degenerate cells: at most max, used so far.",
+      "type": "object",
+      "required": ["max", "used"],
+      "properties": {
+        "max": { "type": "integer", "minimum": 0 },
+        "used": { "type": "integer", "minimum": 0 }
       },
       "additionalProperties": false
     },

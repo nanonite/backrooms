@@ -1,0 +1,132 @@
+{
+  "generator_version": "shape-room-0.2.0",
+  "map_file": {
+    "name": "gmap-3-gmap-0.2.0.json",
+    "sha256": "63290fd75d54b86ed8f233bbf5419d0ac3a005f2e78f9096ad53e7d056759c9a"
+  },
+  "map_id": "gmap-3-gmap-0.2.0",
+  "mode": "all_walkable",
+  "rooms": [
+    {
+      "cell_id": "c00",
+      "construction": "arms",
+      "file": "c00.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "t_shape",
+      "primitive_class": "box",
+      "sha256": "5c0809a3cb74e5e9b04924c57671f077fba7ef5d46d6af3b24b50a92ad0e3d2e"
+    },
+    {
+      "cell_id": "c01",
+      "construction": "box",
+      "file": "c01.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "u_shape",
+      "primitive_class": "box",
+      "sha256": "964bab1dbca21e988bb36c1a4c1c771dfab42a486a6814df3eb5849ea092b848"
+    },
+    {
+      "cell_id": "c02",
+      "construction": "box",
+      "file": "c02.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "24b37566cd5c0d06771f61ca47a22d777b984f43678be24b88ab5b241565571e"
+    },
+    {
+      "cell_id": "c03",
+      "construction": "arms",
+      "file": "c03.json",
+      "mode": "degenerate",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "straight",
+      "primitive_class": "box",
+      "sha256": "961c591f81bbe50c86aa67dcb7e5a0684a55a696e0820d0cd89696ad298d29b2"
+    },
+    {
+      "cell_id": "c04",
+      "construction": "arms",
+      "file": "c04.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "u_shape",
+      "primitive_class": "box",
+      "sha256": "4f1d435d1251ad4332272cfd316768dfbb85365ad52cf1b67a0deb5732798eb2"
+    },
+    {
+      "cell_id": "c05",
+      "construction": "box",
+      "file": "c05.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "3410447c593f04cd13a5516c9dd4b7a140d30035e59f46f57281e1f6e078f70b"
+    },
+    {
+      "cell_id": "c06",
+      "construction": "box",
+      "file": "c06.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "t_shape",
+      "primitive_class": "box",
+      "sha256": "2761c6487009fab9350c4368b4fd239f5fd72feeb8a6949617e0f646e6ec21a0"
+    },
+    {
+      "cell_id": "c07",
+      "construction": "arms",
+      "file": "c07.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "4613a0f3848a3213faaa6e189358b0e447e484f32d11459d24bc0a12fce82b46"
+    },
+    {
+      "cell_id": "c08",
+      "construction": "box",
+      "file": "c08.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "d96e80e3e6389aac3af3e92ab1e8c7cd755666da804d444443c2ae2f0ac54f0b"
+    },
+    {
+      "cell_id": "c09",
+      "construction": "box",
+      "file": "c09.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "a20a5be3a4fbe91934599612055207008921c42ecb1d975dd8443f69e9a93f92"
+    },
+    {
+      "cell_id": "c10",
+      "construction": "arms",
+      "file": "c10.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "4d9e23ea43c94fb153abe46dae2a7e51a9c0db758d96830ee3fd2b13fbe8b050"
+    },
+    {
+      "cell_id": "c11",
+      "construction": "arms",
+      "file": "c11.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "0277da74ed47ef42b528dad8262bbd58c83360ecd6dfccbbd0ac5e7df5c1f2dd"
+    }
+  ],
+  "schema_version": 1
+}

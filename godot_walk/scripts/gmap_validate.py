@@ -11,7 +11,8 @@ from jsonschema import Draft202012Validator
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from deterministic_json import ROOT, sha256_file  # noqa: E402
-from gmap_build import RULE_IDS  # noqa: E402
+from gmap_build import GENERATOR_VERSION_V2, rule_ids  # noqa: E402
+from gmap_margin_rules import check_lattice_ports, margin_errors  # noqa: E402
 from gmap_rules import (  # noqa: E402
     Errors,
     check_branch,
@@ -51,17 +52,20 @@ def check_hashes(document: dict[str, Any], root: Path) -> Errors:
 
 
 def check_rules_listed(document: dict[str, Any]) -> Errors:
-    missing = sorted(set(RULE_IDS) - set(document["rules"]))
+    missing = sorted(set(rule_ids(document["generator_version"])) - set(document["rules"]))
     return [err("rules", "rules_incomplete", ", ".join(missing))] if missing else []
 
 
 def rule_errors(document: dict[str, Any]) -> Errors:
     cells, edges = document["cells"], document["edges"]
     rects, errors = parse_rects(cells)
-    errors += check_lattice(cells, document["lattice"]["unit_m"])
+    errors += check_lattice(cells, document["lattice"]["unit_m"], document["lattice"].get("port_step_m"))
     errors += check_overlaps(rects)
     ports, port_problems = port_index(cells)
     errors += port_problems + check_edges(edges, ports, rects)
+    if document["generator_version"] == GENERATOR_VERSION_V2:
+        errors += check_lattice_ports(cells, document["lattice"].get("port_step_m", 1.0))
+        errors += margin_errors(document, rects)
     roles = {cell["cell_id"]: cell["role"] for cell in cells}
     walkable = sorted(c for c, role in roles.items() if role != "void")
     errors += check_tree(walkable, edges) + check_branch(walkable, edges)

@@ -41,10 +41,13 @@ def parse_rects(cells: list[dict[str, Any]]) -> tuple[dict[str, Rect], Errors]:
     return rects, errors
 
 
-def check_lattice(cells: list[dict[str, Any]], unit: float) -> Errors:
+def check_lattice(cells: list[dict[str, Any]], unit: float, port_step: float | None = None) -> Errors:
+    """Envelope corners on the unit lattice; ports too unless a finer `port_step` is declared."""
     errors = []
     for cell in cells:
-        points = list(cell["envelope_xz"]) + [p["pos_xz"] for p in cell["required_ports"]]
+        points = list(cell["envelope_xz"])
+        if port_step is None:
+            points += [p["pos_xz"] for p in cell["required_ports"]]
         if not all(is_lattice(v, unit) for point in points for v in point):
             errors.append(err("ports_on_lattice", "off_lattice", cell["cell_id"]))
     return errors

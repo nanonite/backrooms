@@ -47,7 +47,9 @@ def port_on_envelope(envelope: Rect, port: dict[str, Any]) -> bool:
     return (x if nx else z) == wall[(nx, nz)]
 
 
-def port_issues(cells: set[Cell], envelope: Rect, port: dict[str, Any]) -> list[str]:
+def port_issues(
+    cells: set[Cell], envelope: Rect, port: dict[str, Any], waived: set[str] | None = None
+) -> list[str]:
     name = port["port_id"]
     if not port_on_envelope(envelope, port):
         return [f"{name}: port is not on its envelope side"]
@@ -62,17 +64,27 @@ def port_issues(cells: set[Cell], envelope: Rect, port: dict[str, Any]) -> list[
             issues.append(f"{name}: doorway span is not on the polygon boundary at {along}")
             break
         along += PROBE_M * 2
-    issues.extend(margin_issues(cells, port, (start, low), (end, high)))
+    issues.extend(margin_issues(cells, port, (start, low), (end, high), waived))
     return issues
 
 
 def margin_issues(
-    cells: set[Cell], port: dict[str, Any], low_side: tuple[float, float], high_side: tuple[float, float]
+    cells: set[Cell],
+    port: dict[str, Any],
+    low_side: tuple[float, float],
+    high_side: tuple[float, float],
+    waived: set[str] | None = None,
 ) -> list[str]:
-    """>= 0.5 m of solid wall beside the doorway, unless the envelope side ends first."""
+    """>= 0.5 m of solid wall beside the doorway.
+
+    The envelope-corner waiver (the doorway ends where the envelope side ends) applies to
+    every port when `waived` is None (shape-room-0.1.0) and otherwise only to the listed
+    degenerate corner-doorway ports (shape-room-0.2.0).
+    """
     issues = []
+    corner_ok = waived is None or port["port_id"] in waived
     for label, edge, limit, direction in (("low", *low_side, -1), ("high", *high_side, 1)):
-        if abs(edge - limit) < WALL_MARGIN_M:
+        if corner_ok and abs(edge - limit) < WALL_MARGIN_M:
             continue
         probe = edge + direction * PROBE_M
         if not solid_at(cells, *probe_point(port, probe)):
@@ -86,6 +98,7 @@ def check_room(
     rects: list[Rect],
     cells: set[Cell],
     outline: list[tuple[float, float]],
+    waived: set[str] | None = None,
 ) -> list[str]:
     issues = [f"rectangle {r} leaves the envelope" for r in rects if not rect_inside(r, envelope)]
     if not is_connected(cells):
@@ -93,7 +106,7 @@ def check_room(
     if not is_rectilinear(outline):
         issues.append("outline is not rectilinear")
     for port in ports:
-        issues.extend(port_issues(cells, envelope, port))
+        issues.extend(port_issues(cells, envelope, port, waived))
     return issues
 
 

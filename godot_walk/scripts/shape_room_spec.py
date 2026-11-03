@@ -15,7 +15,7 @@ from shape_room_checks import (
     require_valid,
 )
 from shape_room_raster import Cell, Rect, decompose, occupied_cells, outline_of, solid_at
-from shape_room_rng import GENERATOR_VERSION, cell_rng
+from shape_room_rng import GENERATOR_VERSION_V2, cell_rng, version_for_map
 
 BOX_PROBABILITY = 0.5
 THRESHOLD_ARM_WIDTH_M = 3
@@ -46,7 +46,7 @@ def choose_construction(document: dict[str, Any], cell: dict[str, Any], coin: fl
 
 def draw(document: dict[str, Any], cell: dict[str, Any], envelope: Rect) -> dict[str, Any]:
     """Seeded choices in a fixed draw order: construction coin, arm width, ceiling height."""
-    rng = cell_rng(document["seed"], cell["cell_id"])
+    rng = cell_rng(document["seed"], cell["cell_id"], version_for_map(document))
     coin = rng.random()
     low, high = arm_width_range(envelope)
     width = rng.randint(low, high)
@@ -110,7 +110,26 @@ def feature_records(doorways: list[dict[str, Any]]) -> list[dict[str, str]]:
     return [{"feature_id": name, "kind": kind, "sign": "symbol"} for kind, name in names]
 
 
-def room_geometry(cell: dict[str, Any], envelope: Rect, choices: dict[str, Any]) -> dict[str, Any]:
+def degenerate_ports(cell: dict[str, Any]) -> list[str]:
+    """Port ids whose doorway touches an envelope corner (only in a degenerate cell)."""
+    if cell.get("mode", "standard") != "degenerate":
+        return []
+    return sorted(p["port_id"] for p in cell["required_ports"] if p.get("placement") == "degenerate")
+
+
+def mode_fields(cell: dict[str, Any]) -> dict[str, Any]:
+    """shape-room-0.2.0: the cell's mode and its recorded degenerate features."""
+    ports = degenerate_ports(cell)
+    return {
+        "mode": "degenerate" if cell.get("mode", "standard") == "degenerate" else "standard",
+        "degenerate_features": ["corner_doorway"] if ports else [],
+        "degenerate_port_ids": ports,
+    }
+
+
+def room_geometry(
+    cell: dict[str, Any], envelope: Rect, choices: dict[str, Any], waived: set[str] | None = None
+) -> dict[str, Any]:
     """Arms (or the envelope), raster, outline and decomposed rects; fails closed on any invariant."""
     ports = sorted(cell["required_ports"], key=lambda p: p["port_id"])
     if choices["construction"] == "box":
@@ -120,7 +139,7 @@ def room_geometry(cell: dict[str, Any], envelope: Rect, choices: dict[str, Any])
     cells = occupied_cells(generated)
     outline = outline_of(cells)
     rects = decompose(cells)
-    require_valid(cell["cell_id"], check_room(envelope, ports, generated, cells, outline))
+    require_valid(cell["cell_id"], check_room(envelope, ports, generated, cells, outline, waived))
     primitive_class, stage = classify_primitive(outline)
     if primitive_class not in cell["allowed_primitives"]:
         raise ShapeRoomError(f"{cell['cell_id']}: {primitive_class} is not an allowed primitive")
@@ -149,13 +168,15 @@ def build_spec(
     links: dict[str, tuple[str, str]],
 ) -> dict[str, Any]:
     envelope = cell_envelope(cell)
+    version = version_for_map(document)
+    v2 = version == GENERATOR_VERSION_V2
     choices = draw(document, cell, envelope)
-    geometry = room_geometry(cell, envelope, choices)
+    geometry = room_geometry(cell, envelope, choices, set(degenerate_ports(cell)) if v2 else None)
     doorways = doorway_records(cell, links)
     is_arms = choices["construction"] == "arms"
-    return {
+    spec = {
         "schema_version": 1,
-        "generator_version": GENERATOR_VERSION,
+        "generator_version": version,
         "map_id": document["map_id"],
         "map_sha256": map_sha256,
         "cell_id": cell["cell_id"],
@@ -181,3 +202,6 @@ def build_spec(
         "registration_accepted": False,
         "scale_calibrated": False,
     }
+    if v2:
+        spec.update(mode_fields(cell))
+    return spec

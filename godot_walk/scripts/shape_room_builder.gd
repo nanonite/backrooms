@@ -190,16 +190,26 @@ static func _add_doorway(visuals: Node3D, boundaries: Node3D, context: Dictionar
 		_add_closed_door(visuals, boundaries, context, frame, gap, port)
 
 
+## The trim lines the opening (jambs and lintel sit inside the gap) instead of
+## framing it from outside. Outside framing put the jamb's inner face in the same
+## plane as the wall's end face, and the lintel's underside in the header's plane:
+## two coplanar textured faces that z-fought (worse under PSX vertex snap) as the
+## player walked by. Lining the reveal hides the wall end and header underside
+## behind the trim, so no two visible faces share a plane. Visual only: collision
+## keeps the full 2.0 m clear width.
+## A degenerate corner doorway ends where the outline turns: the perpendicular wall of
+## the neighbouring edge then fills the first WALL_THICKNESS of the opening, so the trim
+## on that side starts at that wall's inner face. Otherwise the jamb would sit inside the
+## perpendicular wall, sharing its outer and bottom planes.
 static func _add_trim(visuals: Node3D, context: Dictionary, frame: Dictionary, gap: Dictionary, port: String) -> void:
 	var depth := WALL_THICKNESS + TRIM_PROTRUSION
 	var trim: Material = context.materials.trim
-	var low_outside: bool = gap["from"] >= TRIM_WIDTH - EPSILON
-	var high_outside: bool = gap["to"] <= frame.length - TRIM_WIDTH + EPSILON
-	var low_from: float = gap["from"] - TRIM_WIDTH if low_outside else gap["from"]
-	var high_to: float = gap["to"] + TRIM_WIDTH if high_outside else gap["to"]
-	var low := _edge_box(frame, low_from, low_from + TRIM_WIDTH, 0.0, depth, 0.0, DOOR_HEIGHT)
-	var high := _edge_box(frame, high_to - TRIM_WIDTH, high_to, 0.0, depth, 0.0, DOOR_HEIGHT)
-	var lintel := _edge_box(frame, low_from, high_to, 0.0, depth, DOOR_HEIGHT, DOOR_HEIGHT + TRIM_HEIGHT)
+	var low_from: float = gap["from"] + (WALL_THICKNESS if gap["from"] < EPSILON else 0.0)
+	var high_to: float = gap["to"] - (WALL_THICKNESS if gap["to"] > frame.length - EPSILON else 0.0)
+	var jamb_top := DOOR_HEIGHT - TRIM_HEIGHT
+	var low := _edge_box(frame, low_from, low_from + TRIM_WIDTH, 0.0, depth, 0.0, jamb_top)
+	var high := _edge_box(frame, high_to - TRIM_WIDTH, high_to, 0.0, depth, 0.0, jamb_top)
+	var lintel := _edge_box(frame, low_from, high_to, 0.0, depth, jamb_top, DOOR_HEIGHT)
 	_add_box(visuals, "TrimJambLow_" + port, low.center, low.size, trim)
 	_add_box(visuals, "TrimJambHigh_" + port, high.center, high.size, trim)
 	_add_box(visuals, "TrimLintel_" + port, lintel.center, lintel.size, trim)

@@ -27,7 +27,13 @@ from deterministic_json import (  # noqa: E402
     sha256_bytes,
     write_new,
 )
-from gmap_build import build_map  # noqa: E402
+from gmap_build import (  # noqa: E402
+    DEFAULT_DEGENERATE_MAX,
+    GENERATOR_VERSION,
+    GENERATOR_VERSION_V2,
+    VERSIONS,
+    build_map,
+)
 from gmap_fill import build_fill  # noqa: E402
 from gmap_grow import GenerationError  # noqa: E402
 from gmap_library import load_library  # noqa: E402
@@ -48,10 +54,12 @@ def generate(
     svg: bool = False,
     root: Path = ROOT,
     out_dir: Path | None = None,
+    version: str = GENERATOR_VERSION,
+    degenerate_max: int = DEFAULT_DEGENERATE_MAX,
 ) -> dict[str, Any]:
     """Generate and write map/fill(/svg); refuses to overwrite different content."""
     library = load_library(index_path, root)
-    document = build_map(seed, library, cells, stage_max)
+    document = build_map(seed, library, cells, stage_max, version, degenerate_max)
     map_bytes = canonical_bytes(document)
     fill = build_fill(document, sha256_bytes(map_bytes), library)
     target = out_dir or root / OUT_DIR
@@ -116,6 +124,11 @@ def main(argv: list[str] | None = None) -> int:
     gen.add_argument("--cells", type=int, default=12)
     gen.add_argument("--stage-max", type=int, default=1, choices=(0, 1))
     gen.add_argument("--svg", action="store_true")
+    gen.add_argument("--generator-version", choices=VERSIONS, default=GENERATOR_VERSION_V2)
+    gen.add_argument(
+        "--degenerate-max", type=int, default=DEFAULT_DEGENERATE_MAX,
+        help="gmap-0.2.0: most degenerate (corner-doorway) cells; 0 disables",
+    )
     val = commands.add_parser("validate", help="Schema plus all rule checks for a map")
     val.add_argument("map", type=Path)
     arguments = parser.parse_args(argv)
@@ -129,6 +142,8 @@ def main(argv: list[str] | None = None) -> int:
                 arguments.cells,
                 arguments.stage_max,
                 arguments.svg,
+                version=arguments.generator_version,
+                degenerate_max=arguments.degenerate_max,
             )
             print(json.dumps(result, sort_keys=True))
             return 0

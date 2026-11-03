@@ -9,6 +9,7 @@ from gmap_geometry import (
     SIDES,
     Rect,
     Vec,
+    check_port_on_contact,
     contact_port,
     far_enough,
     flush_rects,
@@ -35,6 +36,7 @@ class Port:
     port_id: str
     pos: Vec
     normal: Vec
+    placement: str = "standard"
 
 
 @dataclass
@@ -44,12 +46,15 @@ class Cell:
     ports: list[Port] = field(default_factory=list)
     role: str = "ground"
     tier: int = 0
+    mode: str = "standard"
 
 
 @dataclass
 class Draft:
     cells: dict[str, Cell] = field(default_factory=dict)
     edges: list[tuple[str, str, str]] = field(default_factory=list)  # (from_port, to_port, connector)
+    centred: bool = False  # gmap-0.2.0: ports at the exact overlap centre
+    margin: float = 1.0  # minimum port distance from an overlap end while growing/assigning
 
     def walkable(self) -> list[Cell]:
         return [cell for cell in self.cells.values() if cell.role != "void"]
@@ -82,7 +87,7 @@ def weighted_index(rng: random.Random, weights: list[int]) -> int:
 
 def connect(draft: Draft, parent: Cell, child: Cell, connector: str) -> None:
     """Add the edge and one required port on each cell at the snapped overlap centre."""
-    found = contact_port(parent.rect, child.rect)
+    found = contact_port(parent.rect, child.rect, draft.centred)
     if found is None:
         raise GenerationError(f"{parent.cell_id} and {child.cell_id} cannot share a doorway")
     pos, normal = found
@@ -101,8 +106,13 @@ def placements(
     existing = [port.pos for port in parent.ports]
     result = []
     for rect in flush_rects(parent.rect, normal, *size):
-        found = contact_port(parent.rect, rect)
-        if found and draft.free_for(rect) and far_enough(found[0], existing):
+        found = contact_port(parent.rect, rect, draft.centred)
+        if (
+            found
+            and check_port_on_contact(parent.rect, found[0], found[1], rect, draft.margin) is None
+            and draft.free_for(rect)
+            and far_enough(found[0], existing)
+        ):
             result.append(rect)
     return result
 
@@ -132,8 +142,8 @@ def grow_step(rng: random.Random, draft: Draft) -> None:
     raise GenerationError("growth stalled: no frontier cell accepts a new cell")
 
 
-def grow(rng: random.Random, cell_target: int) -> Draft:
-    draft = Draft()
+def grow(rng: random.Random, cell_target: int, centred: bool = False, margin: float = 1.0) -> Draft:
+    draft = Draft(centred=centred, margin=margin)
     width, depth = rng.choice(oriented_sizes(rng.choice(GROUND_CLASSES)))
     draft.cells["c00"] = Cell("c00", (0, 0, width, depth))
     while len(draft.cells) < cell_target:

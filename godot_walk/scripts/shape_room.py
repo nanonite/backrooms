@@ -32,7 +32,7 @@ from generative_map import display, validate_path  # noqa: E402
 from library_index import load_json  # noqa: E402
 from shape_room_checks import ShapeRoomError  # noqa: E402
 from shape_room_raster import RasterError  # noqa: E402
-from shape_room_rng import GENERATOR_VERSION  # noqa: E402
+from shape_room_rng import version_for_map  # noqa: E402
 from shape_room_spec import build_spec  # noqa: E402
 
 OUT_DIR = Path("godot_walk/room_catalog/shape_rooms")
@@ -63,7 +63,7 @@ def selected_cells(document: dict[str, Any], fill: dict[str, Any], mode: str) ->
 
 
 def index_entry(spec: dict[str, Any], data: bytes) -> dict[str, Any]:
-    return {
+    entry = {
         "cell_id": spec["cell_id"],
         "file": f"{spec['cell_id']}.json",
         "sha256": sha256_bytes(data),
@@ -72,6 +72,9 @@ def index_entry(spec: dict[str, Any], data: bytes) -> dict[str, Any]:
         "primitive_class": spec["primitive_class"],
         "construction": spec["construction"],
     }
+    if "mode" in spec:
+        entry["mode"] = spec["mode"]
+    return entry
 
 
 def derive(map_path: Path, mode: str, root: Path = ROOT) -> dict[str, bytes]:
@@ -94,7 +97,7 @@ def derive(map_path: Path, mode: str, root: Path = ROOT) -> dict[str, bytes]:
         entries.append(index_entry(spec, data))
     index = {
         "schema_version": 1,
-        "generator_version": GENERATOR_VERSION,
+        "generator_version": version_for_map(document),
         "map_id": document["map_id"],
         "map_file": {"name": map_path.name, "sha256": map_sha},
         "mode": mode,
