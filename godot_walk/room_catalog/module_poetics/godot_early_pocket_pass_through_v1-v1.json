@@ -1,0 +1,176 @@
+{
+  "catalog_snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30",
+  "deriver_version": "module-poetics-0.1.0",
+  "eligibility": {
+    "catalog_layout_eligible": null,
+    "layout_eligible_derived": false
+  },
+  "features": [
+    {
+      "citations": [],
+      "feature_id": "collision",
+      "kind": "collision",
+      "sign": "symbol"
+    },
+    {
+      "citations": [],
+      "feature_id": "socket:east",
+      "kind": "socket",
+      "sign": "symbol"
+    },
+    {
+      "citations": [],
+      "feature_id": "socket:west",
+      "kind": "socket",
+      "sign": "symbol"
+    }
+  ],
+  "layers": {
+    "collision": {
+      "collision_footprint_xz": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          0.0
+        ],
+        [
+          6.0,
+          13.8
+        ],
+        [
+          0.0,
+          13.8
+        ]
+      ],
+      "provenance": "Same procedural room collision as the accepted pocket with aligned west/east visual and collider openings."
+    },
+    "light": {
+      "note": "not derived",
+      "value": null
+    },
+    "shape": {
+      "scene": "res://scenes/issue149_pocket_pass_through.tscn"
+    },
+    "surface": {
+      "visual_assets": [
+        "godot_walk/evidence/2026-10-21-issue-148/early-pocket/generated/early_pocket_visual.glb"
+      ]
+    }
+  },
+  "library_index": {
+    "path": "godot_walk/room_catalog/library_index/godot_psx_room_kit-0.5.0.json",
+    "sha256": "147b1cb9daaa96601bcab84bf355929134f2ddbd6b6f279bc255f7ddd849f49f"
+  },
+  "metadata_status": "draft_mechanical",
+  "module_id": "godot_early_pocket_pass_through_v1",
+  "origin": "authored_kit",
+  "poetics": {
+    "apollonian": null,
+    "dionysian": null,
+    "form_role": null,
+    "poetics_status": "operator_pending",
+    "rarity_tier": null,
+    "style_tags": [],
+    "surface_salience": null,
+    "unique_details": []
+  },
+  "ports": {
+    "port_slots": [
+      {
+        "edge_index": 0,
+        "from_xz": [
+          0.0,
+          0.0
+        ],
+        "length_m": 6.0,
+        "midpoint_xz": [
+          3.0,
+          0.0
+        ],
+        "outward_normal_xz": [
+          0.0,
+          -1.0
+        ],
+        "slot_id": "edge-0",
+        "to_xz": [
+          6.0,
+          0.0
+        ]
+      },
+      {
+        "edge_index": 2,
+        "from_xz": [
+          6.0,
+          13.8
+        ],
+        "length_m": 6.0,
+        "midpoint_xz": [
+          3.0,
+          13.8
+        ],
+        "outward_normal_xz": [
+          0.0,
+          1.0
+        ],
+        "slot_id": "edge-2",
+        "to_xz": [
+          0.0,
+          13.8
+        ]
+      }
+    ],
+    "tested_sockets": [],
+    "untested_sockets": [
+      "east",
+      "west"
+    ]
+  },
+  "room_dir": null,
+  "schema_version": 1,
+  "shape": {
+    "area_m2": 82.8,
+    "aspect": 2.3,
+    "bbox_xz": {
+      "max": [
+        6.0,
+        13.8
+      ],
+      "min": [
+        0.0,
+        0.0
+      ]
+    },
+    "ceiling_height_m": 2.4,
+    "convexity": 1.0,
+    "footprint_xz": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        6.0,
+        0.0
+      ],
+      [
+        6.0,
+        13.8
+      ],
+      [
+        0.0,
+        13.8
+      ]
+    ],
+    "primitive": "box",
+    "rectilinear": true,
+    "shape_stage": 0,
+    "symmetry": "D2",
+    "vertex_count": 4
+  },
+  "source_id": null,
+  "translation_chain": [],
+  "version": 1,
+  "voids": []
+}

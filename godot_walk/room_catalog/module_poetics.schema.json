@@ -1,0 +1,248 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/module_poetics.schema.json",
+  "title": "Library module poetics sidecar (mechanical draft and operator-accepted record)",
+  "type": "object",
+  "required": [
+    "schema_version", "deriver_version", "module_id", "version", "source_id",
+    "room_dir", "library_index", "catalog_snapshot_sha256", "metadata_status",
+    "origin", "shape", "ports", "features", "voids", "layers",
+    "translation_chain", "poetics", "eligibility"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "deriver_version": { "type": "string", "minLength": 1 },
+    "module_id": { "type": "string", "minLength": 1 },
+    "version": { "type": "integer", "minimum": 1 },
+    "source_id": { "type": ["string", "null"], "pattern": "^video-[0-9a-f]{16}$" },
+    "room_dir": { "type": ["string", "null"], "minLength": 1 },
+    "library_index": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "catalog_snapshot_sha256": { "$ref": "#/$defs/sha256" },
+    "metadata_status": { "enum": ["draft_mechanical", "operator_accepted"] },
+    "origin": { "enum": ["authored_kit", "source_video"] },
+    "shape": {
+      "type": "object",
+      "required": [
+        "footprint_xz", "vertex_count", "area_m2", "bbox_xz", "aspect", "convexity",
+        "rectilinear", "primitive", "shape_stage", "symmetry", "ceiling_height_m"
+      ],
+      "properties": {
+        "footprint_xz": { "type": "array", "minItems": 3, "items": { "$ref": "#/$defs/point_xz" } },
+        "vertex_count": { "type": "integer", "minimum": 3 },
+        "area_m2": { "type": "number", "exclusiveMinimum": 0 },
+        "bbox_xz": {
+          "type": "object",
+          "required": ["min", "max"],
+          "properties": {
+            "min": { "$ref": "#/$defs/point_xz" },
+            "max": { "$ref": "#/$defs/point_xz" }
+          },
+          "additionalProperties": false
+        },
+        "aspect": { "type": "number", "minimum": 1 },
+        "convexity": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "rectilinear": { "type": "boolean" },
+        "primitive": { "enum": ["box", "l_shape", "rectilinear_polygon", "chamfered_polygon", "polygon"] },
+        "shape_stage": { "enum": [0, 1, 2, null] },
+        "symmetry": { "enum": ["C1", "D1", "C2", "D2", "C4", "D4"] },
+        "ceiling_height_m": { "type": ["number", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "ports": {
+      "type": "object",
+      "required": ["tested_sockets", "untested_sockets", "port_slots"],
+      "properties": {
+        "tested_sockets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["socket_id", "pairs"],
+            "properties": {
+              "socket_id": { "type": "string", "minLength": 1 },
+              "pairs": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": ["pair_id", "placement_scope"],
+                  "properties": {
+                    "pair_id": { "type": "string", "minLength": 1 },
+                    "placement_scope": { "enum": ["pair", "exact_pair_only"] }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "untested_sockets": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "port_slots": {
+          "description": "Proposal-only edges where an authored adapter could be added; never usable by layout.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["slot_id", "edge_index", "from_xz", "to_xz", "midpoint_xz", "length_m", "outward_normal_xz"],
+            "properties": {
+              "slot_id": { "type": "string", "minLength": 1 },
+              "edge_index": { "type": "integer", "minimum": 0 },
+              "from_xz": { "$ref": "#/$defs/point_xz" },
+              "to_xz": { "$ref": "#/$defs/point_xz" },
+              "midpoint_xz": { "$ref": "#/$defs/point_xz" },
+              "length_m": { "type": "number", "minimum": 2.4 },
+              "outward_normal_xz": { "$ref": "#/$defs/point_xz" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["feature_id", "kind", "sign", "citations"],
+        "properties": {
+          "feature_id": { "type": "string", "minLength": 1 },
+          "kind": { "enum": ["obstacle", "socket", "collision", "surface", "observed_opening"] },
+          "sign": { "enum": ["index", "icon", "symbol"] },
+          "citations": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "motivated_by_index": { "type": "boolean" },
+          "provenance_text": { "type": ["string", "null"] }
+        },
+        "additionalProperties": false,
+        "allOf": [
+          { "if": { "properties": { "kind": { "enum": ["obstacle", "socket", "collision"] } }, "required": ["kind"] }, "then": { "properties": { "sign": { "const": "symbol" } } } },
+          { "if": { "properties": { "kind": { "const": "surface" } }, "required": ["kind"] }, "then": { "properties": { "sign": { "const": "icon" } } } },
+          { "if": { "properties": { "kind": { "const": "observed_opening" } }, "required": ["kind"] }, "then": { "properties": { "sign": { "const": "index" } } } }
+        ]
+      }
+    },
+    "voids": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["void_id", "source_frame", "description", "traversable"],
+        "properties": {
+          "void_id": { "type": "string", "minLength": 1 },
+          "source_frame": { "type": ["string", "null"] },
+          "description": { "type": ["string", "null"] },
+          "traversable": { "const": false }
+        },
+        "additionalProperties": false
+      }
+    },
+    "layers": {
+      "type": "object",
+      "required": ["shape", "surface", "collision", "light"],
+      "properties": {
+        "shape": {
+          "type": "object",
+          "required": ["scene"],
+          "properties": { "scene": { "type": ["string", "null"] } },
+          "additionalProperties": false
+        },
+        "surface": {
+          "type": "object",
+          "required": ["visual_assets"],
+          "properties": { "visual_assets": { "type": "array", "items": { "type": "string" } } },
+          "additionalProperties": false
+        },
+        "collision": {
+          "type": "object",
+          "required": ["provenance", "collision_footprint_xz"],
+          "properties": {
+            "provenance": { "type": ["string", "null"] },
+            "collision_footprint_xz": {
+              "type": ["array", "null"],
+              "items": { "$ref": "#/$defs/point_xz" }
+            }
+          },
+          "additionalProperties": false
+        },
+        "light": {
+          "type": "object",
+          "required": ["value", "note"],
+          "properties": { "value": { "type": "null" }, "note": { "const": "not derived" } },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "translation_chain": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["stage", "evidence"],
+        "properties": {
+          "stage": { "enum": ["direct_frame", "hunyuan_panorama", "godot_room"] },
+          "evidence": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+        },
+        "additionalProperties": false
+      }
+    },
+    "poetics": {
+      "type": "object",
+      "required": [
+        "form_role", "rarity_tier", "apollonian", "dionysian", "style_tags",
+        "surface_salience", "unique_details", "poetics_status"
+      ],
+      "properties": {
+        "form_role": { "enum": ["ground", "figure", null] },
+        "rarity_tier": { "type": ["integer", "null"], "minimum": 0, "maximum": 3 },
+        "apollonian": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "dionysian": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "style_tags": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "surface_salience": { "type": ["string", "null"] },
+        "unique_details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["description", "source_frame"],
+            "properties": {
+              "description": { "type": "string", "minLength": 1 },
+              "source_frame": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          }
+        },
+        "poetics_status": { "enum": ["operator_pending", "model_proposed", "operator_accepted"] }
+      },
+      "additionalProperties": false
+    },
+    "eligibility": {
+      "type": "object",
+      "required": ["layout_eligible_derived", "catalog_layout_eligible"],
+      "properties": {
+        "layout_eligible_derived": { "type": "boolean" },
+        "catalog_layout_eligible": { "type": ["boolean", "null"] }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": { "properties": { "origin": { "const": "authored_kit" } }, "required": ["origin"] },
+      "then": { "properties": { "translation_chain": { "maxItems": 0 } } }
+    },
+    {
+      "if": { "properties": { "metadata_status": { "const": "draft_mechanical" } }, "required": ["metadata_status"] },
+      "then": { "properties": { "eligibility": { "properties": { "layout_eligible_derived": { "const": false } } } } }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "point_xz": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 }
+  }
+}

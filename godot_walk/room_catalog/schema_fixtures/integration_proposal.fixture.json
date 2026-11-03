@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "proposal_id": "fixture-proposal-0001",
+  "source_id": "video-0000000000000000",
+  "module": { "module_id": "fixture_standalone_room_v1", "version": 1 },
+  "targets": [
+    { "module_id": "fixture_hall_south_socket_v1", "version": 1 }
+  ],
+  "catalog_snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30",
+  "library_index_sha256": "147b1cb9daaa96601bcab84bf355929134f2ddbd6b6f279bc255f7ddd849f49f",
+  "map_id": "gmap-1234-gmap-0.1.0",
+  "cell_id": "c08",
+  "placement": { "position_xz": [12.0, 0.0], "yaw_deg": 90 },
+  "sockets_used": [],
+  "adapter_required": {
+    "description": "Authored header and collider adapter on the east edge; no source opening is implied.",
+    "port_slot_ids": ["edge-1"]
+  },
+  "work_required": {
+    "clearance": ["Verify 1.2 m approach clearance on both sides of the new doorway."],
+    "collision": ["Add matching authored collider returns around the adapter opening."],
+    "junction": ["Check floor elevation match at the shared threshold."]
+  },
+  "rationale": "Fixture only: demonstrates the record shape for a proposed adapter.",
+  "assumptions": ["Design units are uncalibrated."],
+  "unknowns": ["Where the source video room continues is not observed."],
+  "evidence": ["godot_walk/room_catalog/library_index/godot_psx_room_kit-0.5.0.json"],
+  "confidence": 0.4,
+  "outcome": "propose",
+  "fit_result": {
+    "footprint_fits": true,
+    "ports_covered": false,
+    "notes": "Footprint fits the cell envelope; one required port needs an authored adapter."
+  }
+}

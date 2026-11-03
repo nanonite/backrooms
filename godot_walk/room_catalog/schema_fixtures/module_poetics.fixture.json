@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "deriver_version": "module-poetics-0.1.0",
+  "module_id": "fixture_l_room_v1",
+  "version": 1,
+  "source_id": "video-0000000000000000",
+  "room_dir": "godot_walk/source_library/sources/video-0000000000000000/rooms/fixture-l-room-v1",
+  "library_index": {
+    "path": "godot_walk/room_catalog/library_index/godot_psx_room_kit-0.5.0.json",
+    "sha256": "147b1cb9daaa96601bcab84bf355929134f2ddbd6b6f279bc255f7ddd849f49f"
+  },
+  "catalog_snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30",
+  "metadata_status": "operator_accepted",
+  "origin": "source_video",
+  "shape": {
+    "footprint_xz": [[0, 0], [8, 0], [8, 4], [4, 4], [4, 8], [0, 8]],
+    "vertex_count": 6,
+    "area_m2": 48.0,
+    "bbox_xz": { "min": [0, 0], "max": [8, 8] },
+    "aspect": 1.0,
+    "convexity": 0.75,
+    "rectilinear": true,
+    "primitive": "l_shape",
+    "shape_stage": 1,
+    "symmetry": "C1",
+    "ceiling_height_m": 3.0
+  },
+  "ports": {
+    "tested_sockets": [
+      { "socket_id": "west", "pairs": [{ "pair_id": "fixture_pair_v1", "placement_scope": "pair" }] }
+    ],
+    "untested_sockets": [],
+    "port_slots": [
+      {
+        "slot_id": "edge-0",
+        "edge_index": 0,
+        "from_xz": [0, 0],
+        "to_xz": [8, 0],
+        "midpoint_xz": [4, 0],
+        "length_m": 8.0,
+        "outward_normal_xz": [0, -1]
+      }
+    ]
+  },
+  "features": [
+    {
+      "feature_id": "obstacle:pillar",
+      "kind": "obstacle",
+      "sign": "symbol",
+      "citations": ["godot_walk/source_library/sources/video-0000000000000000/frames/seed/frame_0001.png"],
+      "motivated_by_index": true,
+      "provenance_text": "Authored from godot_walk/source_library/sources/video-0000000000000000/frames/seed/frame_0001.png"
+    },
+    {
+      "feature_id": "observed_opening:far_gap",
+      "kind": "observed_opening",
+      "sign": "index",
+      "citations": ["godot_walk/source_library/sources/video-0000000000000000/frames/seed/frame_0001.png"]
+    },
+    {
+      "feature_id": "socket:west",
+      "kind": "socket",
+      "sign": "symbol",
+      "citations": []
+    },
+    {
+      "feature_id": "surface:godot_walk/source_library/sources/video-0000000000000000/rooms/fixture-l-room-v1/textures/wall.png",
+      "kind": "surface",
+      "sign": "icon",
+      "citations": ["godot_walk/source_library/sources/video-0000000000000000/rooms/fixture-l-room-v1/textures/wall.png"]
+    }
+  ],
+  "voids": [
+    {
+      "void_id": "far_gap",
+      "source_frame": "godot_walk/source_library/sources/video-0000000000000000/frames/seed/frame_0001.png",
+      "description": "Dark gap near the far edge; destination unknown.",
+      "traversable": false
+    }
+  ],
+  "layers": {
+    "shape": { "scene": "res://source_library/sources/video-0000000000000000/rooms/fixture-l-room-v1/room.tscn" },
+    "surface": { "visual_assets": ["godot_walk/source_library/sources/video-0000000000000000/rooms/fixture-l-room-v1/textures/wall.png"] },
+    "collision": {
+      "provenance": "Authored floor and walls.",
+      "collision_footprint_xz": [[0, 0], [8, 0], [8, 4], [4, 4], [4, 8], [0, 8]]
+    },
+    "light": { "value": null, "note": "not derived" }
+  },
+  "translation_chain": [
+    { "stage": "direct_frame", "evidence": ["godot_walk/source_library/sources/video-0000000000000000/frames/seed/frame_0001.png"] },
+    { "stage": "godot_room", "evidence": ["res://source_library/sources/video-0000000000000000/rooms/fixture-l-room-v1/room.tscn"] }
+  ],
+  "poetics": {
+    "form_role": "figure",
+    "rarity_tier": 2,
+    "apollonian": 0.3,
+    "dionysian": 0.7,
+    "style_tags": ["concrete", "industrial"],
+    "surface_salience": "window band",
+    "unique_details": [
+      {
+        "description": "Offset window band.",
+        "source_frame": "godot_walk/source_library/sources/video-0000000000000000/frames/seed/frame_0001.png"
+      }
+    ],
+    "poetics_status": "operator_accepted"
+  },
+  "eligibility": {
+    "layout_eligible_derived": true,
+    "catalog_layout_eligible": null
+  }
+}

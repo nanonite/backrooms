@@ -1,0 +1,447 @@
+{
+  "catalog_id": "godot_psx_room_kit",
+  "catalog_version": "0.5.0",
+  "connector_pairs": [
+    {
+      "evidence": [
+        "godot_walk/evidence/2026-10-22-issue-160/REPORT.md",
+        "godot_walk/evidence/2026-10-22-issue-160/mechanics/assembly/physics_candidate.json",
+        "godot_walk/evidence/2026-10-22-issue-160/room_readiness.json"
+      ],
+      "from": [
+        "godot_later_bay_column_bounded_v1",
+        "east"
+      ],
+      "id": "column_east__pocket_west_v1",
+      "location": "/tested_connector_pairs/0",
+      "placement_scope": "pair",
+      "scope": "This pair only; does not approve arbitrary placements or new openings.",
+      "status": "operator_accepted_first_pass_pair",
+      "to": [
+        "godot_early_pocket_single_west_v1",
+        "west"
+      ]
+    },
+    {
+      "evidence": [
+        "godot_walk/evidence/2026-11-02-issue-168-two-room/REPORT.md",
+        "godot_walk/evidence/2026-11-02-issue-168-two-room/captures-v3/capture_manifest.json",
+        "godot_walk/evidence/2026-11-02-issue-168-two-room/mechanics/traversal.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/adaptation_accepted_v1.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/operator_review.json"
+      ],
+      "from": [
+        "godot_gopro_industrial_hall_south_socket_v1",
+        "south"
+      ],
+      "id": "issue168_industrial_hall_south__debris_rock_north_v1",
+      "location": "/source_video_adaptations/0/tested_connector_pair",
+      "placement_scope": "exact_pair_only",
+      "scope": "This exact placement and socket pair only. It does not establish source-video connectivity, arbitrary placement, or general socket interchangeability.",
+      "status": "operator_accepted_exact_pair",
+      "to": [
+        "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+        "north"
+      ]
+    }
+  ],
+  "index_generator_version": "library-index-0.1.0",
+  "modules": [
+    {
+      "adaptation_reference": null,
+      "catalog_layout_eligible": null,
+      "integration_scope": null,
+      "kind": "authored_room_variant",
+      "location": "/modules/2",
+      "module_id": "godot_early_pocket_pass_through_v1",
+      "room_dir": null,
+      "scene": "res://scenes/issue149_pocket_pass_through.tscn",
+      "sockets": [
+        {
+          "approach_clearance_m": 1.2,
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "closure_behavior": "Opened; must connect to exactly one opposing level doorway.",
+          "compatibility_type": "level_doorway_2m_v1",
+          "floor_elevation_m": -1.27099049,
+          "id": "east",
+          "local_floor_center": [
+            6.0,
+            -1.27099049,
+            6.9
+          ],
+          "outward_normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "approach_clearance_m": 1.2,
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "closure_behavior": "Opened; must connect to exactly one opposing level doorway.",
+          "compatibility_type": "level_doorway_2m_v1",
+          "floor_elevation_m": -1.27099049,
+          "id": "west",
+          "local_floor_center": [
+            0.0,
+            -1.27099049,
+            6.9
+          ],
+          "outward_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "source_id": null,
+      "variant_status": "provisional_operator_review_pending",
+      "version": 1
+    },
+    {
+      "adaptation_reference": null,
+      "catalog_layout_eligible": null,
+      "integration_scope": null,
+      "kind": "authored_room",
+      "location": "/modules/1",
+      "module_id": "godot_early_pocket_single_west_v1",
+      "room_dir": null,
+      "scene": "res://scenes/issue160_pocket_connector.tscn",
+      "sockets": [
+        {
+          "approach_clearance_m": 1.2,
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "closure_behavior": "Closed visual wall and collider unless explicitly opened by this scene variant.",
+          "compatibility_type": "level_doorway_2m_v1",
+          "floor_elevation_m": -1.27099049,
+          "id": "west",
+          "local_floor_center": [
+            0.0,
+            -1.27099049,
+            6.9
+          ],
+          "outward_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "source_id": null,
+      "variant_status": "operator_accepted_as_part_of_issue160_pair_only",
+      "version": 1
+    },
+    {
+      "adaptation_reference": null,
+      "catalog_layout_eligible": null,
+      "integration_scope": null,
+      "kind": "authored_room_variant",
+      "location": "/modules/3",
+      "module_id": "godot_early_pocket_three_way_v1",
+      "room_dir": null,
+      "scene": "res://scenes/issue149_pocket_three_way.tscn",
+      "sockets": [
+        {
+          "approach_clearance_m": 1.2,
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "closure_behavior": "Opened; must connect to exactly one opposing level doorway.",
+          "compatibility_type": "level_doorway_2m_v1",
+          "floor_elevation_m": -1.27099049,
+          "id": "east",
+          "local_floor_center": [
+            6.0,
+            -1.27099049,
+            6.9
+          ],
+          "outward_normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "approach_clearance_m": 1.2,
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "closure_behavior": "Opened; must connect to exactly one opposing level doorway.",
+          "compatibility_type": "level_doorway_2m_v1",
+          "floor_elevation_m": -1.27099049,
+          "id": "north",
+          "local_floor_center": [
+            3.0,
+            -1.27099049,
+            13.8
+          ],
+          "outward_normal": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "approach_clearance_m": 1.2,
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "closure_behavior": "Opened; must connect to exactly one opposing level doorway.",
+          "compatibility_type": "level_doorway_2m_v1",
+          "floor_elevation_m": -1.27099049,
+          "id": "west",
+          "local_floor_center": [
+            0.0,
+            -1.27099049,
+            6.9
+          ],
+          "outward_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "source_id": null,
+      "variant_status": "provisional_operator_review_pending",
+      "version": 1
+    },
+    {
+      "adaptation_reference": null,
+      "catalog_layout_eligible": false,
+      "integration_scope": null,
+      "kind": "authored_bounded_room",
+      "location": "/modules/6",
+      "module_id": "godot_gopro_industrial_hall_frame1097_v1",
+      "room_dir": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3",
+      "scene": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.tscn",
+      "sockets": [],
+      "source_id": "video-ccf9722164a0bdc8",
+      "variant_status": "operator_accepted_standalone_room",
+      "version": 1
+    },
+    {
+      "adaptation_reference": null,
+      "catalog_layout_eligible": false,
+      "integration_scope": null,
+      "kind": "authored_room_variant",
+      "location": "/source_video_adaptations/0/rooms/1",
+      "module_id": "godot_gopro_industrial_hall_south_socket_v1",
+      "room_dir": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket",
+      "scene": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/room.tscn",
+      "sockets": [
+        {
+          "approach_clearance_m": 1.2,
+          "clear_size_m": [
+            2.4,
+            2.2
+          ],
+          "closure_behavior": "Standalone adapter restores the south wall and matching collider; open only in the exact accepted issue168 assembly.",
+          "compatibility_type": "authored_direct_doorway_2.4x2.2_v1",
+          "floor_elevation_m": 0.0,
+          "id": "south",
+          "local_floor_center": [
+            0.0,
+            0.0,
+            6.5
+          ],
+          "outward_normal": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "source_id": "video-ccf9722164a0bdc8",
+      "variant_status": "operator_accepted_as_part_of_issue168_pair_only",
+      "version": 1
+    },
+    {
+      "adaptation_reference": null,
+      "catalog_layout_eligible": null,
+      "integration_scope": null,
+      "kind": "authored_bounded_room",
+      "location": "/modules/0",
+      "module_id": "godot_later_bay_column_bounded_v1",
+      "room_dir": null,
+      "scene": "res://scenes/issue160_column_connector.tscn",
+      "sockets": [
+        {
+          "approach_clearance_m": 1.2,
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "closure_behavior": "Closed visual wall and collider in standalone room; open only in connector scene variant.",
+          "compatibility_type": "level_doorway_2m_v1",
+          "floor_elevation_m": -1.27099049,
+          "id": "east",
+          "local_floor_center": [
+            3.5,
+            -1.27099049,
+            3.1
+          ],
+          "outward_normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "source_id": null,
+      "variant_status": "operator_accepted_as_part_of_issue160_pair_only",
+      "version": 1
+    },
+    {
+      "adaptation_reference": null,
+      "catalog_layout_eligible": null,
+      "integration_scope": null,
+      "kind": "authored_room_variant",
+      "location": "/modules/5",
+      "module_id": "godot_source_textured_large_room_hall_end_v1",
+      "room_dir": null,
+      "scene": "res://scenes/issue164_room_large_connector.tscn",
+      "sockets": [
+        {
+          "approach_clearance_m": 1.2,
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "closure_behavior": "Open in this provisional adapter only; clear visual opening and collider share a 2.0 x 2.1 design-unit aperture.",
+          "compatibility_type": "level_doorway_2m_v1",
+          "floor_elevation_m": -1.27099049,
+          "id": "hall_end",
+          "local_floor_center": [
+            13.06,
+            -1.27099049,
+            0.0
+          ],
+          "outward_normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "source_id": null,
+      "variant_status": "provisional_operator_review_pending",
+      "version": 1
+    },
+    {
+      "adaptation_reference": null,
+      "catalog_layout_eligible": null,
+      "integration_scope": null,
+      "kind": "authored_bounded_room",
+      "location": "/modules/4",
+      "module_id": "godot_source_textured_large_room_v1",
+      "room_dir": null,
+      "scene": "res://scenes/issue164_room_large_baseline.tscn",
+      "sockets": [
+        {
+          "approach_clearance_m": 1.2,
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "closure_behavior": "Potential authored socket only; the accepted baseline wall and collider remain closed.",
+          "compatibility_type": "level_doorway_2m_v1",
+          "floor_elevation_m": 0.0,
+          "id": "hall_end",
+          "local_floor_center": [
+            13.06,
+            0.0,
+            0.0
+          ],
+          "outward_normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "source_id": null,
+      "variant_status": "operator_accepted_as_authored_room_baseline",
+      "version": 1
+    },
+    {
+      "adaptation_reference": "/source_video_adaptations/1/rooms/0",
+      "catalog_layout_eligible": false,
+      "integration_scope": "Standalone module only. Integration proposals must describe authored design options; video appearance does not establish a source opening or connection.",
+      "kind": "authored_bounded_room",
+      "location": "/modules/7",
+      "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+      "room_dir": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1",
+      "scene": "res://source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.tscn",
+      "sockets": [],
+      "source_id": "video-b9161c467ed2d30a",
+      "variant_status": "operator_accepted_standalone_room_cataloged",
+      "version": 1
+    },
+    {
+      "adaptation_reference": null,
+      "catalog_layout_eligible": false,
+      "integration_scope": null,
+      "kind": "authored_room_variant",
+      "location": "/source_video_adaptations/0/rooms/2",
+      "module_id": "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+      "room_dir": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket",
+      "scene": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/room.tscn",
+      "sockets": [
+        {
+          "approach_clearance_m": 1.2,
+          "clear_size_m": [
+            2.4,
+            2.2
+          ],
+          "closure_behavior": "Standalone adapter restores the north wall and matching collider; open only in the exact accepted issue168 assembly.",
+          "compatibility_type": "authored_direct_doorway_2.4x2.2_v1",
+          "floor_elevation_m": 0.0,
+          "id": "north",
+          "local_floor_center": [
+            0.0,
+            0.0,
+            -5.0
+          ],
+          "outward_normal": [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        }
+      ],
+      "source_id": "video-ccf9722164a0bdc8",
+      "variant_status": "operator_accepted_as_part_of_issue168_pair_only",
+      "version": 1
+    },
+    {
+      "adaptation_reference": null,
+      "catalog_layout_eligible": false,
+      "integration_scope": null,
+      "kind": "authored_bounded_room",
+      "location": "/source_video_adaptations/0/rooms/0",
+      "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+      "room_dir": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1",
+      "scene": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.tscn",
+      "sockets": [],
+      "source_id": "video-ccf9722164a0bdc8",
+      "variant_status": "operator_accepted_standalone_room_cataloged_for_issue168_pair",
+      "version": 1
+    }
+  ],
+  "schema_version": 1,
+  "snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.5.0.json",
+  "snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30"
+}
