@@ -592,3 +592,17 @@ def test_doorway_table_is_the_same_in_python_and_gdscript():
     assert re.search(r'const DEFAULT_TYPE := "([^"]+)"', text).group(1) == DEFAULT_TYPE
     builder = (ROOT / "godot_walk/scripts/shape_room_builder.gd").read_text(encoding="utf-8")
     assert "DOOR_HEIGHT" not in builder and "doorway_sizes.gd" in builder
+
+
+def test_module_joint_recess_is_wired_and_guarded_by_a_failing_check():
+    """#189: the parent doorway is cut larger than the library opening, and the headless
+    test fails on any coplanar reveal face and keeps a control that rebuilds the old geometry."""
+    scripts = ROOT / "godot_walk/scripts"
+    builder = (scripts / "shape_room_builder.gd").read_text(encoding="utf-8")
+    assembly = (scripts / "generative_map_assembly.gd").read_text(encoding="utf-8")
+    checks = (scripts / "issue188_module_checks.gd").read_text(encoding="utf-8")
+    test = (scripts / "test_issue183_shape_rooms.gd").read_text(encoding="utf-8")
+    assert re.search(r"const MODULE_JOINT_RECESS := 0\.0[1-9]", builder)
+    assert "module_joints" in builder and "_module_joints(" in assembly and "recess_joints" in assembly
+    assert "shares face plane" in checks
+    assert "module_joint_recess_removed" in test and "recess_joints" in test

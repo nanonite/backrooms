@@ -9,8 +9,10 @@ extends RefCounted
 ##  - a parent shape-room wall never shares its wall plane (the plane across the joint), with the
 ##    same facing, with a library-room box: the 2 cm landing clearance exists to prevent exactly
 ##    that, and a control that undoes the clearance must be detected. Coplanar faces on the
-##    other axes are the small reveal / lintel faces where the two rooms' openings meet; they
-##    are counted and reported for human visual verification, not failed.
+##    other axes are the reveal / lintel faces where the two rooms' openings meet (#189): the
+##    parent doorway is cut MODULE_JOINT_RECESS larger than the library opening, so there must
+##    be none (`reveal_coplanar_faces` is 0), and a control that rebuilds the old geometry must
+##    be detected.
 ## Edge traversal both ways is covered by Issue183MapChecks, which treats module cells as rooms.
 
 const PROBE := preload("res://scripts/shape_room_probe.gd")
@@ -43,6 +45,12 @@ static func check(space: PhysicsDirectSpaceState3D, assembly: Node3D) -> Diction
 	for conflict: Dictionary in wall_plane:
 		result.failures.append("Module box %s shares wall plane %.3f (axis %d) with room box %s" % [
 			conflict.trim, conflict.plane, conflict.axis, conflict.other])
+	# #189: the reveal and lintel faces where the two openings meet must not share a plane
+	# either; the parent doorway is cut larger than the library's (MODULE_JOINT_RECESS).
+	for conflict: Dictionary in coplanar:
+		if not wall_plane.has(conflict):
+			result.failures.append("Module box %s shares face plane %.3f (axis %d, sign %d) with room box %s" % [
+				conflict.trim, conflict.plane, conflict.axis, conflict.sign, conflict.other])
 	# Control: without the clearance (module pushed back onto the parent wall) the same check must fire.
 	var control := wall_plane_conflicts(assembly, joint_coplanar(assembly, CLEARANCE_M))
 	# Informational: a room whose wall straddles its footprint edge (the column) has nothing to

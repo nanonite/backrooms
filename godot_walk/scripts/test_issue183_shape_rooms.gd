@@ -95,10 +95,11 @@ func _check_margins(cell_id: String, spec: Dictionary) -> void:
 		_expect(spec.degenerate_features == (["corner_doorway"] if not corner.is_empty() else []), "%s: degenerate_features mismatch" % cell_id)
 
 
-func _build(map_data: Dictionary, room_specs: Dictionary, open_modules: bool = true) -> Node3D:
+func _build(map_data: Dictionary, room_specs: Dictionary, open_modules: bool = true, recess_joints: bool = true) -> Node3D:
 	var assembly := ASSEMBLY.new()
 	assembly.auto_start = false
 	assembly.open_modules = open_modules
+	assembly.recess_joints = recess_joints
 	root.add_child(assembly)
 	assembly.assemble(map_data, room_specs)
 	await physics_frame
@@ -141,6 +142,7 @@ func _run_negative_controls() -> Dictionary:
 	controls["doorway_removed"] = await _control_doorway_removed()
 	controls["floor_rect_removed"] = await _control_floor_removed()
 	controls["module_socket_closed"] = await _control_module_closed()
+	controls["module_joint_recess_removed"] = await _control_joint_recess_removed()
 	for name: String in controls:
 		_expect(not controls[name].applicable or controls[name].failed_as_expected, "Negative control %s did not fail" % name)
 	return controls
@@ -185,6 +187,19 @@ func _control_module_closed() -> Dictionary:
 	return {"applicable": true, "module_cell": joint, "failed_as_expected": not blocked.is_empty() and not modules.failures.is_empty(),
 		"edge_failures": edges.failures.size(), "module_check_failures": modules.failures.size(),
 		"first_failure": blocked[0] if not blocked.is_empty() else ""}
+
+
+## The pre-#189 parent doorway (cut exactly as large as the library opening): the reveal
+## and lintel faces of the two rooms share planes and the module check must report them.
+func _control_joint_recess_removed() -> Dictionary:
+	if not map.cells.any(func(cell: Dictionary) -> bool: return cell.has("module")):
+		return {"applicable": false, "failed_as_expected": false, "reason": "this map places no library module"}
+	var assembly := await _build(map, specs, true, false)
+	var space := assembly.get_world_3d().direct_space_state
+	var modules := MODULE_CHECKS.check(space, assembly)
+	await _release(assembly)
+	return {"applicable": true, "failed_as_expected": modules.reveal_coplanar_faces > 0 and not modules.failures.is_empty(),
+		"reveal_coplanar_faces": modules.reveal_coplanar_faces, "module_check_failures": modules.failures.size()}
 
 
 func _control_floor_removed() -> Dictionary:

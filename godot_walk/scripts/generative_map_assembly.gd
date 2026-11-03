@@ -37,6 +37,8 @@ var module_rooms: Dictionary = {}
 var module_info: Dictionary = {}
 ## False in the unopened-socket negative control.
 var open_modules := true
+## False only in the negative control that rebuilds the pre-#189 joint geometry.
+var recess_joints := true
 var materials: Dictionary = {}
 var player: CharacterBody3D
 var spawn_position := Vector3.ZERO
@@ -98,7 +100,8 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 	for cell: Dictionary in map.cells:
 		var cell_id := String(cell.cell_id)
 		if specs.has(cell_id):
-			rooms[cell_id] = BUILDER.build(self, specs[cell_id], materials, _forced_closed(specs[cell_id]))
+			rooms[cell_id] = BUILDER.build(self, specs[cell_id], materials, _forced_closed(specs[cell_id]),
+				_module_joints(specs[cell_id]))
 	_add_safety_net()
 	origin_cell = String(map.cells[0].cell_id)
 	if not specs.has(origin_cell):
@@ -178,6 +181,19 @@ func _strip_world_environments(room: Node3D) -> void:
 	for node in room.find_children("*", "WorldEnvironment", true, false):
 		node.get_parent().remove_child(node)
 		node.free()
+
+
+## Open doorways that lead into a placed library room (#189). The parent side is cut larger
+## than the library's own opening so none of their faces share a plane. `recess_joints` is
+## false only in the negative control that rebuilds the old geometry.
+func _module_joints(spec: Dictionary) -> PackedStringArray:
+	var joints := PackedStringArray()
+	if not recess_joints:
+		return joints
+	for doorway: Dictionary in spec.doorways:
+		if String(doorway.kind) == "open" and module_rooms.has(String(doorway.to_cell_id)):
+			joints.append(String(doorway.port_id))
+	return joints
 
 
 ## Open doorways whose neighbour has no room (a partial index) are built closed.

@@ -16,18 +16,23 @@ const PANEL_THICKNESS := 0.03
 const SEAM_REACH := 0.1
 const LAMP_SIZE := Vector3(0.9, 0.03, 0.42)
 const EPSILON := 0.001
+## A doorway that opens onto a library room (#189) is cut this much wider on each side and
+## higher than the library's own opening, so the wall ends and header underside stay out of
+## the planes of the library's matching faces.
+const MODULE_JOINT_RECESS := 0.04
 const FLOOR_VISUAL_THICKNESS := 0.05
 const FLOOR_COLLIDER_THICKNESS := 0.12
 
 
 static func build(parent: Node3D, spec: Dictionary, materials: Dictionary,
-		forced_closed: PackedStringArray = PackedStringArray()) -> Node3D:
+		forced_closed: PackedStringArray = PackedStringArray(),
+		module_joints: PackedStringArray = PackedStringArray()) -> Node3D:
 	var room := Node3D.new()
 	room.name = String(spec.cell_id)
 	parent.add_child(room)
 	var visuals := _group(room, "AuthoredVisuals")
 	var boundaries := _group(room, "AuthoredBoundaries")
-	var context := _context(spec, materials, forced_closed)
+	var context := _context(spec, materials, forced_closed, module_joints)
 	_add_floor(visuals, boundaries, context)
 	_add_ceiling(visuals, context)
 	_add_walls(visuals, boundaries, context)
@@ -49,13 +54,15 @@ static func ring_of(spec: Dictionary) -> Array[Vector2]:
 	return ring
 
 
-static func _context(spec: Dictionary, materials: Dictionary, forced_closed: PackedStringArray) -> Dictionary:
+static func _context(spec: Dictionary, materials: Dictionary, forced_closed: PackedStringArray,
+		module_joints: PackedStringArray) -> Dictionary:
 	var doorways: Array[Dictionary] = []
 	for source: Dictionary in spec.doorways:
 		var doorway := source.duplicate()
 		var size := DOORWAYS.size_of(source)
 		doorway["door_width"] = size.x
 		doorway["door_height"] = size.y
+		doorway["recess"] = MODULE_JOINT_RECESS if module_joints.has(String(source.port_id)) else 0.0
 		doorway["effective_kind"] = "closed_visible" if (
 			String(source.kind) != "open" or forced_closed.has(String(source.port_id))) else "open"
 		doorways.append(doorway)
@@ -154,9 +161,10 @@ static func _edge_gaps(frame: Dictionary, doorways: Array[Dictionary]) -> Array[
 		var along := offset.dot(direction)
 		var on_line := absf(offset.dot(inward)) < EPSILON
 		var faces_out := normal.distance_to(-inward) < EPSILON
-		var half: float = float(doorway.door_width) / 2.0
+		var half: float = float(doorway.door_width) / 2.0 + float(doorway.recess)
 		if on_line and faces_out and along - half > -EPSILON and along + half < length + EPSILON:
-			gaps.append({"doorway": doorway, "from": along - half, "to": along + half})
+			gaps.append({"doorway": doorway, "from": along - half, "to": along + half,
+				"height": float(doorway.door_height) + float(doorway.recess)})
 	gaps.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["from"] < b["from"])
 	return gaps
 
@@ -186,7 +194,7 @@ static func _add_doorway(visuals: Node3D, boundaries: Node3D, context: Dictionar
 		frame: Dictionary, gap: Dictionary) -> void:
 	var doorway: Dictionary = gap.doorway
 	var port := String(doorway.port_id)
-	var door_height: float = doorway.door_height
+	var door_height: float = gap.height
 	var header := _edge_box(frame, gap["from"], gap["to"], 0.0, WALL_THICKNESS, door_height, context.height)
 	var material := MATERIALS.scaled(context.materials, "wallpaper", header.size_along, context.height - door_height)
 	_add_box(visuals, "Header_" + port + "Visual", header.center, header.size, material)
@@ -208,7 +216,7 @@ static func _add_doorway(visuals: Node3D, boundaries: Node3D, context: Dictionar
 ## on that side starts at that wall's inner face. Otherwise the jamb would sit inside the
 ## perpendicular wall, sharing its outer and bottom planes.
 static func _add_trim(visuals: Node3D, context: Dictionary, frame: Dictionary, gap: Dictionary, port: String) -> void:
-	var door_height: float = gap.doorway.door_height
+	var door_height: float = gap.height
 	var depth := WALL_THICKNESS + TRIM_PROTRUSION
 	var trim: Material = context.materials.trim
 	var low_from: float = gap["from"] + (WALL_THICKNESS if gap["from"] < EPSILON else 0.0)
@@ -224,7 +232,7 @@ static func _add_trim(visuals: Node3D, context: Dictionary, frame: Dictionary, g
 
 static func _add_closed_door(visuals: Node3D, boundaries: Node3D, context: Dictionary,
 		frame: Dictionary, gap: Dictionary, port: String) -> void:
-	var door_height: float = gap.doorway.door_height
+	var door_height: float = gap.height
 	var panel := _edge_box(frame, gap["from"], gap["to"], PANEL_DEPTH, PANEL_DEPTH + PANEL_THICKNESS, 0.0, door_height)
 	_add_box(visuals, "ClosedDoorPanel_" + port + "Visual", panel.center, panel.size, context.materials.dark)
 	var blocker := _edge_box(frame, gap["from"], gap["to"], 0.0, WALL_THICKNESS, 0.0, door_height)
