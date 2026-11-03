@@ -39,13 +39,13 @@ def cell_svg(cell: dict[str, Any], rect: Rect, ox: float, oz: float) -> list[str
     if palette and palette["anchor_module_id"] is not None:
         fill = PALETTE_FILLS.get(palette["palette_id"], "#c39bd3")
         label += f" {palette['palette_id']} d{palette['distance']}"
-    lines = [
-        (
-            f'<rect x="{x}" y="{z}" width="{width}" height="{height}" '
-            f'fill="{fill}" stroke="{stroke}" stroke-width="2"{dash}/>'
-        ),
-        f'<text x="{x + 4}" y="{z + 14}" font-family="monospace" font-size="11">{label}</text>',
-    ]
+    passage = cell.get("diagonal_passage")
+    if passage:
+        points = " ".join(f"{px(p[0], ox)},{px(p[1], oz)}" for p in passage["outline_xz"])
+        shape = f'<polygon points="{points}" fill="{fill}" stroke="#21618c" stroke-width="2"/>'
+    else:
+        shape = f'<rect x="{x}" y="{z}" width="{width}" height="{height}" fill="{fill}" stroke="{stroke}" stroke-width="2"{dash}/>'
+    lines = [shape, f'<text x="{x + 4}" y="{z + 14}" font-family="monospace" font-size="11">{label}</text>']
     if module:
         name = module["module_id"].replace("&", "&amp;").replace("<", "&lt;")
         lines.append(f'<text x="{x + 4}" y="{z + 27}" font-family="monospace" font-size="9">{name} r{module["rotation_deg"]}</text>')

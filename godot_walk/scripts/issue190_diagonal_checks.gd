@@ -15,6 +15,7 @@ const PROBE := preload("res://scripts/shape_room_probe.gd")
 const BUILDER := preload("res://scripts/shape_room_builder.gd")
 const DIAGONAL := preload("res://scripts/shape_room_diagonal.gd")
 const PUSH_FRACTIONS := [0.3, 0.5, 0.7]
+const LINK_PUSH_FRACTIONS := [0.1, 0.3, 0.5, 0.7, 0.9]
 const PUSH_START_M := 1.0
 const PUSH_TRAVEL_M := 1.6
 const STOPPED_DEPTH_M := 0.40  # a stopped capsule centre stays at least this far inside the outline
@@ -37,7 +38,7 @@ static func check(assembly: Node3D, with_floor: bool = true) -> Dictionary:
 		_push(assembly, cell_id, ring, result)
 		if with_floor:
 			_floor(assembly, cell_id, ring, spec, result)
-		_joints(assembly.rooms[cell_id], cell_id, ring, result)
+		_joints(assembly.rooms[cell_id], cell_id, ring, spec, result)
 	for conflict: String in coplanar(assembly):
 		result.coplanar_faces += 1
 		result.failures.append("Diagonal wall face is coplanar: " + conflict)
@@ -93,8 +94,11 @@ static func _push(assembly: Node3D, cell_id: String, ring: Array[Vector2], resul
 		result.diagonal_edges += 1
 		var inward := Vector2(-direction.y, direction.x)
 		var length := start.distance_to(ring[(index + 1) % ring.size()])
-		for fraction: float in PUSH_FRACTIONS:
+		var fractions: Array = LINK_PUSH_FRACTIONS if _has_diagonal_doorway(assembly.specs[cell_id]) else PUSH_FRACTIONS
+		for fraction: float in fractions:
 			var on_wall := start + direction * (length * fraction)
+			if _has_diagonal_doorway(assembly.specs[cell_id]) and _near_doorway(on_wall, direction, assembly.specs[cell_id]):
+				continue  # an opening is not a solid wall to push against.
 			var from := on_wall + inward * PUSH_START_M
 			result.push_samples += 1
 			if not PROBE.blockers(space, from.x, from.y).is_empty() or not PROBE.floor_supported(space, from.x, from.y):
@@ -106,6 +110,22 @@ static func _push(assembly: Node3D, cell_id: String, ring: Array[Vector2], resul
 			else:
 				result.failures.append("%s edge %d: a capsule pushed into the wall reached %.2f m of the outline (stop >= %.2f)" % [
 					cell_id, index, depth, STOPPED_DEPTH_M])
+
+
+static func _near_doorway(point: Vector2, direction: Vector2, spec: Dictionary) -> bool:
+	for doorway: Dictionary in spec.doorways:
+		var normal := Vector2(float(doorway.normal[0]), float(doorway.normal[1]))
+		if absf(normal.dot(direction)) > 0.001:
+			continue
+		var center := Vector2(float(doorway.pos_xz[0]), float(doorway.pos_xz[1]))
+		if absf((point - center).dot(direction)) < float(doorway.width_m) / 2.0 + PROBE.RADIUS:
+			return true
+	return false
+
+
+static func _has_diagonal_doorway(spec: Dictionary) -> bool:
+	return spec.doorways.any(func(doorway: Dictionary) -> bool:
+		return absf(absf(float(doorway.normal[0])) - absf(float(doorway.normal[1]))) < 0.001)
 
 
 ## How far inside the wall line the capsule centre ends after being pushed `PUSH_TRAVEL_M` toward it.
@@ -128,7 +148,7 @@ static func _pushed_depth(assembly: Node3D, from: Vector2, toward: Vector2, on_w
 
 ## Samples of the wall band (inside the outline, closer than the wall thickness to it) around each
 ## vertex that touches a diagonal edge must lie inside at least one wall collision box.
-static func _joints(room: Node3D, cell_id: String, ring: Array[Vector2], result: Dictionary) -> void:
+static func _joints(room: Node3D, cell_id: String, ring: Array[Vector2], spec: Dictionary, result: Dictionary) -> void:
 	var boxes := _wall_shapes(room)
 	for index in ring.size():
 		var touches: bool = DIAGONAL.is_diagonal((ring[(index + 1) % ring.size()] - ring[index]).normalized()) \
@@ -142,6 +162,9 @@ static func _joints(room: Node3D, cell_id: String, ring: Array[Vector2], result:
 			while z <= JOINT_RADIUS_M:
 				var point := vertex + Vector2(x, z)
 				if point.distance_to(vertex) <= JOINT_RADIUS_M and _in_wall_band(point, ring):
+					if _inside_open_doorway_band(point, spec):
+						z += SAMPLE_STEP_M
+						continue
 					result.joint_samples += 1
 					if not _covered(point, boxes):
 						result.joint_uncovered += 1
@@ -149,6 +172,19 @@ static func _joints(room: Node3D, cell_id: String, ring: Array[Vector2], result:
 							result.failures.append("%s: wall band at %s near vertex %d is not covered by a wall box" % [cell_id, point, index])
 				z += SAMPLE_STEP_M
 			x += SAMPLE_STEP_M
+
+
+static func _inside_open_doorway_band(point: Vector2, spec: Dictionary) -> bool:
+	for doorway: Dictionary in spec.doorways:
+		var normal := Vector2(float(doorway.normal[0]), float(doorway.normal[1]))
+		if absf(absf(normal.x) - absf(normal.y)) > 0.001:
+			continue
+		var center := Vector2(float(doorway.pos_xz[0]), float(doorway.pos_xz[1]))
+		var offset := point - center
+		var tangent := Vector2(-normal.y, normal.x)
+		if absf(offset.dot(tangent)) < float(doorway.width_m) / 2.0 and absf(offset.dot(normal)) < BUILDER.WALL_THICKNESS:
+			return true
+	return false
 
 
 static func _in_wall_band(point: Vector2, ring: Array[Vector2]) -> bool:

@@ -81,7 +81,26 @@
           },
           "shape_class_target": {
             "description": "Optional (gmap-0.4.0). The stage-2 primitive class drawn for this cell; present exactly when shape_stage_target is 2.",
-            "enum": ["chamfered_box", "chamfered_polyomino", "octagon", "wedge"]
+            "enum": ["chamfered_box", "chamfered_polyomino", "octagon", "wedge", "diagonal_passage"]
+          },
+          "diagonal_link_chamfer": {
+            "type": "object",
+            "required": ["corner_xz", "length_m", "port_id"],
+            "properties": {"corner_xz": {"$ref": "#/$defs/point_xz"}, "length_m": {"const": 2.5}, "port_id": {"type": "string", "minLength": 1}},
+            "additionalProperties": false
+          },
+          "diagonal_passage": {
+            "type": "object",
+            "required": ["link_id", "from_cell_id", "to_cell_id", "from_port_id", "to_port_id", "clear_width_m", "wall_thickness_m", "length_m", "outline_xz", "palette_source_cell_id"],
+            "properties": {
+              "link_id": {"type": "string", "minLength": 1}, "from_cell_id": {"type": "string", "minLength": 1},
+              "to_cell_id": {"type": "string", "minLength": 1}, "from_port_id": {"type": "string", "minLength": 1},
+              "to_port_id": {"type": "string", "minLength": 1}, "clear_width_m": {"const": 2.0},
+              "wall_thickness_m": {"const": 0.16}, "length_m": {"type": "number", "exclusiveMinimum": 0},
+              "outline_xz": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"$ref": "#/$defs/point_xz"}},
+              "palette_source_cell_id": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
           },
           "palette": {
             "description": "Optional (gmap-0.5.0). The material palette this generated walkable cell takes: the palette of the nearest placed library figure room (anchor_module_id, graph distance over open edges), or the registry default (both null). Module and void cells carry none.",
@@ -124,7 +143,9 @@
           "connection_status": {
             "description": "Optional (gmap-0.3.0). proposed_untested: a new joint (generated cell to a library module's tested socket) that no operator has walked; it never inherits the #160 / #168 pair approval.",
             "enum": ["proposed_untested"]
-          }
+          },
+          "kind": {"enum": ["diagonal"]},
+          "diagonal_link_id": {"type": "string", "minLength": 1}
         },
         "additionalProperties": false
       }
@@ -168,6 +189,17 @@
     "palette_registry": {
       "description": "Optional (required by gmap-0.5.0 rules). The material palette registry the cell palettes were assigned from, with its hash.",
       "$ref": "#/$defs/path_and_hash"
+    },
+    "diagonal_links": {
+      "type": "object",
+      "required": ["budget", "used", "selection_rule", "nudged_cells"],
+      "properties": {
+        "budget": {"type": "integer", "minimum": 0, "maximum": 2},
+        "used": {"type": "integer", "minimum": 0, "maximum": 2},
+        "selection_rule": {"type": "string", "minLength": 1},
+        "nudged_cells": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      },
+      "additionalProperties": false
     },
     "module_budget": {
       "description": "Optional (required by gmap-0.3.0 rules). Library modules placed as leaf cells: min..max allowed, used so far.",

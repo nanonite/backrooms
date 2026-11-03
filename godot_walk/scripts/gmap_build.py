@@ -20,10 +20,11 @@ GENERATOR_VERSION_V2 = "gmap-0.2.0"
 GENERATOR_VERSION_V3 = "gmap-0.3.0"
 GENERATOR_VERSION_V4 = "gmap-0.4.0"
 GENERATOR_VERSION_V5 = "gmap-0.5.0"
-VERSIONS = (GENERATOR_VERSION, GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, GENERATOR_VERSION_V5)
-MARGIN_VERSIONS = (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, GENERATOR_VERSION_V5)  # standard margins + degenerate cells
-MODULE_VERSIONS = (GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, GENERATOR_VERSION_V5)  # library modules as leaf cells
-STAGE2_VERSIONS = (GENERATOR_VERSION_V4, GENERATOR_VERSION_V5)  # 45-degree classes, library-room overhang margin
+GENERATOR_VERSION_V6 = "gmap-0.6.0"
+VERSIONS = (GENERATOR_VERSION, GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, GENERATOR_VERSION_V5, GENERATOR_VERSION_V6)
+MARGIN_VERSIONS = (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, GENERATOR_VERSION_V5, GENERATOR_VERSION_V6)  # standard margins + degenerate cells
+MODULE_VERSIONS = (GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, GENERATOR_VERSION_V5, GENERATOR_VERSION_V6)  # library modules as leaf cells
+STAGE2_VERSIONS = (GENERATOR_VERSION_V4, GENERATOR_VERSION_V5, GENERATOR_VERSION_V6)  # 45-degree classes, library-room overhang margin
 DEFAULT_DEGENERATE_MAX = 1
 MAX_ATTEMPTS = 50
 CELL_RANGE = (6, 20)
@@ -49,6 +50,7 @@ RULE_IDS_V3 = sorted(
 )
 RULE_IDS_V4 = sorted([*RULE_IDS_V3, "shape_stage2_eligibility"])
 RULE_IDS_V5 = sorted([*RULE_IDS_V4, "palette_assignment"])
+RULE_IDS_V6 = sorted([*RULE_IDS_V5, "diagonal_links"])
 CEILING = {"figure": [3.0, 6.0], "ground": [2.6, 4.8], "threshold": [2.6, 4.8], "void": [2.6, 4.8]}
 STREAM_STRIDE = 1 << 32
 
@@ -60,12 +62,16 @@ def map_id_for(seed: int, version: str = GENERATOR_VERSION) -> str:
 def layout_version(version: str) -> str:
     """gmap-0.5.0 draws its layout, degenerate and shape-stage streams exactly as gmap-0.4.0 does, so a
     0.5.0 map differs from the 0.4.0 map of the same seed only by its palettes."""
-    return GENERATOR_VERSION_V4 if version == GENERATOR_VERSION_V5 else version
+    if version in (GENERATOR_VERSION_V5, GENERATOR_VERSION_V6):
+        return GENERATOR_VERSION_V4
+    return version
 
 
 def rule_ids(version: str) -> list[str]:
     if version == GENERATOR_VERSION_V5:
         return RULE_IDS_V5
+    if version == GENERATOR_VERSION_V6:
+        return RULE_IDS_V6
     if version == GENERATOR_VERSION_V4:
         return RULE_IDS_V4
     if version == GENERATOR_VERSION_V3:
@@ -179,7 +185,8 @@ def build_map(
         raise GenerationError(f"--stage-max must be 0..{2 if v4 else 1} in generator {version}")
     if degenerate_max < 0:
         raise GenerationError("--degenerate-max must be >= 0")
-    draft, attempt, used = generate_draft(seed, cells, figure_classes(library), version, degenerate_max, library)
+    base_version = GENERATOR_VERSION_V5 if version == GENERATOR_VERSION_V6 else version
+    draft, attempt, used = generate_draft(seed, cells, figure_classes(library), base_version, degenerate_max, library)
     primitives = PRIMITIVES_BY_STAGE[min(stage_max, 1)]
     v2 = version in MARGIN_VERSIONS
     v3 = version in MODULE_VERSIONS
@@ -221,10 +228,22 @@ def build_map(
     if v3:
         placed = sum(1 for c in draft.cells.values() if c.module)
         document["module_budget"] = {**MODULE_BUDGET, "used": placed}
-    if version == GENERATOR_VERSION_V5:
+    if version == GENERATOR_VERSION_V6:
+        from gmap_diagonal import apply_links
+
+        apply_links(document)
+    if version in (GENERATOR_VERSION_V5, GENERATOR_VERSION_V6):
         document["palette_registry"] = registry_ref()
         palettes = assign_palettes(document, library, load_registry())
         for record in document["cells"]:
             if record["cell_id"] in palettes:
                 record["palette"] = palettes[record["cell_id"]]
+        if version == GENERATOR_VERSION_V6:
+            by_id = {c["cell_id"]: c for c in document["cells"]}
+            for record in document["cells"]:
+                passage = record.get("diagonal_passage")
+                if passage and passage["from_cell_id"] in by_id:
+                    source_palette = by_id[passage["from_cell_id"]].get("palette")
+                    if source_palette:
+                        record["palette"] = dict(source_palette)
     return document

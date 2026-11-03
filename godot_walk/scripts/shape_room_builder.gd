@@ -8,6 +8,7 @@ extends RefCounted
 const MATERIALS := preload("res://scripts/shape_room_materials.gd")
 const DOORWAYS := preload("res://scripts/doorway_sizes.gd")
 const DIAGONAL := preload("res://scripts/shape_room_diagonal.gd")
+const DIAGONAL_PASSAGE := preload("res://scripts/shape_room_diagonal_passage.gd")
 const WALL_THICKNESS := 0.16
 const TRIM_WIDTH := 0.06
 const TRIM_PROTRUSION := 0.04
@@ -37,6 +38,7 @@ static func build(parent: Node3D, spec: Dictionary, materials: Dictionary,
 	var boundaries := _group(room, "AuthoredBoundaries")
 	var context := _context(spec, materials, forced_closed, module_joints)
 	context["chamfered"] = DIAGONAL.is_chamfered(spec)
+	context["diagonal_passage_visuals"] = spec.has("diagonal_passage")
 	context["diagonal_collision"] = bool(options.get("diagonal_collision", true))
 	context["diagonal_pullback"] = float(options.get("diagonal_pullback", 0.0))
 	_add_floor(visuals, boundaries, context)
@@ -111,6 +113,8 @@ static func _add_floor_rects(floor_visual: Node3D, body: StaticBody3D, context: 
 
 static func _add_floor_seam(body: StaticBody3D, doorway: Dictionary) -> void:
 	var normal := Vector2(float(doorway.normal[0]), float(doorway.normal[1]))
+	if absf(normal.x) > 0.5 and absf(normal.y) > 0.5:
+		return  # triangulated diagonal floors overlap under the opening; an axis-aligned seam box would be wrong.
 	var width: float = doorway.door_width
 	var size := Vector3(width, FLOOR_COLLIDER_THICKNESS, 2.0 * SEAM_REACH)
 	if absf(normal.x) > 0.5:
@@ -143,6 +147,8 @@ static func _add_lamps(visuals: Node3D, context: Dictionary) -> void:
 
 static func _add_walls(visuals: Node3D, boundaries: Node3D, context: Dictionary) -> void:
 	var ring: Array[Vector2] = context.ring
+	if context.diagonal_passage_visuals:
+		DIAGONAL_PASSAGE.add_visuals(visuals, context)
 	var count := ring.size()
 	for index in count:
 		var frame := _edge_frame(ring, index)
@@ -201,12 +207,16 @@ static func _add_edge_pieces(visuals: Node3D, boundaries: Node3D, context: Dicti
 		var span := spans[piece]
 		if frame.diagonal:
 			span = Vector2(span.x + pullback, span.y - pullback)
-		var reach_start := WALL_THICKNESS if span.x < EPSILON and frame.start_reflex else 0.0
-		var reach_end := WALL_THICKNESS if span.y > frame.length - EPSILON and frame.end_reflex else 0.0
+		if context.diagonal_passage_visuals and span.y - span.x <= EPSILON:
+			continue
+		var passage_corner: bool = context.diagonal_passage_visuals and frame.length > 3.0
+		var reach_start := WALL_THICKNESS if span.x < EPSILON and (frame.start_reflex or passage_corner) else 0.0
+		var reach_end := WALL_THICKNESS if span.y > frame.length - EPSILON and (frame.end_reflex or passage_corner) else 0.0
 		var label := "Wall_%02d_%d" % [index, piece]
 		var box := _edge_box(frame, span.x - reach_start, span.y + reach_end, 0.0, WALL_THICKNESS, 0.0, context.height)
-		var material := MATERIALS.scaled(context.materials, "wallpaper", box.size_along, context.height)
-		_add_box(visuals, label + "Visual", box.center, box.size, material, box.yaw)
+		if not context.diagonal_passage_visuals:
+			var material := MATERIALS.scaled(context.materials, "wallpaper", box.size_along, context.height)
+			_add_box(visuals, label + "Visual", box.center, box.size, material, box.yaw)
 		if context.diagonal_collision or not frame.diagonal:
 			_add_body(boundaries, label, box.center, box.size, box.yaw)
 
@@ -217,10 +227,12 @@ static func _add_doorway(visuals: Node3D, boundaries: Node3D, context: Dictionar
 	var port := String(doorway.port_id)
 	var door_height: float = gap.height
 	var header := _edge_box(frame, gap["from"], gap["to"], 0.0, WALL_THICKNESS, door_height, context.height)
-	var material := MATERIALS.scaled(context.materials, "wallpaper", header.size_along, context.height - door_height)
-	_add_box(visuals, "Header_" + port + "Visual", header.center, header.size, material)
-	_add_body(boundaries, "Header_" + port, header.center, header.size)
-	_add_trim(visuals, context, frame, gap, port)
+	if not context.diagonal_passage_visuals:
+		var material := MATERIALS.scaled(context.materials, "wallpaper", header.size_along, context.height - door_height)
+		_add_box(visuals, "Header_" + port + "Visual", header.center, header.size, material, header.yaw)
+	_add_body(boundaries, "Header_" + port, header.center, header.size, header.yaw)
+	if not context.diagonal_passage_visuals:
+		_add_trim(visuals, context, frame, gap, port)
 	if doorway.effective_kind == "closed_visible":
 		_add_closed_door(visuals, boundaries, context, frame, gap, port)
 
@@ -246,18 +258,18 @@ static func _add_trim(visuals: Node3D, context: Dictionary, frame: Dictionary, g
 	var low := _edge_box(frame, low_from, low_from + TRIM_WIDTH, 0.0, depth, 0.0, jamb_top)
 	var high := _edge_box(frame, high_to - TRIM_WIDTH, high_to, 0.0, depth, 0.0, jamb_top)
 	var lintel := _edge_box(frame, low_from, high_to, 0.0, depth, jamb_top, door_height)
-	_add_box(visuals, "TrimJambLow_" + port, low.center, low.size, trim)
-	_add_box(visuals, "TrimJambHigh_" + port, high.center, high.size, trim)
-	_add_box(visuals, "TrimLintel_" + port, lintel.center, lintel.size, trim)
+	_add_box(visuals, "TrimJambLow_" + port, low.center, low.size, trim, low.yaw)
+	_add_box(visuals, "TrimJambHigh_" + port, high.center, high.size, trim, high.yaw)
+	_add_box(visuals, "TrimLintel_" + port, lintel.center, lintel.size, trim, lintel.yaw)
 
 
 static func _add_closed_door(visuals: Node3D, boundaries: Node3D, context: Dictionary,
 		frame: Dictionary, gap: Dictionary, port: String) -> void:
 	var door_height: float = gap.height
 	var panel := _edge_box(frame, gap["from"], gap["to"], PANEL_DEPTH, PANEL_DEPTH + PANEL_THICKNESS, 0.0, door_height)
-	_add_box(visuals, "ClosedDoorPanel_" + port + "Visual", panel.center, panel.size, context.materials.dark)
+	_add_box(visuals, "ClosedDoorPanel_" + port + "Visual", panel.center, panel.size, context.materials.dark, panel.yaw)
 	var blocker := _edge_box(frame, gap["from"], gap["to"], 0.0, WALL_THICKNESS, 0.0, door_height)
-	_add_body(boundaries, "ClosedDoor_" + port, blocker.center, blocker.size)
+	_add_body(boundaries, "ClosedDoor_" + port, blocker.center, blocker.size, blocker.yaw)
 
 
 ## Box over [from, to] along an outline edge, [depth_from, depth_to] inward from the edge and

@@ -90,7 +90,14 @@ static func check_flood(space: PhysicsDirectSpaceState3D, assembly: Node3D) -> D
 	var clear := {}
 	for cell: Dictionary in assembly.map.cells:
 		_sample_cell(space, cell, clear, owners)
-	var reached := _flood(clear, _key_of(assembly.spawn_position.x, assembly.spawn_position.z))
+	var diagonal_pairs := {}
+	if String(assembly.map.get("generator_version", "")) == "gmap-0.6.0":
+		for edge: Dictionary in assembly.map.edges:
+			if String(edge.get("kind", "")) == "diagonal":
+				var cells := [String(edge.from).get_slice(":", 0), String(edge.to).get_slice(":", 0)]
+				cells.sort()
+				diagonal_pairs["%s|%s" % [cells[0], cells[1]]] = true
+	var reached := _flood(clear, _key_of(assembly.spawn_position.x, assembly.spawn_position.z), owners, diagonal_pairs)
 	return _flood_report(assembly, clear, owners, reached)
 
 
@@ -113,7 +120,7 @@ static func _sample_cell(space: PhysicsDirectSpaceState3D, cell: Dictionary, cle
 		x += FLOOD_STEP
 
 
-static func _flood(clear: Dictionary, start: Vector2i) -> Dictionary:
+static func _flood(clear: Dictionary, start: Vector2i, owners: Dictionary, diagonal_pairs: Dictionary) -> Dictionary:
 	var visited := {}
 	var pending: Array[Vector2i] = []
 	if clear.has(start):
@@ -123,9 +130,17 @@ static func _flood(clear: Dictionary, start: Vector2i) -> Dictionary:
 		if visited.has(current):
 			continue
 		visited[current] = true
-		for step: Vector2i in [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]:
-			if clear.has(current + step) and not visited.has(current + step):
-				pending.append(current + step)
+		for step: Vector2i in [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN,
+			Vector2i(-1, -1), Vector2i(-1, 1), Vector2i(1, -1), Vector2i(1, 1)]:
+			var next := current + step
+			if not clear.has(next) or visited.has(next):
+				continue
+			if abs(step.x) == 1 and abs(step.y) == 1:
+				var pair := [String(owners[current]), String(owners[next])]
+				pair.sort()
+				if not diagonal_pairs.has("%s|%s" % [pair[0], pair[1]]):
+					continue
+			pending.append(next)
 	return visited
 
 

@@ -84,7 +84,7 @@ def port_index(cells: list[dict[str, Any]]) -> tuple[dict[str, tuple[str, dict]]
     return index, errors
 
 
-def check_edge(edge: dict[str, str], ports: dict, rects: dict[str, Rect]) -> Errors:
+def check_edge(edge: dict[str, Any], ports: dict, rects: dict[str, Rect]) -> Errors:
     label = f"{edge['from']} -> {edge['to']}"
     if edge["from"] not in ports or edge["to"] not in ports:
         return [err("ports_on_shared_edge", "edge_port_missing", label)]
@@ -96,6 +96,8 @@ def check_edge(edge: dict[str, str], ports: dict, rects: dict[str, Rect]) -> Err
         errors.append(err("ports_on_shared_edge", "port_misaligned", label))
     if [a + b for a, b in zip(port_a["normal"], port_b["normal"])] != [0, 0]:
         errors.append(err("ports_on_shared_edge", "normals_not_opposite", label))
+    if edge.get("kind") == "diagonal":
+        return errors
     for cell, port, other in ((cell_a, port_a, cell_b), (cell_b, port_b, cell_a)):
         if cell in rects and other in rects:
             code = check_port_on_contact(rects[cell], port["pos_xz"], tuple(port["normal"]), rects[other])
@@ -104,7 +106,7 @@ def check_edge(edge: dict[str, str], ports: dict, rects: dict[str, Rect]) -> Err
     return errors
 
 
-def check_edges(edges: list[dict[str, str]], ports: dict, rects: dict[str, Rect]) -> Errors:
+def check_edges(edges: list[dict[str, Any]], ports: dict, rects: dict[str, Rect]) -> Errors:
     errors = []
     used = {p for edge in edges for p in (edge["from"], edge["to"])}
     for edge in edges:
@@ -120,7 +122,7 @@ def edge_cells(edge: dict[str, str]) -> tuple[str, str]:
     return edge["from"].split(":")[0], edge["to"].split(":")[0]
 
 
-def check_tree(walkable: list[str], edges: list[dict[str, str]]) -> Errors:
+def check_tree(walkable: list[str], edges: list[dict[str, Any]]) -> Errors:
     parent = {cell: cell for cell in walkable}
 
     def find(cell: str) -> str:
@@ -131,6 +133,8 @@ def check_tree(walkable: list[str], edges: list[dict[str, str]]) -> Errors:
 
     errors = []
     for edge in edges:
+        if edge.get("kind") == "diagonal":
+            continue
         a, b = edge_cells(edge)
         if edge["connector"] != "direct" or a not in parent or b not in parent:
             continue

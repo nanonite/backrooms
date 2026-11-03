@@ -86,6 +86,10 @@ def assign_palettes(document: dict[str, Any], library: Library, registry: dict[s
     for cell in sorted(document["cells"], key=lambda c: c["cell_id"]):
         if cell["role"] == "void" or cell.get("module"):
             continue
+        passage = cell.get("diagonal_passage")
+        if passage and passage.get("palette_source_cell_id") in records:
+            records[cell["cell_id"]] = dict(records[passage["palette_source_cell_id"]])
+            continue
         coin = rng.random()
         near = [(d[cell["cell_id"]], -a["tier"], a["module_id"], a) for a, d in reach if d.get(cell["cell_id"], 99) <= COIN_DISTANCE]
         if not near:

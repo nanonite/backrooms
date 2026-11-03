@@ -1,9 +1,7 @@
 class_name ShapeRoomDiagonal
 extends RefCounted
 
-## 45-degree rooms (shape stage 2a, #190): floor and ceiling from the triangulated outline, and the
-## geometry helpers for diagonal wall boxes. Doorways never sit on a diagonal edge, so the wall code in
-## shape_room_builder.gd only needs a rotated box for a diagonal edge.
+## 45-degree rooms and gmap-0.6.0 diagonal passages: triangulated floor/ceiling and rotated wall boxes.
 ##
 ## Joints. Every wall box has square ends and stands inside the outline, thickness inward. At a convex
 ## joint (135 degrees at a chamfer, 45 degrees at a wedge tip) each box end lies inside the neighbouring
@@ -20,7 +18,7 @@ const DIAGONAL_MIN := 0.01
 
 
 static func is_chamfered(spec: Dictionary) -> bool:
-	return spec.has("chamfers") and not spec.chamfers.is_empty()
+	return (spec.has("chamfers") and not spec.chamfers.is_empty()) or spec.has("diagonal_passage")
 
 
 ## True when the unit direction is neither horizontal nor vertical.

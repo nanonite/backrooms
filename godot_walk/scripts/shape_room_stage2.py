@@ -138,6 +138,11 @@ def chamfer_cuts(
     target = stage2_target(cell)
     if target is None:
         return None
+    fixed = cell.get("diagonal_link_chamfer")
+    if fixed:
+        corner = tuple(float(v) for v in fixed["corner_xz"])
+        matches = [index for index, point in enumerate(outline) if math.dist(point, corner) <= 1e-6]
+        return {matches[0]: float(fixed["length_m"])} if len(matches) == 1 else None
     rng = cell_rng(document["seed"], f"{cell['cell_id']}:chamfer", version_for_map(document))
     ports = sorted(cell["required_ports"], key=lambda p: p["port_id"])
     return plan_cuts(target, outline, ports, envelope, rng)

@@ -12,7 +12,7 @@
   ],
   "properties": {
     "schema_version": { "const": 1 },
-    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0"] },
+    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0"] },
     "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
     "map_sha256": { "$ref": "#/$defs/sha256" },
     "cell_id": { "type": "string", "minLength": 1 },
@@ -20,7 +20,7 @@
     "rarity_tier": { "type": "integer", "minimum": 0, "maximum": 3 },
     "original_cell_status": { "type": "string", "minLength": 1 },
     "primitive": { "enum": ["dead_end", "straight", "l_shape", "t_shape", "cross", "u_shape"] },
-    "primitive_class": { "enum": ["box", "l_shape", "rectilinear_polygon", "chamfered_box", "chamfered_polyomino", "octagon", "wedge"] },
+    "primitive_class": { "enum": ["box", "l_shape", "rectilinear_polygon", "chamfered_box", "chamfered_polyomino", "octagon", "wedge", "diagonal_passage"] },
     "shape_stage": { "enum": [0, 1, 2] },
     "construction": { "enum": ["box", "arms"] },
     "arm_width_m": { "type": ["number", "null"], "minimum": 3 },
@@ -39,7 +39,7 @@
         "properties": {
           "port_id": { "type": "string", "minLength": 1 },
           "pos_xz": { "$ref": "#/$defs/point_xz" },
-          "normal": { "enum": [[1, 0], [-1, 0], [0, 1], [0, -1]] },
+          "normal": { "$ref": "#/$defs/direction8" },
           "width_m": { "enum": [2.0, 2.4] },
           "height_m": { "enum": [2.1, 2.2] },
           "compatibility_type": {
@@ -94,7 +94,7 @@
         "required": ["feature_id", "kind", "sign"],
         "properties": {
           "feature_id": { "type": "string", "minLength": 1 },
-          "kind": { "enum": ["floor", "walls", "ceiling", "ceiling_lamp_grid", "doorway"] },
+          "kind": { "enum": ["floor", "walls", "ceiling", "ceiling_lamp_grid", "doorway", "diagonal_passage"] },
           "sign": { "const": "symbol" }
         },
         "additionalProperties": false
@@ -117,7 +117,7 @@
       "uniqueItems": true
     },
     "chamfers": {
-      "description": "Optional (shape-room-0.4.0, stage 2). Each convex corner of the un-cut outline replaced by a 45-degree chamfer of length_m along both legs; outline_xz is the cut outline, rects the 0.5 m-raster rectangles wholly inside it, and the doorways stay on axis-aligned edges.",
+      "description": "Optional (shape-room-0.4.0, stage 2). Each convex corner of the un-cut outline replaced by a 45-degree chamfer of length_m along both legs; outline_xz is the cut outline and rects the inscribed raster rectangles.",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -131,12 +131,28 @@
       }
     },
     "registration_accepted": { "const": false },
-    "scale_calibrated": { "const": false }
+    "scale_calibrated": { "const": false },
+    "diagonal_passage": {
+      "type": "object",
+      "required": ["link_id", "clear_width_m", "length_m"],
+      "properties": {
+        "link_id": { "type": "string", "minLength": 1 },
+        "clear_width_m": { "const": 2.0 },
+        "length_m": { "type": "number", "exclusiveMinimum": 0 }
+      },
+      "additionalProperties": false
+    }
   },
   "additionalProperties": false,
   "$defs": {
     "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
     "point_xz": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+    "direction8": {
+      "oneOf": [
+        { "enum": [[1, 0], [-1, 0], [0, 1], [0, -1]] },
+        { "type": "array", "minItems": 2, "maxItems": 2, "items": { "enum": [0.7071067811865476, -0.7071067811865476] } }
+      ]
+    },
     "rect": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 },
     "rgb": { "type": "array", "items": { "type": "number", "minimum": 0, "maximum": 1 }, "minItems": 3, "maxItems": 3 },
     "surface": {
@@ -157,7 +173,7 @@
       "required": ["schema_version", "generator_version", "map_id", "map_file", "mode", "rooms"],
       "properties": {
         "schema_version": { "const": 1 },
-        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0"] },
+        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0"] },
         "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
         "map_file": {
           "type": "object",
@@ -177,7 +193,7 @@
               "sha256": { "$ref": "#/$defs/sha256" },
               "original_cell_status": { "type": "string", "minLength": 1 },
               "primitive": { "enum": ["dead_end", "straight", "l_shape", "t_shape", "cross", "u_shape"] },
-              "primitive_class": { "enum": ["box", "l_shape", "rectilinear_polygon", "chamfered_box", "chamfered_polyomino", "octagon", "wedge"] },
+              "primitive_class": { "enum": ["box", "l_shape", "rectilinear_polygon", "chamfered_box", "chamfered_polyomino", "octagon", "wedge", "diagonal_passage"] },
               "construction": { "enum": ["box", "arms"] },
               "mode": { "enum": ["standard", "degenerate"] },
               "palette_id": { "type": "string", "minLength": 1, "description": "Optional (shape-room-0.5.0). The room's material palette." }

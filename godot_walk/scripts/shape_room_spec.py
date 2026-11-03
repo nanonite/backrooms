@@ -2,20 +2,21 @@
 
 from __future__ import annotations
 
+import math
 from typing import Any
 
 from doorway_sizes import DEFAULT_TYPE, doorway_size
 from gmap_geometry import polygon_rect
 from poetics_geometry import classify_primitive, num, signed_area
 from shape_room_arms import arm_rects, arm_width_range, primitive_for
-from shape_room_chamfer import apply_cuts, inscribed_rects, lamp_points_polygon
+from shape_room_chamfer import apply_cuts, approach_issues, cut_issues, inscribed_rects, lamp_points_polygon, port_edge
 from shape_room_checks import (
     ShapeRoomError,
     check_room,
     require_valid,
 )
 from shape_room_raster import Cell, Rect, decompose, occupied_cells, outline_of, solid_at
-from shape_room_rng import GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V5, V4_PLUS, cell_rng, version_for_map
+from shape_room_rng import GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V5, GENERATOR_VERSION_V6, V4_PLUS, cell_rng, version_for_map
 from shape_room_palette import palette_materials
 from shape_room_module_clear import clear_ceiling, module_top_planes
 from shape_room_stage2 import chamfer_cuts, stage2_target, suitable_width
@@ -172,10 +173,20 @@ def room_geometry(
     cells = occupied_cells(generated)
     outline = outline_of(cells)
     rects = decompose(cells)
-    require_valid(cell["cell_id"], check_room(envelope, ports, generated, cells, outline, waived))
+    check_ports = [p for p in ports if min(abs(float(p["normal"][0])), abs(float(p["normal"][1]))) < 0.5]
+    require_valid(cell["cell_id"], check_room(envelope, check_ports, generated, cells, outline, waived))
     cuts = chamfer_cuts(document, cell, envelope, outline) if document is not None else None
     chamfers: list[dict[str, Any]] = []
     if cuts:
+        if cell.get("diagonal_link_chamfer"):
+            diagonal_ports = [p for p in ports if min(abs(float(p["normal"][0])), abs(float(p["normal"][1]))) >= 0.5]
+            require_valid(cell["cell_id"], cut_issues(outline, check_ports, cuts))
+            final_outline = apply_cuts(outline, cuts)
+            for port in diagonal_ports:
+                edge = port_edge(final_outline, port)
+                if edge is None or math.dist(final_outline[edge], final_outline[(edge + 1) % len(final_outline)]) < doorway_size(port["compatibility_type"])[0] + 1.0:
+                    raise ShapeRoomError(f"{cell['cell_id']}: {port['port_id']} does not fit its chamfer doorway face")
+                require_valid(cell["cell_id"], approach_issues(final_outline, [port]))
         chamfers = [{"corner": [num(outline[i][0]), num(outline[i][1])], "length_m": c} for i, c in sorted(cuts.items())]
         rects, base = inscribed_rects(cells, outline, cuts), outline
         if not rects:
@@ -186,7 +197,7 @@ def room_geometry(
         raise ShapeRoomError(f"{cell['cell_id']}: {primitive_class} is not an allowed primitive")
     return {
         "cells": cells, "arms": generated, "outline": outline, "rects": rects, "chamfers": chamfers,
-        "primitive": primitive_for(ports), "primitive_class": primitive_class, "stage": stage,
+        "primitive": primitive_for(check_ports), "primitive_class": primitive_class, "stage": stage,
     }
 
 
@@ -210,6 +221,8 @@ def build_spec(
 ) -> dict[str, Any]:
     envelope = cell_envelope(cell)
     version = version_for_map(document)
+    if cell.get("diagonal_passage"):
+        return _diagonal_passage_spec(document, map_sha256, cell, original_status, links, envelope, version)
     v2 = version in (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, *V4_PLUS)
     choices = draw(document, cell, envelope)
     geometry = room_geometry(cell, envelope, choices, set(degenerate_ports(cell)) if v2 else None, document)
@@ -237,8 +250,8 @@ def build_spec(
         "ceiling_height_m": choices["ceiling_height_m"],
         "doorways": doorways,
         "lamps_xz": lamps(geometry),
-        "material_source": "palette_registry" if version == GENERATOR_VERSION_V5 else "kit_default",
-        "materials": palette_materials(cell) if version == GENERATOR_VERSION_V5 else MATERIALS,
+        "material_source": "palette_registry" if version in (GENERATOR_VERSION_V5, GENERATOR_VERSION_V6) else "kit_default",
+        "materials": palette_materials(cell) if version in (GENERATOR_VERSION_V5, GENERATOR_VERSION_V6) else MATERIALS,
         "features": feature_records(doorways),
         "registration_accepted": False,
         "scale_calibrated": False,
@@ -248,3 +261,29 @@ def build_spec(
     if geometry["chamfers"]:
         spec["chamfers"] = geometry["chamfers"]
     return spec
+
+
+def _diagonal_passage_spec(
+    document: dict[str, Any], map_sha256: str, cell: dict[str, Any], original_status: str,
+    links: dict[str, tuple[str, str]], envelope: Rect, version: str,
+) -> dict[str, Any]:
+    meta = cell["diagonal_passage"]
+    doorways = doorway_records(cell, links, True)
+    low_x, low_z, high_x, high_z = envelope
+    broad: Rect = (low_x, low_z, high_x, high_z)
+    outline = [[num(p[0]), num(p[1])] for p in meta["outline_xz"]]
+    area = abs(signed_area([(p[0], p[1]) for p in outline]))
+    return {
+        "schema_version": 1, "generator_version": version, "map_id": document["map_id"],
+        "map_sha256": map_sha256, "cell_id": cell["cell_id"], "role": "threshold", "rarity_tier": 0,
+        "original_cell_status": original_status, "primitive": "straight", "primitive_class": "diagonal_passage",
+        "shape_stage": 2, "construction": "box", "arm_width_m": None,
+        "envelope_xz": [[num(v) for v in p] for p in cell["envelope_xz"]],
+        "arms_xz": [rect_json(broad)], "rects": [rect_json(broad)], "outline_xz": outline,
+        "area_m2": num(area), "ceiling_height_m": float(cell["ceiling_range_m"][0]),
+        "doorways": doorways, "lamps_xz": [[num((low_x + high_x) / 2), num((low_z + high_z) / 2)]],
+        "material_source": "palette_registry", "materials": palette_materials(cell),
+        "features": feature_records(doorways) + [{"feature_id": "diagonal_passage", "kind": "diagonal_passage", "sign": "symbol"}],
+        "registration_accepted": False, "scale_calibrated": False,
+        "diagonal_passage": {"link_id": meta["link_id"], "clear_width_m": meta["clear_width_m"], "length_m": meta["length_m"]},
+    }

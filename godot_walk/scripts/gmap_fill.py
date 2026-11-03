@@ -135,6 +135,9 @@ def build_fill(document: dict[str, Any], map_sha256: str, library: Library) -> d
                 }
             )
             continue
+        if cell.get("diagonal_passage"):
+            cells.append({"cell_id": cell["cell_id"], "cell_status": "shape_room_pending", "candidates": []})
+            continue
         rect = polygon_rect(cell["envelope_xz"])
         found = cell_candidates(library, rect, cell["required_ports"], legacy) if rect else []
         status = "module_candidates" if found else "shape_room_pending"

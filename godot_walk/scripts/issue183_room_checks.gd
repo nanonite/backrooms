@@ -34,7 +34,7 @@ static func check_all(space: PhysicsDirectSpaceState3D, assembly: Node3D) -> Dic
 static func check_room(space: PhysicsDirectSpaceState3D, assembly: Node3D, spec: Dictionary) -> Dictionary:
 	var ring: Array[Vector2] = BUILDER.ring_of(spec)
 	var result := {"cell_id": String(spec.cell_id), "failures": [] as Array[String]}
-	result.merge(_floor_counts(space, spec, ring))
+	result.merge(_floor_counts(space, spec, ring, assembly))
 	result.merge(_wall_counts(space, assembly, spec, ring))
 	result.merge(_doorway_counts(space, spec, _expected_kinds(assembly, spec)))
 	_collect_failures(result)
@@ -49,10 +49,11 @@ static func _expected_kinds(assembly: Node3D, spec: Dictionary) -> Dictionary:
 	return kinds
 
 
-static func _floor_counts(space: PhysicsDirectSpaceState3D, spec: Dictionary, ring: Array[Vector2]) -> Dictionary:
+static func _floor_counts(space: PhysicsDirectSpaceState3D, spec: Dictionary, ring: Array[Vector2], assembly: Node3D) -> Dictionary:
 	var low := Vector2(float(spec.envelope_xz[0][0]), float(spec.envelope_xz[0][1]))
 	var high := Vector2(float(spec.envelope_xz[2][0]), float(spec.envelope_xz[2][1]))
-	var counts := {"floor_inside": 0, "floor_inside_supported": 0, "floor_outside": 0, "floor_outside_supported": 0}
+	var counts := {"floor_inside": 0, "floor_inside_supported": 0, "floor_outside": 0, "floor_outside_supported": 0,
+		"floor_outside_connector_supported": 0}
 	var x := low.x + RASTER_STEP / 2.0
 	while x < high.x:
 		var z := low.y + RASTER_STEP / 2.0
@@ -64,9 +65,25 @@ static func _floor_counts(space: PhysicsDirectSpaceState3D, spec: Dictionary, ri
 			var key := "floor_inside" if PROBE.inside_polygon(Vector2(x, z), ring) else "floor_outside"
 			counts[key] += 1
 			counts[key + "_supported"] += 1 if supported else 0
+			if key == "floor_outside" and supported and _inside_connected_diagonal_neighbor(Vector2(x, z), String(spec.cell_id), assembly):
+				counts.floor_outside_connector_supported += 1
 			z += RASTER_STEP
 		x += RASTER_STEP
 	return counts
+
+
+static func _inside_connected_diagonal_neighbor(point: Vector2, cell_id: String, assembly: Node3D) -> bool:
+	for edge: Dictionary in assembly.map.edges:
+		if String(edge.get("kind", "")) != "diagonal":
+			continue
+		var from_cell := String(edge.from).get_slice(":", 0)
+		var to_cell := String(edge.to).get_slice(":", 0)
+		var other := to_cell if from_cell == cell_id else from_cell if to_cell == cell_id else ""
+		if other == "" or not assembly.specs.has(other):
+			continue
+		if PROBE.inside_polygon(point, BUILDER.ring_of(assembly.specs[other])):
+			return true
+	return false
 
 
 static func _boundary_distance(point: Vector2, ring: Array[Vector2]) -> float:
@@ -80,8 +97,8 @@ static func _boundary_distance(point: Vector2, ring: Array[Vector2]) -> float:
 static func _wall_counts(space: PhysicsDirectSpaceState3D, assembly: Node3D, spec: Dictionary,
 		ring: Array[Vector2]) -> Dictionary:
 	var counts := {"wall_samples": 0, "wall_blocked": 0, "approach_samples": 0, "approach_clear": 0}
-	var chamfered: bool = spec.has("chamfers")
-	var current: bool = ["shape-room-0.4.0", "shape-room-0.5.0"].has(String(spec.generator_version))
+	var chamfered: bool = spec.has("chamfers") or spec.has("diagonal_passage")
+	var current: bool = ["shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0"].has(String(spec.generator_version))
 	for index in ring.size():
 		var start := ring[index]
 		var finish := ring[(index + 1) % ring.size()]
@@ -167,8 +184,9 @@ static func _collect_failures(result: Dictionary) -> void:
 	var cell := String(result.cell_id)
 	if result.floor_inside_supported != result.floor_inside:
 		failures.append("%s: floor missing at %d of %d polygon samples" % [cell, result.floor_inside - result.floor_inside_supported, result.floor_inside])
-	if result.floor_outside_supported != 0:
-		failures.append("%s: floor present at %d samples outside the polygon" % [cell, result.floor_outside_supported])
+	var illegal_outside: int = result.floor_outside_supported - result.floor_outside_connector_supported
+	if illegal_outside != 0:
+		failures.append("%s: floor present at %d samples outside the polygon and unconnected" % [cell, illegal_outside])
 	if result.wall_blocked != result.wall_samples:
 		failures.append("%s: capsule passes %d wall samples" % [cell, result.wall_samples - result.wall_blocked])
 	if result.approach_clear != result.approach_samples:

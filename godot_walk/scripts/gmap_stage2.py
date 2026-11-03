@@ -60,6 +60,14 @@ def stage2_errors(document: dict[str, Any]) -> Errors:
     stage_max = document["shape_stage_max"]
     for cell in document["cells"]:
         label = cell["cell_id"]
+        if cell.get("diagonal_passage"):
+            if cell.get("shape_stage_target") != 2 or cell.get("shape_class_target") != "diagonal_passage":
+                errors.append(err(RULE, "diagonal_passage_target_invalid", label))
+            continue
+        if cell.get("diagonal_link_chamfer"):
+            if cell.get("shape_stage_target") != 2 or cell.get("shape_class_target") != "chamfered_box" or "chamfered_box" not in cell["allowed_primitives"]:
+                errors.append(err(RULE, "diagonal_source_target_invalid", label))
+            continue
         listed = sorted(set(cell["allowed_primitives"]) & set(STAGE2_CLASSES))
         expected = cell_eligible(cell) if stage_max >= 2 and cell["role"] != "void" else []
         if listed != expected:

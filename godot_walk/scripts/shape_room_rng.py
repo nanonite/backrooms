@@ -10,12 +10,14 @@ GENERATOR_VERSION_V2 = "shape-room-0.2.0"
 GENERATOR_VERSION_V3 = "shape-room-0.3.0"
 GENERATOR_VERSION_V4 = "shape-room-0.4.0"
 GENERATOR_VERSION_V5 = "shape-room-0.5.0"
-VERSIONS = (GENERATOR_VERSION, GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, GENERATOR_VERSION_V5)
-V4_PLUS = (GENERATOR_VERSION_V4, GENERATOR_VERSION_V5)  # 45-degree walls, clear-of-library-room ceilings
+GENERATOR_VERSION_V6 = "shape-room-0.6.0"
+VERSIONS = (GENERATOR_VERSION, GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, GENERATOR_VERSION_V5, GENERATOR_VERSION_V6)
+V4_PLUS = (GENERATOR_VERSION_V4, GENERATOR_VERSION_V5, GENERATOR_VERSION_V6)  # 45-degree walls, clear-of-library-room ceilings
 MAP_VERSION_V2 = "gmap-0.2.0"
 MAP_VERSION_V3 = "gmap-0.3.0"
 MAP_VERSION_V4 = "gmap-0.4.0"
 MAP_VERSION_V5 = "gmap-0.5.0"
+MAP_VERSION_V6 = "gmap-0.6.0"
 
 
 def version_for_map(document: dict) -> str:
@@ -24,6 +26,8 @@ def version_for_map(document: dict) -> str:
     version = document.get("generator_version")
     if version == MAP_VERSION_V5:
         return GENERATOR_VERSION_V5
+    if version == MAP_VERSION_V6:
+        return GENERATOR_VERSION_V6
     if version == MAP_VERSION_V4:
         return GENERATOR_VERSION_V4
     if version == MAP_VERSION_V3:

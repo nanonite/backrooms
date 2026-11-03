@@ -1,0 +1,250 @@
+{
+  "area_m2": 34.0,
+  "arm_width_m": null,
+  "arms_xz": [
+    [
+      11.0,
+      14.0,
+      17.0,
+      20.0
+    ]
+  ],
+  "ceiling_height_m": 4.2,
+  "cell_id": "c16",
+  "chamfers": [
+    {
+      "corner": [
+        11.0,
+        14.0
+      ],
+      "length_m": 1.0
+    },
+    {
+      "corner": [
+        17.0,
+        14.0
+      ],
+      "length_m": 1.0
+    },
+    {
+      "corner": [
+        17.0,
+        20.0
+      ],
+      "length_m": 1.0
+    },
+    {
+      "corner": [
+        11.0,
+        20.0
+      ],
+      "length_m": 1.0
+    }
+  ],
+  "construction": "box",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        -1,
+        0
+      ],
+      "port_id": "c16:p0",
+      "pos_xz": [
+        11.0,
+        17.0
+      ],
+      "to_cell_id": "c06",
+      "to_port_id": "c06:p1",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "authored_direct_doorway_2.4x2.2_v1",
+      "height_m": 2.2,
+      "kind": "open",
+      "normal": [
+        1,
+        0
+      ],
+      "port_id": "c16:p1",
+      "pos_xz": [
+        17.0,
+        17.0
+      ],
+      "to_cell_id": "c20",
+      "to_port_id": "c20:p0",
+      "width_m": 2.4
+    }
+  ],
+  "envelope_xz": [
+    [
+      11.0,
+      14.0
+    ],
+    [
+      17.0,
+      14.0
+    ],
+    [
+      17.0,
+      20.0
+    ],
+    [
+      11.0,
+      20.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_grid",
+      "kind": "ceiling_lamp_grid",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c16:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c16:p1",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "generator_version": "shape-room-0.6.0",
+  "lamps_xz": [
+    [
+      12.5,
+      15.5
+    ]
+  ],
+  "map_id": "gmap-64-gmap-0.6.0",
+  "map_sha256": "f36f32178892d66881b473d4b9e350091ddd843eeb2fed0c6de51657540bd671",
+  "material_source": "palette_registry",
+  "materials": {
+    "ceiling": {
+      "color": [
+        0.34,
+        0.35,
+        0.33
+      ]
+    },
+    "floor": {
+      "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+      "tile_m": 4.0
+    },
+    "lamp_color": [
+      0.86,
+      0.88,
+      0.86
+    ],
+    "palette_id": "industrial_concrete",
+    "trim_color": [
+      0.28,
+      0.29,
+      0.28
+    ],
+    "wall": {
+      "color": [
+        0.43,
+        0.43,
+        0.4
+      ]
+    }
+  },
+  "mode": "standard",
+  "original_cell_status": "shape_room_pending",
+  "outline_xz": [
+    [
+      11.0,
+      15.0
+    ],
+    [
+      12.0,
+      14.0
+    ],
+    [
+      16.0,
+      14.0
+    ],
+    [
+      17.0,
+      15.0
+    ],
+    [
+      17.0,
+      19.0
+    ],
+    [
+      16.0,
+      20.0
+    ],
+    [
+      12.0,
+      20.0
+    ],
+    [
+      11.0,
+      19.0
+    ]
+  ],
+  "primitive": "straight",
+  "primitive_class": "octagon",
+  "rarity_tier": 0,
+  "rects": [
+    [
+      12.0,
+      14.0,
+      16.0,
+      14.5
+    ],
+    [
+      11.5,
+      14.5,
+      16.5,
+      15.0
+    ],
+    [
+      11.0,
+      15.0,
+      17.0,
+      19.0
+    ],
+    [
+      11.5,
+      19.0,
+      16.5,
+      19.5
+    ],
+    [
+      12.0,
+      19.5,
+      16.0,
+      20.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "ground",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 2
+}

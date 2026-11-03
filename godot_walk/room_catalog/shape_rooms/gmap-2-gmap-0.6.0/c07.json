@@ -1,0 +1,280 @@
+{
+  "area_m2": 64.0,
+  "arm_width_m": 4,
+  "arms_xz": [
+    [
+      -8.0,
+      25.0,
+      -4.0,
+      29.0
+    ],
+    [
+      -8.0,
+      18.0,
+      -4.0,
+      27.0
+    ],
+    [
+      -8.0,
+      25.0,
+      -4.0,
+      29.0
+    ],
+    [
+      -9.0,
+      26.0,
+      -6.0,
+      30.0
+    ],
+    [
+      -8.0,
+      25.0,
+      -4.0,
+      30.0
+    ],
+    [
+      -6.0,
+      24.0,
+      -1.0,
+      28.0
+    ],
+    [
+      -8.0,
+      24.0,
+      -4.0,
+      29.0
+    ]
+  ],
+  "ceiling_height_m": 4.3,
+  "cell_id": "c07",
+  "construction": "arms",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        -1
+      ],
+      "port_id": "c07:p0",
+      "pos_xz": [
+        -6.0,
+        18.0
+      ],
+      "to_cell_id": "c02",
+      "to_port_id": "c02:p1",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        -1,
+        0
+      ],
+      "port_id": "c07:p1",
+      "pos_xz": [
+        -9.0,
+        28.0
+      ],
+      "to_cell_id": "c09",
+      "to_port_id": "c09:p0",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "authored_direct_doorway_2.4x2.2_v1",
+      "height_m": 2.2,
+      "kind": "open",
+      "normal": [
+        1,
+        0
+      ],
+      "port_id": "c07:p2",
+      "pos_xz": [
+        -1.0,
+        26.0
+      ],
+      "to_cell_id": "c12",
+      "to_port_id": "c12:p0",
+      "width_m": 2.4
+    }
+  ],
+  "envelope_xz": [
+    [
+      -9.0,
+      18.0
+    ],
+    [
+      -1.0,
+      18.0
+    ],
+    [
+      -1.0,
+      30.0
+    ],
+    [
+      -9.0,
+      30.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_grid",
+      "kind": "ceiling_lamp_grid",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c07:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c07:p1",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c07:p2",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "generator_version": "shape-room-0.6.0",
+  "lamps_xz": [
+    [
+      -7.5,
+      27.5
+    ]
+  ],
+  "map_id": "gmap-2-gmap-0.6.0",
+  "map_sha256": "c7567ec9bd746ffb798905791054d13caca11dab50a09211cfdee2bee2d90879",
+  "material_source": "palette_registry",
+  "materials": {
+    "ceiling": {
+      "color": [
+        0.34,
+        0.35,
+        0.33
+      ]
+    },
+    "floor": {
+      "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+      "tile_m": 4.0
+    },
+    "lamp_color": [
+      0.86,
+      0.88,
+      0.86
+    ],
+    "palette_id": "industrial_concrete",
+    "trim_color": [
+      0.28,
+      0.29,
+      0.28
+    ],
+    "wall": {
+      "color": [
+        0.43,
+        0.43,
+        0.4
+      ]
+    }
+  },
+  "mode": "standard",
+  "original_cell_status": "module_candidates",
+  "outline_xz": [
+    [
+      -9.0,
+      26.0
+    ],
+    [
+      -8.0,
+      26.0
+    ],
+    [
+      -8.0,
+      18.0
+    ],
+    [
+      -4.0,
+      18.0
+    ],
+    [
+      -4.0,
+      24.0
+    ],
+    [
+      -1.0,
+      24.0
+    ],
+    [
+      -1.0,
+      28.0
+    ],
+    [
+      -4.0,
+      28.0
+    ],
+    [
+      -4.0,
+      30.0
+    ],
+    [
+      -9.0,
+      30.0
+    ]
+  ],
+  "primitive": "t_shape",
+  "primitive_class": "rectilinear_polygon",
+  "rarity_tier": 0,
+  "rects": [
+    [
+      -8.0,
+      18.0,
+      -4.0,
+      24.0
+    ],
+    [
+      -8.0,
+      24.0,
+      -1.0,
+      26.0
+    ],
+    [
+      -9.0,
+      26.0,
+      -1.0,
+      28.0
+    ],
+    [
+      -9.0,
+      28.0,
+      -4.0,
+      30.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "ground",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 1
+}

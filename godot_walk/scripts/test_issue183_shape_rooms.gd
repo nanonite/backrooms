@@ -12,6 +12,7 @@ const TRIM_CHECKS := preload("res://scripts/issue186_trim_checks.gd")
 const MODULE_CHECKS := preload("res://scripts/issue188_module_checks.gd")
 const DIAGONAL_CHECKS := preload("res://scripts/issue190_diagonal_checks.gd")
 const PALETTE_CHECKS := preload("res://scripts/issue192_palette_checks.gd")
+const DIAGONAL_LINK_CHECKS := preload("res://scripts/issue193_diagonal_link_checks.gd")
 const DIAGONAL := preload("res://scripts/shape_room_diagonal.gd")
 const PROBE := preload("res://scripts/shape_room_probe.gd")
 const SCENE_PATH := "res://scenes/generative_map_walkthrough.tscn"
@@ -61,6 +62,11 @@ func _run() -> void:
 	if palette.rooms > 0:  # shape-room-0.5.0 maps only: older maps print the line they always did
 		summary += " palette_rooms=%d palette_surfaces=%d palette_mismatch=%d palettes=%s" % [
 			palette.rooms, palette.surfaces, palette.mismatches, JSON.stringify(palette.palettes)]
+	var links: Dictionary = positive.get("diagonal_links", {"links": 0})
+	if links.links > 0:
+		summary += " diagonal_links=%d diagonal_edges=%d lane_sweeps=%d/%d passage_wall_colliders=%d diagonal_frames=%d" % [
+			links.links, links.diagonal_edges, links.lane_sweeps_passed, links.lane_sweeps, links.passage_wall_colliders,
+			links.frames_checked]
 	print(summary)
 	quit(0 if failures.is_empty() else 1)
 
@@ -87,6 +93,8 @@ func _check_margins(cell_id: String, spec: Dictionary) -> void:
 	var low_xz := Vector2(spec.envelope_xz[0][0], spec.envelope_xz[0][1])
 	var high_xz := Vector2(spec.envelope_xz[2][0], spec.envelope_xz[2][1])
 	for doorway: Dictionary in spec.doorways:
+		if absf(float(doorway.normal[0])) > 0.5 and absf(float(doorway.normal[1])) > 0.5:
+			continue  # gmap-0.6.0 diagonal openings are validated against their chamfer face.
 		var on_x_wall: bool = absf(float(doorway.normal[0])) > 0.5
 		var centre := float(doorway.pos_xz[1] if on_x_wall else doorway.pos_xz[0])
 		var side_low := low_xz.y if on_x_wall else low_xz.x
@@ -148,10 +156,13 @@ func _run_positive() -> Dictionary:
 		_fail_all(modules.failures)
 	var diagonal := DIAGONAL_CHECKS.check(assembly)
 	_fail_all(diagonal.failures)
+	var diagonal_links := DIAGONAL_LINK_CHECKS.check(assembly)
+	_fail_all(diagonal_links.failures)
 	var palette := PALETTE_CHECKS.check(assembly, specs)
 	_fail_all(palette.failures)
 	await _release(assembly)
-	var positive := {"rooms": rooms.rooms, "edges": edges, "flood": flood, "trim": trim, "modules": modules, "diagonal": diagonal}
+	var positive := {"rooms": rooms.rooms, "edges": edges, "flood": flood, "trim": trim, "modules": modules, "diagonal": diagonal,
+		"diagonal_links": diagonal_links}
 	if palette.rooms > 0:  # only shape-room-0.5.0 maps: older reports keep their keys
 		positive["palette"] = palette
 	return positive
@@ -165,6 +176,10 @@ func _run_negative_controls() -> Dictionary:
 	controls["module_joint_recess_removed"] = await _control_joint_recess_removed()
 	controls["diagonal_collision_removed"] = await _control_diagonal_collision_removed()
 	controls["unmitred_joint"] = await _control_unmitred_joint()
+	controls["diagonal_link_doorway_removed"] = await _control_diagonal_link_doorway_removed()
+	controls["diagonal_passage_collision_removed"] = await _control_diagonal_passage_collision_removed()
+	controls["diagonal_floor_without_declared_link"] = await _control_diagonal_floor_without_declared_link()
+	controls["diagonal_frame_unaligned"] = await _control_diagonal_frame_unaligned()
 	if specs.values().any(func(spec: Dictionary) -> bool: return spec.materials.has("palette_id")):
 		controls["wrong_palette"] = await _control_wrong_palette()
 	for name: String in controls:
@@ -254,6 +269,78 @@ func _control_unmitred_joint() -> Dictionary:
 	await _release(assembly)
 	return {"applicable": true, "failed_as_expected": diagonal.joint_uncovered > 0, "joint_uncovered": diagonal.joint_uncovered,
 		"joint_samples": diagonal.joint_samples}
+
+
+func _has_diagonal_links() -> bool:
+	return specs.values().any(func(spec: Dictionary) -> bool: return spec.has("diagonal_passage"))
+
+
+func _control_diagonal_link_doorway_removed() -> Dictionary:
+	if not _has_diagonal_links():
+		return {"applicable": false, "failed_as_expected": false, "reason": "map has no diagonal passage"}
+	var altered := specs.duplicate(true)
+	var passage_id := ""
+	for cell_id: String in altered:
+		if altered[cell_id].has("diagonal_passage"):
+			passage_id = cell_id
+			altered[cell_id].doorways.pop_back()
+			break
+	var assembly := await _build(map, altered)
+	var edges := MAP_CHECKS.check_edges(assembly.get_world_3d().direct_space_state, assembly)
+	await _release(assembly)
+	return {"applicable": true, "passage": passage_id, "failed_as_expected": not edges.failures.is_empty(),
+		"edge_failures": edges.failures.size(), "first_failure": edges.failures[0] if not edges.failures.is_empty() else ""}
+
+
+func _control_diagonal_passage_collision_removed() -> Dictionary:
+	if not _has_diagonal_links():
+		return {"applicable": false, "failed_as_expected": false, "reason": "map has no diagonal passage"}
+	var assembly := await _build(map, specs, true, true, false)
+	var diagonal := DIAGONAL_CHECKS.check(assembly, false)
+	await _release(assembly)
+	return {"applicable": true, "failed_as_expected": diagonal.push_samples > 0 and diagonal.push_stopped < diagonal.push_samples,
+		"push_stopped": diagonal.push_stopped, "push_samples": diagonal.push_samples}
+
+
+## The passage floor extends beyond its source polygon only because its diagonal links declare
+## the adjoining room. Removing those declarations must make the room containment check reject it.
+func _control_diagonal_floor_without_declared_link() -> Dictionary:
+	if not _has_diagonal_links():
+		return {"applicable": false, "failed_as_expected": false, "reason": "map has no diagonal passage"}
+	var altered_map := map.duplicate(true)
+	altered_map.edges = altered_map.edges.filter(func(edge: Dictionary) -> bool: return String(edge.get("kind", "")) != "diagonal")
+	var assembly := await _build(altered_map, specs)
+	var rooms := ROOM_CHECKS.check_all(assembly.get_world_3d().direct_space_state, assembly)
+	await _release(assembly)
+	var outside_failures: Array = rooms.failures.filter(func(message: String) -> bool:
+		return "floor present" in message and "outside the polygon and unconnected" in message)
+	return {"applicable": true, "failed_as_expected": not outside_failures.is_empty(),
+		"unconnected_floor_failures": outside_failures.size(),
+		"first_failure": outside_failures[0] if not outside_failures.is_empty() else ""}
+
+
+## The doorway header and trim of a 45-degree face must lie along it and the header must exist: unrotating one
+## header (the shipped #193 bug) and deleting another header must each be reported.
+func _control_diagonal_frame_unaligned() -> Dictionary:
+	if not _has_diagonal_links():
+		return {"applicable": false, "failed_as_expected": false, "reason": "map has no diagonal passage"}
+	var assembly := await _build(map, specs)
+	var intact := DIAGONAL_LINK_CHECKS.check(assembly)
+	var headers: Array[Node] = []
+	for room: Node3D in assembly.rooms.values():
+		headers.append_array(room.get_node("AuthoredVisuals").find_children("Header_*Visual", "MeshInstance3D", true, false).filter(
+			func(node: Node) -> bool: return absf(node.rotation.y) > 0.1))
+	var unrotated := 0
+	var removed := 0
+	if headers.size() >= 1:
+		headers[0].rotation.y = 0.0
+		unrotated = DIAGONAL_LINK_CHECKS.check(assembly).failures.size() - intact.failures.size()
+		headers[0].get_parent().remove_child(headers[0])
+		headers[0].free()
+		removed = DIAGONAL_LINK_CHECKS.check(assembly).failures.size() - intact.failures.size()
+	await _release(assembly)
+	return {"applicable": true, "failed_as_expected": intact.failures.is_empty() and headers.size() >= 1 and unrotated > 0 and removed > unrotated - 1 and removed > 0,
+		"diagonal_headers": headers.size(), "unrotated_failures": unrotated, "removed_failures": removed}
 
 
 ## Every room built with the wrong palette (textures swapped for colours and the reverse, trim and lamp
