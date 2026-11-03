@@ -77,6 +77,8 @@ def index_entry(spec: dict[str, Any], data: bytes) -> dict[str, Any]:
     }
     if "mode" in spec:
         entry["mode"] = spec["mode"]
+    if "palette_id" in spec["materials"]:
+        entry["palette_id"] = spec["materials"]["palette_id"]
     return entry
 
 

@@ -9,16 +9,21 @@ GENERATOR_VERSION = "shape-room-0.1.0"
 GENERATOR_VERSION_V2 = "shape-room-0.2.0"
 GENERATOR_VERSION_V3 = "shape-room-0.3.0"
 GENERATOR_VERSION_V4 = "shape-room-0.4.0"
-VERSIONS = (GENERATOR_VERSION, GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4)
+GENERATOR_VERSION_V5 = "shape-room-0.5.0"
+VERSIONS = (GENERATOR_VERSION, GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, GENERATOR_VERSION_V5)
+V4_PLUS = (GENERATOR_VERSION_V4, GENERATOR_VERSION_V5)  # 45-degree walls, clear-of-library-room ceilings
 MAP_VERSION_V2 = "gmap-0.2.0"
 MAP_VERSION_V3 = "gmap-0.3.0"
 MAP_VERSION_V4 = "gmap-0.4.0"
+MAP_VERSION_V5 = "gmap-0.5.0"
 
 
 def version_for_map(document: dict) -> str:
-    """shape-room-0.4.0 for gmap-0.4.0 (45-degree walls), shape-room-0.3.0 for gmap-0.3.0 (per-port
+    """shape-room-0.5.0 for gmap-0.5.0 (palette materials), shape-room-0.4.0 for gmap-0.4.0 (45-degree walls), shape-room-0.3.0 for gmap-0.3.0 (per-port
     doorway sizes), shape-room-0.2.0 for gmap-0.2.0 (strict doorway margins), else shape-room-0.1.0."""
     version = document.get("generator_version")
+    if version == MAP_VERSION_V5:
+        return GENERATOR_VERSION_V5
     if version == MAP_VERSION_V4:
         return GENERATOR_VERSION_V4
     if version == MAP_VERSION_V3:
@@ -27,7 +32,9 @@ def version_for_map(document: dict) -> str:
 
 
 def cell_rng(map_seed: int, cell_id: str, version: str = GENERATOR_VERSION) -> random.Random:
-    """Random(int) from sha256 of "<seed>:<cell_id>:<generator_version>"."""
+    """Random(int) from sha256 of "<seed>:<cell_id>:<generator_version>" (shape-room-0.5.0 uses 0.4.0's key)."""
+    if version == GENERATOR_VERSION_V5:  # same draws as shape-room-0.4.0: only the materials differ
+        version = GENERATOR_VERSION_V4
     text = f"{map_seed}:{cell_id}:{version}"
     digest = hashlib.sha256(text.encode("utf-8")).digest()
     return random.Random(int.from_bytes(digest, "big"))

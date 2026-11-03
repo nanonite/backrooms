@@ -11,15 +11,19 @@ from gmap_geometry import DOORWAY_HALF_M, PORT_STEP_M, STANDARD_MARGIN_M, rect_p
 from gmap_grow import PORT_TYPE, Draft, GenerationError, RetryAttempt, grow
 from gmap_library import Library, figure_classes, metadata_records
 from gmap_modules import MODULE_BUDGET, OVERHANG_MARGIN_M, attach_modules
+from gmap_palette import assign_palettes
+from gmap_palette_registry import load_registry, registry_ref
 from gmap_stage2 import PRIMITIVES_BY_STAGE, assign_stage2
 
 GENERATOR_VERSION = "gmap-0.1.0"
 GENERATOR_VERSION_V2 = "gmap-0.2.0"
 GENERATOR_VERSION_V3 = "gmap-0.3.0"
 GENERATOR_VERSION_V4 = "gmap-0.4.0"
-VERSIONS = (GENERATOR_VERSION, GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4)
-MARGIN_VERSIONS = (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4)  # standard margins + degenerate cells
-MODULE_VERSIONS = (GENERATOR_VERSION_V3, GENERATOR_VERSION_V4)  # library modules as leaf cells
+GENERATOR_VERSION_V5 = "gmap-0.5.0"
+VERSIONS = (GENERATOR_VERSION, GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, GENERATOR_VERSION_V5)
+MARGIN_VERSIONS = (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, GENERATOR_VERSION_V5)  # standard margins + degenerate cells
+MODULE_VERSIONS = (GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, GENERATOR_VERSION_V5)  # library modules as leaf cells
+STAGE2_VERSIONS = (GENERATOR_VERSION_V4, GENERATOR_VERSION_V5)  # 45-degree classes, library-room overhang margin
 DEFAULT_DEGENERATE_MAX = 1
 MAX_ATTEMPTS = 50
 CELL_RANGE = (6, 20)
@@ -44,6 +48,7 @@ RULE_IDS_V3 = sorted(
     ]
 )
 RULE_IDS_V4 = sorted([*RULE_IDS_V3, "shape_stage2_eligibility"])
+RULE_IDS_V5 = sorted([*RULE_IDS_V4, "palette_assignment"])
 CEILING = {"figure": [3.0, 6.0], "ground": [2.6, 4.8], "threshold": [2.6, 4.8], "void": [2.6, 4.8]}
 STREAM_STRIDE = 1 << 32
 
@@ -52,7 +57,15 @@ def map_id_for(seed: int, version: str = GENERATOR_VERSION) -> str:
     return f"gmap-{seed}-{version}"
 
 
+def layout_version(version: str) -> str:
+    """gmap-0.5.0 draws its layout, degenerate and shape-stage streams exactly as gmap-0.4.0 does, so a
+    0.5.0 map differs from the 0.4.0 map of the same seed only by its palettes."""
+    return GENERATOR_VERSION_V4 if version == GENERATOR_VERSION_V5 else version
+
+
 def rule_ids(version: str) -> list[str]:
+    if version == GENERATOR_VERSION_V5:
+        return RULE_IDS_V5
     if version == GENERATOR_VERSION_V4:
         return RULE_IDS_V4
     if version == GENERATOR_VERSION_V3:
@@ -79,7 +92,7 @@ def attempt_once(
     if not any(draft.degree(cell.cell_id) >= 3 for cell in draft.walkable()):
         raise RetryAttempt("branch_required: no cell of degree >= 3")
     if version in MODULE_VERSIONS and library is not None:
-        attach_modules(rng, draft, library, OVERHANG_MARGIN_M if version == GENERATOR_VERSION_V4 else 0.0)
+        attach_modules(rng, draft, library, OVERHANG_MARGIN_M if version in STAGE2_VERSIONS else 0.0)
     add_voids(rng, draft)
     return draft
 
@@ -100,7 +113,7 @@ def generate_draft(
             draft = attempt_once(attempt_rng(seed, attempt), cells, classes, version, library)
             used = 0
             if version in MARGIN_VERSIONS:
-                used = assign_degenerate(degenerate_rng(seed, attempt, version), draft, degenerate_max)
+                used = assign_degenerate(degenerate_rng(seed, attempt, layout_version(version)), draft, degenerate_max)
             return draft, attempt, used
         except RetryAttempt:
             continue
@@ -160,7 +173,7 @@ def build_map(
 ) -> dict[str, Any]:
     if version not in VERSIONS:
         raise GenerationError(f"generator version must be one of {', '.join(VERSIONS)}")
-    v4 = version == GENERATOR_VERSION_V4
+    v4 = version in STAGE2_VERSIONS
     stage_max = (2 if v4 else 1) if stage_max is None else stage_max
     if stage_max not in (0, 1, 2) or (stage_max == 2 and not v4):
         raise GenerationError(f"--stage-max must be 0..{2 if v4 else 1} in generator {version}")
@@ -176,7 +189,7 @@ def build_map(
         for c in draft.cells.values()
     ]
     if v4:
-        extras = assign_stage2(seed, attempt, version, cells, stage_max)
+        extras = assign_stage2(seed, attempt, layout_version(version), cells, stage_max)
         for record in cells:
             record.update(extras[record["cell_id"]])
     document = {
@@ -208,4 +221,10 @@ def build_map(
     if v3:
         placed = sum(1 for c in draft.cells.values() if c.module)
         document["module_budget"] = {**MODULE_BUDGET, "used": placed}
+    if version == GENERATOR_VERSION_V5:
+        document["palette_registry"] = registry_ref()
+        palettes = assign_palettes(document, library, load_registry())
+        for record in document["cells"]:
+            if record["cell_id"] in palettes:
+                record["palette"] = palettes[record["cell_id"]]
     return document

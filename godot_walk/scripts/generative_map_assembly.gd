@@ -44,6 +44,7 @@ var recess_joints := true
 var diagonal_collision := true
 var diagonal_pullback := 0.0
 var materials: Dictionary = {}
+var palette_materials: Dictionary = {}  # palette_id -> materials (shape-room-0.5.0 specs, #192)
 var player: CharacterBody3D
 var spawn_position := Vector3.ZERO
 var spawn_yaw := 0.0
@@ -104,7 +105,7 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 	for cell: Dictionary in map.cells:
 		var cell_id := String(cell.cell_id)
 		if specs.has(cell_id):
-			rooms[cell_id] = BUILDER.build(self, specs[cell_id], materials, _forced_closed(specs[cell_id]),
+			rooms[cell_id] = BUILDER.build(self, specs[cell_id], materials_for(specs[cell_id]), _forced_closed(specs[cell_id]),
 				_module_joints(specs[cell_id]),
 				{"diagonal_collision": diagonal_collision, "diagonal_pullback": diagonal_pullback})
 	_add_safety_net()
@@ -114,6 +115,16 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 	_compute_spawn(specs[origin_cell])
 	set_meta("registration_accepted", false)
 	set_meta("scale_calibrated", false)
+
+
+## One materials set per palette; a spec without `palette_id` (shape-room-0.1.0 to 0.4.0) keeps the shared one.
+func materials_for(spec: Dictionary) -> Dictionary:
+	if not spec.materials.has("palette_id"):
+		return materials
+	var palette_id := String(spec.materials.palette_id)
+	if not palette_materials.has(palette_id):
+		palette_materials[palette_id] = MATERIALS.make(spec)
+	return palette_materials[palette_id]
 
 
 func has_room(cell_id: String) -> bool:

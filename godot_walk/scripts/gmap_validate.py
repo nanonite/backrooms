@@ -11,9 +11,10 @@ from jsonschema import Draft202012Validator
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from deterministic_json import ROOT, sha256_file  # noqa: E402
-from gmap_build import GENERATOR_VERSION_V4, MARGIN_VERSIONS, MODULE_VERSIONS, rule_ids  # noqa: E402
+from gmap_build import GENERATOR_VERSION_V5, MARGIN_VERSIONS, MODULE_VERSIONS, STAGE2_VERSIONS, rule_ids  # noqa: E402
 from gmap_margin_rules import check_lattice_ports, margin_errors  # noqa: E402
 from gmap_module_rules import module_errors  # noqa: E402
+from gmap_palette import palette_errors  # noqa: E402
 from gmap_stage2 import stage2_errors  # noqa: E402
 from gmap_rules import (  # noqa: E402
     Errors,
@@ -70,8 +71,10 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         errors += margin_errors(document, rects)
     if document["generator_version"] in MODULE_VERSIONS:
         errors += module_errors(document, rects, root)
-    if document["generator_version"] == GENERATOR_VERSION_V4:
+    if document["generator_version"] in STAGE2_VERSIONS:
         errors += stage2_errors(document)
+    if document["generator_version"] == GENERATOR_VERSION_V5:
+        errors += palette_errors(document, root)
     roles = {cell["cell_id"]: cell["role"] for cell in cells}
     walkable = sorted(c for c, role in roles.items() if role != "void")
     errors += check_tree(walkable, edges) + check_branch(walkable, edges)

@@ -15,7 +15,8 @@ from shape_room_checks import (
     require_valid,
 )
 from shape_room_raster import Cell, Rect, decompose, occupied_cells, outline_of, solid_at
-from shape_room_rng import GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, cell_rng, version_for_map
+from shape_room_rng import GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V5, V4_PLUS, cell_rng, version_for_map
+from shape_room_palette import palette_materials
 from shape_room_module_clear import clear_ceiling, module_top_planes
 from shape_room_stage2 import chamfer_cuts, stage2_target, suitable_width
 
@@ -63,7 +64,7 @@ def draw(document: dict[str, Any], cell: dict[str, Any], envelope: Rect) -> dict
     lo_c, hi_c = cell["ceiling_range_m"]
     ceiling = snap_tenth(rng.randint(round(lo_c * 10), round(hi_c * 10)) / 10)
     construction = choose_construction(document, cell, coin)
-    if version_for_map(document) == GENERATOR_VERSION_V4:  # wall tops must not share a plane with the library room's
+    if version_for_map(document) in V4_PLUS:  # wall tops must not share a plane with the library room's
         ceiling = clear_ceiling(ceiling, lo_c, hi_c, module_top_planes(document, cell))
     if cell["role"] == "threshold":
         width = THRESHOLD_ARM_WIDTH_M
@@ -72,7 +73,7 @@ def draw(document: dict[str, Any], cell: dict[str, Any], envelope: Rect) -> dict
             construction = "box"  # no room for a 4 m arm: the whole envelope is the room
         else:
             width = max(width, WIDE_ARM_WIDTH_M)
-    if version_for_map(document) == GENERATOR_VERSION_V4 and construction == "arms":
+    if version_for_map(document) in V4_PLUS and construction == "arms":
         fitted = suitable_width(document, cell, envelope, width, max(low, WIDE_ARM_WIDTH_M if has_wide_port(cell) else low), high)
         construction, width = ("box", width) if fitted is None else ("arms", fitted)
     return {"construction": construction, "arm_width_m": width, "ceiling_height_m": ceiling}
@@ -209,10 +210,10 @@ def build_spec(
 ) -> dict[str, Any]:
     envelope = cell_envelope(cell)
     version = version_for_map(document)
-    v2 = version in (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4)
+    v2 = version in (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, *V4_PLUS)
     choices = draw(document, cell, envelope)
     geometry = room_geometry(cell, envelope, choices, set(degenerate_ports(cell)) if v2 else None, document)
-    doorways = doorway_records(cell, links, version in (GENERATOR_VERSION_V3, GENERATOR_VERSION_V4))
+    doorways = doorway_records(cell, links, version in (GENERATOR_VERSION_V3, *V4_PLUS))
     is_arms = choices["construction"] == "arms"
     spec = {
         "schema_version": 1,
@@ -236,8 +237,8 @@ def build_spec(
         "ceiling_height_m": choices["ceiling_height_m"],
         "doorways": doorways,
         "lamps_xz": lamps(geometry),
-        "material_source": "kit_default",
-        "materials": MATERIALS,
+        "material_source": "palette_registry" if version == GENERATOR_VERSION_V5 else "kit_default",
+        "materials": palette_materials(cell) if version == GENERATOR_VERSION_V5 else MATERIALS,
         "features": feature_records(doorways),
         "registration_accepted": False,
         "scale_calibrated": False,

@@ -11,6 +11,7 @@ const MAP_CHECKS := preload("res://scripts/issue183_map_checks.gd")
 const TRIM_CHECKS := preload("res://scripts/issue186_trim_checks.gd")
 const MODULE_CHECKS := preload("res://scripts/issue188_module_checks.gd")
 const DIAGONAL_CHECKS := preload("res://scripts/issue190_diagonal_checks.gd")
+const PALETTE_CHECKS := preload("res://scripts/issue192_palette_checks.gd")
 const DIAGONAL := preload("res://scripts/shape_room_diagonal.gd")
 const PROBE := preload("res://scripts/shape_room_probe.gd")
 const SCENE_PATH := "res://scenes/generative_map_walkthrough.tscn"
@@ -45,7 +46,7 @@ func _run() -> void:
 	var positive: Dictionary = report.positive
 	var modules: Dictionary = positive.modules
 	var diagonal: Dictionary = positive.diagonal
-	print("ISSUE183_SHAPE_ROOMS: %s map=%s mode=%s rooms=%d edges_both_ways=%d/%d closed_blocked=%d/%d flood_cells=%d/%d void_reached=%d trim_pairs=%d trim_coplanar=%d degenerate_trim=%d/%d modules=%d landed=%d open=%d aperture_clear=%d wall_coplanar=%d reveal_faces=%d diagonal_edges=%d diagonal_stopped=%d/%d floor_missing=%d/%d joint_uncovered=%d/%d diagonal_coplanar=%d controls=%s" % [
+	var summary := "ISSUE183_SHAPE_ROOMS: %s map=%s mode=%s rooms=%d edges_both_ways=%d/%d closed_blocked=%d/%d flood_cells=%d/%d void_reached=%d trim_pairs=%d trim_coplanar=%d degenerate_trim=%d/%d modules=%d landed=%d open=%d aperture_clear=%d wall_coplanar=%d reveal_faces=%d diagonal_edges=%d diagonal_stopped=%d/%d floor_missing=%d/%d joint_uncovered=%d/%d diagonal_coplanar=%d controls=%s" % [
 		"PASS" if failures.is_empty() else "FAIL", map.map_id, index.mode, specs.size(),
 		positive.edges.passed_forward + positive.edges.passed_reverse, 2 * positive.edges.direct_edges_checked,
 		positive.edges.closed_blocked, positive.edges.closed_edges,
@@ -55,7 +56,12 @@ func _run() -> void:
 		modules.get("module_cells", 0), modules.get("sockets_landed", 0), modules.get("sockets_open", 0),
 		modules.get("apertures_clear", 0), modules.get("wall_coplanar_conflicts", 0),
 		modules.get("reveal_coplanar_faces", 0), diagonal.diagonal_edges, diagonal.push_stopped, diagonal.push_samples,
-		diagonal.floor_missing, diagonal.floor_samples, diagonal.joint_uncovered, diagonal.joint_samples, diagonal.coplanar_faces, str(report.negative_controls.keys())])
+		diagonal.floor_missing, diagonal.floor_samples, diagonal.joint_uncovered, diagonal.joint_samples, diagonal.coplanar_faces, str(report.negative_controls.keys())]
+	var palette: Dictionary = positive.get("palette", {"rooms": 0})
+	if palette.rooms > 0:  # shape-room-0.5.0 maps only: older maps print the line they always did
+		summary += " palette_rooms=%d palette_surfaces=%d palette_mismatch=%d palettes=%s" % [
+			palette.rooms, palette.surfaces, palette.mismatches, JSON.stringify(palette.palettes)]
+	print(summary)
 	quit(0 if failures.is_empty() else 1)
 
 
@@ -142,8 +148,13 @@ func _run_positive() -> Dictionary:
 		_fail_all(modules.failures)
 	var diagonal := DIAGONAL_CHECKS.check(assembly)
 	_fail_all(diagonal.failures)
+	var palette := PALETTE_CHECKS.check(assembly, specs)
+	_fail_all(palette.failures)
 	await _release(assembly)
-	return {"rooms": rooms.rooms, "edges": edges, "flood": flood, "trim": trim, "modules": modules, "diagonal": diagonal}
+	var positive := {"rooms": rooms.rooms, "edges": edges, "flood": flood, "trim": trim, "modules": modules, "diagonal": diagonal}
+	if palette.rooms > 0:  # only shape-room-0.5.0 maps: older reports keep their keys
+		positive["palette"] = palette
+	return positive
 
 
 func _run_negative_controls() -> Dictionary:
@@ -154,6 +165,8 @@ func _run_negative_controls() -> Dictionary:
 	controls["module_joint_recess_removed"] = await _control_joint_recess_removed()
 	controls["diagonal_collision_removed"] = await _control_diagonal_collision_removed()
 	controls["unmitred_joint"] = await _control_unmitred_joint()
+	if specs.values().any(func(spec: Dictionary) -> bool: return spec.materials.has("palette_id")):
+		controls["wrong_palette"] = await _control_wrong_palette()
 	for name: String in controls:
 		_expect(not controls[name].applicable or controls[name].failed_as_expected, "Negative control %s did not fail" % name)
 	return controls
@@ -241,6 +254,25 @@ func _control_unmitred_joint() -> Dictionary:
 	await _release(assembly)
 	return {"applicable": true, "failed_as_expected": diagonal.joint_uncovered > 0, "joint_uncovered": diagonal.joint_uncovered,
 		"joint_samples": diagonal.joint_samples}
+
+
+## Every room built with the wrong palette (textures swapped for colours and the reverse, trim and lamp
+## recoloured) but checked against the true specs: each room's surfaces must be reported.
+func _control_wrong_palette() -> Dictionary:
+	var altered := specs.duplicate(true)
+	for cell_id: String in altered:
+		var materials: Dictionary = altered[cell_id].materials
+		for key: String in ["wall", "floor", "ceiling"]:
+			materials[key] = {"color": [0.9, 0.1, 0.1]} if materials[key].has("texture") else {
+				"texture": "res://assets/psx_extension/textures/wallpaper_source_video.png", "tile_m": 1.5}
+		materials.trim_color = [0.1, 0.9, 0.1]
+		materials.lamp_color = [0.1, 0.1, 0.9]
+	var assembly := await _build(map, altered)
+	var palette := PALETTE_CHECKS.check(assembly, specs)
+	await _release(assembly)
+	return {"applicable": true, "failed_as_expected": palette.rooms > 0 and palette.mismatches >= palette.surfaces,
+		"rooms": palette.rooms, "surfaces": palette.surfaces, "mismatches": palette.mismatches,
+		"first_failure": palette.failures[0] if not palette.failures.is_empty() else ""}
 
 
 func _control_floor_removed() -> Dictionary:

@@ -83,6 +83,17 @@
             "description": "Optional (gmap-0.4.0). The stage-2 primitive class drawn for this cell; present exactly when shape_stage_target is 2.",
             "enum": ["chamfered_box", "chamfered_polyomino", "octagon", "wedge"]
           },
+          "palette": {
+            "description": "Optional (gmap-0.5.0). The material palette this generated walkable cell takes: the palette of the nearest placed library figure room (anchor_module_id, graph distance over open edges), or the registry default (both null). Module and void cells carry none.",
+            "type": "object",
+            "required": ["palette_id", "anchor_module_id", "distance"],
+            "properties": {
+              "palette_id": { "type": "string", "minLength": 1 },
+              "anchor_module_id": { "type": ["string", "null"], "minLength": 1 },
+              "distance": { "type": ["integer", "null"], "minimum": 1 }
+            },
+            "additionalProperties": false
+          },
           "module": {
             "description": "Optional (gmap-0.3.0). The library module placed in this leaf cell: world = R(local) + translation_xz, R = rotation_deg / 90 quarter turns (x, z) -> (-z, x).",
             "type": "object",
@@ -153,6 +164,10 @@
         "used": { "type": "integer", "minimum": 0 }
       },
       "additionalProperties": false
+    },
+    "palette_registry": {
+      "description": "Optional (required by gmap-0.5.0 rules). The material palette registry the cell palettes were assigned from, with its hash.",
+      "$ref": "#/$defs/path_and_hash"
     },
     "module_budget": {
       "description": "Optional (required by gmap-0.3.0 rules). Library modules placed as leaf cells: min..max allowed, used so far.",

@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "registry_version": "0.1.0",
+  "palettes": [
+    {
+      "palette_id": "backrooms_yellow",
+      "is_default": true,
+      "match_style_tags": ["backrooms_yellow"],
+      "source_module_ids": [],
+      "wall": {
+        "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+        "tile_m": 1.5,
+        "provenance": {"from": "res://scripts/shape_room_spec.py::wallpaper_texture", "sign": "icon"}
+      },
+      "floor": {
+        "texture": "res://assets/psx_extension/textures/floor_source_video.png",
+        "tile_m": 4.0,
+        "provenance": {"from": "res://scripts/shape_room_spec.py::floor_texture", "sign": "icon"}
+      },
+      "ceiling": {
+        "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+        "tile_m": 4.0,
+        "provenance": {"from": "res://scripts/shape_room_spec.py::ceiling_texture", "sign": "icon"}
+      },
+      "trim_color": {
+        "color": [0.37, 0.34, 0.23],
+        "provenance": {"from": "res://room_catalog/material_palettes/PALETTES.md::Palettes", "sign": "symbol"}
+      },
+      "lamp_color": {
+        "color": [1.0, 0.97, 0.76],
+        "provenance": {"from": "res://room_catalog/material_palettes/PALETTES.md::Palettes", "sign": "symbol"}
+      }
+    },
+    {
+      "palette_id": "industrial_concrete",
+      "is_default": false,
+      "match_style_tags": ["industrial_hall", "concrete_grey", "support_column_rows", "clerestory_windows"],
+      "source_module_ids": ["godot_gopro_industrial_hall_frame1097_v1", "godot_gopro_industrial_hall_south_socket_v1"],
+      "wall": {
+        "color": [0.43, 0.43, 0.40],
+        "provenance": {"from": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.gd::materials.wall", "sign": "icon"}
+      },
+      "floor": {
+        "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+        "tile_m": 4.0,
+        "provenance": {"from": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.gd::FLOOR_TEXTURE_PATH", "sign": "icon"}
+      },
+      "ceiling": {
+        "color": [0.34, 0.35, 0.33],
+        "provenance": {"from": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.gd::materials.roof", "sign": "icon"}
+      },
+      "trim_color": {
+        "color": [0.28, 0.29, 0.28],
+        "provenance": {"from": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.gd::materials.trim", "sign": "icon"}
+      },
+      "lamp_color": {
+        "color": [0.86, 0.88, 0.86],
+        "provenance": {"from": "res://room_catalog/material_palettes/PALETTES.md::Palettes", "sign": "symbol"}
+      }
+    },
+    {
+      "palette_id": "plaster_debris",
+      "is_default": false,
+      "match_style_tags": ["rock_field", "plaster_walls", "window_strip", "ceiling_beam_grid"],
+      "source_module_ids": ["video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1", "video_ccf9722164a0bdc8_debris_window_rock_room_v1"],
+      "wall": {
+        "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png",
+        "tile_m": 4.0,
+        "provenance": {"from": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.gd::WALL_TEXTURE_PATH", "sign": "icon"}
+      },
+      "floor": {
+        "color": [0.34, 0.33, 0.31],
+        "provenance": {"from": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.gd::materials[\"floor\"]", "sign": "icon"}
+      },
+      "ceiling": {
+        "color": [0.43, 0.42, 0.38],
+        "provenance": {"from": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.gd::materials[\"ceiling\"]", "sign": "icon"}
+      },
+      "trim_color": {
+        "color": [0.24, 0.25, 0.23],
+        "provenance": {"from": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.gd::materials[\"trim\"]", "sign": "icon"}
+      },
+      "lamp_color": {
+        "color": [0.86, 0.88, 0.86],
+        "provenance": {"from": "res://room_catalog/material_palettes/PALETTES.md::Palettes", "sign": "symbol"}
+      }
+    }
+  ]
+}

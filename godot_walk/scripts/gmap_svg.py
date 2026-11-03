@@ -10,6 +10,7 @@ SCALE = 10
 MARGIN = 20
 FILLS = {"ground": "#bdbdbd", "threshold": "#d2b48c", "figure": "#ffd700", "void": "none"}
 MODULE_FILLS = {"ground": "#a9dfbf", "figure": "#f5b041"}  # library module leaf cells (gmap-0.3.0)
+PALETTE_FILLS = {"industrial_concrete": "#9db4c9", "plaster_debris": "#e3a99b"}  # gmap-0.5.0: cells off the default palette
 MODULE_STROKE = "#117864"
 UNTESTED_STROKE = "#e67e22"
 
@@ -34,6 +35,10 @@ def cell_svg(cell: dict[str, Any], rect: Rect, ox: float, oz: float) -> list[str
     if module:
         fill, stroke, dash = MODULE_FILLS[cell["role"]], MODULE_STROKE, ' stroke-dasharray="10 2"'
         label += " module"
+    palette = cell.get("palette")
+    if palette and palette["anchor_module_id"] is not None:
+        fill = PALETTE_FILLS.get(palette["palette_id"], "#c39bd3")
+        label += f" {palette['palette_id']} d{palette['distance']}"
     lines = [
         (
             f'<rect x="{x}" y="{z}" width="{width}" height="{height}" '

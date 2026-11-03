@@ -51,7 +51,7 @@ static func triangles(ring: Array[Vector2]) -> Array[PackedVector2Array]:
 ## under a wall or outside the room, never in walkable space.
 static func add_floor(floor_visual: Node3D, body: StaticBody3D, context: Dictionary, thickness: float) -> void:
 	var tris := triangles(context.ring)
-	_add_plane(floor_visual, "FloorPolygon", tris, 0.0, Vector3.UP, MATERIALS.planar(context.materials, "floor"), MATERIALS.tile_m("floor"))
+	_add_plane(floor_visual, "FloorPolygon", tris, 0.0, Vector3.UP, MATERIALS.planar(context.materials, "floor"), MATERIALS.tile_m(context.materials, "floor"))
 	for index in tris.size():
 		var grown := _grown(tris[index])
 		var points := PackedVector3Array()
@@ -88,7 +88,7 @@ static func _grown(tri: PackedVector2Array) -> PackedVector2Array:
 
 static func add_ceiling(ceiling: Node3D, context: Dictionary) -> void:
 	_add_plane(ceiling, "CeilingPolygon", triangles(context.ring), context.height, Vector3.DOWN,
-		MATERIALS.planar(context.materials, "ceiling"), MATERIALS.tile_m("ceiling"))
+		MATERIALS.planar(context.materials, "ceiling"), MATERIALS.tile_m(context.materials, "ceiling"))
 
 
 ## One mesh of horizontal triangles at height `y`, wound so the front face looks along `facing`
