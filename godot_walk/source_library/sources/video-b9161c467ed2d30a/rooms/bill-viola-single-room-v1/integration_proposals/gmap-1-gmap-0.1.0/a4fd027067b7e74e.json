@@ -1,0 +1,61 @@
+{
+  "adapter_required": {
+    "description": "Authored adapter geometry at edge-0 for ports c10:p0; no source opening is implied.",
+    "port_slot_ids": [
+      "edge-0"
+    ]
+  },
+  "assumptions": [
+    "No video connectivity inferred",
+    "Map coordinates are unregistered and unscaled (registration_accepted=false, scale_calibrated=false)",
+    "Adapter work requires a new module version, separate collision, bidirectional traversal tests and operator review",
+    "poetics not operator-accepted"
+  ],
+  "catalog_snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30",
+  "cell_id": "c10",
+  "confidence": 0.466667,
+  "evidence": [
+    "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v1.json",
+    "godot_walk/room_catalog/generative_maps/gmap-1-gmap-0.1.0.json",
+    "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.5.0.json"
+  ],
+  "fit_result": {
+    "footprint_fits": true,
+    "notes": "mechanical fit score, not a visual judgement",
+    "ports_covered": false
+  },
+  "library_index_sha256": "147b1cb9daaa96601bcab84bf355929134f2ddbd6b6f279bc255f7ddd849f49f",
+  "map_id": "gmap-1-gmap-0.1.0",
+  "module": {
+    "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+    "version": 1
+  },
+  "outcome": "propose",
+  "placement": {
+    "position_xz": [
+      -10.0,
+      -1.0
+    ],
+    "yaw_deg": 0
+  },
+  "proposal_id": "a4fd027067b7e74e",
+  "rationale": "At yaw 0 and translation (-10.0, -1.0) the placed footprint lies inside the envelope of cell c10; 0 of 1 required ports match tested sockets and 1 need adapter work. Mechanical score 0.467 (envelope slack 32.0 m2 of 96.0 m2).",
+  "schema_version": 1,
+  "sockets_used": [],
+  "source_id": "video-b9161c467ed2d30a",
+  "targets": [],
+  "unknowns": [
+    "Light, scale and the connecting geometry beyond this module are not derived."
+  ],
+  "work_required": {
+    "clearance": [
+      "Verify clearance around the new opening at port slot edge-0 for port c10:p0."
+    ],
+    "collision": [
+      "Author matching collision for the adapter opening at port slot edge-0."
+    ],
+    "junction": [
+      "Test bidirectional traversal across the adapter at port c10:p0."
+    ]
+  }
+}
