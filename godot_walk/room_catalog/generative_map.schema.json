@@ -14,6 +14,11 @@
     "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
     "generator_version": { "type": "string", "minLength": 1 },
     "seed": { "type": "integer", "minimum": 0, "maximum": 4294967295 },
+    "attempt": {
+      "description": "Optional. Seed stream used by the generator (0 = the seed itself; n regenerates with stream n after a rule such as branch_required failed).",
+      "type": "integer",
+      "minimum": 0
+    },
     "catalog_snapshot": { "$ref": "#/$defs/path_and_hash" },
     "library_index": { "$ref": "#/$defs/path_and_hash" },
     "lattice": {

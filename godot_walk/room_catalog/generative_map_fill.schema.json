@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/generative_map_fill.schema.json",
+  "title": "Generative map fill candidates (L0): which library modules fit each cell",
+  "type": "object",
+  "required": [
+    "schema_version", "map_id", "generator_version", "map_file", "library_index",
+    "note", "playable", "cells"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
+    "generator_version": { "type": "string", "minLength": 1 },
+    "map_file": {
+      "type": "object",
+      "required": ["name", "sha256"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "library_index": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "note": { "const": "Structural map only; not playable until cells are filled and module metadata is operator-accepted." },
+    "playable": { "const": false },
+    "cells": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cell_id", "cell_status", "candidates"],
+        "properties": {
+          "cell_id": { "type": "string", "minLength": 1 },
+          "cell_status": { "enum": ["module_candidates", "shape_room_pending", "void"] },
+          "candidates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "module_id", "version", "rotation_deg", "footprint_fits",
+                "tested_socket_count", "required_port_count", "ports_alignable",
+                "layout_usable"
+              ],
+              "properties": {
+                "module_id": { "type": "string", "minLength": 1 },
+                "version": { "type": "integer", "minimum": 1 },
+                "rotation_deg": { "enum": [0, 90, 180, 270] },
+                "footprint_fits": { "type": "boolean" },
+                "tested_socket_count": { "type": "integer", "minimum": 0 },
+                "required_port_count": { "type": "integer", "minimum": 0 },
+                "ports_alignable": { "type": "boolean" },
+                "layout_usable": { "type": "boolean" }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": { "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" } }
+}

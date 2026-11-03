@@ -3,6 +3,7 @@
   "map_id": "gmap-1234-gmap-0.1.0",
   "generator_version": "gmap-0.1.0",
   "seed": 1234,
+  "attempt": 0,
   "catalog_snapshot": {
     "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.5.0.json",
     "sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30"
