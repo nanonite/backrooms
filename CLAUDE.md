@@ -45,4 +45,4 @@ If a change can only be verified visually (e.g., shader effects, rendering pipel
 
 ## Source Control
 
-There is no GitHub remote. Do NOT use `gh` commands — they will fail.
+The only remote is `github` (`git@github.com:nanonite/backrooms.git`); push with `git push github main`. Use plain `git` commands only. Do NOT use the `gh` CLI. Issue tracking stays in chainlink.
