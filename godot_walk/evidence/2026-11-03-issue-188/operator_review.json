@@ -1,0 +1,50 @@
+{
+  "issue": 188,
+  "date": "2026-11-03",
+  "decision": "operator_accepted_first_pass",
+  "operator_feedback": "woah ok now we are combining rooms , cool! the only flicker i saw was between the two rooms that were differeing in color , so the gopro and the backroom room. and it was only contained to the door frame but, it was a flicker of like overlapping textures and it was fairly minimal. in general approved",
+  "scope": "These exact module joints in these exact gmap-0.3.0 maps (pinned by sha256). Does not approve arbitrary placements, other seeds, or general socket interchangeability; the #160/#168 pair approvals are unchanged.",
+  "known_issue": "Minor texture flicker in the door frame at the industrial-hall (GoPro) joint with a yellow generated room: coplanar reveal/lintel faces (reveal_coplanar_faces in runtime JSON). Follow-up issue.",
+  "joints": [
+    {
+      "map_file": "godot_walk/room_catalog/generative_maps/gmap-1-gmap-0.3.0.json",
+      "map_sha256": "94765df9b39d5b55debbd93c799b3e3fc6592278546fec3ff429e4aa19e88c43",
+      "cell_id": "c12",
+      "module_id": "godot_early_pocket_single_west_v1",
+      "socket_id": "west",
+      "rotation_deg": 180
+    },
+    {
+      "map_file": "godot_walk/room_catalog/generative_maps/gmap-1-gmap-0.3.0.json",
+      "map_sha256": "94765df9b39d5b55debbd93c799b3e3fc6592278546fec3ff429e4aa19e88c43",
+      "cell_id": "c13",
+      "module_id": "godot_later_bay_column_bounded_v1",
+      "socket_id": "east",
+      "rotation_deg": 0
+    },
+    {
+      "map_file": "godot_walk/room_catalog/generative_maps/gmap-2-gmap-0.3.0.json",
+      "map_sha256": "1f37242deb2fe7857ff590428b6d3a76bf8e405cfa8782e9fade8987d1ade4f2",
+      "cell_id": "c12",
+      "module_id": "godot_gopro_industrial_hall_south_socket_v1",
+      "socket_id": "south",
+      "rotation_deg": 90
+    },
+    {
+      "map_file": "godot_walk/room_catalog/generative_maps/gmap-3-gmap-0.3.0.json",
+      "map_sha256": "b74b62290e6e45370ec69b298d7832a87e90969002d350835fc8f12b95e57a90",
+      "cell_id": "c12",
+      "module_id": "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+      "socket_id": "north",
+      "rotation_deg": 180
+    },
+    {
+      "map_file": "godot_walk/room_catalog/generative_maps/gmap-3-gmap-0.3.0.json",
+      "map_sha256": "b74b62290e6e45370ec69b298d7832a87e90969002d350835fc8f12b95e57a90",
+      "cell_id": "c13",
+      "module_id": "godot_gopro_industrial_hall_south_socket_v1",
+      "socket_id": "south",
+      "rotation_deg": 90
+    }
+  ]
+}
