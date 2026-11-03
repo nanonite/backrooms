@@ -1,0 +1,260 @@
+class_name ShapeRoomBuilder
+extends RefCounted
+
+## Builds one generated shape room from its spec: separate AuthoredVisuals and
+## AuthoredBoundaries nodes, as in issue165_room_geometry.gd. Everything stays inside
+## the room's polygon, so walls of adjacent cells sit back to back.
+
+const MATERIALS := preload("res://scripts/shape_room_materials.gd")
+const WALL_THICKNESS := 0.16
+const DOOR_HEIGHT := 2.1
+const TRIM_WIDTH := 0.06
+const TRIM_PROTRUSION := 0.04
+const TRIM_HEIGHT := 0.06
+const PANEL_DEPTH := 0.10
+const PANEL_THICKNESS := 0.03
+const SEAM_REACH := 0.1
+const LAMP_SIZE := Vector3(0.9, 0.03, 0.42)
+const EPSILON := 0.001
+const FLOOR_VISUAL_THICKNESS := 0.05
+const FLOOR_COLLIDER_THICKNESS := 0.12
+
+
+static func build(parent: Node3D, spec: Dictionary, materials: Dictionary,
+		forced_closed: PackedStringArray = PackedStringArray()) -> Node3D:
+	var room := Node3D.new()
+	room.name = String(spec.cell_id)
+	parent.add_child(room)
+	var visuals := _group(room, "AuthoredVisuals")
+	var boundaries := _group(room, "AuthoredBoundaries")
+	var context := _context(spec, materials, forced_closed)
+	_add_floor(visuals, boundaries, context)
+	_add_ceiling(visuals, context)
+	_add_walls(visuals, boundaries, context)
+	_add_lamps(visuals, context)
+	room.set_meta("cell_id", String(spec.cell_id))
+	room.set_meta("walkable_polygon_xz", PackedVector2Array(context.ring))
+	room.set_meta("ceiling_height_m", float(spec.ceiling_height_m))
+	room.set_meta("registration_accepted", false)
+	room.set_meta("scale_calibrated", false)
+	return room
+
+
+static func ring_of(spec: Dictionary) -> Array[Vector2]:
+	var ring: Array[Vector2] = []
+	for point: Array in spec.outline_xz:
+		ring.append(Vector2(float(point[0]), float(point[1])))
+	if _signed_area(ring) < 0.0:
+		ring.reverse()
+	return ring
+
+
+static func _context(spec: Dictionary, materials: Dictionary, forced_closed: PackedStringArray) -> Dictionary:
+	var doorways: Array[Dictionary] = []
+	for source: Dictionary in spec.doorways:
+		var doorway := source.duplicate()
+		doorway["effective_kind"] = "closed_visible" if (
+			String(source.kind) != "open" or forced_closed.has(String(source.port_id))) else "open"
+		doorways.append(doorway)
+	return {"spec": spec, "materials": materials, "ring": ring_of(spec),
+		"height": float(spec.ceiling_height_m), "doorways": doorways}
+
+
+static func _signed_area(ring: Array[Vector2]) -> float:
+	var total := 0.0
+	for index in ring.size():
+		var next := ring[(index + 1) % ring.size()]
+		total += ring[index].x * next.y - next.x * ring[index].y
+	return total / 2.0
+
+
+static func _add_floor(visuals: Node3D, boundaries: Node3D, context: Dictionary) -> void:
+	var floor_visual := _group(visuals, "WalkableFloorVisual")
+	var body := StaticBody3D.new()
+	body.name = "WalkableFloor"
+	boundaries.add_child(body)
+	for rect: Array in context.spec.rects:
+		var x0 := float(rect[0]); var z0 := float(rect[1]); var x1 := float(rect[2]); var z1 := float(rect[3])
+		var center := Vector2((x0 + x1) / 2.0, (z0 + z1) / 2.0)
+		var material := MATERIALS.scaled(context.materials, "floor", x1 - x0, z1 - z0)
+		_add_box(floor_visual, "FloorRect", Vector3(center.x, -FLOOR_VISUAL_THICKNESS / 2.0, center.y),
+			Vector3(x1 - x0, FLOOR_VISUAL_THICKNESS, z1 - z0), material)
+		_add_collision(body, "FloorRectShape", Vector3(center.x, -FLOOR_COLLIDER_THICKNESS / 2.0, center.y),
+			Vector3(x1 - x0, FLOOR_COLLIDER_THICKNESS, z1 - z0))
+	for doorway: Dictionary in context.doorways:
+		if doorway.effective_kind == "open":
+			_add_floor_seam(body, doorway)
+
+
+static func _add_floor_seam(body: StaticBody3D, doorway: Dictionary) -> void:
+	var normal := Vector2(float(doorway.normal[0]), float(doorway.normal[1]))
+	var size := Vector3(2.0, FLOOR_COLLIDER_THICKNESS, 2.0 * SEAM_REACH)
+	if absf(normal.x) > 0.5:
+		size = Vector3(2.0 * SEAM_REACH, FLOOR_COLLIDER_THICKNESS, 2.0)
+	var position := Vector3(float(doorway.pos_xz[0]), -FLOOR_COLLIDER_THICKNESS / 2.0, float(doorway.pos_xz[1]))
+	_add_collision(body, "DoorwayFloorSeam_" + String(doorway.port_id), position, size)
+
+
+static func _add_ceiling(visuals: Node3D, context: Dictionary) -> void:
+	var ceiling := _group(visuals, "RenderedCeiling")
+	var height: float = context.height
+	for rect: Array in context.spec.rects:
+		var x0 := float(rect[0]); var z0 := float(rect[1]); var x1 := float(rect[2]); var z1 := float(rect[3])
+		var material := MATERIALS.scaled(context.materials, "ceiling", x1 - x0, z1 - z0)
+		_add_box(ceiling, "CeilingRect", Vector3((x0 + x1) / 2.0, height + FLOOR_VISUAL_THICKNESS / 2.0, (z0 + z1) / 2.0),
+			Vector3(x1 - x0, FLOOR_VISUAL_THICKNESS, z1 - z0), material)
+
+
+static func _add_lamps(visuals: Node3D, context: Dictionary) -> void:
+	var lamps := _group(visuals, "CeilingLamps")
+	var index := 0
+	for point: Array in context.spec.lamps_xz:
+		_add_box(lamps, "CeilingLight_%02d" % index, Vector3(float(point[0]), context.height - LAMP_SIZE.y / 2.0, float(point[1])),
+			LAMP_SIZE, context.materials.lamp)
+		index += 1
+
+
+static func _add_walls(visuals: Node3D, boundaries: Node3D, context: Dictionary) -> void:
+	var ring: Array[Vector2] = context.ring
+	var count := ring.size()
+	for index in count:
+		var frame := _edge_frame(ring, index)
+		var gaps := _edge_gaps(frame, context.doorways)
+		_add_edge_pieces(visuals, boundaries, context, frame, gaps, index)
+		for gap: Dictionary in gaps:
+			_add_doorway(visuals, boundaries, context, frame, gap)
+
+
+static func _edge_frame(ring: Array[Vector2], index: int) -> Dictionary:
+	var count := ring.size()
+	var start := ring[index]
+	var finish := ring[(index + 1) % count]
+	var direction := (finish - start).normalized()
+	var before := (start - ring[(index - 1 + count) % count]).normalized()
+	var after := (ring[(index + 2) % count] - finish).normalized()
+	return {"index": index, "start": start, "direction": direction, "length": start.distance_to(finish),
+		"inward": Vector2(-direction.y, direction.x),
+		"start_reflex": before.x * direction.y - before.y * direction.x < 0.0,
+		"end_reflex": direction.x * after.y - direction.y * after.x < 0.0}
+
+
+static func _edge_gaps(frame: Dictionary, doorways: Array[Dictionary]) -> Array[Dictionary]:
+	var gaps: Array[Dictionary] = []
+	var start: Vector2 = frame.start
+	var direction: Vector2 = frame.direction
+	var inward: Vector2 = frame.inward
+	var length: float = frame.length
+	for doorway: Dictionary in doorways:
+		var normal := Vector2(float(doorway.normal[0]), float(doorway.normal[1]))
+		var offset := Vector2(float(doorway.pos_xz[0]), float(doorway.pos_xz[1])) - start
+		var along := offset.dot(direction)
+		var on_line := absf(offset.dot(inward)) < EPSILON
+		var faces_out := normal.distance_to(-inward) < EPSILON
+		if on_line and faces_out and along - 1.0 > -EPSILON and along + 1.0 < length + EPSILON:
+			gaps.append({"doorway": doorway, "from": along - 1.0, "to": along + 1.0})
+	gaps.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["from"] < b["from"])
+	return gaps
+
+
+static func _add_edge_pieces(visuals: Node3D, boundaries: Node3D, context: Dictionary,
+		frame: Dictionary, gaps: Array[Dictionary], index: int) -> void:
+	var spans: Array[Vector2] = []
+	var cursor := 0.0
+	for gap in gaps:
+		if gap["from"] > cursor + EPSILON:
+			spans.append(Vector2(cursor, gap["from"]))
+		cursor = gap["to"]
+	if frame.length > cursor + EPSILON:
+		spans.append(Vector2(cursor, frame.length))
+	for piece in spans.size():
+		var span := spans[piece]
+		var reach_start := WALL_THICKNESS if span.x < EPSILON and frame.start_reflex else 0.0
+		var reach_end := WALL_THICKNESS if span.y > frame.length - EPSILON and frame.end_reflex else 0.0
+		var label := "Wall_%02d_%d" % [index, piece]
+		var box := _edge_box(frame, span.x - reach_start, span.y + reach_end, 0.0, WALL_THICKNESS, 0.0, context.height)
+		var material := MATERIALS.scaled(context.materials, "wallpaper", box.size_along, context.height)
+		_add_box(visuals, label + "Visual", box.center, box.size, material)
+		_add_body(boundaries, label, box.center, box.size)
+
+
+static func _add_doorway(visuals: Node3D, boundaries: Node3D, context: Dictionary,
+		frame: Dictionary, gap: Dictionary) -> void:
+	var doorway: Dictionary = gap.doorway
+	var port := String(doorway.port_id)
+	var header := _edge_box(frame, gap["from"], gap["to"], 0.0, WALL_THICKNESS, DOOR_HEIGHT, context.height)
+	var material := MATERIALS.scaled(context.materials, "wallpaper", header.size_along, context.height - DOOR_HEIGHT)
+	_add_box(visuals, "Header_" + port + "Visual", header.center, header.size, material)
+	_add_body(boundaries, "Header_" + port, header.center, header.size)
+	_add_trim(visuals, context, frame, gap, port)
+	if doorway.effective_kind == "closed_visible":
+		_add_closed_door(visuals, boundaries, context, frame, gap, port)
+
+
+static func _add_trim(visuals: Node3D, context: Dictionary, frame: Dictionary, gap: Dictionary, port: String) -> void:
+	var depth := WALL_THICKNESS + TRIM_PROTRUSION
+	var trim: Material = context.materials.trim
+	var low_outside: bool = gap["from"] >= TRIM_WIDTH - EPSILON
+	var high_outside: bool = gap["to"] <= frame.length - TRIM_WIDTH + EPSILON
+	var low_from: float = gap["from"] - TRIM_WIDTH if low_outside else gap["from"]
+	var high_to: float = gap["to"] + TRIM_WIDTH if high_outside else gap["to"]
+	var low := _edge_box(frame, low_from, low_from + TRIM_WIDTH, 0.0, depth, 0.0, DOOR_HEIGHT)
+	var high := _edge_box(frame, high_to - TRIM_WIDTH, high_to, 0.0, depth, 0.0, DOOR_HEIGHT)
+	var lintel := _edge_box(frame, low_from, high_to, 0.0, depth, DOOR_HEIGHT, DOOR_HEIGHT + TRIM_HEIGHT)
+	_add_box(visuals, "TrimJambLow_" + port, low.center, low.size, trim)
+	_add_box(visuals, "TrimJambHigh_" + port, high.center, high.size, trim)
+	_add_box(visuals, "TrimLintel_" + port, lintel.center, lintel.size, trim)
+
+
+static func _add_closed_door(visuals: Node3D, boundaries: Node3D, context: Dictionary,
+		frame: Dictionary, gap: Dictionary, port: String) -> void:
+	var panel := _edge_box(frame, gap["from"], gap["to"], PANEL_DEPTH, PANEL_DEPTH + PANEL_THICKNESS, 0.0, DOOR_HEIGHT)
+	_add_box(visuals, "ClosedDoorPanel_" + port + "Visual", panel.center, panel.size, context.materials.dark)
+	var blocker := _edge_box(frame, gap["from"], gap["to"], 0.0, WALL_THICKNESS, 0.0, DOOR_HEIGHT)
+	_add_body(boundaries, "ClosedDoor_" + port, blocker.center, blocker.size)
+
+
+## Axis-aligned box over [from, to] along an outline edge, [depth_from, depth_to] inward
+## from the edge and [y_from, y_to] up. Returns center, size and the along-edge length.
+static func _edge_box(frame: Dictionary, from: float, to: float, depth_from: float, depth_to: float,
+		y_from: float, y_to: float) -> Dictionary:
+	var middle: Vector2 = frame.start + frame.direction * ((from + to) / 2.0) + frame.inward * ((depth_from + depth_to) / 2.0)
+	var along := to - from
+	var across := depth_to - depth_from
+	var size := Vector3(along, y_to - y_from, across) if absf(frame.direction.x) > 0.5 else Vector3(across, y_to - y_from, along)
+	return {"center": Vector3(middle.x, (y_from + y_to) / 2.0, middle.y), "size": size, "size_along": along}
+
+
+static func _group(parent: Node3D, label: String) -> Node3D:
+	var node := Node3D.new()
+	node.name = label
+	parent.add_child(node)
+	return node
+
+
+static func _add_box(parent: Node3D, label: String, center: Vector3, size: Vector3, material: Material) -> void:
+	var instance := MeshInstance3D.new()
+	instance.name = label
+	instance.position = center
+	var mesh := BoxMesh.new()
+	mesh.size = size
+	instance.mesh = mesh
+	instance.material_override = material
+	parent.add_child(instance)
+
+
+static func _add_body(parent: Node3D, label: String, center: Vector3, size: Vector3) -> void:
+	var body := StaticBody3D.new()
+	body.name = label
+	body.position = center
+	parent.add_child(body)
+	_add_collision(body, "CollisionShape3D", Vector3.ZERO, size)
+
+
+static func _add_collision(parent: Node3D, label: String, center: Vector3, size: Vector3) -> void:
+	var collision := CollisionShape3D.new()
+	collision.name = label
+	collision.position = center
+	var shape := BoxShape3D.new()
+	shape.size = size
+	collision.shape = shape
+	parent.add_child(collision)

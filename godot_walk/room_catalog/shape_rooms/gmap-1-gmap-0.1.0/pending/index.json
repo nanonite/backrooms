@@ -1,0 +1,57 @@
+{
+  "generator_version": "shape-room-0.1.0",
+  "map_file": {
+    "name": "gmap-1-gmap-0.1.0.json",
+    "sha256": "b6f0c3f466af4c63cedc975d50d505cd5a96f9542ec5b88cbb7ed74ead292389"
+  },
+  "map_id": "gmap-1-gmap-0.1.0",
+  "mode": "pending",
+  "rooms": [
+    {
+      "cell_id": "c00",
+      "construction": "arms",
+      "file": "c00.json",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "e4c6f4d7c79501098721a5ff9b69a0b2dc5ef23d4013f5566c80a0077d6b423d"
+    },
+    {
+      "cell_id": "c02",
+      "construction": "arms",
+      "file": "c02.json",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "febf9bf072b9b95e18b702a9958b7bba9fb3c8fa1502fa40ab2fe7b19ccaeb6c"
+    },
+    {
+      "cell_id": "c08",
+      "construction": "box",
+      "file": "c08.json",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "268b4a5859c27eea72540c91663a61e8fd831d1c9ed08ce24661867c7dfb7fd1"
+    },
+    {
+      "cell_id": "c09",
+      "construction": "arms",
+      "file": "c09.json",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "513181a558adada90bf28499002076bac6d58a543eb11d3dc5524c195b6e721a"
+    },
+    {
+      "cell_id": "c11",
+      "construction": "box",
+      "file": "c11.json",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "b3b809b48e067d9e1220c338c6a184c7d8bc2e0c763dd451a5e65967ec905be6"
+    }
+  ],
+  "schema_version": 1
+}

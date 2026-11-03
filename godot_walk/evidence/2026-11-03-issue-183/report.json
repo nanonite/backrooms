@@ -1,0 +1,231 @@
+{
+  "headless_test": "godot4 --headless --path godot_walk --script res://scripts/test_issue183_shape_rooms.gd -- --map=res://room_catalog/generative_maps/<map_id>.json --rooms=res://room_catalog/shape_rooms/<map_id>/index.json",
+  "issue": 183,
+  "maps": {
+    "gmap-1-gmap-0.1.0": {
+      "all_walkable": {
+        "runtime": {
+          "closed_edges": 1,
+          "closed_edges_blocked": 1,
+          "direct_edges": 11,
+          "direct_edges_checked": 11,
+          "edges_passed_forward": 11,
+          "edges_passed_reverse": 11,
+          "failures": [],
+          "flood_clear_samples": 1898,
+          "flood_expected_cells": 12,
+          "flood_reached_cells": 12,
+          "flood_reached_samples": 1898,
+          "flood_void_cells_reached": 0,
+          "negative_controls": {
+            "doorway_removed": {
+              "applicable": true,
+              "failed_as_expected": true,
+              "first_failure": "c00:p0 -> c01:p0 forward: blocked by Wall_01_0 at (2.6, 6.0)"
+            },
+            "floor_rect_removed": {
+              "applicable": true,
+              "failed_as_expected": true,
+              "first_failure": "c01: floor missing at 256 of 256 polygon samples"
+            }
+          },
+          "rooms_checked": 12,
+          "scene": {
+            "origin_cell": "c00",
+            "player_spawned": true,
+            "reset_restores_spawn": true,
+            "safety_net_present": true,
+            "spawn_floor_supported": true,
+            "spawn_inside_origin_polygon": true
+          }
+        },
+        "shapes": {
+          "by_construction": {
+            "arms": 5,
+            "box": 7
+          },
+          "by_primitive": {
+            "dead_end": 4,
+            "l_shape": 4,
+            "t_shape": 1,
+            "u_shape": 3
+          },
+          "by_primitive_class": {
+            "box": 11,
+            "l_shape": 1
+          },
+          "rooms": 12
+        }
+      },
+      "pending": {
+        "runtime": {
+          "closed_edges": 7,
+          "closed_edges_blocked": 7,
+          "direct_edges": 11,
+          "direct_edges_checked": 0,
+          "edges_passed_forward": 0,
+          "edges_passed_reverse": 0,
+          "failures": [],
+          "flood_clear_samples": 288,
+          "flood_expected_cells": 1,
+          "flood_reached_cells": 1,
+          "flood_reached_samples": 52,
+          "flood_void_cells_reached": 0,
+          "negative_controls": {
+            "doorway_removed": {
+              "applicable": false,
+              "failed_as_expected": false,
+              "first_failure": ""
+            },
+            "floor_rect_removed": {
+              "applicable": true,
+              "failed_as_expected": true,
+              "first_failure": "c02: floor missing at 90 of 90 polygon samples"
+            }
+          },
+          "rooms_checked": 5,
+          "scene": {
+            "origin_cell": "c00",
+            "player_spawned": true,
+            "reset_restores_spawn": true,
+            "safety_net_present": true,
+            "spawn_floor_supported": true,
+            "spawn_inside_origin_polygon": true
+          }
+        },
+        "shapes": {
+          "by_construction": {
+            "arms": 3,
+            "box": 2
+          },
+          "by_primitive": {
+            "dead_end": 3,
+            "l_shape": 2
+          },
+          "by_primitive_class": {
+            "box": 5
+          },
+          "rooms": 5
+        }
+      }
+    },
+    "gmap-2-gmap-0.1.0": {
+      "all_walkable": {
+        "runtime": {
+          "closed_edges": 1,
+          "closed_edges_blocked": 1,
+          "direct_edges": 11,
+          "direct_edges_checked": 11,
+          "edges_passed_forward": 11,
+          "edges_passed_reverse": 11,
+          "failures": [],
+          "flood_clear_samples": 1656,
+          "flood_expected_cells": 12,
+          "flood_reached_cells": 12,
+          "flood_reached_samples": 1656,
+          "flood_void_cells_reached": 0,
+          "negative_controls": {
+            "doorway_removed": {
+              "applicable": true,
+              "failed_as_expected": true,
+              "first_failure": "c00:p0 -> c01:p0 forward: blocked by Wall_02_0 at (1.0, 5.6)"
+            },
+            "floor_rect_removed": {
+              "applicable": true,
+              "failed_as_expected": true,
+              "first_failure": "c01: floor missing at 120 of 120 polygon samples"
+            }
+          },
+          "rooms_checked": 12,
+          "scene": {
+            "origin_cell": "c00",
+            "player_spawned": true,
+            "reset_restores_spawn": true,
+            "safety_net_present": true,
+            "spawn_floor_supported": true,
+            "spawn_inside_origin_polygon": true
+          }
+        },
+        "shapes": {
+          "by_construction": {
+            "arms": 4,
+            "box": 8
+          },
+          "by_primitive": {
+            "dead_end": 3,
+            "l_shape": 4,
+            "straight": 3,
+            "t_shape": 1,
+            "u_shape": 1
+          },
+          "by_primitive_class": {
+            "box": 12
+          },
+          "rooms": 12
+        }
+      }
+    },
+    "gmap-3-gmap-0.1.0": {
+      "all_walkable": {
+        "runtime": {
+          "closed_edges": 2,
+          "closed_edges_blocked": 2,
+          "direct_edges": 11,
+          "direct_edges_checked": 11,
+          "edges_passed_forward": 11,
+          "edges_passed_reverse": 11,
+          "failures": [],
+          "flood_clear_samples": 2516,
+          "flood_expected_cells": 12,
+          "flood_reached_cells": 12,
+          "flood_reached_samples": 2516,
+          "flood_void_cells_reached": 0,
+          "negative_controls": {
+            "doorway_removed": {
+              "applicable": true,
+              "failed_as_expected": true,
+              "first_failure": "c00:p0 -> c01:p0 forward: blocked by Wall_00_0 at (1.0, 0.4)"
+            },
+            "floor_rect_removed": {
+              "applicable": true,
+              "failed_as_expected": true,
+              "first_failure": "c01: floor missing at 98 of 364 polygon samples"
+            }
+          },
+          "rooms_checked": 12,
+          "scene": {
+            "origin_cell": "c00",
+            "player_spawned": true,
+            "reset_restores_spawn": true,
+            "safety_net_present": true,
+            "spawn_floor_supported": true,
+            "spawn_inside_origin_polygon": true
+          }
+        },
+        "shapes": {
+          "by_construction": {
+            "arms": 8,
+            "box": 4
+          },
+          "by_primitive": {
+            "dead_end": 4,
+            "l_shape": 3,
+            "straight": 1,
+            "t_shape": 2,
+            "u_shape": 2
+          },
+          "by_primitive_class": {
+            "box": 10,
+            "l_shape": 1,
+            "rectilinear_polygon": 1
+          },
+          "rooms": 12
+        }
+      }
+    }
+  },
+  "registration_accepted": false,
+  "requires_human_visual_verification": true,
+  "scale_calibrated": false,
+  "walkthrough_launch_seed_1": "godot4 --path godot_walk --rendering-driver vulkan --resolution 1280x720 res://scenes/generative_map_walkthrough.tscn -- --map=res://room_catalog/generative_maps/gmap-1-gmap-0.1.0.json --rooms=res://room_catalog/shape_rooms/gmap-1-gmap-0.1.0/index.json"
+}

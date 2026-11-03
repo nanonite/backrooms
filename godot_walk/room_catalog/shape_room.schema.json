@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/shape_room.schema.json",
+  "title": "Shape room (stage 0-1): deterministic generated room inside one generative-map cell",
+  "type": "object",
+  "required": [
+    "schema_version", "generator_version", "map_id", "map_sha256", "cell_id", "role",
+    "rarity_tier", "original_cell_status", "primitive", "primitive_class", "shape_stage",
+    "construction", "arm_width_m", "envelope_xz", "arms_xz", "rects", "outline_xz", "area_m2",
+    "ceiling_height_m", "doorways", "lamps_xz", "material_source", "materials", "features",
+    "registration_accepted", "scale_calibrated"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "generator_version": { "const": "shape-room-0.1.0" },
+    "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
+    "map_sha256": { "$ref": "#/$defs/sha256" },
+    "cell_id": { "type": "string", "minLength": 1 },
+    "role": { "enum": ["ground", "figure", "threshold"] },
+    "rarity_tier": { "type": "integer", "minimum": 0, "maximum": 3 },
+    "original_cell_status": { "type": "string", "minLength": 1 },
+    "primitive": { "enum": ["dead_end", "straight", "l_shape", "t_shape", "cross", "u_shape"] },
+    "primitive_class": { "enum": ["box", "l_shape", "rectilinear_polygon"] },
+    "shape_stage": { "enum": [0, 1] },
+    "construction": { "enum": ["box", "arms"] },
+    "arm_width_m": { "type": ["number", "null"], "minimum": 3 },
+    "envelope_xz": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "$ref": "#/$defs/point_xz" } },
+    "arms_xz": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/rect" } },
+    "rects": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/rect" } },
+    "outline_xz": { "type": "array", "minItems": 4, "items": { "$ref": "#/$defs/point_xz" } },
+    "area_m2": { "type": "number", "exclusiveMinimum": 0 },
+    "ceiling_height_m": { "type": "number", "exclusiveMinimum": 2.1 },
+    "doorways": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["port_id", "pos_xz", "normal", "width_m", "height_m", "kind", "to_cell_id", "to_port_id"],
+        "properties": {
+          "port_id": { "type": "string", "minLength": 1 },
+          "pos_xz": { "$ref": "#/$defs/point_xz" },
+          "normal": { "enum": [[1, 0], [-1, 0], [0, 1], [0, -1]] },
+          "width_m": { "const": 2.0 },
+          "height_m": { "const": 2.1 },
+          "kind": { "enum": ["open", "closed_visible"] },
+          "to_cell_id": { "type": "string", "minLength": 1 },
+          "to_port_id": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "lamps_xz": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/point_xz" } },
+    "material_source": { "const": "kit_default" },
+    "materials": {
+      "type": "object",
+      "required": ["wallpaper_texture", "floor_texture", "ceiling_texture", "trim_color", "lamp_color"],
+      "properties": {
+        "wallpaper_texture": { "type": "string", "pattern": "^res://assets/psx_extension/textures/" },
+        "floor_texture": { "type": "string", "pattern": "^res://assets/psx_extension/textures/" },
+        "ceiling_texture": { "type": "string", "pattern": "^res://assets/psx_extension/textures/" },
+        "trim_color": { "$ref": "#/$defs/rgb" },
+        "lamp_color": { "$ref": "#/$defs/rgb" }
+      },
+      "additionalProperties": false
+    },
+    "features": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["feature_id", "kind", "sign"],
+        "properties": {
+          "feature_id": { "type": "string", "minLength": 1 },
+          "kind": { "enum": ["floor", "walls", "ceiling", "ceiling_lamp_grid", "doorway"] },
+          "sign": { "const": "symbol" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "registration_accepted": { "const": false },
+    "scale_calibrated": { "const": false }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "point_xz": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+    "rect": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 },
+    "rgb": { "type": "array", "items": { "type": "number", "minimum": 0, "maximum": 1 }, "minItems": 3, "maxItems": 3 },
+    "index": {
+      "title": "Shape-room index for one map and mode",
+      "type": "object",
+      "required": ["schema_version", "generator_version", "map_id", "map_file", "mode", "rooms"],
+      "properties": {
+        "schema_version": { "const": 1 },
+        "generator_version": { "const": "shape-room-0.1.0" },
+        "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
+        "map_file": {
+          "type": "object",
+          "required": ["name", "sha256"],
+          "properties": { "name": { "type": "string", "minLength": 1 }, "sha256": { "$ref": "#/$defs/sha256" } },
+          "additionalProperties": false
+        },
+        "mode": { "enum": ["pending", "all_walkable"] },
+        "rooms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["cell_id", "file", "sha256", "original_cell_status", "primitive", "primitive_class", "construction"],
+            "properties": {
+              "cell_id": { "type": "string", "minLength": 1 },
+              "file": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+\\.json$" },
+              "sha256": { "$ref": "#/$defs/sha256" },
+              "original_cell_status": { "type": "string", "minLength": 1 },
+              "primitive": { "enum": ["dead_end", "straight", "l_shape", "t_shape", "cross", "u_shape"] },
+              "primitive_class": { "enum": ["box", "l_shape", "rectilinear_polygon"] },
+              "construction": { "enum": ["box", "arms"] }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
