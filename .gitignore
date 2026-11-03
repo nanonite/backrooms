@@ -81,3 +81,6 @@ godot_walk/evidence/2026-10-20-issue-147/hunyuan_layers.glb
 outputs/
 exports/
 splat_logs/
+
+# Source-library runtime flock files (created by ingestion tools)
+godot_walk/source_library/**/.*.lock
