@@ -16,6 +16,7 @@ from typing import Any
 
 from PIL import Image
 from register_video_sources import append_event
+from source_event_reconciliation import plan_reconciliation
 from source_ingestion_policy import (
     ATTEMPT_LIMIT_EXTENSIONS,
     ONE_TIME_EXTENDED_LIMIT,
@@ -712,6 +713,17 @@ def record_manual_fallback(
         )
 
 
+def reconcile_historical(source_id: str, root: Path = ROOT) -> list[int]:
+    """Append events for decision files no event references; safe to rerun."""
+    with _source_lock(source_id, root):
+        manifest, events, _ = load_source(source_id, root)
+        plan = plan_reconciliation(source_id, manifest, events, root)
+        first_sequence = len(events) + 1
+        for event_type, payload in plan:
+            append_event(source_id, event_type, payload, root)
+    return list(range(first_sequence, first_sequence + len(plan)))
+
+
 def _indices(value: str) -> list[int]:
     try:
         values = [int(part) for part in value.split(",")]
@@ -780,6 +792,11 @@ def main() -> int:
         action="store_true",
         help="Record an explicit operator choice to stop after the reviewed attempt",
     )
+    reconcile_parser = commands.add_parser(
+        "reconcile-historical",
+        help="Append never-backdated events for unreferenced decision files",
+    )
+    reconcile_parser.add_argument("source_id")
     args = parser.parse_args()
     if args.action == "status":
         print(json.dumps(source_status(args.source_id), indent=2))
@@ -818,6 +835,9 @@ def main() -> int:
             args.reason,
             operator_authorized=args.operator_directed,
         )
+    elif args.action == "reconcile-historical":
+        sequences = reconcile_historical(args.source_id)
+        print(json.dumps({"appended_sequences": sequences}))
     return 0
 
 

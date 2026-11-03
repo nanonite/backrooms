@@ -105,3 +105,25 @@ python3 godot_walk/scripts/register_source_room.py <source_id> \
 The command validates the candidate-bound decision, source-video identity,
 catalog module, and frozen catalog snapshot. It refuses to overwrite a
 manifest version and leaves the intake manifest and earlier decisions intact.
+
+## Reconciling decision files with the ledger
+
+Every `operator_review.json`, `catalog_admission_decision.json` and
+`adaptation_*accepted*.json` in a source's `rooms/*/` folder (and every
+`decision_path` in its latest manifest) must be cited by at least one event, or
+`register_video_sources.py validate` fails. If a decision file was written
+without an event, backfill it:
+
+```bash
+python3 godot_walk/scripts/source_ingestion_runner.py reconcile-historical <source_id>
+```
+
+This appends `historical_decision_reconciled` events whose `occurred_at_utc` is
+the reconciliation time (never backdated) and whose `payload.reconciles` cites
+the artifact path, its SHA-256, the original decision timestamp found in the
+file, and the issue number. A file with no decision timestamp of its own (and no
+hash-verified operator record to inherit one from), or that is not an
+acceptance, gets a `historical_decision_reconciliation_deferred` event instead:
+it is linked in the ledger but not claimed as an operator decision. Reruns skip
+files that are already cited, and a reconciled file whose bytes later change
+fails validation. Reconciliation creates or reopens no approval.

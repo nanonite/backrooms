@@ -11,6 +11,7 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from source_event_reconciliation import validate_decision_event_coverage
 from video_source_library import (
     INDEX_PATH,
     LIBRARY,
@@ -401,6 +402,7 @@ def main() -> int:
         )
         return 0
     entries = validate_index()
+    validate_decision_event_coverage()
     print(json.dumps({"valid": True, "registered_count": len(entries)}, indent=2))
     return 0
 

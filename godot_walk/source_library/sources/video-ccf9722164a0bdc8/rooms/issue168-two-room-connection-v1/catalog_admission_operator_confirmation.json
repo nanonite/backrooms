@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "issue": 168,
+  "decision": "operator_confirmed_catalog_admission",
+  "confirmed_artifact": {
+    "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/issue168-two-room-connection-v1/catalog_admission_decision.json",
+    "sha256": "b610e5c4e68e9d522421fc9ee93efffb40c50360adefb56bcef2ed1230385fe0"
+  },
+  "connector_pair_id": "issue168_industrial_hall_south__debris_rock_north_v1",
+  "adaptation_id": "video-ccf9722164a0bdc8-two-room-connection-v1",
+  "operator_statement": "yes i approved the 168 connection",
+  "recorded_at_utc": "2026-11-03",
+  "recorded_via": "operator chat confirmation during #170 reconciliation; resolves deferred event seq 45",
+  "scope": "Confirms catalog admission of this exact two-room connector pair only. Does not approve other placements, new openings, or automatic-layout eligibility.",
+  "registration_accepted": false,
+  "scale_calibrated": false
+}
