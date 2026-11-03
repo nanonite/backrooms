@@ -1,0 +1,25 @@
+{
+  "changed_from_draft": false,
+  "module_id": "godot_early_pocket_single_west_v1",
+  "order": 4,
+  "origin": "authored_kit",
+  "room_id": null,
+  "saved_at": "2026-11-03T05:34:42.199Z",
+  "source_id": null,
+  "status": "approved",
+  "values": {
+    "apollonian": 0.8,
+    "dionysian": 0.1,
+    "form_role": "ground",
+    "rarity_tier": 0,
+    "reason": "Drafted by Claude from the #185 contact sheets; reviewed and approved by the operator on the sign-off page.",
+    "style_tags": [
+      "backrooms_yellow",
+      "wallpaper",
+      "carpet_floor",
+      "grid_and_lamps"
+    ],
+    "surface_salience": "Plain yellow wallpaper and carpet under a dark olive ceiling grid.",
+    "unique_details": []
+  }
+}

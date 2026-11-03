@@ -1,0 +1,25 @@
+{
+  "changed_from_draft": false,
+  "module_id": "godot_later_bay_column_bounded_v1",
+  "order": 3,
+  "origin": "authored_kit",
+  "room_id": null,
+  "saved_at": "2026-11-03T05:34:35.989Z",
+  "source_id": null,
+  "status": "approved",
+  "values": {
+    "apollonian": 0.6,
+    "dionysian": 0.25,
+    "form_role": "ground",
+    "rarity_tier": 1,
+    "reason": "Drafted by Claude from the #185 contact sheets; reviewed and approved by the operator on the sign-off page.",
+    "style_tags": [
+      "backrooms_yellow",
+      "wallpaper",
+      "carpet_floor",
+      "column_faces"
+    ],
+    "surface_salience": "Two textured square columns standing in an irregular yellow-wallpapered room.",
+    "unique_details": []
+  }
+}

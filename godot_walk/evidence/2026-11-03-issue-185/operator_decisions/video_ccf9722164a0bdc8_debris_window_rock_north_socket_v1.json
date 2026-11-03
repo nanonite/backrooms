@@ -1,0 +1,30 @@
+{
+  "changed_from_draft": true,
+  "module_id": "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+  "order": 2,
+  "origin": "source_video",
+  "room_id": "debris-window-rock-room-v2-north-socket",
+  "saved_at": "2026-11-03T05:34:27.925Z",
+  "source_id": "video-ccf9722164a0bdc8",
+  "status": "approved",
+  "values": {
+    "apollonian": 0.55,
+    "dionysian": 0.85,
+    "form_role": "figure",
+    "rarity_tier": 2,
+    "reason": "Drafted by Claude from the #185 contact sheets; reviewed and approved by the operator on the sign-off page.",
+    "style_tags": [
+      "rock_field",
+      "ceiling_beam_grid",
+      "window_strip",
+      "plaster_walls"
+    ],
+    "surface_salience": "A floor buried in rounded rocks under a grid of dark ceiling beams.",
+    "unique_details": [
+      {
+        "frame": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png",
+        "text": "High strip of factory windows along one wall over a floor piled with debris"
+      }
+    ]
+  }
+}

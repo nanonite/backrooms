@@ -1,0 +1,30 @@
+{
+  "changed_from_draft": false,
+  "module_id": "godot_gopro_industrial_hall_frame1097_v1",
+  "order": 5,
+  "origin": "source_video",
+  "room_id": "industrial-hall-panorama-v3",
+  "saved_at": "2026-11-03T05:34:51.178Z",
+  "source_id": "video-ccf9722164a0bdc8",
+  "status": "approved",
+  "values": {
+    "apollonian": 0.7,
+    "dionysian": 0.35,
+    "form_role": "figure",
+    "rarity_tier": 2,
+    "reason": "Drafted by Claude from the #185 contact sheets; reviewed and approved by the operator on the sign-off page.",
+    "style_tags": [
+      "industrial_hall",
+      "support_column_rows",
+      "clerestory_windows",
+      "concrete_grey"
+    ],
+    "surface_salience": "Rows of tall, thin support columns under a high grey roof, with a bright band of factory windows on the far wall.",
+    "unique_details": [
+      {
+        "frame": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+        "text": "Bright strip of high factory windows along the far wall, above a wet concrete floor"
+      }
+    ]
+  }
+}

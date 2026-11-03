@@ -1,0 +1,31 @@
+{
+  "changed_from_draft": false,
+  "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+  "order": 7,
+  "origin": "source_video",
+  "room_id": "bill-viola-single-room-v1",
+  "saved_at": "2026-11-03T05:35:01.549Z",
+  "source_id": "video-b9161c467ed2d30a",
+  "status": "approved",
+  "values": {
+    "apollonian": 0.8,
+    "dionysian": 0.1,
+    "form_role": "figure",
+    "rarity_tier": 3,
+    "reason": "Drafted by Claude from the #185 contact sheets; reviewed and approved by the operator on the sign-off page.",
+    "style_tags": [
+      "domestic_room",
+      "dresser_vignette",
+      "warm_lamp",
+      "dark_carpet",
+      "bare_walls"
+    ],
+    "surface_salience": "A lone dark dresser with a lit lamp and a small glowing TV against a bare beige wall.",
+    "unique_details": [
+      {
+        "frame": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2730.png",
+        "text": "Dresser holding a table lamp, a small CRT showing a face, and a vase of flowers"
+      }
+    ]
+  }
+}

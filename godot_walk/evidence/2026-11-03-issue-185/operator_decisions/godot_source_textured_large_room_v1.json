@@ -1,0 +1,26 @@
+{
+  "changed_from_draft": false,
+  "module_id": "godot_source_textured_large_room_v1",
+  "order": 10,
+  "origin": "authored_kit",
+  "room_id": null,
+  "saved_at": "2026-11-03T05:35:20.781Z",
+  "source_id": null,
+  "status": "approved",
+  "values": {
+    "apollonian": 0.75,
+    "dionysian": 0.2,
+    "form_role": "ground",
+    "rarity_tier": 1,
+    "reason": "Drafted by Claude from the #185 contact sheets; reviewed and approved by the operator on the sign-off page.",
+    "style_tags": [
+      "backrooms_yellow",
+      "wallpaper",
+      "carpet_floor",
+      "grid_and_lamps",
+      "column_faces"
+    ],
+    "surface_salience": "A wide yellow room with a central column, fluorescent ceiling panels and a hallway leading off.",
+    "unique_details": []
+  }
+}

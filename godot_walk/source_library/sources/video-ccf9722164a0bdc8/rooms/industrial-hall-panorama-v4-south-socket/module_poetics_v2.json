@@ -1,0 +1,333 @@
+{
+  "catalog_snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30",
+  "deriver_version": "module-poetics-0.1.0",
+  "eligibility": {
+    "catalog_layout_eligible": false,
+    "layout_eligible_derived": true
+  },
+  "features": [
+    {
+      "citations": [],
+      "feature_id": "collision",
+      "kind": "collision",
+      "sign": "symbol"
+    },
+    {
+      "citations": [
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png"
+      ],
+      "feature_id": "observed_opening:source_frame_1097_far_right_gap",
+      "kind": "observed_opening",
+      "sign": "index"
+    },
+    {
+      "citations": [],
+      "feature_id": "obstacle:low_slab",
+      "kind": "obstacle",
+      "motivated_by_index": false,
+      "provenance_text": "Small authored floor obstacle; its exact shape is not established by the seed frame.",
+      "sign": "symbol"
+    },
+    {
+      "citations": [],
+      "feature_id": "obstacle:support_post_00",
+      "kind": "obstacle",
+      "motivated_by_index": false,
+      "provenance_text": "Authored from the repeated support rhythm in the panorama and direct seed frame; unseen faces are design completion.",
+      "sign": "symbol"
+    },
+    {
+      "citations": [],
+      "feature_id": "obstacle:support_post_01",
+      "kind": "obstacle",
+      "motivated_by_index": false,
+      "provenance_text": "Authored from the repeated support rhythm in the panorama and direct seed frame; unseen faces are design completion.",
+      "sign": "symbol"
+    },
+    {
+      "citations": [],
+      "feature_id": "obstacle:support_post_02",
+      "kind": "obstacle",
+      "motivated_by_index": false,
+      "provenance_text": "Authored from the repeated support rhythm in the panorama and direct seed frame; unseen faces are design completion.",
+      "sign": "symbol"
+    },
+    {
+      "citations": [],
+      "feature_id": "obstacle:support_post_03",
+      "kind": "obstacle",
+      "motivated_by_index": false,
+      "provenance_text": "Authored from the repeated support rhythm in the panorama and direct seed frame; unseen faces are design completion.",
+      "sign": "symbol"
+    },
+    {
+      "citations": [],
+      "feature_id": "obstacle:support_post_04",
+      "kind": "obstacle",
+      "motivated_by_index": false,
+      "provenance_text": "Authored from the repeated support rhythm in the panorama and direct seed frame; unseen faces are design completion.",
+      "sign": "symbol"
+    },
+    {
+      "citations": [],
+      "feature_id": "obstacle:support_post_05",
+      "kind": "obstacle",
+      "motivated_by_index": false,
+      "provenance_text": "Authored from the repeated support rhythm in the panorama and direct seed frame; unseen faces are design completion.",
+      "sign": "symbol"
+    },
+    {
+      "citations": [],
+      "feature_id": "socket:south",
+      "kind": "socket",
+      "sign": "symbol"
+    },
+    {
+      "citations": [
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png"
+      ],
+      "feature_id": "surface:godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+      "kind": "surface",
+      "sign": "icon"
+    },
+    {
+      "citations": [
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/window_grid.png"
+      ],
+      "feature_id": "surface:godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/window_grid.png",
+      "kind": "surface",
+      "sign": "icon"
+    }
+  ],
+  "layers": {
+    "collision": {
+      "collision_footprint_xz": [
+        [
+          -8.3,
+          -6.8
+        ],
+        [
+          8.3,
+          -6.8
+        ],
+        [
+          8.3,
+          6.8
+        ],
+        [
+          -8.3,
+          6.8
+        ]
+      ],
+      "provenance": "Authored floor, four closed perimeter walls, six separate square-post colliders and one low slab obstacle; visual geometry and collision are separate. The source video and Hunyuan panorama provide no collision. Bounds and coordinates are design units, not calibrated meters."
+    },
+    "light": {
+      "note": "not derived",
+      "value": null
+    },
+    "shape": {
+      "scene": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/room.tscn"
+    },
+    "surface": {
+      "visual_assets": [
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/capture_resource_run_v3_final.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-v3-final/capture_manifest.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-v3-final/far_boundary.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-v3-final/roof_grid.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-v3-final/spawn_toward_windows.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/captures-v3-final/support_rows.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/contact_sheet_v3_final.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/index.html",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/index_catalog_v1.html",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/layout.svg",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.gd",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.tscn",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/standalone_test_receipt_v3_final.json",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/test_room.gd",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/window_grid.png"
+      ]
+    }
+  },
+  "library_index": {
+    "path": "godot_walk/room_catalog/library_index/godot_psx_room_kit-0.5.0.json",
+    "sha256": "147b1cb9daaa96601bcab84bf355929134f2ddbd6b6f279bc255f7ddd849f49f"
+  },
+  "metadata_status": "operator_accepted",
+  "module_id": "godot_gopro_industrial_hall_south_socket_v1",
+  "origin": "source_video",
+  "poetics": {
+    "apollonian": 0.7,
+    "dionysian": 0.35,
+    "form_role": "figure",
+    "poetics_status": "operator_confirmed",
+    "rarity_tier": 2,
+    "style_tags": [
+      "clerestory_windows",
+      "concrete_grey",
+      "industrial_hall",
+      "support_column_rows"
+    ],
+    "surface_salience": "Rows of tall, thin support columns under a high grey roof, with a bright band of factory windows on the far wall.",
+    "unique_details": [
+      {
+        "description": "Bright strip of high factory windows along the far wall, above a wet concrete floor",
+        "source_frame": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png"
+      }
+    ]
+  },
+  "ports": {
+    "port_slots": [
+      {
+        "edge_index": 0,
+        "from_xz": [
+          -8.0,
+          -6.5
+        ],
+        "length_m": 16.0,
+        "midpoint_xz": [
+          0.0,
+          -6.5
+        ],
+        "outward_normal_xz": [
+          0.0,
+          -1.0
+        ],
+        "slot_id": "edge-0",
+        "to_xz": [
+          8.0,
+          -6.5
+        ]
+      },
+      {
+        "edge_index": 1,
+        "from_xz": [
+          8.0,
+          -6.5
+        ],
+        "length_m": 13.0,
+        "midpoint_xz": [
+          8.0,
+          0.0
+        ],
+        "outward_normal_xz": [
+          1.0,
+          0.0
+        ],
+        "slot_id": "edge-1",
+        "to_xz": [
+          8.0,
+          6.5
+        ]
+      },
+      {
+        "edge_index": 3,
+        "from_xz": [
+          -8.0,
+          6.5
+        ],
+        "length_m": 13.0,
+        "midpoint_xz": [
+          -8.0,
+          0.0
+        ],
+        "outward_normal_xz": [
+          -1.0,
+          0.0
+        ],
+        "slot_id": "edge-3",
+        "to_xz": [
+          -8.0,
+          -6.5
+        ]
+      }
+    ],
+    "tested_sockets": [
+      {
+        "pairs": [
+          {
+            "pair_id": "issue168_industrial_hall_south__debris_rock_north_v1",
+            "placement_scope": "exact_pair_only"
+          }
+        ],
+        "socket_id": "south"
+      }
+    ],
+    "untested_sockets": []
+  },
+  "room_dir": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket",
+  "schema_version": 1,
+  "shape": {
+    "area_m2": 208.0,
+    "aspect": 1.230769,
+    "bbox_xz": {
+      "max": [
+        8.0,
+        6.5
+      ],
+      "min": [
+        -8.0,
+        -6.5
+      ]
+    },
+    "ceiling_height_m": 4.78,
+    "convexity": 1.0,
+    "footprint_xz": [
+      [
+        -8.0,
+        -6.5
+      ],
+      [
+        8.0,
+        -6.5
+      ],
+      [
+        8.0,
+        6.5
+      ],
+      [
+        -8.0,
+        6.5
+      ]
+    ],
+    "primitive": "box",
+    "rectilinear": true,
+    "shape_stage": 0,
+    "symmetry": "D2",
+    "vertex_count": 4
+  },
+  "source_id": "video-ccf9722164a0bdc8",
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_poetics_v1.json",
+    "sha256": "58fcb80b09c6255772dc521522ff27e447d834dfd370931410169618c963a3c7"
+  },
+  "translation_chain": [
+    {
+      "evidence": [
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png"
+      ],
+      "stage": "direct_frame"
+    },
+    {
+      "evidence": [
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/panorama/panorama.png"
+      ],
+      "stage": "hunyuan_panorama"
+    },
+    {
+      "evidence": [
+        "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/room.tscn"
+      ],
+      "stage": "godot_room"
+    }
+  ],
+  "version": 1,
+  "voids": [
+    {
+      "description": "A dark partial gap is visible near the far-right edge; continuation and destination are unknown.",
+      "source_frame": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+      "traversable": false,
+      "void_id": "source_frame_1097_far_right_gap"
+    }
+  ]
+}
