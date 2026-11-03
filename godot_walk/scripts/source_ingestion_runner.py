@@ -14,6 +14,8 @@ from contextlib import contextmanager
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+import module_integration_stages as integration
+from module_metadata_accept import AcceptFlags, add_accept_flags, flags_from_args
 from PIL import Image
 from register_video_sources import append_event
 from source_event_reconciliation import plan_reconciliation
@@ -115,7 +117,8 @@ def source_status(source_id: str, root: Path = ROOT) -> dict[str, Any]:
         "stopped_reason": state.stopped_reason,
         "can_start_attempt": state.can_start_attempt,
         "manual_fallback_allowed": state.manual_fallback_allowed,
-        "next_worker_actions": _next_worker_actions(state),
+        "next_worker_actions": _next_worker_actions(state)
+        + integration.available_stages(source_id, events, root),
     }
 
 
@@ -724,6 +727,51 @@ def reconcile_historical(source_id: str, root: Path = ROOT) -> list[int]:
     return list(range(first_sequence, first_sequence + len(plan)))
 
 
+def derive_module_metadata(source_id: str, room_id: str, root: Path = ROOT) -> int | None:
+    """Link the mechanical module_poetics draft to the ledger; None when already linked."""
+    with _source_lock(source_id, root):
+        _, events, _ = load_source(source_id, root)
+        payload = integration.plan_derive(source_id, room_id, events, root)
+        if payload is not None:
+            append_event(source_id, "module_metadata_derived", payload, root)
+            return len(events) + 1
+    return None
+
+
+def accept_module_metadata(
+    source_id: str, room_id: str, flags: AcceptFlags, root: Path = ROOT
+) -> int:
+    """Operator step: write module_poetics_v2.json and log module_metadata_accepted."""
+    with _source_lock(source_id, root):
+        _, events, _ = load_source(source_id, root)
+        payload = integration.plan_accept(source_id, room_id, flags, events, root)
+        append_event(source_id, "module_metadata_accepted", payload, root)
+        return len(events) + 1
+
+
+def propose_integrations(
+    source_id: str, room_id: str, maps: list[Path], root: Path = ROOT
+) -> list[int]:
+    """Write integration proposals per map and log one event for each new map."""
+    with _source_lock(source_id, root):
+        _, events, _ = load_source(source_id, root)
+        payloads = integration.plan_propose(source_id, room_id, maps, events, root)
+        for payload in payloads:
+            append_event(source_id, "integration_proposal_recorded", payload, root)
+        return list(range(len(events) + 1, len(events) + 1 + len(payloads)))
+
+
+def decide_integration(
+    source_id: str, proposal: Path, choice: str, reason: str, root: Path = ROOT
+) -> int:
+    """Operator step: log the choice for one recorded proposal; changes nothing else."""
+    with _source_lock(source_id, root):
+        _, events, _ = load_source(source_id, root)
+        payload = integration.plan_decide(source_id, proposal, choice, reason, events, root)
+        append_event(source_id, "integration_proposal_decided", payload, root)
+        return len(events) + 1
+
+
 def _indices(value: str) -> list[int]:
     try:
         values = [int(part) for part in value.split(",")]
@@ -797,6 +845,36 @@ def main() -> int:
         help="Append never-backdated events for unreferenced decision files",
     )
     reconcile_parser.add_argument("source_id")
+    derive_parser = commands.add_parser(
+        "derive-module-metadata",
+        help="Link the mechanical module_poetics draft of an admitted room to the ledger",
+    )
+    derive_parser.add_argument("source_id")
+    derive_parser.add_argument("--room-id", required=True)
+    accept_parser = commands.add_parser(
+        "accept-module-metadata",
+        help="Operator only: write module_poetics_v2.json from the derived draft",
+    )
+    accept_parser.add_argument("source_id")
+    accept_parser.add_argument("--room-id", required=True)
+    add_accept_flags(accept_parser)
+    propose_parser = commands.add_parser(
+        "propose-integrations",
+        help="Mechanically fit an admitted room against generative-map cells",
+    )
+    propose_parser.add_argument("source_id")
+    propose_parser.add_argument("--room-id", required=True)
+    propose_parser.add_argument("--map", type=Path, action="append", required=True, dest="maps")
+    decide_parser = commands.add_parser(
+        "decide-integration",
+        help="Operator only: record accept/reject/keep_standalone for a proposal",
+    )
+    decide_parser.add_argument("source_id")
+    decide_parser.add_argument("--proposal", type=Path, required=True)
+    decide_parser.add_argument(
+        "--choice", choices=("accept", "reject", "keep_standalone"), required=True
+    )
+    decide_parser.add_argument("--reason", required=True)
     args = parser.parse_args()
     if args.action == "status":
         print(json.dumps(source_status(args.source_id), indent=2))
@@ -838,6 +916,18 @@ def main() -> int:
     elif args.action == "reconcile-historical":
         sequences = reconcile_historical(args.source_id)
         print(json.dumps({"appended_sequences": sequences}))
+    elif args.action == "derive-module-metadata":
+        sequence = derive_module_metadata(args.source_id, args.room_id)
+        print(json.dumps({"appended_sequence": sequence}))
+    elif args.action == "accept-module-metadata":
+        flags = flags_from_args(args)
+        print(json.dumps({"appended_sequence": accept_module_metadata(args.source_id, args.room_id, flags)}))
+    elif args.action == "propose-integrations":
+        sequences = propose_integrations(args.source_id, args.room_id, args.maps)
+        print(json.dumps({"appended_sequences": sequences}))
+    elif args.action == "decide-integration":
+        sequence = decide_integration(args.source_id, args.proposal, args.choice, args.reason)
+        print(json.dumps({"appended_sequence": sequence}))
     return 0
 
 

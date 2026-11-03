@@ -31,6 +31,7 @@ from library_index import (  # noqa: E402
     load_verified_index,
     resolve_pointer,
 )
+from module_metadata_accept import AcceptError, accept_kit, add_accept_flags, flags_from_args  # noqa: E402
 from poetics_geometry import analyze_shape, num, port_slots  # noqa: E402
 from poetics_signs import build_features, build_voids, translation_chain  # noqa: E402
 
@@ -230,14 +231,22 @@ def main(argv: list[str] | None = None) -> int:
     derive.add_argument("--index", type=Path, required=True)
     validate = commands.add_parser("validate", help="Check drafts against schema and hashes")
     validate.add_argument("--index", type=Path, default=ROOT / DEFAULT_INDEX)
+    kit = commands.add_parser("accept-kit", help="Operator-accept a kit module (no source video)")
+    kit.add_argument("--index", type=Path, default=ROOT / DEFAULT_INDEX)
+    kit.add_argument("--module-id", required=True)
+    add_accept_flags(kit)
     arguments = parser.parse_args(argv)
     index_path = resolve_cli_path(arguments.index)
     try:
         if arguments.command == "derive-all":
             print(json.dumps(derive_all(index_path), sort_keys=True, indent=2))
             return 0
+        if arguments.command == "accept-kit":
+            result = accept_kit(index_path, arguments.module_id, flags_from_args(arguments), draft_path)
+            print(json.dumps(result, sort_keys=True))
+            return 0
         result = validate_drafts(index_path)
-    except (LibraryIndexError, ValueError, OSError, KeyError) as error:
+    except (LibraryIndexError, AcceptError, ValueError, OSError, KeyError) as error:
         print(f"module_poetics: {error}", file=sys.stderr)
         return 1
     print(json.dumps(result, sort_keys=True))

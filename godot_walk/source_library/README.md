@@ -127,3 +127,40 @@ acceptance, gets a `historical_decision_reconciliation_deferred` event instead:
 it is linked in the ledger but not claimed as an operator decision. Reruns skip
 files that are already cited, and a reconciled file whose bytes later change
 fails validation. Reconciliation creates or reopens no approval.
+
+## Module metadata and integration proposals (after catalog admission)
+
+Four runner stages feed an admitted room into the proposal space. All are
+CPU-only, make no model calls, and never edit a module, the catalog, a snapshot
+or a map. Each appends one event under the normal source lock.
+
+```bash
+R=godot_walk/scripts/source_ingestion_runner.py
+python3 $R derive-module-metadata <source_id> --room-id <room_id>
+python3 $R accept-module-metadata <source_id> --room-id <room_id> --form-role ground|figure \
+  --rarity-tier 0-3 --apollonian 0-1 --dionysian 0-1 --style-tag T \
+  --unique-detail "<frame_path>::<text>" --surface-salience "<text>" --reason "<text>"   # operator
+python3 $R propose-integrations <source_id> --room-id <room_id> --map <generative_map.json>
+python3 $R decide-integration <source_id> --proposal <path> --choice accept|reject|keep_standalone --reason "<text>"  # operator
+python3 godot_walk/scripts/module_poetics.py accept-kit --module-id <id> ...same flags...  # kit modules, operator
+```
+
+- `derive-module-metadata` needs the room in the newest library index for the
+  current catalog version and an admission event; it links the mechanical
+  `module_poetics_v1.json` (`module_metadata_derived`). Reruns add nothing.
+- `accept-module-metadata` writes `module_poetics_v2.json` (v1 plus filled
+  poetics, `supersedes` v1) and logs `module_metadata_accepted`. A `figure`
+  needs at least one `--unique-detail`; frame paths must exist under the
+  source's `frames/`. v1 is never modified.
+- `propose-integrations` fits the module (yaw 0/90/180/270, 1 m lattice
+  translations) into each non-void map cell and writes up to five
+  `integration_proposals/<map_id>/<proposal_id>.json` records (or one
+  `keep_standalone`), then logs `integration_proposal_recorded`. Scores are
+  mechanical, not visual judgements.
+- `decide-integration` logs `integration_proposal_decided` for a recorded
+  proposal only.
+
+`register_video_sources.py validate` fails when a `module_poetics_v2.json` or
+an `integration_proposals/**/*.json` file has no citing event with its exact
+hash. `status` lists these stages in `next_worker_actions` once their
+preconditions hold.

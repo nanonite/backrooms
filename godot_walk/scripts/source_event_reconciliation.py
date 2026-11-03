@@ -13,6 +13,7 @@ from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
+from integration_artifact_citations import uncited_integration_artifacts
 from source_decision_artifacts import (
     DecisionArtifact,
     describe_artifact,
@@ -201,5 +202,6 @@ def validate_decision_event_coverage(root: Path = ROOT) -> None:
             f"{source_id}: reconciled artifact changed or missing: {path}"
             for path in stale_reconciliations(events, root)
         )
+        problems.extend(uncited_integration_artifacts(source_id, events, root))
     if problems:
         raise SourceLibraryError("; ".join(problems))

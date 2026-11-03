@@ -27,6 +27,16 @@
     },
     "catalog_snapshot_sha256": { "$ref": "#/$defs/sha256" },
     "metadata_status": { "enum": ["draft_mechanical", "operator_accepted"] },
+    "supersedes": {
+      "description": "The mechanical draft this operator-accepted record was built from.",
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
     "origin": { "enum": ["authored_kit", "source_video"] },
     "shape": {
       "type": "object",
@@ -216,7 +226,7 @@
             "additionalProperties": false
           }
         },
-        "poetics_status": { "enum": ["operator_pending", "model_proposed", "operator_accepted"] }
+        "poetics_status": { "enum": ["operator_pending", "model_proposed", "operator_accepted", "operator_confirmed"] }
       },
       "additionalProperties": false
     },
@@ -235,6 +245,30 @@
     {
       "if": { "properties": { "origin": { "const": "authored_kit" } }, "required": ["origin"] },
       "then": { "properties": { "translation_chain": { "maxItems": 0 } } }
+    },
+    {
+      "if": { "properties": { "poetics": { "properties": { "poetics_status": { "const": "operator_confirmed" } }, "required": ["poetics_status"] } }, "required": ["poetics"] },
+      "then": {
+        "required": ["supersedes"],
+        "properties": {
+          "metadata_status": { "const": "operator_accepted" },
+          "poetics": {
+            "properties": {
+              "form_role": { "enum": ["ground", "figure"] },
+              "rarity_tier": { "type": "integer" },
+              "apollonian": { "type": "number" },
+              "dionysian": { "type": "number" },
+              "surface_salience": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "poetics": { "properties": { "form_role": { "const": "figure" } }, "required": ["form_role"] } } },
+            "then": { "properties": { "poetics": { "properties": { "unique_details": { "minItems": 1 } } } } }
+          }
+        ]
+      }
     },
     {
       "if": { "properties": { "metadata_status": { "const": "draft_mechanical" } }, "required": ["metadata_status"] },
