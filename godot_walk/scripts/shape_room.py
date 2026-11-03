@@ -39,6 +39,7 @@ OUT_DIR = Path("godot_walk/room_catalog/shape_rooms")
 SCHEMA = Path("godot_walk/room_catalog/shape_room.schema.json")
 MODES = ("pending", "all_walkable")
 PENDING_STATUS = "shape_room_pending"
+MODULE_STATUS = "module_placed"  # library-module leaf cells get no shape room
 
 
 def edge_links(document: dict[str, Any]) -> dict[str, tuple[str, str]]:
@@ -55,6 +56,8 @@ def selected_cells(document: dict[str, Any], fill: dict[str, Any], mode: str) ->
     chosen = []
     for cell in document["cells"]:
         if cell["role"] == "void":
+            continue
+        if status[cell["cell_id"]] == MODULE_STATUS:
             continue
         if mode == "pending" and status[cell["cell_id"]] != PENDING_STATUS:
             continue

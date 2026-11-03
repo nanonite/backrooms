@@ -6,6 +6,7 @@ extends RefCounted
 
 const PROBE := preload("res://scripts/shape_room_probe.gd")
 const BUILDER := preload("res://scripts/shape_room_builder.gd")
+const DOORWAYS := preload("res://scripts/doorway_sizes.gd")
 const RASTER_STEP := 0.5
 const WALL_INSET := 0.08
 const APPROACH_DEPTH := 0.5
@@ -29,7 +30,7 @@ static func check_room(space: PhysicsDirectSpaceState3D, assembly: Node3D, spec:
 	var ring: Array[Vector2] = BUILDER.ring_of(spec)
 	var result := {"cell_id": String(spec.cell_id), "failures": [] as Array[String]}
 	result.merge(_floor_counts(space, spec, ring))
-	result.merge(_wall_counts(space, spec, ring))
+	result.merge(_wall_counts(space, assembly, spec, ring))
 	result.merge(_doorway_counts(space, spec, _expected_kinds(assembly, spec)))
 	_collect_failures(result)
 	return result
@@ -38,7 +39,7 @@ static func check_room(space: PhysicsDirectSpaceState3D, assembly: Node3D, spec:
 static func _expected_kinds(assembly: Node3D, spec: Dictionary) -> Dictionary:
 	var kinds := {}
 	for doorway: Dictionary in spec.doorways:
-		var open: bool = String(doorway.kind) == "open" and assembly.specs.has(String(doorway.to_cell_id))
+		var open: bool = String(doorway.kind) == "open" and assembly.has_room(String(doorway.to_cell_id))
 		kinds[String(doorway.port_id)] = "open" if open else "closed_visible"
 	return kinds
 
@@ -60,7 +61,8 @@ static func _floor_counts(space: PhysicsDirectSpaceState3D, spec: Dictionary, ri
 	return counts
 
 
-static func _wall_counts(space: PhysicsDirectSpaceState3D, spec: Dictionary, ring: Array[Vector2]) -> Dictionary:
+static func _wall_counts(space: PhysicsDirectSpaceState3D, assembly: Node3D, spec: Dictionary,
+		ring: Array[Vector2]) -> Dictionary:
 	var counts := {"wall_samples": 0, "wall_blocked": 0, "approach_samples": 0, "approach_clear": 0}
 	for index in ring.size():
 		var start := ring[index]
@@ -68,20 +70,36 @@ static func _wall_counts(space: PhysicsDirectSpaceState3D, spec: Dictionary, rin
 		var direction := (finish - start).normalized()
 		var inward := Vector2(-direction.y, direction.x)
 		var length := start.distance_to(finish)
+		var module_edge := _edge_has_module_joint(assembly, spec, start, direction, inward, length)
 		var distance := RASTER_STEP / 2.0
 		while distance < length:
 			if not _near_doorway(start, direction, distance, spec):
-				_sample_wall(space, counts, start + direction * distance, inward, distance, length)
+				_sample_wall(space, counts, start + direction * distance, inward, distance, length, module_edge)
 			distance += RASTER_STEP
 	return counts
 
 
+## A library module's wall stands just outside its footprint, so it overhangs this room's
+## wall at a module joint (a few centimetres to 0.3 m inside): the 0.5 m approach probe
+## would touch it. Wall blocking is still checked there; only the approach probe is skipped.
+static func _edge_has_module_joint(assembly: Node3D, spec: Dictionary, start: Vector2, direction: Vector2,
+		inward: Vector2, length: float) -> bool:
+	for doorway: Dictionary in spec.doorways:
+		if not assembly.module_rooms.has(String(doorway.to_cell_id)):
+			continue
+		var offset := Vector2(float(doorway.pos_xz[0]), float(doorway.pos_xz[1])) - start
+		var along := offset.dot(direction)
+		if absf(offset.dot(inward)) < 0.001 and along > -0.001 and along < length + 0.001:
+			return true
+	return false
+
+
 static func _sample_wall(space: PhysicsDirectSpaceState3D, counts: Dictionary, point: Vector2,
-		inward: Vector2, distance: float, length: float) -> void:
+		inward: Vector2, distance: float, length: float, module_edge: bool = false) -> void:
 	var wall_point := point + inward * WALL_INSET
 	counts.wall_samples += 1
 	counts.wall_blocked += 0 if PROBE.blockers(space, wall_point.x, wall_point.y).is_empty() else 1
-	if distance < VERTEX_MARGIN or distance > length - VERTEX_MARGIN:
+	if module_edge or distance < VERTEX_MARGIN or distance > length - VERTEX_MARGIN:
 		return
 	var approach := point + inward * APPROACH_DEPTH
 	counts.approach_samples += 1
@@ -92,7 +110,8 @@ static func _near_doorway(start: Vector2, direction: Vector2, distance: float, s
 	var point := start + direction * distance
 	for doorway: Dictionary in spec.doorways:
 		var centre := Vector2(float(doorway.pos_xz[0]), float(doorway.pos_xz[1]))
-		if absf((point - centre).dot(direction)) < 1.0 + DOOR_MARGIN and absf((point - centre).dot(Vector2(-direction.y, direction.x))) < 0.5:
+		var half := DOORWAYS.size_of(doorway).x / 2.0
+		if absf((point - centre).dot(direction)) < half + DOOR_MARGIN and absf((point - centre).dot(Vector2(-direction.y, direction.x))) < 0.5:
 			return true
 	return false
 

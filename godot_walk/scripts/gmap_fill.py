@@ -7,22 +7,13 @@ from typing import Any
 
 from gmap_geometry import EPS, Rect, polygon_rect
 from gmap_library import Library, LibraryModule, Point, Socket, bbox
+from gmap_transform import rotate_point, rotate_vector
+
+LEGACY_VERSIONS = ("gmap-0.1.0", "gmap-0.2.0")  # fill files report the draft's layout_usable
 
 NOTE = "Structural map only; not playable until cells are filled and module metadata is operator-accepted."
 SOCKET_TOLERANCE_M = 0.5
 FIT_EPSILON_M = 1e-6
-
-
-def rotate_vector(vector: Point, quarter_turns: int) -> Point:
-    x, z = vector
-    for _ in range(quarter_turns % 4):
-        x, z = -z, x
-    return x, z
-
-
-def rotate_point(point: Point, centre: Point, quarter_turns: int) -> Point:
-    dx, dz = rotate_vector((point[0] - centre[0], point[1] - centre[1]), quarter_turns)
-    return centre[0] + dx, centre[1] + dz
 
 
 def place_footprint(
@@ -87,7 +78,7 @@ def alignable(
 
 
 def candidate(
-    module: LibraryModule, turns: int, rect: Rect, ports: list[dict[str, Any]]
+    module: LibraryModule, turns: int, rect: Rect, ports: list[dict[str, Any]], legacy: bool = False
 ) -> dict[str, Any]:
     return {
         "module_id": module.module_id,
@@ -97,28 +88,55 @@ def candidate(
         "tested_socket_count": module.tested_socket_count,
         "required_port_count": len(ports),
         "ports_alignable": alignable(module, turns, rect, ports),
-        "layout_usable": module.layout_usable,
+        "layout_usable": module.legacy_layout_usable if legacy else module.layout_usable,
     }
 
 
-def cell_candidates(library: Library, rect: Rect, ports: list[dict[str, Any]]) -> list[dict]:
+def cell_candidates(
+    library: Library, rect: Rect, ports: list[dict[str, Any]], legacy: bool = False
+) -> list[dict]:
     found = []
     for module in library.modules:
         for turns in range(4):
             footprint, _ = place_footprint(module, turns, rect)
             if inside(footprint, rect):
-                found.append(candidate(module, turns, rect, ports))
+                found.append(candidate(module, turns, rect, ports, legacy))
     return found
+
+
+def placement_record(cell: dict[str, Any]) -> dict[str, Any]:
+    """The fill-side view of a placed module: the cell's `module` block plus the landed socket."""
+    module = cell["module"]
+    return {
+        "module_id": module["module_id"],
+        "version": module["version"],
+        "rotation_deg": module["rotation_deg"],
+        "translation_xz": list(module["translation_xz"]),
+        "socket_id": module["socket_id"],
+        "metadata_record": dict(module["metadata_record"]),
+        "port_id": cell["required_ports"][0]["port_id"],
+    }
 
 
 def build_fill(document: dict[str, Any], map_sha256: str, library: Library) -> dict[str, Any]:
     cells = []
+    legacy = document["generator_version"] in LEGACY_VERSIONS
     for cell in sorted(document["cells"], key=lambda c: c["cell_id"]):
         if cell["role"] == "void":
             cells.append({"cell_id": cell["cell_id"], "cell_status": "void", "candidates": []})
             continue
+        if cell.get("module"):
+            cells.append(
+                {
+                    "cell_id": cell["cell_id"],
+                    "cell_status": "module_placed",
+                    "candidates": [],
+                    "placement": placement_record(cell),
+                }
+            )
+            continue
         rect = polygon_rect(cell["envelope_xz"])
-        found = cell_candidates(library, rect, cell["required_ports"]) if rect else []
+        found = cell_candidates(library, rect, cell["required_ports"], legacy) if rect else []
         status = "module_candidates" if found else "shape_room_pending"
         cells.append({"cell_id": cell["cell_id"], "cell_status": status, "candidates": found})
     return {

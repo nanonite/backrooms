@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from doorway_sizes import port_margin_m
 from gmap_degenerate import ORIGIN_CELL, corner_cells
 from gmap_geometry import Rect, Vec
 from gmap_rules import Errors, err
@@ -25,7 +26,7 @@ def check_lattice_ports(cells: list[dict[str, Any]], step: float) -> Errors:
 def check_placements(document: dict[str, Any], rects: dict[str, Rect]) -> Errors:
     """Judge every port against its own cell's envelope corners.
 
-    A standard port keeps >= 1.5 m from both ends of its envelope side. A degenerate port
+    A standard port keeps >= 1.5 m (half its doorway width + 0.5 m of wall) from both ends of its envelope side. A degenerate port
     is one that does not, is recorded as such, and sits in a degenerate cell. The neighbour
     of a corner doorway keeps a standard port: its wall continues past the doorway.
     """
@@ -36,7 +37,10 @@ def check_placements(document: dict[str, Any], rects: dict[str, Rect]) -> Errors
             continue
         for port in cell["required_ports"]:
             normal: Vec = tuple(port["normal"])  # type: ignore[assignment]
-            owners = corner_cells({cell["cell_id"]: rects[cell["cell_id"]]}, {cell["cell_id"]: normal}, tuple(port["pos_xz"]))
+            owners = corner_cells(
+                {cell["cell_id"]: rects[cell["cell_id"]]}, {cell["cell_id"]: normal}, tuple(port["pos_xz"]),
+                port_margin_m(port["compatibility_type"]),
+            )
             label = port.get("placement", "standard")
             if label == "standard" and owners:
                 errors.append(err(STANDARD_RULE, "standard_port_margin", f"{port['port_id']}: corner within 1.5 m"))

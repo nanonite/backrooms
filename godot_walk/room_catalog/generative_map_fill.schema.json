@@ -25,7 +25,20 @@
       "required": ["path", "sha256"],
       "properties": {
         "path": { "type": "string", "minLength": 1 },
-        "sha256": { "$ref": "#/$defs/sha256" }
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "metadata_records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["module_id", "path", "sha256"],
+            "properties": {
+              "module_id": { "type": "string", "minLength": 1 },
+              "path": { "type": "string", "minLength": 1 },
+              "sha256": { "$ref": "#/$defs/sha256" }
+            },
+            "additionalProperties": false
+          }
+        }
       },
       "additionalProperties": false
     },
@@ -38,7 +51,27 @@
         "required": ["cell_id", "cell_status", "candidates"],
         "properties": {
           "cell_id": { "type": "string", "minLength": 1 },
-          "cell_status": { "enum": ["module_candidates", "shape_room_pending", "void"] },
+          "cell_status": { "enum": ["module_candidates", "shape_room_pending", "void", "module_placed"] },
+          "placement": {
+            "description": "Optional (gmap-0.3.0), only with cell_status module_placed: the module placed in this leaf cell, as recorded in the map.",
+            "type": "object",
+            "required": ["module_id", "version", "rotation_deg", "translation_xz", "socket_id", "metadata_record", "port_id"],
+            "properties": {
+              "module_id": { "type": "string", "minLength": 1 },
+              "version": { "type": "integer", "minimum": 1 },
+              "rotation_deg": { "enum": [0, 90, 180, 270] },
+              "translation_xz": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+              "socket_id": { "type": "string", "minLength": 1 },
+              "metadata_record": {
+                "type": "object",
+                "required": ["path", "sha256"],
+                "properties": { "path": { "type": "string", "minLength": 1 }, "sha256": { "$ref": "#/$defs/sha256" } },
+                "additionalProperties": false
+              },
+              "port_id": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          },
           "candidates": {
             "type": "array",
             "items": {

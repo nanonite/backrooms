@@ -4,9 +4,11 @@ from __future__ import annotations
 
 from typing import Any
 
+from doorway_sizes import DEFAULT_TYPE
 from gmap_geometry import (
     EPS,
     MIN_PORT_SEPARATION_M,
+    WIDE_PORT_SEPARATION_M,
     Rect,
     adjacent,
     check_port_on_contact,
@@ -16,6 +18,7 @@ from gmap_geometry import (
 
 Errors = list[dict[str, str]]
 CONNECTORS = {"direct", "closed_visible"}
+CONNECTION_STATUSES = {"proposed_untested"}
 
 
 def err(rule: str, code: str, message: str) -> dict[str, str]:
@@ -73,7 +76,8 @@ def port_index(cells: list[dict[str, Any]]) -> tuple[dict[str, tuple[str, dict]]
         for i, a in enumerate(cell["required_ports"]):
             for b in cell["required_ports"][i + 1 :]:
                 gap = ((a["pos_xz"][0] - b["pos_xz"][0]) ** 2 + (a["pos_xz"][1] - b["pos_xz"][1]) ** 2) ** 0.5
-                if gap + EPS < MIN_PORT_SEPARATION_M:
+                wide = a["compatibility_type"] != DEFAULT_TYPE or b["compatibility_type"] != DEFAULT_TYPE
+                if gap + EPS < (WIDE_PORT_SEPARATION_M if wide else MIN_PORT_SEPARATION_M):
                     errors.append(
                         err("ports_on_shared_edge", "ports_too_close", f"{a['port_id']} {b['port_id']}")
                     )

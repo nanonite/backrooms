@@ -12,7 +12,7 @@
   ],
   "properties": {
     "schema_version": { "const": 1 },
-    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0"] },
+    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0"] },
     "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
     "map_sha256": { "$ref": "#/$defs/sha256" },
     "cell_id": { "type": "string", "minLength": 1 },
@@ -40,8 +40,12 @@
           "port_id": { "type": "string", "minLength": 1 },
           "pos_xz": { "$ref": "#/$defs/point_xz" },
           "normal": { "enum": [[1, 0], [-1, 0], [0, 1], [0, -1]] },
-          "width_m": { "const": 2.0 },
-          "height_m": { "const": 2.1 },
+          "width_m": { "enum": [2.0, 2.4] },
+          "height_m": { "enum": [2.1, 2.2] },
+          "compatibility_type": {
+            "description": "Optional (shape-room-0.3.0). Selects the doorway size from the shared lookup table (scripts/doorway_sizes.py / .gd).",
+            "enum": ["level_doorway_2m_v1", "authored_direct_doorway_2.4x2.2_v1"]
+          },
           "kind": { "enum": ["open", "closed_visible"] },
           "to_cell_id": { "type": "string", "minLength": 1 },
           "to_port_id": { "type": "string", "minLength": 1 }
@@ -108,7 +112,7 @@
       "required": ["schema_version", "generator_version", "map_id", "map_file", "mode", "rooms"],
       "properties": {
         "schema_version": { "const": 1 },
-        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0"] },
+        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0"] },
         "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
         "map_file": {
           "type": "object",

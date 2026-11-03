@@ -8,6 +8,9 @@ const RADIUS := 0.3
 const HEIGHT := 1.2
 const CENTER_Y := 0.64
 const FLOOR_BODY := "WalkableFloor"
+## Floor colliders of library modules placed in a generated map (#188): the source-video
+## rooms name theirs "WalkableFloor"; the kit rooms use these.
+const MODULE_FLOOR_BODIES := ["AuthoredFloor", "AuthoredPlanarRouteFloor", "ConnectorThreshold"]
 const SWEEP_STEP := 0.1
 
 
@@ -22,16 +25,20 @@ static func blockers(space: PhysicsDirectSpaceState3D, x: float, z: float) -> Ar
 	var names: Array[String] = []
 	for result in space.intersect_shape(query, 32):
 		var collider := result.get("collider") as Node
-		if collider != null and collider.name != FLOOR_BODY:
+		if collider != null and not is_floor_body(collider):
 			names.append(collider.name)
 	return names
+
+
+static func is_floor_body(collider: Node) -> bool:
+	return collider.name == FLOOR_BODY or MODULE_FLOOR_BODIES.has(String(collider.name))
 
 
 static func floor_supported(space: PhysicsDirectSpaceState3D, x: float, z: float) -> bool:
 	var query := PhysicsRayQueryParameters3D.create(Vector3(x, 0.45, z), Vector3(x, -0.12, z))
 	query.collision_mask = 1
 	var result := space.intersect_ray(query)
-	return not result.is_empty() and (result.collider as Node).name == FLOOR_BODY
+	return not result.is_empty() and is_floor_body(result.collider as Node)
 
 
 static func clear_and_supported(space: PhysicsDirectSpaceState3D, x: float, z: float) -> bool:

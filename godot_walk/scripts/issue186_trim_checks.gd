@@ -8,7 +8,9 @@ extends RefCounted
 ## covers the walls of the adjacent cell at a shared doorway and the perpendicular wall
 ## at a corner doorway. Opposite-facing coplanar contacts (a jamb pressed against a wall
 ## end, the lintel under a header) are back to back: one face is always inside solid
-## geometry, so they cannot flicker and are only counted.
+## geometry, so they cannot flicker and are only counted. Likewise a face on the floor plane
+## (y = 0) that faces down is the underside of a box standing on the floor: no camera sees
+## it, so a library room's wall (#188) standing next to a jamb there is only counted.
 
 const EPS := 0.0005
 const OLD_TRIM_SHIFT := 0.06
@@ -50,7 +52,33 @@ static func collect(assembly: Node3D) -> Dictionary:
 				trim.append(box)
 			elif label.begins_with("Wall_") or label.begins_with("Header_"):
 				solid.append(box)
-	return {"trim": trim, "solid": solid}
+	var module_boxes := collect_module_boxes(assembly)
+	solid.append_array(module_boxes)  # #188: trim against a library room's boxes too
+	return {"trim": trim, "solid": solid, "module": module_boxes}
+
+
+## Every BoxMesh of every placed library module as an axis-aligned world box. The module is
+## turned by quarter turns only, so the absolute basis gives the exact world extents.
+static func collect_module_boxes(assembly: Node3D) -> Array[Dictionary]:
+	var boxes: Array[Dictionary] = []
+	if not "module_rooms" in assembly:
+		return boxes
+	for cell_id: String in assembly.module_rooms:
+		for node in _meshes(assembly.module_rooms[cell_id]):
+			var extent := _world_extent(node.global_transform.basis, (node.mesh as BoxMesh).size)
+			boxes.append({"name": "%s/%s" % [cell_id, node.name], "center": node.global_position,
+				"size": extent, "degenerate": false})
+	return boxes
+
+
+## Extents of a box of `size` turned by `basis` (exact for the quarter turns used here).
+static func _world_extent(basis: Basis, size: Vector3) -> Vector3:
+	var axes := [basis.x, basis.y, basis.z]
+	var extent := Vector3.ZERO
+	for source in 3:
+		for target in 3:
+			extent[target] += absf(axes[source][target]) * size[source]
+	return extent
 
 
 static func _meshes(node: Node) -> Array[MeshInstance3D]:
@@ -65,6 +93,7 @@ static func _meshes(node: Node) -> Array[MeshInstance3D]:
 static func conflicts(trim: Array[Dictionary], solid: Array[Dictionary]) -> Dictionary:
 	var same_facing: Array[Dictionary] = []
 	var back_to_back := 0
+	var floor_undersides := 0
 	var pairs := 0
 	for t: Dictionary in trim:
 		for w: Dictionary in solid:
@@ -76,13 +105,15 @@ static func conflicts(trim: Array[Dictionary], solid: Array[Dictionary]) -> Dict
 					for w_sign in [-1, 1]:
 						if absf(_plane(t, axis, t_sign) - _plane(w, axis, w_sign)) > EPS or not _overlap(t, w, axis):
 							continue
-						if t_sign == w_sign:
+						if t_sign == w_sign and axis == 1 and t_sign == -1 and absf(_plane(t, axis, t_sign)) <= EPS:
+							floor_undersides += 1
+						elif t_sign == w_sign:
 							same_facing.append({"trim": t.name, "other": w.name, "axis": axis, "sign": t_sign,
 								"plane": _plane(t, axis, t_sign), "degenerate": t.degenerate})
 						else:
 							back_to_back += 1
 	return {"pairs_checked": pairs, "same_facing": same_facing, "same_facing_count": same_facing.size(),
-		"back_to_back_contacts": back_to_back}
+		"back_to_back_contacts": back_to_back, "floor_underside_contacts": floor_undersides}
 
 
 ## The first real jamb moved outward onto the wall, as the pre-fix trim was built, must

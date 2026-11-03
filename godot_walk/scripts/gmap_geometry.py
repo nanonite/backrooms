@@ -12,6 +12,7 @@ DOORWAY_HALF_M = 1.0
 STANDARD_MARGIN_M = 1.5  # gmap-0.2.0 standard doorway: 1 m half-width + 0.5 m of solid wall
 PORT_STEP_M = 0.5  # gmap-0.2.0 ports sit on a half-metre grid (centred in a 3 m overlap)
 MIN_PORT_SEPARATION_M = 2.0
+WIDE_PORT_SEPARATION_M = 3.0  # gmap-0.3.0: a 2.4 m doorway keeps clear of its neighbours' doorways
 EPS = 1e-9
 SIDES: tuple[Vec, ...] = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
@@ -144,8 +145,8 @@ def oriented_sizes(size: tuple[int, int]) -> list[tuple[int, int]]:
     return sorted({size, (size[1], size[0])})
 
 
-def far_enough(pos: Vec, others: list[Vec]) -> bool:
+def far_enough(pos: Vec, others: list[Vec], separation: float = MIN_PORT_SEPARATION_M) -> bool:
     return all(
-        (pos[0] - o[0]) ** 2 + (pos[1] - o[1]) ** 2 >= MIN_PORT_SEPARATION_M**2 - EPS
+        (pos[0] - o[0]) ** 2 + (pos[1] - o[1]) ** 2 >= separation**2 - EPS
         for o in others
     )

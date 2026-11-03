@@ -43,13 +43,15 @@ def side_span(rect: Rect, normal: Vec) -> tuple[float, float]:
     return (rect[1], rect[3]) if normal[0] else (rect[0], rect[2])
 
 
-def corner_cells(cells: dict[str, Rect], normals: dict[str, Vec], pos: Vec) -> list[str]:
-    """Cells whose envelope corner on this side lies within 1.5 m of the port (sorted)."""
+def corner_cells(
+    cells: dict[str, Rect], normals: dict[str, Vec], pos: Vec, margin: float = STANDARD_MARGIN_M
+) -> list[str]:
+    """Cells whose envelope corner on this side lies within `margin` (1.5 m) of the port (sorted)."""
     found = []
     for cell_id, rect in cells.items():
         low, high = side_span(rect, normals[cell_id])
         where = along(pos, normals[cell_id])
-        if where - low < STANDARD_MARGIN_M - EPS or high - where < STANDARD_MARGIN_M - EPS:
+        if where - low < margin - EPS or high - where < margin - EPS:
             found.append(cell_id)
     return sorted(found)
 
@@ -63,6 +65,8 @@ def hug_move(draft: Draft, edge: tuple[str, str, str], allowed: set[str]) -> tup
     touched corner, when every one of them is in `allowed`; else None."""
     ports = port_lookup(draft)
     (a, cell_a), (b, cell_b) = ports[edge[0]], ports[edge[1]]
+    if draft.cells[cell_a].module or draft.cells[cell_b].module:
+        return None  # a module's port is fixed by its socket; never degenerate
     shared = contact(draft.cells[cell_a].rect, draft.cells[cell_b].rect)
     if shared is None or abs(shared[3] - shared[2] - DEGENERATE_EDGE_M) > EPS:
         return None

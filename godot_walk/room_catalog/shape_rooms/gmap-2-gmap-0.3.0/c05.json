@@ -1,0 +1,186 @@
+{
+  "area_m2": 192.0,
+  "arm_width_m": 12,
+  "arms_xz": [
+    [
+      -17.0,
+      -13.0,
+      -1.0,
+      -1.0
+    ]
+  ],
+  "ceiling_height_m": 3.0,
+  "cell_id": "c05",
+  "construction": "arms",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        1,
+        0
+      ],
+      "port_id": "c05:p0",
+      "pos_xz": [
+        -1.0,
+        -5.0
+      ],
+      "to_cell_id": "c03",
+      "to_port_id": "c03:p2",
+      "width_m": 2.0
+    }
+  ],
+  "envelope_xz": [
+    [
+      -17.0,
+      -14.0
+    ],
+    [
+      -1.0,
+      -14.0
+    ],
+    [
+      -1.0,
+      -1.0
+    ],
+    [
+      -17.0,
+      -1.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_grid",
+      "kind": "ceiling_lamp_grid",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c05:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "generator_version": "shape-room-0.3.0",
+  "lamps_xz": [
+    [
+      -15.5,
+      -11.5
+    ],
+    [
+      -15.5,
+      -7.5
+    ],
+    [
+      -15.5,
+      -3.5
+    ],
+    [
+      -11.5,
+      -11.5
+    ],
+    [
+      -11.5,
+      -7.5
+    ],
+    [
+      -11.5,
+      -3.5
+    ],
+    [
+      -7.5,
+      -11.5
+    ],
+    [
+      -7.5,
+      -7.5
+    ],
+    [
+      -7.5,
+      -3.5
+    ],
+    [
+      -3.5,
+      -11.5
+    ],
+    [
+      -3.5,
+      -7.5
+    ],
+    [
+      -3.5,
+      -3.5
+    ]
+  ],
+  "map_id": "gmap-2-gmap-0.3.0",
+  "map_sha256": "1f37242deb2fe7857ff590428b6d3a76bf8e405cfa8782e9fade8987d1ade4f2",
+  "material_source": "kit_default",
+  "materials": {
+    "ceiling_texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+    "floor_texture": "res://assets/psx_extension/textures/floor_source_video.png",
+    "lamp_color": [
+      1.0,
+      0.97,
+      0.76
+    ],
+    "trim_color": [
+      0.37,
+      0.34,
+      0.23
+    ],
+    "wallpaper_texture": "res://assets/psx_extension/textures/wallpaper_source_video.png"
+  },
+  "mode": "standard",
+  "original_cell_status": "module_candidates",
+  "outline_xz": [
+    [
+      -17.0,
+      -13.0
+    ],
+    [
+      -1.0,
+      -13.0
+    ],
+    [
+      -1.0,
+      -1.0
+    ],
+    [
+      -17.0,
+      -1.0
+    ]
+  ],
+  "primitive": "dead_end",
+  "primitive_class": "box",
+  "rarity_tier": 2,
+  "rects": [
+    [
+      -17.0,
+      -13.0,
+      -1.0,
+      -1.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "figure",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 0
+}

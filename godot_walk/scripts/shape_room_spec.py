@@ -4,21 +4,21 @@ from __future__ import annotations
 
 from typing import Any
 
+from doorway_sizes import DEFAULT_TYPE, doorway_size
 from gmap_geometry import polygon_rect
 from poetics_geometry import classify_primitive, num, signed_area
 from shape_room_arms import arm_rects, arm_width_range, primitive_for
 from shape_room_checks import (
-    DOORWAY_HEIGHT_M,
-    DOORWAY_WIDTH_M,
     ShapeRoomError,
     check_room,
     require_valid,
 )
 from shape_room_raster import Cell, Rect, decompose, occupied_cells, outline_of, solid_at
-from shape_room_rng import GENERATOR_VERSION_V2, cell_rng, version_for_map
+from shape_room_rng import GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, cell_rng, version_for_map
 
 BOX_PROBABILITY = 0.5
 THRESHOLD_ARM_WIDTH_M = 3
+WIDE_ARM_WIDTH_M = 4  # an arm that carries a 2.4 m doorway needs >= 0.5 m of wall beside it
 LAMP_PITCH_M = 4.0
 LAMP_ANCHOR_M = 1.5
 LAMP_INSET_M = 1.0
@@ -44,6 +44,10 @@ def choose_construction(document: dict[str, Any], cell: dict[str, Any], coin: fl
     return "box" if coin < BOX_PROBABILITY else "arms"
 
 
+def has_wide_port(cell: dict[str, Any]) -> bool:
+    return any(p.get("compatibility_type", DEFAULT_TYPE) != DEFAULT_TYPE for p in cell["required_ports"])
+
+
 def draw(document: dict[str, Any], cell: dict[str, Any], envelope: Rect) -> dict[str, Any]:
     """Seeded choices in a fixed draw order: construction coin, arm width, ceiling height."""
     rng = cell_rng(document["seed"], cell["cell_id"], version_for_map(document))
@@ -55,27 +59,37 @@ def draw(document: dict[str, Any], cell: dict[str, Any], envelope: Rect) -> dict
     construction = choose_construction(document, cell, coin)
     if cell["role"] == "threshold":
         width = THRESHOLD_ARM_WIDTH_M
+    if has_wide_port(cell) and construction == "arms":
+        if min(envelope[2] - envelope[0], envelope[3] - envelope[1]) < WIDE_ARM_WIDTH_M:
+            construction = "box"  # no room for a 4 m arm: the whole envelope is the room
+        else:
+            width = max(width, WIDE_ARM_WIDTH_M)
     return {"construction": construction, "arm_width_m": width, "ceiling_height_m": ceiling}
 
 
-def doorway_records(cell: dict[str, Any], links: dict[str, tuple[str, str]]) -> list[dict[str, Any]]:
+def doorway_records(
+    cell: dict[str, Any], links: dict[str, tuple[str, str]], typed: bool = False
+) -> list[dict[str, Any]]:
+    """Doorway records; `typed` (shape-room-0.3.0) also names each doorway's compatibility type."""
     records = []
     for port in sorted(cell["required_ports"], key=lambda p: p["port_id"]):
         if port["port_id"] not in links:
             raise ShapeRoomError(f"{cell['cell_id']}: port {port['port_id']} is on no edge")
         other, connector = links[port["port_id"]]
-        records.append(
-            {
-                "port_id": port["port_id"],
-                "pos_xz": [num(v) for v in port["pos_xz"]],
-                "normal": list(port["normal"]),
-                "width_m": DOORWAY_WIDTH_M,
-                "height_m": DOORWAY_HEIGHT_M,
-                "kind": "open" if connector == "direct" else "closed_visible",
-                "to_cell_id": other.split(":")[0],
-                "to_port_id": other,
-            }
-        )
+        width, height = doorway_size(port["compatibility_type"])
+        record = {
+            "port_id": port["port_id"],
+            "pos_xz": [num(v) for v in port["pos_xz"]],
+            "normal": list(port["normal"]),
+            "width_m": width,
+            "height_m": height,
+            "kind": "open" if connector == "direct" else "closed_visible",
+            "to_cell_id": other.split(":")[0],
+            "to_port_id": other,
+        }
+        if typed:
+            record["compatibility_type"] = port["compatibility_type"]
+        records.append(record)
     return records
 
 
@@ -169,10 +183,10 @@ def build_spec(
 ) -> dict[str, Any]:
     envelope = cell_envelope(cell)
     version = version_for_map(document)
-    v2 = version == GENERATOR_VERSION_V2
+    v2 = version in (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3)
     choices = draw(document, cell, envelope)
     geometry = room_geometry(cell, envelope, choices, set(degenerate_ports(cell)) if v2 else None)
-    doorways = doorway_records(cell, links)
+    doorways = doorway_records(cell, links, version == GENERATOR_VERSION_V3)
     is_arms = choices["construction"] == "arms"
     spec = {
         "schema_version": 1,

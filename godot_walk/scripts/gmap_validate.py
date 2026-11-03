@@ -11,8 +11,9 @@ from jsonschema import Draft202012Validator
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from deterministic_json import ROOT, sha256_file  # noqa: E402
-from gmap_build import GENERATOR_VERSION_V2, rule_ids  # noqa: E402
+from gmap_build import GENERATOR_VERSION_V3, MARGIN_VERSIONS, rule_ids  # noqa: E402
 from gmap_margin_rules import check_lattice_ports, margin_errors  # noqa: E402
+from gmap_module_rules import module_errors  # noqa: E402
 from gmap_rules import (  # noqa: E402
     Errors,
     check_branch,
@@ -56,16 +57,18 @@ def check_rules_listed(document: dict[str, Any]) -> Errors:
     return [err("rules", "rules_incomplete", ", ".join(missing))] if missing else []
 
 
-def rule_errors(document: dict[str, Any]) -> Errors:
+def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
     cells, edges = document["cells"], document["edges"]
     rects, errors = parse_rects(cells)
     errors += check_lattice(cells, document["lattice"]["unit_m"], document["lattice"].get("port_step_m"))
     errors += check_overlaps(rects)
     ports, port_problems = port_index(cells)
     errors += port_problems + check_edges(edges, ports, rects)
-    if document["generator_version"] == GENERATOR_VERSION_V2:
+    if document["generator_version"] in MARGIN_VERSIONS:
         errors += check_lattice_ports(cells, document["lattice"].get("port_step_m", 1.0))
         errors += margin_errors(document, rects)
+    if document["generator_version"] == GENERATOR_VERSION_V3:
+        errors += module_errors(document, rects, root)
     roles = {cell["cell_id"]: cell["role"] for cell in cells}
     walkable = sorted(c for c, role in roles.items() if role != "void")
     errors += check_tree(walkable, edges) + check_branch(walkable, edges)
@@ -78,4 +81,4 @@ def validate_document(document: dict[str, Any], root: Path = ROOT) -> Errors:
     errors = schema_errors(document, load_json(root / SCHEMA_PATH))
     if errors:
         return errors
-    return check_hashes(document, root) + check_rules_listed(document) + rule_errors(document)
+    return check_hashes(document, root) + check_rules_listed(document) + rule_errors(document, root)

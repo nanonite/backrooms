@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from typing import Any
 
+from doorway_sizes import DEFAULT_TYPE, DOORWAY_SIZES
 from poetics_geometry import is_rectilinear
 from shape_room_raster import Cell, Rect, is_connected, solid_at
 
-DOORWAY_WIDTH_M = 2.0
-DOORWAY_HEIGHT_M = 2.1
+DOORWAY_WIDTH_M, DOORWAY_HEIGHT_M = DOORWAY_SIZES[DEFAULT_TYPE]
 WALL_MARGIN_M = 0.5
 PROBE_M = 0.25  # half a raster cell: the centre of the cell just inside a wall
 
@@ -54,7 +54,8 @@ def port_issues(
     if not port_on_envelope(envelope, port):
         return [f"{name}: port is not on its envelope side"]
     centre, low, high = wall_span(envelope, port)
-    start, end = centre - DOORWAY_WIDTH_M / 2, centre + DOORWAY_WIDTH_M / 2
+    width = DOORWAY_SIZES[port.get("compatibility_type", DEFAULT_TYPE)][0]
+    start, end = centre - width / 2, centre + width / 2
     if start < low or end > high:
         return [f"{name}: doorway leaves the envelope side"]
     issues = []

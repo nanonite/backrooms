@@ -90,7 +90,7 @@ def add_voids(rng: random.Random, draft: Draft) -> int:
     """Attach leaf void cells through closed_visible edges; returns how many."""
     wanted = rng.randint(VOID_BUDGET["min"], VOID_BUDGET["max"])
     placed = 0
-    walkable = draft.walkable()
+    walkable = [cell for cell in draft.walkable() if cell.module is None]  # a library room has no void door
     for _ in range(wanted):
         for _ in range(VOID_TRIES):
             parent = rng.choice(walkable)

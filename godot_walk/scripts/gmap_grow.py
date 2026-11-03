@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 
 from gmap_geometry import (
     SIDES,
+    WIDE_PORT_SEPARATION_M,
     Rect,
     Vec,
     check_port_on_contact,
@@ -37,6 +38,7 @@ class Port:
     pos: Vec
     normal: Vec
     placement: str = "standard"
+    compatibility_type: str = PORT_TYPE
 
 
 @dataclass
@@ -47,6 +49,7 @@ class Cell:
     role: str = "ground"
     tier: int = 0
     mode: str = "standard"
+    module: dict | None = None  # gmap-0.3.0: the placed library module (leaf cell)
 
 
 @dataclass
@@ -55,6 +58,7 @@ class Draft:
     edges: list[tuple[str, str, str]] = field(default_factory=list)  # (from_port, to_port, connector)
     centred: bool = False  # gmap-0.2.0: ports at the exact overlap centre
     margin: float = 1.0  # minimum port distance from an overlap end while growing/assigning
+    untested: set[tuple[str, str]] = field(default_factory=set)  # edges recorded as proposed_untested
 
     def walkable(self) -> list[Cell]:
         return [cell for cell in self.cells.values() if cell.role != "void"]
@@ -103,7 +107,8 @@ def placements(
     draft: Draft, parent: Cell, normal: Vec, size: tuple[int, int]
 ) -> list[Rect]:
     """Free flush rectangles whose doorway would not crowd the parent's ports."""
-    existing = [port.pos for port in parent.ports]
+    existing = [port.pos for port in parent.ports if port.compatibility_type == PORT_TYPE]
+    wide = [port.pos for port in parent.ports if port.compatibility_type != PORT_TYPE]
     result = []
     for rect in flush_rects(parent.rect, normal, *size):
         found = contact_port(parent.rect, rect, draft.centred)
@@ -112,6 +117,7 @@ def placements(
             and check_port_on_contact(parent.rect, found[0], found[1], rect, draft.margin) is None
             and draft.free_for(rect)
             and far_enough(found[0], existing)
+            and far_enough(found[0], wide, WIDE_PORT_SEPARATION_M)
         ):
             result.append(rect)
     return result

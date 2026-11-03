@@ -1,0 +1,132 @@
+{
+  "generator_version": "shape-room-0.3.0",
+  "map_file": {
+    "name": "gmap-1-gmap-0.3.0.json",
+    "sha256": "94765df9b39d5b55debbd93c799b3e3fc6592278546fec3ff429e4aa19e88c43"
+  },
+  "map_id": "gmap-1-gmap-0.3.0",
+  "mode": "all_walkable",
+  "rooms": [
+    {
+      "cell_id": "c00",
+      "construction": "arms",
+      "file": "c00.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "2649278f7ba97787f854a93fe7a63019c667750f77c560424ef8b15e312601ed"
+    },
+    {
+      "cell_id": "c01",
+      "construction": "arms",
+      "file": "c01.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "l_shape",
+      "primitive_class": "l_shape",
+      "sha256": "a2cf08b9b9205e8766e4b1cae0f495e4e893f3146216bd22e5cc8ef551fbb091"
+    },
+    {
+      "cell_id": "c02",
+      "construction": "arms",
+      "file": "c02.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "7eee5f7762c7ced34744a1ecbb415fe9115a1f3d1800411130710013bdd5650a"
+    },
+    {
+      "cell_id": "c03",
+      "construction": "arms",
+      "file": "c03.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "t_shape",
+      "primitive_class": "l_shape",
+      "sha256": "20374a7b89a87c0f2a577d6a1c0fbdb4318582b735ad649d80272fa199557419"
+    },
+    {
+      "cell_id": "c04",
+      "construction": "box",
+      "file": "c04.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "u_shape",
+      "primitive_class": "box",
+      "sha256": "5a79b158075880f7b8c85f7802db54bde8b4e0e8d8ef80dcae3962cbc48d29f8"
+    },
+    {
+      "cell_id": "c05",
+      "construction": "box",
+      "file": "c05.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "u_shape",
+      "primitive_class": "box",
+      "sha256": "f4a61edb1ba2d1edad4920b622405445af39aa38a1c0ca1f49d77e5cc66c4e9e"
+    },
+    {
+      "cell_id": "c06",
+      "construction": "arms",
+      "file": "c06.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "l_shape",
+      "primitive_class": "l_shape",
+      "sha256": "858bf5a113ead2755eee0fd5e3ffeb05f984a397502988b2130a1373ab04bcab"
+    },
+    {
+      "cell_id": "c07",
+      "construction": "box",
+      "file": "c07.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "t_shape",
+      "primitive_class": "box",
+      "sha256": "7303803872615f5bd6a2491419b79914843d0fbacdd084c41ed05f7d82e9847d"
+    },
+    {
+      "cell_id": "c08",
+      "construction": "arms",
+      "file": "c08.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "d3e1aeaca1132310bffc65afb88446622c97c4bd2f976cdaec78c1f938a0e893"
+    },
+    {
+      "cell_id": "c09",
+      "construction": "box",
+      "file": "c09.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "707efc08853c3f9035f1b8257af3b2ae9085e12e42fcae110b6f7517d3b2149d"
+    },
+    {
+      "cell_id": "c10",
+      "construction": "box",
+      "file": "c10.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "cbcfd9f56decfbdc83871acde41dba2c4b80c453d156e17bd6a8365d6d5c5120"
+    },
+    {
+      "cell_id": "c11",
+      "construction": "arms",
+      "file": "c11.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "ee6ed813e82e34e7ad07badaccdc702595d196b1e1d4d63de042bee52e612f87"
+    }
+  ],
+  "schema_version": 1
+}

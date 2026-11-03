@@ -20,7 +20,7 @@
       "minimum": 0
     },
     "catalog_snapshot": { "$ref": "#/$defs/path_and_hash" },
-    "library_index": { "$ref": "#/$defs/path_and_hash" },
+    "library_index": { "$ref": "#/$defs/library_index" },
     "lattice": {
       "type": "object",
       "required": ["kind", "unit_m", "port_unit"],
@@ -74,6 +74,20 @@
           "mode": {
             "description": "Optional (gmap-0.2.0), default standard. degenerate: may carry corner-hugging doorways (rare, budgeted).",
             "enum": ["standard", "degenerate"]
+          },
+          "module": {
+            "description": "Optional (gmap-0.3.0). The library module placed in this leaf cell: world = R(local) + translation_xz, R = rotation_deg / 90 quarter turns (x, z) -> (-z, x).",
+            "type": "object",
+            "required": ["module_id", "version", "rotation_deg", "translation_xz", "socket_id", "metadata_record"],
+            "properties": {
+              "module_id": { "type": "string", "minLength": 1 },
+              "version": { "type": "integer", "minimum": 1 },
+              "rotation_deg": { "enum": [0, 90, 180, 270] },
+              "translation_xz": { "$ref": "#/$defs/point_xz" },
+              "socket_id": { "type": "string", "minLength": 1 },
+              "metadata_record": { "$ref": "#/$defs/path_and_hash" }
+            },
+            "additionalProperties": false
           }
         },
         "additionalProperties": false
@@ -87,7 +101,11 @@
         "properties": {
           "from": { "type": "string", "minLength": 1 },
           "to": { "type": "string", "minLength": 1 },
-          "connector": { "type": "string", "minLength": 1 }
+          "connector": { "type": "string", "minLength": 1 },
+          "connection_status": {
+            "description": "Optional (gmap-0.3.0). proposed_untested: a new joint (generated cell to a library module's tested socket) that no operator has walked; it never inherits the #160 / #168 pair approval.",
+            "enum": ["proposed_untested"]
+          }
         },
         "additionalProperties": false
       }
@@ -128,6 +146,17 @@
       },
       "additionalProperties": false
     },
+    "module_budget": {
+      "description": "Optional (required by gmap-0.3.0 rules). Library modules placed as leaf cells: min..max allowed, used so far.",
+      "type": "object",
+      "required": ["min", "max", "used"],
+      "properties": {
+        "min": { "type": "integer", "minimum": 0 },
+        "max": { "type": "integer", "minimum": 0 },
+        "used": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
     "rules": { "type": "array", "items": { "type": "string", "minLength": 1 } },
     "registration_accepted": { "const": false },
     "scale_calibrated": { "const": false }
@@ -142,6 +171,29 @@
       "properties": {
         "path": { "type": "string", "minLength": 1 },
         "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "library_index": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "metadata_records": {
+          "description": "Optional (gmap-0.3.0). The poetics record read for each library module (accepted record, else the draft), sorted by module_id.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["module_id", "path", "sha256"],
+            "properties": {
+              "module_id": { "type": "string", "minLength": 1 },
+              "path": { "type": "string", "minLength": 1 },
+              "sha256": { "$ref": "#/$defs/sha256" }
+            },
+            "additionalProperties": false
+          }
+        }
       },
       "additionalProperties": false
     },

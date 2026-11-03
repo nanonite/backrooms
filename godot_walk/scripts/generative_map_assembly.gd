@@ -4,12 +4,24 @@ extends Node3D
 ## Places each cell's shape room at its envelope position (room coordinates are map
 ## coordinates) and, in the walkthrough scene, spawns the existing player controller
 ## in the origin cell. Rooms never change the map; void cells get no room.
+##
+## gmap-0.3.0 module cells (#188) instance the library index entry's scene instead, at the
+## recorded placement: position (translation_xz, minus the socket's floor elevation so the
+## module floor meets y = 0) and rotation.y = -rotation_deg. The scene is opened exactly as
+## the accepted #160 / #168 assemblies open it: its exported `connector_open` is set before
+## it enters the tree (and the standalone player / environment / preset switches are turned
+## off). No library scene or catalog file is edited. The joint is a proposed, untested
+## connection; the walkthrough never marks it accepted.
 
 const BUILDER := preload("res://scripts/shape_room_builder.gd")
 const MATERIALS := preload("res://scripts/shape_room_materials.gd")
 const PLAYER_SCENE := preload("res://scenes/player.tscn")
 const PSX_PRESET := preload("res://scripts/library_psx_preset.gd")
 const PSX_EFFECT := preload("res://scripts/psx/psx_post_effect.gd")
+const MODULE_SWITCHES := {
+	"connector_open": true, "spawn_embedded_player": false, "include_player": false,
+	"enable_environment": false, "apply_psx_preset": false,
+}
 const SPAWN_HEIGHT := 0.6
 const SAFETY_DEPTH := -4.0
 const SAFETY_MARGIN := 10.0
@@ -19,6 +31,12 @@ var auto_start := true
 var map: Dictionary = {}
 var specs: Dictionary = {}
 var rooms: Dictionary = {}
+## cell_id -> instanced library scene (module cells only; shape rooms stay in `rooms`).
+var module_rooms: Dictionary = {}
+## cell_id -> {placement, entry, socket, floor_offset} for each module cell.
+var module_info: Dictionary = {}
+## False in the unopened-socket negative control.
+var open_modules := true
 var materials: Dictionary = {}
 var player: CharacterBody3D
 var spawn_position := Vector3.ZERO
@@ -73,6 +91,10 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 	map = map_data
 	specs = room_specs
 	materials = MATERIALS.make(specs[specs.keys()[0]])
+	var library_entries := _library_entries()
+	for cell: Dictionary in map.cells:
+		if cell.has("module"):
+			_place_module(cell, library_entries)
 	for cell: Dictionary in map.cells:
 		var cell_id := String(cell.cell_id)
 		if specs.has(cell_id):
@@ -86,11 +108,83 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 	set_meta("scale_calibrated", false)
 
 
+func has_room(cell_id: String) -> bool:
+	return specs.has(cell_id) or module_rooms.has(cell_id)
+
+
+## Library index entries by "module_id@version" (the map's library_index path, below res://).
+func _library_entries() -> Dictionary:
+	var entries := {}
+	if not map.has("library_index"):
+		return entries
+	var path := "res://" + String(map.library_index.path).trim_prefix("godot_walk/")
+	var index: Variant = load_json(path)
+	if index is Dictionary:
+		for entry: Dictionary in index.modules:
+			entries["%s@%d" % [entry.module_id, int(entry.version)]] = entry
+	return entries
+
+
+func _place_module(cell: Dictionary, library_entries: Dictionary) -> void:
+	var placement: Dictionary = cell.module
+	var key := "%s@%d" % [placement.module_id, int(placement.version)]
+	if not library_entries.has(key):
+		push_error("Module %s is not in the library index" % key)
+		return
+	var entry: Dictionary = library_entries[key]
+	var packed := load(String(entry.scene)) as PackedScene
+	if packed == null:
+		push_error("Cannot load module scene %s" % entry.scene)
+		return
+	var socket := _entry_socket(entry, String(placement.socket_id))
+	var floor_offset := -float(socket.get("floor_elevation_m", 0.0))
+	var room := packed.instantiate() as Node3D
+	room.name = String(cell.cell_id)
+	_apply_module_switches(room)
+	room.position = Vector3(float(placement.translation_xz[0]), floor_offset, float(placement.translation_xz[1]))
+	room.rotation.y = -deg_to_rad(float(placement.rotation_deg))
+	add_child(room)
+	_strip_world_environments(room)
+	room.set_meta("cell_id", String(cell.cell_id))
+	room.set_meta("module_id", String(placement.module_id))
+	room.set_meta("connection_status", "proposed_untested")
+	room.set_meta("operator_approved", false)
+	module_rooms[String(cell.cell_id)] = room
+	module_info[String(cell.cell_id)] = {"placement": placement, "entry": entry, "socket": socket,
+		"floor_offset": floor_offset}
+
+
+static func _entry_socket(entry: Dictionary, socket_id: String) -> Dictionary:
+	for socket: Dictionary in entry.sockets:
+		if String(socket.id) == socket_id:
+			return socket
+	return {}
+
+
+## The accepted assemblies open a socket through the scene's exported switches; only
+## switches the scene actually declares are set, before it enters the tree.
+func _apply_module_switches(room: Node3D) -> void:
+	var declared := {}
+	for property: Dictionary in room.get_property_list():
+		declared[String(property.name)] = true
+	for switch_name: String in MODULE_SWITCHES:
+		if declared.has(switch_name):
+			room.set(switch_name, open_modules if switch_name == "connector_open" else MODULE_SWITCHES[switch_name])
+
+
+## A library room may bring its own WorldEnvironment (the hall does); the assembly already
+## has one, and a second would be ignored with an engine error.
+func _strip_world_environments(room: Node3D) -> void:
+	for node in room.find_children("*", "WorldEnvironment", true, false):
+		node.get_parent().remove_child(node)
+		node.free()
+
+
 ## Open doorways whose neighbour has no room (a partial index) are built closed.
 func _forced_closed(spec: Dictionary) -> PackedStringArray:
 	var closed := PackedStringArray()
 	for doorway: Dictionary in spec.doorways:
-		if String(doorway.kind) == "open" and not specs.has(String(doorway.to_cell_id)):
+		if String(doorway.kind) == "open" and not has_room(String(doorway.to_cell_id)):
 			closed.append(String(doorway.port_id))
 	return closed
 

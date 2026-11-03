@@ -9,11 +9,14 @@ from gmap_assign import VOID_BUDGET, add_voids, assign_roles, assign_tiers
 from gmap_degenerate import assign_degenerate, degenerate_rng
 from gmap_geometry import DOORWAY_HALF_M, PORT_STEP_M, STANDARD_MARGIN_M, rect_polygon
 from gmap_grow import PORT_TYPE, Draft, GenerationError, RetryAttempt, grow
-from gmap_library import Library, figure_classes
+from gmap_library import Library, figure_classes, metadata_records
+from gmap_modules import MODULE_BUDGET, attach_modules
 
 GENERATOR_VERSION = "gmap-0.1.0"
 GENERATOR_VERSION_V2 = "gmap-0.2.0"
-VERSIONS = (GENERATOR_VERSION, GENERATOR_VERSION_V2)
+GENERATOR_VERSION_V3 = "gmap-0.3.0"
+VERSIONS = (GENERATOR_VERSION, GENERATOR_VERSION_V2, GENERATOR_VERSION_V3)
+MARGIN_VERSIONS = (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3)  # standard margins + degenerate cells
 DEFAULT_DEGENERATE_MAX = 1
 MAX_ATTEMPTS = 50
 CELL_RANGE = (6, 20)
@@ -28,6 +31,15 @@ RULE_IDS = [
     "voids_never_traversable",
 ]
 RULE_IDS_V2 = sorted([*RULE_IDS, "degenerate_only_in_degenerate_cells", "standard_doorway_margin"])
+RULE_IDS_V3 = sorted(
+    [
+        *RULE_IDS_V2,
+        "module_budget",
+        "module_leaf_proposed_untested",
+        "module_socket_landing",
+        "module_usable_once",
+    ]
+)
 CEILING = {"figure": [3.0, 6.0], "ground": [2.6, 4.8], "threshold": [2.6, 4.8], "void": [2.6, 4.8]}
 PRIMITIVES_BY_STAGE = {0: ["box"], 1: ["box", "l_shape", "rectilinear_polygon"]}
 STREAM_STRIDE = 1 << 32
@@ -38,6 +50,8 @@ def map_id_for(seed: int, version: str = GENERATOR_VERSION) -> str:
 
 
 def rule_ids(version: str) -> list[str]:
+    if version == GENERATOR_VERSION_V3:
+        return RULE_IDS_V3
     return RULE_IDS_V2 if version == GENERATOR_VERSION_V2 else RULE_IDS
 
 
@@ -51,13 +65,16 @@ def attempt_once(
     cells: int,
     classes: list[tuple[int, int]],
     version: str = GENERATOR_VERSION,
+    library: Library | None = None,
 ) -> Draft:
-    v2 = version == GENERATOR_VERSION_V2
+    v2 = version in MARGIN_VERSIONS
     draft = grow(rng, cells, centred=v2, margin=STANDARD_MARGIN_M if v2 else DOORWAY_HALF_M)
     assign_tiers(rng, draft, classes)
     assign_roles(draft)
     if not any(draft.degree(cell.cell_id) >= 3 for cell in draft.walkable()):
         raise RetryAttempt("branch_required: no cell of degree >= 3")
+    if version == GENERATOR_VERSION_V3 and library is not None:
+        attach_modules(rng, draft, library)
     add_voids(rng, draft)
     return draft
 
@@ -68,15 +85,16 @@ def generate_draft(
     classes: list[tuple[int, int]],
     version: str = GENERATOR_VERSION,
     degenerate_max: int = DEFAULT_DEGENERATE_MAX,
+    library: Library | None = None,
 ) -> tuple[Draft, int, int]:
     """(draft, attempt, degenerate cells used)."""
     if not CELL_RANGE[0] <= cells <= CELL_RANGE[1]:
         raise GenerationError(f"--cells must be within {CELL_RANGE[0]}..{CELL_RANGE[1]}")
     for attempt in range(MAX_ATTEMPTS):
         try:
-            draft = attempt_once(attempt_rng(seed, attempt), cells, classes, version)
+            draft = attempt_once(attempt_rng(seed, attempt), cells, classes, version, library)
             used = 0
-            if version == GENERATOR_VERSION_V2:
+            if version in MARGIN_VERSIONS:
                 used = assign_degenerate(degenerate_rng(seed, attempt, version), draft, degenerate_max)
             return draft, attempt, used
         except RetryAttempt:
@@ -89,18 +107,18 @@ def port_json(port: Any, v2: bool) -> dict[str, Any]:
         "port_id": port.port_id,
         "pos_xz": list(port.pos),
         "normal": list(port.normal),
-        "compatibility_type": PORT_TYPE,
+        "compatibility_type": port.compatibility_type,
     }
     if v2:
         record["placement"] = port.placement
     return record
 
 
-def cell_json(cell: Any, primitives: list[str], v2: bool = False) -> dict[str, Any]:
+def cell_json(cell: Any, primitives: list[str], v2: bool = False, ceiling_m: float | None = None) -> dict[str, Any]:
     record = {
         "cell_id": cell.cell_id,
         "envelope_xz": rect_polygon(cell.rect),
-        "ceiling_range_m": CEILING[cell.role],
+        "ceiling_range_m": CEILING[cell.role] if ceiling_m is None else [ceiling_m, ceiling_m],
         "allowed_primitives": primitives,
         "required_ports": [port_json(port, v2) for port in cell.ports],
         "role": cell.role,
@@ -108,7 +126,16 @@ def cell_json(cell: Any, primitives: list[str], v2: bool = False) -> dict[str, A
     }
     if v2:
         record["mode"] = cell.mode
+    if cell.module:
+        record["module"] = {key: value for key, value in cell.module.items()}
     return record
+
+
+def edge_json(draft: Draft, a: str, b: str, connector: str) -> dict[str, str]:
+    edge = {"from": a, "to": b, "connector": connector}
+    if (a, b) in draft.untested:
+        edge["connection_status"] = "proposed_untested"
+    return edge
 
 
 def lattice_json(v2: bool) -> dict[str, Any]:
@@ -132,9 +159,11 @@ def build_map(
         raise GenerationError(f"--stage-max must be 0 or 1 in generator {version}")
     if degenerate_max < 0:
         raise GenerationError("--degenerate-max must be >= 0")
-    draft, attempt, used = generate_draft(seed, cells, figure_classes(library), version, degenerate_max)
+    draft, attempt, used = generate_draft(seed, cells, figure_classes(library), version, degenerate_max, library)
     primitives = PRIMITIVES_BY_STAGE[stage_max]
-    v2 = version == GENERATOR_VERSION_V2
+    v2 = version in MARGIN_VERSIONS
+    v3 = version == GENERATOR_VERSION_V3
+    heights = {m.module_id: m.ceiling_height_m for m in library.modules}
     document = {
         "schema_version": 1,
         "map_id": map_id_for(seed, version),
@@ -142,12 +171,15 @@ def build_map(
         "seed": seed,
         "attempt": attempt,
         "catalog_snapshot": dict(library.snapshot_ref),
-        "library_index": dict(library.index_ref),
+        "library_index": {**library.index_ref, "metadata_records": metadata_records(library)} if v3 else dict(library.index_ref),
         "lattice": lattice_json(v2),
         "shape_stage_max": stage_max,
-        "cells": [cell_json(c, primitives, v2) for c in draft.cells.values()],
+        "cells": [
+            cell_json(c, primitives, v2, heights.get(c.module["module_id"]) if c.module else None)
+            for c in draft.cells.values()
+        ],
         "edges": sorted(
-            ({"from": a, "to": b, "connector": k} for a, b, k in draft.edges),
+            (edge_json(draft, a, b, k) for a, b, k in draft.edges),
             key=lambda e: (e["from"], e["to"]),
         ),
         "distribution": {
@@ -161,4 +193,7 @@ def build_map(
     }
     if v2:
         document["degenerate_budget"] = {"max": degenerate_max, "used": used}
+    if v3:
+        placed = sum(1 for c in draft.cells.values() if c.module)
+        document["module_budget"] = {**MODULE_BUDGET, "used": placed}
     return document

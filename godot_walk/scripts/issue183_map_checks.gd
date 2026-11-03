@@ -17,7 +17,7 @@ static func check_edges(space: PhysicsDirectSpaceState3D, assembly: Node3D) -> D
 	for edge: Dictionary in assembly.map.edges:
 		var from_end := _end(assembly, String(edge.from))
 		var to_end := _end(assembly, String(edge.to))
-		var both_rooms: bool = assembly.specs.has(String(edge.from).get_slice(":", 0)) and assembly.specs.has(String(edge.to).get_slice(":", 0))
+		var both_rooms: bool = assembly.has_room(String(edge.from).get_slice(":", 0)) and assembly.has_room(String(edge.to).get_slice(":", 0))
 		if String(edge.connector) == "direct":
 			result.direct_edges += 1
 		if String(edge.connector) == "direct" and both_rooms:
@@ -30,11 +30,23 @@ static func check_edges(space: PhysicsDirectSpaceState3D, assembly: Node3D) -> D
 static func _end(assembly: Node3D, port_id: String) -> Dictionary:
 	var spec: Variant = assembly.specs.get(port_id.get_slice(":", 0))
 	if spec == null:
-		return {}
+		return _module_end(assembly, port_id)
 	for doorway: Dictionary in spec.doorways:
 		if String(doorway.port_id) == port_id:
 			return {"pos": Vector2(float(doorway.pos_xz[0]), float(doorway.pos_xz[1])),
 				"normal": Vector2(float(doorway.normal[0]), float(doorway.normal[1]))}
+	return {}
+
+
+## A module cell has no shape-room spec; its end of the joint is the map's own port record.
+static func _module_end(assembly: Node3D, port_id: String) -> Dictionary:
+	if not assembly.module_rooms.has(port_id.get_slice(":", 0)):
+		return {}
+	for cell: Dictionary in assembly.map.cells:
+		for port: Dictionary in cell.required_ports:
+			if String(port.port_id) == port_id:
+				return {"pos": Vector2(float(port.pos_xz[0]), float(port.pos_xz[1])),
+					"normal": Vector2(float(port.normal[0]), float(port.normal[1]))}
 	return {}
 
 
@@ -128,7 +140,7 @@ static func _expected_cells(assembly: Node3D) -> Dictionary:
 				other = String(edge.to).get_slice(":", 0)
 			elif String(edge.to).get_slice(":", 0) == current:
 				other = String(edge.from).get_slice(":", 0)
-			if other != "" and String(edge.connector) == "direct" and assembly.specs.has(other) and not expected.has(other):
+			if other != "" and String(edge.connector) == "direct" and assembly.has_room(other) and not expected.has(other):
 				expected[other] = true
 				pending.append(other)
 	return expected
@@ -151,11 +163,17 @@ static func _flood_report(assembly: Node3D, clear: Dictionary, owners: Dictionar
 		if not expected.has(cell_id):
 			failures.append("flood fill reaches %s, which is %s" % [cell_id, "a void cell" if void_ids.has(cell_id) else "not expected"])
 	var unreached_in_expected := 0
+	var enclosed_in_modules := 0
 	for key: Vector2i in clear:
 		if expected.has(owners[key]) and not reached.has(key):
-			unreached_in_expected += 1
+			# A library room's own props can wall off a pocket (#188); only generated rooms must be fully connected.
+			if assembly.module_rooms.has(owners[key]):
+				enclosed_in_modules += 1
+			else:
+				unreached_in_expected += 1
 	if unreached_in_expected > 0:
 		failures.append("%d clear samples inside reachable cells were not reached" % unreached_in_expected)
 	return {"clear_samples": clear.size(), "reached_samples": reached.size(), "expected_cells": expected.size(),
 		"reached_cells": reached_cells.size(), "void_cells_reached": void_ids.filter(func(id: String) -> bool: return reached_cells.has(id)).size(),
-		"unreached_clear_samples_in_expected_cells": unreached_in_expected, "failures": failures}
+		"unreached_clear_samples_in_expected_cells": unreached_in_expected,
+		"enclosed_clear_samples_in_module_cells": enclosed_in_modules, "failures": failures}
