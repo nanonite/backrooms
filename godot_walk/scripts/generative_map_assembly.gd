@@ -16,6 +16,7 @@ extends Node3D
 const BUILDER := preload("res://scripts/shape_room_builder.gd")
 const MATERIALS := preload("res://scripts/shape_room_materials.gd")
 const PLAYER_SCENE := preload("res://scenes/player.tscn")
+const WALK_PLAYER := preload("res://scripts/walk_player.gd")
 const PSX_PRESET := preload("res://scripts/library_psx_preset.gd")
 const PSX_EFFECT := preload("res://scripts/psx/psx_post_effect.gd")
 const MODULE_SWITCHES := {
@@ -269,6 +270,7 @@ func _build_environment() -> void:
 
 func _build_player() -> void:
 	player = PLAYER_SCENE.instantiate() as CharacterBody3D
+	player.set_script(WALK_PLAYER)  # hold-Shift sprint, walkthrough only (#191)
 	player.name = "Player"
 	player.position = spawn_position
 	player.rotation.y = spawn_yaw
