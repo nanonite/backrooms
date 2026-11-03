@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "workflow_spec_version": "1.0.0",
+  "stage": "seed_review",
+  "max_candidates": 3,
+  "default_timeout_seconds": 120,
+  "max_timeout_seconds": 180,
+  "default_confidence_threshold": 3,
+  "prompt_version": "1.0.0",
+  "schemas": {
+    "request": "godot_walk/seed_review/schemas/seed_review_request.schema.json",
+    "response": "godot_walk/seed_review/schemas/seed_review_response.schema.json",
+    "receipt": "godot_walk/seed_review/schemas/seed_review_receipt.schema.json"
+  },
+  "model_policy": {
+    "preferred_vision_model": "opencode/nemotron-3.5-super-vl-free",
+    "free_model_references": [
+      "opencode/nemotron-3.5-super-vl-free",
+      "opencode/deepseek-v4.1-flash-free",
+      "opencode/glm-5.3-flash-free",
+      "opencode/beam-free",
+      "opencode/big-pickle"
+    ],
+    "paid_model_references": ["opencode/deepseek-v4.1-flash"],
+    "image_input_must_be_verified_before_frame_review": true,
+    "automatic_retry_allowed": false,
+    "paid_call_requires_hard_ceiling": true
+  },
+  "flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false
+  },
+  "out_of_scope": [
+    "Hunyuan inference",
+    "GPU capture",
+    "room authoring",
+    "reviewer-to-worker feedback loop",
+    "catalog promotion",
+    "issue closure"
+  ]
+}

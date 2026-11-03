@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "catalog_id": "godot_psx_room_kit",
-  "catalog_version": "0.4.0",
+  "catalog_version": "0.5.0",
   "engine": "Godot 4.6.3",
   "registration_accepted": false,
   "scale_calibrated": false,
@@ -1247,6 +1247,389 @@
         "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/window_grid.png"
       ],
       "sockets": []
+    },
+    {
+      "id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+      "version": 1,
+      "kind": "authored_bounded_room",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.tscn",
+      "variant_status": "operator_accepted_standalone_room_cataloged",
+      "layout_eligible": false,
+      "coordinate_units": "uncalibrated_godot_world_units",
+      "registration_accepted": false,
+      "scale_calibrated": false,
+      "candidate_identity": "8d1f0c6ae91edb8c73156d41fc16e94dd2a8265d843d5a40bb1bdeca393e75f0",
+      "source_provenance": [
+        "data/videos/Bill Viola 'The Sleep of Reason' 1988.mp4",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/frame_0820.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2730.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2731.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2732.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/frame_4642.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/adaptation_accepted_v1.json",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/operator_decision_001.json",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/layout.svg",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/crop_manifest.json",
+        "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/REPORT.md",
+        "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/OPERATOR_APPROVAL.md"
+      ],
+      "visual_assets": [
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.tscn",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.gd",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/dark_carpet.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/dresser_front.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/plain_wall.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/television_screen.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/vase_and_flowers.png"
+      ],
+      "collision_provenance": "Authored floor, four closed perimeter walls, ceiling boundary, and dresser obstacle colliders. Source footage supplies appearance crops only; no source, Hunyuan, or Gaussian collision is used.",
+      "placement_footprint_xz": [
+        [
+          -4.0,
+          -4.0
+        ],
+        [
+          4.0,
+          -4.0
+        ],
+        [
+          4.0,
+          4.0
+        ],
+        [
+          -4.0,
+          4.0
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          -4.0,
+          -4.0
+        ],
+        [
+          4.0,
+          -4.0
+        ],
+        [
+          4.0,
+          4.0
+        ],
+        [
+          -4.0,
+          4.0
+        ]
+      ],
+      "visual_placement_envelope_xyz": {
+        "min": [
+          -4.12,
+          -0.2,
+          -4.12
+        ],
+        "max": [
+          4.12,
+          2.96,
+          4.12
+        ]
+      },
+      "collision_footprint_xz": [
+        [
+          -4.0,
+          -4.0
+        ],
+        [
+          4.0,
+          -4.0
+        ],
+        [
+          4.0,
+          4.0
+        ],
+        [
+          -4.0,
+          4.0
+        ]
+      ],
+      "observed_openings": [],
+      "observed_opening_note": "No opening is visible in the sampled camera views; openings outside the views remain unknown.",
+      "floor_elevation_m": 0.0,
+      "ceiling_elevation_m": 2.8,
+      "vertical_bound_basis": "Authored room clearance in uncalibrated world units; this is not a measured source ceiling.",
+      "closed_unused_sockets": "No authored sockets. The four perimeter walls and matching colliders are closed.",
+      "obstacles": [
+        {
+          "id": "dresser",
+          "node": "AuthoredObstacles/DresserObstacle",
+          "provenance": "Authored collider for the source-observed dresser arrangement."
+        }
+      ],
+      "authored_boundaries": [
+        "AuthoredBoundaries/LeftBoundary",
+        "AuthoredBoundaries/RightBoundary",
+        "AuthoredBoundaries/SourceFacingWall",
+        "AuthoredBoundaries/NearBoundary",
+        "AuthoredBoundaries/AuthoredCeilingBoundary"
+      ],
+      "dependencies": [
+        "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/OPERATOR_APPROVAL.md",
+        "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/REPORT.md",
+        "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/capture_resource_run_v4.json",
+        "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/index.html",
+        "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/capture_manifest.json",
+        "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/left_oblique.png",
+        "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/look_back_at_closed_boundary.png",
+        "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/right_oblique.png",
+        "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/spawn_toward_dresser.png",
+        "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room_comparison_v2.jpg",
+        "godot_walk/project.godot",
+        "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/extraction_manifest.json",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/extraction_manifest.json",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/COMMANDS.md",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/adaptation_accepted_v1.json",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/crop_plan.json",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/layout.svg",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/operator_decision_001.json",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.gd",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.tscn",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/standalone_test_receipt_v6.json",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/crop_manifest.json",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/dark_carpet.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/dresser_front.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/plain_wall.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/television_screen.png",
+        "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/vase_and_flowers.png",
+        "godot_walk/vendor/ursc/common.gdshaderinc",
+        "godot_walk/vendor/ursc/utilities.gdshaderinc"
+      ],
+      "dependency_manifest": {
+        "accepted_record_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/adaptation_accepted_v1.json",
+        "accepted_record_sha256": "ba135705d2f2c198dbe6cfc79a9816697e4a2557cb7ca56495ec511fcf6336d3",
+        "candidate_identity": "8d1f0c6ae91edb8c73156d41fc16e94dd2a8265d843d5a40bb1bdeca393e75f0",
+        "files": [
+          {
+            "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/OPERATOR_APPROVAL.md",
+            "sha256": "2a7c83eea0fc21c8add4e620acade7b3f0f50c3a9ac4ff745e9fe0ff606635e1",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/REPORT.md",
+            "sha256": "5e400fe026debfdaad2ba607bbe75935760683642d5a41bd1bdb321ddb133a63",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/capture_resource_run_v4.json",
+            "sha256": "efb45725a6eaabc90100fc028f0bcf21e07022fecbb7621a90786d2617328d12",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/index.html",
+            "sha256": "0a3a5a6e9d58aa99c5b10554f55d8657901b98e54d19c356cadf35892678a316",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/capture_manifest.json",
+            "sha256": "1d9316b0feed2986c5a000596722046429323f03afd7af87d7675040bd29ba89",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/left_oblique.png",
+            "sha256": "1304ab03227800ea25f8f66ee52abf34d6df6838ffd97174a7e53b361f5d4b5c",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/look_back_at_closed_boundary.png",
+            "sha256": "b1bdf4e9ae3a1d99c1381df45fc0fb69ef48feaf0a6e42fdc8119c8627376a18",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/right_oblique.png",
+            "sha256": "84cc3279cbbd28b5ef10ef277fbe3385fa766182c0f0b692232313261cca0d5d",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/spawn_toward_dresser.png",
+            "sha256": "8c2835564f91dafca0e9a753fd83fe736728e17d7931e04766d3af505b424aa7",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room_comparison_v2.jpg",
+            "sha256": "37a3798ba05ae08cd5a36e1aa2b98528ac68944b49fa9122c9be0e5671541a41",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/project.godot",
+            "sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+            "role": "Godot project and input/render settings"
+          },
+          {
+            "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+            "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+            "role": "Frozen catalog snapshot from contract v3"
+          },
+          {
+            "path": "godot_walk/scenes/player.tscn",
+            "sha256": "2fc7064e58713029897facd54812886154f6661d8e4ba14c5f7a3d99bda5dbea",
+            "role": "Transitive Godot runtime dependency discovered from the scene resource graph"
+          },
+          {
+            "path": "godot_walk/scripts/library_psx_preset.gd",
+            "sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87",
+            "role": "Transitive Godot runtime dependency discovered from the scene resource graph"
+          },
+          {
+            "path": "godot_walk/scripts/player.gd",
+            "sha256": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23",
+            "role": "Transitive Godot runtime dependency discovered from the scene resource graph"
+          },
+          {
+            "path": "godot_walk/scripts/psx/psx_post_effect.gd",
+            "sha256": "5b06eff8e0f1fc0a5c98711633eb50d03db39db4c1e73b309433e444dd3c5795",
+            "role": "Transitive Godot runtime dependency discovered from the scene resource graph"
+          },
+          {
+            "path": "godot_walk/scripts/psx/shaders/psx_post.glsl",
+            "sha256": "b1a4c839f1346d64586dae4cda6175b06793d4de95cb0ada8ba57c0851e80ba5",
+            "role": "Transitive Godot runtime dependency discovered from the scene resource graph"
+          },
+          {
+            "path": "godot_walk/shaders/library_psx_textured.gdshader",
+            "sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c",
+            "role": "Transitive Godot runtime dependency discovered from the scene resource graph"
+          },
+          {
+            "path": "godot_walk/shaders/library_psx_vertex.gdshader",
+            "sha256": "7feecf393ff762b9dee1caaf43cc5e7e3a548371f0fb7a3c28d562c03be4176f",
+            "role": "Transitive Godot runtime dependency discovered from the scene resource graph"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/extraction_manifest.json",
+            "sha256": "0e69656d6fe92427dc6e77043889b1cec6793fcf9b4e172e2f0ea83b27797629",
+            "role": "Context frame decode receipt"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/extraction_manifest.json",
+            "sha256": "fcb56e066e7a0aa11aadf77a42d4c24680de57c1178e897b8e37d861d7f1dbc2",
+            "role": "Exact seed decode receipt"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/COMMANDS.md",
+            "sha256": "dd0bea6b68af9d7b583322e20b6ff56c6c14fea05379fb8ac2a3176d859606f9",
+            "role": "Candidate launch and reproduction instructions"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/adaptation_accepted_v1.json",
+            "sha256": "ba135705d2f2c198dbe6cfc79a9816697e4a2557cb7ca56495ec511fcf6336d3",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/crop_plan.json",
+            "sha256": "0c56965866b62162e2b26a128dfb16d6a0d3d02b2093d5317f77d67bd7781f84",
+            "role": "Direct-source crop coordinates"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/layout.svg",
+            "sha256": "ef10cef6c079ff43b142773e594563bf0bb37146b787c36bf9979100cf4ad9f3",
+            "role": "Authored layout and uncertainty diagram"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/operator_decision_001.json",
+            "sha256": "d56eb3f66b1f402e48835b187c19dfd83484f2bd94c4e16b8c8c7b4c76fb2219",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.gd",
+            "sha256": "2b1bbb79854c64f839571d5e606554199a3646a1913ff91e9c640f6b37825dd1",
+            "role": "Transitive Godot runtime dependency discovered from the scene resource graph"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.tscn",
+            "sha256": "dfdb72cc48ba187a0c19af8342ed5da2d32ab04a0dfec5d8eec7f511f462ab45",
+            "role": "Transitive Godot runtime dependency discovered from the scene resource graph"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/standalone_test_receipt_v6.json",
+            "sha256": "4f4d7ced4852a8375676872c50a7285faf787c33e0fd62e895e88f432504173a",
+            "role": "review, approval, or standalone verification evidence"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/crop_manifest.json",
+            "sha256": "31b30f63809ef49274b7a6f8a72fc00485533f9970467f64d61fb4ad6ebf2d46",
+            "role": "Source-crop hashes and dimensions"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/dark_carpet.png",
+            "sha256": "46b01a95fbe3e193b963732f3111adf5802b7e6110b956860d1c9a36da9b9b43",
+            "role": "Direct-source dark_carpet crop; explicit runtime or modeling reference"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/dresser_front.png",
+            "sha256": "3eec4ea9608be592e7c557b77c9ebdd441013f490efad966c98894c5e434758b",
+            "role": "Direct-source dresser_front crop; explicit runtime or modeling reference"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/plain_wall.png",
+            "sha256": "51fdecaa5f5278893708856070d20e89c9dd8c34f73db3a80cf8009790881369",
+            "role": "Direct-source plain_wall crop; explicit runtime or modeling reference"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/television_screen.png",
+            "sha256": "6f13e7191903e65c3d2a32815f7455f163890faa8ea0a693bc23b5a726cb8ff7",
+            "role": "Direct-source television_screen crop; explicit runtime or modeling reference"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/vase_and_flowers.png",
+            "sha256": "967878310b643962ebc17c61de9e72859a3f53e14053484200e2014d6c9efdea",
+            "role": "Direct-source vase_and_flowers crop; explicit runtime or modeling reference"
+          },
+          {
+            "path": "godot_walk/vendor/ursc/common.gdshaderinc",
+            "sha256": "c2bba1e4d8491d91684efd246458196d7750a4951a21c1bbef58b82537288a49",
+            "role": "Transitive Godot runtime dependency discovered from the scene resource graph"
+          },
+          {
+            "path": "godot_walk/vendor/ursc/utilities.gdshaderinc",
+            "sha256": "0a56e85852069315945e54fdb692dd5f9140dee9ae2ad15bce958987c7b0f011",
+            "role": "Transitive Godot runtime dependency discovered from the scene resource graph"
+          }
+        ]
+      },
+      "sockets": [],
+      "tested_connectors": [],
+      "integration_scope": "Standalone module only. Integration proposals must describe authored design options; video appearance does not establish a source opening or connection.",
+      "standalone_validation": {
+        "status": "passed",
+        "record_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/standalone_test_receipt_v6.json",
+        "floor_support_samples": 225,
+        "closed_boundaries": 4,
+        "dresser_collision": true,
+        "walk_and_reset": true,
+        "negative_controls": [
+          "missing_floor",
+          "open_boundary"
+        ]
+      },
+      "runtime_measurements": {
+        "engine": "Godot 4.6.3",
+        "capture_elapsed_seconds": 2.764,
+        "scene_ready_ms": 47.287,
+        "frame_profile_ms": {
+          "mean": 4.165,
+          "p95": 4.385,
+          "p99": 4.78
+        },
+        "peak_child_rss_bytes": 548974592,
+        "peak_gpu_memory_used_bytes": 896532480,
+        "peak_gpu_memory_delta_bytes": 186646528,
+        "evidence_path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/capture_resource_run_v4.json"
+      }
     }
   ],
   "source_video_adaptations": [
@@ -2061,6 +2444,36 @@
         "catalog_snapshot_sha256": "31bec038c5e6721976c039b72df5906975b40be8f6741bd3813634ef06d04c5a",
         "variant_status": "operator_accepted_standalone_room"
       }
+    },
+    {
+      "id": "source_video_b9161c467ed2d30a_bill_viola_room_v1",
+      "source_id": "video-b9161c467ed2d30a",
+      "source_video": {
+        "path": "data/videos/Bill Viola 'The Sleep of Reason' 1988.mp4",
+        "sha256": "b9161c467ed2d30aefa6bf2969c2ed63fc79a387d93016197e356e9bf531ddaa"
+      },
+      "status": "operator_accepted_standalone_module",
+      "registration_accepted": false,
+      "scale_calibrated": false,
+      "source_continuity": "Sampled frames at 27.3 s, 91.0 s, and 154.7 s show the same dresser-centered composition. The operator reports one room in the clip; unobserved video segments and room connectivity are not inferred.",
+      "rooms": [
+        {
+          "id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "version": 1,
+          "adaptation_id": "bill-viola-single-room-v1",
+          "candidate_identity": "8d1f0c6ae91edb8c73156d41fc16e94dd2a8265d843d5a40bb1bdeca393e75f0",
+          "scene": "res://source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.tscn",
+          "variant_status": "operator_accepted_standalone_room_cataloged",
+          "layout_eligible": false,
+          "observed_openings": [],
+          "authored_sockets": [],
+          "tested_connectors": []
+        }
+      ],
+      "tested_connector_pair": null,
+      "connector_contract": "No authored socket or tested connector is admitted. Any future integration requires separate versioned authored adapter geometry, matching collision, runtime traversal evidence, and operator review.",
+      "catalog_admission_decision_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/catalog_admission_decision.json",
+      "scope": "Admits one operator-accepted standalone room for source-scoped reuse. It does not infer source connectivity or authorize arbitrary placement. The module is excluded from automatic layout generation until separately adapted and validated."
     }
   ]
 }

@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "frame_manifest": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/extraction_manifest.json",
+  "frame_manifest_sha256": "fcb56e066e7a0aa11aadf77a42d4c24680de57c1178e897b8e37d861d7f1dbc2",
+  "operation": "direct_rectangular_crop_no_resize_or_color_edit",
+  "crops": [
+    {
+      "name": "plain_wall",
+      "frame_id": "frame_2731",
+      "source_pixel_bounds_xyxy": [
+        180,
+        100,
+        520,
+        500
+      ],
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/plain_wall.png",
+      "dimensions": [
+        340,
+        400
+      ],
+      "sha256": "51fdecaa5f5278893708856070d20e89c9dd8c34f73db3a80cf8009790881369"
+    },
+    {
+      "name": "dark_carpet",
+      "frame_id": "frame_2731",
+      "source_pixel_bounds_xyxy": [
+        180,
+        638,
+        520,
+        716
+      ],
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/dark_carpet.png",
+      "dimensions": [
+        340,
+        78
+      ],
+      "sha256": "46b01a95fbe3e193b963732f3111adf5802b7e6110b956860d1c9a36da9b9b43"
+    },
+    {
+      "name": "dresser_front",
+      "frame_id": "frame_2731",
+      "source_pixel_bounds_xyxy": [
+        576,
+        450,
+        855,
+        600
+      ],
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/dresser_front.png",
+      "dimensions": [
+        279,
+        150
+      ],
+      "sha256": "3eec4ea9608be592e7c557b77c9ebdd441013f490efad966c98894c5e434758b"
+    },
+    {
+      "name": "television_screen",
+      "frame_id": "frame_2731",
+      "source_pixel_bounds_xyxy": [
+        706,
+        401,
+        760,
+        450
+      ],
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/television_screen.png",
+      "dimensions": [
+        54,
+        49
+      ],
+      "sha256": "6f13e7191903e65c3d2a32815f7455f163890faa8ea0a693bc23b5a726cb8ff7"
+    },
+    {
+      "name": "vase_and_flowers",
+      "frame_id": "frame_2731",
+      "source_pixel_bounds_xyxy": [
+        760,
+        354,
+        815,
+        451
+      ],
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/vase_and_flowers.png",
+      "dimensions": [
+        55,
+        97
+      ],
+      "sha256": "967878310b643962ebc17c61de9e72859a3f53e14053484200e2014d6c9efdea"
+    }
+  ]
+}

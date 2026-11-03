@@ -68,12 +68,18 @@ def _build_room_reference(
     adaptation, adaptation_hash = _read_artifact(adaptation_path, root)
     decision, decision_hash = _read_artifact(decision_path, root)
     module, catalog_snapshot, snapshot_hash, catalog_version = _verify_admission(
-        adaptation, decision, decision_path, decision_hash, root
+        adaptation,
+        decision,
+        decision_path,
+        decision_hash,
+        adaptation_path,
+        adaptation_hash,
+        root,
     )
     _verify_source_identity(adaptation, manifest, source_id)
     scene_path = _scene_repository_path(adaptation, root)
     return {
-        "issue": 167,
+        "issue": decision.get("issue", 167),
         "adaptation_id": adaptation["adaptation_id"],
         "adaptation_version": adaptation["resolved_adaptation"]["candidate_version"],
         "candidate_identity": adaptation["candidate_identity"],
@@ -100,10 +106,26 @@ def _verify_admission(
     decision: dict[str, Any],
     decision_path: str,
     decision_hash: str,
+    adaptation_path: str,
+    adaptation_hash: str,
     root: Path,
 ) -> tuple[dict[str, Any], str, str, str]:
     candidate_identity = adaptation.get("candidate_identity")
     approval = adaptation.get("operator_decision", {})
+    if decision.get("decision") == "accepted_standalone_module_admission":
+        _verify_standalone_catalog_decision(
+            adaptation,
+            decision,
+            approval,
+            adaptation_path,
+            adaptation_hash,
+            root,
+        )
+        module, snapshot, snapshot_hash, version = _catalog_module(
+            decision, adaptation, root
+        )
+        _verify_standalone_module_scope(module, decision)
+        return module, snapshot, snapshot_hash, version
     if (
         not isinstance(candidate_identity, str)
         or re.fullmatch(r"[0-9a-f]{64}", candidate_identity) is None
@@ -128,6 +150,110 @@ def _verify_admission(
         decision, adaptation, root
     )
     return module, snapshot, snapshot_hash, version
+
+
+def _verify_standalone_catalog_decision(
+    adaptation: dict[str, Any],
+    decision: dict[str, Any],
+    approval: dict[str, Any],
+    adaptation_path: str,
+    adaptation_hash: str,
+    root: Path,
+) -> None:
+    candidate_identity = adaptation.get("candidate_identity")
+    visual_decision_path = approval.get("decision_record_path")
+    visual_decision_hash = approval.get("decision_sha256")
+    visual_decision, actual_visual_hash = _read_artifact(visual_decision_path, root)
+    if (
+        not _valid_candidate_identity(candidate_identity)
+        or adaptation.get("status") != "accepted_reference"
+        or adaptation.get("registration_accepted") is not False
+        or adaptation.get("scale_calibrated") is not False
+        or approval.get("status") != "accepted"
+        or approval.get("candidate_fingerprint") != candidate_identity
+        or actual_visual_hash != visual_decision_hash
+    ):
+        raise SourceLibraryError(
+            "Standalone catalog decision does not bind the accepted room candidate"
+        )
+    _verify_visual_decision(
+        visual_decision, adaptation, adaptation_path, candidate_identity
+    )
+    _verify_catalog_admission_binding(
+        decision,
+        adaptation,
+        adaptation_path,
+        adaptation_hash,
+        visual_decision_path,
+        visual_decision_hash,
+        candidate_identity,
+    )
+
+
+def _verify_visual_decision(
+    visual_decision: dict[str, Any],
+    adaptation: dict[str, Any],
+    adaptation_path: str,
+    candidate_identity: str,
+) -> None:
+    if (
+        visual_decision.get("decision") != "accepted"
+        or visual_decision.get("candidate_identity") != candidate_identity
+        or visual_decision.get("adaptation_id") != adaptation.get("adaptation_id")
+        or visual_decision.get("accepted_record_path") != adaptation_path
+        or visual_decision.get("registration_accepted") is not False
+        or visual_decision.get("scale_calibrated") is not False
+    ):
+        raise SourceLibraryError("Original visual decision does not match this room")
+
+
+def _verify_catalog_admission_binding(
+    decision: dict[str, Any],
+    adaptation: dict[str, Any],
+    adaptation_path: str,
+    adaptation_hash: str,
+    visual_decision_path: str,
+    visual_decision_hash: str,
+    candidate_identity: str,
+) -> None:
+    valid_directive = isinstance(decision.get("operator_directive"), str)
+    valid_directive = valid_directive and bool(decision["operator_directive"].strip())
+    if (
+        decision.get("adaptation_id") != adaptation.get("adaptation_id")
+        or decision.get("candidate_identity") != candidate_identity
+        or decision.get("accepted_record_path") != adaptation_path
+        or decision.get("accepted_record_sha256") != adaptation_hash
+        or decision.get("visual_decision_path") != visual_decision_path
+        or decision.get("visual_decision_sha256") != visual_decision_hash
+        or decision.get("scope") != "standalone_only"
+        or decision.get("layout_eligible") is not False
+        or decision.get("tested_connector_pairs") != []
+        or not valid_directive
+        or decision.get("registration_accepted") is not False
+        or decision.get("scale_calibrated") is not False
+    ):
+        raise SourceLibraryError("Standalone catalog admission scope is invalid")
+
+
+def _valid_candidate_identity(candidate_identity: Any) -> bool:
+    return isinstance(candidate_identity, str) and re.fullmatch(
+        r"[0-9a-f]{64}", candidate_identity
+    ) is not None
+
+
+def _verify_standalone_module_scope(
+    module: dict[str, Any], decision: dict[str, Any]
+) -> None:
+    if (
+        module.get("layout_eligible") is not False
+        or module.get("sockets") != []
+        or decision.get("tested_connector_pairs") != []
+        or decision.get("module_id") != module.get("id")
+        or decision.get("module_version") != module.get("version")
+    ):
+        raise SourceLibraryError(
+            "Standalone admission must not imply layout or connector eligibility"
+        )
 
 
 def _catalog_module(
@@ -160,12 +286,20 @@ def _catalog_module(
     snapshot = _read_object(snapshot_path)
     if snapshot.get("catalog_version") != version:
         raise SourceLibraryError("Catalog snapshot version does not match admission")
+    snapshot_hash = sha256_file(snapshot_path)
+    if decision.get("decision") == "accepted_standalone_module_admission" and (
+        decision.get("catalog_snapshot_path") != snapshot_rel
+        or decision.get("catalog_snapshot_sha256") != snapshot_hash
+    ):
+        raise SourceLibraryError(
+            "Standalone admission does not bind the exact catalog snapshot"
+        )
     snapshot_module = _find_catalog_module(snapshot, decision)
     if snapshot_module != module:
         raise SourceLibraryError(
             "Catalog snapshot module differs from the live admission"
         )
-    return module, snapshot_rel, sha256_file(snapshot_path), version
+    return module, snapshot_rel, snapshot_hash, version
 
 
 def _find_catalog_module(

@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "workflow_spec_version": "1.0.0",
+  "stage": "seed_review",
+  "status": "completed",
+  "input_fingerprint": "1e4a5ef3374b79b1eb070477475148a8154427c4411c2640bd62bc66c4b51bfb",
+  "created_at_utc": "2026-11-02T03:55:14.428606+00:00",
+  "invocation_mode": "live_model_call",
+  "requires_operator_review": false,
+  "next_stage_authorized": false,
+  "source": {
+    "source_id": "video-ccf9722164a0bdc8",
+    "video_path": "data/videos/GoPro Awards_ Haunting FPV Drone Flight Through Abandoned Building.mp4",
+    "video_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+    "width": 1280,
+    "height": 720,
+    "fps": 30.0,
+    "duration_seconds": 243.136145,
+    "frame_count": 7292,
+    "manifest_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/source_manifest-v3.json",
+    "manifest_sha256": "bb3ea27c0e68def3307ecd1c655542d6221d0ca6b6b39589cc4daac93cfc199f"
+  },
+  "candidate_set": {
+    "limit": 3,
+    "provided_count": 3,
+    "reviewed_count": 3,
+    "mechanical_shortlist_applied": false,
+    "candidates": [
+      {
+        "frame_id": "frame_4560",
+        "index_zero_based": 4559,
+        "pts_seconds": 151.96666666666667,
+        "path": "godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/frames/frame_4560.png",
+        "sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f",
+        "width": 1280,
+        "height": 720,
+        "origin": "direct_source_frame",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "metrics": {
+          "focus_native_laplacian_variance": 121.169408,
+          "focus_analysis_laplacian_variance": 368.649635,
+          "exposure_mean_luminance": 0.419138,
+          "exposure_clipped_low_fraction": 0.00082,
+          "exposure_clipped_high_fraction": 0.030146,
+          "exposure_score": 0.868213,
+          "focus_score": 1.0,
+          "duplicate_similarity": 0.986447,
+          "temporal_gap_seconds": 0.033333,
+          "temporal_coverage_score": 0.066667,
+          "mechanical_score": 0.725753,
+          "mechanical_rank": 1
+        }
+      },
+      {
+        "frame_id": "frame_4558",
+        "index_zero_based": 4557,
+        "pts_seconds": 151.9,
+        "path": "godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/frames/frame_4558.png",
+        "sha256": "a8d5141c25282a42543aaf82458af104ead3bc904a6b0e4de29e403e9345e5c1",
+        "width": 1280,
+        "height": 720,
+        "origin": "direct_source_frame",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "metrics": {
+          "focus_native_laplacian_variance": 117.299455,
+          "focus_analysis_laplacian_variance": 360.454479,
+          "exposure_mean_luminance": 0.41952,
+          "exposure_clipped_low_fraction": 0.000916,
+          "exposure_clipped_high_fraction": 0.034602,
+          "exposure_score": 0.866017,
+          "focus_score": 0.97777,
+          "duplicate_similarity": 0.986282,
+          "temporal_gap_seconds": 0.033333,
+          "temporal_coverage_score": 0.066667,
+          "mechanical_score": 0.714114,
+          "mechanical_rank": 2
+        }
+      },
+      {
+        "frame_id": "frame_4559",
+        "index_zero_based": 4558,
+        "pts_seconds": 151.93333333333334,
+        "path": "godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/frames/frame_4559.png",
+        "sha256": "b1127b6d01c3723ee3f2a2b56bff7928456640e26ad5b1c745ef062b8426204c",
+        "width": 1280,
+        "height": 720,
+        "origin": "direct_source_frame",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "metrics": {
+          "focus_native_laplacian_variance": 103.082624,
+          "focus_analysis_laplacian_variance": 346.030616,
+          "exposure_mean_luminance": 0.420591,
+          "exposure_clipped_low_fraction": 0.000616,
+          "exposure_clipped_high_fraction": 0.03233,
+          "exposure_score": 0.86906,
+          "focus_score": 0.938644,
+          "duplicate_similarity": 0.986447,
+          "temporal_gap_seconds": 0.033333,
+          "temporal_coverage_score": 0.066667,
+          "mechanical_score": 0.695286,
+          "mechanical_rank": 3
+        }
+      }
+    ],
+    "excluded": []
+  },
+  "model": {
+    "provider": "opencode",
+    "model": "nemotron-3.5-super-vl-free",
+    "reference": "opencode/nemotron-3.5-super-vl-free",
+    "image_input_supported": true,
+    "image_input_support_basis": "operator_asserted_before_frame_review",
+    "is_free": true,
+    "listed_price_usd": 0.0,
+    "accounting": "free_no_charge",
+    "opencode_version": "opencode v2.0.22"
+  },
+  "prompt": {
+    "version": "1.0.0",
+    "text": "SEED REVIEW REQUEST v1.0.0\n\nSource video: video-ccf9722164a0bdc8\nSource video SHA-256: ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb\nCandidate frames: 3 adjacent native-resolution direct-source frames.\n\nCandidate metadata and advisory mechanical measurements:\n{\"duplicate_similarity\":0.986447,\"exposure_score\":0.868213,\"focus_analysis_laplacian_variance\":368.649635,\"frame_id\":\"frame_4560\",\"frame_sha256\":\"7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f\",\"height\":720,\"index_zero_based\":4559,\"mechanical_score\":0.725753,\"pts_seconds\":151.96666666666667,\"temporal_gap_seconds\":0.033333,\"width\":1280}\n{\"duplicate_similarity\":0.986282,\"exposure_score\":0.866017,\"focus_analysis_laplacian_variance\":360.454479,\"frame_id\":\"frame_4558\",\"frame_sha256\":\"a8d5141c25282a42543aaf82458af104ead3bc904a6b0e4de29e403e9345e5c1\",\"height\":720,\"index_zero_based\":4557,\"mechanical_score\":0.714114,\"pts_seconds\":151.9,\"temporal_gap_seconds\":0.033333,\"width\":1280}\n{\"duplicate_similarity\":0.986447,\"exposure_score\":0.86906,\"focus_analysis_laplacian_variance\":346.030616,\"frame_id\":\"frame_4559\",\"frame_sha256\":\"b1127b6d01c3723ee3f2a2b56bff7928456640e26ad5b1c745ef062b8426204c\",\"height\":720,\"index_zero_based\":4558,\"mechanical_score\":0.695286,\"pts_seconds\":151.93333333333334,\"temporal_gap_seconds\":0.033333,\"width\":1280}\n\nCompare only the attached images, in the order listed. Choose the single best frame as a panorama seed for later Hunyuan image-to-panorama work. The mechanical measurements are advisory; they do not replace visual inspection and do not prove a quality difference.\n\nIf the frames are effectively indistinguishable, if none is suitable, or if you cannot support a choice from visible evidence, abstain by setting selected_frame_id to null. Never choose a panorama, contact sheet, composite, or rendered-room image. Do not infer hidden rooms, unseen geometry, or source connectivity.\n\nReturn exactly one JSON object with these six fields and no others:\n{\n  \"selected_frame_id\": \"<one reviewed frame_id or null>\",\n  \"ranked_alternatives\": [\"<reviewed frame_id>\", \"...\"],\n  \"evidence\": \"<visible details that support the choice>\",\n  \"uncertainty\": \"<what remains ambiguous or unverified>\",\n  \"confidence_1_to_5\": <integer from 1 to 5>,\n  \"use_original_frame_not_a_composite\": true\n}\n\nDo not add commentary outside the JSON object.\n",
+    "sha256": "7bc43a769da24a5ca1aa52ab6c1d0e02a1a7722dfffaeb7c4596ec223af3a662"
+  },
+  "request": {
+    "timeout_seconds": 120.0,
+    "started_at_utc": "2026-11-02T03:54:44.826193+00:00",
+    "finished_at_utc": "2026-11-02T03:55:14.428606+00:00",
+    "elapsed_seconds": 29.602,
+    "command": [
+      "opencode",
+      "run",
+      "--standalone",
+      "--model",
+      "opencode/nemotron-3.5-super-vl-free",
+      "--file",
+      "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/frames/frame_4560.png",
+      "--file",
+      "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/frames/frame_4558.png",
+      "--file",
+      "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/frames/frame_4559.png",
+      "--format",
+      "json",
+      "SEED REVIEW REQUEST v1.0.0\n\nSource video: video-ccf9722164a0bdc8\nSource video SHA-256: ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb\nCandidate frames: 3 adjacent native-resolution direct-source frames.\n\nCandidate metadata and advisory mechanical measurements:\n{\"duplicate_similarity\":0.986447,\"exposure_score\":0.868213,\"focus_analysis_laplacian_variance\":368.649635,\"frame_id\":\"frame_4560\",\"frame_sha256\":\"7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f\",\"height\":720,\"index_zero_based\":4559,\"mechanical_score\":0.725753,\"pts_seconds\":151.96666666666667,\"temporal_gap_seconds\":0.033333,\"width\":1280}\n{\"duplicate_similarity\":0.986282,\"exposure_score\":0.866017,\"focus_analysis_laplacian_variance\":360.454479,\"frame_id\":\"frame_4558\",\"frame_sha256\":\"a8d5141c25282a42543aaf82458af104ead3bc904a6b0e4de29e403e9345e5c1\",\"height\":720,\"index_zero_based\":4557,\"mechanical_score\":0.714114,\"pts_seconds\":151.9,\"temporal_gap_seconds\":0.033333,\"width\":1280}\n{\"duplicate_similarity\":0.986447,\"exposure_score\":0.86906,\"focus_analysis_laplacian_variance\":346.030616,\"frame_id\":\"frame_4559\",\"frame_sha256\":\"b1127b6d01c3723ee3f2a2b56bff7928456640e26ad5b1c745ef062b8426204c\",\"height\":720,\"index_zero_based\":4558,\"mechanical_score\":0.695286,\"pts_seconds\":151.93333333333334,\"temporal_gap_seconds\":0.033333,\"width\":1280}\n\nCompare only the attached images, in the order listed. Choose the single best frame as a panorama seed for later Hunyuan image-to-panorama work. The mechanical measurements are advisory; they do not replace visual inspection and do not prove a quality difference.\n\nIf the frames are effectively indistinguishable, if none is suitable, or if you cannot support a choice from visible evidence, abstain by setting selected_frame_id to null. Never choose a panorama, contact sheet, composite, or rendered-room image. Do not infer hidden rooms, unseen geometry, or source connectivity.\n\nReturn exactly one JSON object with these six fields and no others:\n{\n  \"selected_frame_id\": \"<one reviewed frame_id or null>\",\n  \"ranked_alternatives\": [\"<reviewed frame_id>\", \"...\"],\n  \"evidence\": \"<visible details that support the choice>\",\n  \"uncertainty\": \"<what remains ambiguous or unverified>\",\n  \"confidence_1_to_5\": <integer from 1 to 5>,\n  \"use_original_frame_not_a_composite\": true\n}\n\nDo not add commentary outside the JSON object.\n"
+    ],
+    "response_fixture_path": null,
+    "response_fixture_sha256": null
+  },
+  "result": {
+    "selection_status": "selected",
+    "selected_frame_id": "frame_4560",
+    "selected_index_zero_based": 4559,
+    "selected_pts_seconds": 151.96666666666667,
+    "selected_frame_sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f",
+    "ranked_alternatives": [
+      "frame_4558",
+      "frame_4559"
+    ],
+    "confidence_1_to_5": 4,
+    "confidence_threshold": 3,
+    "evidence": "Frame 4560 is the cleanest capture: its bottom edge is free of the orange/reddish finger-like intrusion visible at the bottom edge in frames 4558 and 4559, and it shows the full room unobstructed (exposed brick column left, wall-mounted shelf, debris-strewn floor, window wall right). It also rates best on the advisory measures (highest focus laplacian variance 368.65 and highest mechanical score 0.7258).",
+    "uncertainty": "The three frames are near-duplicates (~98.6% similarity) shot 33 ms apart, so the visual margin is small; the apparent bottom-edge intrusion in 4558/4559 could be ambient detail rather than a finger, and all three frames are 720p rather than the 1080p preferred for the pipeline.",
+    "raw_response_sha256": "c09b9f88a16a70f30c62d4816d7a3b4981426767d300df85e8a4408605bc2724",
+    "raw_response": "{\n  \"selected_frame_id\": \"frame_4560\",\n  \"ranked_alternatives\": [\"frame_4558\", \"frame_4559\"],\n  \"evidence\": \"Frame 4560 is the cleanest capture: its bottom edge is free of the orange/reddish finger-like intrusion visible at the bottom edge in frames 4558 and 4559, and it shows the full room unobstructed (exposed brick column left, wall-mounted shelf, debris-strewn floor, window wall right). It also rates best on the advisory measures (highest focus laplacian variance 368.65 and highest mechanical score 0.7258).\",\n  \"uncertainty\": \"The three frames are near-duplicates (~98.6% similarity) shot 33 ms apart, so the visual margin is small; the apparent bottom-edge intrusion in 4558/4559 could be ambient detail rather than a finger, and all three frames are 720p rather than the 1080p preferred for the pipeline.\",\n  \"confidence_1_to_5\": 4,\n  \"use_original_frame_not_a_composite\": true\n}",
+    "error": null
+  },
+  "usage": {
+    "reported": false,
+    "input_tokens": null,
+    "output_tokens": null,
+    "total_tokens": null,
+    "estimated_cost_usd": null,
+    "actual_cost_usd": null,
+    "listed_price_usd": 0.0,
+    "source": "unavailable"
+  },
+  "guards": {
+    "model_invoked": true,
+    "paid_call_allowed": false,
+    "hard_cost_ceiling_usd": null,
+    "provider_enforces_spend_limit": false,
+    "automatic_retry_allowed": false,
+    "max_candidates": 3,
+    "timeout_within_limit": true,
+    "registration_accepted": false,
+    "scale_calibrated": false
+  },
+  "artifacts": {
+    "workflow_spec_path": "godot_walk/seed_review/workflow.v1.json",
+    "workflow_spec_sha256": "3c07613e1af1f3801bec79bdbc1bfe0350aa3b97c9dfd1d5c4c87f501ac870ec",
+    "request_schema_path": "godot_walk/seed_review/schemas/seed_review_request.schema.json",
+    "request_schema_sha256": "9e7db8f29b6484b493dc93d2506c8f7b244110e2a30f4e22d178380e38d3c743",
+    "response_schema_path": "godot_walk/seed_review/schemas/seed_review_response.schema.json",
+    "response_schema_sha256": "a30c3b49b6ed2562014a9465ffae897860e91df4813dd204f804c87ac95e2cf5",
+    "receipt_schema_path": "godot_walk/seed_review/schemas/seed_review_receipt.schema.json",
+    "receipt_schema_sha256": "951533bf58c12126bc54a40ac4a235a107b237ae9390641aef51495a5a2a8d1f",
+    "request_path": "godot_walk/evidence/2026-11-02-issue-169-model-smoke/REQUEST_168_THREE_FRAMES.json",
+    "request_sha256": "d9cccf9e39e3cdc20ee9e00584d263e86cd98a831148fc2c7dec1acd1fcce4ee"
+  },
+  "limitations": [
+    "Mechanical metrics are relative within this candidate set, not absolute image-quality thresholds.",
+    "Model visual claims are recorded but were not independently verified.",
+    "This stage does not authorize Hunyuan, room authoring, catalog admission, or issue closure.",
+    "Confidence below the threshold, abstention, timeout, provider error, or invalid output requires operator review.",
+    "The provider or fixture did not report token usage or cost."
+  ],
+  "receipt_id": "bba8480e9d5698516489c615bf06c5bd42ff955460e1fd693d872b0afd4a72b8"
+}

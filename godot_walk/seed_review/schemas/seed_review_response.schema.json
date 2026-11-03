@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "seed_review_response.schema.json",
+  "title": "Seed review model response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "selected_frame_id",
+    "ranked_alternatives",
+    "evidence",
+    "uncertainty",
+    "confidence_1_to_5",
+    "use_original_frame_not_a_composite"
+  ],
+  "properties": {
+    "selected_frame_id": {
+      "type": ["string", "null"],
+      "pattern": "^frame_[0-9]{4,}$"
+    },
+    "ranked_alternatives": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^frame_[0-9]{4,}$"
+      }
+    },
+    "evidence": { "type": "string", "minLength": 1 },
+    "uncertainty": { "type": "string", "minLength": 1 },
+    "confidence_1_to_5": { "type": "integer", "minimum": 1, "maximum": 5 },
+    "use_original_frame_not_a_composite": { "const": true }
+  }
+}

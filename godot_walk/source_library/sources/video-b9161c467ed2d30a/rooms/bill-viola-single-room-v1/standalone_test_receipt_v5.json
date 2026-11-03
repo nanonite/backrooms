@@ -1,0 +1,18 @@
+{
+	"candidate_status": "pending_operator_review",
+	"closed_boundaries": 4,
+	"dresser_collision": false,
+	"failures": [
+		"Room did not finish setup",
+		"Closed room boundary missing: left",
+		"Closed room boundary missing: right",
+		"Closed room boundary missing: source-facing",
+		"Closed room boundary missing: near",
+		"Authored floor has a support gap in the 0.5-unit grid",
+		"Dresser obstacle has no matching collision"
+	],
+	"floor_support_samples": 0,
+	"registration_accepted": false,
+	"scale_calibrated": false,
+	"schema_version": 1
+}

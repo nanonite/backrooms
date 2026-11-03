@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Issue 169 · Bill Viola room candidate</title>
+<style>
+:root{color-scheme:dark;--bg:#171613;--panel:#24211c;--ink:#f1eadf;--muted:#c5b9a8;--accent:#d7b57e}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:28px}
+h1,h2{line-height:1.2}h1{margin-bottom:.3em}a{color:var(--accent)}.status{background:#443924;padding:12px 16px;border-left:4px solid var(--accent)}
+img{max-width:100%;height:auto;background:#111;border:1px solid #51483c}.sheet{width:100%}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.grid a{display:block}.grid img{width:100%}.panel{background:var(--panel);padding:18px;margin:18px 0;border-radius:6px}.links{display:flex;flex-wrap:wrap;gap:12px 20px}.small{color:var(--muted);font-size:.92em}
+</style>
+</head>
+<body><main>
+<h1>Bill Viola · one-room PSX candidate</h1>
+<p class="status"><strong>Visually accepted by the operator.</strong> This is an authored playable room based on direct source frames. Its dimensions and unseen boundaries are design choices; scale and registration remain uncalibrated, and catalog admission remains pending.</p>
+<div class="panel"><h2>Source and candidate comparison</h2><img class="sheet" src="room_comparison_v2.jpg" alt="Direct source views, rejected panorama, and four Godot views"></div>
+<div class="panel"><h2>Walkthrough</h2><p>Launch from the workspace root:</p><pre><code>godot4 --path godot_walk res://source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.tscn</code></pre><p>WASD walks, mouse looks, Escape releases the mouse, and R resets to the spawn facing the dresser.</p></div>
+<div class="panel"><h2>Godot review captures</h2><div class="grid">
+<a href="room-captures-v4/spawn_toward_dresser.png"><img src="room-captures-v4/spawn_toward_dresser.png" alt="Spawn looking at dresser">Spawn toward dresser</a>
+<a href="room-captures-v4/left_oblique.png"><img src="room-captures-v4/left_oblique.png" alt="Left oblique view">Left oblique</a>
+<a href="room-captures-v4/right_oblique.png"><img src="room-captures-v4/right_oblique.png" alt="Right oblique view">Right oblique</a>
+<a href="room-captures-v4/look_back_at_closed_boundary.png"><img src="room-captures-v4/look_back_at_closed_boundary.png" alt="View toward authored closed boundary">Looking back</a>
+</div></div>
+<div class="panel"><h2>Source references and authored proposal</h2><div class="links">
+<a href="../../source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2731.png">Seed frame 2731 · PTS 91.0 s</a>
+<a href="../../source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/frame_0820.png">Context frame 0820 · 27.3 s</a>
+<a href="../../source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/frame_4642.png">Context frame 4642 · 154.7 s</a>
+<a href="../../source_library/sources/video-b9161c467ed2d30a/hunyuan/attempt-001/panorama/panorama.png">Rejected Hunyuan panorama</a>
+<a href="../../source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/layout.svg">Authored layout and uncertainty diagram</a>
+<a href="../../source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/textures/direct-source-crops-v1/crop_manifest.json">Direct-source crop manifest</a>
+</div><p class="small">The panorama is shown as a rejected mismatch and did not provide the room appearance. Source images are direct video frames; crop assets are direct rectangular crops without resizing or color edits.</p></div>
+<div class="panel"><h2>Validation and measurements</h2><ul>
+<li>225/225 floor support probes; four boundaries and dresser collider verified.</li>
+<li>Walk/reset passed; missing-floor and open-boundary negative controls passed.</li>
+<li>Godot 4.6.3 capture: 47.287 ms scene ready; mean 4.165 ms, p95 4.385 ms, p99 4.780 ms across 300 frames.</li>
+<li>Peak child RSS 549 MB; peak GPU use 897 MB (187 MB over capture start).</li>
+</ul><div class="links"><a href="../../source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/standalone_test_receipt_v6.json">Standalone test receipt</a><a href="capture_resource_run_v4.json">Guarded GPU/resource receipt</a><a href="room-captures-v4/capture_manifest.json">Capture manifest</a><a href="../../source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/adaptation_accepted_v1.json">Accepted adaptation record</a><a href="../../source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/operator_decision_001.json">Operator decision artifact</a><a href="OPERATOR_APPROVAL.md">Approval and audit log</a><a href="../../source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/adaptation_candidate.json">Original pending candidate snapshot</a><a href="REPORT.md">Full report</a><a href="../../source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/COMMANDS.md">Commands</a></div>
+<p class="small">The original report is preserved as submitted before review; OPERATOR_APPROVAL.md records the later decision. Static contract checks and runtime evidence are separate. The room is visually accepted but not catalog-admitted; no opening or connector is claimed. See the report for source uncertainty and the rejected Hunyuan result.</p></div>
+</main></body></html>

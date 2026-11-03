@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "source_id": "video-b9161c467ed2d30a",
+  "source_video_sha256": "b9161c467ed2d30aefa6bf2969c2ed63fc79a387d93016197e356e9bf531ddaa",
+  "source_manifest_sha256": "4846725276daec7b99a03e1b727cfda32bed2bd7502919794d2ded064feda40b",
+  "seed_frame_sha256": "b5e623658f40f3f5fe195dbffb475d941755a1b4ecbcfd78aa838f4539203822",
+  "checked_at_utc": "2026-11-02T14:09:23.341703+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11547967488,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 1,
+    "compute_apps": [],
+    "ram_available_bytes": 41337933824,
+    "vram_after_headroom_bytes": 9238373990,
+    "ram_after_headroom_bytes": 31003450368,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25,
+    "hunyuan_resource_policy": {
+      "policy_version": "hunyuan-sequential-offload-2",
+      "min_start_ram_bytes": 34359738368,
+      "min_start_swap_free_bytes": 17179869184,
+      "min_start_vram_bytes": 8589934592,
+      "min_runtime_ram_bytes": 8589934592,
+      "min_runtime_swap_free_bytes": 17179869184,
+      "min_runtime_vram_bytes": 2147483648,
+      "max_swap_growth_bytes": 68719476736,
+      "max_execution_seconds": 2700,
+      "sample_period_seconds": 1.0
+    },
+    "hunyuan_start_snapshot": {
+      "timestamp_utc": "2026-11-02T14:09:23.341270+00:00",
+      "ram_available_bytes": 41337933824,
+      "swap_free_bytes": 95600054272,
+      "swap_total_bytes": 102546530304,
+      "gpu_free_bytes": 11547967488,
+      "gpu_used_bytes": 897581056,
+      "gpu_total_bytes": 12878610432,
+      "gpu_utilization_pct": 1,
+      "process_group_rss_bytes": 0
+    }
+  }
+}

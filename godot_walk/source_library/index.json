@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "index_version": 20,
+  "index_version": 21,
   "sources": [
     {
       "source_id": "video-102caf53423018b7",
@@ -41,8 +41,8 @@
       "source_id": "video-b9161c467ed2d30a",
       "source_path": "data/videos/Bill Viola 'The Sleep of Reason' 1988.mp4",
       "source_sha256": "b9161c467ed2d30aefa6bf2969c2ed63fc79a387d93016197e356e9bf531ddaa",
-      "manifest_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/source_manifest.json",
-      "manifest_sha256": "4846725276daec7b99a03e1b727cfda32bed2bd7502919794d2ded064feda40b"
+      "manifest_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/source_manifest-v2.json",
+      "manifest_sha256": "4d1ea9a8bc54b81cdc97d0df656d224327cf6d011e873f2e0fec635d2917cd11"
     },
     {
       "source_id": "video-c9115d943f6c3fe4",

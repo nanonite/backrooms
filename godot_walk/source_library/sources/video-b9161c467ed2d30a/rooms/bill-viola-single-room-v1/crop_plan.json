@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "source_video_sha256": "b9161c467ed2d30aefa6bf2969c2ed63fc79a387d93016197e356e9bf531ddaa",
+  "crops": [
+    {
+      "name": "plain_wall",
+      "frame_id": "frame_2731",
+      "source_pixel_bounds_xyxy": [180, 100, 520, 500]
+    },
+    {
+      "name": "dark_carpet",
+      "frame_id": "frame_2731",
+      "source_pixel_bounds_xyxy": [180, 638, 520, 716]
+    },
+    {
+      "name": "dresser_front",
+      "frame_id": "frame_2731",
+      "source_pixel_bounds_xyxy": [576, 450, 855, 600]
+    },
+    {
+      "name": "television_screen",
+      "frame_id": "frame_2731",
+      "source_pixel_bounds_xyxy": [706, 401, 760, 450]
+    },
+    {
+      "name": "vase_and_flowers",
+      "frame_id": "frame_2731",
+      "source_pixel_bounds_xyxy": [760, 354, 815, 451]
+    }
+  ]
+}

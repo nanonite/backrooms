@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "workflow_spec_version": "1.0.0",
+  "source_id": "video-ccf9722164a0bdc8",
+  "source_video_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+  "candidates": [
+    {
+      "frame_id": "frame_4558",
+      "index_zero_based": 4557,
+      "pts_seconds": 151.9,
+      "path": "godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/frames/frame_4558.png",
+      "sha256": "a8d5141c25282a42543aaf82458af104ead3bc904a6b0e4de29e403e9345e5c1",
+      "width": 1280,
+      "height": 720,
+      "origin": "direct_source_frame",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_4559",
+      "index_zero_based": 4558,
+      "pts_seconds": 151.93333333333334,
+      "path": "godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/frames/frame_4559.png",
+      "sha256": "b1127b6d01c3723ee3f2a2b56bff7928456640e26ad5b1c745ef062b8426204c",
+      "width": 1280,
+      "height": 720,
+      "origin": "direct_source_frame",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_4560",
+      "index_zero_based": 4559,
+      "pts_seconds": 151.96666666666667,
+      "path": "godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/frames/frame_4560.png",
+      "sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f",
+      "width": 1280,
+      "height": 720,
+      "origin": "direct_source_frame",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    }
+  ]
+}

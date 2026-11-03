@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "seed_review_request.schema.json",
+  "title": "Seed review candidate request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workflow_spec_version",
+    "source_id",
+    "source_video_sha256",
+    "candidates"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "workflow_spec_version": { "const": "1.0.0" },
+    "source_id": {
+      "type": "string",
+      "pattern": "^video-[0-9a-f]{16}$"
+    },
+    "source_video_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/candidate" }
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame_id",
+        "index_zero_based",
+        "pts_seconds",
+        "path",
+        "sha256",
+        "width",
+        "height",
+        "origin",
+        "decode_operation"
+      ],
+      "properties": {
+        "frame_id": {
+          "type": "string",
+          "pattern": "^frame_[0-9]{4,}$"
+        },
+        "index_zero_based": { "type": "integer", "minimum": 0 },
+        "pts_seconds": { "type": "number", "minimum": 0 },
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "origin": { "const": "direct_source_frame" },
+        "decode_operation": {
+          "const": "direct_source_video_decode_no_resize_or_edit"
+        }
+      }
+    }
+  }
+}

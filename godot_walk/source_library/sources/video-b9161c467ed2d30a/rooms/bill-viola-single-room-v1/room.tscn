@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.gd" id="1_room"]
+
+[node name="BillViolaSingleRoomCandidate" type="Node3D"]
+script = ExtResource("1_room")

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "stage": "vision_model_smoke",
+  "created_at_utc": "2026-11-02T03:22:36Z",
+  "status": "success",
+  "opencode_version": "2.0.22",
+  "model": "opencode/nemotron-3.5-super-vl-free",
+  "usage": {
+    "listed_price_usd": 0.0,
+    "provider_usage_metadata_reported": false,
+    "actual_token_count": null
+  },
+  "input": {
+    "source_id": "video-ccf9722164a0bdc8",
+    "source_video_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+    "frame_id": "frame_4560",
+    "index_zero_based": 4559,
+    "pts_seconds": 151.96666666666667,
+    "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png",
+    "sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f"
+  },
+  "prompt": "Inspect this one image as a direct video frame. Return JSON with fields visible_evidence, uncertain_or_occluded, and seed_quality. Cite only visual details actually visible; do not infer adjacent rooms, connectivity, or hidden geometry.",
+  "response": {
+    "visible_evidence": [
+      "Interior room with a concrete ceiling showing painted white beams/joists running left-to-right; one small round pendant light fixture is mounted near the ceiling, unlit.",
+      "Walls painted in two tones: upper section light cream/beige, lower section a slightly darker tan, separated by a horizontal line around mid-wall height.",
+      "Far-left edge shows part of a light-colored brick column or wall section.",
+      "Right wall has a bank of tall windows with metal grid bars/muntins; bright daylight blows out the panes to white with faint green tint at the edges, exterior details not resolvable.",
+      "A long thin pipe or conduit runs horizontally across the wall below ceiling-beam height.",
+      "Left-center wall has a dark rectangular recessed opening or boarded-up feature.",
+      "Left-center of the room holds a small wooden sawhorse/trestle stand with a dark bottle sitting on top.",
+      "Floor is covered in debris across the visible area: scattered cardboard boxes (a small stack near center-right), wooden planks and lath, crumpled paper, and a large quantity of blue denim-like fabric or clothing spread across much of the foreground and mid-floor.",
+      "Some red and green objects are partially visible among the debris but are too obscured to identify.",
+      "Two dark spots on the ceiling near center, possibly damage or fixtures, origin unclear.",
+      "Grey concrete floor is visible only in small gaps between debris; most of the floor surface is occluded by rubble.",
+      "Far right wall surface appears worn/stained beneath the windows.",
+      "A small white object (possibly a bag or lump) sits in the bottom-center foreground amid debris."
+    ],
+    "uncertain_or_occluded": [
+      "What lies outside the windows (blown-out highlights prevent seeing exterior).",
+      "Purpose of the dark rectangular recessed feature on the left wall (boarded window, vent, or closet).",
+      "Exact identity of the red and green objects buried in the debris pile.",
+      "Whether debris extends beneath visible objects such as the stacked cardboard boxes.",
+      "Contents of room corners outside the frame edges.",
+      "Origin of the dark ceiling spots (water damage, fixture remnant, or dirt).",
+      "Floor geometry beneath the heavy debris cover."
+    ],
+    "seed_quality": {
+      "rating": "moderate",
+      "notes": "Usable as a single reference frame: clear daylight from the right windows illuminates the walls and ceiling, and textures (brick, wall paint, cardboard, denim fabric) are discernible. However, the floor is heavily occluded by debris across most of the frame, and the far wall is largely plain, limiting geometric anchor points for a splat seed. Motion blur appears minimal."
+    }
+  },
+  "interpretation_limits": [
+    "This prompt requested one-frame description, not a choice among seeds.",
+    "Object identities and quality judgments are model claims and were not independently verified.",
+    "This result does not establish room boundaries or video connectivity.",
+    "No model usage metadata was exposed, so the paid-model cost guard remains unproven."
+  ]
+}

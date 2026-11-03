@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "decision_id": "bill-viola-single-room-v1-operator-review-001",
+  "adaptation_id": "bill-viola-single-room-v1",
+  "candidate_identity": "8d1f0c6ae91edb8c73156d41fc16e94dd2a8265d843d5a40bb1bdeca393e75f0",
+  "decision": "accepted",
+  "decision_scope": "visual_acceptance_of_one_playable_manual_room_candidate",
+  "reviewed_at_utc": "2026-11-02T15:13:03.206945+00:00",
+  "operator_feedback": "hell yea! it looks really nice, approved!",
+  "accepted_record_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/adaptation_accepted_v1.json",
+  "review_artifacts": [
+    {
+      "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room_comparison_v2.jpg",
+      "sha256": "37a3798ba05ae08cd5a36e1aa2b98528ac68944b49fa9122c9be0e5671541a41"
+    },
+    {
+      "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/spawn_toward_dresser.png",
+      "sha256": "8c2835564f91dafca0e9a753fd83fe736728e17d7931e04766d3af505b424aa7"
+    },
+    {
+      "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/left_oblique.png",
+      "sha256": "1304ab03227800ea25f8f66ee52abf34d6df6838ffd97174a7e53b361f5d4b5c"
+    },
+    {
+      "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/right_oblique.png",
+      "sha256": "84cc3279cbbd28b5ef10ef277fbe3385fa766182c0f0b692232313261cca0d5d"
+    },
+    {
+      "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/room-captures-v4/look_back_at_closed_boundary.png",
+      "sha256": "b1bdf4e9ae3a1d99c1381df45fc0fb69ef48feaf0a6e42fdc8119c8627376a18"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/layout.svg",
+      "sha256": "ef10cef6c079ff43b142773e594563bf0bb37146b787c36bf9979100cf4ad9f3"
+    },
+    {
+      "path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/REPORT.md",
+      "sha256": "5e400fe026debfdaad2ba607bbe75935760683642d5a41bd1bdb321ddb133a63"
+    }
+  ],
+  "catalog_admission": "candidate_not_admitted",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "limitations": [
+    "No panorama approval; Hunyuan attempt 001 remains a source mismatch.",
+    "No catalog admission, scale calibration, registration acceptance, or connector approval."
+  ]
+}

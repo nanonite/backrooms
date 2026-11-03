@@ -672,7 +672,11 @@ def _verified_blocked_receipt(
 
 
 def record_manual_fallback(
-    source_id: str, choice: str, rationale: str, root: Path = ROOT
+    source_id: str,
+    choice: str,
+    rationale: str,
+    root: Path = ROOT,
+    operator_authorized: bool = False,
 ) -> None:
     if choice not in {"proceed_manual", "reject_source"} or not rationale.strip():
         raise WorkflowGateError(
@@ -681,14 +685,29 @@ def record_manual_fallback(
     with _source_lock(source_id, root):
         manifest, events, _ = load_source(source_id, root)
         state = evaluate_workflow(manifest, events)
-        if not state.manual_fallback_allowed:
+        if state.awaiting_feedback:
+            raise WorkflowGateError(
+                "Review the completed Hunyuan result before manual fallback"
+            )
+        if not state.manual_fallback_allowed and not operator_authorized:
             raise WorkflowGateError(
                 "Manual fallback is not yet authorized by workflow state"
             )
+        if operator_authorized and (
+            state.source_decision not in {"proceed", "proceed_with_limitations"}
+            or state.selected_seed is None
+            or state.attempts_used == 0
+        ):
+            raise WorkflowGateError(
+                "Operator-directed early fallback requires a reviewed source, seed, and attempt"
+            )
+        payload = {"choice": choice, "rationale": rationale.strip()}
+        if operator_authorized and not state.manual_fallback_allowed:
+            payload["authorization_source"] = "explicit_operator_instruction"
         append_event(
             source_id,
             "manual_fallback_decision",
-            {"choice": choice, "rationale": rationale.strip()},
+            payload,
             root,
         )
 
@@ -756,6 +775,11 @@ def main() -> int:
         "--choice", choices=("proceed_manual", "reject_source"), required=True
     )
     fallback_parser.add_argument("--reason", required=True)
+    fallback_parser.add_argument(
+        "--operator-directed",
+        action="store_true",
+        help="Record an explicit operator choice to stop after the reviewed attempt",
+    )
     args = parser.parse_args()
     if args.action == "status":
         print(json.dumps(source_status(args.source_id), indent=2))
@@ -788,7 +812,12 @@ def main() -> int:
     elif args.action == "authorize-preflight-retry":
         record_preflight_retry_authorization(args.source_id, args.reason)
     elif args.action == "manual-fallback":
-        record_manual_fallback(args.source_id, args.choice, args.reason)
+        record_manual_fallback(
+            args.source_id,
+            args.choice,
+            args.reason,
+            operator_authorized=args.operator_directed,
+        )
     return 0
 
 

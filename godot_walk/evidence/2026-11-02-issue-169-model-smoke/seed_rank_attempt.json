@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "stage": "seed_rank_replay",
+  "started_at_utc": "2026-11-02T03:23:21Z",
+  "status": "timed_out_without_result",
+  "exit_code": 124,
+  "timeout_seconds": 120,
+  "opencode_version": "2.0.22",
+  "model": "opencode/nemotron-3.5-super-vl-free",
+  "usage": {
+    "listed_price_usd": 0.0,
+    "provider_usage_metadata_reported": false,
+    "actual_token_count": null
+  },
+  "input": {
+    "source_id": "video-ccf9722164a0bdc8",
+    "source_video_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb",
+    "frame_ids": [
+      "frame_4556",
+      "frame_4557",
+      "frame_4558",
+      "frame_4559",
+      "frame_4560",
+      "frame_4561",
+      "frame_4562",
+      "frame_4563",
+      "frame_4564",
+      "frame_4565",
+      "frame_4566"
+    ],
+    "contact_sheet_path": "godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/adjacent_seed_candidates.jpg",
+    "contact_sheet_sha256": "9f93fa9040bd5ce9d6ce6303835c917c13de69bc7bcac8d31770386d77efe5a6"
+  },
+  "prompt": "Choose a panorama seed from this labeled contact sheet of 11 adjacent direct-source video frames. Rank the best three by sharpness, exposure, visible room structure, and useful coverage. Return JSON with selected_frame_id, zero_based_index, pts_seconds, ranked_alternatives, evidence, uncertainty, confidence_1_to_5, and use_original_frame_not_sheet=true. Prefer a tie or abstain if differences are not visually supportable. Do not infer unseen areas or source connectivity.",
+  "error": "Transport: The socket connection was closed unexpectedly.",
+  "decision": "No automatic retry; use operator-authorized bounded workflow after diagnosing multimodal request limits."
+}

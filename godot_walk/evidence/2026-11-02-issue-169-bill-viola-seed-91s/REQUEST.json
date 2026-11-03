@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "workflow_spec_version": "1.0.0",
+  "source_id": "video-b9161c467ed2d30a",
+  "source_video_sha256": "b9161c467ed2d30aefa6bf2969c2ed63fc79a387d93016197e356e9bf531ddaa",
+  "candidates": [
+    {
+      "frame_id": "frame_2730",
+      "index_zero_based": 2729,
+      "pts_seconds": 90.96666666666667,
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2730.png",
+      "sha256": "43f3dd13a8904ab6bdbc90e70e6c6e50d58cc7c7d897e5b8255fe02647eb6b64",
+      "width": 1280,
+      "height": 720,
+      "origin": "direct_source_frame",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_2731",
+      "index_zero_based": 2730,
+      "pts_seconds": 91.0,
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2731.png",
+      "sha256": "b5e623658f40f3f5fe195dbffb475d941755a1b4ecbcfd78aa838f4539203822",
+      "width": 1280,
+      "height": 720,
+      "origin": "direct_source_frame",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_2732",
+      "index_zero_based": 2731,
+      "pts_seconds": 91.03333333333333,
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2732.png",
+      "sha256": "15e66b2e8706d1a5075401134144c9073e72747408e66867fa348316d0af91cd",
+      "width": 1280,
+      "height": 720,
+      "origin": "direct_source_frame",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    }
+  ]
+}

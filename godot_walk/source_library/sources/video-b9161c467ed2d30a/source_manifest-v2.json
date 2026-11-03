@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "source_id": "video-b9161c467ed2d30a",
+  "created_at_utc": "2026-10-26T21:23:22.450825+00:00",
+  "canonical_video": {
+    "path": "data/videos/Bill Viola 'The Sleep of Reason' 1988.mp4",
+    "sha256": "b9161c467ed2d30aefa6bf2969c2ed63fc79a387d93016197e356e9bf531ddaa",
+    "metadata": {
+      "width": 1280,
+      "height": 720,
+      "fps": 30.0,
+      "frame_count": 5459,
+      "duration_seconds": 182.021224
+    }
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_review": {
+    "status": "pending_operator_review",
+    "decision": null
+  },
+  "frame_references": [],
+  "hunyuan": {
+    "status": "not_attempted",
+    "historical_invocations": 0,
+    "attempts": []
+  },
+  "room_adaptations": [
+    {
+      "issue": 169,
+      "adaptation_id": "bill-viola-single-room-v1",
+      "adaptation_version": "bill-viola-single-room-v1",
+      "candidate_identity": "8d1f0c6ae91edb8c73156d41fc16e94dd2a8265d843d5a40bb1bdeca393e75f0",
+      "adaptation_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/adaptation_accepted_v1.json",
+      "adaptation_sha256": "ba135705d2f2c198dbe6cfc79a9816697e4a2557cb7ca56495ec511fcf6336d3",
+      "decision_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/catalog_admission_decision.json",
+      "decision_sha256": "8d0859a4c7e7accb3a31b237ad82dfc8bab246d322cb56c21da67cb7a1fedf2d",
+      "decision_status": "accepted_catalog_admission",
+      "scene_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.tscn",
+      "scene_sha256": "dfdb72cc48ba187a0c19af8342ed5da2d32ab04a0dfec5d8eec7f511f462ab45",
+      "catalog_snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.5.0.json",
+      "catalog_snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30",
+      "catalog_admission": {
+        "status": "admitted",
+        "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+        "module_version": 1,
+        "catalog_version": "0.5.0"
+      }
+    }
+  ],
+  "historical_artifacts": [],
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity.",
+  "manifest_version": 2,
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/source_manifest.json",
+    "sha256": "4846725276daec7b99a03e1b727cfda32bed2bd7502919794d2ded064feda40b"
+  },
+  "recorded_at_utc": "2026-11-02T21:12:07.715572+00:00"
+}

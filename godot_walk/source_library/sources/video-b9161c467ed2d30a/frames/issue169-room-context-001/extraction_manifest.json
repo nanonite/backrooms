@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source_video": "data/videos/Bill Viola 'The Sleep of Reason' 1988.mp4",
+  "source_video_sha256": "b9161c467ed2d30aefa6bf2969c2ed63fc79a387d93016197e356e9bf531ddaa",
+  "metadata": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30.0,
+    "frame_count": 5459,
+    "duration_seconds": 182.021224
+  },
+  "decoder": "ffmpeg select by decoded zero-based frame index",
+  "created_at_utc": "2026-11-02T14:18:26.893225+00:00",
+  "frames": [
+    {
+      "frame_id": "frame_0820",
+      "index_zero_based": 819,
+      "timestamp_seconds": 27.3,
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/frame_0820.png",
+      "sha256": "96919aefe094b7171c93a98fbef3feec384ec476030d4924ce4fc3ba00df2f86",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_4642",
+      "index_zero_based": 4641,
+      "timestamp_seconds": 154.7,
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/frame_4642.png",
+      "sha256": "0a00dc9220a1f7a36898d3180ee100ffa35132eaca37c1b5727bcaa7d5c8bcea",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    }
+  ]
+}

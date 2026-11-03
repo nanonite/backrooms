@@ -1,0 +1,15 @@
+{
+	"candidate_status": "pending_operator_review",
+	"closed_boundaries": 4,
+	"dresser_collision": true,
+	"failures": [],
+	"floor_support_samples": 225,
+	"negative_controls": {
+		"missing_floor": true,
+		"open_boundary": true
+	},
+	"registration_accepted": false,
+	"scale_calibrated": false,
+	"schema_version": 1,
+	"walk_and_reset": true
+}

@@ -1,0 +1,36 @@
+{
+	"engine": "4.6.3-stable (official)",
+	"frame_profile": {
+		"mean_frame_ms": 4.16616,
+		"measured_frames": 300,
+		"p95_frame_ms": 4.335,
+		"p99_frame_ms": 4.369,
+		"warmup_frames": 120
+	},
+	"registration_accepted": false,
+	"scale_calibrated": false,
+	"scene": "res://source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.tscn",
+	"scene_ready_ms": 46.513,
+	"views": [
+		{
+			"name": "spawn_toward_dresser.png",
+			"position": "(0.0, 1.42, 2.6)",
+			"target": "(0.0, 1.35, -3.0)"
+		},
+		{
+			"name": "left_oblique.png",
+			"position": "(-2.5, 1.42, 1.2)",
+			"target": "(-0.2, 1.25, -3.0)"
+		},
+		{
+			"name": "right_oblique.png",
+			"position": "(2.5, 1.42, 1.2)",
+			"target": "(0.2, 1.25, -3.0)"
+		},
+		{
+			"name": "look_back_at_closed_boundary.png",
+			"position": "(0.0, 1.42, -1.3)",
+			"target": "(0.0, 1.2, 3.8)"
+		}
+	]
+}

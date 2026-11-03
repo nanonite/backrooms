@@ -276,6 +276,73 @@ class SourceIngestionGpuTests(unittest.TestCase):
         self.assertFalse(status["manual_fallback_allowed"])
         self.assertFalse(status["can_start_attempt"])
 
+    def test_operator_can_choose_manual_fallback_after_reviewed_attempt(self) -> None:
+        source_ingestion_gpu.run_panorama_attempt(
+            self.source_id,
+            "A test interior panorama prompt.",
+            root=self.root,
+            guard=lambda: {"guard_policy_version": "test"},
+            runner=self._fake_runner,
+            sampler_factory=FakeSampler,
+        )
+        source_ingestion_runner.record_operator_feedback(
+            self.source_id,
+            "attempt-001",
+            "no_improvement",
+            "The panorama did not preserve the source composition.",
+            root=self.root,
+        )
+
+        source_ingestion_runner.record_manual_fallback(
+            self.source_id,
+            "proceed_manual",
+            "The operator directed manual room authoring and no further model calls.",
+            root=self.root,
+            operator_authorized=True,
+        )
+
+        status = source_ingestion_runner.source_status(self.source_id, self.root)
+        self.assertEqual(1, status["attempts_used"])
+        self.assertFalse(status["awaiting_feedback"])
+        self.assertFalse(status["can_start_attempt"])
+        event_path = (
+            self.root
+            / "godot_walk/source_library/sources"
+            / self.source_id
+            / "events.jsonl"
+        )
+        events = [
+            json.loads(line)
+            for line in event_path.read_text(encoding="utf-8").splitlines()
+        ]
+        decision = next(
+            item for item in events if item["event_type"] == "manual_fallback_decision"
+        )
+        self.assertEqual(
+            "explicit_operator_instruction",
+            decision["payload"]["authorization_source"],
+        )
+
+    def test_operator_directed_fallback_still_requires_attempt_feedback(self) -> None:
+        source_ingestion_gpu.run_panorama_attempt(
+            self.source_id,
+            "A test interior panorama prompt.",
+            root=self.root,
+            guard=lambda: {"guard_policy_version": "test"},
+            runner=self._fake_runner,
+            sampler_factory=FakeSampler,
+        )
+        with self.assertRaisesRegex(
+            source_ingestion_runner.WorkflowGateError, "Review the completed"
+        ):
+            source_ingestion_runner.record_manual_fallback(
+                self.source_id,
+                "proceed_manual",
+                "Stop model use.",
+                root=self.root,
+                operator_authorized=True,
+            )
+
     def test_lock_contention_blocks_before_inference(self) -> None:
         with exclusive_gpu_job(self.root):
             result = source_ingestion_gpu.run_panorama_attempt(

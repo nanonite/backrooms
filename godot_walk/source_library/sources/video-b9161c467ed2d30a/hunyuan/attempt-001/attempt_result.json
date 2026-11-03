@@ -1,0 +1,39 @@
+{
+  "status": "produced",
+  "return_code": 0,
+  "elapsed_seconds": 199.586,
+  "resources": {
+    "policy": {
+      "policy_version": "hunyuan-sequential-offload-2",
+      "min_start_ram_bytes": 34359738368,
+      "min_start_swap_free_bytes": 17179869184,
+      "min_start_vram_bytes": 8589934592,
+      "min_runtime_ram_bytes": 8589934592,
+      "min_runtime_swap_free_bytes": 17179869184,
+      "min_runtime_vram_bytes": 2147483648,
+      "max_swap_growth_bytes": 68719476736,
+      "max_execution_seconds": 2700,
+      "sample_period_seconds": 1.0
+    },
+    "sample_count": 188,
+    "peak_process_group_rss_bytes": 40734924800,
+    "peak_gpu_memory_used_bytes": 1602224128,
+    "minimum_gpu_free_bytes": 10844372992,
+    "minimum_ram_available_bytes": 18292080640,
+    "minimum_swap_free_bytes": 80876204032,
+    "swap_free_at_start_bytes": 95600054272,
+    "gpu_free_at_start_bytes": 11547967488,
+    "sample_file": {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/hunyuan/attempt-001/resource_samples.jsonl",
+      "sha256": "aca1f43ba5ae06b7ab69f36dc0b6253af7e7fdb54ac8c5959b6482f7906d8d24"
+    },
+    "stop_reason": null
+  },
+  "outputs": [
+    {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/hunyuan/attempt-001/panorama/panorama.png",
+      "sha256": "30d880488e796b6cc2e21ef9986f7cd5855d4e97b7162fb6d4613ad35e87b9ad"
+    }
+  ],
+  "finished_at_utc": "2026-11-02T14:12:43.384988+00:00"
+}
