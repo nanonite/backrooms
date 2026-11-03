@@ -76,6 +76,13 @@ def adjacent(a: Rect, b: Rect) -> bool:
     return contact(a, b) is not None
 
 
+def near(a: Rect, b: Rect, margin: float) -> bool:
+    """True when `a` grown by `margin` on every side shares positive area with `b` (touching at a
+    corner counts as near). gmap-0.4.0 library-room overhang margin (issue 190)."""
+    grown = (a[0] - margin, a[1] - margin, a[2] + margin, a[3] + margin)
+    return overlaps(grown, b)  # type: ignore[arg-type]
+
+
 def along(pos: tuple[float, float], normal: Vec) -> float:
     """Coordinate of a port along its wall (z for east/west walls, x otherwise)."""
     return pos[1] if normal[0] else pos[0]

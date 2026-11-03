@@ -10,6 +10,8 @@ const ROOM_CHECKS := preload("res://scripts/issue183_room_checks.gd")
 const MAP_CHECKS := preload("res://scripts/issue183_map_checks.gd")
 const TRIM_CHECKS := preload("res://scripts/issue186_trim_checks.gd")
 const MODULE_CHECKS := preload("res://scripts/issue188_module_checks.gd")
+const DIAGONAL_CHECKS := preload("res://scripts/issue190_diagonal_checks.gd")
+const DIAGONAL := preload("res://scripts/shape_room_diagonal.gd")
 const PROBE := preload("res://scripts/shape_room_probe.gd")
 const SCENE_PATH := "res://scenes/generative_map_walkthrough.tscn"
 
@@ -42,7 +44,8 @@ func _run() -> void:
 	_write_report(report)
 	var positive: Dictionary = report.positive
 	var modules: Dictionary = positive.modules
-	print("ISSUE183_SHAPE_ROOMS: %s map=%s mode=%s rooms=%d edges_both_ways=%d/%d closed_blocked=%d/%d flood_cells=%d/%d void_reached=%d trim_pairs=%d trim_coplanar=%d degenerate_trim=%d/%d modules=%d landed=%d open=%d aperture_clear=%d wall_coplanar=%d reveal_faces=%d controls=%s" % [
+	var diagonal: Dictionary = positive.diagonal
+	print("ISSUE183_SHAPE_ROOMS: %s map=%s mode=%s rooms=%d edges_both_ways=%d/%d closed_blocked=%d/%d flood_cells=%d/%d void_reached=%d trim_pairs=%d trim_coplanar=%d degenerate_trim=%d/%d modules=%d landed=%d open=%d aperture_clear=%d wall_coplanar=%d reveal_faces=%d diagonal_edges=%d diagonal_stopped=%d/%d floor_missing=%d/%d joint_uncovered=%d/%d diagonal_coplanar=%d controls=%s" % [
 		"PASS" if failures.is_empty() else "FAIL", map.map_id, index.mode, specs.size(),
 		positive.edges.passed_forward + positive.edges.passed_reverse, 2 * positive.edges.direct_edges_checked,
 		positive.edges.closed_blocked, positive.edges.closed_edges,
@@ -51,7 +54,8 @@ func _run() -> void:
 		positive.trim.degenerate_conflicts, positive.trim.degenerate_trim_boxes,
 		modules.get("module_cells", 0), modules.get("sockets_landed", 0), modules.get("sockets_open", 0),
 		modules.get("apertures_clear", 0), modules.get("wall_coplanar_conflicts", 0),
-		modules.get("reveal_coplanar_faces", 0), str(report.negative_controls.keys())])
+		modules.get("reveal_coplanar_faces", 0), diagonal.diagonal_edges, diagonal.push_stopped, diagonal.push_samples,
+		diagonal.floor_missing, diagonal.floor_samples, diagonal.joint_uncovered, diagonal.joint_samples, diagonal.coplanar_faces, str(report.negative_controls.keys())])
 	quit(0 if failures.is_empty() else 1)
 
 
@@ -95,11 +99,14 @@ func _check_margins(cell_id: String, spec: Dictionary) -> void:
 		_expect(spec.degenerate_features == (["corner_doorway"] if not corner.is_empty() else []), "%s: degenerate_features mismatch" % cell_id)
 
 
-func _build(map_data: Dictionary, room_specs: Dictionary, open_modules: bool = true, recess_joints: bool = true) -> Node3D:
+func _build(map_data: Dictionary, room_specs: Dictionary, open_modules: bool = true, recess_joints: bool = true,
+		diagonal_collision: bool = true, diagonal_pullback: float = 0.0) -> Node3D:
 	var assembly := ASSEMBLY.new()
 	assembly.auto_start = false
 	assembly.open_modules = open_modules
 	assembly.recess_joints = recess_joints
+	assembly.diagonal_collision = diagonal_collision
+	assembly.diagonal_pullback = diagonal_pullback
 	root.add_child(assembly)
 	assembly.assemble(map_data, room_specs)
 	await physics_frame
@@ -133,8 +140,10 @@ func _run_positive() -> Dictionary:
 	if not assembly.module_rooms.is_empty():
 		modules = MODULE_CHECKS.check(space, assembly)
 		_fail_all(modules.failures)
+	var diagonal := DIAGONAL_CHECKS.check(assembly)
+	_fail_all(diagonal.failures)
 	await _release(assembly)
-	return {"rooms": rooms.rooms, "edges": edges, "flood": flood, "trim": trim, "modules": modules}
+	return {"rooms": rooms.rooms, "edges": edges, "flood": flood, "trim": trim, "modules": modules, "diagonal": diagonal}
 
 
 func _run_negative_controls() -> Dictionary:
@@ -143,6 +152,8 @@ func _run_negative_controls() -> Dictionary:
 	controls["floor_rect_removed"] = await _control_floor_removed()
 	controls["module_socket_closed"] = await _control_module_closed()
 	controls["module_joint_recess_removed"] = await _control_joint_recess_removed()
+	controls["diagonal_collision_removed"] = await _control_diagonal_collision_removed()
+	controls["unmitred_joint"] = await _control_unmitred_joint()
 	for name: String in controls:
 		_expect(not controls[name].applicable or controls[name].failed_as_expected, "Negative control %s did not fail" % name)
 	return controls
@@ -202,11 +213,41 @@ func _control_joint_recess_removed() -> Dictionary:
 		"reveal_coplanar_faces": modules.reveal_coplanar_faces, "module_check_failures": modules.failures.size()}
 
 
+func _has_diagonal_rooms() -> bool:
+	return specs.values().any(func(spec: Dictionary) -> bool: return DIAGONAL.is_chamfered(spec))
+
+
+## Diagonal walls built without collision: a capsule pushed into them must get through, and the
+## wall checks (blocked samples, push test) must report it.
+func _control_diagonal_collision_removed() -> Dictionary:
+	if not _has_diagonal_rooms():
+		return {"applicable": false, "failed_as_expected": false, "reason": "this map has no 45-degree room"}
+	var assembly := await _build(map, specs, true, true, false)
+	var rooms := ROOM_CHECKS.check_all(assembly.get_world_3d().direct_space_state, assembly)
+	var diagonal := DIAGONAL_CHECKS.check(assembly, false)
+	await _release(assembly)
+	var passed_through: Array = rooms.failures.filter(func(message: String) -> bool: return "capsule passes" in message)
+	return {"applicable": true, "failed_as_expected": not passed_through.is_empty() and diagonal.push_stopped < diagonal.push_samples,
+		"wall_failures": passed_through.size(), "push_stopped": diagonal.push_stopped, "push_samples": diagonal.push_samples}
+
+
+## Diagonal walls shortened at both ends (an unmitred joint): the wall band around the joint is left
+## open and the coverage check must find it.
+func _control_unmitred_joint() -> Dictionary:
+	if not _has_diagonal_rooms():
+		return {"applicable": false, "failed_as_expected": false, "reason": "this map has no 45-degree room"}
+	var assembly := await _build(map, specs, true, true, true, 0.32)
+	var diagonal := DIAGONAL_CHECKS.check(assembly, false)
+	await _release(assembly)
+	return {"applicable": true, "failed_as_expected": diagonal.joint_uncovered > 0, "joint_uncovered": diagonal.joint_uncovered,
+		"joint_samples": diagonal.joint_samples}
+
+
 func _control_floor_removed() -> Dictionary:
 	var altered := specs.duplicate(true)
 	var removed := ""
 	for cell_id: String in altered:
-		if cell_id != String(map.cells[0].cell_id):
+		if cell_id != String(map.cells[0].cell_id) and not DIAGONAL.is_chamfered(altered[cell_id]):
 			removed = cell_id
 			altered[cell_id].rects = altered[cell_id].rects.slice(1)
 			break

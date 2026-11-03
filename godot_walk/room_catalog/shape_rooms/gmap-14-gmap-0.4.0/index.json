@@ -1,0 +1,132 @@
+{
+  "generator_version": "shape-room-0.4.0",
+  "map_file": {
+    "name": "gmap-14-gmap-0.4.0.json",
+    "sha256": "ba849d7e2c3145bf2a89f9c1f2f7e2a6a899db1f75659cc9281a2e1e216c01f3"
+  },
+  "map_id": "gmap-14-gmap-0.4.0",
+  "mode": "all_walkable",
+  "rooms": [
+    {
+      "cell_id": "c00",
+      "construction": "arms",
+      "file": "c00.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "t_shape",
+      "primitive_class": "box",
+      "sha256": "3318b98167ee00bd7dcfe774da44839c5bd899373385eda960d727ba478baa33"
+    },
+    {
+      "cell_id": "c01",
+      "construction": "box",
+      "file": "c01.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "t_shape",
+      "primitive_class": "chamfered_box",
+      "sha256": "d0056cae81b62011ea1fc14f43cb15ad0182cc7442756394e62159df2925aacf"
+    },
+    {
+      "cell_id": "c02",
+      "construction": "arms",
+      "file": "c02.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "t_shape",
+      "primitive_class": "chamfered_polyomino",
+      "sha256": "5c37876f8ede1895a0c76d6523e8391d37974f03cfdebad8cc51dbf90956cde5"
+    },
+    {
+      "cell_id": "c03",
+      "construction": "box",
+      "file": "c03.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "9baa0a7ed21a28d5518f0d5938b376f53978ba398eeb7c6794480682c592ec00"
+    },
+    {
+      "cell_id": "c04",
+      "construction": "arms",
+      "file": "c04.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "t_shape",
+      "primitive_class": "l_shape",
+      "sha256": "d130647c39617b6338a5b8e561695574a4df8f780d7a830b84721560ac4ebc51"
+    },
+    {
+      "cell_id": "c05",
+      "construction": "arms",
+      "file": "c05.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "straight",
+      "primitive_class": "box",
+      "sha256": "366fe8f6bcc4447d8a92b5c3fa0166fd9e29b00198d49820f1b8046720020bb9"
+    },
+    {
+      "cell_id": "c06",
+      "construction": "arms",
+      "file": "c06.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "390f337fe17b43396c9e89a757be97e109b95f022895248ceda580c2f0c7feeb"
+    },
+    {
+      "cell_id": "c07",
+      "construction": "arms",
+      "file": "c07.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "t_shape",
+      "primitive_class": "box",
+      "sha256": "ff21cc3542fbc152ccb6f79212469e20878eead760f35c2b799498d64998499b"
+    },
+    {
+      "cell_id": "c08",
+      "construction": "arms",
+      "file": "c08.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "da60e458a50adb7fe11d3bb3791ef492a4d6e745484c3fea77407142735f3873"
+    },
+    {
+      "cell_id": "c09",
+      "construction": "box",
+      "file": "c09.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "dd4a79733ad48a5f28e63c53b72af267da1f130a59ead2f2193a5e433ea6b387"
+    },
+    {
+      "cell_id": "c10",
+      "construction": "arms",
+      "file": "c10.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "straight",
+      "primitive_class": "box",
+      "sha256": "f600a1ce571f0dee8f231e05a0e67af691f30c776fd482d120f40e8d3bd86c6f"
+    },
+    {
+      "cell_id": "c11",
+      "construction": "box",
+      "file": "c11.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "dead_end",
+      "primitive_class": "octagon",
+      "sha256": "87f74fe19a27e23db0c412a57c75338bb40dd52425890edac6185ad746b068bc"
+    }
+  ],
+  "schema_version": 1
+}

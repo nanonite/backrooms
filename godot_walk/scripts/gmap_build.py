@@ -10,13 +10,16 @@ from gmap_degenerate import assign_degenerate, degenerate_rng
 from gmap_geometry import DOORWAY_HALF_M, PORT_STEP_M, STANDARD_MARGIN_M, rect_polygon
 from gmap_grow import PORT_TYPE, Draft, GenerationError, RetryAttempt, grow
 from gmap_library import Library, figure_classes, metadata_records
-from gmap_modules import MODULE_BUDGET, attach_modules
+from gmap_modules import MODULE_BUDGET, OVERHANG_MARGIN_M, attach_modules
+from gmap_stage2 import PRIMITIVES_BY_STAGE, assign_stage2
 
 GENERATOR_VERSION = "gmap-0.1.0"
 GENERATOR_VERSION_V2 = "gmap-0.2.0"
 GENERATOR_VERSION_V3 = "gmap-0.3.0"
-VERSIONS = (GENERATOR_VERSION, GENERATOR_VERSION_V2, GENERATOR_VERSION_V3)
-MARGIN_VERSIONS = (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3)  # standard margins + degenerate cells
+GENERATOR_VERSION_V4 = "gmap-0.4.0"
+VERSIONS = (GENERATOR_VERSION, GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4)
+MARGIN_VERSIONS = (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4)  # standard margins + degenerate cells
+MODULE_VERSIONS = (GENERATOR_VERSION_V3, GENERATOR_VERSION_V4)  # library modules as leaf cells
 DEFAULT_DEGENERATE_MAX = 1
 MAX_ATTEMPTS = 50
 CELL_RANGE = (6, 20)
@@ -40,8 +43,8 @@ RULE_IDS_V3 = sorted(
         "module_usable_once",
     ]
 )
+RULE_IDS_V4 = sorted([*RULE_IDS_V3, "shape_stage2_eligibility"])
 CEILING = {"figure": [3.0, 6.0], "ground": [2.6, 4.8], "threshold": [2.6, 4.8], "void": [2.6, 4.8]}
-PRIMITIVES_BY_STAGE = {0: ["box"], 1: ["box", "l_shape", "rectilinear_polygon"]}
 STREAM_STRIDE = 1 << 32
 
 
@@ -50,6 +53,8 @@ def map_id_for(seed: int, version: str = GENERATOR_VERSION) -> str:
 
 
 def rule_ids(version: str) -> list[str]:
+    if version == GENERATOR_VERSION_V4:
+        return RULE_IDS_V4
     if version == GENERATOR_VERSION_V3:
         return RULE_IDS_V3
     return RULE_IDS_V2 if version == GENERATOR_VERSION_V2 else RULE_IDS
@@ -73,8 +78,8 @@ def attempt_once(
     assign_roles(draft)
     if not any(draft.degree(cell.cell_id) >= 3 for cell in draft.walkable()):
         raise RetryAttempt("branch_required: no cell of degree >= 3")
-    if version == GENERATOR_VERSION_V3 and library is not None:
-        attach_modules(rng, draft, library)
+    if version in MODULE_VERSIONS and library is not None:
+        attach_modules(rng, draft, library, OVERHANG_MARGIN_M if version == GENERATOR_VERSION_V4 else 0.0)
     add_voids(rng, draft)
     return draft
 
@@ -149,21 +154,31 @@ def build_map(
     seed: int,
     library: Library,
     cells: int = 12,
-    stage_max: int = 1,
+    stage_max: int | None = None,
     version: str = GENERATOR_VERSION,
     degenerate_max: int = DEFAULT_DEGENERATE_MAX,
 ) -> dict[str, Any]:
     if version not in VERSIONS:
         raise GenerationError(f"generator version must be one of {', '.join(VERSIONS)}")
-    if stage_max not in PRIMITIVES_BY_STAGE:
-        raise GenerationError(f"--stage-max must be 0 or 1 in generator {version}")
+    v4 = version == GENERATOR_VERSION_V4
+    stage_max = (2 if v4 else 1) if stage_max is None else stage_max
+    if stage_max not in (0, 1, 2) or (stage_max == 2 and not v4):
+        raise GenerationError(f"--stage-max must be 0..{2 if v4 else 1} in generator {version}")
     if degenerate_max < 0:
         raise GenerationError("--degenerate-max must be >= 0")
     draft, attempt, used = generate_draft(seed, cells, figure_classes(library), version, degenerate_max, library)
-    primitives = PRIMITIVES_BY_STAGE[stage_max]
+    primitives = PRIMITIVES_BY_STAGE[min(stage_max, 1)]
     v2 = version in MARGIN_VERSIONS
-    v3 = version == GENERATOR_VERSION_V3
+    v3 = version in MODULE_VERSIONS
     heights = {m.module_id: m.ceiling_height_m for m in library.modules}
+    cells = [
+        cell_json(c, primitives, v2, heights.get(c.module["module_id"]) if c.module else None)
+        for c in draft.cells.values()
+    ]
+    if v4:
+        extras = assign_stage2(seed, attempt, version, cells, stage_max)
+        for record in cells:
+            record.update(extras[record["cell_id"]])
     document = {
         "schema_version": 1,
         "map_id": map_id_for(seed, version),
@@ -174,10 +189,7 @@ def build_map(
         "library_index": {**library.index_ref, "metadata_records": metadata_records(library)} if v3 else dict(library.index_ref),
         "lattice": lattice_json(v2),
         "shape_stage_max": stage_max,
-        "cells": [
-            cell_json(c, primitives, v2, heights.get(c.module["module_id"]) if c.module else None)
-            for c in draft.cells.values()
-        ],
+        "cells": cells,
         "edges": sorted(
             (edge_json(draft, a, b, k) for a, b, k in draft.edges),
             key=lambda e: (e["from"], e["to"]),

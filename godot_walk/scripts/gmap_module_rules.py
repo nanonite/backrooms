@@ -8,9 +8,9 @@ from typing import Any
 
 from deterministic_json import sha256_file
 from gmap_fill import SOCKET_TOLERANCE_M
-from gmap_geometry import Rect, adjacent
+from gmap_geometry import Rect, adjacent, near
 from gmap_library import Library, LibraryModule, bbox, load_library
-from gmap_modules import LANDING_CLEARANCE_M, MODULE_BUDGET
+from gmap_modules import LANDING_CLEARANCE_M, MODULE_BUDGET, OVERHANG_MARGIN_M
 from gmap_rules import CONNECTION_STATUSES, Errors, err
 from gmap_transform import rotate_vector, world_point
 
@@ -124,8 +124,9 @@ def check_socket(cell: dict[str, Any], rect: Rect, module: LibraryModule, edges:
     return errors
 
 
-def check_isolation(document: dict[str, Any], cells: list[dict[str, Any]], rects: dict[str, Rect]) -> Errors:
-    """A module cell touches no walkable cell but its parent: library walls overhang their footprint."""
+def check_isolation(document: dict[str, Any], cells: list[dict[str, Any]], rects: dict[str, Rect], margin: float = 0.0) -> Errors:
+    """A module cell touches no walkable cell but its parent: library walls overhang their footprint.
+    With a `margin` (gmap-0.4.0) no other room may come within it, corners included."""
     roles = {c["cell_id"]: c["role"] for c in document["cells"]}
     errors: Errors = []
     for cell in cells:
@@ -137,7 +138,8 @@ def check_isolation(document: dict[str, Any], cells: list[dict[str, Any]], rects
         }
         for other, rect in sorted(rects.items()):
             if other != cell["cell_id"] and other not in parents and roles[other] != "void" \
-                    and cell["cell_id"] in rects and adjacent(rects[cell["cell_id"]], rect):
+                    and cell["cell_id"] in rects \
+                    and (near(rects[cell["cell_id"]], rect, margin) if margin else adjacent(rects[cell["cell_id"]], rect)):
                 errors.append(err(LEAF_RULE, "module_touches_neighbour", f"{cell['cell_id']} touches {other}"))
     return errors
 
@@ -159,7 +161,8 @@ def check_untested_edges(edges: list[dict[str, str]], module_ports: set[str]) ->
 def module_errors(document: dict[str, Any], rects: dict[str, Rect], root: Path) -> Errors:
     cells = module_cells(document)
     errors = check_budget(document, cells) + check_once(cells) + check_records(document, cells, root)
-    errors += check_isolation(document, cells, rects)
+    margin = OVERHANG_MARGIN_M if document["generator_version"] == "gmap-0.4.0" else 0.0
+    errors += check_isolation(document, cells, rects, margin)
     library = load_library(root / document["library_index"]["path"], root)
     edges = {end: edge for edge in document["edges"] for end in (edge["from"], edge["to"])}
     for cell in cells:

@@ -1,0 +1,132 @@
+{
+  "generator_version": "shape-room-0.4.0",
+  "map_file": {
+    "name": "gmap-1-gmap-0.4.0.json",
+    "sha256": "6e67eb57011bbd10511bf98dfc5181792b65a6304750474bb980e9849e6e55a8"
+  },
+  "map_id": "gmap-1-gmap-0.4.0",
+  "mode": "all_walkable",
+  "rooms": [
+    {
+      "cell_id": "c00",
+      "construction": "arms",
+      "file": "c00.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "51b8217f3175003ba107bf1a288ba445780f9e2aab43395961744c8ef77b5926"
+    },
+    {
+      "cell_id": "c01",
+      "construction": "box",
+      "file": "c01.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "l_shape",
+      "primitive_class": "chamfered_box",
+      "sha256": "909ccf3d67d3187a17f85f90de70091735cccc897d03cd0e2a7bb759c4328db7"
+    },
+    {
+      "cell_id": "c02",
+      "construction": "arms",
+      "file": "c02.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "bdf04222b2a5ebc05de6fbb4c91a3a3fba85b5fd56141eb7f3ea979736283793"
+    },
+    {
+      "cell_id": "c03",
+      "construction": "box",
+      "file": "c03.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "t_shape",
+      "primitive_class": "box",
+      "sha256": "78cc4ea0ff5ad560dff071fb87df86ff34e51e4c214281ff40556428588d896f"
+    },
+    {
+      "cell_id": "c04",
+      "construction": "arms",
+      "file": "c04.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "u_shape",
+      "primitive_class": "chamfered_polyomino",
+      "sha256": "78d584731cc61406681b338a7b7a01bc7de4c5eca99fe9d9cf95e3f4a60e61df"
+    },
+    {
+      "cell_id": "c05",
+      "construction": "arms",
+      "file": "c05.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "u_shape",
+      "primitive_class": "box",
+      "sha256": "7b1f4138b91382ae3cc51f541a9470e4ffd785b806584b5717a0e32e4d0282ec"
+    },
+    {
+      "cell_id": "c06",
+      "construction": "box",
+      "file": "c06.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "l_shape",
+      "primitive_class": "chamfered_box",
+      "sha256": "237f0ccf41e865fb980d77135310de361accccec47286fc8d8a9f9143bd1142b"
+    },
+    {
+      "cell_id": "c07",
+      "construction": "box",
+      "file": "c07.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "t_shape",
+      "primitive_class": "chamfered_box",
+      "sha256": "5485a1c5219bbc5621d549a276261ca6dda4a863b5837cbb29ee2f2ed8deab75"
+    },
+    {
+      "cell_id": "c08",
+      "construction": "box",
+      "file": "c08.json",
+      "mode": "degenerate",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "dead_end",
+      "primitive_class": "chamfered_box",
+      "sha256": "7d5c982d19ca880c41bb186fe3ce837ac125a682479bb77780a6851d3679b3b9"
+    },
+    {
+      "cell_id": "c09",
+      "construction": "box",
+      "file": "c09.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "3c97aaf3a29ef1984f5739ae68f341603586c83d446ed6a2d457619885b4d843"
+    },
+    {
+      "cell_id": "c10",
+      "construction": "box",
+      "file": "c10.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "0569ef40af3f93fe83c30f3c86a5e28bb1ed9be51810e2791b1d5158e6ba42df"
+    },
+    {
+      "cell_id": "c11",
+      "construction": "box",
+      "file": "c11.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "primitive": "dead_end",
+      "primitive_class": "chamfered_box",
+      "sha256": "ed4844ce87113270b6184f2bfba191d5cce602d4df6eac798e8e07dbcb2fe64a"
+    }
+  ],
+  "schema_version": 1
+}

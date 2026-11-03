@@ -75,6 +75,14 @@
             "description": "Optional (gmap-0.2.0), default standard. degenerate: may carry corner-hugging doorways (rare, budgeted).",
             "enum": ["standard", "degenerate"]
           },
+          "shape_stage_target": {
+            "description": "Optional (gmap-0.4.0). The shape stage drawn for this generated walkable cell (2: a stage-2 chamfered class, see shape_class_target).",
+            "enum": [0, 1, 2]
+          },
+          "shape_class_target": {
+            "description": "Optional (gmap-0.4.0). The stage-2 primitive class drawn for this cell; present exactly when shape_stage_target is 2.",
+            "enum": ["chamfered_box", "chamfered_polyomino", "octagon", "wedge"]
+          },
           "module": {
             "description": "Optional (gmap-0.3.0). The library module placed in this leaf cell: world = R(local) + translation_xz, R = rotation_deg / 90 quarter turns (x, z) -> (-z, x).",
             "type": "object",

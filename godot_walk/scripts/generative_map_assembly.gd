@@ -39,6 +39,9 @@ var module_info: Dictionary = {}
 var open_modules := true
 ## False only in the negative control that rebuilds the pre-#189 joint geometry.
 var recess_joints := true
+## #190 negative controls: diagonal walls without collision, diagonal walls pulled back from their joints.
+var diagonal_collision := true
+var diagonal_pullback := 0.0
 var materials: Dictionary = {}
 var player: CharacterBody3D
 var spawn_position := Vector3.ZERO
@@ -101,7 +104,8 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 		var cell_id := String(cell.cell_id)
 		if specs.has(cell_id):
 			rooms[cell_id] = BUILDER.build(self, specs[cell_id], materials, _forced_closed(specs[cell_id]),
-				_module_joints(specs[cell_id]))
+				_module_joints(specs[cell_id]),
+				{"diagonal_collision": diagonal_collision, "diagonal_pullback": diagonal_pullback})
 	_add_safety_net()
 	origin_cell = String(map.cells[0].cell_id)
 	if not specs.has(origin_cell):

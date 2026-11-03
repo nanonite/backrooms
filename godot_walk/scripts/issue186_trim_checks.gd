@@ -11,6 +11,9 @@ extends RefCounted
 ## geometry, so they cannot flicker and are only counted. Likewise a face on the floor plane
 ## (y = 0) that faces down is the underside of a box standing on the floor: no camera sees
 ## it, so a library room's wall (#188) standing next to a jamb there is only counted.
+## A diagonal wall (#190) is a box turned about Y: it is entered as its world bounding box and flagged
+## `rotated`; only its horizontal (y) faces are compared here, because its vertical faces lie on no axis.
+## issue190_diagonal_checks.gd compares those faces plane by plane.
 
 const EPS := 0.0005
 const OLD_TRIM_SHIFT := 0.06
@@ -42,8 +45,11 @@ static func collect(assembly: Node3D) -> Dictionary:
 		var visuals := room.get_node("AuthoredVisuals")
 		for node in _meshes(visuals):
 			var label := String(node.name)
+			var size := (node.mesh as BoxMesh).size
+			var turned := absf(sin(2.0 * node.global_rotation.y)) > 0.001
 			var box := {"name": "%s/%s" % [cell_id, label], "center": node.global_position,
-				"size": (node.mesh as BoxMesh).size, "degenerate": false}
+				"size": _world_extent(node.global_transform.basis, size) if turned else size,
+				"degenerate": false, "rotated": turned}
 			if label.begins_with("Trim"):
 				for port: String in degenerate:
 					# Node names cannot hold ':', so "c03:p1" is stored as "c03_p1".
@@ -101,6 +107,8 @@ static func conflicts(trim: Array[Dictionary], solid: Array[Dictionary]) -> Dict
 				continue
 			pairs += 1
 			for axis in 3:
+				if axis != 1 and (t.get("rotated", false) or w.get("rotated", false)):
+					continue
 				for t_sign in [-1, 1]:
 					for w_sign in [-1, 1]:
 						if absf(_plane(t, axis, t_sign) - _plane(w, axis, w_sign)) > EPS or not _overlap(t, w, axis):
@@ -134,8 +142,9 @@ static func negative_controls(assembly: Node3D) -> Dictionary:
 				result.old_outside_trim_detected = true
 		if result.old_outside_trim_detected:
 			break
-	if not boxes.solid.is_empty():
-		var wall: Dictionary = boxes.solid[0]
+	var upright: Array = boxes.solid.filter(func(box: Dictionary) -> bool: return not box.get("rotated", false))
+	if not upright.is_empty():
+		var wall: Dictionary = upright[0]
 		var shared := {"name": "synthetic", "center": wall.center, "size": wall.size * Vector3(0.5, 0.5, 1.0), "degenerate": false}
 		result.shared_plane_detected = conflicts([shared], [wall]).same_facing_count > 0
 	return result

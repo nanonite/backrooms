@@ -10,6 +10,7 @@ PORT_SLOT_MIN_LENGTH_M = 2.4
 SOCKET_HOST_DISTANCE_M = 0.5
 DECIMALS = 6
 LENGTH_EPSILON_M = 1e-9
+WEDGE_MIN_LEG_M = 3.0  # a single chamfer with a longer leg is a wedge
 
 Point = tuple[float, float]
 
@@ -85,8 +86,60 @@ def is_chamfered(ring: list[Point]) -> bool:
     )
 
 
-def classify_primitive(ring: list[Point]) -> tuple[str, int | None]:
-    """Primitive name and shape stage per proposal section 5."""
+def chamfer_base(ring: list[Point]) -> tuple[list[Point], list[float]] | None:
+    """Counter-clockwise rectilinear outline with every 45-degree chamfer edge un-cut, and the legs.
+
+    Each diagonal edge P -> Q gets the one right-angle corner C on its outer (right-hand) side
+    inserted between P and Q; points that become collinear are then dropped. That also covers a
+    chamfer that eats a whole side (a wedge). None when a diagonal has no single outer corner."""
+    if signed_area(ring) < 0:
+        ring = ring[::-1]
+    edges = edge_vectors(ring)
+    points: list[Point] = []
+    legs: list[float] = []
+    for i, (dx, dz) in enumerate(edges):
+        points.append(ring[i])
+        if min(abs(dx), abs(dz)) > TOLERANCE_M:
+            p, q = ring[i], ring[(i + 1) % len(ring)]
+            outer = [c for c in ((q[0], p[1]), (p[0], q[1])) if dx * (c[1] - p[1]) - dz * (c[0] - p[0]) < -TOLERANCE_M]
+            if len(outer) != 1:
+                return None
+            points.append(outer[0])
+            legs.append(abs(dx))
+    changed = True
+    while changed and len(points) > 3:
+        changed = False
+        for i, v in enumerate(points):
+            a, b = points[i - 1], points[(i + 1) % len(points)]
+            if close(a, v) or abs((v[0] - a[0]) * (b[1] - v[1]) - (v[1] - a[1]) * (b[0] - v[0])) <= TOLERANCE_M:
+                del points[i]
+                changed = True
+                break
+    return points, legs
+
+
+def classify_chamfered(ring: list[Point]) -> str:
+    """Stage-2 class of a ring whose edges are axis-aligned or at 45 degrees."""
+    cut = chamfer_base(ring)
+    if cut is None:
+        return "chamfered_polygon"
+    base, legs = cut
+    if not is_rectilinear(base):
+        return "chamfered_polygon"
+    if len(base) != 4:
+        return "chamfered_polyomino"
+    if len(legs) == 4 and max(legs) - min(legs) <= TOLERANCE_M:
+        return "octagon"
+    if len(legs) == 1 and legs[0] > WEDGE_MIN_LEG_M:
+        return "wedge"
+    return "chamfered_box"
+
+
+def classify_primitive(ring: list[Point], detailed: bool = True) -> tuple[str, int | None]:
+    """Primitive name and shape stage per proposal section 5.
+
+    `detailed` splits stage 2 into chamfered_box / octagon / wedge / chamfered_polyomino
+    (shape rooms, #190); module poetics keeps the single `chamfered_polygon` label."""
     if is_rectilinear(ring):
         if len(ring) == 4:
             return "box", 0
@@ -94,7 +147,7 @@ def classify_primitive(ring: list[Point]) -> tuple[str, int | None]:
             return "l_shape", 1
         return "rectilinear_polygon", 1
     if is_chamfered(ring):
-        return "chamfered_polygon", 2
+        return (classify_chamfered(ring) if detailed else "chamfered_polygon"), 2
     return "polygon", None
 
 
@@ -142,7 +195,7 @@ def analyze_shape(footprint: list[list[float]]) -> dict[str, Any]:
         raise ValueError("Footprint has zero area")
     min_x, min_z, max_x, max_z = bbox_of(ring)
     sides = sorted([max_x - min_x, max_z - min_z])
-    primitive, stage = classify_primitive(ring)
+    primitive, stage = classify_primitive(ring, detailed=False)
     return {
         "footprint_xz": [point_json(p) for p in ring],
         "vertex_count": len(ring),

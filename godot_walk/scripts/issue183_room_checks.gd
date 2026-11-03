@@ -12,6 +12,11 @@ const WALL_INSET := 0.08
 const APPROACH_DEPTH := 0.5
 const DOOR_MARGIN := 0.4
 const VERTEX_MARGIN := 1.0
+## A sample this close to the outline lies on a wall line: a 45-degree edge runs through raster
+## sample centres (#190), where "inside" and "supported" are both ambiguous, so it is not judged.
+const BOUNDARY_SKIP := 0.05
+## A wall approach sample nearer than this to another wall (the thin end of a wedge) is not judged.
+const OTHER_WALL_SKIP := 0.51
 
 
 static func check_all(space: PhysicsDirectSpaceState3D, assembly: Node3D) -> Dictionary:
@@ -52,6 +57,9 @@ static func _floor_counts(space: PhysicsDirectSpaceState3D, spec: Dictionary, ri
 	while x < high.x:
 		var z := low.y + RASTER_STEP / 2.0
 		while z < high.y:
+			if _boundary_distance(Vector2(x, z), ring) < BOUNDARY_SKIP:
+				z += RASTER_STEP
+				continue
 			var supported := PROBE.floor_supported(space, x, z)
 			var key := "floor_inside" if PROBE.inside_polygon(Vector2(x, z), ring) else "floor_outside"
 			counts[key] += 1
@@ -61,20 +69,31 @@ static func _floor_counts(space: PhysicsDirectSpaceState3D, spec: Dictionary, ri
 	return counts
 
 
+static func _boundary_distance(point: Vector2, ring: Array[Vector2]) -> float:
+	var nearest := INF
+	for index in ring.size():
+		var closest := Geometry2D.get_closest_point_to_segment(point, ring[index], ring[(index + 1) % ring.size()])
+		nearest = minf(nearest, point.distance_to(closest))
+	return nearest
+
+
 static func _wall_counts(space: PhysicsDirectSpaceState3D, assembly: Node3D, spec: Dictionary,
 		ring: Array[Vector2]) -> Dictionary:
 	var counts := {"wall_samples": 0, "wall_blocked": 0, "approach_samples": 0, "approach_clear": 0}
+	var chamfered: bool = spec.has("chamfers")
+	var current: bool = String(spec.generator_version) == "shape-room-0.4.0"
 	for index in ring.size():
 		var start := ring[index]
 		var finish := ring[(index + 1) % ring.size()]
 		var direction := (finish - start).normalized()
 		var inward := Vector2(-direction.y, direction.x)
 		var length := start.distance_to(finish)
-		var module_edge := _edge_has_module_joint(assembly, spec, start, direction, inward, length)
+		var module_edge := _edge_has_module_joint(assembly, spec, start, direction, inward, length, current)
 		var distance := RASTER_STEP / 2.0
 		while distance < length:
 			if not _near_doorway(start, direction, distance, spec):
-				_sample_wall(space, counts, start + direction * distance, inward, distance, length, module_edge)
+				var crowded: bool = chamfered and _near_other_edge(start + direction * distance + inward * APPROACH_DEPTH, ring, index)
+				_sample_wall(space, counts, start + direction * distance, inward, distance, length, module_edge or crowded)
 			distance += RASTER_STEP
 	return counts
 
@@ -83,13 +102,15 @@ static func _wall_counts(space: PhysicsDirectSpaceState3D, assembly: Node3D, spe
 ## wall at a module joint (a few centimetres to 0.3 m inside): the 0.5 m approach probe
 ## would touch it. Wall blocking is still checked there; only the approach probe is skipped.
 static func _edge_has_module_joint(assembly: Node3D, spec: Dictionary, start: Vector2, direction: Vector2,
-		inward: Vector2, length: float) -> bool:
+		inward: Vector2, length: float, any_along: bool = false) -> bool:
 	for doorway: Dictionary in spec.doorways:
 		if not assembly.module_rooms.has(String(doorway.to_cell_id)):
 			continue
 		var offset := Vector2(float(doorway.pos_xz[0]), float(doorway.pos_xz[1])) - start
 		var along := offset.dot(direction)
-		if absf(offset.dot(inward)) < 0.001 and along > -0.001 and along < length + 0.001:
+		# shape-room-0.4.0 (#190): any wall on the joint's line may sit under the library wall's overhang
+		var in_line: bool = any_along and absf(direction.dot(Vector2(float(doorway.normal[0]), float(doorway.normal[1])))) < 0.001
+		if absf(offset.dot(inward)) < 0.001 and ((along > -0.001 and along < length + 0.001) or in_line):
 			return true
 	return false
 
@@ -104,6 +125,16 @@ static func _sample_wall(space: PhysicsDirectSpaceState3D, counts: Dictionary, p
 	var approach := point + inward * APPROACH_DEPTH
 	counts.approach_samples += 1
 	counts.approach_clear += 1 if PROBE.clear_and_supported(space, approach.x, approach.y) else 0
+
+
+static func _near_other_edge(point: Vector2, ring: Array[Vector2], own: int) -> bool:
+	for index in ring.size():
+		if index == own:
+			continue
+		var closest := Geometry2D.get_closest_point_to_segment(point, ring[index], ring[(index + 1) % ring.size()])
+		if point.distance_to(closest) < OTHER_WALL_SKIP:
+			return true
+	return false
 
 
 static func _near_doorway(start: Vector2, direction: Vector2, distance: float, spec: Dictionary) -> bool:

@@ -34,6 +34,22 @@ static func scaled(materials: Dictionary, key: String, size_u: float, size_v: fl
 	return cache[cache_key]
 
 
+## Unscaled-UV material for a mesh whose UVs are already metres / tile (polygon floors and ceilings,
+## #190), double-sided so a triangle wound the wrong way still shows. Same texel density as `scaled`.
+static func planar(materials: Dictionary, key: String) -> Material:
+	var cache: Dictionary = materials["_scaled"]
+	var cache_key := "%s_planar" % key
+	if not cache.has(cache_key):
+		var material := (materials[key] as StandardMaterial3D).duplicate() as StandardMaterial3D
+		material.cull_mode = BaseMaterial3D.CULL_DISABLED
+		cache[cache_key] = material
+	return cache[cache_key]
+
+
+static func tile_m(key: String) -> float:
+	return WALL_TILE_M if key == "wallpaper" else (CEILING_TILE_M if key == "ceiling" else FLOOR_TILE_M)
+
+
 static func _color(values: Array) -> Color:
 	return Color(float(values[0]), float(values[1]), float(values[2]))
 

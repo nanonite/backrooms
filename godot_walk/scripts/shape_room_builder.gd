@@ -7,6 +7,7 @@ extends RefCounted
 
 const MATERIALS := preload("res://scripts/shape_room_materials.gd")
 const DOORWAYS := preload("res://scripts/doorway_sizes.gd")
+const DIAGONAL := preload("res://scripts/shape_room_diagonal.gd")
 const WALL_THICKNESS := 0.16
 const TRIM_WIDTH := 0.06
 const TRIM_PROTRUSION := 0.04
@@ -24,15 +25,20 @@ const FLOOR_VISUAL_THICKNESS := 0.05
 const FLOOR_COLLIDER_THICKNESS := 0.12
 
 
+## `options` (all optional) are for the #190 negative controls only: `diagonal_collision` false builds
+## diagonal walls without collision, `diagonal_pullback` shortens diagonal wall boxes at both ends.
 static func build(parent: Node3D, spec: Dictionary, materials: Dictionary,
 		forced_closed: PackedStringArray = PackedStringArray(),
-		module_joints: PackedStringArray = PackedStringArray()) -> Node3D:
+		module_joints: PackedStringArray = PackedStringArray(), options: Dictionary = {}) -> Node3D:
 	var room := Node3D.new()
 	room.name = String(spec.cell_id)
 	parent.add_child(room)
 	var visuals := _group(room, "AuthoredVisuals")
 	var boundaries := _group(room, "AuthoredBoundaries")
 	var context := _context(spec, materials, forced_closed, module_joints)
+	context["chamfered"] = DIAGONAL.is_chamfered(spec)
+	context["diagonal_collision"] = bool(options.get("diagonal_collision", true))
+	context["diagonal_pullback"] = float(options.get("diagonal_pullback", 0.0))
 	_add_floor(visuals, boundaries, context)
 	_add_ceiling(visuals, context)
 	_add_walls(visuals, boundaries, context)
@@ -83,6 +89,16 @@ static func _add_floor(visuals: Node3D, boundaries: Node3D, context: Dictionary)
 	var body := StaticBody3D.new()
 	body.name = "WalkableFloor"
 	boundaries.add_child(body)
+	if context.chamfered:
+		DIAGONAL.add_floor(floor_visual, body, context, FLOOR_COLLIDER_THICKNESS)
+	else:
+		_add_floor_rects(floor_visual, body, context)
+	for doorway: Dictionary in context.doorways:
+		if doorway.effective_kind == "open":
+			_add_floor_seam(body, doorway)
+
+
+static func _add_floor_rects(floor_visual: Node3D, body: StaticBody3D, context: Dictionary) -> void:
 	for rect: Array in context.spec.rects:
 		var x0 := float(rect[0]); var z0 := float(rect[1]); var x1 := float(rect[2]); var z1 := float(rect[3])
 		var center := Vector2((x0 + x1) / 2.0, (z0 + z1) / 2.0)
@@ -91,9 +107,6 @@ static func _add_floor(visuals: Node3D, boundaries: Node3D, context: Dictionary)
 			Vector3(x1 - x0, FLOOR_VISUAL_THICKNESS, z1 - z0), material)
 		_add_collision(body, "FloorRectShape", Vector3(center.x, -FLOOR_COLLIDER_THICKNESS / 2.0, center.y),
 			Vector3(x1 - x0, FLOOR_COLLIDER_THICKNESS, z1 - z0))
-	for doorway: Dictionary in context.doorways:
-		if doorway.effective_kind == "open":
-			_add_floor_seam(body, doorway)
 
 
 static func _add_floor_seam(body: StaticBody3D, doorway: Dictionary) -> void:
@@ -109,6 +122,9 @@ static func _add_floor_seam(body: StaticBody3D, doorway: Dictionary) -> void:
 static func _add_ceiling(visuals: Node3D, context: Dictionary) -> void:
 	var ceiling := _group(visuals, "RenderedCeiling")
 	var height: float = context.height
+	if context.chamfered:
+		DIAGONAL.add_ceiling(ceiling, context)
+		return
 	for rect: Array in context.spec.rects:
 		var x0 := float(rect[0]); var z0 := float(rect[1]); var x1 := float(rect[2]); var z1 := float(rect[3])
 		var material := MATERIALS.scaled(context.materials, "ceiling", x1 - x0, z1 - z0)
@@ -144,6 +160,7 @@ static func _edge_frame(ring: Array[Vector2], index: int) -> Dictionary:
 	var before := (start - ring[(index - 1 + count) % count]).normalized()
 	var after := (ring[(index + 2) % count] - finish).normalized()
 	return {"index": index, "start": start, "direction": direction, "length": start.distance_to(finish),
+		"diagonal": DIAGONAL.is_diagonal(direction),
 		"inward": Vector2(-direction.y, direction.x),
 		"start_reflex": before.x * direction.y - before.y * direction.x < 0.0,
 		"end_reflex": direction.x * after.y - direction.y * after.x < 0.0}
@@ -173,6 +190,7 @@ static func _add_edge_pieces(visuals: Node3D, boundaries: Node3D, context: Dicti
 		frame: Dictionary, gaps: Array[Dictionary], index: int) -> void:
 	var spans: Array[Vector2] = []
 	var cursor := 0.0
+	var pullback: float = context.diagonal_pullback if frame.diagonal else 0.0
 	for gap in gaps:
 		if gap["from"] > cursor + EPSILON:
 			spans.append(Vector2(cursor, gap["from"]))
@@ -181,13 +199,16 @@ static func _add_edge_pieces(visuals: Node3D, boundaries: Node3D, context: Dicti
 		spans.append(Vector2(cursor, frame.length))
 	for piece in spans.size():
 		var span := spans[piece]
+		if frame.diagonal:
+			span = Vector2(span.x + pullback, span.y - pullback)
 		var reach_start := WALL_THICKNESS if span.x < EPSILON and frame.start_reflex else 0.0
 		var reach_end := WALL_THICKNESS if span.y > frame.length - EPSILON and frame.end_reflex else 0.0
 		var label := "Wall_%02d_%d" % [index, piece]
 		var box := _edge_box(frame, span.x - reach_start, span.y + reach_end, 0.0, WALL_THICKNESS, 0.0, context.height)
 		var material := MATERIALS.scaled(context.materials, "wallpaper", box.size_along, context.height)
-		_add_box(visuals, label + "Visual", box.center, box.size, material)
-		_add_body(boundaries, label, box.center, box.size)
+		_add_box(visuals, label + "Visual", box.center, box.size, material, box.yaw)
+		if context.diagonal_collision or not frame.diagonal:
+			_add_body(boundaries, label, box.center, box.size, box.yaw)
 
 
 static func _add_doorway(visuals: Node3D, boundaries: Node3D, context: Dictionary,
@@ -239,15 +260,20 @@ static func _add_closed_door(visuals: Node3D, boundaries: Node3D, context: Dicti
 	_add_body(boundaries, "ClosedDoor_" + port, blocker.center, blocker.size)
 
 
-## Axis-aligned box over [from, to] along an outline edge, [depth_from, depth_to] inward
-## from the edge and [y_from, y_to] up. Returns center, size and the along-edge length.
+## Box over [from, to] along an outline edge, [depth_from, depth_to] inward from the edge and
+## [y_from, y_to] up. Returns center, size, the along-edge length and the yaw (zero on an axis-aligned
+## edge; a diagonal edge turns the box about Y so its local X runs along the wall).
 static func _edge_box(frame: Dictionary, from: float, to: float, depth_from: float, depth_to: float,
 		y_from: float, y_to: float) -> Dictionary:
 	var middle: Vector2 = frame.start + frame.direction * ((from + to) / 2.0) + frame.inward * ((depth_from + depth_to) / 2.0)
 	var along := to - from
 	var across := depth_to - depth_from
 	var size := Vector3(along, y_to - y_from, across) if absf(frame.direction.x) > 0.5 else Vector3(across, y_to - y_from, along)
-	return {"center": Vector3(middle.x, (y_from + y_to) / 2.0, middle.y), "size": size, "size_along": along}
+	var yaw := 0.0
+	if frame.diagonal:
+		size = Vector3(along, y_to - y_from, across)
+		yaw = DIAGONAL.yaw_of(frame.direction)
+	return {"center": Vector3(middle.x, (y_from + y_to) / 2.0, middle.y), "size": size, "size_along": along, "yaw": yaw}
 
 
 static func _group(parent: Node3D, label: String) -> Node3D:
@@ -257,10 +283,12 @@ static func _group(parent: Node3D, label: String) -> Node3D:
 	return node
 
 
-static func _add_box(parent: Node3D, label: String, center: Vector3, size: Vector3, material: Material) -> void:
+static func _add_box(parent: Node3D, label: String, center: Vector3, size: Vector3, material: Material,
+		yaw: float = 0.0) -> void:
 	var instance := MeshInstance3D.new()
 	instance.name = label
 	instance.position = center
+	instance.rotation.y = yaw
 	var mesh := BoxMesh.new()
 	mesh.size = size
 	instance.mesh = mesh
@@ -268,10 +296,11 @@ static func _add_box(parent: Node3D, label: String, center: Vector3, size: Vecto
 	parent.add_child(instance)
 
 
-static func _add_body(parent: Node3D, label: String, center: Vector3, size: Vector3) -> void:
+static func _add_body(parent: Node3D, label: String, center: Vector3, size: Vector3, yaw: float = 0.0) -> void:
 	var body := StaticBody3D.new()
 	body.name = label
 	body.position = center
+	body.rotation.y = yaw
 	parent.add_child(body)
 	_add_collision(body, "CollisionShape3D", Vector3.ZERO, size)
 

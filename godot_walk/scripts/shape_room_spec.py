@@ -1,4 +1,4 @@
-"""Build one deterministic shape-room spec for a map cell (proposal section 5, stage 0-1)."""
+"""Build one deterministic shape-room spec for a map cell (proposal section 5, stages 0-2)."""
 
 from __future__ import annotations
 
@@ -8,13 +8,16 @@ from doorway_sizes import DEFAULT_TYPE, doorway_size
 from gmap_geometry import polygon_rect
 from poetics_geometry import classify_primitive, num, signed_area
 from shape_room_arms import arm_rects, arm_width_range, primitive_for
+from shape_room_chamfer import apply_cuts, inscribed_rects, lamp_points_polygon
 from shape_room_checks import (
     ShapeRoomError,
     check_room,
     require_valid,
 )
 from shape_room_raster import Cell, Rect, decompose, occupied_cells, outline_of, solid_at
-from shape_room_rng import GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, cell_rng, version_for_map
+from shape_room_rng import GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4, cell_rng, version_for_map
+from shape_room_module_clear import clear_ceiling, module_top_planes
+from shape_room_stage2 import chamfer_cuts, stage2_target, suitable_width
 
 BOX_PROBABILITY = 0.5
 THRESHOLD_ARM_WIDTH_M = 3
@@ -37,6 +40,9 @@ def snap_tenth(value: float) -> float:
 
 
 def choose_construction(document: dict[str, Any], cell: dict[str, Any], coin: float) -> str:
+    target = stage2_target(cell)
+    if target:
+        return "arms" if target == "chamfered_polyomino" else "box"  # box-based classes cut the whole envelope
     if document["shape_stage_max"] < 1:
         return "box"
     if cell["role"] == "threshold":
@@ -57,6 +63,8 @@ def draw(document: dict[str, Any], cell: dict[str, Any], envelope: Rect) -> dict
     lo_c, hi_c = cell["ceiling_range_m"]
     ceiling = snap_tenth(rng.randint(round(lo_c * 10), round(hi_c * 10)) / 10)
     construction = choose_construction(document, cell, coin)
+    if version_for_map(document) == GENERATOR_VERSION_V4:  # wall tops must not share a plane with the library room's
+        ceiling = clear_ceiling(ceiling, lo_c, hi_c, module_top_planes(document, cell))
     if cell["role"] == "threshold":
         width = THRESHOLD_ARM_WIDTH_M
     if has_wide_port(cell) and construction == "arms":
@@ -64,6 +72,9 @@ def draw(document: dict[str, Any], cell: dict[str, Any], envelope: Rect) -> dict
             construction = "box"  # no room for a 4 m arm: the whole envelope is the room
         else:
             width = max(width, WIDE_ARM_WIDTH_M)
+    if version_for_map(document) == GENERATOR_VERSION_V4 and construction == "arms":
+        fitted = suitable_width(document, cell, envelope, width, max(low, WIDE_ARM_WIDTH_M if has_wide_port(cell) else low), high)
+        construction, width = ("box", width) if fitted is None else ("arms", fitted)
     return {"construction": construction, "arm_width_m": width, "ceiling_height_m": ceiling}
 
 
@@ -117,6 +128,12 @@ def lamp_points(cells: set[Cell], rects: list[Rect]) -> list[list[float]]:
     return [[num((big[0] + big[2]) / 2), num((big[1] + big[3]) / 2)]]
 
 
+def lamps(geometry: dict[str, Any]) -> list[list[float]]:
+    if geometry["chamfers"]:  # diagonal walls: Euclidean inset from the cut outline
+        return lamp_points_polygon(geometry["outline"], LAMP_PITCH_M, LAMP_ANCHOR_M, LAMP_INSET_M)
+    return lamp_points(geometry["cells"], geometry["rects"])
+
+
 def feature_records(doorways: list[dict[str, Any]]) -> list[dict[str, str]]:
     kinds = ["floor", "walls", "ceiling", "ceiling_lamp_grid"]
     names = [(kind, kind) for kind in kinds]
@@ -142,7 +159,8 @@ def mode_fields(cell: dict[str, Any]) -> dict[str, Any]:
 
 
 def room_geometry(
-    cell: dict[str, Any], envelope: Rect, choices: dict[str, Any], waived: set[str] | None = None
+    cell: dict[str, Any], envelope: Rect, choices: dict[str, Any], waived: set[str] | None = None,
+    document: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Arms (or the envelope), raster, outline and decomposed rects; fails closed on any invariant."""
     ports = sorted(cell["required_ports"], key=lambda p: p["port_id"])
@@ -154,11 +172,19 @@ def room_geometry(
     outline = outline_of(cells)
     rects = decompose(cells)
     require_valid(cell["cell_id"], check_room(envelope, ports, generated, cells, outline, waived))
+    cuts = chamfer_cuts(document, cell, envelope, outline) if document is not None else None
+    chamfers: list[dict[str, Any]] = []
+    if cuts:
+        chamfers = [{"corner": [num(outline[i][0]), num(outline[i][1])], "length_m": c} for i, c in sorted(cuts.items())]
+        rects, base = inscribed_rects(cells, outline, cuts), outline
+        if not rects:
+            raise ShapeRoomError(f"{cell['cell_id']}: no raster rectangle lies wholly inside the chamfered outline")
+        outline = apply_cuts(base, cuts)
     primitive_class, stage = classify_primitive(outline)
     if primitive_class not in cell["allowed_primitives"]:
         raise ShapeRoomError(f"{cell['cell_id']}: {primitive_class} is not an allowed primitive")
     return {
-        "cells": cells, "arms": generated, "outline": outline, "rects": rects,
+        "cells": cells, "arms": generated, "outline": outline, "rects": rects, "chamfers": chamfers,
         "primitive": primitive_for(ports), "primitive_class": primitive_class, "stage": stage,
     }
 
@@ -183,10 +209,10 @@ def build_spec(
 ) -> dict[str, Any]:
     envelope = cell_envelope(cell)
     version = version_for_map(document)
-    v2 = version in (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3)
+    v2 = version in (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V4)
     choices = draw(document, cell, envelope)
-    geometry = room_geometry(cell, envelope, choices, set(degenerate_ports(cell)) if v2 else None)
-    doorways = doorway_records(cell, links, version == GENERATOR_VERSION_V3)
+    geometry = room_geometry(cell, envelope, choices, set(degenerate_ports(cell)) if v2 else None, document)
+    doorways = doorway_records(cell, links, version in (GENERATOR_VERSION_V3, GENERATOR_VERSION_V4))
     is_arms = choices["construction"] == "arms"
     spec = {
         "schema_version": 1,
@@ -209,7 +235,7 @@ def build_spec(
         "area_m2": num(abs(signed_area(geometry["outline"]))),
         "ceiling_height_m": choices["ceiling_height_m"],
         "doorways": doorways,
-        "lamps_xz": lamp_points(geometry["cells"], geometry["rects"]),
+        "lamps_xz": lamps(geometry),
         "material_source": "kit_default",
         "materials": MATERIALS,
         "features": feature_records(doorways),
@@ -218,4 +244,6 @@ def build_spec(
     }
     if v2:
         spec.update(mode_fields(cell))
+    if geometry["chamfers"]:
+        spec["chamfers"] = geometry["chamfers"]
     return spec

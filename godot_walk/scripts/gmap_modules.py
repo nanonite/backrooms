@@ -29,6 +29,7 @@ from gmap_geometry import (
     check_port_on_contact,
     flush_rects,
     far_enough,
+    near,
     port_position,
 )
 from gmap_grow import PORT_TYPE, Cell, Draft, Port, RetryAttempt, weighted_index
@@ -39,6 +40,7 @@ MODULE_BUDGET = {"min": 1, "max": 2}
 MODULE_TRIES = 50
 TIER_WEIGHTS = {0: 4, 1: 3, 2: 2, 3: 1}
 LANDING_CLEARANCE_M = 0.02
+OVERHANG_MARGIN_M = 0.5  # gmap-0.4.0: library walls overhang their cell by <= 0.3 m; keep other rooms this far off
 DIGITS = 6
 FORM_ROLES = ("figure", "ground")
 
@@ -136,7 +138,9 @@ def along_candidates(layout: Layout, rect: Rect) -> list[float]:
     return lattice_positions(low - EPS, low + slack + EPS)
 
 
-def module_options(draft: Draft, parent: Cell, layout: Layout) -> list[tuple[Rect, Vec, tuple[float, float]]]:
+def module_options(
+    draft: Draft, parent: Cell, layout: Layout, overhang: float = 0.0
+) -> list[tuple[Rect, Vec, tuple[float, float]]]:
     """Every (cell rect, port position, translation) that places the module as a leaf of `parent`."""
     side: Vec = (-layout.outward[0], -layout.outward[1])  # parent -> child
     compat = layout.socket.compatibility_type
@@ -149,7 +153,8 @@ def module_options(draft: Draft, parent: Cell, layout: Layout) -> list[tuple[Rec
     for rect in flush_rects(parent.rect, side, *layout.size):
         if not draft.free_for(rect):
             continue
-        others = [c for c in draft.cells.values() if c is not parent and adjacent(rect, c.rect)]
+        close = (lambda r: near(rect, r, overhang)) if overhang else (lambda r: adjacent(rect, r))
+        others = [c for c in draft.cells.values() if c is not parent and close(c.rect)]
         if any(c.role != "void" for c in others):  # library walls overhang; keep neighbours off
             continue
         if figure and parent.role == "figure":
@@ -193,14 +198,14 @@ def add_module_cell(
     return cell
 
 
-def try_module(rng: random.Random, draft: Draft, module: LibraryModule) -> bool:
+def try_module(rng: random.Random, draft: Draft, module: LibraryModule, overhang: float = 0.0) -> bool:
     parents = [c for c in draft.walkable() if c.module is None and c.role in ("ground", "figure")]
     for _ in range(MODULE_TRIES):
         parent = rng.choice(parents)
         layout = layout_for(module, rng.randrange(4))
         if layout is None:
             continue
-        options = module_options(draft, parent, layout)
+        options = module_options(draft, parent, layout, overhang)
         if not options:
             continue
         add_module_cell(draft, parent, layout, *rng.choice(options))
@@ -208,7 +213,7 @@ def try_module(rng: random.Random, draft: Draft, module: LibraryModule) -> bool:
     return False
 
 
-def attach_modules(rng: random.Random, draft: Draft, library: Library) -> int:
+def attach_modules(rng: random.Random, draft: Draft, library: Library, overhang: float = 0.0) -> int:
     """Attach 1..2 distinct usable modules as leaf cells; returns how many were placed."""
     wanted = rng.randint(MODULE_BUDGET["min"], MODULE_BUDGET["max"])
     usable = usable_modules(library)
@@ -217,7 +222,7 @@ def attach_modules(rng: random.Random, draft: Draft, library: Library) -> int:
         pool = [m for m in usable if not any(c.module and c.module["module_id"] == m.module_id for c in draft.cells.values())]
         while pool:
             module = pool[weighted_index(rng, [TIER_WEIGHTS[int(m.rarity_tier)] for m in pool])]  # type: ignore[arg-type]
-            if try_module(rng, draft, module):
+            if try_module(rng, draft, module, *((overhang,) if overhang else ())):
                 placed += 1
                 break
             pool.remove(module)
