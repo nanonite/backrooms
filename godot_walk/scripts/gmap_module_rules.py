@@ -161,7 +161,7 @@ def check_untested_edges(edges: list[dict[str, str]], module_ports: set[str]) ->
 def module_errors(document: dict[str, Any], rects: dict[str, Rect], root: Path) -> Errors:
     cells = module_cells(document)
     errors = check_budget(document, cells) + check_once(cells) + check_records(document, cells, root)
-    margin = OVERHANG_MARGIN_M if document["generator_version"] in ("gmap-0.4.0", "gmap-0.5.0", "gmap-0.6.0") else 0.0
+    margin = OVERHANG_MARGIN_M if document["generator_version"] in ("gmap-0.4.0", "gmap-0.5.0", "gmap-0.6.0", "gmap-0.6.1") else 0.0
     errors += check_isolation(document, cells, rects, margin)
     library = load_library(root / document["library_index"]["path"], root)
     edges = {end: edge for edge in document["edges"] for end in (edge["from"], edge["to"])}

@@ -1,0 +1,239 @@
+{
+  "area_m2": 32.875,
+  "arm_width_m": null,
+  "arms_xz": [
+    [
+      18.0,
+      1.0,
+      24.0,
+      7.0
+    ]
+  ],
+  "ceiling_height_m": 4.0,
+  "cell_id": "c06",
+  "chamfers": [
+    {
+      "corner": [
+        18.0,
+        1.0
+      ],
+      "length_m": 2.5
+    }
+  ],
+  "construction": "box",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        -0.7071067811865476,
+        -0.7071067811865476
+      ],
+      "port_id": "c06:d0",
+      "pos_xz": [
+        19.25,
+        2.25
+      ],
+      "to_cell_id": "dp00",
+      "to_port_id": "dp00:b",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        1
+      ],
+      "port_id": "c06:p0",
+      "pos_xz": [
+        20.0,
+        7.0
+      ],
+      "to_cell_id": "c03",
+      "to_port_id": "c03:p1",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        -1
+      ],
+      "port_id": "c06:p1",
+      "pos_xz": [
+        22.5,
+        1.0
+      ],
+      "to_cell_id": "c07",
+      "to_port_id": "c07:p0",
+      "width_m": 2.0
+    }
+  ],
+  "envelope_xz": [
+    [
+      18.0,
+      1.0
+    ],
+    [
+      24.0,
+      1.0
+    ],
+    [
+      24.0,
+      7.0
+    ],
+    [
+      18.0,
+      7.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_grid",
+      "kind": "ceiling_lamp_grid",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c06:d0",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c06:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c06:p1",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "generator_version": "shape-room-0.6.0",
+  "lamps_xz": [
+    [
+      21.5,
+      4.0
+    ]
+  ],
+  "map_id": "gmap-2-gmap-0.6.1",
+  "map_sha256": "d80d831fbd781c862e461a309f07b4fe678525fa9e69eadbb0d939b768c82693",
+  "material_source": "palette_registry",
+  "materials": {
+    "ceiling": {
+      "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+      "tile_m": 4.0
+    },
+    "floor": {
+      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
+      "tile_m": 4.0
+    },
+    "lamp_color": [
+      1.0,
+      0.97,
+      0.76
+    ],
+    "palette_id": "backrooms_yellow",
+    "trim_color": [
+      0.37,
+      0.34,
+      0.23
+    ],
+    "wall": {
+      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+      "tile_m": 1.5
+    }
+  },
+  "mode": "standard",
+  "original_cell_status": "shape_room_pending",
+  "outline_xz": [
+    [
+      18.0,
+      3.5
+    ],
+    [
+      20.5,
+      1.0
+    ],
+    [
+      24.0,
+      1.0
+    ],
+    [
+      24.0,
+      7.0
+    ],
+    [
+      18.0,
+      7.0
+    ]
+  ],
+  "primitive": "straight",
+  "primitive_class": "chamfered_box",
+  "rarity_tier": 0,
+  "rects": [
+    [
+      20.5,
+      1.0,
+      24.0,
+      1.5
+    ],
+    [
+      20.0,
+      1.5,
+      24.0,
+      2.0
+    ],
+    [
+      19.5,
+      2.0,
+      24.0,
+      2.5
+    ],
+    [
+      19.0,
+      2.5,
+      24.0,
+      3.0
+    ],
+    [
+      18.5,
+      3.0,
+      24.0,
+      3.5
+    ],
+    [
+      18.0,
+      3.5,
+      24.0,
+      7.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "ground",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 2
+}

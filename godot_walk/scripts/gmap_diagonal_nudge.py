@@ -7,6 +7,7 @@ import math
 from typing import Any
 
 from doorway_sizes import port_margin_m
+from gmap_diagonal import _rect_intersects_polygon
 from gmap_diagonal_candidates import candidate_pairs
 from gmap_geometry import check_port_on_contact, overlaps, polygon_rect, rect_polygon
 
@@ -31,7 +32,13 @@ def _edge_ports(
     return ports[own_id], ports[other_id], other_id.split(":")[0]
 
 
-def _move_valid(document: dict[str, Any], cell_id: str, dx: int, dz: int) -> bool:
+def _move_valid(
+    document: dict[str, Any],
+    cell_id: str,
+    dx: int,
+    dz: int,
+    reserved_zones: list[dict[str, Any]] | None = None,
+) -> bool:
     cell = next(c for c in document["cells"] if c["cell_id"] == cell_id)
     edge_ports = _edge_ports(document, cell_id)
     rect = polygon_rect(cell["envelope_xz"])
@@ -40,6 +47,8 @@ def _move_valid(document: dict[str, Any], cell_id: str, dx: int, dz: int) -> boo
     own, other, other_id = edge_ports
     shifted = (rect[0] + dx, rect[1] + dz, rect[2] + dx, rect[3] + dz)
     if _overlaps_other_cell(document, cell_id, shifted):
+        return False
+    if any(_rect_intersects_polygon(shifted, zone) for zone in reserved_zones or []):
         return False
     other_cell = next(c for c in document["cells"] if c["cell_id"] == other_id)
     if other_cell.get("module"):
@@ -123,7 +132,12 @@ def _move_leaf(
     return trial
 
 
-def nudge_to_budget(document: dict[str, Any], budget: int) -> list[str]:
+def nudge_to_budget(
+    document: dict[str, Any],
+    budget: int,
+    protected_cells: set[str] | None = None,
+    reserved_zones: list[dict[str, Any]] | None = None,
+) -> list[str]:
     from gmap_diagonal_candidates import _pair_capacity
 
     moved: list[str] = []
@@ -132,7 +146,13 @@ def nudge_to_budget(document: dict[str, Any], budget: int) -> list[str]:
         if _pair_capacity(current) >= budget:
             break
         current_score = (_pair_capacity(current), len(current))
-        moved_cell = _try_leaf_moves(document, current_score, moved)
+        moved_cell = _try_leaf_moves(
+            document,
+            current_score,
+            moved,
+            protected_cells or set(),
+            reserved_zones or [],
+        )
         if moved_cell == "":
             break
         moved.append(moved_cell)
@@ -140,19 +160,23 @@ def nudge_to_budget(document: dict[str, Any], budget: int) -> list[str]:
 
 
 def _try_leaf_moves(
-    document: dict[str, Any], current_score: tuple[int, int], moved: list[str]
+    document: dict[str, Any],
+    current_score: tuple[int, int],
+    moved: list[str],
+    protected_cells: set[str],
+    reserved_zones: list[dict[str, Any]],
 ) -> str:
     from gmap_diagonal_candidates import _pair_capacity
 
     for cell in sorted(document["cells"], key=lambda item: item["cell_id"]):
         cell_id = cell["cell_id"]
-        if not _is_movable_leaf(document, cell, cell_id, moved):
+        if not _is_movable_leaf(document, cell, cell_id, moved, protected_cells):
             continue
         edge_ports = _edge_ports(document, cell_id)
         if edge_ports is None:
             continue
         for dx, dz in _leaf_shifts(edge_ports[0]["normal"]):
-            if not _move_valid(document, cell_id, dx, dz):
+            if not _move_valid(document, cell_id, dx, dz, reserved_zones):
                 continue
             trial = _move_leaf(document, cell_id, dx, dz)
             if trial is None:
@@ -166,10 +190,15 @@ def _try_leaf_moves(
 
 
 def _is_movable_leaf(
-    document: dict[str, Any], cell: dict[str, Any], cell_id: str, moved: list[str]
+    document: dict[str, Any],
+    cell: dict[str, Any],
+    cell_id: str,
+    moved: list[str],
+    protected_cells: set[str] | None = None,
 ) -> bool:
     if (
         cell_id in moved
+        or cell_id in (protected_cells or set())
         or cell["role"] not in ("ground", "figure")
         or cell.get("module")
     ):

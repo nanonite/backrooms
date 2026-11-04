@@ -9,7 +9,7 @@ extends SceneTree
 const VIEWS := [
 	["face", 3.0, 0.0, 0.0],
 	["up", 1.2, 0.0, 40.0],
-	["oblique", 1.6, 1.3, 0.0],
+	["oblique", 1.6, 0.6, 0.0],
 ]
 
 

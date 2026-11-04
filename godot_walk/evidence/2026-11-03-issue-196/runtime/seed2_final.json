@@ -1,0 +1,432 @@
+{
+	"contract": {
+		"specs_checked": 14
+	},
+	"failures": [],
+	"map_id": "gmap-2-gmap-0.6.1",
+	"mode": "all_walkable",
+	"negative_controls": {
+		"diagonal_collision_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"push_samples": 49,
+			"push_stopped": 0,
+			"wall_failures": 5
+		},
+		"diagonal_floor_without_declared_link": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"first_failure": "c02: floor present at 10 samples outside the polygon and unconnected",
+			"unconnected_floor_failures": 6
+		},
+		"diagonal_frame_unaligned": {
+			"applicable": true,
+			"diagonal_headers": 4,
+			"failed_as_expected": true,
+			"removed_failures": 1,
+			"unrotated_failures": 1
+		},
+		"diagonal_link_doorway_removed": {
+			"applicable": true,
+			"edge_failures": 2,
+			"failed_as_expected": true,
+			"first_failure": "dp00:b -> c06:d0 forward: blocked by Wall_01_0 at (18.94695, 1.946954)",
+			"passage": "dp00"
+		},
+		"diagonal_passage_collision_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"push_samples": 49,
+			"push_stopped": 0
+		},
+		"doorway_removed": {
+			"applicable": true,
+			"edge_failures": 2,
+			"failed_as_expected": true,
+			"first_failure": "c00:p0 -> c01:p0 forward: blocked by Wall_00_1 at (7.0, 0.4)",
+			"flood_failures": 0,
+			"removed_doorway": "c00:p0"
+		},
+		"floor_rect_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"failure_count": 5,
+			"first_failure": "c03: floor missing at 832 of 832 polygon samples",
+			"room": "c03"
+		},
+		"module_joint_recess_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"module_check_failures": 8,
+			"reveal_coplanar_faces": 8
+		},
+		"module_socket_closed": {
+			"applicable": true,
+			"edge_failures": 4,
+			"failed_as_expected": true,
+			"first_failure": "c07:p1 -> c12:p0 forward: blocked by Wall at (24.5, -6.7)",
+			"module_cell": "c12",
+			"module_check_failures": 4
+		},
+		"unmitred_joint": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"joint_samples": 3500,
+			"joint_uncovered": 1304
+		},
+		"wrong_palette": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"first_failure": "c00: floor FloorRect does not match palette backrooms_yellow",
+			"mismatches": 285,
+			"rooms": 14,
+			"surfaces": 285
+		}
+	},
+	"positive": {
+		"diagonal": {
+			"coplanar_faces": 0,
+			"diagonal_edges": 19,
+			"failures": [],
+			"floor_missing": 0,
+			"floor_samples": 37989,
+			"joint_samples": 3500,
+			"joint_uncovered": 0,
+			"module_overhang_samples": 0,
+			"push_samples": 49,
+			"push_stopped": 49
+		},
+		"diagonal_links": {
+			"diagonal_edges": 4,
+			"failures": [],
+			"frames_checked": 4,
+			"lane_sweeps": 24,
+			"lane_sweeps_passed": 24,
+			"links": 2,
+			"passage_wall_colliders": 12
+		},
+		"edges": {
+			"closed_blocked": 2,
+			"closed_edges": 2,
+			"direct_edges": 17,
+			"direct_edges_checked": 17,
+			"failures": [],
+			"passed_forward": 17,
+			"passed_reverse": 17
+		},
+		"flood": {
+			"clear_samples": 3041,
+			"enclosed_clear_samples_in_module_cells": 0,
+			"expected_cells": 16,
+			"failures": [],
+			"reached_cells": 16,
+			"reached_samples": 3041,
+			"unreached_clear_samples_in_expected_cells": 0,
+			"void_cells_reached": 0
+		},
+		"modules": {
+			"apertures_clear": 2,
+			"clearance_control_conflicts": 6,
+			"failures": [],
+			"floors_supported": 2,
+			"joints": [
+				{
+					"aperture_clear": true,
+					"cell_id": "c12",
+					"floors_supported": true,
+					"landed": true,
+					"landing_miss_m": 0.0200004577636719,
+					"module_id": "godot_later_bay_column_bounded_v1",
+					"open": true
+				},
+				{
+					"aperture_clear": true,
+					"cell_id": "c13",
+					"floors_supported": true,
+					"landed": true,
+					"landing_miss_m": 0.0200004577636719,
+					"module_id": "godot_early_pocket_single_west_v1",
+					"open": true
+				}
+			],
+			"module_cells": 2,
+			"reveal_coplanar_faces": 0,
+			"sockets_landed": 2,
+			"sockets_open": 2,
+			"wall_coplanar_conflicts": 0
+		},
+		"palette": {
+			"failures": [],
+			"mismatches": 0,
+			"palettes": {
+				"backrooms_yellow": 14
+			},
+			"rooms": 14,
+			"surfaces": 285
+		},
+		"rooms": [
+			{
+				"approach_clear": 58,
+				"approach_samples": 58,
+				"cell_id": "c00",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 576,
+				"floor_inside_supported": 576,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 4,
+				"open_doorways": 4,
+				"wall_blocked": 72,
+				"wall_samples": 72
+			},
+			{
+				"approach_clear": 17,
+				"approach_samples": 17,
+				"cell_id": "c01",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 244,
+				"floor_inside_supported": 244,
+				"floor_outside": 4,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 42,
+				"wall_samples": 42
+			},
+			{
+				"approach_clear": 16,
+				"approach_samples": 16,
+				"cell_id": "c02",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 129,
+				"floor_inside_supported": 129,
+				"floor_outside": 10,
+				"floor_outside_connector_supported": 10,
+				"floor_outside_supported": 10,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 34,
+				"wall_samples": 34
+			},
+			{
+				"approach_clear": 68,
+				"approach_samples": 68,
+				"cell_id": "c03",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 832,
+				"floor_inside_supported": 832,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 98,
+				"wall_samples": 98
+			},
+			{
+				"approach_clear": 10,
+				"approach_samples": 10,
+				"cell_id": "c04",
+				"closed_blocked": 1,
+				"closed_doorways": 1,
+				"failures": [],
+				"floor_inside": 72,
+				"floor_inside_supported": 72,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 18,
+				"wall_samples": 18
+			},
+			{
+				"approach_clear": 2,
+				"approach_samples": 2,
+				"cell_id": "c05",
+				"closed_blocked": 1,
+				"closed_doorways": 1,
+				"failures": [],
+				"floor_inside": 48,
+				"floor_inside_supported": 48,
+				"floor_outside": 24,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 10,
+				"wall_samples": 10
+			},
+			{
+				"approach_clear": 14,
+				"approach_samples": 14,
+				"cell_id": "c06",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 129,
+				"floor_inside_supported": 129,
+				"floor_outside": 10,
+				"floor_outside_connector_supported": 10,
+				"floor_outside_supported": 10,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 28,
+				"wall_samples": 28
+			},
+			{
+				"approach_clear": 26,
+				"approach_samples": 26,
+				"cell_id": "c07",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 232,
+				"floor_inside_supported": 232,
+				"floor_outside": 16,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 47,
+				"wall_samples": 47
+			},
+			{
+				"approach_clear": 32,
+				"approach_samples": 32,
+				"cell_id": "c08",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 241,
+				"floor_inside_supported": 241,
+				"floor_outside": 10,
+				"floor_outside_connector_supported": 10,
+				"floor_outside_supported": 10,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 50,
+				"wall_samples": 50
+			},
+			{
+				"approach_clear": 60,
+				"approach_samples": 60,
+				"cell_id": "c09",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 545,
+				"floor_inside_supported": 545,
+				"floor_outside": 10,
+				"floor_outside_connector_supported": 10,
+				"floor_outside_supported": 10,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 76,
+				"wall_samples": 76
+			},
+			{
+				"approach_clear": 18,
+				"approach_samples": 18,
+				"cell_id": "c10",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 72,
+				"floor_inside_supported": 72,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 30,
+				"wall_samples": 30
+			},
+			{
+				"approach_clear": 14,
+				"approach_samples": 14,
+				"cell_id": "c11",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 69,
+				"floor_inside_supported": 69,
+				"floor_outside": 1,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 29,
+				"wall_samples": 29
+			},
+			{
+				"approach_clear": 12,
+				"approach_samples": 12,
+				"cell_id": "dp00",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 49,
+				"floor_inside_supported": 49,
+				"floor_outside": 51,
+				"floor_outside_connector_supported": 9,
+				"floor_outside_supported": 9,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 20,
+				"wall_samples": 20
+			},
+			{
+				"approach_clear": 12,
+				"approach_samples": 12,
+				"cell_id": "dp01",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 39,
+				"floor_inside_supported": 39,
+				"floor_outside": 48,
+				"floor_outside_connector_supported": 6,
+				"floor_outside_supported": 6,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 20,
+				"wall_samples": 20
+			}
+		],
+		"trim": {
+			"back_to_back_contacts": 134,
+			"degenerate_conflicts": 0,
+			"degenerate_trim_boxes": 0,
+			"floor_underside_contacts": 12,
+			"negative_controls": {
+				"old_outside_trim_detected": true,
+				"shared_plane_detected": true
+			},
+			"pairs_checked": 270,
+			"same_facing": [],
+			"same_facing_count": 0,
+			"solid_boxes": 154,
+			"trim_boxes": 90
+		}
+	},
+	"rooms_checked": 14,
+	"scene": {
+		"origin_cell": "c00",
+		"player_spawned": true,
+		"reset_restores_spawn": true,
+		"safety_net_present": true,
+		"spawn_floor_supported": true,
+		"spawn_inside_origin_polygon": true
+	}
+}

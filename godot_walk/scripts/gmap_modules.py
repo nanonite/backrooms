@@ -19,6 +19,7 @@ import random
 from dataclasses import dataclass
 
 from doorway_sizes import port_margin_m
+from gmap_diagonal_sites import reserved_cell_ids
 from gmap_geometry import (
     EPS,
     PORT_STEP_M,
@@ -27,8 +28,8 @@ from gmap_geometry import (
     Vec,
     adjacent,
     check_port_on_contact,
-    flush_rects,
     far_enough,
+    flush_rects,
     near,
     port_position,
 )
@@ -88,12 +89,23 @@ def layout_for(module: LibraryModule, turns: int) -> Layout | None:
     sx, sz = rotate_vector(socket.pos, turns)
     nx, nz = rotate_vector(socket.normal, turns)
     outward = (round(nx), round(nz))
-    edge = {(1, 0): x1 - sx, (-1, 0): sx - x0, (0, 1): z1 - sz, (0, -1): sz - z0}.get(outward)
+    edge = {(1, 0): x1 - sx, (-1, 0): sx - x0, (0, 1): z1 - sz, (0, -1): sz - z0}.get(
+        outward
+    )
     if edge is None or abs(edge) > 1e-6:
         return None
     width, depth = round(x1 - x0, DIGITS), round(z1 - z0, DIGITS)
     size = (math.ceil(width - 1e-9), math.ceil(depth - 1e-9))
-    return Layout(module, turns, size, (width, depth), (x0, z0), socket, (sx - x0, sz - z0), outward)
+    return Layout(
+        module,
+        turns,
+        size,
+        (width, depth),
+        (x0, z0),
+        socket,
+        (sx - x0, sz - z0),
+        outward,
+    )
 
 
 def lattice_positions(low: float, high: float) -> list[float]:
@@ -103,7 +115,9 @@ def lattice_positions(low: float, high: float) -> list[float]:
     return [k * PORT_STEP_M for k in range(first, last + 1)]
 
 
-def landing(layout: Layout, rect: Rect, along: float) -> tuple[Vec, tuple[float, float]]:
+def landing(
+    layout: Layout, rect: Rect, along: float
+) -> tuple[Vec, tuple[float, float]]:
     """(port position on the shared edge, translation_xz) for the socket landing at `along`."""
     cx0, cz0, cx1, cz1 = rect
     width, depth = layout.bbox_size
@@ -122,7 +136,10 @@ def landing(layout: Layout, rect: Rect, along: float) -> tuple[Vec, tuple[float,
         bbox_z - layout.bbox_min[1] - nz * LANDING_CLEARANCE_M,
     )
     port = port_position((-nx, -nz), coord, along)
-    return port, (round(translation[0], DIGITS) + 0.0, round(translation[1], DIGITS) + 0.0)
+    return port, (
+        round(translation[0], DIGITS) + 0.0,
+        round(translation[1], DIGITS) + 0.0,
+    )
 
 
 def along_candidates(layout: Layout, rect: Rect) -> list[float]:
@@ -151,11 +168,23 @@ def module_options(
     separation = 2.0 if compat == PORT_TYPE else WIDE_PORT_SEPARATION_M
     options = []
     for rect in flush_rects(parent.rect, side, *layout.size):
-        if not draft.free_for(rect):
+        if not draft.free_for(rect, reservation_padding=overhang):
             continue
-        close = (lambda r: near(rect, r, overhang)) if overhang else (lambda r: adjacent(rect, r))
-        others = [c for c in draft.cells.values() if c is not parent and close(c.rect)]
-        if any(c.role != "void" for c in others):  # library walls overhang; keep neighbours off
+        if overhang:
+            others = [
+                c
+                for c in draft.cells.values()
+                if c is not parent and near(rect, c.rect, overhang)
+            ]
+        else:
+            others = [
+                c
+                for c in draft.cells.values()
+                if c is not parent and adjacent(rect, c.rect)
+            ]
+        if any(
+            c.role != "void" for c in others
+        ):  # library walls overhang; keep neighbours off
             continue
         if figure and parent.role == "figure":
             continue
@@ -163,13 +192,20 @@ def module_options(
             port, translation = landing(layout, rect, along)
             if check_port_on_contact(parent.rect, port, side, rect, margin) is not None:
                 continue
-            if far_enough(port, standard, separation) and far_enough(port, wide, WIDE_PORT_SEPARATION_M):
+            if far_enough(port, standard, separation) and far_enough(
+                port, wide, WIDE_PORT_SEPARATION_M
+            ):
                 options.append((rect, port, translation))
     return sorted(options)
 
 
 def add_module_cell(
-    draft: Draft, parent: Cell, layout: Layout, rect: Rect, port: Vec, translation: tuple[float, float]
+    draft: Draft,
+    parent: Cell,
+    layout: Layout,
+    rect: Rect,
+    port: Vec,
+    translation: tuple[float, float],
 ) -> Cell:
     module = layout.module
     cell = Cell(
@@ -189,7 +225,9 @@ def add_module_cell(
     draft.cells[cell.cell_id] = cell
     side: Vec = (-layout.outward[0], -layout.outward[1])
     compat = layout.socket.compatibility_type
-    port_a = Port(f"{parent.cell_id}:p{len(parent.ports)}", port, side, compatibility_type=compat)
+    port_a = Port(
+        f"{parent.cell_id}:p{len(parent.ports)}", port, side, compatibility_type=compat
+    )
     port_b = Port(f"{cell.cell_id}:p0", port, layout.outward, compatibility_type=compat)
     parent.ports.append(port_a)
     cell.ports.append(port_b)
@@ -198,8 +236,17 @@ def add_module_cell(
     return cell
 
 
-def try_module(rng: random.Random, draft: Draft, module: LibraryModule, overhang: float = 0.0) -> bool:
-    parents = [c for c in draft.walkable() if c.module is None and c.role in ("ground", "figure")]
+def try_module(
+    rng: random.Random, draft: Draft, module: LibraryModule, overhang: float = 0.0
+) -> bool:
+    protected = reserved_cell_ids(draft.reserved_diagonal_zones)
+    parents = [
+        c
+        for c in draft.walkable()
+        if c.module is None
+        and c.role in ("ground", "figure")
+        and c.cell_id not in protected
+    ]
     for _ in range(MODULE_TRIES):
         parent = rng.choice(parents)
         layout = layout_for(module, rng.randrange(4))
@@ -213,15 +260,26 @@ def try_module(rng: random.Random, draft: Draft, module: LibraryModule, overhang
     return False
 
 
-def attach_modules(rng: random.Random, draft: Draft, library: Library, overhang: float = 0.0) -> int:
+def attach_modules(
+    rng: random.Random, draft: Draft, library: Library, overhang: float = 0.0
+) -> int:
     """Attach 1..2 distinct usable modules as leaf cells; returns how many were placed."""
     wanted = rng.randint(MODULE_BUDGET["min"], MODULE_BUDGET["max"])
     usable = usable_modules(library)
     placed = 0
     for _ in range(wanted):
-        pool = [m for m in usable if not any(c.module and c.module["module_id"] == m.module_id for c in draft.cells.values())]
+        pool = [
+            m
+            for m in usable
+            if not any(
+                c.module and c.module["module_id"] == m.module_id
+                for c in draft.cells.values()
+            )
+        ]
         while pool:
-            module = pool[weighted_index(rng, [TIER_WEIGHTS[int(m.rarity_tier)] for m in pool])]  # type: ignore[arg-type]
+            module = pool[
+                weighted_index(rng, [TIER_WEIGHTS[int(m.rarity_tier)] for m in pool])
+            ]  # type: ignore[arg-type]
             if try_module(rng, draft, module, *((overhang,) if overhang else ())):
                 placed += 1
                 break

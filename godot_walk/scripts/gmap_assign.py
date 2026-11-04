@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import random
 
+from gmap_diagonal_sites import reserved_cell_ids
 from gmap_geometry import (
     SIDES,
     Rect,
@@ -29,12 +30,16 @@ def roll_tier(rng: random.Random) -> int:
 
 def keeps_ports(draft: Draft, cell: Cell, rect: Rect) -> bool:
     """Every existing doorway of `cell` stays valid for the replacement rectangle."""
+    if not draft.clear_of_reservations(rect):
+        return False
     for port in cell.ports:
         other = draft.cells[other_cell(draft, port.port_id)]
         if check_port_on_contact(rect, port.pos, port.normal, other.rect, draft.margin):
             return False
     return not any(
-        overlaps(rect, other.rect) for other in draft.cells.values() if other is not cell
+        overlaps(rect, other.rect)
+        for other in draft.cells.values()
+        if other is not cell
     )
 
 
@@ -47,7 +52,9 @@ def other_cell(draft: Draft, port_id: str) -> str:
     raise ValueError(f"port {port_id} is on no edge")
 
 
-def figure_options(draft: Draft, cell: Cell, classes: list[tuple[int, int]]) -> list[Rect]:
+def figure_options(
+    draft: Draft, cell: Cell, classes: list[tuple[int, int]]
+) -> list[Rect]:
     x0, z0, x1, z1 = cell.rect
     options: set[Rect] = set()
     for size in classes:
@@ -60,10 +67,15 @@ def figure_options(draft: Draft, cell: Cell, classes: list[tuple[int, int]]) -> 
     return sorted(options)
 
 
-def assign_tiers(rng: random.Random, draft: Draft, classes: list[tuple[int, int]]) -> None:
+def assign_tiers(
+    rng: random.Random, draft: Draft, classes: list[tuple[int, int]]
+) -> None:
     """Roll tiers in cell order; figure envelopes are re-drawn or demoted to tier 1."""
     for cell in draft.walkable():
         cell.tier = roll_tier(rng)
+        if cell.cell_id in reserved_cell_ids(draft.reserved_diagonal_zones):
+            cell.tier = 1 if cell.tier >= 2 else cell.tier
+            continue
         if cell.tier < 2:
             continue
         options = figure_options(draft, cell, classes) if classes else []
@@ -79,10 +91,13 @@ def assign_tiers(rng: random.Random, draft: Draft, classes: list[tuple[int, int]
 
 
 def assign_roles(draft: Draft) -> None:
+    protected = reserved_cell_ids(draft.reserved_diagonal_zones)
     for cell in draft.walkable():
-        if cell.role == "figure":
+        if cell.role == "figure" or cell.cell_id in protected:
             continue
-        threshold = draft.degree(cell.cell_id) == 2 and aspect(cell.rect) >= THRESHOLD_ASPECT
+        threshold = (
+            draft.degree(cell.cell_id) == 2 and aspect(cell.rect) >= THRESHOLD_ASPECT
+        )
         cell.role = "threshold" if threshold else "ground"
 
 
@@ -90,7 +105,12 @@ def add_voids(rng: random.Random, draft: Draft) -> int:
     """Attach leaf void cells through closed_visible edges; returns how many."""
     wanted = rng.randint(VOID_BUDGET["min"], VOID_BUDGET["max"])
     placed = 0
-    walkable = [cell for cell in draft.walkable() if cell.module is None]  # a library room has no void door
+    protected = reserved_cell_ids(draft.reserved_diagonal_zones)
+    walkable = [
+        cell
+        for cell in draft.walkable()
+        if cell.module is None and cell.cell_id not in protected
+    ]  # library and reserved site endpoints have no void door
     for _ in range(wanted):
         for _ in range(VOID_TRIES):
             parent = rng.choice(walkable)

@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import random
 
+from gmap_diagonal_sites import reserved_cell_ids
 from gmap_geometry import (
     EPS,
     STANDARD_MARGIN_M,
@@ -30,7 +31,7 @@ DEGENERATE_EDGE_M = 3
 
 def degenerate_rng(seed: int, attempt: int, version: str) -> random.Random:
     """Separate sha256-derived stream; never Python hash()."""
-    digest = hashlib.sha256(f"{seed}:{attempt}:degenerate:{version}".encode("utf-8")).digest()
+    digest = hashlib.sha256(f"{seed}:{attempt}:degenerate:{version}".encode()).digest()
     return random.Random(int.from_bytes(digest, "big"))
 
 
@@ -44,7 +45,10 @@ def side_span(rect: Rect, normal: Vec) -> tuple[float, float]:
 
 
 def corner_cells(
-    cells: dict[str, Rect], normals: dict[str, Vec], pos: Vec, margin: float = STANDARD_MARGIN_M
+    cells: dict[str, Rect],
+    normals: dict[str, Vec],
+    pos: Vec,
+    margin: float = STANDARD_MARGIN_M,
 ) -> list[str]:
     """Cells whose envelope corner on this side lies within `margin` (1.5 m) of the port (sorted)."""
     found = []
@@ -60,11 +64,18 @@ def port_lookup(draft: Draft) -> dict[str, tuple[Port, str]]:
     return {p.port_id: (p, c.cell_id) for c in draft.cells.values() for p in c.ports}
 
 
-def hug_move(draft: Draft, edge: tuple[str, str, str], allowed: set[str]) -> tuple[Vec, list[str]] | None:
+def hug_move(
+    draft: Draft,
+    edge: tuple[str, str, str],
+    allowed: set[str],
+    protected: set[str] | None = None,
+) -> tuple[Vec, list[str]] | None:
     """The gmap-0.1.0 port position for a 3 m shared edge and the cells that own the
     touched corner, when every one of them is in `allowed`; else None."""
     ports = port_lookup(draft)
     (a, cell_a), (b, cell_b) = ports[edge[0]], ports[edge[1]]
+    if protected and {cell_a, cell_b} & protected:
+        return None
     if draft.cells[cell_a].module or draft.cells[cell_b].module:
         return None  # a module's port is fixed by its socket; never degenerate
     shared = contact(draft.cells[cell_a].rect, draft.cells[cell_b].rect)
@@ -81,25 +92,35 @@ def hug_move(draft: Draft, edge: tuple[str, str, str], allowed: set[str]) -> tup
     )
     if not owners or not set(owners) <= allowed:
         return None
-    others = [p.pos for c in (cell_a, cell_b) for p in draft.cells[c].ports if p not in (a, b)]
+    others = [
+        p.pos for c in (cell_a, cell_b) for p in draft.cells[c].ports if p not in (a, b)
+    ]
     return (pos, owners) if far_enough(pos, others) else None
 
 
-def hug_moves(draft: Draft, cell_id: str, allowed: set[str]) -> list[tuple[str, str, str]]:
+def hug_moves(
+    draft: Draft, cell_id: str, allowed: set[str], protected: set[str] | None = None
+) -> list[tuple[str, str, str]]:
     return [
-        edge for edge in sorted(draft.edges)
-        if cell_id in (edge[0].split(":")[0], edge[1].split(":")[0]) and hug_move(draft, edge, allowed)
+        edge
+        for edge in sorted(draft.edges)
+        if cell_id in (edge[0].split(":")[0], edge[1].split(":")[0])
+        and hug_move(draft, edge, allowed, protected)
     ]
 
 
-def apply_moves(draft: Draft, cell_id: str, allowed: set[str]) -> int:
+def apply_moves(
+    draft: Draft, cell_id: str, allowed: set[str], protected: set[str] | None = None
+) -> int:
     """Move every eligible edge's port pair (re-checked one by one); returns how many moved.
 
     Each port is labelled by its own cell: degenerate where that cell owns the touched
     corner, standard for the neighbour whose wall continues past the doorway."""
     moved = 0
-    for edge in hug_moves(draft, cell_id, allowed):
-        found = hug_move(draft, edge, allowed)  # earlier moves may have crowded this one
+    for edge in hug_moves(draft, cell_id, allowed, protected):
+        found = hug_move(
+            draft, edge, allowed, protected
+        )  # earlier moves may have crowded this one
         if found is None:
             continue
         pos, owners = found
@@ -115,17 +136,22 @@ def apply_moves(draft: Draft, cell_id: str, allowed: set[str]) -> int:
 def assign_degenerate(rng: random.Random, draft: Draft, maximum: int) -> int:
     """Mark up to `maximum` cells degenerate; returns how many were marked."""
     used, chosen = 0, set()
+    protected = reserved_cell_ids(draft.reserved_diagonal_zones)
     for cell in draft.walkable():
         if used >= maximum:
             break
-        if cell.cell_id == ORIGIN_CELL or cell.role == "figure":
+        if (
+            cell.cell_id == ORIGIN_CELL
+            or cell.role == "figure"
+            or cell.cell_id in protected
+        ):
             continue
-        if not hug_moves(draft, cell.cell_id, chosen | {cell.cell_id}):
+        if not hug_moves(draft, cell.cell_id, chosen | {cell.cell_id}, protected):
             continue
         if roll_2d6(rng) < ROLL_MIN:
             continue
         chosen.add(cell.cell_id)
         cell.mode = "degenerate"
-        apply_moves(draft, cell.cell_id, chosen)
+        apply_moves(draft, cell.cell_id, chosen, protected)
         used += 1
     return used

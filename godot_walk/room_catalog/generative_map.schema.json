@@ -19,6 +19,12 @@
       "type": "integer",
       "minimum": 0
     },
+    "layout_variant": {
+      "description": "Required by gmap-0.6.1. Deterministic site-aware layout search variant within the recorded attempt.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 47
+    },
     "catalog_snapshot": { "$ref": "#/$defs/path_and_hash" },
     "library_index": { "$ref": "#/$defs/library_index" },
     "lattice": {
@@ -197,7 +203,32 @@
         "budget": {"type": "integer", "minimum": 0, "maximum": 2},
         "used": {"type": "integer", "minimum": 0, "maximum": 2},
         "selection_rule": {"type": "string", "minLength": 1},
-        "nudged_cells": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+        "nudged_cells": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "reserved_diagonal_zones": {
+          "description": "gmap-0.6.1 growth-time sites; realized entries become links and released entries remain unoccupied.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["site_id", "endpoint_ids", "corner_indices", "corner_xz", "start_xz", "finish_xz", "clearance_polygon_xz", "status"],
+            "properties": {
+              "site_id": {"type": "string", "pattern": "^ds[0-9]{2}$"},
+              "endpoint_ids": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "string", "minLength": 1}},
+              "corner_indices": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 0, "maximum": 3}},
+              "corner_xz": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/point_xz"}},
+              "start_xz": {"$ref": "#/$defs/point_xz"},
+              "finish_xz": {"$ref": "#/$defs/point_xz"},
+              "clearance_polygon_xz": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"$ref": "#/$defs/point_xz"}},
+              "status": {"enum": ["realized", "released"]},
+              "link_id": {"type": "string", "minLength": 1},
+              "release_reason": {"type": "string", "minLength": 1}
+            },
+            "allOf": [
+              {"if": {"properties": {"status": {"const": "realized"}}, "required": ["status"]}, "then": {"required": ["link_id"], "not": {"required": ["release_reason"]}}},
+              {"if": {"properties": {"status": {"const": "released"}}, "required": ["status"]}, "then": {"required": ["release_reason"], "not": {"required": ["link_id"]}}}
+            ],
+            "additionalProperties": false
+          }
+        }
       },
       "additionalProperties": false
     },
@@ -217,6 +248,15 @@
     "scale_calibrated": { "const": false }
   },
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {"properties": {"generator_version": {"const": "gmap-0.6.1"}}, "required": ["generator_version"]},
+      "then": {
+        "required": ["layout_variant"],
+        "properties": {"diagonal_links": {"required": ["reserved_diagonal_zones"]}}
+      }
+    }
+  ],
   "$defs": {
     "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
     "point_xz": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },

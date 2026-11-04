@@ -21,6 +21,7 @@ from gmap_diagonal_rule_geometry import (
     polygon_errors,
     ports_by_id,
 )
+from gmap_diagonal_v61 import SELECTION_RULE as SELECTION_RULE_V61
 from gmap_rules import Errors, err
 
 EPS = 1e-6
@@ -49,10 +50,12 @@ def diagonal_errors(document: dict[str, Any]) -> Errors:
                 f"passages={len(passages)}, record={budget}",
             )
         )
-    if (
-        budget.get("selection_rule")
-        != "seeded weighted draw 0:3, 1:5, 2:2; eligible pairs sorted then seeded shuffle"
-    ):
+    expected_selection = (
+        SELECTION_RULE_V61
+        if document["generator_version"] == "gmap-0.6.1"
+        else "seeded weighted draw 0:3, 1:5, 2:2; eligible pairs sorted then seeded shuffle"
+    )
+    if budget.get("selection_rule") != expected_selection:
         errors.append(
             err(RULE, "link_selection_rule", "selection rule declaration changed")
         )
