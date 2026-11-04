@@ -84,3 +84,17 @@ splat_logs/
 
 # Source-library runtime flock files (created by ingestion tools)
 godot_walk/source_library/**/.*.lock
+
+# Bulky evidence outputs stay local (operator, 2026-11-04). Reports, commands,
+# decision/review JSON and receipts stay tracked; already-tracked files are unaffected.
+godot_walk/evidence/**/captures/
+godot_walk/evidence/**/captures_*/
+godot_walk/evidence/**/runtime/
+godot_walk/evidence/**/*.png
+godot_walk/evidence/**/*.jpg
+godot_walk/evidence/**/*.jpeg
+godot_walk/evidence/**/*.webp
+godot_walk/evidence/**/*.mp4
+godot_walk/evidence/**/*.webm
+godot_walk/evidence/**/*.glb
+godot_walk/evidence/**/*.ply
