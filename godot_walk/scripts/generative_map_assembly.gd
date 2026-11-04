@@ -26,6 +26,8 @@ const MODULE_SWITCHES := {
 const SPAWN_HEIGHT := 0.6
 const SAFETY_DEPTH := -4.0
 const SAFETY_MARGIN := 10.0
+## Fallback map/rooms pair when no user args are given (godot-mcp run_project, #197). Gitignored.
+const WALK_TARGET_PATH := "res://.walk_target.json"
 
 ## False when a test builds the rooms itself without the environment or the player.
 var auto_start := true
@@ -81,10 +83,19 @@ static func argument(prefix: String) -> String:
 func _ready() -> void:
 	if not auto_start:
 		return
-	var map_data: Variant = load_json(argument("--map="))
-	var room_specs := load_specs(argument("--rooms="))
+	var map_path := argument("--map=")
+	var rooms_path := argument("--rooms=")
+	if map_path.is_empty() and rooms_path.is_empty():
+		# godot-mcp's run_project cannot pass user args; it writes this
+		# gitignored file instead (#197).
+		var target: Variant = load_json(WALK_TARGET_PATH) if FileAccess.file_exists(WALK_TARGET_PATH) else null
+		if target is Dictionary:
+			map_path = String(target.get("map", ""))
+			rooms_path = String(target.get("rooms", ""))
+	var map_data: Variant = load_json(map_path)
+	var room_specs := load_specs(rooms_path)
 	if not map_data is Dictionary or room_specs.is_empty():
-		push_error("Pass --map=res://...json and --rooms=res://.../index.json after --")
+		push_error("Pass --map=res://...json and --rooms=res://.../index.json after --, or write %s" % WALK_TARGET_PATH)
 		return
 	_build_environment()
 	assemble(map_data, room_specs)

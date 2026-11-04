@@ -13,3 +13,6 @@ export_presets.cfg
 
 # Generated photogrammetry mesh scenes and imported assets
 /generated_mesh_scenes/
+
+# Per-machine walkthrough target for godot-mcp run_project (#197)
+.walk_target.json
