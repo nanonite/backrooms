@@ -97,18 +97,45 @@ static func _add_plane(parent: Node3D, label: String, tris: Array[PackedVector2A
 	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
 	surface.set_normal(facing)
 	for tri in tris:
-		var a := Vector3(tri[0].x, y, tri[0].y)
-		var b := Vector3(tri[1].x, y, tri[1].y)
-		var c := Vector3(tri[2].x, y, tri[2].y)
-		if (c - a).cross(b - a).dot(facing) < 0.0:
-			var swap := b
-			b = c
-			c = swap
-		for corner in [a, b, c]:
-			surface.set_uv(Vector2(corner.x, corner.z) / tile)
-			surface.add_vertex(corner)
+		for subtriangle: PackedVector2Array in _subtriangles(tri, material is StandardMaterial3D and (material as StandardMaterial3D).shading_mode == BaseMaterial3D.SHADING_MODE_PER_VERTEX):
+			_add_surface_triangle(surface, subtriangle, y, facing, tile)
 	var instance := MeshInstance3D.new()
 	instance.name = label
 	instance.mesh = surface.commit()
 	instance.material_override = material
 	parent.add_child(instance)
+
+
+static func _subtriangles(triangle: PackedVector2Array, subdivide: bool) -> Array[PackedVector2Array]:
+	if not subdivide:
+		return [triangle]
+	var longest := maxf(triangle[0].distance_to(triangle[1]), maxf(triangle[1].distance_to(triangle[2]), triangle[2].distance_to(triangle[0])))
+	var count := maxi(1, int(ceil(longest)))
+	var grid: Array = []
+	for row in range(count + 1):
+		var points: Array[Vector2] = []
+		for column in range(count + 1 - row):
+			points.append(triangle[0] * (1.0 - float(row + column) / count)
+				+ triangle[1] * (float(row) / count) + triangle[2] * (float(column) / count))
+		grid.append(points)
+	var result: Array[PackedVector2Array] = []
+	for row in count:
+		for column in count - row:
+			result.append(PackedVector2Array([grid[row][column], grid[row + 1][column], grid[row][column + 1]]))
+			if row + column < count - 1:
+				result.append(PackedVector2Array([grid[row + 1][column], grid[row + 1][column + 1], grid[row][column + 1]]))
+	return result
+
+
+static func _add_surface_triangle(surface: SurfaceTool, triangle: PackedVector2Array, y: float,
+		facing: Vector3, tile: float) -> void:
+	var a := Vector3(triangle[0].x, y, triangle[0].y)
+	var b := Vector3(triangle[1].x, y, triangle[1].y)
+	var c := Vector3(triangle[2].x, y, triangle[2].y)
+	if (c - a).cross(b - a).dot(facing) < 0.0:
+		var swap := b
+		b = c
+		c = swap
+	for corner in [a, b, c]:
+		surface.set_uv(Vector2(corner.x, corner.z) / tile)
+		surface.add_vertex(corner)

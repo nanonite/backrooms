@@ -15,6 +15,7 @@ from gmap_build import (
     GENERATOR_VERSION_V5,
     GENERATOR_VERSION_V6,
     GENERATOR_VERSION_V7,
+    GENERATOR_VERSION_V8,
     GENERATOR_VERSION_V61,
     MARGIN_VERSIONS,
     MODULE_VERSIONS,
@@ -24,6 +25,7 @@ from gmap_build import (
 from gmap_diagonal_rules import diagonal_errors
 from gmap_diagonal_site_rules import reservation_errors
 from gmap_landmark_rules import landmark_errors
+from gmap_light import light_errors
 from gmap_margin_rules import check_lattice_ports, margin_errors
 from gmap_module_rules import module_errors
 from gmap_palette import palette_errors
@@ -108,6 +110,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V6,
             GENERATOR_VERSION_V61,
             GENERATOR_VERSION_V7,
+            GENERATOR_VERSION_V8,
         ):
             margin_cells = [
                 {
@@ -132,6 +135,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V6,
             GENERATOR_VERSION_V61,
             GENERATOR_VERSION_V7,
+            GENERATOR_VERSION_V8,
         ):
             base = {
                 **document,
@@ -143,18 +147,24 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             errors += module_errors(document, rects, root)
     if document["generator_version"] in STAGE2_VERSIONS:
         errors += stage2_errors(document)
-    if document["generator_version"] == GENERATOR_VERSION_V7:
+    if document["generator_version"] in (GENERATOR_VERSION_V7, GENERATOR_VERSION_V8):
         errors += landmark_errors(document)
     if document["generator_version"] in (
         GENERATOR_VERSION_V5,
         GENERATOR_VERSION_V6,
         GENERATOR_VERSION_V61,
         GENERATOR_VERSION_V7,
+        GENERATOR_VERSION_V8,
     ):
         errors += palette_errors(document, root)
     roles = {cell["cell_id"]: cell["role"] for cell in cells}
     walkable = sorted(c for c, role in roles.items() if role != "void")
-    if document["generator_version"] in (GENERATOR_VERSION_V6, GENERATOR_VERSION_V61, GENERATOR_VERSION_V7):
+    if document["generator_version"] in (
+        GENERATOR_VERSION_V6,
+        GENERATOR_VERSION_V61,
+        GENERATOR_VERSION_V7,
+        GENERATOR_VERSION_V8,
+    ):
         tree_walkable = [
             c
             for c in walkable
@@ -163,7 +173,11 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         tree_edges = [e for e in edges if e.get("kind") != "diagonal"]
         errors += check_tree(tree_walkable, tree_edges)
         errors += diagonal_errors(document)
-        if document["generator_version"] in (GENERATOR_VERSION_V61, GENERATOR_VERSION_V7):
+        if document["generator_version"] in (
+            GENERATOR_VERSION_V61,
+            GENERATOR_VERSION_V7,
+            GENERATOR_VERSION_V8,
+        ):
             errors += reservation_errors(document)
     else:
         errors += check_tree(walkable, edges)
@@ -171,6 +185,11 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
     errors += check_figures(roles, rects) + check_voids(
         roles, edges, document["void_budget"]
     )
+    if document["generator_version"] == GENERATOR_VERSION_V8:
+        from gmap_library import load_library
+
+        library = load_library(root / document["library_index"]["path"], root)
+        errors += light_errors(document, library)
     return errors
 
 

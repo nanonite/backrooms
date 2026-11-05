@@ -26,6 +26,9 @@ const MODULE_SWITCHES := {
 const SPAWN_HEIGHT := 0.6
 const SAFETY_DEPTH := -4.0
 const SAFETY_MARGIN := 10.0
+const GENERATED_LIGHT_LAYER_COUNT := 19
+const MODULE_RENDER_LAYER := 20
+const LIGHT_CULL_DISTANCE_M := 6.2
 ## Fallback map/rooms pair when no user args are given (godot-mcp run_project, #197). Gitignored.
 const WALK_TARGET_PATH := "res://.walk_target.json"
 
@@ -36,6 +39,8 @@ var specs: Dictionary = {}
 var rooms: Dictionary = {}
 ## cell_id -> instanced library scene (module cells only; shape rooms stay in `rooms`).
 var module_rooms: Dictionary = {}
+## Generated-room layers are greedily colored by light reach; layer 20 is reserved for modules.
+var light_layers: Dictionary = {}
 ## cell_id -> {placement, entry, socket, floor_offset} for each module cell.
 var module_info: Dictionary = {}
 ## False in the unopened-socket negative control.
@@ -97,10 +102,10 @@ func _ready() -> void:
 	if not map_data is Dictionary or room_specs.is_empty():
 		push_error("Pass --map=res://...json and --rooms=res://.../index.json after --, or write %s" % WALK_TARGET_PATH)
 		return
-	_build_environment()
+	_build_environment(String(map_data.get("generator_version", "")) == "gmap-0.8.0")
 	assemble(map_data, room_specs)
 	_build_player()
-	PSX_PRESET.new().configure(self)
+	_apply_psx_preset()
 	set_meta("walkthrough_ready", true)
 	set_meta("operator_approved", false)
 
@@ -108,6 +113,8 @@ func _ready() -> void:
 func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 	map = map_data
 	specs = room_specs
+	if String(map.get("generator_version", "")) == "gmap-0.8.0" and not _assign_light_layers():
+		return
 	materials = MATERIALS.make(specs[specs.keys()[0]])
 	var library_entries := _library_entries()
 	for cell: Dictionary in map.cells:
@@ -118,7 +125,8 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 		if specs.has(cell_id):
 			rooms[cell_id] = BUILDER.build(self, specs[cell_id], materials_for(specs[cell_id]), _forced_closed(specs[cell_id]),
 				_module_joints(specs[cell_id]),
-				{"diagonal_collision": diagonal_collision, "diagonal_pullback": diagonal_pullback})
+				{"diagonal_collision": diagonal_collision, "diagonal_pullback": diagonal_pullback,
+				"light_layer": _light_layer(cell_id)})
 	_add_safety_net()
 	origin_cell = String(map.cells[0].cell_id)
 	if not specs.has(origin_cell):
@@ -175,6 +183,8 @@ func _place_module(cell: Dictionary, library_entries: Dictionary) -> void:
 	room.rotation.y = -deg_to_rad(float(placement.rotation_deg))
 	add_child(room)
 	_strip_world_environments(room)
+	if String(map.get("generator_version", "")) == "gmap-0.8.0":
+		_set_module_render_layer(room)
 	room.set_meta("cell_id", String(cell.cell_id))
 	room.set_meta("module_id", String(placement.module_id))
 	room.set_meta("connection_status", "proposed_untested")
@@ -266,11 +276,102 @@ func _compute_spawn(spec: Dictionary) -> void:
 			return
 
 
+func _light_layer(cell_id: String) -> int:
+	return int(light_layers.get(cell_id, 1))
+
+
+func _assign_light_layers() -> bool:
+	var cells: Array[Dictionary] = []
+	for cell: Dictionary in map.cells:
+		if cell["role"] != "void" and not cell.has("module"):
+			cells.append(cell)
+	var conflicts := _light_conflicts(cells)
+	var order: Array[String] = []
+	for cell: Dictionary in cells:
+		order.append(String(cell.cell_id))
+	order.sort_custom(func(left: String, right: String) -> bool:
+		if conflicts[left].size() != conflicts[right].size():
+			return conflicts[left].size() > conflicts[right].size()
+		return left < right
+	)
+	light_layers.clear()
+	for cell_id: String in order:
+		if not _assign_cell_layer(cell_id, conflicts):
+			return false
+	return true
+
+
+func _light_conflicts(cells: Array[Dictionary]) -> Dictionary:
+	var result := {}
+	for cell: Dictionary in cells:
+		result[String(cell.cell_id)] = []
+	for left in cells.size():
+		for right in range(left + 1, cells.size()):
+			var left_id := String(cells[left].cell_id)
+			var right_id := String(cells[right].cell_id)
+			if _bounds_are_within_light_range(cells[left], cells[right]):
+				result[left_id].append(right_id)
+				result[right_id].append(left_id)
+	return result
+
+
+func _assign_cell_layer(cell_id: String, conflicts: Dictionary) -> bool:
+	var occupied: Dictionary = {}
+	for neighbor: String in conflicts[cell_id]:
+		if light_layers.has(neighbor):
+			occupied[int(light_layers[neighbor])] = true
+	var layer := 1
+	while layer <= GENERATED_LIGHT_LAYER_COUNT and occupied.has(layer):
+		layer += 1
+	if layer > GENERATED_LIGHT_LAYER_COUNT:
+		push_error("Generated light culling needs more than %d isolated layers at %s" % [GENERATED_LIGHT_LAYER_COUNT, cell_id])
+		return false
+	light_layers[cell_id] = layer
+	return true
+
+
+func _bounds_are_within_light_range(left: Dictionary, right: Dictionary) -> bool:
+	var left_bounds := _bounds(left)
+	var right_bounds := _bounds(right)
+	var gap_x := maxf(0.0, maxf(left_bounds.position.x - right_bounds.end.x, right_bounds.position.x - left_bounds.end.x))
+	var gap_z := maxf(0.0, maxf(left_bounds.position.y - right_bounds.end.y, right_bounds.position.y - left_bounds.end.y))
+	return Vector2(gap_x, gap_z).length() <= LIGHT_CULL_DISTANCE_M
+
+
+func _bounds(cell: Dictionary) -> Rect2:
+	var points: Array = cell.envelope_xz
+	var minimum := Vector2(float(points[0][0]), float(points[0][1]))
+	var maximum := minimum
+	for point: Array in points:
+		minimum.x = minf(minimum.x, float(point[0]))
+		minimum.y = minf(minimum.y, float(point[1]))
+		maximum.x = maxf(maximum.x, float(point[0]))
+		maximum.y = maxf(maximum.y, float(point[1]))
+	return Rect2(minimum, maximum - minimum)
+
+
+func _set_module_render_layer(room: Node3D) -> void:
+	var mask := 1 << (MODULE_RENDER_LAYER - 1)
+	for instance: Node in room.find_children("*", "VisualInstance3D", true, false):
+		(instance as VisualInstance3D).layers = mask
+
+
 static func _area(rect: Array) -> float:
 	return (float(rect[2]) - float(rect[0])) * (float(rect[3]) - float(rect[1]))
 
 
-func _build_environment() -> void:
+func _apply_psx_preset() -> void:
+	if String(map.get("generator_version", "")) != "gmap-0.8.0":
+		PSX_PRESET.new().configure(self)
+		return
+	for room: Node3D in module_rooms.values():
+		PSX_PRESET.new().configure(room)
+	set_meta("psx_package", "URSC 1.5 subset / 8cd971d")
+	set_meta("operator_approved", false)
+	set_meta("psx_applied", true)
+
+
+func _build_environment(lit_map: bool) -> void:
 	var world := WorldEnvironment.new()
 	world.name = "WorldEnvironment"
 	var environment := Environment.new()
@@ -278,7 +379,7 @@ func _build_environment() -> void:
 	environment.background_color = Color(0.035, 0.04, 0.035)
 	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	environment.ambient_light_color = Color(0.88, 0.86, 0.78)
-	environment.ambient_light_energy = 0.8
+	environment.ambient_light_energy = 0.2 if lit_map else 0.8
 	var compositor := Compositor.new()
 	var effect = PSX_EFFECT.new()
 	effect.pixel_size = 3

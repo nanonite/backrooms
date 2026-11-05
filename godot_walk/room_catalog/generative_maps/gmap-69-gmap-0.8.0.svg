@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="590" height="480" viewBox="0 0 590 480">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<title>gmap-69-gmap-0.8.0 (structural map, not playable)</title>
+<rect x="300" y="210" width="80" height="80" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="304" y="224" font-family="monospace" font-size="11">c00 t0</text>
+<rect x="380" y="260" width="60" height="60" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="384" y="274" font-family="monospace" font-size="11">c01 t1</text>
+<rect x="360" y="320" width="80" height="80" fill="#ffd700" stroke="#000000" stroke-width="2"/>
+<text x="364" y="334" font-family="monospace" font-size="11">c02 t2</text>
+<rect x="260" y="50" width="160" height="160" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="264" y="64" font-family="monospace" font-size="11">c03 t0</text>
+<rect x="280" y="310" width="80" height="80" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="284" y="324" font-family="monospace" font-size="11">c04 t0</text>
+<rect x="270" y="210" width="30" height="100" fill="#d2b48c" stroke="#000000" stroke-width="2"/>
+<text x="274" y="224" font-family="monospace" font-size="11">c05 t1</text>
+<rect x="170" y="270" width="100" height="30" fill="#d2b48c" stroke="#8e44ad" stroke-width="2" stroke-dasharray="8 3 2 3"/>
+<text x="174" y="284" font-family="monospace" font-size="11">c06 t1 degenerate</text>
+<rect x="420" y="90" width="80" height="80" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="424" y="104" font-family="monospace" font-size="11">c07 t0</text>
+<rect x="200" y="100" width="60" height="60" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="204" y="114" font-family="monospace" font-size="11">c08 t0</text>
+<rect x="290" y="20" width="100" height="30" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="294" y="34" font-family="monospace" font-size="11">c09 t0</text>
+<rect x="450" y="170" width="120" height="80" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="454" y="184" font-family="monospace" font-size="11">c10 t0</text>
+<rect x="150" y="210" width="60" height="60" fill="#9db4c9" stroke="#000000" stroke-width="2"/>
+<text x="154" y="224" font-family="monospace" font-size="11">c11 t0 industrial_concrete d1</text>
+<rect x="20" y="160" width="130" height="160" fill="#f5b041" stroke="#117864" stroke-width="2" stroke-dasharray="10 2"/>
+<text x="24" y="174" font-family="monospace" font-size="11">c12 t2 module</text>
+<text x="24" y="187" font-family="monospace" font-size="9">godot_gopro_industrial_hall_south_socket_v1 r270</text>
+<rect x="330" y="400" width="140" height="60" fill="#a9dfbf" stroke="#117864" stroke-width="2" stroke-dasharray="10 2"/>
+<text x="334" y="414" font-family="monospace" font-size="11">c13 t0 module</text>
+<text x="334" y="427" font-family="monospace" font-size="9">godot_early_pocket_single_west_v1 r90</text>
+<rect x="240" y="240" width="30" height="30" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="244" y="254" font-family="monospace" font-size="11">c14</text>
+<rect x="240" y="210" width="30" height="30" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="244" y="224" font-family="monospace" font-size="11">c15</text>
+<rect x="150" y="180" width="30" height="30" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="154" y="194" font-family="monospace" font-size="11">c16</text>
+<polygon points="435,280 470,245 454,229 419,264" fill="#d2b48c" stroke="#21618c" stroke-width="2"/>
+<text x="423" y="243" font-family="monospace" font-size="11">dp00 t0</text>
+<polyline points="340,250 380,275 380,275 410,290" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="340,250 340,210 340,210 340,130" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="340,250 300,250 300,250 285,260" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="410,290 427,272 427,272 445,255" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="410,290 410,320 410,320 400,360" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="400,360 360,355 360,355 320,350" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="400,360 400,400 400,400 400,430" fill="none" stroke="#e67e22" stroke-width="1.5" stroke-dasharray="6 2"/>
+<polyline points="340,130 420,130 420,130 460,130" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="340,130 260,130 260,130 230,130" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="340,130 340,50 340,50 340,35" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="285,260 270,280 270,280 220,285" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="285,260 270,255 270,255 255,255" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<polyline points="285,260 270,225 270,225 255,225" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<polyline points="220,285 190,270 190,270 180,240" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="460,130 475,170 475,170 510,210" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="180,240 150,240 150,240 85,240" fill="none" stroke="#e67e22" stroke-width="1.5" stroke-dasharray="6 2"/>
+<polyline points="180,240 165,210 165,210 165,195" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<polyline points="445,255 462,237 462,237 510,210" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="380" cy="275" r="3" fill="#c0392b"/>
+<circle cx="340" cy="210" r="3" fill="#c0392b"/>
+<circle cx="300" cy="250" r="3" fill="#c0392b"/>
+<circle cx="427" cy="272" r="3" fill="#c0392b"/>
+<circle cx="380" cy="275" r="3" fill="#c0392b"/>
+<circle cx="410" cy="320" r="3" fill="#c0392b"/>
+<circle cx="410" cy="320" r="3" fill="#c0392b"/>
+<circle cx="360" cy="355" r="3" fill="#c0392b"/>
+<circle cx="400" cy="400" r="3" fill="#c0392b"/>
+<circle cx="340" cy="210" r="3" fill="#c0392b"/>
+<circle cx="420" cy="130" r="3" fill="#c0392b"/>
+<circle cx="260" cy="130" r="3" fill="#c0392b"/>
+<circle cx="340" cy="50" r="3" fill="#c0392b"/>
+<circle cx="360" cy="355" r="3" fill="#c0392b"/>
+<circle cx="300" cy="250" r="3" fill="#c0392b"/>
+<circle cx="270" cy="280" r="3" fill="#c0392b"/>
+<circle cx="270" cy="255" r="3" fill="#c0392b"/>
+<circle cx="270" cy="225" r="3" fill="#c0392b"/>
+<circle cx="270" cy="280" r="3" fill="#c0392b"/>
+<circle cx="190" cy="270" r="3" fill="#c0392b"/>
+<circle cx="420" cy="130" r="3" fill="#c0392b"/>
+<circle cx="475" cy="170" r="3" fill="#c0392b"/>
+<circle cx="260" cy="130" r="3" fill="#c0392b"/>
+<circle cx="340" cy="50" r="3" fill="#c0392b"/>
+<circle cx="462" cy="237" r="3" fill="#c0392b"/>
+<circle cx="475" cy="170" r="3" fill="#c0392b"/>
+<circle cx="190" cy="270" r="3" fill="#c0392b"/>
+<circle cx="150" cy="240" r="3" fill="#c0392b"/>
+<circle cx="165" cy="210" r="3" fill="#c0392b"/>
+<circle cx="150" cy="240" r="3" fill="#c0392b"/>
+<circle cx="400" cy="400" r="3" fill="#c0392b"/>
+<circle cx="270" cy="255" r="3" fill="#c0392b"/>
+<circle cx="270" cy="225" r="3" fill="#c0392b"/>
+<circle cx="165" cy="210" r="3" fill="#c0392b"/>
+<circle cx="427" cy="272" r="3" fill="#c0392b"/>
+<circle cx="462" cy="237" r="3" fill="#c0392b"/>
+</svg>

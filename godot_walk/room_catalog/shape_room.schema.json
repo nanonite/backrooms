@@ -12,7 +12,7 @@
   ],
   "properties": {
     "schema_version": { "const": 1 },
-    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0"] },
+    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0", "shape-room-0.8.0"] },
     "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
     "map_sha256": { "$ref": "#/$defs/sha256" },
     "cell_id": { "type": "string", "minLength": 1 },
@@ -154,11 +154,34 @@
         "status": {"const": "placed"}
       },
       "additionalProperties": false
+    },
+    "light": {
+      "type": "object",
+      "required": ["tier", "color_temp_k", "lamps"],
+      "properties": {
+        "tier": {"enum": ["dim", "normal", "bright"]},
+        "color_temp_k": {"type": "integer", "minimum": 3800, "maximum": 5200},
+        "lamps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["lamp_index", "state", "flicker_seed"],
+            "properties": {
+              "lamp_index": {"type": "integer", "minimum": 0},
+              "state": {"enum": ["on", "flicker", "dead"]},
+              "flicker_seed": {"type": "integer", "minimum": 0, "maximum": 2147483647}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
     }
   },
   "allOf": [
     {"if": {"properties": {"construction": {"const": "regular_polygon"}}, "required": ["construction"]}, "then": {"required": ["landmark"], "properties": {"shape_stage": {"const": 3}, "arms_xz": {"maxItems": 0}}}},
     {"if": {"properties": {"shape_stage": {"const": 3}}, "required": ["shape_stage"]}, "then": {"properties": {"construction": {"const": "regular_polygon"}}}},
+    {"if": {"properties": {"generator_version": {"const": "shape-room-0.8.0"}}, "required": ["generator_version"]}, "then": {"required": ["light"]}},
     {"if": {"not": {"properties": {"construction": {"const": "regular_polygon"}}, "required": ["construction"]}}, "then": {"properties": {"arms_xz": {"minItems": 1}}}}
   ],
   "additionalProperties": false,
@@ -191,7 +214,7 @@
       "required": ["schema_version", "generator_version", "map_id", "map_file", "mode", "rooms"],
       "properties": {
         "schema_version": { "const": 1 },
-        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0"] },
+        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0", "shape-room-0.8.0"] },
         "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
         "map_file": {
           "type": "object",

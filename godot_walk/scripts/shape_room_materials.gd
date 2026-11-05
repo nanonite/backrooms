@@ -13,11 +13,12 @@ const CEILING_TILE_M := 4.0
 
 static func make(spec: Dictionary) -> Dictionary:
 	var source: Dictionary = spec.materials
+	var per_vertex := spec.has("light")
 	var tiles := {"wallpaper": WALL_TILE_M, "floor": FLOOR_TILE_M, "ceiling": CEILING_TILE_M}
 	var materials := {
-		"trim": _solid(_color(source.trim_color)),
-		"lamp": _solid(_color(source.lamp_color)),
-		"dark": _solid(DARK_PANEL),
+		"trim": _solid(_color(source.trim_color), per_vertex),
+		"lamp": _solid(_color(source.lamp_color), per_vertex),
+		"dark": _solid(DARK_PANEL, per_vertex),
 		"_scaled": {},
 		"_tiles": tiles,
 		"_palette_id": String(source.get("palette_id", "")),
@@ -25,12 +26,12 @@ static func make(spec: Dictionary) -> Dictionary:
 	if source.has("palette_id"):
 		for pair: Array in [["wallpaper", "wall"], ["floor", "floor"], ["ceiling", "ceiling"]]:
 			var surface: Dictionary = source[pair[1]]
-			materials[pair[0]] = _surface(surface)
+			materials[pair[0]] = _surface(surface, per_vertex)
 			tiles[pair[0]] = float(surface.get("tile_m", tiles[pair[0]]))
 	else:
-		materials["wallpaper"] = _textured(String(source.wallpaper_texture))
-		materials["floor"] = _textured(String(source.floor_texture))
-		materials["ceiling"] = _textured(String(source.ceiling_texture))
+		materials["wallpaper"] = _textured(String(source.wallpaper_texture), per_vertex)
+		materials["floor"] = _textured(String(source.floor_texture), per_vertex)
+		materials["ceiling"] = _textured(String(source.ceiling_texture), per_vertex)
 	return materials
 
 
@@ -73,17 +74,17 @@ static func _copy(base: StandardMaterial3D) -> StandardMaterial3D:
 	return material
 
 
-static func _surface(surface: Dictionary) -> StandardMaterial3D:
+static func _surface(surface: Dictionary, per_vertex: bool) -> StandardMaterial3D:
 	if surface.has("texture"):
-		return _textured(String(surface.texture))
-	return _solid(_color(surface.color))
+		return _textured(String(surface.texture), per_vertex)
+	return _solid(_color(surface.color), per_vertex)
 
 
 static func _color(values: Array) -> Color:
 	return Color(float(values[0]), float(values[1]), float(values[2]))
 
 
-static func _textured(path: String) -> StandardMaterial3D:
+static func _textured(path: String, per_vertex: bool = false) -> StandardMaterial3D:
 	var material := StandardMaterial3D.new()
 	var image := Image.load_from_file(ProjectSettings.globalize_path(path))
 	if image == null:
@@ -92,14 +93,14 @@ static func _textured(path: String) -> StandardMaterial3D:
 	material.albedo_texture = ImageTexture.create_from_image(image)
 	material.set_meta("source_path", path)
 	material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_PER_VERTEX if per_vertex else BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.roughness = 1.0
 	return material
 
 
-static func _solid(color: Color) -> StandardMaterial3D:
+static func _solid(color: Color, per_vertex: bool = false) -> StandardMaterial3D:
 	var material := StandardMaterial3D.new()
 	material.albedo_color = color
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_PER_VERTEX if per_vertex else BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	return material

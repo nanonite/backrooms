@@ -9,6 +9,7 @@ const MATERIALS := preload("res://scripts/shape_room_materials.gd")
 const DOORWAYS := preload("res://scripts/doorway_sizes.gd")
 const DIAGONAL := preload("res://scripts/shape_room_diagonal.gd")
 const DIAGONAL_PASSAGE := preload("res://scripts/shape_room_diagonal_passage.gd")
+const LIGHTING := preload("res://scripts/shape_room_lighting.gd")
 const WALL_THICKNESS := 0.16
 const TRIM_WIDTH := 0.06
 const TRIM_PROTRUSION := 0.04
@@ -42,10 +43,19 @@ static func build(parent: Node3D, spec: Dictionary, materials: Dictionary,
 	context["diagonal_passage_visuals"] = spec.has("diagonal_passage")
 	context["diagonal_collision"] = bool(options.get("diagonal_collision", true))
 	context["diagonal_pullback"] = float(options.get("diagonal_pullback", 0.0))
+	context["light_layer"] = int(options.get("light_layer", 1))
 	_add_floor(visuals, boundaries, context)
 	_add_ceiling(visuals, context)
 	_add_walls(visuals, boundaries, context)
 	_add_lamps(visuals, context)
+	if spec.has("light"):
+		var light_layer := int(context.light_layer)
+		if light_layer < 1 or light_layer > 20:
+			push_error("%s: light layer must be within 1..20" % spec.cell_id)
+			light_layer = 1
+		var mask := 1 << (light_layer - 1)
+		for instance in room.find_children("*", "MeshInstance3D", true, false):
+			(instance as MeshInstance3D).layers = mask
 	room.set_meta("cell_id", String(spec.cell_id))
 	room.set_meta("walkable_polygon_xz", PackedVector2Array(context.ring))
 	room.set_meta("ceiling_height_m", float(spec.ceiling_height_m))
@@ -144,21 +154,42 @@ static func _add_lamps(visuals: Node3D, context: Dictionary) -> void:
 		return
 	var index := 0
 	for point: Array in context.spec.lamps_xz:
-		_add_box(lamps, "CeilingLight_%02d" % index, Vector3(float(point[0]), context.height - LAMP_SIZE.y / 2.0, float(point[1])),
-			LAMP_SIZE, context.materials.lamp)
+		var position := Vector3(float(point[0]), context.height - LAMP_SIZE.y / 2.0, float(point[1]))
+		var material: Material = context.materials.lamp
+		var state: Dictionary = {}
+		if context.spec.has("light"):
+			state = context.spec.light.lamps[index]
+			material = LIGHTING.material_for_state(material, String(state.state), int(context.spec.light.color_temp_k))
+		_add_box(lamps, "CeilingLight_%02d" % index, position, LAMP_SIZE, material)
+		if context.spec.has("light"):
+			LIGHTING.add_lamp_light(lamps, point, state,
+				_light_config(context, position.y), material as StandardMaterial3D, int(context.light_layer))
 		index += 1
 
 
 static func _add_landmark_lamp_ring(lamps: Node3D, context: Dictionary) -> void:
 	var point: Array = context.spec.lamps_xz[0]
 	var center := Vector3(float(point[0]), context.height - LAMP_SIZE.y / 2.0, float(point[1]))
+	var material: Material = context.materials.lamp
+	var state: Dictionary = {}
+	if context.spec.has("light"):
+		state = context.spec.light.lamps[0]
+		material = LIGHTING.material_for_state(material, String(state.state), int(context.spec.light.color_temp_k))
 	var outer := 1.8
 	var bar := 0.12
 	for side in 2:
 		var long_size := Vector3(outer, LAMP_SIZE.y, bar) if side == 0 else Vector3(bar, LAMP_SIZE.y, outer)
 		for direction in [-1.0, 1.0]:
 			var offset := Vector3(0.0, 0.0, direction * (outer - bar) / 2.0) if side == 0 else Vector3(direction * (outer - bar) / 2.0, 0.0, 0.0)
-			_add_box(lamps, "LandmarkLampRing_%d_%d" % [side, int(direction)], center + offset, long_size, context.materials.lamp)
+			_add_box(lamps, "LandmarkLampRing_%d_%d" % [side, int(direction)], center + offset, long_size, material)
+	if context.spec.has("light"):
+		LIGHTING.add_lamp_light(lamps, point, state, _light_config(context, center.y),
+			material as StandardMaterial3D, int(context.light_layer))
+
+
+static func _light_config(context: Dictionary, position_y: float) -> Dictionary:
+	return {"tier": context.spec.light.tier, "color_temp_k": context.spec.light.color_temp_k,
+		"position_y": position_y}
 
 
 static func _add_walls(visuals: Node3D, boundaries: Node3D, context: Dictionary) -> void:
@@ -317,16 +348,21 @@ static func _group(parent: Node3D, label: String) -> Node3D:
 
 
 static func _add_box(parent: Node3D, label: String, center: Vector3, size: Vector3, material: Material,
-		yaw: float = 0.0) -> void:
+		yaw: float = 0.0) -> MeshInstance3D:
 	var instance := MeshInstance3D.new()
 	instance.name = label
 	instance.position = center
 	instance.rotation.y = yaw
 	var mesh := BoxMesh.new()
 	mesh.size = size
+	if material is StandardMaterial3D and (material as StandardMaterial3D).shading_mode == BaseMaterial3D.SHADING_MODE_PER_VERTEX:
+		mesh.subdivide_width = maxi(0, int(ceil(size.x)) - 1)
+		mesh.subdivide_height = maxi(0, int(ceil(size.y)) - 1)
+		mesh.subdivide_depth = maxi(0, int(ceil(size.z)) - 1)
 	instance.mesh = mesh
 	instance.material_override = material
 	parent.add_child(instance)
+	return instance
 
 
 static func _add_body(parent: Node3D, label: String, center: Vector3, size: Vector3, yaw: float = 0.0) -> void:

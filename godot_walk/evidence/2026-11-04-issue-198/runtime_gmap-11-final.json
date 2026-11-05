@@ -1,0 +1,687 @@
+{
+	"contract": {
+		"specs_checked": 13
+	},
+	"failures": [],
+	"map_id": "gmap-11-gmap-0.8.0",
+	"mode": "all_walkable",
+	"negative_controls": {
+		"diagonal_collision_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"push_samples": 65,
+			"push_stopped": 1,
+			"wall_failures": 4
+		},
+		"diagonal_floor_without_declared_link": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"first_failure": "c06: floor present at 10 samples outside the polygon and unconnected",
+			"unconnected_floor_failures": 3
+		},
+		"diagonal_frame_unaligned": {
+			"applicable": true,
+			"diagonal_headers": 2,
+			"failed_as_expected": true,
+			"removed_failures": 1,
+			"unrotated_failures": 1
+		},
+		"diagonal_link_doorway_removed": {
+			"applicable": true,
+			"edge_failures": 2,
+			"failed_as_expected": true,
+			"first_failure": "dp00:b -> c10:d0 forward: blocked by Wall_01_0 at (20.05305, 19.05305)",
+			"passage": "dp00"
+		},
+		"diagonal_passage_collision_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"push_samples": 65,
+			"push_stopped": 1
+		},
+		"doorway_removed": {
+			"applicable": true,
+			"edge_failures": 2,
+			"failed_as_expected": true,
+			"first_failure": "c00:p0 -> c01:p0 forward: blocked by Wall_03_0 at (9.6, 6.5)",
+			"flood_failures": 12,
+			"removed_doorway": "c00:p0"
+		},
+		"floor_rect_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"failure_count": 5,
+			"first_failure": "c05: floor missing at 66 of 66 polygon samples",
+			"room": "c05"
+		},
+		"landmark_port_off_midpoint": {
+			"applicable": true,
+			"edge_failures": 1,
+			"failed_as_expected": true,
+			"first_failure": "c00:p1 -> c03:p0: doorway positions or normals do not mirror",
+			"port_id": "c03:p0"
+		},
+		"module_joint_recess_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"module_check_failures": 8,
+			"reveal_coplanar_faces": 8
+		},
+		"module_socket_closed": {
+			"applicable": true,
+			"edge_failures": 4,
+			"failed_as_expected": true,
+			"first_failure": "c07:p1 -> c12:p0 forward: blocked by Wall at (-21.7, 6.5)",
+			"module_cell": "c12",
+			"module_check_failures": 4
+		},
+		"unmitred_joint": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"joint_samples": 4398,
+			"joint_uncovered": 1924
+		},
+		"wrong_palette": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"first_failure": "c00: floor FloorRect does not match palette backrooms_yellow",
+			"mismatches": 245,
+			"rooms": 13,
+			"surfaces": 245
+		}
+	},
+	"positive": {
+		"diagonal": {
+			"coplanar_faces": 0,
+			"diagonal_edges": 23,
+			"failures": [],
+			"floor_missing": 0,
+			"floor_samples": 46253,
+			"joint_samples": 4398,
+			"joint_uncovered": 0,
+			"module_overhang_samples": 0,
+			"push_samples": 65,
+			"push_stopped": 65
+		},
+		"diagonal_links": {
+			"diagonal_edges": 2,
+			"failures": [],
+			"frames_checked": 2,
+			"lane_sweeps": 12,
+			"lane_sweeps_passed": 12,
+			"links": 1,
+			"passage_wall_colliders": 6
+		},
+		"edges": {
+			"closed_blocked": 1,
+			"closed_edges": 1,
+			"direct_edges": 15,
+			"direct_edges_checked": 15,
+			"failures": [],
+			"passed_forward": 15,
+			"passed_reverse": 15
+		},
+		"flood": {
+			"clear_samples": 2624,
+			"enclosed_clear_samples_in_module_cells": 8,
+			"expected_cells": 15,
+			"failures": [],
+			"reached_cells": 15,
+			"reached_samples": 2616,
+			"unreached_clear_samples_in_expected_cells": 0,
+			"void_cells_reached": 0
+		},
+		"lighting": {
+			"actual_lamp_boxes": 30,
+			"actual_lights": 27,
+			"by_cell": [
+				{
+					"actual_lamp_boxes": 4,
+					"actual_lights": 4,
+					"cell_id": "c00",
+					"expected_lamp_boxes": 4,
+					"expected_lights": 4,
+					"lamp_states": [
+						{
+							"flicker_seed": 1399221997.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 1029665265.0,
+							"lamp_index": 1.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 1314042563.0,
+							"lamp_index": 2.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 1598215692.0,
+							"lamp_index": 3.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 6,
+					"actual_lights": 6,
+					"cell_id": "c01",
+					"expected_lamp_boxes": 6,
+					"expected_lights": 6,
+					"lamp_states": [
+						{
+							"flicker_seed": 895527856.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 2057972480.0,
+							"lamp_index": 1.0,
+							"state": "dead"
+						},
+						{
+							"flicker_seed": 2104569140.0,
+							"lamp_index": 2.0,
+							"state": "dead"
+						},
+						{
+							"flicker_seed": 1010677970.0,
+							"lamp_index": 3.0,
+							"state": "dead"
+						},
+						{
+							"flicker_seed": 1623087066.0,
+							"lamp_index": 4.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 134438849.0,
+							"lamp_index": 5.0,
+							"state": "dead"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 1,
+					"actual_lights": 1,
+					"cell_id": "c02",
+					"expected_lamp_boxes": 1,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 76921713.0,
+							"lamp_index": 0.0,
+							"state": "dead"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 4,
+					"actual_lights": 1,
+					"cell_id": "c03",
+					"expected_lamp_boxes": 4,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 469218154.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 4,
+					"actual_lights": 4,
+					"cell_id": "c04",
+					"expected_lamp_boxes": 4,
+					"expected_lights": 4,
+					"lamp_states": [
+						{
+							"flicker_seed": 742726490.0,
+							"lamp_index": 0.0,
+							"state": "dead"
+						},
+						{
+							"flicker_seed": 1057673560.0,
+							"lamp_index": 1.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 1226618024.0,
+							"lamp_index": 2.0,
+							"state": "dead"
+						},
+						{
+							"flicker_seed": 1326044981.0,
+							"lamp_index": 3.0,
+							"state": "dead"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 1,
+					"actual_lights": 1,
+					"cell_id": "c05",
+					"expected_lamp_boxes": 1,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 565916436.0,
+							"lamp_index": 0.0,
+							"state": "flicker"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 3,
+					"actual_lights": 3,
+					"cell_id": "c06",
+					"expected_lamp_boxes": 3,
+					"expected_lights": 3,
+					"lamp_states": [
+						{
+							"flicker_seed": 572937280.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 1394981759.0,
+							"lamp_index": 1.0,
+							"state": "dead"
+						},
+						{
+							"flicker_seed": 1541758633.0,
+							"lamp_index": 2.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 1,
+					"actual_lights": 1,
+					"cell_id": "c07",
+					"expected_lamp_boxes": 1,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 341484389.0,
+							"lamp_index": 0.0,
+							"state": "flicker"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 1,
+					"actual_lights": 1,
+					"cell_id": "c08",
+					"expected_lamp_boxes": 1,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 1157917267.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 2,
+					"actual_lights": 2,
+					"cell_id": "c09",
+					"expected_lamp_boxes": 2,
+					"expected_lights": 2,
+					"lamp_states": [
+						{
+							"flicker_seed": 254998139.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 862518577.0,
+							"lamp_index": 1.0,
+							"state": "flicker"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 1,
+					"actual_lights": 1,
+					"cell_id": "c10",
+					"expected_lamp_boxes": 1,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 927285413.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 1,
+					"actual_lights": 1,
+					"cell_id": "c11",
+					"expected_lamp_boxes": 1,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 1031030609.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 1,
+					"actual_lights": 1,
+					"cell_id": "dp00",
+					"expected_lamp_boxes": 1,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 880271849.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						}
+					]
+				}
+			],
+			"cells_checked": 13,
+			"expected_lamp_boxes": 30,
+			"expected_lights": 27,
+			"failures": [],
+			"max_vertex_spacing_m": 1.0,
+			"per_vertex_meshes": 278
+		},
+		"modules": {
+			"apertures_clear": 2,
+			"clearance_control_conflicts": 6,
+			"failures": [],
+			"floors_supported": 2,
+			"joints": [
+				{
+					"aperture_clear": true,
+					"cell_id": "c12",
+					"floors_supported": true,
+					"landed": true,
+					"landing_miss_m": 0.0200004577636719,
+					"module_id": "godot_later_bay_column_bounded_v1",
+					"open": true
+				},
+				{
+					"aperture_clear": true,
+					"cell_id": "c13",
+					"floors_supported": true,
+					"landed": true,
+					"landing_miss_m": 0.0200004577636719,
+					"module_id": "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+					"open": true
+				}
+			],
+			"module_cells": 2,
+			"reveal_coplanar_faces": 0,
+			"sockets_landed": 2,
+			"sockets_open": 2,
+			"wall_coplanar_conflicts": 0
+		},
+		"palette": {
+			"failures": [],
+			"mismatches": 0,
+			"palettes": {
+				"backrooms_yellow": 12,
+				"plaster_debris": 1
+			},
+			"rooms": 13,
+			"surfaces": 245
+		},
+		"rooms": [
+			{
+				"approach_clear": 34,
+				"approach_samples": 34,
+				"cell_id": "c00",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 322,
+				"floor_inside_supported": 322,
+				"floor_outside": 78,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 62,
+				"wall_samples": 62
+			},
+			{
+				"approach_clear": 36,
+				"approach_samples": 36,
+				"cell_id": "c01",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 372,
+				"floor_inside_supported": 372,
+				"floor_outside": 5,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 58,
+				"wall_samples": 58
+			},
+			{
+				"approach_clear": 16,
+				"approach_samples": 16,
+				"cell_id": "c02",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 141,
+				"floor_inside_supported": 141,
+				"floor_outside": 1,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 29,
+				"wall_samples": 29
+			},
+			{
+				"approach_clear": 28,
+				"approach_samples": 28,
+				"cell_id": "c03",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 812,
+				"floor_inside_supported": 812,
+				"floor_outside": 204,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 84,
+				"wall_samples": 84
+			},
+			{
+				"approach_clear": 25,
+				"approach_samples": 25,
+				"cell_id": "c04",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 253,
+				"floor_inside_supported": 253,
+				"floor_outside": 1,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 45,
+				"wall_samples": 45
+			},
+			{
+				"approach_clear": 12,
+				"approach_samples": 12,
+				"cell_id": "c05",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 66,
+				"floor_inside_supported": 66,
+				"floor_outside": 6,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 22,
+				"wall_samples": 22
+			},
+			{
+				"approach_clear": 33,
+				"approach_samples": 33,
+				"cell_id": "c06",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 241,
+				"floor_inside_supported": 241,
+				"floor_outside": 10,
+				"floor_outside_connector_supported": 10,
+				"floor_outside_supported": 10,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 50,
+				"wall_samples": 50
+			},
+			{
+				"approach_clear": 14,
+				"approach_samples": 14,
+				"cell_id": "c07",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 130,
+				"floor_inside_supported": 130,
+				"floor_outside": 14,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 34,
+				"wall_samples": 34
+			},
+			{
+				"approach_clear": 10,
+				"approach_samples": 10,
+				"cell_id": "c08",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 60,
+				"floor_inside_supported": 60,
+				"floor_outside": 12,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 20,
+				"wall_samples": 20
+			},
+			{
+				"approach_clear": 30,
+				"approach_samples": 30,
+				"cell_id": "c09",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 120,
+				"floor_inside_supported": 120,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 40,
+				"wall_samples": 40
+			},
+			{
+				"approach_clear": 16,
+				"approach_samples": 16,
+				"cell_id": "c10",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 129,
+				"floor_inside_supported": 129,
+				"floor_outside": 10,
+				"floor_outside_connector_supported": 10,
+				"floor_outside_supported": 10,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 34,
+				"wall_samples": 34
+			},
+			{
+				"approach_clear": 18,
+				"approach_samples": 18,
+				"cell_id": "c11",
+				"closed_blocked": 1,
+				"closed_doorways": 1,
+				"failures": [],
+				"floor_inside": 108,
+				"floor_inside_supported": 108,
+				"floor_outside": 36,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 30,
+				"wall_samples": 30
+			},
+			{
+				"approach_clear": 12,
+				"approach_samples": 12,
+				"cell_id": "dp00",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 49,
+				"floor_inside_supported": 49,
+				"floor_outside": 51,
+				"floor_outside_connector_supported": 9,
+				"floor_outside_supported": 9,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 20,
+				"wall_samples": 20
+			}
+		],
+		"trim": {
+			"back_to_back_contacts": 127,
+			"degenerate_conflicts": 0,
+			"degenerate_trim_boxes": 0,
+			"floor_underside_contacts": 8,
+			"negative_controls": {
+				"old_outside_trim_detected": true,
+				"shared_plane_detected": true
+			},
+			"pairs_checked": 255,
+			"same_facing": [],
+			"same_facing_count": 0,
+			"solid_boxes": 164,
+			"trim_boxes": 81
+		}
+	},
+	"rooms_checked": 13,
+	"scene": {
+		"origin_cell": "c00",
+		"player_spawned": true,
+		"reset_restores_spawn": true,
+		"safety_net_present": true,
+		"spawn_floor_supported": true,
+		"spawn_inside_origin_polygon": true
+	}
+}

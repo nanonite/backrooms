@@ -21,6 +21,7 @@ GENERATOR_VERSION_V5 = "gmap-0.5.0"
 GENERATOR_VERSION_V6 = "gmap-0.6.0"
 GENERATOR_VERSION_V61 = "gmap-0.6.1"
 GENERATOR_VERSION_V7 = "gmap-0.7.0"
+GENERATOR_VERSION_V8 = "gmap-0.8.0"
 VERSIONS = (
     GENERATOR_VERSION,
     GENERATOR_VERSION_V2,
@@ -30,6 +31,7 @@ VERSIONS = (
     GENERATOR_VERSION_V6,
     GENERATOR_VERSION_V61,
     GENERATOR_VERSION_V7,
+    GENERATOR_VERSION_V8,
 )
 MARGIN_VERSIONS = (
     GENERATOR_VERSION_V2,
@@ -39,6 +41,7 @@ MARGIN_VERSIONS = (
     GENERATOR_VERSION_V6,
     GENERATOR_VERSION_V61,
     GENERATOR_VERSION_V7,
+    GENERATOR_VERSION_V8,
 )  # standard margins + degenerate cells
 MODULE_VERSIONS = (
     GENERATOR_VERSION_V3,
@@ -47,6 +50,7 @@ MODULE_VERSIONS = (
     GENERATOR_VERSION_V6,
     GENERATOR_VERSION_V61,
     GENERATOR_VERSION_V7,
+    GENERATOR_VERSION_V8,
 )  # library modules as leaf cells
 STAGE2_VERSIONS = (
     GENERATOR_VERSION_V4,
@@ -54,6 +58,7 @@ STAGE2_VERSIONS = (
     GENERATOR_VERSION_V6,
     GENERATOR_VERSION_V61,
     GENERATOR_VERSION_V7,
+    GENERATOR_VERSION_V8,
 )  # 45-degree classes, library-room overhang margin
 DEFAULT_DEGENERATE_MAX = 1
 MAX_ATTEMPTS = 50
@@ -85,6 +90,7 @@ RULE_IDS_V5 = sorted([*RULE_IDS_V4, "palette_assignment"])
 RULE_IDS_V6 = sorted([*RULE_IDS_V5, "diagonal_links"])
 RULE_IDS_V61 = sorted([*RULE_IDS_V6, "diagonal_site_reservations"])
 RULE_IDS_V7 = sorted([*RULE_IDS_V61, "landmark_contract"])
+RULE_IDS_V8 = sorted([*RULE_IDS_V7, "light_layer"])
 CEILING = {
     "figure": [3.0, 6.0],
     "ground": [2.6, 4.8],
@@ -102,12 +108,19 @@ def map_id_for(seed: int, version: str = GENERATOR_VERSION) -> str:
 def layout_version(version: str) -> str:
     """gmap-0.5.0 draws its layout, degenerate and shape-stage streams exactly as gmap-0.4.0 does, so a
     0.5.0 map differs from the 0.4.0 map of the same seed only by its palettes."""
-    if version in (GENERATOR_VERSION_V5, GENERATOR_VERSION_V6, GENERATOR_VERSION_V61, GENERATOR_VERSION_V7):
+    if version in (
+        GENERATOR_VERSION_V5,
+        GENERATOR_VERSION_V6,
+        GENERATOR_VERSION_V61,
+        GENERATOR_VERSION_V7,
+    ):
         return GENERATOR_VERSION_V4
     return version
 
 
 def rule_ids(version: str) -> list[str]:
+    if version == GENERATOR_VERSION_V8:
+        return RULE_IDS_V8
     if version == GENERATOR_VERSION_V5:
         return RULE_IDS_V5
     if version == GENERATOR_VERSION_V6:
@@ -180,9 +193,26 @@ def build_map(
 ) -> dict[str, Any]:
     if version not in VERSIONS:
         raise GenerationError(f"generator version must be one of {', '.join(VERSIONS)}")
+    if version == GENERATOR_VERSION_V8:
+        if stage_max not in (None, 3):
+            raise GenerationError("gmap-0.8.0 requires --stage-max=3")
+        document = build_map(
+            seed, library, cells, 3, GENERATOR_VERSION_V7, degenerate_max
+        )
+        document["generator_version"] = GENERATOR_VERSION_V8
+        document["map_id"] = map_id_for(seed, GENERATOR_VERSION_V8)
+        document["rules"] = list(rule_ids(GENERATOR_VERSION_V8))
+        from gmap_light import assign_light
+
+        assign_light(document, library)
+        return document
     v4 = version in STAGE2_VERSIONS
     stage_limit = 3 if version == GENERATOR_VERSION_V7 else 2 if v4 else 1
-    stage_max = (stage_limit if version == GENERATOR_VERSION_V7 else 2 if v4 else 1) if stage_max is None else stage_max
+    stage_max = (
+        (stage_limit if version == GENERATOR_VERSION_V7 else 2 if v4 else 1)
+        if stage_max is None
+        else stage_max
+    )
     if stage_max not in range(stage_limit + 1) or (stage_max >= 2 and not v4):
         raise GenerationError(
             f"--stage-max must be 0..{stage_limit} in generator {version}"
@@ -209,7 +239,9 @@ def build_map(
         for c in draft.cells.values()
     ]
     if v4:
-        extras = assign_stage2(seed, attempt, layout_version(version), cells, min(stage_max, 2))
+        extras = assign_stage2(
+            seed, attempt, layout_version(version), cells, min(stage_max, 2)
+        )
         for record in cells:
             record.update(extras[record["cell_id"]])
         if version == GENERATOR_VERSION_V7:
@@ -272,13 +304,22 @@ def build_map(
         from gmap_diagonal_v61 import apply_links_v61
 
         apply_links_v61(document, draft.reserved_diagonal_zones, draft.diagonal_budget)
-    if version in (GENERATOR_VERSION_V5, GENERATOR_VERSION_V6, GENERATOR_VERSION_V61, GENERATOR_VERSION_V7):
+    if version in (
+        GENERATOR_VERSION_V5,
+        GENERATOR_VERSION_V6,
+        GENERATOR_VERSION_V61,
+        GENERATOR_VERSION_V7,
+    ):
         document["palette_registry"] = registry_ref()
         palettes = assign_palettes(document, library, load_registry())
         for record in document["cells"]:
             if record["cell_id"] in palettes:
                 record["palette"] = palettes[record["cell_id"]]
-        if version in (GENERATOR_VERSION_V6, GENERATOR_VERSION_V61, GENERATOR_VERSION_V7):
+        if version in (
+            GENERATOR_VERSION_V6,
+            GENERATOR_VERSION_V61,
+            GENERATOR_VERSION_V7,
+        ):
             by_id = {c["cell_id"]: c for c in document["cells"]}
             for record in document["cells"]:
                 passage = record.get("diagonal_passage")
@@ -289,7 +330,9 @@ def build_map(
     return document
 
 
-def _assign_landmark_target(draft: Any, records: list[dict[str, Any]], stage_max: int) -> None:
+def _assign_landmark_target(
+    draft: Any, records: list[dict[str, Any]], stage_max: int
+) -> None:
     if stage_max < 3 or draft.landmark_plan is None:
         return
     by_id = {record["cell_id"]: record for record in records}
@@ -302,6 +345,7 @@ def _assign_landmark_target(draft: Any, records: list[dict[str, Any]], stage_max
     record["shape_stage_target"] = 3
     record.pop("shape_class_target", None)
     record["allowed_primitives"] = [
-        *record["allowed_primitives"], draft.landmark_plan["class"]
+        *record["allowed_primitives"],
+        draft.landmark_plan["class"],
     ]
     record["landmark"] = cell_landmark(draft.landmark_plan)

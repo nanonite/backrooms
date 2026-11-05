@@ -160,9 +160,12 @@ func _run_positive() -> Dictionary:
 	_fail_all(diagonal_links.failures)
 	var palette := PALETTE_CHECKS.check(assembly, specs)
 	_fail_all(palette.failures)
+	var lighting := _check_lighting(assembly) if map.get("generator_version", "") == "gmap-0.8.0" else {}
 	await _release(assembly)
 	var positive := {"rooms": rooms.rooms, "edges": edges, "flood": flood, "trim": trim, "modules": modules, "diagonal": diagonal,
 		"diagonal_links": diagonal_links}
+	if not lighting.is_empty():
+		positive["lighting"] = lighting
 	if palette.rooms > 0:  # only shape-room-0.5.0 maps: older reports keep their keys
 		positive["palette"] = palette
 	return positive
@@ -180,13 +183,120 @@ func _run_negative_controls() -> Dictionary:
 	controls["diagonal_passage_collision_removed"] = await _control_diagonal_passage_collision_removed()
 	controls["diagonal_floor_without_declared_link"] = await _control_diagonal_floor_without_declared_link()
 	controls["diagonal_frame_unaligned"] = await _control_diagonal_frame_unaligned()
-	if map.get("generator_version", "") == "gmap-0.7.0":
+	if map.get("generator_version", "") in ["gmap-0.7.0", "gmap-0.8.0"]:
 		controls["landmark_port_off_midpoint"] = await _control_landmark_port_off_midpoint()
 	if specs.values().any(func(spec: Dictionary) -> bool: return spec.materials.has("palette_id")):
 		controls["wrong_palette"] = await _control_wrong_palette()
 	for name: String in controls:
 		_expect(not controls[name].applicable or controls[name].failed_as_expected, "Negative control %s did not fail" % name)
 	return controls
+
+
+func _check_lighting(assembly: Node3D) -> Dictionary:
+	var result := {"cells_checked": 0, "expected_lights": 0, "actual_lights": 0,
+		"expected_lamp_boxes": 0, "actual_lamp_boxes": 0, "per_vertex_meshes": 0,
+		"max_vertex_spacing_m": 0.0, "by_cell": [], "failures": [] as Array[String]}
+	for cell_id: String in assembly.specs:
+		var spec: Dictionary = assembly.specs[cell_id]
+		if not spec.has("light"):
+			_fail("%s: gmap-0.8.0 spec has no light record" % cell_id)
+			continue
+		var room: Node3D = assembly.rooms[cell_id]
+		var expected_mask := 1 << (int(assembly.light_layers[cell_id]) - 1)
+		var light_nodes := room.find_children("OmniLamp_*", "OmniLight3D", true, false)
+		var lamp_boxes := room.find_children("CeilingLight_*", "MeshInstance3D", true, false)
+		if spec.has("landmark"):
+			lamp_boxes = room.find_children("LandmarkLampRing_*", "MeshInstance3D", true, false)
+		var lamp_count: int = spec.light.lamps.size()
+		var expected_boxes: int = lamp_count * 4 if spec.has("landmark") else lamp_count
+		result.cells_checked += 1
+		result.expected_lights += lamp_count
+		result.actual_lights += light_nodes.size()
+		result.expected_lamp_boxes += expected_boxes
+		result.actual_lamp_boxes += lamp_boxes.size()
+		result.by_cell.append({"cell_id": cell_id, "lamp_states": spec.light.lamps,
+			"expected_lights": lamp_count, "actual_lights": light_nodes.size(),
+			"expected_lamp_boxes": expected_boxes, "actual_lamp_boxes": lamp_boxes.size()})
+		_expect(light_nodes.size() == lamp_count, "%s: expected %d OmniLights, found %d" % [cell_id, lamp_count, light_nodes.size()])
+		_expect(lamp_boxes.size() == expected_boxes, "%s: expected %d lamp boxes, found %d" % [cell_id, expected_boxes, lamp_boxes.size()])
+		for lamp_index in lamp_count:
+			var lamp_state: Dictionary = spec.light.lamps[lamp_index]
+			var matching_boxes: Array = []
+			if spec.has("landmark"):
+				matching_boxes = lamp_boxes
+			else:
+				var matching_box := room.find_child("CeilingLight_%02d" % lamp_index, true, false)
+				if matching_box != null:
+					matching_boxes.append(matching_box)
+			for lamp_box: Node in matching_boxes:
+				var lamp_material := (lamp_box as MeshInstance3D).material_override as StandardMaterial3D
+				_expect(lamp_material != null and lamp_material.emission_enabled == (String(lamp_state.state) != "dead"),
+					"%s: lamp %d emissive state does not match map" % [cell_id, lamp_index])
+			var light := room.find_child("OmniLamp_%02d" % lamp_index, true, false) as OmniLight3D
+			_expect(light != null, "%s: map lamp %d has no OmniLight" % [cell_id, lamp_index])
+			if light != null:
+				_expect((light.light_energy == 0.0) == (String(lamp_state.state) == "dead"),
+					"%s: lamp %d light energy does not match map state" % [cell_id, lamp_index])
+		for light_node: Node in light_nodes:
+			var light := light_node as OmniLight3D
+			_expect(not light.shadow_enabled and is_equal_approx(light.omni_range, 6.0), "%s: lamp shadow/range differs from v0.8 profile" % cell_id)
+			_expect(light.light_cull_mask == expected_mask, "%s: lamp can illuminate another cell's render layer" % cell_id)
+		for instance_node in room.find_children("*", "MeshInstance3D", true, false):
+			var instance := instance_node as MeshInstance3D
+			_expect(instance.layers == expected_mask, "%s/%s: render layer differs from its light isolation group" % [cell_id, instance.name])
+			var material := instance.material_override as StandardMaterial3D
+			if material == null or material.shading_mode != BaseMaterial3D.SHADING_MODE_PER_VERTEX:
+				continue
+			result.per_vertex_meshes += 1
+			var spacing := _mesh_vertex_spacing(instance.mesh)
+			result.max_vertex_spacing_m = maxf(result.max_vertex_spacing_m, spacing)
+			_expect(spacing <= 1.0001, "%s/%s: per-vertex mesh spacing %.4f m exceeds 1 m" % [cell_id, instance.name, spacing])
+	_expect(result.expected_lights == result.actual_lights, "Map light node total does not match lamp declarations")
+	_expect(result.expected_lamp_boxes == result.actual_lamp_boxes, "Map lamp-box total does not match lamp declarations")
+	_check_light_layer_isolation(assembly, result)
+	return result
+
+
+func _check_light_layer_isolation(assembly: Node3D, result: Dictionary) -> void:
+	var cells: Array[Dictionary] = []
+	for cell: Dictionary in assembly.map.cells:
+		if cell["role"] != "void" and not cell.has("module"):
+			cells.append(cell)
+	var pairs := 0
+	for left in cells.size():
+		for right in range(left + 1, cells.size()):
+			if not assembly._bounds_are_within_light_range(cells[left], cells[right]):
+				continue
+			pairs += 1
+			var left_layer := int(assembly.light_layers[String(cells[left].cell_id)])
+			var right_layer := int(assembly.light_layers[String(cells[right].cell_id)])
+			_expect(left_layer != right_layer, "%s and %s share a reachable light layer" % [cells[left].cell_id, cells[right].cell_id])
+	var module_mask := 1 << 19
+	for module_id: String in assembly.module_rooms:
+		var module: Node3D = assembly.module_rooms[module_id]
+		for instance_node in module.find_children("*", "VisualInstance3D", true, false):
+			_expect((instance_node as VisualInstance3D).layers == module_mask,
+				"%s: library visuals overlap generated light-culling layers" % module_id)
+	result["isolated_nearby_pairs"] = pairs
+	result["module_render_layer"] = 20
+
+
+func _mesh_vertex_spacing(mesh: Mesh) -> float:
+	if mesh == null:
+		return INF
+	var maximum := 0.0
+	for axis in 3:
+		var positions := {}
+		for surface in mesh.get_surface_count():
+			var arrays := mesh.surface_get_arrays(surface)
+			var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+			for vertex: Vector3 in vertices:
+				positions[snappedf(vertex[axis], 0.0001)] = true
+		var sorted: Array = positions.keys()
+		sorted.sort()
+		for index in range(1, sorted.size()):
+			maximum = maxf(maximum, float(sorted[index]) - float(sorted[index - 1]))
+	return maximum
 
 
 func _control_landmark_port_off_midpoint() -> Dictionary:

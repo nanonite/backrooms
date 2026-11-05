@@ -1,0 +1,682 @@
+{
+	"contract": {
+		"specs_checked": 13
+	},
+	"failures": [],
+	"map_id": "gmap-69-gmap-0.8.0",
+	"mode": "all_walkable",
+	"negative_controls": {
+		"diagonal_collision_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"push_samples": 53,
+			"push_stopped": 0,
+			"wall_failures": 3
+		},
+		"diagonal_floor_without_declared_link": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"first_failure": "c01: floor present at 10 samples outside the polygon and unconnected",
+			"unconnected_floor_failures": 3
+		},
+		"diagonal_frame_unaligned": {
+			"applicable": true,
+			"diagonal_headers": 2,
+			"failed_as_expected": true,
+			"removed_failures": 1,
+			"unrotated_failures": 1
+		},
+		"diagonal_link_doorway_removed": {
+			"applicable": true,
+			"edge_failures": 2,
+			"failed_as_expected": true,
+			"first_failure": "dp00:b -> c10:d0 forward: blocked by Wall_01_0 at (15.94695, 3.053046)",
+			"passage": "dp00"
+		},
+		"diagonal_passage_collision_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"push_samples": 53,
+			"push_stopped": 0
+		},
+		"doorway_removed": {
+			"applicable": true,
+			"edge_failures": 2,
+			"failed_as_expected": true,
+			"first_failure": "c00:p0 -> c01:p0 forward: blocked by Wall_05_0 at (7.6, 6.5)",
+			"flood_failures": 0,
+			"removed_doorway": "c00:p0"
+		},
+		"floor_rect_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"failure_count": 3,
+			"first_failure": "c02: floor missing at 20 of 210 polygon samples",
+			"room": "c02"
+		},
+		"landmark_port_off_midpoint": {
+			"applicable": true,
+			"edge_failures": 1,
+			"failed_as_expected": true,
+			"first_failure": "c00:p1 -> c03:p0: doorway positions or normals do not mirror",
+			"port_id": "c03:p0"
+		},
+		"module_joint_recess_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"module_check_failures": 10,
+			"reveal_coplanar_faces": 10
+		},
+		"module_socket_closed": {
+			"applicable": true,
+			"edge_failures": 4,
+			"failed_as_expected": true,
+			"first_failure": "c11:p1 -> c12:p0 forward: blocked by SouthBoundary at (-14.5, 3.0)",
+			"module_cell": "c12",
+			"module_check_failures": 4
+		},
+		"unmitred_joint": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"joint_samples": 3332,
+			"joint_uncovered": 1604
+		},
+		"wrong_palette": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"first_failure": "c00: floor FloorPolygon does not match palette backrooms_yellow",
+			"mismatches": 258,
+			"rooms": 13,
+			"surfaces": 258
+		}
+	},
+	"positive": {
+		"diagonal": {
+			"coplanar_faces": 0,
+			"diagonal_edges": 19,
+			"failures": [],
+			"floor_missing": 0,
+			"floor_samples": 34807,
+			"joint_samples": 3332,
+			"joint_uncovered": 0,
+			"module_overhang_samples": 0,
+			"push_samples": 53,
+			"push_stopped": 53
+		},
+		"diagonal_links": {
+			"diagonal_edges": 2,
+			"failures": [],
+			"frames_checked": 2,
+			"lane_sweeps": 12,
+			"lane_sweeps_passed": 12,
+			"links": 1,
+			"passage_wall_colliders": 6
+		},
+		"edges": {
+			"closed_blocked": 3,
+			"closed_edges": 3,
+			"direct_edges": 15,
+			"direct_edges_checked": 15,
+			"failures": [],
+			"passed_forward": 15,
+			"passed_reverse": 15
+		},
+		"flood": {
+			"clear_samples": 3076,
+			"enclosed_clear_samples_in_module_cells": 0,
+			"expected_cells": 15,
+			"failures": [],
+			"reached_cells": 15,
+			"reached_samples": 3076,
+			"unreached_clear_samples_in_expected_cells": 0,
+			"void_cells_reached": 0
+		},
+		"lighting": {
+			"actual_lamp_boxes": 29,
+			"actual_lights": 26,
+			"by_cell": [
+				{
+					"actual_lamp_boxes": 1,
+					"actual_lights": 1,
+					"cell_id": "c00",
+					"expected_lamp_boxes": 1,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 1953169610.0,
+							"lamp_index": 0.0,
+							"state": "flicker"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 1,
+					"actual_lights": 1,
+					"cell_id": "c01",
+					"expected_lamp_boxes": 1,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 1926875603.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 2,
+					"actual_lights": 2,
+					"cell_id": "c02",
+					"expected_lamp_boxes": 2,
+					"expected_lights": 2,
+					"lamp_states": [
+						{
+							"flicker_seed": 730679572.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 870452094.0,
+							"lamp_index": 1.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 4,
+					"actual_lights": 1,
+					"cell_id": "c03",
+					"expected_lamp_boxes": 4,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 351652736.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 2,
+					"actual_lights": 2,
+					"cell_id": "c04",
+					"expected_lamp_boxes": 2,
+					"expected_lights": 2,
+					"lamp_states": [
+						{
+							"flicker_seed": 934105320.0,
+							"lamp_index": 0.0,
+							"state": "dead"
+						},
+						{
+							"flicker_seed": 847474749.0,
+							"lamp_index": 1.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 2,
+					"actual_lights": 2,
+					"cell_id": "c05",
+					"expected_lamp_boxes": 2,
+					"expected_lights": 2,
+					"lamp_states": [
+						{
+							"flicker_seed": 2033649792.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 1802915419.0,
+							"lamp_index": 1.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 2,
+					"actual_lights": 2,
+					"cell_id": "c06",
+					"expected_lamp_boxes": 2,
+					"expected_lights": 2,
+					"lamp_states": [
+						{
+							"flicker_seed": 1335196748.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 1222297074.0,
+							"lamp_index": 1.0,
+							"state": "dead"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 4,
+					"actual_lights": 4,
+					"cell_id": "c07",
+					"expected_lamp_boxes": 4,
+					"expected_lights": 4,
+					"lamp_states": [
+						{
+							"flicker_seed": 1841095959.0,
+							"lamp_index": 0.0,
+							"state": "dead"
+						},
+						{
+							"flicker_seed": 1657491305.0,
+							"lamp_index": 1.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 1695285259.0,
+							"lamp_index": 2.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 33969653.0,
+							"lamp_index": 3.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 1,
+					"actual_lights": 1,
+					"cell_id": "c08",
+					"expected_lamp_boxes": 1,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 1733321909.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 2,
+					"actual_lights": 2,
+					"cell_id": "c09",
+					"expected_lamp_boxes": 2,
+					"expected_lights": 2,
+					"lamp_states": [
+						{
+							"flicker_seed": 673450359.0,
+							"lamp_index": 0.0,
+							"state": "flicker"
+						},
+						{
+							"flicker_seed": 531239180.0,
+							"lamp_index": 1.0,
+							"state": "flicker"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 6,
+					"actual_lights": 6,
+					"cell_id": "c10",
+					"expected_lamp_boxes": 6,
+					"expected_lights": 6,
+					"lamp_states": [
+						{
+							"flicker_seed": 281505788.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 1986762660.0,
+							"lamp_index": 1.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 1895146585.0,
+							"lamp_index": 2.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 1499159355.0,
+							"lamp_index": 3.0,
+							"state": "on"
+						},
+						{
+							"flicker_seed": 1119327819.0,
+							"lamp_index": 4.0,
+							"state": "flicker"
+						},
+						{
+							"flicker_seed": 385865726.0,
+							"lamp_index": 5.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 1,
+					"actual_lights": 1,
+					"cell_id": "c11",
+					"expected_lamp_boxes": 1,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 1130782625.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						}
+					]
+				},
+				{
+					"actual_lamp_boxes": 1,
+					"actual_lights": 1,
+					"cell_id": "dp00",
+					"expected_lamp_boxes": 1,
+					"expected_lights": 1,
+					"lamp_states": [
+						{
+							"flicker_seed": 1658715599.0,
+							"lamp_index": 0.0,
+							"state": "on"
+						}
+					]
+				}
+			],
+			"cells_checked": 13,
+			"expected_lamp_boxes": 29,
+			"expected_lights": 26,
+			"failures": [],
+			"max_vertex_spacing_m": 1.0,
+			"per_vertex_meshes": 292
+		},
+		"modules": {
+			"apertures_clear": 2,
+			"clearance_control_conflicts": 14,
+			"failures": [],
+			"floors_supported": 2,
+			"joints": [
+				{
+					"aperture_clear": true,
+					"cell_id": "c12",
+					"floors_supported": true,
+					"landed": true,
+					"landing_miss_m": 0.0200004577636719,
+					"module_id": "godot_gopro_industrial_hall_south_socket_v1",
+					"open": true
+				},
+				{
+					"aperture_clear": true,
+					"cell_id": "c13",
+					"floors_supported": true,
+					"landed": true,
+					"landing_miss_m": 0.0200004577636719,
+					"module_id": "godot_early_pocket_single_west_v1",
+					"open": true
+				}
+			],
+			"module_cells": 2,
+			"reveal_coplanar_faces": 0,
+			"sockets_landed": 2,
+			"sockets_open": 2,
+			"wall_coplanar_conflicts": 0
+		},
+		"palette": {
+			"failures": [],
+			"mismatches": 0,
+			"palettes": {
+				"backrooms_yellow": 12,
+				"industrial_concrete": 1
+			},
+			"rooms": 13,
+			"surfaces": 258
+		},
+		"rooms": [
+			{
+				"approach_clear": 15,
+				"approach_samples": 15,
+				"cell_id": "c00",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 153,
+				"floor_inside_supported": 153,
+				"floor_outside": 101,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 45,
+				"wall_samples": 45
+			},
+			{
+				"approach_clear": 12,
+				"approach_samples": 12,
+				"cell_id": "c01",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 129,
+				"floor_inside_supported": 129,
+				"floor_outside": 10,
+				"floor_outside_connector_supported": 10,
+				"floor_outside_supported": 10,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 28,
+				"wall_samples": 28
+			},
+			{
+				"approach_clear": 9,
+				"approach_samples": 9,
+				"cell_id": "c02",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 210,
+				"floor_inside_supported": 210,
+				"floor_outside": 46,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 44,
+				"wall_samples": 44
+			},
+			{
+				"approach_clear": 24,
+				"approach_samples": 24,
+				"cell_id": "c03",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 812,
+				"floor_inside_supported": 812,
+				"floor_outside": 204,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 4,
+				"open_doorways": 4,
+				"wall_blocked": 72,
+				"wall_samples": 72
+			},
+			{
+				"approach_clear": 30,
+				"approach_samples": 30,
+				"cell_id": "c04",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 160,
+				"floor_inside_supported": 160,
+				"floor_outside": 96,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 46,
+				"wall_samples": 46
+			},
+			{
+				"approach_clear": 11,
+				"approach_samples": 11,
+				"cell_id": "c05",
+				"closed_blocked": 2,
+				"closed_doorways": 2,
+				"failures": [],
+				"floor_inside": 102,
+				"floor_inside_supported": 102,
+				"floor_outside": 18,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 23,
+				"wall_samples": 23
+			},
+			{
+				"approach_clear": 28,
+				"approach_samples": 28,
+				"cell_id": "c06",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 114,
+				"floor_inside_supported": 114,
+				"floor_outside": 6,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 39,
+				"wall_samples": 39
+			},
+			{
+				"approach_clear": 36,
+				"approach_samples": 36,
+				"cell_id": "c07",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 256,
+				"floor_inside_supported": 256,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 52,
+				"wall_samples": 52
+			},
+			{
+				"approach_clear": 26,
+				"approach_samples": 26,
+				"cell_id": "c08",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 144,
+				"floor_inside_supported": 144,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 42,
+				"wall_samples": 42
+			},
+			{
+				"approach_clear": 30,
+				"approach_samples": 30,
+				"cell_id": "c09",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 120,
+				"floor_inside_supported": 120,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 46,
+				"wall_samples": 46
+			},
+			{
+				"approach_clear": 48,
+				"approach_samples": 48,
+				"cell_id": "c10",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 369,
+				"floor_inside_supported": 369,
+				"floor_outside": 10,
+				"floor_outside_connector_supported": 10,
+				"floor_outside_supported": 10,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 66,
+				"wall_samples": 66
+			},
+			{
+				"approach_clear": 6,
+				"approach_samples": 6,
+				"cell_id": "c11",
+				"closed_blocked": 1,
+				"closed_doorways": 1,
+				"failures": [],
+				"floor_inside": 128,
+				"floor_inside_supported": 128,
+				"floor_outside": 16,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 30,
+				"wall_samples": 30
+			},
+			{
+				"approach_clear": 12,
+				"approach_samples": 12,
+				"cell_id": "dp00",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 39,
+				"floor_inside_supported": 39,
+				"floor_outside": 48,
+				"floor_outside_connector_supported": 6,
+				"floor_outside_supported": 6,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 20,
+				"wall_samples": 20
+			}
+		],
+		"trim": {
+			"back_to_back_contacts": 139,
+			"degenerate_conflicts": 0,
+			"degenerate_trim_boxes": 3,
+			"floor_underside_contacts": 8,
+			"negative_controls": {
+				"old_outside_trim_detected": true,
+				"shared_plane_detected": true
+			},
+			"pairs_checked": 263,
+			"same_facing": [],
+			"same_facing_count": 0,
+			"solid_boxes": 209,
+			"trim_boxes": 87
+		}
+	},
+	"rooms_checked": 13,
+	"scene": {
+		"origin_cell": "c00",
+		"player_spawned": true,
+		"reset_restores_spawn": true,
+		"safety_net_present": true,
+		"spawn_floor_supported": true,
+		"spawn_inside_origin_polygon": true
+	}
+}

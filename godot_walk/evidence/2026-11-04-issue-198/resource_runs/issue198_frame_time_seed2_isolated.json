@@ -1,0 +1,45 @@
+{
+  "label": "issue198_frame_time_seed2_isolated",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--script",
+    "res://scripts/measure_bounded_fps.gd",
+    "--",
+    "--scene=res://scenes/generative_map_walkthrough.tscn",
+    "--out-dir=res://evidence/2026-11-04-issue-198/fps-run-isolated",
+    "--label=issue198_seed2_isolated",
+    "--map=res://room_catalog/generative_maps/gmap-2-gmap-0.8.0.json",
+    "--rooms=res://room_catalog/shape_rooms/gmap-2-gmap-0.8.0/index.json"
+  ],
+  "timeout_seconds": 300,
+  "timed_out": false,
+  "return_code": 0,
+  "error": null,
+  "elapsed_seconds": 17.737,
+  "finished_utc": "2026-11-05T04:13:23.787660+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11583619072,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 1,
+    "compute_apps": [],
+    "ram_available_bytes": 21815328768,
+    "vram_after_headroom_bytes": 9266895257,
+    "ram_after_headroom_bytes": 16361496576,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 591380480,
+    "gpu_memory_start_bytes": 862978048,
+    "peak_gpu_memory_used_bytes": 1114636288,
+    "peak_gpu_memory_delta_bytes": 251658240,
+    "gpu_sample_period_ms": 500
+  }
+}

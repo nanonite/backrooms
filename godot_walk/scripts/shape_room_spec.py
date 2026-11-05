@@ -39,6 +39,7 @@ from shape_room_rng import (
     GENERATOR_VERSION_V5,
     GENERATOR_VERSION_V6,
     GENERATOR_VERSION_V7,
+    GENERATOR_VERSION_V8,
     V4_PLUS,
     cell_rng,
     version_for_map,
@@ -47,7 +48,9 @@ from shape_room_stage2 import chamfer_cuts, stage2_target, suitable_width
 
 BOX_PROBABILITY = 0.5
 THRESHOLD_ARM_WIDTH_M = 3
-WIDE_ARM_WIDTH_M = 4  # an arm that carries a 2.4 m doorway needs >= 0.5 m of wall beside it
+WIDE_ARM_WIDTH_M = (
+    4  # an arm that carries a 2.4 m doorway needs >= 0.5 m of wall beside it
+)
 LAMP_PITCH_M = 4.0
 LAMP_ANCHOR_M = 1.5
 LAMP_INSET_M = 1.0
@@ -65,10 +68,14 @@ def snap_tenth(value: float) -> float:
     return round(value * 10) / 10
 
 
-def choose_construction(document: dict[str, Any], cell: dict[str, Any], coin: float) -> str:
+def choose_construction(
+    document: dict[str, Any], cell: dict[str, Any], coin: float
+) -> str:
     target = stage2_target(cell)
     if target:
-        return "arms" if target == "chamfered_polyomino" else "box"  # box-based classes cut the whole envelope
+        return (
+            "arms" if target == "chamfered_polyomino" else "box"
+        )  # box-based classes cut the whole envelope
     if document["shape_stage_max"] < 1:
         return "box"
     if cell["role"] == "threshold":
@@ -77,10 +84,15 @@ def choose_construction(document: dict[str, Any], cell: dict[str, Any], coin: fl
 
 
 def has_wide_port(cell: dict[str, Any]) -> bool:
-    return any(p.get("compatibility_type", DEFAULT_TYPE) != DEFAULT_TYPE for p in cell["required_ports"])
+    return any(
+        p.get("compatibility_type", DEFAULT_TYPE) != DEFAULT_TYPE
+        for p in cell["required_ports"]
+    )
 
 
-def draw(document: dict[str, Any], cell: dict[str, Any], envelope: Rect) -> dict[str, Any]:
+def draw(
+    document: dict[str, Any], cell: dict[str, Any], envelope: Rect
+) -> dict[str, Any]:
     """Seeded choices in a fixed draw order: construction coin, arm width, ceiling height."""
     rng = cell_rng(document["seed"], cell["cell_id"], version_for_map(document))
     coin = rng.random()
@@ -89,19 +101,34 @@ def draw(document: dict[str, Any], cell: dict[str, Any], envelope: Rect) -> dict
     lo_c, hi_c = cell["ceiling_range_m"]
     ceiling = snap_tenth(rng.randint(round(lo_c * 10), round(hi_c * 10)) / 10)
     construction = choose_construction(document, cell, coin)
-    if version_for_map(document) in V4_PLUS:  # wall tops must not share a plane with the library room's
+    if (
+        version_for_map(document) in V4_PLUS
+    ):  # wall tops must not share a plane with the library room's
         ceiling = clear_ceiling(ceiling, lo_c, hi_c, module_top_planes(document, cell))
     if cell["role"] == "threshold":
         width = THRESHOLD_ARM_WIDTH_M
     if has_wide_port(cell) and construction == "arms":
         if min(envelope[2] - envelope[0], envelope[3] - envelope[1]) < WIDE_ARM_WIDTH_M:
-            construction = "box"  # no room for a 4 m arm: the whole envelope is the room
+            construction = (
+                "box"  # no room for a 4 m arm: the whole envelope is the room
+            )
         else:
             width = max(width, WIDE_ARM_WIDTH_M)
     if version_for_map(document) in V4_PLUS and construction == "arms":
-        fitted = suitable_width(document, cell, envelope, width, max(low, WIDE_ARM_WIDTH_M if has_wide_port(cell) else low), high)
+        fitted = suitable_width(
+            document,
+            cell,
+            envelope,
+            width,
+            max(low, WIDE_ARM_WIDTH_M if has_wide_port(cell) else low),
+            high,
+        )
         construction, width = ("box", width) if fitted is None else ("arms", fitted)
-    return {"construction": construction, "arm_width_m": width, "ceiling_height_m": ceiling}
+    return {
+        "construction": construction,
+        "arm_width_m": width,
+        "ceiling_height_m": ceiling,
+    }
 
 
 def doorway_records(
@@ -111,7 +138,9 @@ def doorway_records(
     records = []
     for port in sorted(cell["required_ports"], key=lambda p: p["port_id"]):
         if port["port_id"] not in links:
-            raise ShapeRoomError(f"{cell['cell_id']}: port {port['port_id']} is on no edge")
+            raise ShapeRoomError(
+                f"{cell['cell_id']}: port {port['port_id']} is on no edge"
+            )
         other, connector = links[port["port_id"]]
         width, height = doorway_size(port["compatibility_type"])
         record = {
@@ -131,7 +160,9 @@ def doorway_records(
 
 
 def lamp_inset_ok(cells: set[Cell], x: float, z: float) -> bool:
-    steps = [i * 0.5 + 0.25 for i in range(-int(LAMP_INSET_M * 2), int(LAMP_INSET_M * 2))]
+    steps = [
+        i * 0.5 + 0.25 for i in range(-int(LAMP_INSET_M * 2), int(LAMP_INSET_M * 2))
+    ]
     return all(solid_at(cells, x + dx, z + dz) for dx in steps for dz in steps)
 
 
@@ -156,7 +187,9 @@ def lamp_points(cells: set[Cell], rects: list[Rect]) -> list[list[float]]:
 
 def lamps(geometry: dict[str, Any]) -> list[list[float]]:
     if geometry["chamfers"]:  # diagonal walls: Euclidean inset from the cut outline
-        return lamp_points_polygon(geometry["outline"], LAMP_PITCH_M, LAMP_ANCHOR_M, LAMP_INSET_M)
+        return lamp_points_polygon(
+            geometry["outline"], LAMP_PITCH_M, LAMP_ANCHOR_M, LAMP_INSET_M
+        )
     return lamp_points(geometry["cells"], geometry["rects"])
 
 
@@ -164,28 +197,39 @@ def feature_records(doorways: list[dict[str, Any]]) -> list[dict[str, str]]:
     kinds = ["floor", "walls", "ceiling", "ceiling_lamp_grid"]
     names = [(kind, kind) for kind in kinds]
     names += [("doorway", f"doorway:{d['port_id']}") for d in doorways]
-    return [{"feature_id": name, "kind": kind, "sign": "symbol"} for kind, name in names]
+    return [
+        {"feature_id": name, "kind": kind, "sign": "symbol"} for kind, name in names
+    ]
 
 
 def degenerate_ports(cell: dict[str, Any]) -> list[str]:
     """Port ids whose doorway touches an envelope corner (only in a degenerate cell)."""
     if cell.get("mode", "standard") != "degenerate":
         return []
-    return sorted(p["port_id"] for p in cell["required_ports"] if p.get("placement") == "degenerate")
+    return sorted(
+        p["port_id"]
+        for p in cell["required_ports"]
+        if p.get("placement") == "degenerate"
+    )
 
 
 def mode_fields(cell: dict[str, Any]) -> dict[str, Any]:
     """shape-room-0.2.0: the cell's mode and its recorded degenerate features."""
     ports = degenerate_ports(cell)
     return {
-        "mode": "degenerate" if cell.get("mode", "standard") == "degenerate" else "standard",
+        "mode": "degenerate"
+        if cell.get("mode", "standard") == "degenerate"
+        else "standard",
         "degenerate_features": ["corner_doorway"] if ports else [],
         "degenerate_port_ids": ports,
     }
 
 
 def room_geometry(
-    cell: dict[str, Any], envelope: Rect, choices: dict[str, Any], waived: set[str] | None = None,
+    cell: dict[str, Any],
+    envelope: Rect,
+    choices: dict[str, Any],
+    waived: set[str] | None = None,
     document: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Arms (or the envelope), raster, outline and decomposed rects; fails closed on any invariant."""
@@ -197,31 +241,68 @@ def room_geometry(
     cells = occupied_cells(generated)
     outline = outline_of(cells)
     rects = decompose(cells)
-    check_ports = [p for p in ports if min(abs(float(p["normal"][0])), abs(float(p["normal"][1]))) < 0.5]
-    require_valid(cell["cell_id"], check_room(envelope, check_ports, generated, cells, outline, waived))
-    cuts = chamfer_cuts(document, cell, envelope, outline) if document is not None else None
+    check_ports = [
+        p
+        for p in ports
+        if min(abs(float(p["normal"][0])), abs(float(p["normal"][1]))) < 0.5
+    ]
+    require_valid(
+        cell["cell_id"],
+        check_room(envelope, check_ports, generated, cells, outline, waived),
+    )
+    cuts = (
+        chamfer_cuts(document, cell, envelope, outline)
+        if document is not None
+        else None
+    )
     chamfers: list[dict[str, Any]] = []
     if cuts:
         if cell.get("diagonal_link_chamfer"):
-            diagonal_ports = [p for p in ports if min(abs(float(p["normal"][0])), abs(float(p["normal"][1]))) >= 0.5]
+            diagonal_ports = [
+                p
+                for p in ports
+                if min(abs(float(p["normal"][0])), abs(float(p["normal"][1]))) >= 0.5
+            ]
             require_valid(cell["cell_id"], cut_issues(outline, check_ports, cuts))
             final_outline = apply_cuts(outline, cuts)
             for port in diagonal_ports:
                 edge = port_edge(final_outline, port)
-                if edge is None or math.dist(final_outline[edge], final_outline[(edge + 1) % len(final_outline)]) < doorway_size(port["compatibility_type"])[0] + 1.0:
-                    raise ShapeRoomError(f"{cell['cell_id']}: {port['port_id']} does not fit its chamfer doorway face")
+                if (
+                    edge is None
+                    or math.dist(
+                        final_outline[edge],
+                        final_outline[(edge + 1) % len(final_outline)],
+                    )
+                    < doorway_size(port["compatibility_type"])[0] + 1.0
+                ):
+                    raise ShapeRoomError(
+                        f"{cell['cell_id']}: {port['port_id']} does not fit its chamfer doorway face"
+                    )
                 require_valid(cell["cell_id"], approach_issues(final_outline, [port]))
-        chamfers = [{"corner": [num(outline[i][0]), num(outline[i][1])], "length_m": c} for i, c in sorted(cuts.items())]
+        chamfers = [
+            {"corner": [num(outline[i][0]), num(outline[i][1])], "length_m": c}
+            for i, c in sorted(cuts.items())
+        ]
         rects, base = inscribed_rects(cells, outline, cuts), outline
         if not rects:
-            raise ShapeRoomError(f"{cell['cell_id']}: no raster rectangle lies wholly inside the chamfered outline")
+            raise ShapeRoomError(
+                f"{cell['cell_id']}: no raster rectangle lies wholly inside the chamfered outline"
+            )
         outline = apply_cuts(base, cuts)
     primitive_class, stage = classify_primitive(outline)
     if primitive_class not in cell["allowed_primitives"]:
-        raise ShapeRoomError(f"{cell['cell_id']}: {primitive_class} is not an allowed primitive")
+        raise ShapeRoomError(
+            f"{cell['cell_id']}: {primitive_class} is not an allowed primitive"
+        )
     return {
-        "cells": cells, "arms": generated, "outline": outline, "rects": rects, "chamfers": chamfers,
-        "primitive": primitive_for(check_ports), "primitive_class": primitive_class, "stage": stage,
+        "cells": cells,
+        "arms": generated,
+        "outline": outline,
+        "rects": rects,
+        "chamfers": chamfers,
+        "primitive": primitive_for(check_ports),
+        "primitive_class": primitive_class,
+        "stage": stage,
     }
 
 
@@ -246,12 +327,22 @@ def build_spec(
     envelope = cell_envelope(cell)
     version = version_for_map(document)
     if cell.get("diagonal_passage"):
-        return _diagonal_passage_spec(document, map_sha256, cell, original_status, links, envelope, version)
+        return _attach_light(
+            _diagonal_passage_spec(
+                document, map_sha256, cell, original_status, links, envelope, version
+            ),
+            cell,
+        )
     if cell.get("landmark"):
-        return _landmark_spec(document, map_sha256, cell, original_status, links, version)
+        return _attach_light(
+            _landmark_spec(document, map_sha256, cell, original_status, links, version),
+            cell,
+        )
     v2 = version in (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, *V4_PLUS)
     choices = draw(document, cell, envelope)
-    geometry = room_geometry(cell, envelope, choices, set(degenerate_ports(cell)) if v2 else None, document)
+    geometry = room_geometry(
+        cell, envelope, choices, set(degenerate_ports(cell)) if v2 else None, document
+    )
     doorways = doorway_records(cell, links, version in (GENERATOR_VERSION_V3, *V4_PLUS))
     is_arms = choices["construction"] == "arms"
     spec = {
@@ -276,8 +367,24 @@ def build_spec(
         "ceiling_height_m": choices["ceiling_height_m"],
         "doorways": doorways,
         "lamps_xz": lamps(geometry),
-        "material_source": "palette_registry" if version in (GENERATOR_VERSION_V5, GENERATOR_VERSION_V6, GENERATOR_VERSION_V7) else "kit_default",
-        "materials": palette_materials(cell) if version in (GENERATOR_VERSION_V5, GENERATOR_VERSION_V6, GENERATOR_VERSION_V7) else MATERIALS,
+        "material_source": "palette_registry"
+        if version
+        in (
+            GENERATOR_VERSION_V5,
+            GENERATOR_VERSION_V6,
+            GENERATOR_VERSION_V7,
+            GENERATOR_VERSION_V8,
+        )
+        else "kit_default",
+        "materials": palette_materials(cell)
+        if version
+        in (
+            GENERATOR_VERSION_V5,
+            GENERATOR_VERSION_V6,
+            GENERATOR_VERSION_V7,
+            GENERATOR_VERSION_V8,
+        )
+        else MATERIALS,
         "features": feature_records(doorways),
         "registration_accepted": False,
         "scale_calibrated": False,
@@ -286,35 +393,80 @@ def build_spec(
         spec.update(mode_fields(cell))
     if geometry["chamfers"]:
         spec["chamfers"] = geometry["chamfers"]
+    return _attach_light(spec, cell)
+
+
+def _attach_light(spec: dict[str, Any], cell: dict[str, Any]) -> dict[str, Any]:
+    if "light" in cell:
+        spec["light"] = cell["light"]
     return spec
 
 
 def _landmark_spec(
-    document: dict[str, Any], map_sha256: str, cell: dict[str, Any], original_status: str,
-    links: dict[str, tuple[str, str]], version: str,
+    document: dict[str, Any],
+    map_sha256: str,
+    cell: dict[str, Any],
+    original_status: str,
+    links: dict[str, tuple[str, str]],
+    version: str,
 ) -> dict[str, Any]:
     geometry = landmark_fields(cell)
     doors = doorway_records(cell, links, True)
-    lo_x, lo_z = min(p[0] for p in cell["envelope_xz"]), min(p[1] for p in cell["envelope_xz"])
-    hi_x, hi_z = max(p[0] for p in cell["envelope_xz"]), max(p[1] for p in cell["envelope_xz"])
+    lo_x, lo_z = (
+        min(p[0] for p in cell["envelope_xz"]),
+        min(p[1] for p in cell["envelope_xz"]),
+    )
+    hi_x, hi_z = (
+        max(p[0] for p in cell["envelope_xz"]),
+        max(p[1] for p in cell["envelope_xz"]),
+    )
     ring = geometry["outline"]
-    features = [{"feature_id": kind, "kind": kind, "sign": "symbol"} for kind in ("floor", "walls", "ceiling", "ceiling_lamp_ring")]
-    features.extend({"feature_id": f"doorway:{door['port_id']}", "kind": "doorway", "sign": "symbol"} for door in doors)
+    features = [
+        {"feature_id": kind, "kind": kind, "sign": "symbol"}
+        for kind in ("floor", "walls", "ceiling", "ceiling_lamp_ring")
+    ]
+    features.extend(
+        {
+            "feature_id": f"doorway:{door['port_id']}",
+            "kind": "doorway",
+            "sign": "symbol",
+        }
+        for door in doors
+    )
     _low, high = cell["ceiling_range_m"]
     center = geometry["center"]
     spec = {
-        "schema_version": 1, "generator_version": version, "map_id": document["map_id"],
-        "map_sha256": map_sha256, "cell_id": cell["cell_id"], "role": cell["role"],
-        "rarity_tier": cell["rarity_tier"], "original_cell_status": original_status,
-        "primitive": primitive_for(cell["required_ports"]), "primitive_class": cell["landmark"]["class"],
-        "shape_stage": 3, "construction": "regular_polygon", "arm_width_m": None,
-        "envelope_xz": [[num(lo_x), num(lo_z)], [num(hi_x), num(lo_z)], [num(hi_x), num(hi_z)], [num(lo_x), num(hi_z)]],
-        "arms_xz": [], "rects": [rect_json(rect) for rect in geometry["rects"]],
-        "outline_xz": [[num(x), num(z)] for x, z in ring], "area_m2": geometry["area_m2"],
-        "ceiling_height_m": num(high), "doorways": doors,
-        "lamps_xz": [[num(center[0]), num(center[1])]], "material_source": "palette_registry",
-        "materials": palette_materials(cell), "features": features,
-        "registration_accepted": False, "scale_calibrated": False,
+        "schema_version": 1,
+        "generator_version": version,
+        "map_id": document["map_id"],
+        "map_sha256": map_sha256,
+        "cell_id": cell["cell_id"],
+        "role": cell["role"],
+        "rarity_tier": cell["rarity_tier"],
+        "original_cell_status": original_status,
+        "primitive": primitive_for(cell["required_ports"]),
+        "primitive_class": cell["landmark"]["class"],
+        "shape_stage": 3,
+        "construction": "regular_polygon",
+        "arm_width_m": None,
+        "envelope_xz": [
+            [num(lo_x), num(lo_z)],
+            [num(hi_x), num(lo_z)],
+            [num(hi_x), num(hi_z)],
+            [num(lo_x), num(hi_z)],
+        ],
+        "arms_xz": [],
+        "rects": [rect_json(rect) for rect in geometry["rects"]],
+        "outline_xz": [[num(x), num(z)] for x, z in ring],
+        "area_m2": geometry["area_m2"],
+        "ceiling_height_m": num(high),
+        "doorways": doors,
+        "lamps_xz": [[num(center[0]), num(center[1])]],
+        "material_source": "palette_registry",
+        "materials": palette_materials(cell),
+        "features": features,
+        "registration_accepted": False,
+        "scale_calibrated": False,
         "landmark": dict(cell["landmark"]),
     }
     spec.update(mode_fields(cell))
@@ -322,8 +474,13 @@ def _landmark_spec(
 
 
 def _diagonal_passage_spec(
-    document: dict[str, Any], map_sha256: str, cell: dict[str, Any], original_status: str,
-    links: dict[str, tuple[str, str]], envelope: Rect, version: str,
+    document: dict[str, Any],
+    map_sha256: str,
+    cell: dict[str, Any],
+    original_status: str,
+    links: dict[str, tuple[str, str]],
+    envelope: Rect,
+    version: str,
 ) -> dict[str, Any]:
     meta = cell["diagonal_passage"]
     doorways = doorway_records(cell, links, True)
@@ -332,16 +489,42 @@ def _diagonal_passage_spec(
     outline = [[num(p[0]), num(p[1])] for p in meta["outline_xz"]]
     area = abs(signed_area([(p[0], p[1]) for p in outline]))
     return {
-        "schema_version": 1, "generator_version": version, "map_id": document["map_id"],
-        "map_sha256": map_sha256, "cell_id": cell["cell_id"], "role": "threshold", "rarity_tier": 0,
-        "original_cell_status": original_status, "primitive": "straight", "primitive_class": "diagonal_passage",
-        "shape_stage": 2, "construction": "box", "arm_width_m": None,
+        "schema_version": 1,
+        "generator_version": version,
+        "map_id": document["map_id"],
+        "map_sha256": map_sha256,
+        "cell_id": cell["cell_id"],
+        "role": "threshold",
+        "rarity_tier": 0,
+        "original_cell_status": original_status,
+        "primitive": "straight",
+        "primitive_class": "diagonal_passage",
+        "shape_stage": 2,
+        "construction": "box",
+        "arm_width_m": None,
         "envelope_xz": [[num(v) for v in p] for p in cell["envelope_xz"]],
-        "arms_xz": [rect_json(broad)], "rects": [rect_json(broad)], "outline_xz": outline,
-        "area_m2": num(area), "ceiling_height_m": float(cell["ceiling_range_m"][0]),
-        "doorways": doorways, "lamps_xz": [[num((low_x + high_x) / 2), num((low_z + high_z) / 2)]],
-        "material_source": "palette_registry", "materials": palette_materials(cell),
-        "features": feature_records(doorways) + [{"feature_id": "diagonal_passage", "kind": "diagonal_passage", "sign": "symbol"}],
-        "registration_accepted": False, "scale_calibrated": False,
-        "diagonal_passage": {"link_id": meta["link_id"], "clear_width_m": meta["clear_width_m"], "length_m": meta["length_m"]},
+        "arms_xz": [rect_json(broad)],
+        "rects": [rect_json(broad)],
+        "outline_xz": outline,
+        "area_m2": num(area),
+        "ceiling_height_m": float(cell["ceiling_range_m"][0]),
+        "doorways": doorways,
+        "lamps_xz": [[num((low_x + high_x) / 2), num((low_z + high_z) / 2)]],
+        "material_source": "palette_registry",
+        "materials": palette_materials(cell),
+        "features": feature_records(doorways)
+        + [
+            {
+                "feature_id": "diagonal_passage",
+                "kind": "diagonal_passage",
+                "sign": "symbol",
+            }
+        ],
+        "registration_accepted": False,
+        "scale_calibrated": False,
+        "diagonal_passage": {
+            "link_id": meta["link_id"],
+            "clear_width_m": meta["clear_width_m"],
+            "length_m": meta["length_m"],
+        },
     }

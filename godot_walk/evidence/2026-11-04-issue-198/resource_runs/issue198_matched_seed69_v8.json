@@ -1,0 +1,44 @@
+{
+  "label": "issue198_matched_seed69_v8",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1280x720",
+    "--script",
+    "res://scripts/capture_light_layer.gd",
+    "--",
+    "--map=res://room_catalog/generative_maps/gmap-69-gmap-0.8.0.json",
+    "--rooms=res://room_catalog/shape_rooms/gmap-69-gmap-0.8.0/index.json",
+    "--out=res://evidence/2026-11-04-issue-198/captures-vulkan-final/seed69-matched-v8",
+    "--matched-only"
+  ],
+  "timeout_seconds": 300,
+  "timed_out": false,
+  "return_code": 0,
+  "error": null,
+  "elapsed_seconds": 1.066,
+  "finished_utc": "2026-11-05T03:57:34.380115+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11225006080,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 11,
+    "compute_apps": [],
+    "ram_available_bytes": 21869576192,
+    "vram_after_headroom_bytes": 8980004864,
+    "ram_after_headroom_bytes": 16402182144,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "resources": {
+    "peak_child_rss_bytes": 598155264,
+    "gpu_memory_start_bytes": 1221591040,
+    "peak_gpu_memory_used_bytes": 1388314624,
+    "peak_gpu_memory_delta_bytes": 166723584,
+    "gpu_sample_period_ms": 500
+  }
+}

@@ -1,0 +1,12 @@
+{
+	"baseline": false,
+	"capped_at_60": false,
+	"counter": "RenderingServer.frame_post_draw",
+	"elapsed_s": 13.746018,
+	"fps": 239.996775793543,
+	"frames": 3299,
+	"p95_frame_ms": 4.398,
+	"p99_frame_ms": 4.613,
+	"poses": 11,
+	"scene": "res://scenes/generative_map_walkthrough.tscn"
+}

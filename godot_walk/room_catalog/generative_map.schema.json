@@ -27,6 +27,7 @@
     },
     "growth_cell_target": {"type": "integer", "minimum": 6, "maximum": 20},
     "landmark": { "$ref": "#/$defs/landmark_map" },
+    "dark_wing": { "$ref": "#/$defs/dark_wing" },
     "catalog_snapshot": { "$ref": "#/$defs/path_and_hash" },
     "library_index": { "$ref": "#/$defs/library_index" },
     "lattice": {
@@ -98,6 +99,7 @@
             "additionalProperties": false
           },
           "landmark": { "$ref": "#/$defs/landmark_cell" },
+          "light": { "$ref": "#/$defs/light" },
           "diagonal_passage": {
             "type": "object",
             "required": ["link_id", "from_cell_id", "to_cell_id", "from_port_id", "to_port_id", "clear_width_m", "wall_thickness_m", "length_m", "outline_xz", "palette_source_cell_id"],
@@ -265,6 +267,22 @@
         "required": ["layout_variant", "growth_cell_target"],
         "properties": {"shape_stage_max": {"const": 3}}
       }
+    },
+    {
+      "if": {"properties": {"generator_version": {"const": "gmap-0.8.0"}}, "required": ["generator_version"]},
+      "then": {
+        "required": ["layout_variant", "growth_cell_target", "dark_wing"],
+        "properties": {
+          "shape_stage_max": {"const": 3},
+          "cells": {
+            "items": {
+              "allOf": [
+                {"if": {"properties": {"role": {"enum": ["ground", "figure", "threshold"]}}, "required": ["role"]}, "then": {"required": ["light"]}}
+              ]
+            }
+          }
+        }
+      }
     }
   ],
   "$defs": {
@@ -299,6 +317,44 @@
       "allOf": [
         {"if": {"properties": {"status": {"const": "placed"}}, "required": ["status"]}, "then": {"required": ["cell_id"], "not": {"required": ["reason"]}}},
         {"if": {"properties": {"status": {"const": "unplaced"}}, "required": ["status"]}, "then": {"required": ["reason"], "not": {"required": ["cell_id"]}}}
+      ],
+      "additionalProperties": false
+    },
+    "light": {
+      "type": "object",
+      "required": ["tier", "color_temp_k", "lamps"],
+      "properties": {
+        "tier": {"enum": ["dim", "normal", "bright"]},
+        "color_temp_k": {"type": "integer", "minimum": 3800, "maximum": 5200},
+        "lamps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["lamp_index", "state", "flicker_seed"],
+            "properties": {
+              "lamp_index": {"type": "integer", "minimum": 0},
+              "state": {"enum": ["on", "flicker", "dead"]},
+              "flicker_seed": {"type": "integer", "minimum": 0, "maximum": 2147483647}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "dark_wing": {
+      "type": "object",
+      "required": ["status", "cell_ids"],
+      "properties": {
+        "status": {"enum": ["not_selected", "placed", "unavailable"]},
+        "cell_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "reason": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {"if": {"properties": {"status": {"const": "placed"}}, "required": ["status"]}, "then": {"properties": {"cell_ids": {"minItems": 2, "maxItems": 3}}, "not": {"required": ["reason"]}}},
+        {"if": {"properties": {"status": {"enum": ["not_selected", "unavailable"]}}, "required": ["status"]}, "then": {"properties": {"cell_ids": {"maxItems": 0}}}},
+        {"if": {"properties": {"status": {"const": "unavailable"}}, "required": ["status"]}, "then": {"required": ["reason"]}},
+        {"if": {"properties": {"status": {"const": "not_selected"}}, "required": ["status"]}, "then": {"not": {"required": ["reason"]}}}
       ],
       "additionalProperties": false
     },

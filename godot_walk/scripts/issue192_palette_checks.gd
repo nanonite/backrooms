@@ -29,8 +29,9 @@ static func _check_room(room: Node3D, spec: Dictionary, result: Dictionary) -> v
 		["wall", _meshes(visuals, "Wall_"), wanted.wall, true],
 		["header", _meshes(visuals, "Header_"), wanted.wall, false],
 		["trim", _meshes(visuals, "Trim"), wanted.trim_color, false],
-		["lamp", _meshes(visuals.get_node("CeilingLamps"), ""), wanted.lamp_color, true],
 	]
+	if not spec.has("light"):
+		groups.append(["lamp", _meshes(visuals.get_node("CeilingLamps"), ""), wanted.lamp_color, true])
 	for group: Array in groups:
 		var meshes: Array = group[1]
 		if meshes.is_empty() and group[3]:
