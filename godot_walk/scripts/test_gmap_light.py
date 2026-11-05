@@ -12,7 +12,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from deterministic_json import ROOT
+from deterministic_json import ROOT, sha256_file
 from gmap_build import GENERATOR_VERSION_V7, GENERATOR_VERSION_V8, build_map
 from gmap_library import load_library
 from gmap_light import light_errors
@@ -116,6 +116,42 @@ def test_light_validator_rejects_state_and_wing_tampering(library):
     changed = copy.deepcopy(document)
     changed["dark_wing"]["cell_ids"] = [changed["cells"][0]["cell_id"]]
     assert light_errors(changed, library)
+
+
+def test_light_validator_reports_unknown_dark_wing_cell(library):
+    document = build_map(1, library, cells=12, version=GENERATOR_VERSION_V8)
+    changed = copy.deepcopy(document)
+    changed["dark_wing"] = {
+        "status": "placed",
+        "cell_ids": ["nonexistent", changed["cells"][1]["cell_id"]],
+    }
+    errors = light_errors(changed, library)
+    unknown = [error for error in errors if error["code"] == "dark_wing_unknown_cell"]
+    assert unknown
+    assert "nonexistent" in unknown[0]["message"]
+    assert "dark_wing_unknown_cell" in {
+        error["code"] for error in validate_document(changed)
+    }
+
+
+def test_v80_validator_reports_missing_library_index(library):
+    document = build_map(1, library, cells=12, version=GENERATOR_VERSION_V8)
+    document["library_index"]["path"] = (
+        "godot_walk/room_catalog/library_index/missing-index.json"
+    )
+    codes = {error["code"] for error in validate_document(document)}
+    assert {"stale_index_hash", "library_index_unavailable"} <= codes
+
+
+def test_v80_validator_reports_unloadable_library_index(library, tmp_path):
+    document = build_map(1, library, cells=12, version=GENERATOR_VERSION_V8)
+    broken = tmp_path / "broken-index.json"
+    broken.write_text("{not valid json", encoding="utf-8")
+    document["library_index"].update(
+        {"path": str(broken), "sha256": sha256_file(broken)}
+    )
+    codes = {error["code"] for error in validate_document(document)}
+    assert "library_index_unavailable" in codes
 
 
 def _sweep(library, cell_count: int) -> dict:

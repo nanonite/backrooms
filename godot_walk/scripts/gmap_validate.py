@@ -25,6 +25,7 @@ from gmap_build import (
 from gmap_diagonal_rules import diagonal_errors
 from gmap_diagonal_site_rules import reservation_errors
 from gmap_landmark_rules import landmark_errors
+from gmap_library import Library, load_library
 from gmap_light import light_errors
 from gmap_margin_rules import check_lattice_ports, margin_errors
 from gmap_module_rules import module_errors
@@ -87,9 +88,42 @@ def check_rules_listed(document: dict[str, Any]) -> Errors:
     return [err("rules", "rules_incomplete", ", ".join(missing))] if missing else []
 
 
+def _load_library_for_validation(
+    document: dict[str, Any], root: Path
+) -> tuple[Library | None, Errors]:
+    """Load the V0.8 dependency once, reporting a blocked library instead of raising."""
+    ref = document["library_index"]
+    path = root / ref["path"]
+    if not path.is_file():
+        return None, [
+            err(
+                "library_index",
+                "library_index_unavailable",
+                f"{ref['path']} is missing",
+            )
+        ]
+    try:
+        return load_library(path, root), []
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        return None, [
+            err(
+                "library_index",
+                "library_index_unavailable",
+                f"{ref['path']} could not be loaded: {error}",
+            )
+        ]
+
+
 def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
     cells, edges = document["cells"], document["edges"]
     rects, errors = parse_rects(cells)
+    v8_library = None
+    if document["generator_version"] == GENERATOR_VERSION_V8:
+        v8_library, library_errors = _load_library_for_validation(document, root)
+        errors += library_errors
+    library_unavailable = (
+        document["generator_version"] == GENERATOR_VERSION_V8 and v8_library is None
+    )
     map_cells = [c for c in cells if not c.get("diagonal_passage")]
     map_rects = {
         key: value
@@ -130,7 +164,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             margin_cells, document["lattice"].get("port_step_m", 1.0)
         )
         errors += margin_errors(margin_document, margin_rects)
-    if document["generator_version"] in MODULE_VERSIONS:
+    if document["generator_version"] in MODULE_VERSIONS and not library_unavailable:
         if document["generator_version"] in (
             GENERATOR_VERSION_V6,
             GENERATOR_VERSION_V61,
@@ -142,21 +176,25 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
                 "cells": map_cells,
                 "edges": [e for e in edges if e.get("kind") != "diagonal"],
             }
-            errors += module_errors(base, map_rects, root)
+            errors += module_errors(base, map_rects, root, v8_library)
         else:
-            errors += module_errors(document, rects, root)
+            errors += module_errors(document, rects, root, v8_library)
     if document["generator_version"] in STAGE2_VERSIONS:
         errors += stage2_errors(document)
     if document["generator_version"] in (GENERATOR_VERSION_V7, GENERATOR_VERSION_V8):
         errors += landmark_errors(document)
-    if document["generator_version"] in (
-        GENERATOR_VERSION_V5,
-        GENERATOR_VERSION_V6,
-        GENERATOR_VERSION_V61,
-        GENERATOR_VERSION_V7,
-        GENERATOR_VERSION_V8,
+    if (
+        document["generator_version"]
+        in (
+            GENERATOR_VERSION_V5,
+            GENERATOR_VERSION_V6,
+            GENERATOR_VERSION_V61,
+            GENERATOR_VERSION_V7,
+            GENERATOR_VERSION_V8,
+        )
+        and not library_unavailable
     ):
-        errors += palette_errors(document, root)
+        errors += palette_errors(document, root, v8_library)
     roles = {cell["cell_id"]: cell["role"] for cell in cells}
     walkable = sorted(c for c, role in roles.items() if role != "void")
     if document["generator_version"] in (
@@ -185,11 +223,8 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
     errors += check_figures(roles, rects) + check_voids(
         roles, edges, document["void_budget"]
     )
-    if document["generator_version"] == GENERATOR_VERSION_V8:
-        from gmap_library import load_library
-
-        library = load_library(root / document["library_index"]["path"], root)
-        errors += light_errors(document, library)
+    if document["generator_version"] == GENERATOR_VERSION_V8 and v8_library is not None:
+        errors += light_errors(document, v8_library)
     return errors
 
 

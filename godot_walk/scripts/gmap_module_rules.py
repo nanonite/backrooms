@@ -300,7 +300,10 @@ def check_untested_edges(edges: list[dict[str, str]], module_ports: set[str]) ->
 
 
 def module_errors(
-    document: dict[str, Any], rects: dict[str, Rect], root: Path
+    document: dict[str, Any],
+    rects: dict[str, Rect],
+    root: Path,
+    library: Library | None = None,
 ) -> Errors:
     cells = module_cells(document)
     errors = (
@@ -322,7 +325,8 @@ def module_errors(
         else 0.0
     )
     errors += check_isolation(document, cells, rects, margin)
-    library = load_library(root / document["library_index"]["path"], root)
+    if library is None:
+        library = load_library(root / document["library_index"]["path"], root)
     edges = {
         end: edge for edge in document["edges"] for end in (edge["from"], edge["to"])
     }

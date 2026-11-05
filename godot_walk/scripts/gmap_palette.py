@@ -149,7 +149,11 @@ def assign_palettes(
     return records
 
 
-def palette_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
+def palette_errors(
+    document: dict[str, Any],
+    root: Path = ROOT,
+    library: Library | None = None,
+) -> Errors:
     """gmap-0.5.0: the registry is current and every cell's palette is the one the rules give."""
     ref = document.get("palette_registry")
     if ref is None:
@@ -178,7 +182,8 @@ def palette_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
     ]
     if errors:
         return errors
-    library = load_library(root / document["library_index"]["path"], root)
+    if library is None:
+        library = load_library(root / document["library_index"]["path"], root)
     expected = assign_palettes(document, library, registry)
     for cell in document["cells"]:
         got, want = cell.get("palette"), expected.get(cell["cell_id"])

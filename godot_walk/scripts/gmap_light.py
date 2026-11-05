@@ -176,7 +176,7 @@ def assign_light(document: dict[str, Any], library: Library) -> None:
 
 def _light_graph_connected(cell_ids: list[str], graph: dict[str, set[str]]) -> bool:
     allowed = set(cell_ids)
-    if not allowed:
+    if not allowed or not allowed <= graph.keys():
         return False
     visited = {cell_ids[0]}
     queue = deque([cell_ids[0]])
@@ -203,10 +203,15 @@ def light_errors(document: dict[str, Any], library: Library) -> list[dict[str, s
     expected_by_id = {cell["cell_id"]: cell for cell in expected["cells"]}
     graph = _graph(document)
     wing = document.get("dark_wing", {}).get("cell_ids", [])
-    if wing and not _light_graph_connected(wing, graph):
+    by_id = {cell["cell_id"]: cell for cell in document["cells"]}
+    unknown = sorted(set(wing) - set(by_id))
+    if unknown:
+        errors.append(
+            _error("dark_wing_unknown_cell", "unknown cell IDs: " + ", ".join(unknown))
+        )
+    elif wing and not _light_graph_connected(wing, graph):
         errors.append(_error("dark_wing_not_connected", ", ".join(wing)))
     spawn_id = document["cells"][0]["cell_id"]
-    by_id = {cell["cell_id"]: cell for cell in document["cells"]}
     for cell_id in wing:
         cell = by_id.get(cell_id, {})
         if (

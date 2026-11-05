@@ -1,6 +1,6 @@
 # Chainlink #198 — gmap-0.8.0 light layer
 
-**Status:** implementation and verification complete for lead review. No commit. The issue remains open.
+**Status:** implementation committed as `fde2d07`. #198 remains open for interactive walkthrough review of the darker rotunda and library material transitions.
 
 ## Implementation
 
@@ -45,6 +45,8 @@ Receipts: `runtime_gmap-{1,2,3,11,69}-isolation.json` and `runtime_gmap-69-v7-re
 
 All captures ran under the existing GPU/RAM guard. Preflight passed; no desktop or compute process was stopped and no guard bypass was needed. The capture/profile receipts are in `resource_runs/`.
 
+The referenced PNG captures are Git-ignored by the repository's evidence policy (`godot_walk/evidence/**/*.png`) and are therefore not present in a fresh checkout. The tracked receipts, commands and this report remain; the images stay local unless regenerated.
+
 - Seed 1: `captures-vulkan-isolated/seed1/normal_c00.png`, `flicker_c01_01_a.png`, `flicker_c01_01_b.png`, `dark_wing_c05.png`, `library_joint_c07.png`.
 - Figure-library joint: `captures-vulkan-isolated/seed3/library_joint_c06.png` (with normal, flicker A/B and dark-wing captures in the same folder).
 - Seed 69 rotunda: `captures-vulkan-isolated/seed69-rotunda-v8/` contains p0–p3 inside and neighboring-side views plus `gmap-69-gmap-0.8.0_rotunda16_wide.png` (nine PNGs total).
@@ -62,6 +64,14 @@ The busiest kept map measured was seed 2 at 1280×720 using the rendered `frame_
 - p95 frame time: **4.398 ms**; p99: **4.613 ms**; mean measured rate: **240 FPS** uncapped.
 - Runtime measurement receipt and image: `fps-run-isolated/fps_issue198_seed2_isolated.json` and `.png`.
 - Across guarded capture runs, peak child RSS was **2.43 GB** and peak sampled VRAM was **1.45 GB** (about **0.58 GB** above the sampled starting use). Profile receipt: `resource_runs/issue198_frame_time_seed2_isolated.json`.
+
+## Post-review validator fixes
+
+Two validator edge cases found during review are fixed without changing generated outputs or the visual treatment:
+
+- Unknown dark-wing cell IDs now return `dark_wing_unknown_cell` instead of raising `KeyError`.
+- A missing or unreadable V0.8 library index now returns `library_index_unavailable`; the existing `stale_index_hash` check still reports missing or hash-mismatched index files.
+- Three focused regressions live in `test_gmap_light.py`.
 
 ## Commands
 
@@ -92,6 +102,6 @@ ruff check godot_walk/scripts/gmap_build.py godot_walk/scripts/gmap_diagonal_rul
 ruff format --check godot_walk/scripts/gmap_build.py godot_walk/scripts/gmap_diagonal_rules.py godot_walk/scripts/gmap_module_rules.py godot_walk/scripts/gmap_palette.py godot_walk/scripts/gmap_validate.py godot_walk/scripts/gmap_light.py godot_walk/scripts/shape_room_rng.py godot_walk/scripts/shape_room_spec.py godot_walk/scripts/shape_room_stage2.py godot_walk/scripts/test_gmap_light.py
 ```
 
-Final Python suite: **606 passed, 3 skipped, 58 subtests passed**. The gated sweep: **1 passed in 312.72 s**. Ruff check, Ruff format check and Python compilation passed. Godot 4.6.3 headless runtime checks passed on seeds 1, 2, 3, 11 and 69; rendered capture and frame-time runs passed under the GPU guard. No protected input or library material file was edited.
+Final Python suite after the post-review validator fixes: **609 passed, 3 skipped, 58 subtests passed**. The previously recorded gated sweep: **1 passed in 312.72 s**. Ruff check, Ruff format check and Python compilation passed. Godot 4.6.3 headless runtime checks passed on seeds 1, 2, 3, 11 and 69; rendered capture and frame-time runs passed under the GPU guard. No protected input or library material file was edited.
 
-**Needs operator review:** whether the 0.2 ambient level and resulting darker rotunda are desirable, and whether the visible figure/column module material transitions are acceptable. No room walk has been performed as part of this implementation.
+**Needs operator review:** whether the 0.2 ambient level and resulting darker rotunda are desirable, and whether the visible figure/column module material transitions are acceptable. These still require an interactive walkthrough; no room walk has been performed as part of this implementation.
