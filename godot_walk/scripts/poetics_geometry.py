@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import math
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 TOLERANCE_M = 1e-3
 PORT_SLOT_MIN_LENGTH_M = 2.4
@@ -140,6 +141,9 @@ def classify_primitive(ring: list[Point], detailed: bool = True) -> tuple[str, i
 
     `detailed` splits stage 2 into chamfered_box / octagon / wedge / chamfered_polyomino
     (shape rooms, #190); module poetics keeps the single `chamfered_polygon` label."""
+    landmark = regular_landmark_class(ring)
+    if landmark is not None:
+        return landmark, 3
     if is_rectilinear(ring):
         if len(ring) == 4:
             return "box", 0
@@ -149,6 +153,20 @@ def classify_primitive(ring: list[Point], detailed: bool = True) -> tuple[str, i
     if is_chamfered(ring):
         return (classify_chamfered(ring) if detailed else "chamfered_polygon"), 2
     return "polygon", None
+
+
+def regular_landmark_class(ring: list[Point]) -> str | None:
+    """Recognize only centered regular 6/8/12/16-gons used by shape stage 3."""
+    classes = {6: "hexagon", 8: "octagon_regular", 12: "dodecagon", 16: "rotunda16"}
+    landmark_class = classes.get(len(ring))
+    if landmark_class is None or abs(signed_area(ring)) <= TOLERANCE_M:
+        return None
+    center = (sum(point[0] for point in ring) / len(ring), sum(point[1] for point in ring) / len(ring))
+    radii = [math.hypot(point[0] - center[0], point[1] - center[1]) for point in ring]
+    lengths = [math.dist(ring[index], ring[(index + 1) % len(ring)]) for index in range(len(ring))]
+    if max(radii) - min(radii) > TOLERANCE_M or max(lengths) - min(lengths) > TOLERANCE_M:
+        return None
+    return landmark_class
 
 
 def bbox_of(ring: list[Point]) -> tuple[float, float, float, float]:

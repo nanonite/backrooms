@@ -9,16 +9,40 @@ from doorway_sizes import DEFAULT_TYPE, doorway_size
 from gmap_geometry import polygon_rect
 from poetics_geometry import classify_primitive, num, signed_area
 from shape_room_arms import arm_rects, arm_width_range, primitive_for
-from shape_room_chamfer import apply_cuts, approach_issues, cut_issues, inscribed_rects, lamp_points_polygon, port_edge
+from shape_room_chamfer import (
+    apply_cuts,
+    approach_issues,
+    cut_issues,
+    inscribed_rects,
+    lamp_points_polygon,
+    port_edge,
+)
 from shape_room_checks import (
     ShapeRoomError,
     check_room,
     require_valid,
 )
-from shape_room_raster import Cell, Rect, decompose, occupied_cells, outline_of, solid_at
-from shape_room_rng import GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, GENERATOR_VERSION_V5, GENERATOR_VERSION_V6, V4_PLUS, cell_rng, version_for_map
-from shape_room_palette import palette_materials
+from shape_room_landmark import spec_fields as landmark_fields
 from shape_room_module_clear import clear_ceiling, module_top_planes
+from shape_room_palette import palette_materials
+from shape_room_raster import (
+    Cell,
+    Rect,
+    decompose,
+    occupied_cells,
+    outline_of,
+    solid_at,
+)
+from shape_room_rng import (
+    GENERATOR_VERSION_V2,
+    GENERATOR_VERSION_V3,
+    GENERATOR_VERSION_V5,
+    GENERATOR_VERSION_V6,
+    GENERATOR_VERSION_V7,
+    V4_PLUS,
+    cell_rng,
+    version_for_map,
+)
 from shape_room_stage2 import chamfer_cuts, stage2_target, suitable_width
 
 BOX_PROBABILITY = 0.5
@@ -223,6 +247,8 @@ def build_spec(
     version = version_for_map(document)
     if cell.get("diagonal_passage"):
         return _diagonal_passage_spec(document, map_sha256, cell, original_status, links, envelope, version)
+    if cell.get("landmark"):
+        return _landmark_spec(document, map_sha256, cell, original_status, links, version)
     v2 = version in (GENERATOR_VERSION_V2, GENERATOR_VERSION_V3, *V4_PLUS)
     choices = draw(document, cell, envelope)
     geometry = room_geometry(cell, envelope, choices, set(degenerate_ports(cell)) if v2 else None, document)
@@ -250,8 +276,8 @@ def build_spec(
         "ceiling_height_m": choices["ceiling_height_m"],
         "doorways": doorways,
         "lamps_xz": lamps(geometry),
-        "material_source": "palette_registry" if version in (GENERATOR_VERSION_V5, GENERATOR_VERSION_V6) else "kit_default",
-        "materials": palette_materials(cell) if version in (GENERATOR_VERSION_V5, GENERATOR_VERSION_V6) else MATERIALS,
+        "material_source": "palette_registry" if version in (GENERATOR_VERSION_V5, GENERATOR_VERSION_V6, GENERATOR_VERSION_V7) else "kit_default",
+        "materials": palette_materials(cell) if version in (GENERATOR_VERSION_V5, GENERATOR_VERSION_V6, GENERATOR_VERSION_V7) else MATERIALS,
         "features": feature_records(doorways),
         "registration_accepted": False,
         "scale_calibrated": False,
@@ -260,6 +286,38 @@ def build_spec(
         spec.update(mode_fields(cell))
     if geometry["chamfers"]:
         spec["chamfers"] = geometry["chamfers"]
+    return spec
+
+
+def _landmark_spec(
+    document: dict[str, Any], map_sha256: str, cell: dict[str, Any], original_status: str,
+    links: dict[str, tuple[str, str]], version: str,
+) -> dict[str, Any]:
+    geometry = landmark_fields(cell)
+    doors = doorway_records(cell, links, True)
+    lo_x, lo_z = min(p[0] for p in cell["envelope_xz"]), min(p[1] for p in cell["envelope_xz"])
+    hi_x, hi_z = max(p[0] for p in cell["envelope_xz"]), max(p[1] for p in cell["envelope_xz"])
+    ring = geometry["outline"]
+    features = [{"feature_id": kind, "kind": kind, "sign": "symbol"} for kind in ("floor", "walls", "ceiling", "ceiling_lamp_ring")]
+    features.extend({"feature_id": f"doorway:{door['port_id']}", "kind": "doorway", "sign": "symbol"} for door in doors)
+    _low, high = cell["ceiling_range_m"]
+    center = geometry["center"]
+    spec = {
+        "schema_version": 1, "generator_version": version, "map_id": document["map_id"],
+        "map_sha256": map_sha256, "cell_id": cell["cell_id"], "role": cell["role"],
+        "rarity_tier": cell["rarity_tier"], "original_cell_status": original_status,
+        "primitive": primitive_for(cell["required_ports"]), "primitive_class": cell["landmark"]["class"],
+        "shape_stage": 3, "construction": "regular_polygon", "arm_width_m": None,
+        "envelope_xz": [[num(lo_x), num(lo_z)], [num(hi_x), num(lo_z)], [num(hi_x), num(hi_z)], [num(lo_x), num(hi_z)]],
+        "arms_xz": [], "rects": [rect_json(rect) for rect in geometry["rects"]],
+        "outline_xz": [[num(x), num(z)] for x, z in ring], "area_m2": geometry["area_m2"],
+        "ceiling_height_m": num(high), "doorways": doors,
+        "lamps_xz": [[num(center[0]), num(center[1])]], "material_source": "palette_registry",
+        "materials": palette_materials(cell), "features": features,
+        "registration_accepted": False, "scale_calibrated": False,
+        "landmark": dict(cell["landmark"]),
+    }
+    spec.update(mode_fields(cell))
     return spec
 
 

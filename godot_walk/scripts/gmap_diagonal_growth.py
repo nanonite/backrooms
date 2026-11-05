@@ -38,6 +38,7 @@ def _snap_corners(draft: Draft, parent: Cell) -> set[tuple[float, float]]:
             cell.cell_id == parent.cell_id
             or cell.role not in ("ground", "figure")
             or cell.module
+            or cell.landmark
             or cell.cell_id in reserved
         ):
             continue
@@ -60,6 +61,8 @@ def _site_options(
     draft: Draft, parent: Cell, child_id: str, normal: Vec, size: tuple[int, int]
 ) -> list[tuple[Rect, dict]]:
     sites = []
+    if parent.landmark is not None:
+        return sites
     points = _snap_corners(draft, parent)
     if not points:
         return sites
@@ -85,6 +88,8 @@ def _site_options(
 def _all_site_options(
     draft: Draft, parent: Cell, child_id: str
 ) -> list[tuple[Rect, dict]]:
+    if parent.landmark is not None:
+        return []
     found = []
     for normal in SIDES:
         for size in SITE_CLASSES:
@@ -107,13 +112,29 @@ def _place_site(
 
 
 def grow_step_v61(
-    rng: random.Random, site_rng: random.Random, draft: Draft, site_budget: int
+    rng: random.Random,
+    site_rng: random.Random,
+    draft: Draft,
+    site_budget: int,
+    landmark_plan: dict | None = None,
+    landmark_rng: random.Random | None = None,
+    growth_step: int = 0,
 ) -> None:
     draft.diagonal_budget = site_budget
     should_try_site = (
         len(draft.reserved_diagonal_zones) < site_budget
         and site_rng.random() < SITE_PROBABILITY
     )
+    if (
+        landmark_plan is not None
+        and draft.landmark_cell_id is None
+        and growth_step >= int(landmark_plan["target_step"])
+        and landmark_rng is not None
+    ):
+        from gmap_landmark_growth import place_landmark
+
+        if place_landmark(landmark_rng, draft, landmark_plan):
+            return
     if should_try_site:
         pool = [cell for cell in draft.cells.values() if draft.degree(cell.cell_id) < 4]
         if not pool:

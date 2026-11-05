@@ -134,6 +134,7 @@ def reservation_errors(document: dict[str, Any]) -> Errors:
             source is None
             or source["role"] not in ("ground", "figure")
             or source.get("module")
+            or source.get("landmark")
             for source in sources
         ):
             errors.append(err(RULE, "reservation_endpoint_ineligible", site_id))

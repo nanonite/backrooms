@@ -1,0 +1,391 @@
+{
+	"contract": {
+		"specs_checked": 12
+	},
+	"failures": [],
+	"map_id": "gmap-23-gmap-0.7.0",
+	"mode": "all_walkable",
+	"negative_controls": {
+		"diagonal_collision_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"push_samples": 21,
+			"push_stopped": 0,
+			"wall_failures": 3
+		},
+		"diagonal_floor_without_declared_link": {
+			"applicable": false,
+			"failed_as_expected": false,
+			"reason": "map has no diagonal passage"
+		},
+		"diagonal_frame_unaligned": {
+			"applicable": false,
+			"failed_as_expected": false,
+			"reason": "map has no diagonal passage"
+		},
+		"diagonal_link_doorway_removed": {
+			"applicable": false,
+			"failed_as_expected": false,
+			"reason": "map has no diagonal passage"
+		},
+		"diagonal_passage_collision_removed": {
+			"applicable": false,
+			"failed_as_expected": false,
+			"reason": "map has no diagonal passage"
+		},
+		"doorway_removed": {
+			"applicable": true,
+			"edge_failures": 2,
+			"failed_as_expected": true,
+			"first_failure": "c00:p0 -> c01:p0 forward: blocked by Wall_02_0 at (4.5, 5.6)",
+			"flood_failures": 4,
+			"removed_doorway": "c00:p0"
+		},
+		"floor_rect_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"failure_count": 5,
+			"first_failure": "c01: floor missing at 192 of 192 polygon samples",
+			"room": "c01"
+		},
+		"landmark_port_off_midpoint": {
+			"applicable": true,
+			"edge_failures": 1,
+			"failed_as_expected": true,
+			"first_failure": "c00:p1 -> c02:p0: doorway positions or normals do not mirror",
+			"port_id": "c02:p0"
+		},
+		"module_joint_recess_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"module_check_failures": 5,
+			"reveal_coplanar_faces": 5
+		},
+		"module_socket_closed": {
+			"applicable": true,
+			"edge_failures": 2,
+			"failed_as_expected": true,
+			"first_failure": "c10:p1 -> c12:p0 forward: blocked by SouthBoundary at (-35.0, 2.5)",
+			"module_cell": "c12",
+			"module_check_failures": 2
+		},
+		"unmitred_joint": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"joint_samples": 1868,
+			"joint_uncovered": 504
+		},
+		"wrong_palette": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"first_failure": "c00: floor FloorRect does not match palette backrooms_yellow",
+			"mismatches": 276,
+			"rooms": 12,
+			"surfaces": 276
+		}
+	},
+	"positive": {
+		"diagonal": {
+			"coplanar_faces": 0,
+			"diagonal_edges": 7,
+			"failures": [],
+			"floor_missing": 0,
+			"floor_samples": 15557,
+			"joint_samples": 1868,
+			"joint_uncovered": 0,
+			"module_overhang_samples": 0,
+			"push_samples": 21,
+			"push_stopped": 21
+		},
+		"diagonal_links": {
+			"diagonal_edges": 0,
+			"failures": [],
+			"frames_checked": 0,
+			"lane_sweeps": 0,
+			"lane_sweeps_passed": 0,
+			"links": 0,
+			"passage_wall_colliders": 0
+		},
+		"edges": {
+			"closed_blocked": 3,
+			"closed_edges": 3,
+			"direct_edges": 12,
+			"direct_edges_checked": 12,
+			"failures": [],
+			"passed_forward": 12,
+			"passed_reverse": 12
+		},
+		"flood": {
+			"clear_samples": 2805,
+			"enclosed_clear_samples_in_module_cells": 0,
+			"expected_cells": 13,
+			"failures": [],
+			"reached_cells": 13,
+			"reached_samples": 2805,
+			"unreached_clear_samples_in_expected_cells": 0,
+			"void_cells_reached": 0
+		},
+		"modules": {
+			"apertures_clear": 1,
+			"clearance_control_conflicts": 6,
+			"failures": [],
+			"floors_supported": 1,
+			"joints": [
+				{
+					"aperture_clear": true,
+					"cell_id": "c12",
+					"floors_supported": true,
+					"landed": true,
+					"landing_miss_m": 0.0199999809265137,
+					"module_id": "godot_gopro_industrial_hall_south_socket_v1",
+					"open": true
+				}
+			],
+			"module_cells": 1,
+			"reveal_coplanar_faces": 0,
+			"sockets_landed": 1,
+			"sockets_open": 1,
+			"wall_coplanar_conflicts": 0
+		},
+		"palette": {
+			"failures": [],
+			"mismatches": 0,
+			"palettes": {
+				"backrooms_yellow": 11,
+				"industrial_concrete": 1
+			},
+			"rooms": 12,
+			"surfaces": 276
+		},
+		"rooms": [
+			{
+				"approach_clear": 15,
+				"approach_samples": 15,
+				"cell_id": "c00",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 90,
+				"floor_inside_supported": 90,
+				"floor_outside": 54,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 30,
+				"wall_samples": 30
+			},
+			{
+				"approach_clear": 28,
+				"approach_samples": 28,
+				"cell_id": "c01",
+				"closed_blocked": 1,
+				"closed_doorways": 1,
+				"failures": [],
+				"floor_inside": 192,
+				"floor_inside_supported": 192,
+				"floor_outside": 64,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 38,
+				"wall_samples": 38
+			},
+			{
+				"approach_clear": 15,
+				"approach_samples": 15,
+				"cell_id": "c02",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 216,
+				"floor_inside_supported": 216,
+				"floor_outside": 40,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 41,
+				"wall_samples": 41
+			},
+			{
+				"approach_clear": 16,
+				"approach_samples": 16,
+				"cell_id": "c03",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 192,
+				"floor_inside_supported": 192,
+				"floor_outside": 192,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 46,
+				"wall_samples": 46
+			},
+			{
+				"approach_clear": 52,
+				"approach_samples": 52,
+				"cell_id": "c04",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 384,
+				"floor_inside_supported": 384,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 68,
+				"wall_samples": 68
+			},
+			{
+				"approach_clear": 30,
+				"approach_samples": 30,
+				"cell_id": "c05",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 238,
+				"floor_inside_supported": 238,
+				"floor_outside": 146,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 50,
+				"wall_samples": 50
+			},
+			{
+				"approach_clear": 4,
+				"approach_samples": 4,
+				"cell_id": "c06",
+				"closed_blocked": 2,
+				"closed_doorways": 2,
+				"failures": [],
+				"floor_inside": 72,
+				"floor_inside_supported": 72,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 12,
+				"wall_samples": 12
+			},
+			{
+				"approach_clear": 58,
+				"approach_samples": 58,
+				"cell_id": "c07",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 384,
+				"floor_inside_supported": 384,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 74,
+				"wall_samples": 74
+			},
+			{
+				"approach_clear": 47,
+				"approach_samples": 47,
+				"cell_id": "c08",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 366,
+				"floor_inside_supported": 366,
+				"floor_outside": 11,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 70,
+				"wall_samples": 70
+			},
+			{
+				"approach_clear": 32,
+				"approach_samples": 32,
+				"cell_id": "c09",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 120,
+				"floor_inside_supported": 120,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 40,
+				"wall_samples": 40
+			},
+			{
+				"approach_clear": 40,
+				"approach_samples": 40,
+				"cell_id": "c10",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 384,
+				"floor_inside_supported": 384,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 68,
+				"wall_samples": 68
+			},
+			{
+				"approach_clear": 26,
+				"approach_samples": 26,
+				"cell_id": "c11",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 117,
+				"floor_inside_supported": 117,
+				"floor_outside": 1,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 45,
+				"wall_samples": 45
+			}
+		],
+		"trim": {
+			"back_to_back_contacts": 130,
+			"degenerate_conflicts": 0,
+			"degenerate_trim_boxes": 0,
+			"floor_underside_contacts": 2,
+			"negative_controls": {
+				"old_outside_trim_detected": true,
+				"shared_plane_detected": true
+			},
+			"pairs_checked": 245,
+			"same_facing": [],
+			"same_facing_count": 0,
+			"solid_boxes": 167,
+			"trim_boxes": 78
+		}
+	},
+	"rooms_checked": 12,
+	"scene": {
+		"origin_cell": "c00",
+		"player_spawned": true,
+		"reset_restores_spawn": true,
+		"safety_net_present": true,
+		"spawn_floor_supported": true,
+		"spawn_inside_origin_polygon": true
+	}
+}

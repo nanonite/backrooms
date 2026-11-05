@@ -244,9 +244,12 @@ def try_module(
         c
         for c in draft.walkable()
         if c.module is None
+        and c.landmark is None
         and c.role in ("ground", "figure")
         and c.cell_id not in protected
     ]
+    if not parents:
+        return False
     for _ in range(MODULE_TRIES):
         parent = rng.choice(parents)
         layout = layout_for(module, rng.randrange(4))

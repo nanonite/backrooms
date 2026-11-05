@@ -9,6 +9,7 @@ from gmap_assign import add_voids, assign_roles, assign_tiers
 from gmap_build import (
     CELL_RANGE,
     DEFAULT_DEGENERATE_MAX,
+    GENERATOR_VERSION_V7,
     GENERATOR_VERSION_V61,
     MARGIN_VERSIONS,
     MAX_ATTEMPTS,
@@ -45,6 +46,8 @@ def attempt_once(
     library: Library | None,
     site_rng: random.Random | None = None,
     diagonal_budget: int = 0,
+    landmark_plan: dict | None = None,
+    landmark_rng: random.Random | None = None,
 ) -> Draft:
     v2 = version in MARGIN_VERSIONS
     draft = grow(
@@ -52,8 +55,10 @@ def attempt_once(
         cells,
         centred=v2,
         margin=STANDARD_MARGIN_M if v2 else DOORWAY_HALF_M,
-        site_rng=site_rng if version == GENERATOR_VERSION_V61 else None,
+        site_rng=site_rng if version in (GENERATOR_VERSION_V61, GENERATOR_VERSION_V7) else None,
         site_budget=diagonal_budget,
+        landmark_plan=landmark_plan if version == GENERATOR_VERSION_V7 else None,
+        landmark_rng=landmark_rng,
     )
     draft.diagonal_budget = diagonal_budget
     assign_tiers(rng, draft, classes)
@@ -92,6 +97,13 @@ def generate_draft(
             if draft_result is not None:
                 return draft_result
             continue
+        if version == GENERATOR_VERSION_V7:
+            draft_result = _generate_v70(
+                seed, attempt, cells, classes, version, degenerate_max, library
+            )
+            if draft_result is not None:
+                return draft_result
+            continue
         try:
             draft = attempt_once(
                 attempt_rng(seed, attempt), cells, classes, version, library
@@ -103,6 +115,58 @@ def generate_draft(
     raise GenerationError(
         f"no valid map for seed {seed} within {MAX_ATTEMPTS} attempts"
     )
+
+
+def _generate_v70(
+    seed: int,
+    attempt: int,
+    cells: int,
+    classes: list[tuple[int, int]],
+    version: str,
+    degenerate_max: int,
+    library: Library | None,
+) -> tuple[Draft, int, int] | None:
+    from gmap_diagonal import rng_for, sampled_budget
+    from gmap_diagonal_sites import rng_for as site_rng_for
+    from gmap_landmark import draw_plan
+    from gmap_landmark import rng_for as landmark_rng_for
+
+    budget = sampled_budget(rng_for(seed, attempt))
+    plan = draw_plan(seed, attempt, cells)
+    best: tuple[Draft, int, int, int] | None = None
+    variants = 1 if budget == 0 else MAX_SITE_LAYOUT_VARIANTS
+    for variant in range(variants):
+        try:
+            layout_rng = attempt_rng(seed, attempt) if variant == 0 else site_layout_rng(seed, attempt, variant)
+            draft = attempt_once(
+                layout_rng, cells, classes, version, library,
+                site_rng_for(seed, attempt, variant), budget,
+                plan, landmark_rng_for(seed, attempt),
+            )
+            draft.layout_variant = variant
+            used = _degenerate_count(
+                seed if variant == 0 else seed + variant * STREAM_STRIDE,
+                attempt, draft, degenerate_max, version,
+            )
+        except RetryAttempt:
+            continue
+        result = (draft, attempt, used, variant)
+        if best is None or _landmark_score(result) > _landmark_score(best):
+            best = result
+        landmark_satisfied = plan is None or draft.landmark_cell_id is not None
+        if landmark_satisfied and len(draft.reserved_diagonal_zones) >= budget:
+            draft.layout_variant = variant
+            return draft, attempt, used
+    if best is None:
+        return None
+    best[0].layout_variant = best[3]
+    return best[0], best[1], best[2]
+
+
+def _landmark_score(result: tuple[Draft, int, int, int]) -> tuple[int, int, int]:
+    draft, _, _, variant = result
+    placed = int(draft.landmark_plan is not None and draft.landmark_cell_id is not None)
+    return placed, len(draft.reserved_diagonal_zones), -variant
 
 
 def _generate_v61(

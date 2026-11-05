@@ -1,0 +1,624 @@
+{
+  "cells": [
+    {
+      "candidates": [],
+      "cell_id": "c00",
+      "cell_status": "shape_room_pending"
+    },
+    {
+      "candidates": [],
+      "cell_id": "c01",
+      "cell_status": "shape_room_pending"
+    },
+    {
+      "candidates": [],
+      "cell_id": "c02",
+      "cell_status": "shape_room_pending"
+    },
+    {
+      "candidates": [
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 0,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 90,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 180,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 270,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 0,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 90,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 180,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 270,
+          "tested_socket_count": 0,
+          "version": 1
+        }
+      ],
+      "cell_id": "c03",
+      "cell_status": "module_candidates"
+    },
+    {
+      "candidates": [
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 1,
+          "rotation_deg": 0,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 1,
+          "rotation_deg": 90,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 1,
+          "rotation_deg": 180,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 1,
+          "rotation_deg": 270,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 1,
+          "rotation_deg": 0,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 1,
+          "rotation_deg": 90,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 1,
+          "rotation_deg": 180,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 1,
+          "rotation_deg": 270,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+          "ports_alignable": false,
+          "required_port_count": 1,
+          "rotation_deg": 0,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+          "ports_alignable": false,
+          "required_port_count": 1,
+          "rotation_deg": 180,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 1,
+          "rotation_deg": 0,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 1,
+          "rotation_deg": 180,
+          "tested_socket_count": 0,
+          "version": 1
+        }
+      ],
+      "cell_id": "c04",
+      "cell_status": "module_candidates"
+    },
+    {
+      "candidates": [
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 0,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 90,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 180,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 270,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 0,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 90,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 180,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 3,
+          "rotation_deg": 270,
+          "tested_socket_count": 0,
+          "version": 1
+        }
+      ],
+      "cell_id": "c05",
+      "cell_status": "module_candidates"
+    },
+    {
+      "candidates": [],
+      "cell_id": "c06",
+      "cell_status": "shape_room_pending"
+    },
+    {
+      "candidates": [],
+      "cell_id": "c07",
+      "cell_status": "shape_room_pending"
+    },
+    {
+      "candidates": [
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 4,
+          "rotation_deg": 0,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 4,
+          "rotation_deg": 90,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 4,
+          "rotation_deg": 180,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 4,
+          "rotation_deg": 270,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 4,
+          "rotation_deg": 0,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 4,
+          "rotation_deg": 90,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 4,
+          "rotation_deg": 180,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 4,
+          "rotation_deg": 270,
+          "tested_socket_count": 0,
+          "version": 1
+        }
+      ],
+      "cell_id": "c08",
+      "cell_status": "module_candidates"
+    },
+    {
+      "candidates": [],
+      "cell_id": "c09",
+      "cell_status": "shape_room_pending"
+    },
+    {
+      "candidates": [
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 2,
+          "rotation_deg": 0,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 2,
+          "rotation_deg": 90,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 2,
+          "rotation_deg": 180,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": true,
+          "module_id": "godot_later_bay_column_bounded_v1",
+          "ports_alignable": false,
+          "required_port_count": 2,
+          "rotation_deg": 270,
+          "tested_socket_count": 1,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 2,
+          "rotation_deg": 0,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 2,
+          "rotation_deg": 90,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 2,
+          "rotation_deg": 180,
+          "tested_socket_count": 0,
+          "version": 1
+        },
+        {
+          "footprint_fits": true,
+          "layout_usable": false,
+          "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+          "ports_alignable": false,
+          "required_port_count": 2,
+          "rotation_deg": 270,
+          "tested_socket_count": 0,
+          "version": 1
+        }
+      ],
+      "cell_id": "c10",
+      "cell_status": "module_candidates"
+    },
+    {
+      "candidates": [],
+      "cell_id": "c11",
+      "cell_status": "shape_room_pending"
+    },
+    {
+      "candidates": [],
+      "cell_id": "c12",
+      "cell_status": "module_placed",
+      "placement": {
+        "metadata_record": {
+          "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_single_west_v1-v1.accepted.json",
+          "sha256": "1d2642ffc9ec0cdcdebd736755a34193787c891e627c4fadf5ee150b55815b76"
+        },
+        "module_id": "godot_early_pocket_single_west_v1",
+        "port_id": "c12:p0",
+        "rotation_deg": 0,
+        "socket_id": "west",
+        "translation_xz": [
+          30.02,
+          -2.9
+        ],
+        "version": 1
+      }
+    },
+    {
+      "candidates": [],
+      "cell_id": "c13",
+      "cell_status": "void"
+    },
+    {
+      "candidates": [],
+      "cell_id": "c14",
+      "cell_status": "void"
+    },
+    {
+      "candidates": [],
+      "cell_id": "c15",
+      "cell_status": "void"
+    },
+    {
+      "candidates": [],
+      "cell_id": "dp00",
+      "cell_status": "shape_room_pending"
+    },
+    {
+      "candidates": [],
+      "cell_id": "dp01",
+      "cell_status": "shape_room_pending"
+    }
+  ],
+  "generator_version": "gmap-0.7.0",
+  "library_index": {
+    "metadata_records": [
+      {
+        "module_id": "godot_early_pocket_pass_through_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json",
+        "sha256": "7e8c4148ab2aaa45af7102719a7f820893b9368480757d6652f1f971774d1b3d"
+      },
+      {
+        "module_id": "godot_early_pocket_single_west_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_single_west_v1-v1.accepted.json",
+        "sha256": "1d2642ffc9ec0cdcdebd736755a34193787c891e627c4fadf5ee150b55815b76"
+      },
+      {
+        "module_id": "godot_early_pocket_three_way_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_three_way_v1-v1.accepted.json",
+        "sha256": "f03cff792927988fc13e6ad5512c78b09ae95d481baaded5e127c5bd44696ec6"
+      },
+      {
+        "module_id": "godot_gopro_industrial_hall_frame1097_v1",
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_poetics_v2.json",
+        "sha256": "0f8029fc7d2cf54db2bd73d6d7cf0b65e423826ba3082cfaa6cd77d35dca09ac"
+      },
+      {
+        "module_id": "godot_gopro_industrial_hall_south_socket_v1",
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_poetics_v2.json",
+        "sha256": "0dcc9e45c524d9daba2cb88d3e956e6d22eb04d03cff6d36e1ab025654c2a25e"
+      },
+      {
+        "module_id": "godot_later_bay_column_bounded_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_later_bay_column_bounded_v1-v1.accepted.json",
+        "sha256": "e6db1b50f9604998cc98f18b4f4cdf40caaaf6675cfab33402fd9b4feb0dbaf9"
+      },
+      {
+        "module_id": "godot_source_textured_large_room_hall_end_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_source_textured_large_room_hall_end_v1-v1.accepted.json",
+        "sha256": "0299e703889bd4969060899d32b142a4864fea98cbd88e3eb6ef5f4c1d70e1ce"
+      },
+      {
+        "module_id": "godot_source_textured_large_room_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_source_textured_large_room_v1-v1.accepted.json",
+        "sha256": "ce3ab0c71f30e7f4ccd074db4836e35d5a28f9243506952d69718c972b635dac"
+      },
+      {
+        "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+        "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json",
+        "sha256": "eb36d037057b9ab223d3ca8ce6ece93191da591a9850fe158875367a6edf711d"
+      },
+      {
+        "module_id": "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_poetics_v2.json",
+        "sha256": "2eb7508f68a994e5d1159269b32522c4780434198e2adfbd648ee59a0b389df4"
+      },
+      {
+        "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json",
+        "sha256": "83a2a1c10e8d06b00ea995586e8c891b0b8e5f1116eea3cad4af457516725f78"
+      }
+    ],
+    "path": "godot_walk/room_catalog/library_index/godot_psx_room_kit-0.5.0.json",
+    "sha256": "147b1cb9daaa96601bcab84bf355929134f2ddbd6b6f279bc255f7ddd849f49f"
+  },
+  "map_file": {
+    "name": "gmap-2-gmap-0.7.0.json",
+    "sha256": "64947d53374e6b3b8505839174694b9ae3d98575dbf0e1de50e2d9e98a3c2837"
+  },
+  "map_id": "gmap-2-gmap-0.7.0",
+  "note": "Structural map only; not playable until cells are filled and module metadata is operator-accepted.",
+  "playable": false,
+  "schema_version": 1
+}

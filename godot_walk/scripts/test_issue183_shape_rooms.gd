@@ -180,11 +180,36 @@ func _run_negative_controls() -> Dictionary:
 	controls["diagonal_passage_collision_removed"] = await _control_diagonal_passage_collision_removed()
 	controls["diagonal_floor_without_declared_link"] = await _control_diagonal_floor_without_declared_link()
 	controls["diagonal_frame_unaligned"] = await _control_diagonal_frame_unaligned()
+	if map.get("generator_version", "") == "gmap-0.7.0":
+		controls["landmark_port_off_midpoint"] = await _control_landmark_port_off_midpoint()
 	if specs.values().any(func(spec: Dictionary) -> bool: return spec.materials.has("palette_id")):
 		controls["wrong_palette"] = await _control_wrong_palette()
 	for name: String in controls:
 		_expect(not controls[name].applicable or controls[name].failed_as_expected, "Negative control %s did not fail" % name)
 	return controls
+
+
+func _control_landmark_port_off_midpoint() -> Dictionary:
+	var altered := specs.duplicate(true)
+	var changed := ""
+	for cell_id: String in altered:
+		if not altered[cell_id].has("landmark") or altered[cell_id].doorways.is_empty():
+			continue
+		var doorway: Dictionary = altered[cell_id].doorways[0]
+		var normal := Vector2(float(doorway.normal[0]), float(doorway.normal[1]))
+		var tangent := Vector2(-normal.y, normal.x)
+		var point := Vector2(float(doorway.pos_xz[0]), float(doorway.pos_xz[1])) + tangent * 0.5
+		doorway.pos_xz = [point.x, point.y]
+		changed = String(doorway.port_id)
+		break
+	if changed.is_empty():
+		return {"applicable": false, "failed_as_expected": false, "reason": "map has no placed landmark doorway"}
+	var assembly := await _build(map, altered)
+	var edges := MAP_CHECKS.check_edges(assembly.get_world_3d().direct_space_state, assembly)
+	await _release(assembly)
+	var relevant: Array = edges.failures.filter(func(message: String) -> bool: return changed in message)
+	return {"applicable": true, "port_id": changed, "failed_as_expected": not relevant.is_empty(),
+		"edge_failures": relevant.size(), "first_failure": relevant[0] if not relevant.is_empty() else ""}
 
 
 func _control_doorway_removed() -> Dictionary:

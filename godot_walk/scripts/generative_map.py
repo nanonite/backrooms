@@ -1,4 +1,4 @@
-"""Seeded structural map generator (shape stages 0-2) and validator.
+"""Seeded structural map generator (shape stages 0-3) and validator.
 
 Writes a map, a fill-candidates file and an optional SVG. Neither output is
 playable: cells stay unfilled until shape rooms and accepted module metadata
@@ -122,7 +122,7 @@ def main(argv: list[str] | None = None) -> int:
     gen.add_argument("--seed", type=int, required=True)
     gen.add_argument("--index", type=Path, required=True)
     gen.add_argument("--cells", type=int, default=12)
-    gen.add_argument("--stage-max", type=int, default=None, choices=(0, 1, 2), help="default 1 (2 in gmap-0.4.0)")
+    gen.add_argument("--stage-max", type=int, default=None, choices=(0, 1, 2, 3), help="default 1 (2 in gmap-0.4.0; 3 in gmap-0.7.0)")
     gen.add_argument("--svg", action="store_true")
     gen.add_argument("--generator-version", choices=VERSIONS, default=GENERATOR_VERSION_V2)
     gen.add_argument(

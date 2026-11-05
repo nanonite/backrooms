@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="690" height="500" viewBox="0 0 690 500">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<title>gmap-23-gmap-0.7.0 (structural map, not playable)</title>
+<rect x="450" y="230" width="60" height="60" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="454" y="244" font-family="monospace" font-size="11">c00 t0</text>
+<rect x="480" y="290" width="80" height="80" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="484" y="304" font-family="monospace" font-size="11">c01 t1</text>
+<rect x="370" y="220" width="80" height="80" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="374" y="234" font-family="monospace" font-size="11">c02 t1</text>
+<rect x="290" y="200" width="80" height="120" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="294" y="214" font-family="monospace" font-size="11">c03 t1</text>
+<rect x="300" y="320" width="120" height="80" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="304" y="334" font-family="monospace" font-size="11">c04 t0</text>
+<rect x="370" y="140" width="120" height="80" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="374" y="154" font-family="monospace" font-size="11">c05 t0</text>
+<rect x="560" y="290" width="60" height="30" fill="#d2b48c" stroke="#000000" stroke-width="2"/>
+<text x="564" y="304" font-family="monospace" font-size="11">c06 t1</text>
+<rect x="240" y="400" width="120" height="80" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="244" y="414" font-family="monospace" font-size="11">c07 t0</text>
+<rect x="360" y="20" width="80" height="120" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="364" y="34" font-family="monospace" font-size="11">c08 t1</text>
+<rect x="190" y="250" width="100" height="30" fill="#d2b48c" stroke="#000000" stroke-width="2"/>
+<text x="194" y="264" font-family="monospace" font-size="11">c09 t1</text>
+<rect x="70" y="250" width="120" height="80" fill="#9db4c9" stroke="#000000" stroke-width="2"/>
+<text x="74" y="264" font-family="monospace" font-size="11">c10 t0 industrial_concrete d1</text>
+<rect x="570" y="260" width="100" height="30" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="574" y="274" font-family="monospace" font-size="11">c11 t0</text>
+<rect x="20" y="120" width="160" height="130" fill="#f5b041" stroke="#117864" stroke-width="2" stroke-dasharray="10 2"/>
+<text x="24" y="134" font-family="monospace" font-size="11">c12 t2 module</text>
+<text x="24" y="147" font-family="monospace" font-size="9">godot_gopro_industrial_hall_south_socket_v1 r0</text>
+<rect x="530" y="260" width="30" height="30" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="534" y="274" font-family="monospace" font-size="11">c13</text>
+<rect x="590" y="320" width="30" height="30" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="594" y="334" font-family="monospace" font-size="11">c14</text>
+<rect x="560" y="320" width="30" height="60" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="564" y="334" font-family="monospace" font-size="11">c15</text>
+<polyline points="480,260 495,290 495,290 520,330" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="480,260 450,260 450,260 410,260" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="520,330 560,305 560,305 590,305" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="520,330 545,290 545,290 545,275" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<polyline points="410,260 370,260 370,260 330,260" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="410,260 410,220 410,220 430,180" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="330,260 335,320 335,320 360,360" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="330,260 290,265 290,265 240,265" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="360,360 330,400 330,400 300,440" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="430,180 405,140 405,140 400,80" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="590,305 595,290 595,290 620,275" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="590,305 605,320 605,320 605,335" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<polyline points="590,305 575,320 575,320 575,350" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<polyline points="240,265 190,265 190,265 130,290" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="130,290 100,250 100,250 100,185" fill="none" stroke="#e67e22" stroke-width="1.5" stroke-dasharray="6 2"/>
+<circle cx="495" cy="290" r="3" fill="#c0392b"/>
+<circle cx="450" cy="260" r="3" fill="#c0392b"/>
+<circle cx="495" cy="290" r="3" fill="#c0392b"/>
+<circle cx="560" cy="305" r="3" fill="#c0392b"/>
+<circle cx="545" cy="290" r="3" fill="#c0392b"/>
+<circle cx="450" cy="260" r="3" fill="#c0392b"/>
+<circle cx="370" cy="260" r="3" fill="#c0392b"/>
+<circle cx="410" cy="220" r="3" fill="#c0392b"/>
+<circle cx="370" cy="260" r="3" fill="#c0392b"/>
+<circle cx="335" cy="320" r="3" fill="#c0392b"/>
+<circle cx="290" cy="265" r="3" fill="#c0392b"/>
+<circle cx="335" cy="320" r="3" fill="#c0392b"/>
+<circle cx="330" cy="400" r="3" fill="#c0392b"/>
+<circle cx="410" cy="220" r="3" fill="#c0392b"/>
+<circle cx="405" cy="140" r="3" fill="#c0392b"/>
+<circle cx="560" cy="305" r="3" fill="#c0392b"/>
+<circle cx="595" cy="290" r="3" fill="#c0392b"/>
+<circle cx="605" cy="320" r="3" fill="#c0392b"/>
+<circle cx="575" cy="320" r="3" fill="#c0392b"/>
+<circle cx="330" cy="400" r="3" fill="#c0392b"/>
+<circle cx="405" cy="140" r="3" fill="#c0392b"/>
+<circle cx="290" cy="265" r="3" fill="#c0392b"/>
+<circle cx="190" cy="265" r="3" fill="#c0392b"/>
+<circle cx="190" cy="265" r="3" fill="#c0392b"/>
+<circle cx="100" cy="250" r="3" fill="#c0392b"/>
+<circle cx="595" cy="290" r="3" fill="#c0392b"/>
+<circle cx="100" cy="250" r="3" fill="#c0392b"/>
+<circle cx="545" cy="290" r="3" fill="#c0392b"/>
+<circle cx="605" cy="320" r="3" fill="#c0392b"/>
+<circle cx="575" cy="320" r="3" fill="#c0392b"/>
+</svg>

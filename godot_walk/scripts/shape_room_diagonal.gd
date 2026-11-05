@@ -18,7 +18,7 @@ const DIAGONAL_MIN := 0.01
 
 
 static func is_chamfered(spec: Dictionary) -> bool:
-	return (spec.has("chamfers") and not spec.chamfers.is_empty()) or spec.has("diagonal_passage")
+	return (spec.has("chamfers") and not spec.chamfers.is_empty()) or spec.has("diagonal_passage") or spec.has("landmark")
 
 
 ## True when the unit direction is neither horizontal nor vertical.

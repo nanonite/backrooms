@@ -25,6 +25,8 @@
       "minimum": 0,
       "maximum": 47
     },
+    "growth_cell_target": {"type": "integer", "minimum": 6, "maximum": 20},
+    "landmark": { "$ref": "#/$defs/landmark_map" },
     "catalog_snapshot": { "$ref": "#/$defs/path_and_hash" },
     "library_index": { "$ref": "#/$defs/library_index" },
     "lattice": {
@@ -83,7 +85,7 @@
           },
           "shape_stage_target": {
             "description": "Optional (gmap-0.4.0). The shape stage drawn for this generated walkable cell (2: a stage-2 chamfered class, see shape_class_target).",
-            "enum": [0, 1, 2]
+            "enum": [0, 1, 2, 3]
           },
           "shape_class_target": {
             "description": "Optional (gmap-0.4.0). The stage-2 primitive class drawn for this cell; present exactly when shape_stage_target is 2.",
@@ -95,6 +97,7 @@
             "properties": {"corner_xz": {"$ref": "#/$defs/point_xz"}, "length_m": {"const": 2.5}, "port_id": {"type": "string", "minLength": 1}},
             "additionalProperties": false
           },
+          "landmark": { "$ref": "#/$defs/landmark_cell" },
           "diagonal_passage": {
             "type": "object",
             "required": ["link_id", "from_cell_id", "to_cell_id", "from_port_id", "to_port_id", "clear_width_m", "wall_thickness_m", "length_m", "outline_xz", "palette_source_cell_id"],
@@ -255,10 +258,50 @@
         "required": ["layout_variant"],
         "properties": {"diagonal_links": {"required": ["reserved_diagonal_zones"]}}
       }
+    },
+    {
+      "if": {"properties": {"generator_version": {"const": "gmap-0.7.0"}}, "required": ["generator_version"]},
+      "then": {
+        "required": ["layout_variant", "growth_cell_target"],
+        "properties": {"shape_stage_max": {"const": 3}}
+      }
     }
   ],
   "$defs": {
     "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "landmark_cell": {
+      "type": "object",
+      "required": ["class", "inradius_m", "circumradius_m", "rotation_deg", "port_facet_indices", "status"],
+      "properties": {
+        "class": {"enum": ["octagon_regular", "dodecagon", "rotunda16", "hexagon"]},
+        "inradius_m": {"type": "number", "exclusiveMinimum": 0},
+        "circumradius_m": {"type": "number", "exclusiveMinimum": 0},
+        "rotation_deg": {"type": "number", "minimum": 0, "maximum": 360},
+        "port_facet_indices": {"type": "array", "minItems": 2, "items": {"type": "integer", "minimum": 0}, "uniqueItems": true},
+        "status": {"const": "placed"}
+      },
+      "additionalProperties": false
+    },
+    "landmark_map": {
+      "type": "object",
+      "required": ["class", "inradius_m", "circumradius_m", "rotation_deg", "port_facet_indices", "status", "target_step"],
+      "properties": {
+        "class": {"enum": ["octagon_regular", "dodecagon", "rotunda16", "hexagon"]},
+        "inradius_m": {"type": "number", "exclusiveMinimum": 0},
+        "circumradius_m": {"type": "number", "exclusiveMinimum": 0},
+        "rotation_deg": {"type": "number", "minimum": 0, "maximum": 360},
+        "port_facet_indices": {"type": "array", "minItems": 2, "items": {"type": "integer", "minimum": 0}, "uniqueItems": true},
+        "status": {"enum": ["placed", "unplaced"]},
+        "target_step": {"type": "integer", "minimum": 1},
+        "cell_id": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {"if": {"properties": {"status": {"const": "placed"}}, "required": ["status"]}, "then": {"required": ["cell_id"], "not": {"required": ["reason"]}}},
+        {"if": {"properties": {"status": {"const": "unplaced"}}, "required": ["status"]}, "then": {"required": ["reason"], "not": {"required": ["cell_id"]}}}
+      ],
+      "additionalProperties": false
+    },
     "point_xz": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
     "path_and_hash": {
       "type": "object",

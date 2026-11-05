@@ -64,6 +64,7 @@ def candidate_pairs(document: dict[str, Any]) -> list[dict[str, Any]]:
         c
         for c in document["cells"]
         if c["role"] in ("ground", "figure") and not c.get("module")
+        and not c.get("landmark")
     ]
     found = []
     for a, b in itertools.combinations(sorted(cells, key=lambda c: c["cell_id"]), 2):

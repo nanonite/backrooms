@@ -136,7 +136,9 @@ def apply_moves(
 def assign_degenerate(rng: random.Random, draft: Draft, maximum: int) -> int:
     """Mark up to `maximum` cells degenerate; returns how many were marked."""
     used, chosen = 0, set()
-    protected = reserved_cell_ids(draft.reserved_diagonal_zones)
+    protected = reserved_cell_ids(draft.reserved_diagonal_zones) | {
+        cell.cell_id for cell in draft.cells.values() if cell.landmark is not None
+    }
     for cell in draft.walkable():
         if used >= maximum:
             break

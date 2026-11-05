@@ -1,4 +1,4 @@
-"""Deterministic shape-room specs (proposal section 5, stages 0-2) for a generative map.
+"""Deterministic shape-room specs (proposal section 5, stages 0-3) for a generative map.
 
 `generate` writes one spec per cell plus index.json below
 godot_walk/room_catalog/shape_rooms/<map_id>/ (pending mode: the pending/ subdirectory).

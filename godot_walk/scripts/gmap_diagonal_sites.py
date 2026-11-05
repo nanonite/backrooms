@@ -58,6 +58,7 @@ def record_cell(
         "envelope_xz": rect_polygon(rect or cell.rect),
         "role": cell.role,
         "module": cell.module,
+        "landmark": cell.landmark,
         "required_ports": [
             {
                 "port_id": p.port_id,
@@ -159,6 +160,7 @@ def site_for_rect(
         for cell in draft.cells.values()
         if cell.role in ("ground", "figure")
         and not cell.module
+        and not cell.landmark
         and cell.cell_id not in reserved_ids
     ]
     child_record = record_cell(child, rect)

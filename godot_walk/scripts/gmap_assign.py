@@ -73,6 +73,8 @@ def assign_tiers(
     """Roll tiers in cell order; figure envelopes are re-drawn or demoted to tier 1."""
     for cell in draft.walkable():
         cell.tier = roll_tier(rng)
+        if cell.landmark is not None:
+            continue  # gmap-0.7.0 fixes its envelope before growth
         if cell.cell_id in reserved_cell_ids(draft.reserved_diagonal_zones):
             cell.tier = 1 if cell.tier >= 2 else cell.tier
             continue

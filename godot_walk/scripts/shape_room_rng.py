@@ -11,6 +11,7 @@ GENERATOR_VERSION_V3 = "shape-room-0.3.0"
 GENERATOR_VERSION_V4 = "shape-room-0.4.0"
 GENERATOR_VERSION_V5 = "shape-room-0.5.0"
 GENERATOR_VERSION_V6 = "shape-room-0.6.0"
+GENERATOR_VERSION_V7 = "shape-room-0.7.0"
 VERSIONS = (
     GENERATOR_VERSION,
     GENERATOR_VERSION_V2,
@@ -18,11 +19,13 @@ VERSIONS = (
     GENERATOR_VERSION_V4,
     GENERATOR_VERSION_V5,
     GENERATOR_VERSION_V6,
+    GENERATOR_VERSION_V7,
 )
 V4_PLUS = (
     GENERATOR_VERSION_V4,
     GENERATOR_VERSION_V5,
     GENERATOR_VERSION_V6,
+    GENERATOR_VERSION_V7,
 )  # 45-degree walls, clear-of-library-room ceilings
 MAP_VERSION_V2 = "gmap-0.2.0"
 MAP_VERSION_V3 = "gmap-0.3.0"
@@ -30,12 +33,15 @@ MAP_VERSION_V4 = "gmap-0.4.0"
 MAP_VERSION_V5 = "gmap-0.5.0"
 MAP_VERSION_V6 = "gmap-0.6.0"
 MAP_VERSION_V61 = "gmap-0.6.1"
+MAP_VERSION_V7 = "gmap-0.7.0"
 
 
 def version_for_map(document: dict) -> str:
     """shape-room-0.5.0 for gmap-0.5.0 (palette materials), shape-room-0.4.0 for gmap-0.4.0 (45-degree walls), shape-room-0.3.0 for gmap-0.3.0 (per-port
     doorway sizes), shape-room-0.2.0 for gmap-0.2.0 (strict doorway margins), else shape-room-0.1.0."""
     version = document.get("generator_version")
+    if version == MAP_VERSION_V7:
+        return GENERATOR_VERSION_V7
     if version == MAP_VERSION_V5:
         return GENERATOR_VERSION_V5
     if version in (MAP_VERSION_V6, MAP_VERSION_V61):
@@ -55,6 +61,8 @@ def cell_rng(
         version == GENERATOR_VERSION_V5
     ):  # same draws as shape-room-0.4.0: only the materials differ
         version = GENERATOR_VERSION_V4
+    if version == GENERATOR_VERSION_V7:
+        version = GENERATOR_VERSION_V6  # v0.7 changes geometry only for the map-selected landmark
     text = f"{map_seed}:{cell_id}:{version}"
     digest = hashlib.sha256(text.encode("utf-8")).digest()
     return random.Random(int.from_bytes(digest, "big"))

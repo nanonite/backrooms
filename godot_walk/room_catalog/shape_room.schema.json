@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://backrooms.local/godot_walk/room_catalog/shape_room.schema.json",
-  "title": "Shape room (stage 0-2): deterministic generated room inside one generative-map cell",
+  "title": "Shape room (stage 0-3): deterministic generated room inside one generative-map cell",
   "type": "object",
   "required": [
     "schema_version", "generator_version", "map_id", "map_sha256", "cell_id", "role",
@@ -12,7 +12,7 @@
   ],
   "properties": {
     "schema_version": { "const": 1 },
-    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0"] },
+    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0"] },
     "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
     "map_sha256": { "$ref": "#/$defs/sha256" },
     "cell_id": { "type": "string", "minLength": 1 },
@@ -20,12 +20,12 @@
     "rarity_tier": { "type": "integer", "minimum": 0, "maximum": 3 },
     "original_cell_status": { "type": "string", "minLength": 1 },
     "primitive": { "enum": ["dead_end", "straight", "l_shape", "t_shape", "cross", "u_shape"] },
-    "primitive_class": { "enum": ["box", "l_shape", "rectilinear_polygon", "chamfered_box", "chamfered_polyomino", "octagon", "wedge", "diagonal_passage"] },
-    "shape_stage": { "enum": [0, 1, 2] },
-    "construction": { "enum": ["box", "arms"] },
+    "primitive_class": { "enum": ["box", "l_shape", "rectilinear_polygon", "chamfered_box", "chamfered_polyomino", "octagon", "wedge", "diagonal_passage", "octagon_regular", "dodecagon", "rotunda16", "hexagon"] },
+    "shape_stage": { "enum": [0, 1, 2, 3] },
+    "construction": { "enum": ["box", "arms", "regular_polygon"] },
     "arm_width_m": { "type": ["number", "null"], "minimum": 3 },
     "envelope_xz": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "$ref": "#/$defs/point_xz" } },
-    "arms_xz": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/rect" } },
+    "arms_xz": { "type": "array", "items": { "$ref": "#/$defs/rect" } },
     "rects": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/rect" } },
     "outline_xz": { "type": "array", "minItems": 4, "items": { "$ref": "#/$defs/point_xz" } },
     "area_m2": { "type": "number", "exclusiveMinimum": 0 },
@@ -94,7 +94,7 @@
         "required": ["feature_id", "kind", "sign"],
         "properties": {
           "feature_id": { "type": "string", "minLength": 1 },
-          "kind": { "enum": ["floor", "walls", "ceiling", "ceiling_lamp_grid", "doorway", "diagonal_passage"] },
+          "kind": { "enum": ["floor", "walls", "ceiling", "ceiling_lamp_grid", "ceiling_lamp_ring", "doorway", "diagonal_passage"] },
           "sign": { "const": "symbol" }
         },
         "additionalProperties": false
@@ -141,8 +141,26 @@
         "length_m": { "type": "number", "exclusiveMinimum": 0 }
       },
       "additionalProperties": false
+    },
+    "landmark": {
+      "type": "object",
+      "required": ["class", "inradius_m", "circumradius_m", "rotation_deg", "port_facet_indices", "status"],
+      "properties": {
+        "class": {"enum": ["octagon_regular", "dodecagon", "rotunda16", "hexagon"]},
+        "inradius_m": {"type": "number", "exclusiveMinimum": 0},
+        "circumradius_m": {"type": "number", "exclusiveMinimum": 0},
+        "rotation_deg": {"type": "number", "minimum": 0, "maximum": 360},
+        "port_facet_indices": {"type": "array", "minItems": 2, "items": {"type": "integer", "minimum": 0}, "uniqueItems": true},
+        "status": {"const": "placed"}
+      },
+      "additionalProperties": false
     }
   },
+  "allOf": [
+    {"if": {"properties": {"construction": {"const": "regular_polygon"}}, "required": ["construction"]}, "then": {"required": ["landmark"], "properties": {"shape_stage": {"const": 3}, "arms_xz": {"maxItems": 0}}}},
+    {"if": {"properties": {"shape_stage": {"const": 3}}, "required": ["shape_stage"]}, "then": {"properties": {"construction": {"const": "regular_polygon"}}}},
+    {"if": {"not": {"properties": {"construction": {"const": "regular_polygon"}}, "required": ["construction"]}}, "then": {"properties": {"arms_xz": {"minItems": 1}}}}
+  ],
   "additionalProperties": false,
   "$defs": {
     "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
@@ -173,7 +191,7 @@
       "required": ["schema_version", "generator_version", "map_id", "map_file", "mode", "rooms"],
       "properties": {
         "schema_version": { "const": 1 },
-        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0"] },
+        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0"] },
         "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
         "map_file": {
           "type": "object",
@@ -193,8 +211,8 @@
               "sha256": { "$ref": "#/$defs/sha256" },
               "original_cell_status": { "type": "string", "minLength": 1 },
               "primitive": { "enum": ["dead_end", "straight", "l_shape", "t_shape", "cross", "u_shape"] },
-              "primitive_class": { "enum": ["box", "l_shape", "rectilinear_polygon", "chamfered_box", "chamfered_polyomino", "octagon", "wedge", "diagonal_passage"] },
-              "construction": { "enum": ["box", "arms"] },
+              "primitive_class": { "enum": ["box", "l_shape", "rectilinear_polygon", "chamfered_box", "chamfered_polyomino", "octagon", "wedge", "diagonal_passage", "octagon_regular", "dodecagon", "rotunda16", "hexagon"] },
+              "construction": { "enum": ["box", "arms", "regular_polygon"] },
               "mode": { "enum": ["standard", "degenerate"] },
               "palette_id": { "type": "string", "minLength": 1, "description": "Optional (shape-room-0.5.0). The room's material palette." }
             },

@@ -38,6 +38,7 @@ static func build(parent: Node3D, spec: Dictionary, materials: Dictionary,
 	var boundaries := _group(room, "AuthoredBoundaries")
 	var context := _context(spec, materials, forced_closed, module_joints)
 	context["chamfered"] = DIAGONAL.is_chamfered(spec)
+	context["landmark"] = spec.has("landmark")
 	context["diagonal_passage_visuals"] = spec.has("diagonal_passage")
 	context["diagonal_collision"] = bool(options.get("diagonal_collision", true))
 	context["diagonal_pullback"] = float(options.get("diagonal_pullback", 0.0))
@@ -138,11 +139,26 @@ static func _add_ceiling(visuals: Node3D, context: Dictionary) -> void:
 
 static func _add_lamps(visuals: Node3D, context: Dictionary) -> void:
 	var lamps := _group(visuals, "CeilingLamps")
+	if context.landmark:
+		_add_landmark_lamp_ring(lamps, context)
+		return
 	var index := 0
 	for point: Array in context.spec.lamps_xz:
 		_add_box(lamps, "CeilingLight_%02d" % index, Vector3(float(point[0]), context.height - LAMP_SIZE.y / 2.0, float(point[1])),
 			LAMP_SIZE, context.materials.lamp)
 		index += 1
+
+
+static func _add_landmark_lamp_ring(lamps: Node3D, context: Dictionary) -> void:
+	var point: Array = context.spec.lamps_xz[0]
+	var center := Vector3(float(point[0]), context.height - LAMP_SIZE.y / 2.0, float(point[1]))
+	var outer := 1.8
+	var bar := 0.12
+	for side in 2:
+		var long_size := Vector3(outer, LAMP_SIZE.y, bar) if side == 0 else Vector3(bar, LAMP_SIZE.y, outer)
+		for direction in [-1.0, 1.0]:
+			var offset := Vector3(0.0, 0.0, direction * (outer - bar) / 2.0) if side == 0 else Vector3(direction * (outer - bar) / 2.0, 0.0, 0.0)
+			_add_box(lamps, "LandmarkLampRing_%d_%d" % [side, int(direction)], center + offset, long_size, context.materials.lamp)
 
 
 static func _add_walls(visuals: Node3D, boundaries: Node3D, context: Dictionary) -> void:
@@ -210,8 +226,13 @@ static func _add_edge_pieces(visuals: Node3D, boundaries: Node3D, context: Dicti
 		if context.diagonal_passage_visuals and span.y - span.x <= EPSILON:
 			continue
 		var passage_corner: bool = context.diagonal_passage_visuals and frame.length > 3.0
-		var reach_start := WALL_THICKNESS if span.x < EPSILON and (frame.start_reflex or passage_corner) else 0.0
-		var reach_end := WALL_THICKNESS if span.y > frame.length - EPSILON and (frame.end_reflex or passage_corner) else 0.0
+		var landmark_mitre: float = WALL_THICKNESS * tan(PI / float(context.ring.size())) if context.landmark else 0.0
+		var reach_start := landmark_mitre if context.landmark and span.x < EPSILON else 0.0
+		var reach_end := landmark_mitre if context.landmark and span.y > frame.length - EPSILON else 0.0
+		if span.x < EPSILON and (frame.start_reflex or passage_corner):
+			reach_start = maxf(reach_start, WALL_THICKNESS)
+		if span.y > frame.length - EPSILON and (frame.end_reflex or passage_corner):
+			reach_end = maxf(reach_end, WALL_THICKNESS)
 		var label := "Wall_%02d_%d" % [index, piece]
 		var box := _edge_box(frame, span.x - reach_start, span.y + reach_end, 0.0, WALL_THICKNESS, 0.0, context.height)
 		if not context.diagonal_passage_visuals:

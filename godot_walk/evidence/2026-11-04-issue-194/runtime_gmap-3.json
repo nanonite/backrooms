@@ -1,0 +1,412 @@
+{
+	"contract": {
+		"specs_checked": 13
+	},
+	"failures": [],
+	"map_id": "gmap-3-gmap-0.7.0",
+	"mode": "all_walkable",
+	"negative_controls": {
+		"diagonal_collision_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"push_samples": 41,
+			"push_stopped": 0,
+			"wall_failures": 6
+		},
+		"diagonal_floor_without_declared_link": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"first_failure": "c01: floor present at 10 samples outside the polygon and unconnected",
+			"unconnected_floor_failures": 3
+		},
+		"diagonal_frame_unaligned": {
+			"applicable": true,
+			"diagonal_headers": 2,
+			"failed_as_expected": true,
+			"removed_failures": 1,
+			"unrotated_failures": 1
+		},
+		"diagonal_link_doorway_removed": {
+			"applicable": true,
+			"edge_failures": 2,
+			"failed_as_expected": true,
+			"first_failure": "dp00:b -> c08:d0 forward: blocked by Wall_01_0 at (19.94695, 0.053046)",
+			"passage": "dp00"
+		},
+		"diagonal_passage_collision_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"push_samples": 41,
+			"push_stopped": 0
+		},
+		"doorway_removed": {
+			"applicable": true,
+			"edge_failures": 2,
+			"failed_as_expected": true,
+			"first_failure": "c00:p0 -> c01:p0 forward: blocked by Wall_03_0 at (5.6, 4.0)",
+			"flood_failures": 0,
+			"removed_doorway": "c00:p0"
+		},
+		"floor_rect_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"failure_count": 4,
+			"first_failure": "c02: floor missing at 76 of 198 polygon samples",
+			"room": "c02"
+		},
+		"landmark_port_off_midpoint": {
+			"applicable": false,
+			"failed_as_expected": false,
+			"reason": "map has no placed landmark doorway"
+		},
+		"module_joint_recess_removed": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"module_check_failures": 5,
+			"reveal_coplanar_faces": 5
+		},
+		"module_socket_closed": {
+			"applicable": true,
+			"edge_failures": 2,
+			"failed_as_expected": true,
+			"first_failure": "c06:p1 -> c12:p0 forward: blocked by SouthBoundary at (4.0, -11.5)",
+			"module_cell": "c12",
+			"module_check_failures": 2
+		},
+		"unmitred_joint": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"joint_samples": 3219,
+			"joint_uncovered": 1092
+		},
+		"wrong_palette": {
+			"applicable": true,
+			"failed_as_expected": true,
+			"first_failure": "c00: floor FloorPolygon does not match palette backrooms_yellow",
+			"mismatches": 264,
+			"rooms": 13,
+			"surfaces": 264
+		}
+	},
+	"positive": {
+		"diagonal": {
+			"coplanar_faces": 0,
+			"diagonal_edges": 15,
+			"failures": [],
+			"floor_missing": 0,
+			"floor_samples": 31191,
+			"joint_samples": 3219,
+			"joint_uncovered": 0,
+			"module_overhang_samples": 0,
+			"push_samples": 41,
+			"push_stopped": 41
+		},
+		"diagonal_links": {
+			"diagonal_edges": 2,
+			"failures": [],
+			"frames_checked": 2,
+			"lane_sweeps": 12,
+			"lane_sweeps_passed": 12,
+			"links": 1,
+			"passage_wall_colliders": 6
+		},
+		"edges": {
+			"closed_blocked": 1,
+			"closed_edges": 1,
+			"direct_edges": 14,
+			"direct_edges_checked": 14,
+			"failures": [],
+			"passed_forward": 14,
+			"passed_reverse": 14
+		},
+		"flood": {
+			"clear_samples": 2245,
+			"enclosed_clear_samples_in_module_cells": 0,
+			"expected_cells": 14,
+			"failures": [],
+			"reached_cells": 14,
+			"reached_samples": 2245,
+			"unreached_clear_samples_in_expected_cells": 0,
+			"void_cells_reached": 0
+		},
+		"modules": {
+			"apertures_clear": 1,
+			"clearance_control_conflicts": 7,
+			"failures": [],
+			"floors_supported": 1,
+			"joints": [
+				{
+					"aperture_clear": true,
+					"cell_id": "c12",
+					"floors_supported": true,
+					"landed": true,
+					"landing_miss_m": 0.0200004577636719,
+					"module_id": "godot_gopro_industrial_hall_south_socket_v1",
+					"open": true
+				}
+			],
+			"module_cells": 1,
+			"reveal_coplanar_faces": 0,
+			"sockets_landed": 1,
+			"sockets_open": 1,
+			"wall_coplanar_conflicts": 0
+		},
+		"palette": {
+			"failures": [],
+			"mismatches": 0,
+			"palettes": {
+				"backrooms_yellow": 12,
+				"industrial_concrete": 1
+			},
+			"rooms": 13,
+			"surfaces": 264
+		},
+		"rooms": [
+			{
+				"approach_clear": 6,
+				"approach_samples": 6,
+				"cell_id": "c00",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 91,
+				"floor_inside_supported": 91,
+				"floor_outside": 47,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 28,
+				"wall_samples": 28
+			},
+			{
+				"approach_clear": 39,
+				"approach_samples": 39,
+				"cell_id": "c01",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 369,
+				"floor_inside_supported": 369,
+				"floor_outside": 10,
+				"floor_outside_connector_supported": 10,
+				"floor_outside_supported": 10,
+				"open_clear": 4,
+				"open_doorways": 4,
+				"wall_blocked": 54,
+				"wall_samples": 54
+			},
+			{
+				"approach_clear": 32,
+				"approach_samples": 32,
+				"cell_id": "c02",
+				"closed_blocked": 1,
+				"closed_doorways": 1,
+				"failures": [],
+				"floor_inside": 198,
+				"floor_inside_supported": 198,
+				"floor_outside": 186,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 60,
+				"wall_samples": 60
+			},
+			{
+				"approach_clear": 43,
+				"approach_samples": 43,
+				"cell_id": "c03",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 360,
+				"floor_inside_supported": 360,
+				"floor_outside": 14,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 68,
+				"wall_samples": 68
+			},
+			{
+				"approach_clear": 10,
+				"approach_samples": 10,
+				"cell_id": "c04",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 72,
+				"floor_inside_supported": 72,
+				"floor_outside": 72,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 24,
+				"wall_samples": 24
+			},
+			{
+				"approach_clear": 12,
+				"approach_samples": 12,
+				"cell_id": "c05",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 111,
+				"floor_inside_supported": 111,
+				"floor_outside": 4,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 32,
+				"wall_samples": 32
+			},
+			{
+				"approach_clear": 19,
+				"approach_samples": 19,
+				"cell_id": "c06",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 144,
+				"floor_inside_supported": 144,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 36,
+				"wall_samples": 36
+			},
+			{
+				"approach_clear": 26,
+				"approach_samples": 26,
+				"cell_id": "c07",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 120,
+				"floor_inside_supported": 120,
+				"floor_outside": 0,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 34,
+				"wall_samples": 34
+			},
+			{
+				"approach_clear": 27,
+				"approach_samples": 27,
+				"cell_id": "c08",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 241,
+				"floor_inside_supported": 241,
+				"floor_outside": 10,
+				"floor_outside_connector_supported": 10,
+				"floor_outside_supported": 10,
+				"open_clear": 3,
+				"open_doorways": 3,
+				"wall_blocked": 44,
+				"wall_samples": 44
+			},
+			{
+				"approach_clear": 13,
+				"approach_samples": 13,
+				"cell_id": "c09",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 66,
+				"floor_inside_supported": 66,
+				"floor_outside": 3,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 28,
+				"wall_samples": 28
+			},
+			{
+				"approach_clear": 35,
+				"approach_samples": 35,
+				"cell_id": "c10",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 192,
+				"floor_inside_supported": 192,
+				"floor_outside": 64,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 50,
+				"wall_samples": 50
+			},
+			{
+				"approach_clear": 22,
+				"approach_samples": 22,
+				"cell_id": "c11",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 114,
+				"floor_inside_supported": 114,
+				"floor_outside": 2,
+				"floor_outside_connector_supported": 0,
+				"floor_outside_supported": 0,
+				"open_clear": 1,
+				"open_doorways": 1,
+				"wall_blocked": 44,
+				"wall_samples": 44
+			},
+			{
+				"approach_clear": 12,
+				"approach_samples": 12,
+				"cell_id": "dp00",
+				"closed_blocked": 0,
+				"closed_doorways": 0,
+				"failures": [],
+				"floor_inside": 39,
+				"floor_inside_supported": 39,
+				"floor_outside": 48,
+				"floor_outside_connector_supported": 6,
+				"floor_outside_supported": 6,
+				"open_clear": 2,
+				"open_doorways": 2,
+				"wall_blocked": 20,
+				"wall_samples": 20
+			}
+		],
+		"trim": {
+			"back_to_back_contacts": 124,
+			"degenerate_conflicts": 0,
+			"degenerate_trim_boxes": 3,
+			"floor_underside_contacts": 6,
+			"negative_controls": {
+				"old_outside_trim_detected": true,
+				"shared_plane_detected": true
+			},
+			"pairs_checked": 243,
+			"same_facing": [],
+			"same_facing_count": 0,
+			"solid_boxes": 168,
+			"trim_boxes": 78
+		}
+	},
+	"rooms_checked": 13,
+	"scene": {
+		"origin_cell": "c00",
+		"player_spawned": true,
+		"reset_restores_spawn": true,
+		"safety_net_present": true,
+		"spawn_floor_supported": true,
+		"spawn_inside_origin_polygon": true
+	}
+}

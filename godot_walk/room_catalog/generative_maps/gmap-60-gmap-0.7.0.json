@@ -1,0 +1,1435 @@
+{
+  "attempt": 0,
+  "catalog_snapshot": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.5.0.json",
+    "sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30"
+  },
+  "cells": [
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box",
+        "chamfered_polyomino"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c00",
+      "envelope_xz": [
+        [
+          0,
+          0
+        ],
+        [
+          10,
+          0
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          0,
+          14
+        ]
+      ],
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow"
+      },
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c00:p0",
+          "pos_xz": [
+            10,
+            8.5
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c00:p1",
+          "pos_xz": [
+            10,
+            1.5
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c00:p2",
+          "pos_xz": [
+            0,
+            7
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c00:p3",
+          "pos_xz": [
+            4,
+            14
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c00:p4",
+          "pos_xz": [
+            8.5,
+            14
+          ]
+        }
+      ],
+      "role": "ground",
+      "shape_stage_target": 1
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box",
+        "chamfered_polyomino"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c01",
+      "envelope_xz": [
+        [
+          10,
+          3
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          18,
+          15
+        ],
+        [
+          10,
+          15
+        ]
+      ],
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow"
+      },
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c01:p0",
+          "pos_xz": [
+            10,
+            8.5
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c01:p1",
+          "pos_xz": [
+            12.5,
+            15
+          ]
+        }
+      ],
+      "role": "ground",
+      "shape_class_target": "chamfered_polyomino",
+      "shape_stage_target": 2
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box",
+        "chamfered_polyomino"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c02",
+      "envelope_xz": [
+        [
+          10,
+          -9
+        ],
+        [
+          18,
+          -9
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          10,
+          3
+        ]
+      ],
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c02:p0",
+          "pos_xz": [
+            10,
+            1.5
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c02:p1",
+          "pos_xz": [
+            16.5,
+            -9
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c02:p2",
+          "pos_xz": [
+            18,
+            1.5
+          ]
+        }
+      ],
+      "role": "ground",
+      "shape_stage_target": 1
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c03",
+      "envelope_xz": [
+        [
+          15,
+          -19
+        ],
+        [
+          18,
+          -19
+        ],
+        [
+          18,
+          -9
+        ],
+        [
+          15,
+          -9
+        ]
+      ],
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c03:p0",
+          "pos_xz": [
+            16.5,
+            -9
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c03:p1",
+          "pos_xz": [
+            15,
+            -12
+          ]
+        }
+      ],
+      "role": "threshold",
+      "shape_stage_target": 1
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c04",
+      "envelope_xz": [
+        [
+          11,
+          15
+        ],
+        [
+          14,
+          15
+        ],
+        [
+          14,
+          21
+        ],
+        [
+          11,
+          21
+        ]
+      ],
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow"
+      },
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c04:p0",
+          "pos_xz": [
+            12.5,
+            15
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c04:p1",
+          "pos_xz": [
+            14,
+            18
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c04:p2",
+          "pos_xz": [
+            12.5,
+            21
+          ]
+        }
+      ],
+      "role": "ground",
+      "shape_stage_target": 1
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box",
+        "wedge"
+      ],
+      "ceiling_range_m": [
+        3.0,
+        6.0
+      ],
+      "cell_id": "c05",
+      "envelope_xz": [
+        [
+          14,
+          16
+        ],
+        [
+          27,
+          16
+        ],
+        [
+          27,
+          32
+        ],
+        [
+          14,
+          32
+        ]
+      ],
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow"
+      },
+      "rarity_tier": 3,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c05:p0",
+          "pos_xz": [
+            14,
+            18
+          ]
+        }
+      ],
+      "role": "figure",
+      "shape_class_target": "chamfered_box",
+      "shape_stage_target": 2
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box",
+        "octagon",
+        "hexagon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c06",
+      "envelope_xz": [
+        [
+          -8,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          -8,
+          12
+        ]
+      ],
+      "landmark": {
+        "circumradius_m": 4.618802,
+        "class": "hexagon",
+        "inradius_m": 4.0,
+        "port_facet_indices": [
+          0,
+          3
+        ],
+        "rotation_deg": 120.0,
+        "status": "placed"
+      },
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow"
+      },
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c06:p0",
+          "pos_xz": [
+            0,
+            7
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c06:p1",
+          "pos_xz": [
+            -8,
+            7
+          ]
+        }
+      ],
+      "role": "ground",
+      "shape_stage_target": 3
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "chamfered_box",
+        "l_shape",
+        "rectilinear_polygon",
+        "wedge"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c07",
+      "diagonal_link_chamfer": {
+        "corner_xz": [
+          8,
+          21
+        ],
+        "length_m": 2.5,
+        "port_id": "c07:d0"
+      },
+      "envelope_xz": [
+        [
+          8,
+          21
+        ],
+        [
+          14,
+          21
+        ],
+        [
+          14,
+          27
+        ],
+        [
+          8,
+          27
+        ]
+      ],
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c07:p0",
+          "pos_xz": [
+            12.5,
+            21
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -0.7071067811865476,
+            -0.7071067811865476
+          ],
+          "placement": "standard",
+          "port_id": "c07:d0",
+          "pos_xz": [
+            9.25,
+            22.25
+          ]
+        }
+      ],
+      "role": "ground",
+      "shape_class_target": "chamfered_box",
+      "shape_stage_target": 2
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "chamfered_box",
+        "l_shape",
+        "octagon",
+        "rectilinear_polygon",
+        "wedge"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c08",
+      "diagonal_link_chamfer": {
+        "corner_xz": [
+          7,
+          20
+        ],
+        "length_m": 2.5,
+        "port_id": "c08:d0"
+      },
+      "envelope_xz": [
+        [
+          1,
+          14
+        ],
+        [
+          7,
+          14
+        ],
+        [
+          7,
+          20
+        ],
+        [
+          1,
+          20
+        ]
+      ],
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c08:p0",
+          "pos_xz": [
+            4,
+            14
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0.7071067811865476,
+            0.7071067811865476
+          ],
+          "placement": "standard",
+          "port_id": "c08:d0",
+          "pos_xz": [
+            5.75,
+            18.75
+          ]
+        }
+      ],
+      "role": "ground",
+      "shape_class_target": "chamfered_box",
+      "shape_stage_target": 2
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c09",
+      "envelope_xz": [
+        [
+          9,
+          -15
+        ],
+        [
+          15,
+          -15
+        ],
+        [
+          15,
+          -9
+        ],
+        [
+          9,
+          -9
+        ]
+      ],
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c09:p0",
+          "pos_xz": [
+            15,
+            -12
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c09:p1",
+          "pos_xz": [
+            9,
+            -10.5
+          ]
+        }
+      ],
+      "role": "ground",
+      "shape_stage_target": 1
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c10",
+      "envelope_xz": [
+        [
+          -16,
+          0
+        ],
+        [
+          -8,
+          0
+        ],
+        [
+          -8,
+          12
+        ],
+        [
+          -16,
+          12
+        ]
+      ],
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": "godot_gopro_industrial_hall_south_socket_v1",
+        "distance": 1,
+        "palette_id": "industrial_concrete"
+      },
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c10:p0",
+          "pos_xz": [
+            -8,
+            7
+          ]
+        },
+        {
+          "compatibility_type": "authored_direct_doorway_2.4x2.2_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c10:p1",
+          "pos_xz": [
+            -16,
+            7
+          ]
+        }
+      ],
+      "role": "ground",
+      "shape_stage_target": 1
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box",
+        "wedge"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c11",
+      "envelope_xz": [
+        [
+          3,
+          -12
+        ],
+        [
+          9,
+          -12
+        ],
+        [
+          9,
+          -6
+        ],
+        [
+          3,
+          -6
+        ]
+      ],
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c11:p0",
+          "pos_xz": [
+            9,
+            -10.5
+          ]
+        }
+      ],
+      "role": "ground",
+      "shape_class_target": "chamfered_box",
+      "shape_stage_target": 2
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        4.78,
+        4.78
+      ],
+      "cell_id": "c12",
+      "envelope_xz": [
+        [
+          -29,
+          -1
+        ],
+        [
+          -16,
+          -1
+        ],
+        [
+          -16,
+          15
+        ],
+        [
+          -29,
+          15
+        ]
+      ],
+      "mode": "standard",
+      "module": {
+        "metadata_record": {
+          "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_poetics_v2.json",
+          "sha256": "0dcc9e45c524d9daba2cb88d3e956e6d22eb04d03cff6d36e1ab025654c2a25e"
+        },
+        "module_id": "godot_gopro_industrial_hall_south_socket_v1",
+        "rotation_deg": 270,
+        "socket_id": "south",
+        "translation_xz": [
+          -22.52,
+          7.0
+        ],
+        "version": 1
+      },
+      "rarity_tier": 2,
+      "required_ports": [
+        {
+          "compatibility_type": "authored_direct_doorway_2.4x2.2_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c12:p0",
+          "pos_xz": [
+            -16,
+            7
+          ]
+        }
+      ],
+      "role": "figure"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c13",
+      "envelope_xz": [
+        [
+          7,
+          14
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          10,
+          17
+        ],
+        [
+          7,
+          17
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c13:p0",
+          "pos_xz": [
+            8.5,
+            14
+          ]
+        }
+      ],
+      "role": "void"
+    },
+    {
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c14",
+      "envelope_xz": [
+        [
+          18,
+          0
+        ],
+        [
+          21,
+          0
+        ],
+        [
+          21,
+          6
+        ],
+        [
+          18,
+          6
+        ]
+      ],
+      "mode": "standard",
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c14:p0",
+          "pos_xz": [
+            18,
+            1.5
+          ]
+        }
+      ],
+      "role": "void"
+    },
+    {
+      "allowed_primitives": [
+        "diagonal_passage"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "dp00",
+      "diagonal_passage": {
+        "clear_width_m": 2.0,
+        "from_cell_id": "c07",
+        "from_port_id": "c07:d0",
+        "length_m": 4.949747468,
+        "link_id": "dl00",
+        "outline_xz": [
+          [
+            10.070243866176394,
+            21.429756133823606
+          ],
+          [
+            6.570243866176395,
+            17.929756133823606
+          ],
+          [
+            4.929756133823605,
+            19.570243866176394
+          ],
+          [
+            8.429756133823606,
+            23.070243866176394
+          ]
+        ],
+        "palette_source_cell_id": "c07",
+        "to_cell_id": "c08",
+        "to_port_id": "c08:d0",
+        "wall_thickness_m": 0.16
+      },
+      "envelope_xz": [
+        [
+          4.929756133823605,
+          17.929756133823606
+        ],
+        [
+          10.070243866176394,
+          17.929756133823606
+        ],
+        [
+          10.070243866176394,
+          23.070243866176394
+        ],
+        [
+          4.929756133823605,
+          23.070243866176394
+        ]
+      ],
+      "mode": "standard",
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0.7071067811865476,
+            0.7071067811865476
+          ],
+          "placement": "standard",
+          "port_id": "dp00:a",
+          "pos_xz": [
+            9.25,
+            22.25
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -0.7071067811865476,
+            -0.7071067811865476
+          ],
+          "placement": "standard",
+          "port_id": "dp00:b",
+          "pos_xz": [
+            5.75,
+            18.75
+          ]
+        }
+      ],
+      "role": "threshold",
+      "shape_class_target": "diagonal_passage",
+      "shape_stage_target": 2
+    }
+  ],
+  "degenerate_budget": {
+    "max": 1,
+    "used": 0
+  },
+  "diagonal_links": {
+    "budget": 1,
+    "nudged_cells": [],
+    "reserved_diagonal_zones": [
+      {
+        "clearance_polygon_xz": [
+          [
+            10.423797256769669,
+            21.076202743230333
+          ],
+          [
+            6.923797256769669,
+            17.576202743230333
+          ],
+          [
+            4.576202743230331,
+            19.923797256769667
+          ],
+          [
+            8.076202743230331,
+            23.423797256769667
+          ]
+        ],
+        "corner_indices": [
+          0,
+          2
+        ],
+        "corner_xz": [
+          [
+            8,
+            21
+          ],
+          [
+            7,
+            20
+          ]
+        ],
+        "endpoint_ids": [
+          "c07",
+          "c08"
+        ],
+        "finish_xz": [
+          5.75,
+          18.75
+        ],
+        "link_id": "dl00",
+        "site_id": "ds00",
+        "start_xz": [
+          9.25,
+          22.25
+        ],
+        "status": "realized"
+      }
+    ],
+    "selection_rule": "seeded weighted draw 0:3, 1:5, 2:2; growth reservations first; remaining eligible pairs sorted then seeded shuffle",
+    "used": 1
+  },
+  "distribution": {
+    "repetition_budget": {
+      "max_same_module_adjacent": 0,
+      "max_same_primitive_run": 3
+    },
+    "tier_curve": "2d6"
+  },
+  "edges": [
+    {
+      "connector": "direct",
+      "from": "c00:p0",
+      "to": "c01:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c00:p1",
+      "to": "c02:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c00:p2",
+      "to": "c06:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c00:p3",
+      "to": "c08:p0"
+    },
+    {
+      "connector": "closed_visible",
+      "from": "c00:p4",
+      "to": "c13:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c01:p1",
+      "to": "c04:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c02:p1",
+      "to": "c03:p0"
+    },
+    {
+      "connector": "closed_visible",
+      "from": "c02:p2",
+      "to": "c14:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c03:p1",
+      "to": "c09:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c04:p1",
+      "to": "c05:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c04:p2",
+      "to": "c07:p0"
+    },
+    {
+      "connector": "direct",
+      "from": "c06:p1",
+      "to": "c10:p0"
+    },
+    {
+      "connector": "direct",
+      "diagonal_link_id": "dl00",
+      "from": "c07:d0",
+      "kind": "diagonal",
+      "to": "dp00:a"
+    },
+    {
+      "connector": "direct",
+      "from": "c09:p1",
+      "to": "c11:p0"
+    },
+    {
+      "connection_status": "proposed_untested",
+      "connector": "direct",
+      "from": "c10:p1",
+      "to": "c12:p0"
+    },
+    {
+      "connector": "direct",
+      "diagonal_link_id": "dl00",
+      "from": "dp00:b",
+      "kind": "diagonal",
+      "to": "c08:d0"
+    }
+  ],
+  "generator_version": "gmap-0.7.0",
+  "growth_cell_target": 12,
+  "landmark": {
+    "cell_id": "c06",
+    "circumradius_m": 4.618802,
+    "class": "hexagon",
+    "inradius_m": 4.0,
+    "port_facet_indices": [
+      0,
+      3
+    ],
+    "rotation_deg": 120.0,
+    "status": "placed",
+    "target_step": 6
+  },
+  "lattice": {
+    "kind": "square",
+    "port_step_m": 0.5,
+    "port_unit": "level_doorway_2m_v1",
+    "unit_m": 1.0
+  },
+  "layout_variant": 4,
+  "library_index": {
+    "metadata_records": [
+      {
+        "module_id": "godot_early_pocket_pass_through_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json",
+        "sha256": "7e8c4148ab2aaa45af7102719a7f820893b9368480757d6652f1f971774d1b3d"
+      },
+      {
+        "module_id": "godot_early_pocket_single_west_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_single_west_v1-v1.accepted.json",
+        "sha256": "1d2642ffc9ec0cdcdebd736755a34193787c891e627c4fadf5ee150b55815b76"
+      },
+      {
+        "module_id": "godot_early_pocket_three_way_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_three_way_v1-v1.accepted.json",
+        "sha256": "f03cff792927988fc13e6ad5512c78b09ae95d481baaded5e127c5bd44696ec6"
+      },
+      {
+        "module_id": "godot_gopro_industrial_hall_frame1097_v1",
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_poetics_v2.json",
+        "sha256": "0f8029fc7d2cf54db2bd73d6d7cf0b65e423826ba3082cfaa6cd77d35dca09ac"
+      },
+      {
+        "module_id": "godot_gopro_industrial_hall_south_socket_v1",
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_poetics_v2.json",
+        "sha256": "0dcc9e45c524d9daba2cb88d3e956e6d22eb04d03cff6d36e1ab025654c2a25e"
+      },
+      {
+        "module_id": "godot_later_bay_column_bounded_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_later_bay_column_bounded_v1-v1.accepted.json",
+        "sha256": "e6db1b50f9604998cc98f18b4f4cdf40caaaf6675cfab33402fd9b4feb0dbaf9"
+      },
+      {
+        "module_id": "godot_source_textured_large_room_hall_end_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_source_textured_large_room_hall_end_v1-v1.accepted.json",
+        "sha256": "0299e703889bd4969060899d32b142a4864fea98cbd88e3eb6ef5f4c1d70e1ce"
+      },
+      {
+        "module_id": "godot_source_textured_large_room_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_source_textured_large_room_v1-v1.accepted.json",
+        "sha256": "ce3ab0c71f30e7f4ccd074db4836e35d5a28f9243506952d69718c972b635dac"
+      },
+      {
+        "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+        "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json",
+        "sha256": "eb36d037057b9ab223d3ca8ce6ece93191da591a9850fe158875367a6edf711d"
+      },
+      {
+        "module_id": "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_poetics_v2.json",
+        "sha256": "2eb7508f68a994e5d1159269b32522c4780434198e2adfbd648ee59a0b389df4"
+      },
+      {
+        "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json",
+        "sha256": "83a2a1c10e8d06b00ea995586e8c891b0b8e5f1116eea3cad4af457516725f78"
+      }
+    ],
+    "path": "godot_walk/room_catalog/library_index/godot_psx_room_kit-0.5.0.json",
+    "sha256": "147b1cb9daaa96601bcab84bf355929134f2ddbd6b6f279bc255f7ddd849f49f"
+  },
+  "map_id": "gmap-60-gmap-0.7.0",
+  "module_budget": {
+    "max": 2,
+    "min": 1,
+    "used": 1
+  },
+  "palette_registry": {
+    "path": "godot_walk/room_catalog/material_palettes/palettes-0.1.0.json",
+    "sha256": "559780b261429bfca3f810519d2cc0c28fa945b8a77eb6ee192f6e3387f0b2bb"
+  },
+  "registration_accepted": false,
+  "rules": [
+    "branch_required",
+    "degenerate_only_in_degenerate_cells",
+    "diagonal_links",
+    "diagonal_site_reservations",
+    "figure_not_adjacent",
+    "landmark_contract",
+    "module_budget",
+    "module_leaf_proposed_untested",
+    "module_socket_landing",
+    "module_usable_once",
+    "no_envelope_overlap",
+    "palette_assignment",
+    "ports_on_lattice",
+    "ports_on_shared_edge",
+    "shape_stage2_eligibility",
+    "standard_doorway_margin",
+    "tree_no_loops",
+    "void_visible_from_walkable",
+    "voids_never_traversable"
+  ],
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "seed": 60,
+  "shape_stage_max": 3,
+  "void_budget": {
+    "max": 3,
+    "min": 1
+  }
+}

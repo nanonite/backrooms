@@ -98,7 +98,7 @@ static func _wall_counts(space: PhysicsDirectSpaceState3D, assembly: Node3D, spe
 		ring: Array[Vector2]) -> Dictionary:
 	var counts := {"wall_samples": 0, "wall_blocked": 0, "approach_samples": 0, "approach_clear": 0}
 	var chamfered: bool = spec.has("chamfers") or spec.has("diagonal_passage")
-	var current: bool = ["shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0"].has(String(spec.generator_version))
+	var current: bool = ["shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0"].has(String(spec.generator_version))
 	for index in ring.size():
 		var start := ring[index]
 		var finish := ring[(index + 1) % ring.size()]

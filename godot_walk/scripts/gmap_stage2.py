@@ -14,7 +14,12 @@ from typing import Any
 
 from gmap_geometry import polygon_rect
 from gmap_rules import Errors, err
-from shape_room_stage2 import STAGE2_CLASSES, STAGE2_PROBABILITY, choose_class, eligible_classes
+from shape_room_stage2 import (
+    STAGE2_CLASSES,
+    STAGE2_PROBABILITY,
+    choose_class,
+    eligible_classes,
+)
 
 RULE = "shape_stage2_eligibility"
 STAGE1_PRIMITIVES = ["box", "l_shape", "rectilinear_polygon"]
@@ -23,7 +28,7 @@ PRIMITIVES_BY_STAGE = {0: ["box"], 1: STAGE1_PRIMITIVES}
 
 def stage_rng(seed: int, attempt: int, version: str) -> random.Random:
     """Separate sha256-derived stream; never Python hash()."""
-    digest = hashlib.sha256(f"{seed}:{attempt}:shape_stage:{version}".encode("utf-8")).digest()
+    digest = hashlib.sha256(f"{seed}:{attempt}:shape_stage:{version}".encode()).digest()
     return random.Random(int.from_bytes(digest, "big"))
 
 
@@ -72,6 +77,10 @@ def stage2_errors(document: dict[str, Any]) -> Errors:
         expected = cell_eligible(cell) if stage_max >= 2 and cell["role"] != "void" else []
         if listed != expected:
             errors.append(err(RULE, "stage2_classes_not_eligible", f"{label}: lists {listed}, eligible {expected}"))
+        if cell.get("landmark") is not None and cell.get("shape_stage_target") == 3:
+            if cell.get("shape_class_target") is not None:
+                errors.append(err(RULE, "stage3_has_stage2_class_target", label))
+            continue
         has_target = "shape_stage_target" in cell
         if has_target == (cell["role"] == "void" or bool(cell.get("module"))):
             errors.append(err(RULE, "shape_stage_target_missing" if not has_target else "shape_stage_target_unexpected", label))

@@ -1,0 +1,392 @@
+{
+  "area_m2": 203.686275,
+  "arm_width_m": null,
+  "arms_xz": [],
+  "ceiling_height_m": 4.8,
+  "cell_id": "c03",
+  "construction": "regular_polygon",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        1
+      ],
+      "port_id": "c03:p0",
+      "pos_xz": [
+        4.0,
+        0.0
+      ],
+      "to_cell_id": "c00",
+      "to_port_id": "c00:p1",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        1,
+        0
+      ],
+      "port_id": "c03:p1",
+      "pos_xz": [
+        12.0,
+        -8.0
+      ],
+      "to_cell_id": "c07",
+      "to_port_id": "c07:p0",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        -1,
+        0
+      ],
+      "port_id": "c03:p2",
+      "pos_xz": [
+        -4.0,
+        -8.0
+      ],
+      "to_cell_id": "c08",
+      "to_port_id": "c08:p0",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        -1
+      ],
+      "port_id": "c03:p3",
+      "pos_xz": [
+        4.0,
+        -16.0
+      ],
+      "to_cell_id": "c09",
+      "to_port_id": "c09:p0",
+      "width_m": 2.0
+    }
+  ],
+  "envelope_xz": [
+    [
+      -4.0,
+      -16.0
+    ],
+    [
+      12.0,
+      -16.0
+    ],
+    [
+      12.0,
+      0.0
+    ],
+    [
+      -4.0,
+      0.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_ring",
+      "kind": "ceiling_lamp_ring",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c03:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c03:p1",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c03:p2",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c03:p3",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "generator_version": "shape-room-0.7.0",
+  "lamps_xz": [
+    [
+      4.0,
+      -8.0
+    ]
+  ],
+  "landmark": {
+    "circumradius_m": 8.156729,
+    "class": "rotunda16",
+    "inradius_m": 8.0,
+    "port_facet_indices": [
+      3,
+      7,
+      11,
+      15
+    ],
+    "rotation_deg": 0.0,
+    "status": "placed"
+  },
+  "map_id": "gmap-69-gmap-0.7.0",
+  "map_sha256": "8651be8012ef8cfd3c2dd24f802ad08375c3ea5d0a08011353e70efbe0aa2633",
+  "material_source": "palette_registry",
+  "materials": {
+    "ceiling": {
+      "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+      "tile_m": 4.0
+    },
+    "floor": {
+      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
+      "tile_m": 4.0
+    },
+    "lamp_color": [
+      1.0,
+      0.97,
+      0.76
+    ],
+    "palette_id": "backrooms_yellow",
+    "trim_color": [
+      0.37,
+      0.34,
+      0.23
+    ],
+    "wall": {
+      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+      "tile_m": 1.5
+    }
+  },
+  "mode": "standard",
+  "original_cell_status": "shape_room_pending",
+  "outline_xz": [
+    [
+      12.0,
+      -6.408701
+    ],
+    [
+      10.782073,
+      -3.468364
+    ],
+    [
+      8.531636,
+      -1.217927
+    ],
+    [
+      5.591299,
+      0.0
+    ],
+    [
+      2.408701,
+      0.0
+    ],
+    [
+      -0.531636,
+      -1.217927
+    ],
+    [
+      -2.782073,
+      -3.468364
+    ],
+    [
+      -4.0,
+      -6.408701
+    ],
+    [
+      -4.0,
+      -9.591299
+    ],
+    [
+      -2.782073,
+      -12.531636
+    ],
+    [
+      -0.531636,
+      -14.782073
+    ],
+    [
+      2.408701,
+      -16.0
+    ],
+    [
+      5.591299,
+      -16.0
+    ],
+    [
+      8.531636,
+      -14.782073
+    ],
+    [
+      10.782073,
+      -12.531636
+    ],
+    [
+      12.0,
+      -9.591299
+    ]
+  ],
+  "primitive": "cross",
+  "primitive_class": "rotunda16",
+  "rarity_tier": 0,
+  "rects": [
+    [
+      2.5,
+      -16.0,
+      5.5,
+      -15.5
+    ],
+    [
+      1.5,
+      -15.5,
+      6.5,
+      -15.0
+    ],
+    [
+      0.0,
+      -15.0,
+      8.0,
+      -14.5
+    ],
+    [
+      -0.5,
+      -14.5,
+      8.5,
+      -14.0
+    ],
+    [
+      -1.0,
+      -14.0,
+      9.0,
+      -13.5
+    ],
+    [
+      -1.5,
+      -13.5,
+      9.5,
+      -13.0
+    ],
+    [
+      -2.0,
+      -13.0,
+      10.0,
+      -12.5
+    ],
+    [
+      -2.5,
+      -12.5,
+      10.5,
+      -12.0
+    ],
+    [
+      -3.0,
+      -12.0,
+      11.0,
+      -10.5
+    ],
+    [
+      -3.5,
+      -10.5,
+      11.5,
+      -9.5
+    ],
+    [
+      -4.0,
+      -9.5,
+      12.0,
+      -6.5
+    ],
+    [
+      -3.5,
+      -6.5,
+      11.5,
+      -5.5
+    ],
+    [
+      -3.0,
+      -5.5,
+      11.0,
+      -4.0
+    ],
+    [
+      -2.5,
+      -4.0,
+      10.5,
+      -3.5
+    ],
+    [
+      -2.0,
+      -3.5,
+      10.0,
+      -3.0
+    ],
+    [
+      -1.5,
+      -3.0,
+      9.5,
+      -2.5
+    ],
+    [
+      -1.0,
+      -2.5,
+      9.0,
+      -2.0
+    ],
+    [
+      -0.5,
+      -2.0,
+      8.5,
+      -1.5
+    ],
+    [
+      0.0,
+      -1.5,
+      8.0,
+      -1.0
+    ],
+    [
+      1.5,
+      -1.0,
+      6.5,
+      -0.5
+    ],
+    [
+      2.5,
+      -0.5,
+      5.5,
+      0.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "ground",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 3
+}
