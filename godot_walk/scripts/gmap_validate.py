@@ -104,7 +104,16 @@ def _load_library_for_validation(
         ]
     try:
         return load_library(path, root), []
-    except (OSError, ValueError, KeyError, TypeError) as error:
+    except (
+        OSError,
+        ValueError,
+        KeyError,
+        TypeError,
+        AttributeError,
+        IndexError,
+        OverflowError,
+    ) as error:
+        # Malformed index JSON can fail at any structure access; report it as unavailable.
         return None, [
             err(
                 "library_index",

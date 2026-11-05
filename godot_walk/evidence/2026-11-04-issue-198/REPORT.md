@@ -1,6 +1,6 @@
 # Chainlink #198 — gmap-0.8.0 light layer
 
-**Status:** implementation committed as `fde2d07`. #198 remains open for interactive walkthrough review of the darker rotunda and library material transitions.
+**Status:** implementation committed as `fde2d07`. #198 is closed. An interactive walkthrough remains pending for review of the darker rotunda and library material transitions.
 
 ## Implementation
 
@@ -67,11 +67,12 @@ The busiest kept map measured was seed 2 at 1280×720 using the rendered `frame_
 
 ## Post-review validator fixes
 
-Two validator edge cases found during review are fixed without changing generated outputs or the visual treatment:
+Validator edge cases found during review are fixed without changing generated outputs or the visual treatment:
 
 - Unknown dark-wing cell IDs now return `dark_wing_unknown_cell` instead of raising `KeyError`.
 - A missing or unreadable V0.8 library index now returns `library_index_unavailable`; the existing `stale_index_hash` check still reports missing or hash-mismatched index files.
-- Three focused regressions live in `test_gmap_light.py`.
+- Hash-matching but structurally malformed index JSON (for example, `modules: [null]` or empty module entries) also returns `library_index_unavailable` instead of raising `AttributeError`, `KeyError`, or `TypeError`.
+- Six focused regressions live in `test_gmap_light.py`.
 
 ## Commands
 
@@ -102,6 +103,6 @@ ruff check godot_walk/scripts/gmap_build.py godot_walk/scripts/gmap_diagonal_rul
 ruff format --check godot_walk/scripts/gmap_build.py godot_walk/scripts/gmap_diagonal_rules.py godot_walk/scripts/gmap_module_rules.py godot_walk/scripts/gmap_palette.py godot_walk/scripts/gmap_validate.py godot_walk/scripts/gmap_light.py godot_walk/scripts/shape_room_rng.py godot_walk/scripts/shape_room_spec.py godot_walk/scripts/shape_room_stage2.py godot_walk/scripts/test_gmap_light.py
 ```
 
-Final Python suite after the post-review validator fixes: **609 passed, 3 skipped, 58 subtests passed**. The previously recorded gated sweep: **1 passed in 312.72 s**. Ruff check, Ruff format check and Python compilation passed. Godot 4.6.3 headless runtime checks passed on seeds 1, 2, 3, 11 and 69; rendered capture and frame-time runs passed under the GPU guard. No protected input or library material file was edited.
+Final Python suite after the post-review validator fixes: **612 passed, 3 skipped, 58 subtests passed**. The previously recorded gated sweep: **1 passed in 312.72 s**. Ruff check, Ruff format check and Python compilation passed. Godot 4.6.3 headless runtime checks passed on seeds 1, 2, 3, 11 and 69; rendered capture and frame-time runs passed under the GPU guard. No protected input or library material file was edited.
 
 **Needs operator review:** whether the 0.2 ambient level and resulting darker rotunda are desirable, and whether the visible figure/column module material transitions are acceptable. These still require an interactive walkthrough; no room walk has been performed as part of this implementation.

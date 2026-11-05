@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import json
 import os
 import sys
 from collections import Counter
@@ -149,6 +150,24 @@ def test_v80_validator_reports_unloadable_library_index(library, tmp_path):
     broken.write_text("{not valid json", encoding="utf-8")
     document["library_index"].update(
         {"path": str(broken), "sha256": sha256_file(broken)}
+    )
+    codes = {error["code"] for error in validate_document(document)}
+    assert "library_index_unavailable" in codes
+
+
+@pytest.mark.parametrize(
+    "modules",
+    [[None], [{}], ["not-a-module"]],
+    ids=["null-entry", "empty-entry", "string-entry"],
+)
+def test_v80_validator_reports_malformed_library_index(library, tmp_path, modules):
+    index = json.loads(INDEX.read_text(encoding="utf-8"))
+    index["modules"] = modules
+    malformed = tmp_path / "malformed-index.json"
+    malformed.write_text(json.dumps(index), encoding="utf-8")
+    document = build_map(1, library, cells=12, version=GENERATOR_VERSION_V8)
+    document["library_index"].update(
+        {"path": str(malformed), "sha256": sha256_file(malformed)}
     )
     codes = {error["code"] for error in validate_document(document)}
     assert "library_index_unavailable" in codes
