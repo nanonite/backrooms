@@ -13,6 +13,7 @@ GENERATOR_VERSION_V5 = "shape-room-0.5.0"
 GENERATOR_VERSION_V6 = "shape-room-0.6.0"
 GENERATOR_VERSION_V7 = "shape-room-0.7.0"
 GENERATOR_VERSION_V8 = "shape-room-0.8.0"
+GENERATOR_VERSION_V9 = "shape-room-0.9.0"
 VERSIONS = (
     GENERATOR_VERSION,
     GENERATOR_VERSION_V2,
@@ -22,6 +23,7 @@ VERSIONS = (
     GENERATOR_VERSION_V6,
     GENERATOR_VERSION_V7,
     GENERATOR_VERSION_V8,
+    GENERATOR_VERSION_V9,
 )
 V4_PLUS = (
     GENERATOR_VERSION_V4,
@@ -29,6 +31,7 @@ V4_PLUS = (
     GENERATOR_VERSION_V6,
     GENERATOR_VERSION_V7,
     GENERATOR_VERSION_V8,
+    GENERATOR_VERSION_V9,
 )  # 45-degree walls, clear-of-library-room ceilings
 MAP_VERSION_V2 = "gmap-0.2.0"
 MAP_VERSION_V3 = "gmap-0.3.0"
@@ -38,6 +41,7 @@ MAP_VERSION_V6 = "gmap-0.6.0"
 MAP_VERSION_V61 = "gmap-0.6.1"
 MAP_VERSION_V7 = "gmap-0.7.0"
 MAP_VERSION_V8 = "gmap-0.8.0"
+MAP_VERSION_V9 = "gmap-0.9.0"
 
 
 def version_for_map(document: dict) -> str:
@@ -46,6 +50,8 @@ def version_for_map(document: dict) -> str:
     version = document.get("generator_version")
     if version == MAP_VERSION_V7:
         return GENERATOR_VERSION_V7
+    if version == MAP_VERSION_V9:
+        return GENERATOR_VERSION_V9
     if version == MAP_VERSION_V8:
         return GENERATOR_VERSION_V8
     if version == MAP_VERSION_V5:
@@ -67,6 +73,8 @@ def cell_rng(
         version == GENERATOR_VERSION_V5
     ):  # same draws as shape-room-0.4.0: only the materials differ
         version = GENERATOR_VERSION_V4
+    if version == GENERATOR_VERSION_V9:
+        version = GENERATOR_VERSION_V7
     if version == GENERATOR_VERSION_V8:
         version = GENERATOR_VERSION_V7
     if version == GENERATOR_VERSION_V7:

@@ -100,6 +100,24 @@
           },
           "landmark": { "$ref": "#/$defs/landmark_cell" },
           "light": { "$ref": "#/$defs/light" },
+          "wear": {
+            "description": "gmap-0.9.0: 0 clean, 1 worn, 2 damaged. Module and void cells carry none.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2
+          },
+          "surface_variants": {
+            "description": "gmap-0.9.0: the selected clean/worn/damaged variant for each palette surface.",
+            "type": "object",
+            "required": ["wall", "floor", "ceiling", "trim"],
+            "properties": {
+              "wall": { "enum": ["clean", "worn", "damaged"] },
+              "floor": { "enum": ["clean", "worn", "damaged"] },
+              "ceiling": { "enum": ["clean", "worn", "damaged"] },
+              "trim": { "enum": ["clean", "worn", "damaged"] }
+            },
+            "additionalProperties": false
+          },
           "diagonal_passage": {
             "type": "object",
             "required": ["link_id", "from_cell_id", "to_cell_id", "from_port_id", "to_port_id", "clear_width_m", "wall_thickness_m", "length_m", "outline_xz", "palette_source_cell_id"],
@@ -278,6 +296,29 @@
             "items": {
               "allOf": [
                 {"if": {"properties": {"role": {"enum": ["ground", "figure", "threshold"]}}, "required": ["role"]}, "then": {"required": ["light"]}}
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"generator_version": {"const": "gmap-0.9.0"}}, "required": ["generator_version"]},
+      "then": {
+        "required": ["layout_variant", "growth_cell_target", "dark_wing", "palette_registry"],
+        "properties": {
+          "shape_stage_max": {"const": 3},
+          "cells": {
+            "items": {
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {"role": {"enum": ["ground", "figure", "threshold"]}},
+                    "required": ["role"],
+                    "not": {"required": ["module"]}
+                  },
+                  "then": {"required": ["light", "wear", "surface_variants"]}
+                }
               ]
             }
           }

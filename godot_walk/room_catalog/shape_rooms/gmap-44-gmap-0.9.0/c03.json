@@ -1,0 +1,343 @@
+{
+  "area_m2": 62.0,
+  "arm_width_m": 7,
+  "arms_xz": [
+    [
+      6.0,
+      -7.0,
+      13.0,
+      0.0
+    ],
+    [
+      5.0,
+      -7.0,
+      9.5,
+      0.0
+    ],
+    [
+      6.0,
+      -7.0,
+      13.0,
+      0.0
+    ],
+    [
+      6.0,
+      -8.0,
+      13.0,
+      -3.5
+    ],
+    [
+      6.0,
+      -7.0,
+      13.0,
+      0.0
+    ],
+    [
+      9.5,
+      -7.0,
+      13.0,
+      0.0
+    ],
+    [
+      6.0,
+      -7.0,
+      13.0,
+      0.0
+    ]
+  ],
+  "ceiling_height_m": 4.0,
+  "cell_id": "c03",
+  "chamfers": [
+    {
+      "corner": [
+        13.0,
+        -8.0
+      ],
+      "length_m": 1.0
+    },
+    {
+      "corner": [
+        13.0,
+        0.0
+      ],
+      "length_m": 1.0
+    }
+  ],
+  "construction": "arms",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        -1,
+        0
+      ],
+      "port_id": "c03:p0",
+      "pos_xz": [
+        5.0,
+        -1.5
+      ],
+      "to_cell_id": "c02",
+      "to_port_id": "c02:p1",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        -1
+      ],
+      "port_id": "c03:p1",
+      "pos_xz": [
+        10.5,
+        -8.0
+      ],
+      "to_cell_id": "c05",
+      "to_port_id": "c05:p0",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "authored_direct_doorway_2.4x2.2_v1",
+      "height_m": 2.2,
+      "kind": "open",
+      "normal": [
+        1,
+        0
+      ],
+      "port_id": "c03:p2",
+      "pos_xz": [
+        13.0,
+        -3.0
+      ],
+      "to_cell_id": "c13",
+      "to_port_id": "c13:p0",
+      "width_m": 2.4
+    }
+  ],
+  "envelope_xz": [
+    [
+      5.0,
+      -8.0
+    ],
+    [
+      13.0,
+      -8.0
+    ],
+    [
+      13.0,
+      0.0
+    ],
+    [
+      5.0,
+      0.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_grid",
+      "kind": "ceiling_lamp_grid",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c03:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c03:p1",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c03:p2",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "generator_version": "shape-room-0.9.0",
+  "lamps_xz": [
+    [
+      6.5,
+      -2.5
+    ],
+    [
+      10.5,
+      -6.5
+    ],
+    [
+      10.5,
+      -2.5
+    ]
+  ],
+  "light": {
+    "color_temp_k": 3857,
+    "lamps": [
+      {
+        "flicker_seed": 973621658,
+        "lamp_index": 0,
+        "state": "on"
+      },
+      {
+        "flicker_seed": 638789902,
+        "lamp_index": 1,
+        "state": "dead"
+      },
+      {
+        "flicker_seed": 1881638760,
+        "lamp_index": 2,
+        "state": "dead"
+      }
+    ],
+    "tier": "bright"
+  },
+  "map_id": "gmap-44-gmap-0.9.0",
+  "map_sha256": "1aa1963728afaf0a2cddde6d0989ae1209a643ee81af454370f51c5d9ac4c287",
+  "material_source": "palette_registry",
+  "materials": {
+    "acoustic": {
+      "ceiling": "plaster",
+      "floor": "debris",
+      "trim": "wood",
+      "wall": "plaster"
+    },
+    "ceiling": {
+      "acoustic": "plaster",
+      "color": [
+        0.43,
+        0.42,
+        0.38
+      ],
+      "variant": "clean"
+    },
+    "floor": {
+      "acoustic": "debris",
+      "color": [
+        0.34,
+        0.33,
+        0.31
+      ],
+      "variant": "clean"
+    },
+    "lamp_color": [
+      0.86,
+      0.88,
+      0.86
+    ],
+    "palette_id": "plaster_debris",
+    "registry_version": "0.2.0",
+    "trim_color": [
+      0.24,
+      0.25,
+      0.23
+    ],
+    "variants": {
+      "ceiling": "clean",
+      "floor": "clean",
+      "trim": "clean",
+      "wall": "clean"
+    },
+    "wall": {
+      "acoustic": "plaster",
+      "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png",
+      "tile_m": 4.0,
+      "variant": "clean"
+    },
+    "wear": 0
+  },
+  "mode": "standard",
+  "original_cell_status": "module_candidates",
+  "outline_xz": [
+    [
+      5.0,
+      -7.0
+    ],
+    [
+      6.0,
+      -7.0
+    ],
+    [
+      6.0,
+      -8.0
+    ],
+    [
+      12.0,
+      -8.0
+    ],
+    [
+      13.0,
+      -7.0
+    ],
+    [
+      13.0,
+      -1.0
+    ],
+    [
+      12.0,
+      0.0
+    ],
+    [
+      5.0,
+      0.0
+    ]
+  ],
+  "primitive": "t_shape",
+  "primitive_class": "chamfered_polyomino",
+  "rarity_tier": 1,
+  "rects": [
+    [
+      6.0,
+      -8.0,
+      12.0,
+      -7.5
+    ],
+    [
+      6.0,
+      -7.5,
+      12.5,
+      -7.0
+    ],
+    [
+      5.0,
+      -7.0,
+      13.0,
+      -1.0
+    ],
+    [
+      5.0,
+      -1.0,
+      12.5,
+      -0.5
+    ],
+    [
+      5.0,
+      -0.5,
+      12.0,
+      0.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "ground",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 2
+}

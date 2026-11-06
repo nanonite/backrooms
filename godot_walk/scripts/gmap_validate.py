@@ -16,6 +16,7 @@ from gmap_build import (
     GENERATOR_VERSION_V6,
     GENERATOR_VERSION_V7,
     GENERATOR_VERSION_V8,
+    GENERATOR_VERSION_V9,
     GENERATOR_VERSION_V61,
     MARGIN_VERSIONS,
     MODULE_VERSIONS,
@@ -30,6 +31,7 @@ from gmap_light import light_errors
 from gmap_margin_rules import check_lattice_ports, margin_errors
 from gmap_module_rules import module_errors
 from gmap_palette import palette_errors
+from gmap_palette_registry import load_registry_file
 from gmap_rules import (
     Errors,
     check_branch,
@@ -44,6 +46,7 @@ from gmap_rules import (
     port_index,
 )
 from gmap_stage2 import stage2_errors
+from gmap_surface import surface_errors
 from library_index import load_json
 
 SCHEMA_PATH = Path("godot_walk/room_catalog/generative_map.schema.json")
@@ -126,12 +129,13 @@ def _load_library_for_validation(
 def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
     cells, edges = document["cells"], document["edges"]
     rects, errors = parse_rects(cells)
-    v8_library = None
-    if document["generator_version"] == GENERATOR_VERSION_V8:
-        v8_library, library_errors = _load_library_for_validation(document, root)
+    light_library = None
+    if document["generator_version"] in (GENERATOR_VERSION_V8, GENERATOR_VERSION_V9):
+        light_library, library_errors = _load_library_for_validation(document, root)
         errors += library_errors
     library_unavailable = (
-        document["generator_version"] == GENERATOR_VERSION_V8 and v8_library is None
+        document["generator_version"] in (GENERATOR_VERSION_V8, GENERATOR_VERSION_V9)
+        and light_library is None
     )
     map_cells = [c for c in cells if not c.get("diagonal_passage")]
     map_rects = {
@@ -154,6 +158,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V61,
             GENERATOR_VERSION_V7,
             GENERATOR_VERSION_V8,
+            GENERATOR_VERSION_V9,
         ):
             margin_cells = [
                 {
@@ -179,19 +184,25 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V61,
             GENERATOR_VERSION_V7,
             GENERATOR_VERSION_V8,
+            GENERATOR_VERSION_V9,
         ):
             base = {
                 **document,
                 "cells": map_cells,
                 "edges": [e for e in edges if e.get("kind") != "diagonal"],
             }
-            errors += module_errors(base, map_rects, root, v8_library)
+            errors += module_errors(base, map_rects, root, light_library)
         else:
-            errors += module_errors(document, rects, root, v8_library)
+            errors += module_errors(document, rects, root, light_library)
     if document["generator_version"] in STAGE2_VERSIONS:
         errors += stage2_errors(document)
-    if document["generator_version"] in (GENERATOR_VERSION_V7, GENERATOR_VERSION_V8):
+    if document["generator_version"] in (
+        GENERATOR_VERSION_V7,
+        GENERATOR_VERSION_V8,
+        GENERATOR_VERSION_V9,
+    ):
         errors += landmark_errors(document)
+    palette_issues: Errors = []
     if (
         document["generator_version"]
         in (
@@ -200,10 +211,40 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V61,
             GENERATOR_VERSION_V7,
             GENERATOR_VERSION_V8,
+            GENERATOR_VERSION_V9,
         )
         and not library_unavailable
     ):
-        errors += palette_errors(document, root, v8_library)
+        palette_issues = palette_errors(document, root, light_library)
+        errors += palette_issues
+    palette_registry_blocked = any(
+        error["code"]
+        in {
+            "palette_registry_missing",
+            "stale_palette_registry",
+            "palette_registry_invalid",
+            "palette_registry_not_canonical",
+        }
+        for error in palette_issues
+    )
+    if (
+        document["generator_version"] == GENERATOR_VERSION_V9
+        and not library_unavailable
+        and not palette_registry_blocked
+    ):
+        ref = document.get("palette_registry")
+        path = root / ref["path"] if ref else None
+        if path is not None and path.is_file() and sha256_file(path) == ref["sha256"]:
+            try:
+                errors += surface_errors(document, load_registry_file(path))
+            except (OSError, ValueError, KeyError, TypeError) as error:
+                errors.append(
+                    err(
+                        "surface_layer",
+                        "surface_registry_invalid",
+                        f"{ref['path']} could not be loaded: {error}",
+                    )
+                )
     roles = {cell["cell_id"]: cell["role"] for cell in cells}
     walkable = sorted(c for c, role in roles.items() if role != "void")
     if document["generator_version"] in (
@@ -211,6 +252,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         GENERATOR_VERSION_V61,
         GENERATOR_VERSION_V7,
         GENERATOR_VERSION_V8,
+        GENERATOR_VERSION_V9,
     ):
         tree_walkable = [
             c
@@ -224,6 +266,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V61,
             GENERATOR_VERSION_V7,
             GENERATOR_VERSION_V8,
+            GENERATOR_VERSION_V9,
         ):
             errors += reservation_errors(document)
     else:
@@ -232,8 +275,11 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
     errors += check_figures(roles, rects) + check_voids(
         roles, edges, document["void_budget"]
     )
-    if document["generator_version"] == GENERATOR_VERSION_V8 and v8_library is not None:
-        errors += light_errors(document, v8_library)
+    if (
+        document["generator_version"] in (GENERATOR_VERSION_V8, GENERATOR_VERSION_V9)
+        and light_library is not None
+    ):
+        errors += light_errors(document, light_library)
     return errors
 
 

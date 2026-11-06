@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="580" height="430" viewBox="0 0 580 430">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<title>gmap-44-gmap-0.9.0 (structural map, not playable)</title>
+<rect x="300" y="270" width="60" height="60" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="304" y="284" font-family="monospace" font-size="11">c00 t0</text>
+<rect x="200" y="270" width="100" height="30" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="204" y="284" font-family="monospace" font-size="11">c01 t0</text>
+<rect x="250" y="240" width="100" height="30" fill="#e3a99b" stroke="#000000" stroke-width="2"/>
+<text x="254" y="254" font-family="monospace" font-size="11">c02 t1 plaster_debris d2</text>
+<rect x="350" y="190" width="80" height="80" fill="#e3a99b" stroke="#000000" stroke-width="2"/>
+<text x="354" y="204" font-family="monospace" font-size="11">c03 t1 plaster_debris d1</text>
+<rect x="160" y="190" width="80" height="80" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="164" y="204" font-family="monospace" font-size="11">c04 t0</text>
+<rect x="390" y="130" width="30" height="60" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="394" y="144" font-family="monospace" font-size="11">c05 t0</text>
+<rect x="390" y="30" width="30" height="100" fill="#d2b48c" stroke="#000000" stroke-width="2"/>
+<text x="394" y="44" font-family="monospace" font-size="11">c06 t0</text>
+<rect x="120" y="270" width="80" height="80" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="124" y="284" font-family="monospace" font-size="11">c07 t0</text>
+<rect x="250" y="80" width="140" height="100" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="254" y="94" font-family="monospace" font-size="11">c08 t1</text>
+<rect x="170" y="50" width="80" height="80" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="174" y="64" font-family="monospace" font-size="11">c09 t0</text>
+<rect x="420" y="50" width="80" height="120" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="424" y="64" font-family="monospace" font-size="11">c10 t1</text>
+<rect x="20" y="140" width="140" height="100" fill="#bdbdbd" stroke="#000000" stroke-width="2"/>
+<text x="24" y="154" font-family="monospace" font-size="11">c11 t0</text>
+<rect x="70" y="350" width="140" height="60" fill="#a9dfbf" stroke="#117864" stroke-width="2" stroke-dasharray="10 2"/>
+<text x="74" y="364" font-family="monospace" font-size="11">c12 t0 module</text>
+<text x="74" y="377" font-family="monospace" font-size="9">godot_early_pocket_single_west_v1 r90</text>
+<rect x="430" y="180" width="100" height="120" fill="#f5b041" stroke="#117864" stroke-width="2" stroke-dasharray="10 2"/>
+<text x="434" y="194" font-family="monospace" font-size="11">c13 t2 module</text>
+<text x="434" y="207" font-family="monospace" font-size="9">video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1 r270</text>
+<rect x="500" y="100" width="60" height="30" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="504" y="114" font-family="monospace" font-size="11">c14</text>
+<rect x="430" y="20" width="30" height="30" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="434" y="34" font-family="monospace" font-size="11">c15</text>
+<polygon points="235,210 270,175 254,159 219,194" fill="#d2b48c" stroke="#21618c" stroke-width="2"/>
+<text x="223" y="173" font-family="monospace" font-size="11">dp00 t0</text>
+<polygon points="174,109 139,144 155,160 190,125" fill="#d2b48c" stroke="#21618c" stroke-width="2"/>
+<text x="143" y="123" font-family="monospace" font-size="11">dp01 t0</text>
+<polyline points="330,300 300,285 300,285 250,285" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="330,300 325,270 325,270 300,255" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="250,285 220,270 220,270 200,230" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="250,285 200,285 200,285 160,310" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="300,255 350,255 350,255 390,230" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="390,230 405,190 405,190 405,160" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="390,230 430,240 430,240 480,240" fill="none" stroke="#e67e22" stroke-width="1.5" stroke-dasharray="6 2"/>
+<polyline points="200,230 227,202 227,202 245,185" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="200,230 160,215 160,215 90,190" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="405,160 405,130 405,130 405,80" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="405,160 420,150 420,150 460,110" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="405,80 390,105 390,105 320,130" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="160,310 140,350 140,350 140,380" fill="none" stroke="#e67e22" stroke-width="1.5" stroke-dasharray="6 2"/>
+<polyline points="320,130 250,105 250,105 210,90" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="210,90 182,117 182,117 165,135" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="460,110 500,115 500,115 530,115" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<polyline points="460,110 445,50 445,50 445,35" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<polyline points="245,185 262,167 262,167 320,130" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<polyline points="165,135 147,152 147,152 90,190" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="300" cy="285" r="3" fill="#c0392b"/>
+<circle cx="325" cy="270" r="3" fill="#c0392b"/>
+<circle cx="300" cy="285" r="3" fill="#c0392b"/>
+<circle cx="220" cy="270" r="3" fill="#c0392b"/>
+<circle cx="200" cy="285" r="3" fill="#c0392b"/>
+<circle cx="325" cy="270" r="3" fill="#c0392b"/>
+<circle cx="350" cy="255" r="3" fill="#c0392b"/>
+<circle cx="350" cy="255" r="3" fill="#c0392b"/>
+<circle cx="405" cy="190" r="3" fill="#c0392b"/>
+<circle cx="430" cy="240" r="3" fill="#c0392b"/>
+<circle cx="227" cy="202" r="3" fill="#c0392b"/>
+<circle cx="220" cy="270" r="3" fill="#c0392b"/>
+<circle cx="160" cy="215" r="3" fill="#c0392b"/>
+<circle cx="405" cy="190" r="3" fill="#c0392b"/>
+<circle cx="405" cy="130" r="3" fill="#c0392b"/>
+<circle cx="420" cy="150" r="3" fill="#c0392b"/>
+<circle cx="405" cy="130" r="3" fill="#c0392b"/>
+<circle cx="390" cy="105" r="3" fill="#c0392b"/>
+<circle cx="200" cy="285" r="3" fill="#c0392b"/>
+<circle cx="140" cy="350" r="3" fill="#c0392b"/>
+<circle cx="262" cy="167" r="3" fill="#c0392b"/>
+<circle cx="390" cy="105" r="3" fill="#c0392b"/>
+<circle cx="250" cy="105" r="3" fill="#c0392b"/>
+<circle cx="182" cy="117" r="3" fill="#c0392b"/>
+<circle cx="250" cy="105" r="3" fill="#c0392b"/>
+<circle cx="420" cy="150" r="3" fill="#c0392b"/>
+<circle cx="500" cy="115" r="3" fill="#c0392b"/>
+<circle cx="445" cy="50" r="3" fill="#c0392b"/>
+<circle cx="147" cy="152" r="3" fill="#c0392b"/>
+<circle cx="160" cy="215" r="3" fill="#c0392b"/>
+<circle cx="140" cy="350" r="3" fill="#c0392b"/>
+<circle cx="430" cy="240" r="3" fill="#c0392b"/>
+<circle cx="500" cy="115" r="3" fill="#c0392b"/>
+<circle cx="445" cy="50" r="3" fill="#c0392b"/>
+<circle cx="227" cy="202" r="3" fill="#c0392b"/>
+<circle cx="262" cy="167" r="3" fill="#c0392b"/>
+<circle cx="182" cy="117" r="3" fill="#c0392b"/>
+<circle cx="147" cy="152" r="3" fill="#c0392b"/>
+</svg>

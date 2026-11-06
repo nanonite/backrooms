@@ -22,6 +22,7 @@ GENERATOR_VERSION_V6 = "gmap-0.6.0"
 GENERATOR_VERSION_V61 = "gmap-0.6.1"
 GENERATOR_VERSION_V7 = "gmap-0.7.0"
 GENERATOR_VERSION_V8 = "gmap-0.8.0"
+GENERATOR_VERSION_V9 = "gmap-0.9.0"
 VERSIONS = (
     GENERATOR_VERSION,
     GENERATOR_VERSION_V2,
@@ -32,6 +33,7 @@ VERSIONS = (
     GENERATOR_VERSION_V61,
     GENERATOR_VERSION_V7,
     GENERATOR_VERSION_V8,
+    GENERATOR_VERSION_V9,
 )
 MARGIN_VERSIONS = (
     GENERATOR_VERSION_V2,
@@ -42,6 +44,7 @@ MARGIN_VERSIONS = (
     GENERATOR_VERSION_V61,
     GENERATOR_VERSION_V7,
     GENERATOR_VERSION_V8,
+    GENERATOR_VERSION_V9,
 )  # standard margins + degenerate cells
 MODULE_VERSIONS = (
     GENERATOR_VERSION_V3,
@@ -51,6 +54,7 @@ MODULE_VERSIONS = (
     GENERATOR_VERSION_V61,
     GENERATOR_VERSION_V7,
     GENERATOR_VERSION_V8,
+    GENERATOR_VERSION_V9,
 )  # library modules as leaf cells
 STAGE2_VERSIONS = (
     GENERATOR_VERSION_V4,
@@ -59,6 +63,7 @@ STAGE2_VERSIONS = (
     GENERATOR_VERSION_V61,
     GENERATOR_VERSION_V7,
     GENERATOR_VERSION_V8,
+    GENERATOR_VERSION_V9,
 )  # 45-degree classes, library-room overhang margin
 DEFAULT_DEGENERATE_MAX = 1
 MAX_ATTEMPTS = 50
@@ -91,6 +96,7 @@ RULE_IDS_V6 = sorted([*RULE_IDS_V5, "diagonal_links"])
 RULE_IDS_V61 = sorted([*RULE_IDS_V6, "diagonal_site_reservations"])
 RULE_IDS_V7 = sorted([*RULE_IDS_V61, "landmark_contract"])
 RULE_IDS_V8 = sorted([*RULE_IDS_V7, "light_layer"])
+RULE_IDS_V9 = sorted([*RULE_IDS_V8, "surface_layer"])
 CEILING = {
     "figure": [3.0, 6.0],
     "ground": [2.6, 4.8],
@@ -119,6 +125,8 @@ def layout_version(version: str) -> str:
 
 
 def rule_ids(version: str) -> list[str]:
+    if version == GENERATOR_VERSION_V9:
+        return RULE_IDS_V9
     if version == GENERATOR_VERSION_V8:
         return RULE_IDS_V8
     if version == GENERATOR_VERSION_V5:
@@ -193,6 +201,21 @@ def build_map(
 ) -> dict[str, Any]:
     if version not in VERSIONS:
         raise GenerationError(f"generator version must be one of {', '.join(VERSIONS)}")
+    if version == GENERATOR_VERSION_V9:
+        if stage_max not in (None, 3):
+            raise GenerationError("gmap-0.9.0 requires --stage-max=3")
+        document = build_map(
+            seed, library, cells, 3, GENERATOR_VERSION_V8, degenerate_max
+        )
+        document["generator_version"] = GENERATOR_VERSION_V9
+        document["map_id"] = map_id_for(seed, GENERATOR_VERSION_V9)
+        document["rules"] = list(rule_ids(GENERATOR_VERSION_V9))
+        from gmap_palette_registry import load_registry_v2, registry_ref_v2
+        from gmap_surface import assign_surface
+
+        document["palette_registry"] = registry_ref_v2()
+        assign_surface(document, load_registry_v2())
+        return document
     if version == GENERATOR_VERSION_V8:
         if stage_max not in (None, 3):
             raise GenerationError("gmap-0.8.0 requires --stage-max=3")

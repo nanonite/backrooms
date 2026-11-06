@@ -12,6 +12,7 @@ const TRIM_CHECKS := preload("res://scripts/issue186_trim_checks.gd")
 const MODULE_CHECKS := preload("res://scripts/issue188_module_checks.gd")
 const DIAGONAL_CHECKS := preload("res://scripts/issue190_diagonal_checks.gd")
 const PALETTE_CHECKS := preload("res://scripts/issue192_palette_checks.gd")
+const SURFACE_CHECKS := preload("res://scripts/issue199_surface_checks.gd")
 const DIAGONAL_LINK_CHECKS := preload("res://scripts/issue193_diagonal_link_checks.gd")
 const DIAGONAL := preload("res://scripts/shape_room_diagonal.gd")
 const PROBE := preload("res://scripts/shape_room_probe.gd")
@@ -62,6 +63,10 @@ func _run() -> void:
 	if palette.rooms > 0:  # shape-room-0.5.0 maps only: older maps print the line they always did
 		summary += " palette_rooms=%d palette_surfaces=%d palette_mismatch=%d palettes=%s" % [
 			palette.rooms, palette.surfaces, palette.mismatches, JSON.stringify(palette.palettes)]
+	var surface: Dictionary = positive.get("surface", {"rooms": 0})
+	if surface.rooms > 0:
+		summary += " surface_rooms=%d floor_colliders=%d acoustic_resolved=%d surface_tags=%d surface_failures=%d" % [
+			surface.rooms, surface.floor_colliders, surface.resolved_floors, surface.surface_tags, surface.failures.size()]
 	var links: Dictionary = positive.get("diagonal_links", {"links": 0})
 	if links.links > 0:
 		summary += " diagonal_links=%d diagonal_edges=%d lane_sweeps=%d/%d passage_wall_colliders=%d diagonal_frames=%d" % [
@@ -160,7 +165,9 @@ func _run_positive() -> Dictionary:
 	_fail_all(diagonal_links.failures)
 	var palette := PALETTE_CHECKS.check(assembly, specs)
 	_fail_all(palette.failures)
-	var lighting := _check_lighting(assembly) if map.get("generator_version", "") == "gmap-0.8.0" else {}
+	var surface := SURFACE_CHECKS.check(assembly, specs)
+	_fail_all(surface.failures)
+	var lighting := _check_lighting(assembly) if map.get("generator_version", "") in ["gmap-0.8.0", "gmap-0.9.0"] else {}
 	await _release(assembly)
 	var positive := {"rooms": rooms.rooms, "edges": edges, "flood": flood, "trim": trim, "modules": modules, "diagonal": diagonal,
 		"diagonal_links": diagonal_links}
@@ -168,6 +175,8 @@ func _run_positive() -> Dictionary:
 		positive["lighting"] = lighting
 	if palette.rooms > 0:  # only shape-room-0.5.0 maps: older reports keep their keys
 		positive["palette"] = palette
+	if surface.rooms > 0:
+		positive["surface"] = surface
 	return positive
 
 
@@ -183,7 +192,7 @@ func _run_negative_controls() -> Dictionary:
 	controls["diagonal_passage_collision_removed"] = await _control_diagonal_passage_collision_removed()
 	controls["diagonal_floor_without_declared_link"] = await _control_diagonal_floor_without_declared_link()
 	controls["diagonal_frame_unaligned"] = await _control_diagonal_frame_unaligned()
-	if map.get("generator_version", "") in ["gmap-0.7.0", "gmap-0.8.0"]:
+	if map.get("generator_version", "") in ["gmap-0.7.0", "gmap-0.8.0", "gmap-0.9.0"]:
 		controls["landmark_port_off_midpoint"] = await _control_landmark_port_off_midpoint()
 	if specs.values().any(func(spec: Dictionary) -> bool: return spec.materials.has("palette_id")):
 		controls["wrong_palette"] = await _control_wrong_palette()

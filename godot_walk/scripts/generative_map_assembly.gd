@@ -29,6 +29,7 @@ const SAFETY_MARGIN := 10.0
 const GENERATED_LIGHT_LAYER_COUNT := 19
 const MODULE_RENDER_LAYER := 20
 const LIGHT_CULL_DISTANCE_M := 6.2
+const LIT_VERSIONS := ["gmap-0.8.0", "gmap-0.9.0"]
 ## Fallback map/rooms pair when no user args are given (godot-mcp run_project, #197). Gitignored.
 const WALK_TARGET_PATH := "res://.walk_target.json"
 
@@ -102,7 +103,7 @@ func _ready() -> void:
 	if not map_data is Dictionary or room_specs.is_empty():
 		push_error("Pass --map=res://...json and --rooms=res://.../index.json after --, or write %s" % WALK_TARGET_PATH)
 		return
-	_build_environment(String(map_data.get("generator_version", "")) == "gmap-0.8.0")
+	_build_environment(String(map_data.get("generator_version", "")) in LIT_VERSIONS)
 	assemble(map_data, room_specs)
 	_build_player()
 	_apply_psx_preset()
@@ -113,7 +114,7 @@ func _ready() -> void:
 func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 	map = map_data
 	specs = room_specs
-	if String(map.get("generator_version", "")) == "gmap-0.8.0" and not _assign_light_layers():
+	if String(map.get("generator_version", "")) in LIT_VERSIONS and not _assign_light_layers():
 		return
 	materials = MATERIALS.make(specs[specs.keys()[0]])
 	var library_entries := _library_entries()
@@ -141,9 +142,14 @@ func materials_for(spec: Dictionary) -> Dictionary:
 	if not spec.materials.has("palette_id"):
 		return materials
 	var palette_id := String(spec.materials.palette_id)
-	if not palette_materials.has(palette_id):
-		palette_materials[palette_id] = MATERIALS.make(spec)
-	return palette_materials[palette_id]
+	var cache_key := palette_id
+	if spec.materials.has("variants"):
+		cache_key += "@wear%d@%s" % [
+			int(spec.materials.get("wear", 0)),
+			JSON.stringify(spec.materials.get("variants", {}))]
+	if not palette_materials.has(cache_key):
+		palette_materials[cache_key] = MATERIALS.make(spec)
+	return palette_materials[cache_key]
 
 
 func has_room(cell_id: String) -> bool:
@@ -183,7 +189,7 @@ func _place_module(cell: Dictionary, library_entries: Dictionary) -> void:
 	room.rotation.y = -deg_to_rad(float(placement.rotation_deg))
 	add_child(room)
 	_strip_world_environments(room)
-	if String(map.get("generator_version", "")) == "gmap-0.8.0":
+	if String(map.get("generator_version", "")) in LIT_VERSIONS:
 		_set_module_render_layer(room)
 	room.set_meta("cell_id", String(cell.cell_id))
 	room.set_meta("module_id", String(placement.module_id))
@@ -361,7 +367,7 @@ static func _area(rect: Array) -> float:
 
 
 func _apply_psx_preset() -> void:
-	if String(map.get("generator_version", "")) != "gmap-0.8.0":
+	if String(map.get("generator_version", "")) not in LIT_VERSIONS:
 		PSX_PRESET.new().configure(self)
 		return
 	for room: Node3D in module_rooms.values():

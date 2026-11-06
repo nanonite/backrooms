@@ -1,0 +1,77 @@
+{
+  "generator": "godot_walk/scripts/generate_surface_variants.py",
+  "records": [
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_damaged.png",
+      "output_sha256": "d5c34405618c479384ebb4dde15e830a3f9aa109cf3e18eaa731e9b42efc9915",
+      "source": "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+      "source_sha256": "01f0d0182ddf3676d4ab85b19179fbd199ad4afce13bef3d781e98264e984376",
+      "variant": "damaged"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_worn.png",
+      "output_sha256": "673f1d1545df11f2208d7b1617851f7990f5d75e7091a7ef4966f772d3ceec96",
+      "source": "godot_walk/assets/psx_extension/textures/ceiling_source_video.png",
+      "source_sha256": "01f0d0182ddf3676d4ab85b19179fbd199ad4afce13bef3d781e98264e984376",
+      "variant": "worn"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/backrooms_yellow_floor_damaged.png",
+      "output_sha256": "cc1d4643ec79e5a9c83cfe20362c530fc615e77cc0e9b3ab6b9b438544b3ce44",
+      "source": "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+      "source_sha256": "75dd78545085a49a12ef2b1268821c3aff6ccca6dcdf10620c2e3d7ee4b14bb7",
+      "variant": "damaged"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/backrooms_yellow_floor_worn.png",
+      "output_sha256": "cc8bf49b780de2f1d3994142d06bd94d77b8b8026aaccfd3bd40e080a7cc8115",
+      "source": "godot_walk/assets/psx_extension/textures/floor_source_video.png",
+      "source_sha256": "75dd78545085a49a12ef2b1268821c3aff6ccca6dcdf10620c2e3d7ee4b14bb7",
+      "variant": "worn"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/backrooms_yellow_wall_damaged.png",
+      "output_sha256": "fce14c9b97ef809420566f0add9cd228ea5df2576e180787c43ec2448001ea2b",
+      "source": "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+      "source_sha256": "f1bfe1ab7aa9ffe416b68f5f24612ff6293d26e7d421c7fb95fda3c66c4210d4",
+      "variant": "damaged"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/backrooms_yellow_wall_worn.png",
+      "output_sha256": "57de2e6620cf4d64e680aa06351373e2dc01c0a9e99b014c43c707032d1f7d28",
+      "source": "godot_walk/assets/psx_extension/textures/wallpaper_source_video.png",
+      "source_sha256": "f1bfe1ab7aa9ffe416b68f5f24612ff6293d26e7d421c7fb95fda3c66c4210d4",
+      "variant": "worn"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/industrial_concrete_floor_damaged.png",
+      "output_sha256": "7084baae19198e018a2b63cefbdb184cee5095f6024e113e15a0be4ca4234f67",
+      "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+      "source_sha256": "ca291fe11268a284d4c903a8a20fa9b11e010857ee687ae54e4bd48508f70aca",
+      "variant": "damaged"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/industrial_concrete_floor_worn.png",
+      "output_sha256": "4020b36159a1ac93ac9223a67b5da2a84c77a93e4dec0b6e04a66a0869159cdd",
+      "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+      "source_sha256": "ca291fe11268a284d4c903a8a20fa9b11e010857ee687ae54e4bd48508f70aca",
+      "variant": "worn"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/plaster_debris_wall_damaged.png",
+      "output_sha256": "6c5619c8a1d18f9b454500a6fe95ddc89ca09d02045149fd21bb620addff1ff7",
+      "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png",
+      "source_sha256": "e2572197034ec11430498065f2c957e0c2e4da807538f68a8365254029e80c4d",
+      "variant": "damaged"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/plaster_debris_wall_worn.png",
+      "output_sha256": "9fc3dbf68cffe3d800cad87ecd6c32c266c2e84d19a71960fd5cf9ac0eaef389",
+      "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png",
+      "source_sha256": "e2572197034ec11430498065f2c957e0c2e4da807538f68a8365254029e80c4d",
+      "variant": "worn"
+    }
+  ],
+  "schema_version": 1,
+  "script_version": "surface-variants-0.1.0"
+}

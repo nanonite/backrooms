@@ -1,0 +1,401 @@
+{
+  "area_m2": 203.686275,
+  "arm_width_m": null,
+  "arms_xz": [],
+  "ceiling_height_m": 4.8,
+  "cell_id": "c05",
+  "construction": "regular_polygon",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        -1
+      ],
+      "port_id": "c05:p0",
+      "pos_xz": [
+        0.0,
+        6.0
+      ],
+      "to_cell_id": "c03",
+      "to_port_id": "c03:p1",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        1
+      ],
+      "port_id": "c05:p1",
+      "pos_xz": [
+        0.0,
+        22.0
+      ],
+      "to_cell_id": "c06",
+      "to_port_id": "c06:p0",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        -1,
+        0
+      ],
+      "port_id": "c05:p2",
+      "pos_xz": [
+        -8.0,
+        14.0
+      ],
+      "to_cell_id": "c08",
+      "to_port_id": "c08:p0",
+      "width_m": 2.0
+    }
+  ],
+  "envelope_xz": [
+    [
+      -8.0,
+      6.0
+    ],
+    [
+      8.0,
+      6.0
+    ],
+    [
+      8.0,
+      22.0
+    ],
+    [
+      -8.0,
+      22.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_ring",
+      "kind": "ceiling_lamp_ring",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c05:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c05:p1",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c05:p2",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "generator_version": "shape-room-0.9.0",
+  "lamps_xz": [
+    [
+      0.0,
+      14.0
+    ]
+  ],
+  "landmark": {
+    "circumradius_m": 8.156729,
+    "class": "rotunda16",
+    "inradius_m": 8.0,
+    "port_facet_indices": [
+      3,
+      7,
+      11,
+      15
+    ],
+    "rotation_deg": 0.0,
+    "status": "placed"
+  },
+  "light": {
+    "color_temp_k": 4004,
+    "lamps": [
+      {
+        "flicker_seed": 489503581,
+        "lamp_index": 0,
+        "state": "on"
+      }
+    ],
+    "tier": "bright"
+  },
+  "map_id": "gmap-39-gmap-0.9.0",
+  "map_sha256": "d58c184def1dce021140061f507dbe7c0e24ac306db29d189d819cc238c63c57",
+  "material_source": "palette_registry",
+  "materials": {
+    "acoustic": {
+      "ceiling": "tile",
+      "floor": "carpet",
+      "trim": "metal",
+      "wall": "plaster"
+    },
+    "ceiling": {
+      "acoustic": "tile",
+      "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+      "tile_m": 4.0,
+      "variant": "clean"
+    },
+    "floor": {
+      "acoustic": "carpet",
+      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
+      "tile_m": 4.0,
+      "variant": "clean"
+    },
+    "lamp_color": [
+      1.0,
+      0.97,
+      0.76
+    ],
+    "palette_id": "backrooms_yellow",
+    "registry_version": "0.2.0",
+    "trim_color": [
+      0.37,
+      0.34,
+      0.23
+    ],
+    "variants": {
+      "ceiling": "clean",
+      "floor": "clean",
+      "trim": "clean",
+      "wall": "clean"
+    },
+    "wall": {
+      "acoustic": "plaster",
+      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+      "tile_m": 1.5,
+      "variant": "clean"
+    },
+    "wear": 0
+  },
+  "mode": "standard",
+  "original_cell_status": "shape_room_pending",
+  "outline_xz": [
+    [
+      8.0,
+      15.591299
+    ],
+    [
+      6.782073,
+      18.531636
+    ],
+    [
+      4.531636,
+      20.782073
+    ],
+    [
+      1.591299,
+      22.0
+    ],
+    [
+      -1.591299,
+      22.0
+    ],
+    [
+      -4.531636,
+      20.782073
+    ],
+    [
+      -6.782073,
+      18.531636
+    ],
+    [
+      -8.0,
+      15.591299
+    ],
+    [
+      -8.0,
+      12.408701
+    ],
+    [
+      -6.782073,
+      9.468364
+    ],
+    [
+      -4.531636,
+      7.217927
+    ],
+    [
+      -1.591299,
+      6.0
+    ],
+    [
+      1.591299,
+      6.0
+    ],
+    [
+      4.531636,
+      7.217927
+    ],
+    [
+      6.782073,
+      9.468364
+    ],
+    [
+      8.0,
+      12.408701
+    ]
+  ],
+  "primitive": "t_shape",
+  "primitive_class": "rotunda16",
+  "rarity_tier": 1,
+  "rects": [
+    [
+      -1.5,
+      6.0,
+      1.5,
+      6.5
+    ],
+    [
+      -2.5,
+      6.5,
+      2.5,
+      7.0
+    ],
+    [
+      -4.0,
+      7.0,
+      4.0,
+      7.5
+    ],
+    [
+      -4.5,
+      7.5,
+      4.5,
+      8.0
+    ],
+    [
+      -5.0,
+      8.0,
+      5.0,
+      8.5
+    ],
+    [
+      -5.5,
+      8.5,
+      5.5,
+      9.0
+    ],
+    [
+      -6.0,
+      9.0,
+      6.0,
+      9.5
+    ],
+    [
+      -6.5,
+      9.5,
+      6.5,
+      10.0
+    ],
+    [
+      -7.0,
+      10.0,
+      7.0,
+      11.5
+    ],
+    [
+      -7.5,
+      11.5,
+      7.5,
+      12.5
+    ],
+    [
+      -8.0,
+      12.5,
+      8.0,
+      15.5
+    ],
+    [
+      -7.5,
+      15.5,
+      7.5,
+      16.5
+    ],
+    [
+      -7.0,
+      16.5,
+      7.0,
+      18.0
+    ],
+    [
+      -6.5,
+      18.0,
+      6.5,
+      18.5
+    ],
+    [
+      -6.0,
+      18.5,
+      6.0,
+      19.0
+    ],
+    [
+      -5.5,
+      19.0,
+      5.5,
+      19.5
+    ],
+    [
+      -5.0,
+      19.5,
+      5.0,
+      20.0
+    ],
+    [
+      -4.5,
+      20.0,
+      4.5,
+      20.5
+    ],
+    [
+      -4.0,
+      20.5,
+      4.0,
+      21.0
+    ],
+    [
+      -2.5,
+      21.0,
+      2.5,
+      21.5
+    ],
+    [
+      -1.5,
+      21.5,
+      1.5,
+      22.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "ground",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 3
+}

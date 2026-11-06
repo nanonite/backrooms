@@ -40,6 +40,7 @@ from shape_room_rng import (
     GENERATOR_VERSION_V6,
     GENERATOR_VERSION_V7,
     GENERATOR_VERSION_V8,
+    GENERATOR_VERSION_V9,
     V4_PLUS,
     cell_rng,
     version_for_map,
@@ -374,6 +375,7 @@ def build_spec(
             GENERATOR_VERSION_V6,
             GENERATOR_VERSION_V7,
             GENERATOR_VERSION_V8,
+            GENERATOR_VERSION_V9,
         )
         else "kit_default",
         "materials": palette_materials(cell)
@@ -383,6 +385,7 @@ def build_spec(
             GENERATOR_VERSION_V6,
             GENERATOR_VERSION_V7,
             GENERATOR_VERSION_V8,
+            GENERATOR_VERSION_V9,
         )
         else MATERIALS,
         "features": feature_records(doorways),

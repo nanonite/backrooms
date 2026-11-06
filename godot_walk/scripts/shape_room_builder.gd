@@ -101,6 +101,11 @@ static func _add_floor(visuals: Node3D, boundaries: Node3D, context: Dictionary)
 	var floor_visual := _group(visuals, "WalkableFloorVisual")
 	var body := StaticBody3D.new()
 	body.name = "WalkableFloor"
+	var acoustic: String = String(context.materials.get("acoustic", {}).get("floor", ""))
+	if not acoustic.is_empty():
+		body.set_meta("surface_acoustic", acoustic)
+		body.set_meta("surface_wear", int(context.materials.get("wear", 0)))
+		body.set_meta("surface_variant", String(context.materials.get("variants", {}).get("floor", "clean")))
 	boundaries.add_child(body)
 	if context.chamfered:
 		DIAGONAL.add_floor(floor_visual, body, context, FLOOR_COLLIDER_THICKNESS)

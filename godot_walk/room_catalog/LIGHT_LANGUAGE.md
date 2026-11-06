@@ -9,7 +9,7 @@ room geometry, source textures, library-room materials, registration, or scale.
 
 - Maps `gmap-0.1.0` through `gmap-0.7.0` keep their original unshaded materials,
   emissive lamp boxes, and 0.8 ambient energy.
-- Maps `gmap-0.8.0` carry a `light` record for each non-void cell. Their generated
+- Maps `gmap-0.8.0` and `gmap-0.9.0` carry a `light` record for each non-void cell. Their generated
   rooms use per-vertex lit PSX materials, nearest texture filtering, and the
   existing PSX compositor.
 - Library rooms retain the unshaded material language from

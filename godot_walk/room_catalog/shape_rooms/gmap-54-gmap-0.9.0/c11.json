@@ -1,0 +1,305 @@
+{
+  "area_m2": 115.75,
+  "arm_width_m": null,
+  "arms_xz": [
+    [
+      3.0,
+      -18.0,
+      13.0,
+      -6.0
+    ]
+  ],
+  "ceiling_height_m": 5.6,
+  "cell_id": "c11",
+  "chamfers": [
+    {
+      "corner": [
+        3.0,
+        -18.0
+      ],
+      "length_m": 1.5
+    },
+    {
+      "corner": [
+        13.0,
+        -18.0
+      ],
+      "length_m": 2.0
+    },
+    {
+      "corner": [
+        13.0,
+        -6.0
+      ],
+      "length_m": 1.5
+    }
+  ],
+  "construction": "box",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        1
+      ],
+      "port_id": "c11:p0",
+      "pos_xz": [
+        9.5,
+        -6.0
+      ],
+      "to_cell_id": "c04",
+      "to_port_id": "c04:p2",
+      "width_m": 2.0
+    }
+  ],
+  "envelope_xz": [
+    [
+      3.0,
+      -18.0
+    ],
+    [
+      13.0,
+      -18.0
+    ],
+    [
+      13.0,
+      -6.0
+    ],
+    [
+      3.0,
+      -6.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_grid",
+      "kind": "ceiling_lamp_grid",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c11:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "generator_version": "shape-room-0.9.0",
+  "lamps_xz": [
+    [
+      4.5,
+      -16.5
+    ],
+    [
+      4.5,
+      -12.5
+    ],
+    [
+      4.5,
+      -8.5
+    ],
+    [
+      8.5,
+      -16.5
+    ],
+    [
+      8.5,
+      -12.5
+    ],
+    [
+      8.5,
+      -8.5
+    ]
+  ],
+  "light": {
+    "color_temp_k": 4338,
+    "lamps": [
+      {
+        "flicker_seed": 1991933855,
+        "lamp_index": 0,
+        "state": "on"
+      },
+      {
+        "flicker_seed": 668416948,
+        "lamp_index": 1,
+        "state": "dead"
+      },
+      {
+        "flicker_seed": 1703120017,
+        "lamp_index": 2,
+        "state": "on"
+      },
+      {
+        "flicker_seed": 1358093311,
+        "lamp_index": 3,
+        "state": "on"
+      },
+      {
+        "flicker_seed": 1854222201,
+        "lamp_index": 4,
+        "state": "on"
+      },
+      {
+        "flicker_seed": 407766228,
+        "lamp_index": 5,
+        "state": "on"
+      }
+    ],
+    "tier": "normal"
+  },
+  "map_id": "gmap-54-gmap-0.9.0",
+  "map_sha256": "174e240e3405b23af65de1bd7f3b96d1fe98a5cf9c4452c261e2b842d41fb811",
+  "material_source": "palette_registry",
+  "materials": {
+    "acoustic": {
+      "ceiling": "tile",
+      "floor": "carpet",
+      "trim": "metal",
+      "wall": "plaster"
+    },
+    "ceiling": {
+      "acoustic": "tile",
+      "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+      "tile_m": 4.0,
+      "variant": "clean"
+    },
+    "floor": {
+      "acoustic": "carpet",
+      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
+      "tile_m": 4.0,
+      "variant": "clean"
+    },
+    "lamp_color": [
+      1.0,
+      0.97,
+      0.76
+    ],
+    "palette_id": "backrooms_yellow",
+    "registry_version": "0.2.0",
+    "trim_color": [
+      0.37,
+      0.34,
+      0.23
+    ],
+    "variants": {
+      "ceiling": "clean",
+      "floor": "clean",
+      "trim": "clean",
+      "wall": "clean"
+    },
+    "wall": {
+      "acoustic": "plaster",
+      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+      "tile_m": 1.5,
+      "variant": "clean"
+    },
+    "wear": 0
+  },
+  "mode": "standard",
+  "original_cell_status": "module_candidates",
+  "outline_xz": [
+    [
+      3.0,
+      -16.5
+    ],
+    [
+      4.5,
+      -18.0
+    ],
+    [
+      11.0,
+      -18.0
+    ],
+    [
+      13.0,
+      -16.0
+    ],
+    [
+      13.0,
+      -7.5
+    ],
+    [
+      11.5,
+      -6.0
+    ],
+    [
+      3.0,
+      -6.0
+    ]
+  ],
+  "primitive": "dead_end",
+  "primitive_class": "chamfered_box",
+  "rarity_tier": 2,
+  "rects": [
+    [
+      4.5,
+      -18.0,
+      11.0,
+      -17.5
+    ],
+    [
+      4.0,
+      -17.5,
+      11.5,
+      -17.0
+    ],
+    [
+      3.5,
+      -17.0,
+      12.0,
+      -16.5
+    ],
+    [
+      3.0,
+      -16.5,
+      12.5,
+      -16.0
+    ],
+    [
+      3.0,
+      -16.0,
+      13.0,
+      -7.5
+    ],
+    [
+      3.0,
+      -7.5,
+      12.5,
+      -7.0
+    ],
+    [
+      3.0,
+      -7.0,
+      12.0,
+      -6.5
+    ],
+    [
+      3.0,
+      -6.5,
+      11.5,
+      -6.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "figure",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 2
+}

@@ -12,7 +12,7 @@
   ],
   "properties": {
     "schema_version": { "const": 1 },
-    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0", "shape-room-0.8.0"] },
+    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0", "shape-room-0.8.0", "shape-room-0.9.0"] },
     "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
     "map_sha256": { "$ref": "#/$defs/sha256" },
     "cell_id": { "type": "string", "minLength": 1 },
@@ -80,7 +80,31 @@
             "floor": { "$ref": "#/$defs/surface" },
             "ceiling": { "$ref": "#/$defs/surface" },
             "trim_color": { "$ref": "#/$defs/rgb" },
-            "lamp_color": { "$ref": "#/$defs/rgb" }
+            "lamp_color": { "$ref": "#/$defs/rgb" },
+            "registry_version": { "type": "string", "minLength": 1 },
+            "wear": { "type": "integer", "minimum": 0, "maximum": 2 },
+            "acoustic": {
+              "type": "object",
+              "required": ["wall", "floor", "ceiling", "trim"],
+              "properties": {
+                "wall": { "$ref": "#/$defs/acoustic" },
+                "floor": { "$ref": "#/$defs/acoustic" },
+                "ceiling": { "$ref": "#/$defs/acoustic" },
+                "trim": { "$ref": "#/$defs/acoustic" }
+              },
+              "additionalProperties": false
+            },
+            "variants": {
+              "type": "object",
+              "required": ["wall", "floor", "ceiling", "trim"],
+              "properties": {
+                "wall": { "$ref": "#/$defs/variant_id" },
+                "floor": { "$ref": "#/$defs/variant_id" },
+                "ceiling": { "$ref": "#/$defs/variant_id" },
+                "trim": { "$ref": "#/$defs/variant_id" }
+              },
+              "additionalProperties": false
+            }
           },
           "additionalProperties": false
         }
@@ -182,6 +206,7 @@
     {"if": {"properties": {"construction": {"const": "regular_polygon"}}, "required": ["construction"]}, "then": {"required": ["landmark"], "properties": {"shape_stage": {"const": 3}, "arms_xz": {"maxItems": 0}}}},
     {"if": {"properties": {"shape_stage": {"const": 3}}, "required": ["shape_stage"]}, "then": {"properties": {"construction": {"const": "regular_polygon"}}}},
     {"if": {"properties": {"generator_version": {"const": "shape-room-0.8.0"}}, "required": ["generator_version"]}, "then": {"required": ["light"]}},
+    {"if": {"properties": {"generator_version": {"const": "shape-room-0.9.0"}}, "required": ["generator_version"]}, "then": {"required": ["light"], "properties": {"materials": {"required": ["registry_version", "wear", "acoustic", "variants"]}}}},
     {"if": {"not": {"properties": {"construction": {"const": "regular_polygon"}}, "required": ["construction"]}}, "then": {"properties": {"arms_xz": {"minItems": 1}}}}
   ],
   "additionalProperties": false,
@@ -196,16 +221,32 @@
     },
     "rect": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 },
     "rgb": { "type": "array", "items": { "type": "number", "minimum": 0, "maximum": 1 }, "minItems": 3, "maxItems": 3 },
+    "variant_id": { "enum": ["clean", "worn", "damaged"] },
+    "acoustic": { "enum": ["carpet", "concrete", "tile", "plaster", "metal", "wood", "debris"] },
     "surface": {
       "description": "A palette surface: a texture tiled every tile_m metres, or a solid colour.",
       "oneOf": [
         {
           "type": "object",
           "required": ["texture", "tile_m"],
-          "properties": { "texture": { "type": "string", "pattern": "^res://.+\\.png$" }, "tile_m": { "type": "number", "exclusiveMinimum": 0 } },
+          "properties": {
+            "texture": { "type": "string", "pattern": "^res://.+\\.png$" },
+            "tile_m": { "type": "number", "exclusiveMinimum": 0 },
+            "acoustic": { "$ref": "#/$defs/acoustic" },
+            "variant": { "$ref": "#/$defs/variant_id" }
+          },
           "additionalProperties": false
         },
-        { "type": "object", "required": ["color"], "properties": { "color": { "$ref": "#/$defs/rgb" } }, "additionalProperties": false }
+        {
+          "type": "object",
+          "required": ["color"],
+          "properties": {
+            "color": { "$ref": "#/$defs/rgb" },
+            "acoustic": { "$ref": "#/$defs/acoustic" },
+            "variant": { "$ref": "#/$defs/variant_id" }
+          },
+          "additionalProperties": false
+        }
       ]
     },
     "index": {
@@ -214,7 +255,7 @@
       "required": ["schema_version", "generator_version", "map_id", "map_file", "mode", "rooms"],
       "properties": {
         "schema_version": { "const": 1 },
-        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0", "shape-room-0.8.0"] },
+        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0", "shape-room-0.8.0", "shape-room-0.9.0"] },
         "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
         "map_file": {
           "type": "object",

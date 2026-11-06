@@ -52,7 +52,8 @@ def diagonal_errors(document: dict[str, Any]) -> Errors:
         )
     expected_selection = (
         SELECTION_RULE_V61
-        if document["generator_version"] in ("gmap-0.6.1", "gmap-0.7.0", "gmap-0.8.0")
+        if document["generator_version"]
+        in ("gmap-0.6.1", "gmap-0.7.0", "gmap-0.8.0", "gmap-0.9.0")
         else "seeded weighted draw 0:3, 1:5, 2:2; eligible pairs sorted then seeded shuffle"
     )
     if budget.get("selection_rule") != expected_selection:

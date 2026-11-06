@@ -22,6 +22,10 @@ static func make(spec: Dictionary) -> Dictionary:
 		"_scaled": {},
 		"_tiles": tiles,
 		"_palette_id": String(source.get("palette_id", "")),
+		"acoustic": source.get("acoustic", {}),
+		"wear": int(source.get("wear", 0)),
+		"variants": source.get("variants", {}),
+		"registry_version": String(source.get("registry_version", "")),
 	}
 	if source.has("palette_id"):
 		for pair: Array in [["wallpaper", "wall"], ["floor", "floor"], ["ceiling", "ceiling"]]:

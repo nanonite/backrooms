@@ -15,7 +15,7 @@ const TRIM_DEPTH := 0.2
 static func check(assembly: Node3D) -> Dictionary:
 	var result := {"links": 0, "diagonal_edges": 0, "lane_sweeps": 0, "lane_sweeps_passed": 0,
 		"passage_wall_colliders": 0, "frames_checked": 0, "failures": [] as Array[String]}
-	if not (String(assembly.map.get("generator_version", "")) in ["gmap-0.6.0", "gmap-0.6.1", "gmap-0.7.0", "gmap-0.8.0"]):
+	if not (String(assembly.map.get("generator_version", "")) in ["gmap-0.6.0", "gmap-0.6.1", "gmap-0.7.0", "gmap-0.8.0", "gmap-0.9.0"]):
 		return result
 	for cell: Dictionary in assembly.map.cells:
 		if not cell.has("diagonal_passage"):

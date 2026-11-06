@@ -1,0 +1,297 @@
+{
+  "area_m2": 32.0,
+  "arm_width_m": 4,
+  "arms_xz": [
+    [
+      -14.0,
+      1.0,
+      -10.0,
+      5.0
+    ],
+    [
+      -13.0,
+      3.0,
+      -9.0,
+      6.0
+    ],
+    [
+      -14.0,
+      1.0,
+      -9.0,
+      5.0
+    ],
+    [
+      -15.0,
+      1.0,
+      -12.0,
+      5.0
+    ],
+    [
+      -14.0,
+      1.0,
+      -10.0,
+      5.0
+    ],
+    [
+      -15.0,
+      0.0,
+      -11.0,
+      3.0
+    ],
+    [
+      -15.0,
+      1.0,
+      -10.0,
+      5.0
+    ]
+  ],
+  "ceiling_height_m": 3.2,
+  "cell_id": "c11",
+  "construction": "arms",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        1
+      ],
+      "port_id": "c11:p0",
+      "pos_xz": [
+        -11.0,
+        6.0
+      ],
+      "to_cell_id": "c06",
+      "to_port_id": "c06:p1",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "authored_direct_doorway_2.4x2.2_v1",
+      "height_m": 2.2,
+      "kind": "open",
+      "normal": [
+        -1,
+        0
+      ],
+      "port_id": "c11:p1",
+      "pos_xz": [
+        -15.0,
+        3.0
+      ],
+      "to_cell_id": "c12",
+      "to_port_id": "c12:p0",
+      "width_m": 2.4
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "closed_visible",
+      "normal": [
+        0,
+        -1
+      ],
+      "port_id": "c11:p2",
+      "pos_xz": [
+        -13.5,
+        0.0
+      ],
+      "to_cell_id": "c16",
+      "to_port_id": "c16:p0",
+      "width_m": 2.0
+    }
+  ],
+  "envelope_xz": [
+    [
+      -15.0,
+      0.0
+    ],
+    [
+      -9.0,
+      0.0
+    ],
+    [
+      -9.0,
+      6.0
+    ],
+    [
+      -15.0,
+      6.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_grid",
+      "kind": "ceiling_lamp_grid",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c11:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c11:p1",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c11:p2",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "generator_version": "shape-room-0.9.0",
+  "lamps_xz": [
+    [
+      -13.5,
+      1.5
+    ]
+  ],
+  "light": {
+    "color_temp_k": 4854,
+    "lamps": [
+      {
+        "flicker_seed": 1130782625,
+        "lamp_index": 0,
+        "state": "on"
+      }
+    ],
+    "tier": "bright"
+  },
+  "map_id": "gmap-69-gmap-0.9.0",
+  "map_sha256": "ff0428bad2128c592fe68c5fa14307acfb39e661263e5750dd4e06105dd3a197",
+  "material_source": "palette_registry",
+  "materials": {
+    "acoustic": {
+      "ceiling": "metal",
+      "floor": "concrete",
+      "trim": "metal",
+      "wall": "concrete"
+    },
+    "ceiling": {
+      "acoustic": "metal",
+      "color": [
+        0.34,
+        0.35,
+        0.33
+      ],
+      "variant": "clean"
+    },
+    "floor": {
+      "acoustic": "concrete",
+      "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+      "tile_m": 4.0,
+      "variant": "clean"
+    },
+    "lamp_color": [
+      0.86,
+      0.88,
+      0.86
+    ],
+    "palette_id": "industrial_concrete",
+    "registry_version": "0.2.0",
+    "trim_color": [
+      0.28,
+      0.29,
+      0.28
+    ],
+    "variants": {
+      "ceiling": "clean",
+      "floor": "clean",
+      "trim": "clean",
+      "wall": "clean"
+    },
+    "wall": {
+      "acoustic": "concrete",
+      "color": [
+        0.43,
+        0.43,
+        0.4
+      ],
+      "variant": "clean"
+    },
+    "wear": 0
+  },
+  "mode": "standard",
+  "original_cell_status": "shape_room_pending",
+  "outline_xz": [
+    [
+      -15.0,
+      0.0
+    ],
+    [
+      -11.0,
+      0.0
+    ],
+    [
+      -11.0,
+      1.0
+    ],
+    [
+      -9.0,
+      1.0
+    ],
+    [
+      -9.0,
+      6.0
+    ],
+    [
+      -13.0,
+      6.0
+    ],
+    [
+      -13.0,
+      5.0
+    ],
+    [
+      -15.0,
+      5.0
+    ]
+  ],
+  "primitive": "t_shape",
+  "primitive_class": "rectilinear_polygon",
+  "rarity_tier": 0,
+  "rects": [
+    [
+      -15.0,
+      0.0,
+      -11.0,
+      1.0
+    ],
+    [
+      -15.0,
+      1.0,
+      -9.0,
+      5.0
+    ],
+    [
+      -13.0,
+      5.0,
+      -9.0,
+      6.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "ground",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 1
+}

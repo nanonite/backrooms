@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "material_palette_v2.schema.json",
+  "title": "Material palette registry 0.2.0 (issue 199)",
+  "description": "Surface variants and acoustic tags for generated shape rooms (gmap-0.9.0). Values are either repository textures with provenance or authored colours recorded in PALETTES_0_2_0.md.",
+  "type": "object",
+  "required": ["schema_version", "registry_version", "palettes"],
+  "properties": {
+    "schema_version": { "const": 2 },
+    "registry_version": { "const": "0.2.0" },
+    "palettes": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/palette" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "rgb": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "number", "minimum": 0, "maximum": 1 } },
+    "acoustic": { "enum": ["carpet", "concrete", "tile", "plaster", "metal", "wood", "debris"] },
+    "provenance": {
+      "type": "object",
+      "required": ["from", "sign"],
+      "properties": {
+        "from": { "type": "string", "pattern": "^res://[^:]+::.+$", "description": "<res path>::<constant, material or variant name> in that file" },
+        "sign": { "enum": ["icon", "symbol"] }
+      },
+      "additionalProperties": false
+    },
+    "variant": {
+      "description": "One clean, worn or damaged surface value.",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["texture", "tile_m", "provenance"],
+          "properties": {
+            "texture": { "type": "string", "pattern": "^res://.+\\.png$" },
+            "tile_m": { "type": "number", "exclusiveMinimum": 0 },
+            "provenance": { "$ref": "#/$defs/provenance" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["color", "provenance"],
+          "properties": {
+            "color": { "$ref": "#/$defs/rgb" },
+            "provenance": { "$ref": "#/$defs/provenance" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "surface": {
+      "type": "object",
+      "required": ["acoustic", "variants"],
+      "properties": {
+        "acoustic": { "$ref": "#/$defs/acoustic" },
+        "variants": {
+          "type": "object",
+          "minProperties": 2,
+          "required": ["clean"],
+          "propertyNames": { "enum": ["clean", "worn", "damaged"] },
+          "additionalProperties": { "$ref": "#/$defs/variant" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "colour_field": {
+      "type": "object",
+      "required": ["color", "provenance"],
+      "properties": { "color": { "$ref": "#/$defs/rgb" }, "provenance": { "$ref": "#/$defs/provenance" } },
+      "additionalProperties": false
+    },
+    "colour_surface": {
+      "type": "object",
+      "required": ["acoustic", "variants"],
+      "properties": {
+        "acoustic": { "$ref": "#/$defs/acoustic" },
+        "variants": {
+          "type": "object",
+          "minProperties": 2,
+          "required": ["clean"],
+          "propertyNames": { "enum": ["clean", "worn", "damaged"] },
+          "additionalProperties": { "$ref": "#/$defs/colour_field" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "palette": {
+      "type": "object",
+      "required": ["palette_id", "is_default", "match_style_tags", "source_module_ids", "surfaces", "lamp_color"],
+      "properties": {
+        "palette_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "is_default": { "type": "boolean" },
+        "match_style_tags": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "source_module_ids": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "surfaces": {
+          "type": "object",
+          "required": ["wall", "floor", "ceiling", "trim"],
+          "properties": {
+            "wall": { "$ref": "#/$defs/surface" },
+            "floor": { "$ref": "#/$defs/surface" },
+            "ceiling": { "$ref": "#/$defs/surface" },
+            "trim": { "$ref": "#/$defs/colour_surface" }
+          },
+          "additionalProperties": false
+        },
+        "lamp_color": { "$ref": "#/$defs/colour_field" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
