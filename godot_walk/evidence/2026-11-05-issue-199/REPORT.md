@@ -1,6 +1,6 @@
 # Chainlink #199 — surface layer, palette variants and acoustic tags
 
-**Status:** implementation and verification complete for operator review. No commit. #199 remains open.
+**Status:** implementation committed as `7586380`; #199 closed after operator approval.
 `registration_accepted=false` and `scale_calibrated=false` remain unchanged.
 
 ## Implementation
@@ -133,8 +133,8 @@ difference 9.30, maximum channel difference 56, and 93.8% of pixels changed by
 more than 2. The dark-wing wear-2 view is dark but readable, consistent with
 the light layer. Some rooms are small or dark, so several captures are
 close-up or low-key; that is framing, not a geometry change. The plaster wear-2
-view includes a bright module/debris element at its edge; operator review should
-confirm the intended boundary.
+view includes a bright module/debris element at its edge. The operator approved
+the view on 2026-11-06, noting the added depth.
 
 All captures ran under the guarded Vulkan path. Capture receipts are in
 `resource_runs/`.
@@ -171,4 +171,5 @@ python3 godot_walk/scripts/generate_surface_variants.py check
 - `MATERIAL_LANGUAGE.md`, `palettes-0.1.0.json`, the library index/catalog
   snapshots, and the existing source textures were not edited.
 - No GPU inference, Hunyuan call, room production, stitching or generation ran.
-- No commit was made and #199 was not closed.
+- Implementation committed as `7586380`; library floor acoustic mapping remains
+  part of #200.
