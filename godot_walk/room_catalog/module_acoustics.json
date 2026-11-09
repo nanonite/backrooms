@@ -1,0 +1,157 @@
+{
+  "generator": "godot_walk/scripts/module_acoustics.py",
+  "generator_version": "module-acoustics-0.1.0",
+  "modules": {
+    "godot_early_pocket_pass_through_v1@1": {
+      "acoustic": "carpet",
+      "evidence": [
+        "carpet_floor"
+      ],
+      "poetics": {
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json",
+        "sha256": "7e8c4148ab2aaa45af7102719a7f820893b9368480757d6652f1f971774d1b3d"
+      }
+    },
+    "godot_early_pocket_single_west_v1@1": {
+      "acoustic": "carpet",
+      "evidence": [
+        "carpet_floor"
+      ],
+      "poetics": {
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_single_west_v1-v1.accepted.json",
+        "sha256": "1d2642ffc9ec0cdcdebd736755a34193787c891e627c4fadf5ee150b55815b76"
+      }
+    },
+    "godot_early_pocket_three_way_v1@1": {
+      "acoustic": "carpet",
+      "evidence": [
+        "carpet_floor"
+      ],
+      "poetics": {
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_three_way_v1-v1.accepted.json",
+        "sha256": "f03cff792927988fc13e6ad5512c78b09ae95d481baaded5e127c5bd44696ec6"
+      }
+    },
+    "godot_gopro_industrial_hall_frame1097_v1@1": {
+      "acoustic": "concrete",
+      "evidence": [
+        "concrete_grey"
+      ],
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_poetics_v2.json",
+        "sha256": "0f8029fc7d2cf54db2bd73d6d7cf0b65e423826ba3082cfaa6cd77d35dca09ac"
+      }
+    },
+    "godot_gopro_industrial_hall_south_socket_v1@1": {
+      "acoustic": "concrete",
+      "evidence": [
+        "concrete_grey"
+      ],
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_poetics_v2.json",
+        "sha256": "0dcc9e45c524d9daba2cb88d3e956e6d22eb04d03cff6d36e1ab025654c2a25e"
+      }
+    },
+    "godot_later_bay_column_bounded_v1@1": {
+      "acoustic": "carpet",
+      "evidence": [
+        "carpet_floor"
+      ],
+      "poetics": {
+        "path": "godot_walk/room_catalog/module_poetics/godot_later_bay_column_bounded_v1-v1.accepted.json",
+        "sha256": "e6db1b50f9604998cc98f18b4f4cdf40caaaf6675cfab33402fd9b4feb0dbaf9"
+      }
+    },
+    "godot_source_textured_large_room_hall_end_v1@1": {
+      "acoustic": "carpet",
+      "evidence": [
+        "carpet_floor"
+      ],
+      "poetics": {
+        "path": "godot_walk/room_catalog/module_poetics/godot_source_textured_large_room_hall_end_v1-v1.accepted.json",
+        "sha256": "0299e703889bd4969060899d32b142a4864fea98cbd88e3eb6ef5f4c1d70e1ce"
+      }
+    },
+    "godot_source_textured_large_room_v1@1": {
+      "acoustic": "carpet",
+      "evidence": [
+        "carpet_floor"
+      ],
+      "poetics": {
+        "path": "godot_walk/room_catalog/module_poetics/godot_source_textured_large_room_v1-v1.accepted.json",
+        "sha256": "ce3ab0c71f30e7f4ccd074db4836e35d5a28f9243506952d69718c972b635dac"
+      }
+    },
+    "video_b9161c467ed2d30a_bill_viola_single_room_v1@1": {
+      "acoustic": "carpet",
+      "evidence": [
+        "dark_carpet"
+      ],
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json",
+        "sha256": "eb36d037057b9ab223d3ca8ce6ece93191da591a9850fe158875367a6edf711d"
+      }
+    },
+    "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1@1": {
+      "acoustic": "debris",
+      "evidence": [
+        "plaster_walls",
+        "rock_field"
+      ],
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_poetics_v2.json",
+        "sha256": "2eb7508f68a994e5d1159269b32522c4780434198e2adfbd648ee59a0b389df4"
+      }
+    },
+    "video_ccf9722164a0bdc8_debris_window_rock_room_v1@1": {
+      "acoustic": "debris",
+      "evidence": [
+        "plaster_walls",
+        "rock_field"
+      ],
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json",
+        "sha256": "83a2a1c10e8d06b00ea995586e8c891b0b8e5f1116eea3cad4af457516725f78"
+      }
+    }
+  },
+  "precedence": [
+    [
+      "rock_field",
+      "debris"
+    ],
+    [
+      "concrete_grey",
+      "concrete"
+    ],
+    [
+      "carpet_floor",
+      "carpet"
+    ],
+    [
+      "dark_carpet",
+      "carpet"
+    ],
+    [
+      "plaster_walls",
+      "plaster"
+    ],
+    [
+      "metal",
+      "metal"
+    ],
+    [
+      "wood",
+      "wood"
+    ],
+    [
+      "tile",
+      "tile"
+    ]
+  ],
+  "schema_version": 1,
+  "source_index": {
+    "path": "godot_walk/room_catalog/library_index/godot_psx_room_kit-0.5.0.json",
+    "sha256": "147b1cb9daaa96601bcab84bf355929134f2ddbd6b6f279bc255f7ddd849f49f"
+  }
+}

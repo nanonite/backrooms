@@ -30,6 +30,8 @@ const GENERATED_LIGHT_LAYER_COUNT := 19
 const MODULE_RENDER_LAYER := 20
 const LIGHT_CULL_DISTANCE_M := 6.2
 const LIT_VERSIONS := ["gmap-0.8.0", "gmap-0.9.0"]
+const MODULE_ACOUSTICS_PATH := "res://room_catalog/module_acoustics.json"
+const MODULE_FLOOR_FALLBACKS := ["WalkableFloor", "AuthoredFloor", "AuthoredPlanarRouteFloor", "ConnectorThreshold"]
 ## Fallback map/rooms pair when no user args are given (godot-mcp run_project, #197). Gitignored.
 const WALK_TARGET_PATH := "res://.walk_target.json"
 
@@ -53,6 +55,7 @@ var diagonal_collision := true
 var diagonal_pullback := 0.0
 var materials: Dictionary = {}
 var palette_materials: Dictionary = {}  # palette_id -> materials (shape-room-0.5.0 specs, #192)
+var module_acoustics: Dictionary = {}  # module_id@version -> accepted poetics projection (#200)
 var player: CharacterBody3D
 var spawn_position := Vector3.ZERO
 var spawn_yaw := 0.0
@@ -116,6 +119,7 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 	specs = room_specs
 	if String(map.get("generator_version", "")) in LIT_VERSIONS and not _assign_light_layers():
 		return
+	module_acoustics = _load_module_acoustics()
 	materials = MATERIALS.make(specs[specs.keys()[0]])
 	var library_entries := _library_entries()
 	for cell: Dictionary in map.cells:
@@ -189,6 +193,7 @@ func _place_module(cell: Dictionary, library_entries: Dictionary) -> void:
 	room.rotation.y = -deg_to_rad(float(placement.rotation_deg))
 	add_child(room)
 	_strip_world_environments(room)
+	_tag_module_floor(room, entry)
 	if String(map.get("generator_version", "")) in LIT_VERSIONS:
 		_set_module_render_layer(room)
 	room.set_meta("cell_id", String(cell.cell_id))
@@ -205,6 +210,35 @@ static func _entry_socket(entry: Dictionary, socket_id: String) -> Dictionary:
 		if String(socket.id) == socket_id:
 			return socket
 	return {}
+
+
+## The table is a projection of accepted module poetics (#200); it carries each
+## module's acoustic tag and poetics path/hash. Missing entries stay untagged so
+## the player's default fallback can log them.
+func _load_module_acoustics() -> Dictionary:
+	var data: Variant = load_json(MODULE_ACOUSTICS_PATH)
+	if not data is Dictionary:
+		push_warning("Module acoustic table is missing: %s" % MODULE_ACOUSTICS_PATH)
+		return {}
+	return data.get("modules", {})
+
+
+func _tag_module_floor(room: Node3D, entry: Dictionary) -> void:
+	var key := "%s@%d" % [entry.module_id, int(entry.version)]
+	var record: Dictionary = module_acoustics.get(key, {})
+	var acoustic := String(record.get("acoustic", ""))
+	if acoustic.is_empty() or acoustic == "default":
+		return
+	var names: PackedStringArray = room.get_meta("walk_floor_bodies", PackedStringArray())
+	if names.is_empty():
+		names = PackedStringArray(MODULE_FLOOR_FALLBACKS)
+	for body_name: String in names:
+		for node: Node in room.find_children(body_name, "StaticBody3D", true, false):
+			var body := node as StaticBody3D
+			body.set_meta("surface_acoustic", acoustic)
+			body.set_meta("surface_acoustic_source", MODULE_ACOUSTICS_PATH)
+			body.set_meta("surface_acoustic_module", key)
+	room.set_meta("surface_acoustic", acoustic)
 
 
 ## The accepted assemblies open a socket through the scene's exported switches; only

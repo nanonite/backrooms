@@ -1,0 +1,327 @@
+{
+  "generator": "godot_walk/scripts/generate_footstep_audio.py",
+  "peak_gain": 0.5,
+  "profiles": {
+    "carpet": {
+      "duration": 0.22,
+      "heel_cutoff": 140.0,
+      "heel_decay": 40.0,
+      "sole_cutoff": 500.0,
+      "sole_decay": 12.0,
+      "tick": 0.01
+    },
+    "concrete": {
+      "duration": 0.2,
+      "heel_cutoff": 180.0,
+      "heel_decay": 48.0,
+      "sole_cutoff": 800.0,
+      "sole_decay": 15.0,
+      "tick": 0.025
+    },
+    "debris": {
+      "duration": 0.24,
+      "heel_cutoff": 150.0,
+      "heel_decay": 39.0,
+      "sole_cutoff": 620.0,
+      "sole_decay": 12.0,
+      "tick": 0.018
+    },
+    "default": {
+      "duration": 0.21,
+      "heel_cutoff": 160.0,
+      "heel_decay": 42.0,
+      "sole_cutoff": 650.0,
+      "sole_decay": 13.0,
+      "tick": 0.018
+    },
+    "land": {
+      "duration": 0.27,
+      "heel_cutoff": 125.0,
+      "heel_decay": 28.0,
+      "sole_cutoff": 420.0,
+      "sole_decay": 9.0,
+      "tick": 0.005
+    },
+    "metal": {
+      "duration": 0.23,
+      "heel_cutoff": 205.0,
+      "heel_decay": 45.0,
+      "sole_cutoff": 1050.0,
+      "sole_decay": 14.0,
+      "tick": 0.028
+    },
+    "plaster": {
+      "duration": 0.21,
+      "heel_cutoff": 165.0,
+      "heel_decay": 43.0,
+      "sole_cutoff": 650.0,
+      "sole_decay": 13.0,
+      "tick": 0.018
+    },
+    "tile": {
+      "duration": 0.19,
+      "heel_cutoff": 195.0,
+      "heel_decay": 52.0,
+      "sole_cutoff": 950.0,
+      "sole_decay": 16.0,
+      "tick": 0.03
+    },
+    "wood": {
+      "duration": 0.21,
+      "heel_cutoff": 175.0,
+      "heel_decay": 44.0,
+      "sole_cutoff": 750.0,
+      "sole_decay": 14.0,
+      "tick": 0.02
+    }
+  },
+  "records": [
+    {
+      "bytes": 9746,
+      "path": "godot_walk/audio/footsteps/carpet/carpet_01.wav",
+      "sha256": "6e6304a64457ff8cdfcfbd53b14369714bb292a14d6f049c5679e2e0ba36e422",
+      "tag": "carpet",
+      "variant": 1
+    },
+    {
+      "bytes": 9746,
+      "path": "godot_walk/audio/footsteps/carpet/carpet_02.wav",
+      "sha256": "012fe67807458709bb3d43213b72e84fe721e6c717ca76e3b52bb09ce51ac36d",
+      "tag": "carpet",
+      "variant": 2
+    },
+    {
+      "bytes": 9746,
+      "path": "godot_walk/audio/footsteps/carpet/carpet_03.wav",
+      "sha256": "b1b32ef0582f6610ec13f7502f65759b5293dfd003b3e8e262c9a33dce2cf0d3",
+      "tag": "carpet",
+      "variant": 3
+    },
+    {
+      "bytes": 9746,
+      "path": "godot_walk/audio/footsteps/carpet/carpet_04.wav",
+      "sha256": "b930860516ff2e6f32b7a2fe9f2c8fa046a5d993e76a14478663f87a58d5e2d7",
+      "tag": "carpet",
+      "variant": 4
+    },
+    {
+      "bytes": 8864,
+      "path": "godot_walk/audio/footsteps/concrete/concrete_01.wav",
+      "sha256": "fa6b1447fe1550c6af0c4317f298f4de276862c1774aa6167c583562219e7788",
+      "tag": "concrete",
+      "variant": 1
+    },
+    {
+      "bytes": 8864,
+      "path": "godot_walk/audio/footsteps/concrete/concrete_02.wav",
+      "sha256": "0c623e63e335fd64f790f745f0132fe4c33e0d8c2e9e983248bd9c747cfc804f",
+      "tag": "concrete",
+      "variant": 2
+    },
+    {
+      "bytes": 8864,
+      "path": "godot_walk/audio/footsteps/concrete/concrete_03.wav",
+      "sha256": "1c0c332b18de03cb09de61adf06d27246395bb40d9c55096d0d1915d2133d566",
+      "tag": "concrete",
+      "variant": 3
+    },
+    {
+      "bytes": 8864,
+      "path": "godot_walk/audio/footsteps/concrete/concrete_04.wav",
+      "sha256": "524b07e99127849037c60830dc18cdb6fa9afa1fd8f80b84417dbfd9029ff287",
+      "tag": "concrete",
+      "variant": 4
+    },
+    {
+      "bytes": 8422,
+      "path": "godot_walk/audio/footsteps/tile/tile_01.wav",
+      "sha256": "db66bc42e259ed86f18bb56c602ec8a485dcd23daed1d923d622649391742b37",
+      "tag": "tile",
+      "variant": 1
+    },
+    {
+      "bytes": 8422,
+      "path": "godot_walk/audio/footsteps/tile/tile_02.wav",
+      "sha256": "37442a458854283cf6e1041d16253851f34055050af33d7e9e1a43b1488da3d9",
+      "tag": "tile",
+      "variant": 2
+    },
+    {
+      "bytes": 8422,
+      "path": "godot_walk/audio/footsteps/tile/tile_03.wav",
+      "sha256": "adcb9207bcd1fdf8ad07c57108acbdc7f89c22ccbcba73cca26d3adba05ee81f",
+      "tag": "tile",
+      "variant": 3
+    },
+    {
+      "bytes": 8422,
+      "path": "godot_walk/audio/footsteps/tile/tile_04.wav",
+      "sha256": "a44d29656b5ec98df762aaeeb423e05e11e1251ca22280637ff7965a2b76ec3f",
+      "tag": "tile",
+      "variant": 4
+    },
+    {
+      "bytes": 9304,
+      "path": "godot_walk/audio/footsteps/plaster/plaster_01.wav",
+      "sha256": "482b50f06faa9cf3e75b921a19e1fb24be6acac6a251159e3669ba5b03921d34",
+      "tag": "plaster",
+      "variant": 1
+    },
+    {
+      "bytes": 9304,
+      "path": "godot_walk/audio/footsteps/plaster/plaster_02.wav",
+      "sha256": "7411a77a89ee660bd1c3c31e6569b96a584daf5ba9b3ad11cfccda6f717932b9",
+      "tag": "plaster",
+      "variant": 2
+    },
+    {
+      "bytes": 9304,
+      "path": "godot_walk/audio/footsteps/plaster/plaster_03.wav",
+      "sha256": "0a83b977719290d9ce877addda061f7258341ce9f3d359d6f28a7badfd4f91e3",
+      "tag": "plaster",
+      "variant": 3
+    },
+    {
+      "bytes": 9304,
+      "path": "godot_walk/audio/footsteps/plaster/plaster_04.wav",
+      "sha256": "d74b6e938ba87d1311f0681df06b1b6267bf6f796f96d1b862d030f93de63e96",
+      "tag": "plaster",
+      "variant": 4
+    },
+    {
+      "bytes": 10186,
+      "path": "godot_walk/audio/footsteps/metal/metal_01.wav",
+      "sha256": "67e1e648e0e1d847449f141f103824c64239bd50511b8c7c8db685287be3d65a",
+      "tag": "metal",
+      "variant": 1
+    },
+    {
+      "bytes": 10186,
+      "path": "godot_walk/audio/footsteps/metal/metal_02.wav",
+      "sha256": "8501c26dcb909a3e3019054c6d7c994cdff6c023244f0aed2e63b39fbf4a5d05",
+      "tag": "metal",
+      "variant": 2
+    },
+    {
+      "bytes": 10186,
+      "path": "godot_walk/audio/footsteps/metal/metal_03.wav",
+      "sha256": "df653603122844bec78f5904e81c31ba861a45890ad65a2ae68e1024919bb7ae",
+      "tag": "metal",
+      "variant": 3
+    },
+    {
+      "bytes": 10186,
+      "path": "godot_walk/audio/footsteps/metal/metal_04.wav",
+      "sha256": "54c5522c757ebde52405be54001a3bbba928b57f3f27fadfdafafd5c68bceb8d",
+      "tag": "metal",
+      "variant": 4
+    },
+    {
+      "bytes": 9304,
+      "path": "godot_walk/audio/footsteps/wood/wood_01.wav",
+      "sha256": "122ab63a24fd90305ed2c471a3d3623e29bbb23f6bb3cc7f492d8813650fc2bb",
+      "tag": "wood",
+      "variant": 1
+    },
+    {
+      "bytes": 9304,
+      "path": "godot_walk/audio/footsteps/wood/wood_02.wav",
+      "sha256": "69ec2fa98c205ae756dea04185fe3b6a097359175be010f9453523851069de68",
+      "tag": "wood",
+      "variant": 2
+    },
+    {
+      "bytes": 9304,
+      "path": "godot_walk/audio/footsteps/wood/wood_03.wav",
+      "sha256": "0fa5692acbb984696171cbdf9b75f99235775c9a4130c3363728da0ca51367bd",
+      "tag": "wood",
+      "variant": 3
+    },
+    {
+      "bytes": 9304,
+      "path": "godot_walk/audio/footsteps/wood/wood_04.wav",
+      "sha256": "bbfd375fc076e3afe3ea47c2211d843862d59d5297a17b0cb7d5d89acfeddcff",
+      "tag": "wood",
+      "variant": 4
+    },
+    {
+      "bytes": 10628,
+      "path": "godot_walk/audio/footsteps/debris/debris_01.wav",
+      "sha256": "1db566eb874eba50d3fe014452361c4b82db77eb61b5f92a6633a680b3854c95",
+      "tag": "debris",
+      "variant": 1
+    },
+    {
+      "bytes": 10628,
+      "path": "godot_walk/audio/footsteps/debris/debris_02.wav",
+      "sha256": "8b353d87d0c7f6b628cc7adc91664dba080086bba967e752be38b69c61f49d9a",
+      "tag": "debris",
+      "variant": 2
+    },
+    {
+      "bytes": 10628,
+      "path": "godot_walk/audio/footsteps/debris/debris_03.wav",
+      "sha256": "1cc8c21c1a50a95ddc2372e1d5e59356ddba5195feb8a79fffaffe119843a203",
+      "tag": "debris",
+      "variant": 3
+    },
+    {
+      "bytes": 10628,
+      "path": "godot_walk/audio/footsteps/debris/debris_04.wav",
+      "sha256": "53aa216654e149847a9281be938a3d22445b0c4636269b7cc107fa2278cc747b",
+      "tag": "debris",
+      "variant": 4
+    },
+    {
+      "bytes": 9304,
+      "path": "godot_walk/audio/footsteps/default/default_01.wav",
+      "sha256": "a48cf5a12acb074f74d20247f2027b7b486467abae8176c8fa8655e57dc9cae0",
+      "tag": "default",
+      "variant": 1
+    },
+    {
+      "bytes": 9304,
+      "path": "godot_walk/audio/footsteps/default/default_02.wav",
+      "sha256": "964f5030b4ea503cd66cf54337683710d59b51adea22c5ada6f58c6a2c539dc2",
+      "tag": "default",
+      "variant": 2
+    },
+    {
+      "bytes": 9304,
+      "path": "godot_walk/audio/footsteps/default/default_03.wav",
+      "sha256": "1f4939ed911b5f3afc9ffc847a2fe1a873a23cc0d57f208d6eae1a139a82f139",
+      "tag": "default",
+      "variant": 3
+    },
+    {
+      "bytes": 9304,
+      "path": "godot_walk/audio/footsteps/default/default_04.wav",
+      "sha256": "64845e524f05966653f122bd714058d991a269cb92e063048147dca0bf9972e8",
+      "tag": "default",
+      "variant": 4
+    },
+    {
+      "bytes": 11950,
+      "path": "godot_walk/audio/footsteps/land/land_01.wav",
+      "sha256": "48f967e1bc2f4a172fbe863cbc7bad98fff39efa14b8a398b40a9a64fc2fb467",
+      "tag": "land",
+      "variant": 1
+    }
+  ],
+  "sample_rate": 22050,
+  "schema_version": 1,
+  "script_version": "footsteps-0.2.0",
+  "seed_rule": "sha256(script_version:tag:variant)",
+  "tags": [
+    "carpet",
+    "concrete",
+    "tile",
+    "plaster",
+    "metal",
+    "wood",
+    "debris",
+    "default",
+    "land"
+  ],
+  "variant_count": 4
+}
