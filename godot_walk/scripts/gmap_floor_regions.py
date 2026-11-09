@@ -23,6 +23,7 @@ import hashlib
 from typing import Any
 
 STREAM = "floor_regions:gmap-0.12.0"
+DEFAULT_PALETTE_ID = "backrooms_yellow"
 FLOOR_PALETTES = ("tiled_institutional", "metal_service", "wood_parquet")
 MAX_REGION_SEEDS = 3
 REGION_RADIUS = 1
@@ -96,6 +97,50 @@ def metadata(
         "seed_cells": seeds,
         "region_area_m2": round(region_area_m2, 3),
         "base_area_m2": round(base_area_m2, 3),
+    }
+
+
+def palette_summary(document: dict[str, Any]) -> dict[str, Any]:
+    """Per-map generated-floor mix: cell counts, areas and the default carpet share.
+
+    The area is the envelope area of every non-module cell that carries a
+    palette record. The non-anchor share excludes cells whose palette came from
+    a library figure room, so the regional layer's own budget is visible even
+    when anchors dominate a map.
+    """
+    cells = [
+        cell
+        for cell in document.get("cells", [])
+        if cell.get("palette") and cell.get("role") != "void"
+    ]
+    counts: dict[str, int] = {}
+    areas: dict[str, float] = {}
+    total_area = 0.0
+    default_area = 0.0
+    non_anchor_area = 0.0
+    for cell in cells:
+        palette_id = str(cell["palette"]["palette_id"])
+        area = envelope_area_m2(cell)
+        counts[palette_id] = counts.get(palette_id, 0) + 1
+        areas[palette_id] = areas.get(palette_id, 0.0) + area
+        total_area += area
+        if palette_id == DEFAULT_PALETTE_ID:
+            default_area += area
+        if cell["palette"].get("anchor_module_id") is None:
+            non_anchor_area += area
+    present = "floor_regions" in document
+    return {
+        "layer": "present" if present else "absent",
+        "stream": STREAM if present else None,
+        "default_palette": DEFAULT_PALETTE_ID,
+        "cell_counts": dict(sorted(counts.items())),
+        "area_m2": {key: round(value, 3) for key, value in sorted(areas.items())},
+        "default_area_share": round(default_area / total_area, 6)
+        if total_area
+        else 0.0,
+        "default_non_anchor_area_share": round(default_area / non_anchor_area, 6)
+        if non_anchor_area
+        else 0.0,
     }
 
 

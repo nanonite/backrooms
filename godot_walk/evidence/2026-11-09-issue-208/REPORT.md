@@ -31,6 +31,10 @@ approval of the look and sound are still pending; a render is not approval.
     and also keeps an envelope safety margin at 60%, so the measured default
     carpet share stays at or above 55% of generated floor area wherever the
     existing anchors already leave room for it.
+- `generative_map.py validate` and `generate` now report
+  `summary.floor_palettes`: per-map cell counts, envelope area and the default
+  carpet share (whole-map and non-anchor), so the measured mix can be read per
+  seed without rerunning the sweep.
 - gmap-0.12.0 maps reference the canonical 0.3.0 registry path/hash. Older
   maps keep their own 0.1.0/0.2.0 registries and still validate.
 - The palette record stays plain map data. A gmap-0.12.0 cell carries
@@ -90,15 +94,14 @@ Committed-map mixes (generated cells only):
 
 Python:
 
-- `python3 -m pytest -q godot_walk/scripts` — **678 passed, 5 skipped, 58
-  subtests passed** in 5m56s (the run collected the 15 tests present before the
-  final connectivity test was added).
-- `scripts/test_gmap_floor_regions.py` — **16 passed** after the final test
-  edit: registry validity and 0.3.0 texture reproducibility, deterministic
-  gmap-0.12.0 maps, canonical registry hash rejection, keyed draw behaviour,
-  anchor/spawn exclusion, per-seed and aggregate 55% carpet share, strong
-  connectivity, shape-spec v3 materials, old v0.11.0 maps still valid, and
-  committed map/fill/SVG/shape-room bytes.
+- `python3 -m pytest -q godot_walk/scripts` — **681 passed, 5 skipped, 58
+  subtests passed** in 6m06s (with the final palette-summary tests included).
+- `scripts/test_gmap_floor_regions.py` — **18 passed**: registry validity and
+  0.3.0 texture reproducibility, deterministic gmap-0.12.0 maps, canonical
+  registry hash rejection, keyed draw behaviour, anchor/spawn exclusion,
+  per-seed and aggregate 55% carpet share, strong connectivity, shape-spec v3
+  materials, the per-map `floor_palettes` summary and CLI output, old v0.11.0
+  maps still valid, and committed map/fill/SVG/shape-room bytes.
 - Existing palette, surface, reverb, elevation and module tests still pass.
 
 Godot headless:

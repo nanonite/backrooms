@@ -32,7 +32,9 @@ from gmap_floor_regions import (
     MIN_DEFAULT_AREA_SHARE,
     REGION_RADIUS,
     STREAM,
+    envelope_area_m2,
     palette_for_seed,
+    palette_summary,
     seed_draw,
 )
 from gmap_library import Library
@@ -293,6 +295,40 @@ def test_default_carpet_share_stays_at_or_above_55_percent(maps):
         in reg.ACOUSTIC_TAGS
         for palette in FLOOR_PALETTES
     )
+
+
+def test_palette_summary_reports_the_per_map_mix(maps, lib):
+    document = maps[32]
+    summary = palette_summary(document)
+    assert summary["layer"] == "present"
+    assert summary["stream"] == STREAM
+    assert summary["default_palette"] == "backrooms_yellow"
+    assert summary["cell_counts"]["metal_service"] == 2
+    assert summary["cell_counts"]["tiled_institutional"] == 1
+    assert summary["cell_counts"]["wood_parquet"] == 1
+    assert sum(summary["cell_counts"].values()) == len(generated(document))
+    assert 0.0 < summary["default_area_share"] < 1.0
+    assert summary["default_non_anchor_area_share"] >= MIN_DEFAULT_AREA_SHARE
+    assert sum(summary["area_m2"].values()) == pytest.approx(
+        sum(envelope_area_m2(cell) for cell in generated(document)), abs=0.01
+    )
+    legacy = build.build_map(1, lib, cells=12, version=V11)
+    legacy_summary = palette_summary(legacy)
+    assert legacy_summary["layer"] == "absent"
+    assert legacy_summary["stream"] is None
+    assert legacy_summary["cell_counts"]["backrooms_yellow"] > 0
+
+
+def test_cli_reports_the_floor_palette_mix(tmp_path, capsys, maps):
+    path = tmp_path / "map.json"
+    path.write_bytes(canonical_bytes(maps[32]))
+    assert gm.main(["validate", str(path)]) == 0
+    output = json.loads(capsys.readouterr().out)
+    assert output["valid"] is True
+    assert output["summary"]["floor_palettes"] == palette_summary(maps[32])
+    result = gm.generate(32, INDEX, out_dir=tmp_path, version=V12)
+    assert result["summary"]["floor_palettes"]["layer"] == "present"
+    assert result["summary"]["floor_palettes"]["stream"] == STREAM
 
 
 def test_validator_accepts_canonical_v3_and_rejects_a_mismatched_hash(maps, tmp_path):

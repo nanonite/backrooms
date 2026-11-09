@@ -35,6 +35,7 @@ from gmap_build import (
     build_map,
 )
 from gmap_fill import build_fill
+from gmap_floor_regions import palette_summary
 from gmap_grow import GenerationError
 from gmap_library import load_library
 from gmap_reverb import reverb_summary
@@ -77,7 +78,10 @@ def generate(
     return {
         "map_id": document["map_id"],
         "attempt": document["attempt"],
-        "summary": {"reverb": reverb_summary(document)},
+        "summary": {
+            "reverb": reverb_summary(document),
+            "floor_palettes": palette_summary(document),
+        },
         "files": [
             {"path": display(path, root), "status": "created" if s == "create" else s}
             for (path, _), s in zip(planned, statuses)
@@ -154,7 +158,10 @@ def main(argv: list[str] | None = None) -> int:
         errors = validate_document(document)
         if not errors:
             errors = fill_errors(path, document, root=ROOT)
-        summary = reverb_summary(document)
+        summary = {
+            "reverb": reverb_summary(document),
+            "floor_palettes": palette_summary(document),
+        }
     except (GenerationError, DeterministicWriteError, LibraryIndexError, ValueError, OSError, KeyError) as error:
         print(f"generative_map: {error}", file=sys.stderr)
         return 1
@@ -164,7 +171,7 @@ def main(argv: list[str] | None = None) -> int:
                 "valid": not errors,
                 "errors": errors,
                 "map": path.name,
-                "summary": {"reverb": summary},
+                "summary": summary,
             },
             sort_keys=True,
         )
