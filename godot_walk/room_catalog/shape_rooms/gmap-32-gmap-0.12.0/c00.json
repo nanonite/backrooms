@@ -1,0 +1,286 @@
+{
+  "area_m2": 18.0,
+  "arm_width_m": 3,
+  "arms_xz": [
+    [
+      0.0,
+      1.0,
+      3.0,
+      4.0
+    ],
+    [
+      0.0,
+      2.5,
+      3.0,
+      6.0
+    ],
+    [
+      0.0,
+      1.0,
+      3.0,
+      4.0
+    ],
+    [
+      0.0,
+      0.0,
+      3.0,
+      2.5
+    ],
+    [
+      0.0,
+      1.0,
+      3.0,
+      4.0
+    ],
+    [
+      1.5,
+      1.0,
+      3.0,
+      4.0
+    ],
+    [
+      0.0,
+      1.0,
+      3.0,
+      4.0
+    ]
+  ],
+  "ceiling_height_m": 4.3,
+  "cell_id": "c00",
+  "construction": "arms",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        1
+      ],
+      "port_id": "c00:p0",
+      "pos_xz": [
+        1.5,
+        6.0
+      ],
+      "sill_height_m": 0.0,
+      "to_cell_id": "c01",
+      "to_port_id": "c01:p0",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        -1
+      ],
+      "port_id": "c00:p1",
+      "pos_xz": [
+        1.5,
+        0.0
+      ],
+      "sill_height_m": 1.5,
+      "to_cell_id": "c03",
+      "to_port_id": "c03:p0",
+      "vertical": "ramp",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        1,
+        0
+      ],
+      "port_id": "c00:p2",
+      "pos_xz": [
+        3.0,
+        2.5
+      ],
+      "sill_height_m": 0.0,
+      "to_cell_id": "c06",
+      "to_port_id": "c06:p0",
+      "width_m": 2.0
+    }
+  ],
+  "envelope_xz": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      3.0,
+      0.0
+    ],
+    [
+      3.0,
+      6.0
+    ],
+    [
+      0.0,
+      6.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_grid",
+      "kind": "ceiling_lamp_grid",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c00:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c00:p1",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c00:p2",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "floor_y": 0.0,
+  "generator_version": "shape-room-0.10.0",
+  "lamps_xz": [
+    [
+      1.5,
+      1.5
+    ]
+  ],
+  "light": {
+    "color_temp_k": 4058,
+    "lamps": [
+      {
+        "flicker_seed": 1324235437,
+        "lamp_index": 0,
+        "state": "on"
+      }
+    ],
+    "tier": "normal"
+  },
+  "map_id": "gmap-32-gmap-0.12.0",
+  "map_sha256": "801e58e42477d593a38dc1570a9c5aaf759a7b80262c76e64403bf8edc1ed271",
+  "material_source": "palette_registry",
+  "materials": {
+    "acoustic": {
+      "ceiling": "tile",
+      "floor": "carpet",
+      "trim": "metal",
+      "wall": "plaster"
+    },
+    "ceiling": {
+      "acoustic": "tile",
+      "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+      "tile_m": 4.0,
+      "variant": "clean"
+    },
+    "floor": {
+      "acoustic": "carpet",
+      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
+      "tile_m": 4.0,
+      "variant": "clean"
+    },
+    "lamp_color": [
+      1.0,
+      0.97,
+      0.76
+    ],
+    "palette_id": "backrooms_yellow",
+    "registry_version": "0.3.0",
+    "trim_color": [
+      0.37,
+      0.34,
+      0.23
+    ],
+    "variants": {
+      "ceiling": "clean",
+      "floor": "clean",
+      "trim": "clean",
+      "wall": "clean"
+    },
+    "wall": {
+      "acoustic": "plaster",
+      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+      "tile_m": 1.5,
+      "variant": "clean"
+    },
+    "wear": 0
+  },
+  "mode": "standard",
+  "original_cell_status": "shape_room_pending",
+  "outline_xz": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      3.0,
+      0.0
+    ],
+    [
+      3.0,
+      6.0
+    ],
+    [
+      0.0,
+      6.0
+    ]
+  ],
+  "primitive": "t_shape",
+  "primitive_class": "box",
+  "ramps": [
+    {
+      "angle_deg": 24.775141,
+      "direction_xz": [
+        0.0,
+        1.0
+      ],
+      "port_id": "c00:p1",
+      "rise_m": 1.5,
+      "run_m": 3.25,
+      "start_xz": [
+        1.5,
+        0.0
+      ],
+      "upper_cell_id": "c03",
+      "width_m": 2.2
+    }
+  ],
+  "rarity_tier": 0,
+  "rects": [
+    [
+      0.0,
+      0.0,
+      3.0,
+      6.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "ground",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 0
+}

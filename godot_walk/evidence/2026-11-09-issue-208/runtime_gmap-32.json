@@ -1,0 +1,11 @@
+{
+	"failures": [],
+	"floor_colliders": 4,
+	"floor_visuals": 4,
+	"map_id": "gmap-32-gmap-0.12.0",
+	"rooms": {
+		"metal_service": 2,
+		"tiled_institutional": 1,
+		"wood_parquet": 1
+	}
+}

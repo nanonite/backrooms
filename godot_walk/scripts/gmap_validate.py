@@ -19,6 +19,7 @@ from gmap_build import (
     GENERATOR_VERSION_V9,
     GENERATOR_VERSION_V10,
     GENERATOR_VERSION_V11,
+    GENERATOR_VERSION_V12,
     GENERATOR_VERSION_V61,
     MARGIN_VERSIONS,
     MODULE_VERSIONS,
@@ -138,6 +139,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         GENERATOR_VERSION_V9,
         GENERATOR_VERSION_V10,
         GENERATOR_VERSION_V11,
+        GENERATOR_VERSION_V12,
     ):
         light_library, library_errors = _load_library_for_validation(document, root)
         errors += library_errors
@@ -147,6 +149,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V9,
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
+            GENERATOR_VERSION_V12,
         )
         and light_library is None
     )
@@ -174,6 +177,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V9,
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
+            GENERATOR_VERSION_V12,
         ):
             margin_cells = [
                 {
@@ -202,6 +206,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V9,
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
+            GENERATOR_VERSION_V12,
         ):
             base = {
                 **document,
@@ -219,6 +224,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         GENERATOR_VERSION_V9,
         GENERATOR_VERSION_V10,
         GENERATOR_VERSION_V11,
+        GENERATOR_VERSION_V12,
     ):
         errors += landmark_errors(document)
     palette_issues: Errors = []
@@ -233,6 +239,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V9,
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
+            GENERATOR_VERSION_V12,
         )
         and not library_unavailable
     ):
@@ -240,6 +247,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         if document["generator_version"] in (
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
+            GENERATOR_VERSION_V12,
         ):
             from gmap_elevation import strip_elevation
 
@@ -262,6 +270,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V9,
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
+            GENERATOR_VERSION_V12,
         )
         and not library_unavailable
         and not palette_registry_blocked
@@ -289,6 +298,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         GENERATOR_VERSION_V9,
         GENERATOR_VERSION_V10,
         GENERATOR_VERSION_V11,
+        GENERATOR_VERSION_V12,
     ):
         tree_walkable = [
             c
@@ -305,6 +315,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V9,
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
+            GENERATOR_VERSION_V12,
         ):
             errors += reservation_errors(document)
     else:
@@ -320,6 +331,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V9,
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
+            GENERATOR_VERSION_V12,
         )
         and light_library is not None
     ):
@@ -327,11 +339,15 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
     if document["generator_version"] in (
         GENERATOR_VERSION_V10,
         GENERATOR_VERSION_V11,
+        GENERATOR_VERSION_V12,
     ):
         from gmap_elevation import elevation_errors
 
         errors += elevation_errors(document)
-    if document["generator_version"] == GENERATOR_VERSION_V11:
+    if document["generator_version"] in (
+        GENERATOR_VERSION_V11,
+        GENERATOR_VERSION_V12,
+    ):
         errors += reverb_errors(document)
     return errors
 

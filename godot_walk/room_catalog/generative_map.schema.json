@@ -140,13 +140,28 @@
             "additionalProperties": false
           },
           "palette": {
-            "description": "Optional (gmap-0.5.0). The material palette this generated walkable cell takes: the palette of the nearest placed library figure room (anchor_module_id, graph distance over open edges), or the registry default (both null). Module and void cells carry none.",
+            "description": "Optional (gmap-0.5.0). The material palette this generated walkable cell takes: the palette of the nearest placed library figure room (anchor_module_id, graph distance over open edges), a gmap-0.12.0 regional floor palette (region_seed_cell_id, region_distance), or the registry default (all null). Module and void cells carry none.",
             "type": "object",
             "required": ["palette_id", "anchor_module_id", "distance"],
             "properties": {
               "palette_id": { "type": "string", "minLength": 1 },
               "anchor_module_id": { "type": ["string", "null"], "minLength": 1 },
-              "distance": { "type": ["integer", "null"], "minimum": 1 }
+              "distance": { "type": ["integer", "null"], "minimum": 1 },
+              "registry_version": {
+                "description": "Optional (gmap-0.12.0). The registry the palette id was resolved from; older maps default to 0.2.0.",
+                "enum": ["0.2.0", "0.3.0"]
+              },
+              "region_seed_cell_id": {
+                "description": "Optional (gmap-0.12.0). The non-anchored seed cell whose regional floor palette this cell took.",
+                "type": "string",
+                "minLength": 1
+              },
+              "region_distance": {
+                "description": "Optional (gmap-0.12.0). Graph distance from the region seed over open direct edges.",
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2
+              }
             },
             "additionalProperties": false
           },
@@ -357,6 +372,36 @@
       },
       "additionalProperties": false
     },
+    "floor_regions": {
+      "description": "gmap-0.12.0: regional floor-palette parameters. Seed cells and their palettes come from per-cell sha256 draws on the floor_regions stream, after the library-anchor rule; anchors win, and the spawn cell plus its direct neighbours are excluded.",
+      "type": "object",
+      "required": ["stream", "max_seeds", "radius", "max_region_area_share", "min_default_area_share", "min_default_envelope_share", "selection", "seed_cells", "region_area_m2", "base_area_m2"],
+      "properties": {
+        "stream": {"type": "string", "minLength": 1},
+        "max_seeds": {"type": "integer", "minimum": 1, "maximum": 3},
+        "radius": {"type": "integer", "minimum": 1, "maximum": 2},
+        "max_region_area_share": {"type": "number", "minimum": 0, "maximum": 1},
+        "min_default_area_share": {"type": "number", "minimum": 0, "maximum": 1},
+        "min_default_envelope_share": {"type": "number", "minimum": 0, "maximum": 1},
+        "selection": {"type": "string", "minLength": 1},
+        "seed_cells": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "required": ["cell_id", "palette_id"],
+            "properties": {
+              "cell_id": {"type": "string", "minLength": 1},
+              "palette_id": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          }
+        },
+        "region_area_m2": {"type": "number", "minimum": 0},
+        "base_area_m2": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
     "registration_accepted": { "const": false },
     "scale_calibrated": { "const": false }
   },
@@ -444,6 +489,35 @@
       "if": {"properties": {"generator_version": {"const": "gmap-0.11.0"}}, "required": ["generator_version"]},
       "then": {
         "required": ["layout_variant", "growth_cell_target", "dark_wing", "palette_registry", "elevation", "elevation_loops", "reverb_layer"],
+        "properties": {
+          "shape_stage_max": {"const": 3},
+          "cells": {
+            "items": {
+              "allOf": [
+                {"required": ["floor_y"]},
+                {
+                  "if": {"properties": {"role": {"enum": ["ground", "figure", "threshold"]}}, "required": ["role"]},
+                  "then": {"required": ["reverb"]}
+                },
+                {
+                  "if": {
+                    "properties": {"role": {"enum": ["ground", "figure", "threshold"]}},
+                    "required": ["role"],
+                    "not": {"required": ["module"]}
+                  },
+                  "then": {"required": ["light", "wear", "surface_variants"]}
+                }
+              ]
+            }
+          },
+          "edges": {"items": {"required": ["vertical"]}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"generator_version": {"const": "gmap-0.12.0"}}, "required": ["generator_version"]},
+      "then": {
+        "required": ["layout_variant", "growth_cell_target", "dark_wing", "palette_registry", "elevation", "elevation_loops", "reverb_layer", "floor_regions"],
         "properties": {
           "shape_stage_max": {"const": 3},
           "cells": {

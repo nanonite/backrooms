@@ -8,6 +8,7 @@ from typing import Any
 from gmap_palette_registry import (
     load_registry,
     load_registry_v2,
+    load_registry_v3,
     palette_by_id,
     spec_materials,
     spec_surface_materials,
@@ -25,21 +26,30 @@ def registry_v2() -> dict[str, Any]:
     return load_registry_v2()
 
 
+@lru_cache(maxsize=1)
+def registry_v3() -> dict[str, Any]:
+    return load_registry_v3()
+
+
 def palette_materials(cell: dict[str, Any]) -> dict[str, Any]:
     """The spec `materials` block for `cell`: v0.5 palette fields or v0.9 selected variants."""
     record = cell.get("palette")
     if record is None:
         raise ShapeRoomError(f"{cell['cell_id']}: gmap-0.5.0 cell has no palette")
     if cell.get("surface_variants") is not None:
-        # gmap_validate rejects any non-canonical 0.2.0 reference, so this loader
-        # cannot disagree with the registry the map was validated against.
-        palette = palette_by_id(registry_v2(), record["palette_id"])
+        registry_version = str(record.get("registry_version", "0.2.0"))
+        loaded = registry_v3() if registry_version == "0.3.0" else registry_v2()
+        palette = palette_by_id(loaded, record["palette_id"])
         if palette is None:
             raise ShapeRoomError(
-                f"{cell['cell_id']}: palette {record['palette_id']} is not in the 0.2.0 registry"
+                f"{cell['cell_id']}: palette {record['palette_id']} is not in the "
+                f"{registry_version} registry"
             )
         return spec_surface_materials(
-            palette, dict(cell["surface_variants"]), int(cell.get("wear", 0))
+            palette,
+            dict(cell["surface_variants"]),
+            int(cell.get("wear", 0)),
+            registry_version,
         )
     palette = palette_by_id(registry(), record["palette_id"])
     if palette is None:

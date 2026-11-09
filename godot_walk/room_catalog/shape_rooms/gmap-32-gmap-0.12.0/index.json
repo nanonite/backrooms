@@ -1,0 +1,144 @@
+{
+  "generator_version": "shape-room-0.10.0",
+  "map_file": {
+    "name": "gmap-32-gmap-0.12.0.json",
+    "sha256": "801e58e42477d593a38dc1570a9c5aaf759a7b80262c76e64403bf8edc1ed271"
+  },
+  "map_id": "gmap-32-gmap-0.12.0",
+  "mode": "all_walkable",
+  "rooms": [
+    {
+      "cell_id": "c00",
+      "construction": "arms",
+      "file": "c00.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "backrooms_yellow",
+      "primitive": "t_shape",
+      "primitive_class": "box",
+      "sha256": "10f3e22e626d3fc511bb1010e5bc24bebac2e4657795af76423726d18b4b5683"
+    },
+    {
+      "cell_id": "c01",
+      "construction": "arms",
+      "file": "c01.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "backrooms_yellow",
+      "primitive": "u_shape",
+      "primitive_class": "box",
+      "sha256": "bd473b6cf896c7e6849aba2a7d9a82d206033e85c5a88e2eee47f3df5c076b23"
+    },
+    {
+      "cell_id": "c02",
+      "construction": "box",
+      "file": "c02.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "wood_parquet",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "090193fc8d6d1416f9026bfd7594dfaf5aff53f76157c79216908130bc8299a1"
+    },
+    {
+      "cell_id": "c03",
+      "construction": "arms",
+      "file": "c03.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "backrooms_yellow",
+      "primitive": "t_shape",
+      "primitive_class": "rectilinear_polygon",
+      "sha256": "63d8069bffe124dd222c643908170eda559588adf4265d46d424791da9a3217b"
+    },
+    {
+      "cell_id": "c04",
+      "construction": "box",
+      "file": "c04.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "palette_id": "backrooms_yellow",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "d0e01ac663ca5d0e3307b27448b86878bb4abd1769b85a08beaab4b3c6c15d7a"
+    },
+    {
+      "cell_id": "c05",
+      "construction": "arms",
+      "file": "c05.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "metal_service",
+      "primitive": "u_shape",
+      "primitive_class": "box",
+      "sha256": "d3811bbd1c49828076787f38e354f66df02d5d9e72be72cb92205ac645671afb"
+    },
+    {
+      "cell_id": "c06",
+      "construction": "arms",
+      "file": "c06.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "backrooms_yellow",
+      "primitive": "t_shape",
+      "primitive_class": "box",
+      "sha256": "fe55f154fe2b2f4b40613062e3cd89cee22fd030f69d2b5fe6b6ef30a78e6a62"
+    },
+    {
+      "cell_id": "c07",
+      "construction": "arms",
+      "file": "c07.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "tiled_institutional",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "2890ce1b3c250bd1b27f6a3d4f9efd8bbb3c05f4bf440a0fc1c900b869f2df46"
+    },
+    {
+      "cell_id": "c08",
+      "construction": "box",
+      "file": "c08.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "backrooms_yellow",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "19cda0656af77c017ada97563bb6e890aac155f0c491157ce2285b0c17a551e1"
+    },
+    {
+      "cell_id": "c09",
+      "construction": "box",
+      "file": "c09.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "palette_id": "backrooms_yellow",
+      "primitive": "l_shape",
+      "primitive_class": "chamfered_box",
+      "sha256": "c8924b66a780905702daf054ca944c3fe83e0108c353aa2dfa4e8736ecae401a"
+    },
+    {
+      "cell_id": "c10",
+      "construction": "arms",
+      "file": "c10.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "palette_id": "backrooms_yellow",
+      "primitive": "t_shape",
+      "primitive_class": "chamfered_polyomino",
+      "sha256": "d259ccfaeaaea5b60adb974aae8474005fccc77b2862a125194b1792f26ce7de"
+    },
+    {
+      "cell_id": "c11",
+      "construction": "arms",
+      "file": "c11.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "metal_service",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "892cd1c373e053c6387a7d26315f6e6278f67599414b4a5a6af626343ce50e20"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,924 @@
+{
+  "palettes": [
+    {
+      "is_default": true,
+      "lamp_color": {
+        "color": [
+          1.0,
+          0.97,
+          0.76
+        ],
+        "provenance": {
+          "from": "res://room_catalog/material_palettes/PALETTES.md::Palettes",
+          "sign": "symbol"
+        }
+      },
+      "match_style_tags": [
+        "backrooms_yellow"
+      ],
+      "palette_id": "backrooms_yellow",
+      "source_module_ids": [],
+      "surfaces": {
+        "ceiling": {
+          "acoustic": "tile",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://scripts/shape_room_spec.py::ceiling_texture",
+                "sign": "icon"
+              },
+              "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+              "tile_m": 4.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::backrooms_yellow_ceiling_damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_damaged.png",
+              "tile_m": 4.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::backrooms_yellow_ceiling_worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_worn.png",
+              "tile_m": 4.0
+            }
+          }
+        },
+        "floor": {
+          "acoustic": "carpet",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://scripts/shape_room_spec.py::floor_texture",
+                "sign": "icon"
+              },
+              "texture": "res://assets/psx_extension/textures/floor_source_video.png",
+              "tile_m": 4.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::backrooms_yellow_floor_damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_floor_damaged.png",
+              "tile_m": 4.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::backrooms_yellow_floor_worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_floor_worn.png",
+              "tile_m": 4.0
+            }
+          }
+        },
+        "trim": {
+          "acoustic": "metal",
+          "variants": {
+            "clean": {
+              "color": [
+                0.37,
+                0.34,
+                0.23
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::backrooms_yellow.trim.clean",
+                "sign": "symbol"
+              }
+            },
+            "damaged": {
+              "color": [
+                0.26,
+                0.23,
+                0.15
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::backrooms_yellow.trim.damaged",
+                "sign": "symbol"
+              }
+            },
+            "worn": {
+              "color": [
+                0.32,
+                0.29,
+                0.19
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::backrooms_yellow.trim.worn",
+                "sign": "symbol"
+              }
+            }
+          }
+        },
+        "wall": {
+          "acoustic": "plaster",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://scripts/shape_room_spec.py::wallpaper_texture",
+                "sign": "icon"
+              },
+              "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+              "tile_m": 1.5
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::backrooms_yellow_wall_damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_wall_damaged.png",
+              "tile_m": 1.5
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::backrooms_yellow_wall_worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_wall_worn.png",
+              "tile_m": 1.5
+            }
+          }
+        }
+      }
+    },
+    {
+      "is_default": false,
+      "lamp_color": {
+        "color": [
+          0.86,
+          0.88,
+          0.86
+        ],
+        "provenance": {
+          "from": "res://room_catalog/material_palettes/PALETTES.md::Palettes",
+          "sign": "symbol"
+        }
+      },
+      "match_style_tags": [
+        "industrial_hall",
+        "concrete_grey",
+        "support_column_rows",
+        "clerestory_windows"
+      ],
+      "palette_id": "industrial_concrete",
+      "source_module_ids": [
+        "godot_gopro_industrial_hall_frame1097_v1",
+        "godot_gopro_industrial_hall_south_socket_v1"
+      ],
+      "surfaces": {
+        "ceiling": {
+          "acoustic": "metal",
+          "variants": {
+            "clean": {
+              "color": [
+                0.34,
+                0.35,
+                0.33
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::industrial_concrete.ceiling.clean",
+                "sign": "symbol"
+              }
+            },
+            "damaged": {
+              "color": [
+                0.23,
+                0.24,
+                0.22
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::industrial_concrete.ceiling.damaged",
+                "sign": "symbol"
+              }
+            },
+            "worn": {
+              "color": [
+                0.29,
+                0.3,
+                0.28
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::industrial_concrete.ceiling.worn",
+                "sign": "symbol"
+              }
+            }
+          }
+        },
+        "floor": {
+          "acoustic": "concrete",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.gd::FLOOR_TEXTURE_PATH",
+                "sign": "icon"
+              },
+              "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+              "tile_m": 4.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::industrial_concrete_floor_damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/industrial_concrete_floor_damaged.png",
+              "tile_m": 4.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::industrial_concrete_floor_worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/industrial_concrete_floor_worn.png",
+              "tile_m": 4.0
+            }
+          }
+        },
+        "trim": {
+          "acoustic": "metal",
+          "variants": {
+            "clean": {
+              "color": [
+                0.28,
+                0.29,
+                0.28
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::industrial_concrete.trim.clean",
+                "sign": "symbol"
+              }
+            },
+            "damaged": {
+              "color": [
+                0.19,
+                0.2,
+                0.19
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::industrial_concrete.trim.damaged",
+                "sign": "symbol"
+              }
+            },
+            "worn": {
+              "color": [
+                0.24,
+                0.25,
+                0.24
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::industrial_concrete.trim.worn",
+                "sign": "symbol"
+              }
+            }
+          }
+        },
+        "wall": {
+          "acoustic": "concrete",
+          "variants": {
+            "clean": {
+              "color": [
+                0.43,
+                0.43,
+                0.4
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::industrial_concrete.wall.clean",
+                "sign": "symbol"
+              }
+            },
+            "damaged": {
+              "color": [
+                0.3,
+                0.3,
+                0.28
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::industrial_concrete.wall.damaged",
+                "sign": "symbol"
+              }
+            },
+            "worn": {
+              "color": [
+                0.37,
+                0.37,
+                0.34
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::industrial_concrete.wall.worn",
+                "sign": "symbol"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "is_default": false,
+      "lamp_color": {
+        "color": [
+          0.86,
+          0.88,
+          0.86
+        ],
+        "provenance": {
+          "from": "res://room_catalog/material_palettes/PALETTES.md::Palettes",
+          "sign": "symbol"
+        }
+      },
+      "match_style_tags": [
+        "rock_field",
+        "plaster_walls",
+        "window_strip",
+        "ceiling_beam_grid"
+      ],
+      "palette_id": "plaster_debris",
+      "source_module_ids": [
+        "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+        "video_ccf9722164a0bdc8_debris_window_rock_room_v1"
+      ],
+      "surfaces": {
+        "ceiling": {
+          "acoustic": "plaster",
+          "variants": {
+            "clean": {
+              "color": [
+                0.43,
+                0.42,
+                0.38
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::plaster_debris.ceiling.clean",
+                "sign": "symbol"
+              }
+            },
+            "damaged": {
+              "color": [
+                0.3,
+                0.29,
+                0.26
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::plaster_debris.ceiling.damaged",
+                "sign": "symbol"
+              }
+            },
+            "worn": {
+              "color": [
+                0.37,
+                0.36,
+                0.32
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::plaster_debris.ceiling.worn",
+                "sign": "symbol"
+              }
+            }
+          }
+        },
+        "floor": {
+          "acoustic": "debris",
+          "variants": {
+            "clean": {
+              "color": [
+                0.34,
+                0.33,
+                0.31
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::plaster_debris.floor.clean",
+                "sign": "symbol"
+              }
+            },
+            "damaged": {
+              "color": [
+                0.24,
+                0.22,
+                0.2
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::plaster_debris.floor.damaged",
+                "sign": "symbol"
+              }
+            },
+            "worn": {
+              "color": [
+                0.3,
+                0.28,
+                0.26
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::plaster_debris.floor.worn",
+                "sign": "symbol"
+              }
+            }
+          }
+        },
+        "trim": {
+          "acoustic": "wood",
+          "variants": {
+            "clean": {
+              "color": [
+                0.24,
+                0.25,
+                0.23
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::plaster_debris.trim.clean",
+                "sign": "symbol"
+              }
+            },
+            "damaged": {
+              "color": [
+                0.16,
+                0.17,
+                0.15
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::plaster_debris.trim.damaged",
+                "sign": "symbol"
+              }
+            },
+            "worn": {
+              "color": [
+                0.2,
+                0.21,
+                0.19
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_2_0.md::plaster_debris.trim.worn",
+                "sign": "symbol"
+              }
+            }
+          }
+        },
+        "wall": {
+          "acoustic": "plaster",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.gd::WALL_TEXTURE_PATH",
+                "sign": "icon"
+              },
+              "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png",
+              "tile_m": 4.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::plaster_debris_wall_damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/plaster_debris_wall_damaged.png",
+              "tile_m": 4.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::plaster_debris_wall_worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/plaster_debris_wall_worn.png",
+              "tile_m": 4.0
+            }
+          }
+        }
+      }
+    },
+    {
+      "is_default": false,
+      "lamp_color": {
+        "color": [
+          0.92,
+          0.94,
+          0.9
+        ],
+        "provenance": {
+          "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.lamp",
+          "sign": "symbol"
+        }
+      },
+      "match_style_tags": [],
+      "palette_id": "tiled_institutional",
+      "source_module_ids": [],
+      "surfaces": {
+        "ceiling": {
+          "acoustic": "tile",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.ceiling.clean",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_ceiling_clean.png",
+              "tile_m": 2.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.ceiling.damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_ceiling_damaged.png",
+              "tile_m": 2.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.ceiling.worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_ceiling_worn.png",
+              "tile_m": 2.0
+            }
+          }
+        },
+        "floor": {
+          "acoustic": "tile",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.floor.clean",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_floor_clean.png",
+              "tile_m": 3.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.floor.damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_floor_damaged.png",
+              "tile_m": 3.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.floor.worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_floor_worn.png",
+              "tile_m": 3.0
+            }
+          }
+        },
+        "trim": {
+          "acoustic": "metal",
+          "variants": {
+            "clean": {
+              "color": [
+                0.3,
+                0.32,
+                0.31
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.trim.clean",
+                "sign": "symbol"
+              }
+            },
+            "damaged": {
+              "color": [
+                0.21,
+                0.23,
+                0.22
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.trim.damaged",
+                "sign": "symbol"
+              }
+            },
+            "worn": {
+              "color": [
+                0.26,
+                0.28,
+                0.27
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.trim.worn",
+                "sign": "symbol"
+              }
+            }
+          }
+        },
+        "wall": {
+          "acoustic": "tile",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.wall.clean",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_wall_clean.png",
+              "tile_m": 2.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.wall.damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_wall_damaged.png",
+              "tile_m": 2.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::tiled_institutional.wall.worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_wall_worn.png",
+              "tile_m": 2.0
+            }
+          }
+        }
+      }
+    },
+    {
+      "is_default": false,
+      "lamp_color": {
+        "color": [
+          0.86,
+          0.89,
+          0.92
+        ],
+        "provenance": {
+          "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::metal_service.lamp",
+          "sign": "symbol"
+        }
+      },
+      "match_style_tags": [],
+      "palette_id": "metal_service",
+      "source_module_ids": [],
+      "surfaces": {
+        "ceiling": {
+          "acoustic": "metal",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::metal_service.ceiling.clean",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/metal_service_ceiling_clean.png",
+              "tile_m": 2.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::metal_service.ceiling.damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/metal_service_ceiling_damaged.png",
+              "tile_m": 2.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::metal_service.ceiling.worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/metal_service_ceiling_worn.png",
+              "tile_m": 2.0
+            }
+          }
+        },
+        "floor": {
+          "acoustic": "metal",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::metal_service.floor.clean",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/metal_service_floor_clean.png",
+              "tile_m": 2.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::metal_service.floor.damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/metal_service_floor_damaged.png",
+              "tile_m": 2.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::metal_service.floor.worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/metal_service_floor_worn.png",
+              "tile_m": 2.0
+            }
+          }
+        },
+        "trim": {
+          "acoustic": "metal",
+          "variants": {
+            "clean": {
+              "color": [
+                0.25,
+                0.27,
+                0.28
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::metal_service.trim.clean",
+                "sign": "symbol"
+              }
+            },
+            "damaged": {
+              "color": [
+                0.16,
+                0.18,
+                0.19
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::metal_service.trim.damaged",
+                "sign": "symbol"
+              }
+            },
+            "worn": {
+              "color": [
+                0.21,
+                0.23,
+                0.24
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::metal_service.trim.worn",
+                "sign": "symbol"
+              }
+            }
+          }
+        },
+        "wall": {
+          "acoustic": "concrete",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.gd::FLOOR_TEXTURE_PATH",
+                "sign": "icon"
+              },
+              "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+              "tile_m": 4.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::industrial_concrete_floor_damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/industrial_concrete_floor_damaged.png",
+              "tile_m": 4.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::industrial_concrete_floor_worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/industrial_concrete_floor_worn.png",
+              "tile_m": 4.0
+            }
+          }
+        }
+      }
+    },
+    {
+      "is_default": false,
+      "lamp_color": {
+        "color": [
+          0.95,
+          0.92,
+          0.84
+        ],
+        "provenance": {
+          "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::wood_parquet.lamp",
+          "sign": "symbol"
+        }
+      },
+      "match_style_tags": [],
+      "palette_id": "wood_parquet",
+      "source_module_ids": [],
+      "surfaces": {
+        "ceiling": {
+          "acoustic": "tile",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://scripts/shape_room_spec.py::ceiling_texture",
+                "sign": "icon"
+              },
+              "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+              "tile_m": 4.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::backrooms_yellow_ceiling_damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_damaged.png",
+              "tile_m": 4.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::backrooms_yellow_ceiling_worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_worn.png",
+              "tile_m": 4.0
+            }
+          }
+        },
+        "floor": {
+          "acoustic": "wood",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::wood_parquet.floor.clean",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/wood_parquet_floor_clean.png",
+              "tile_m": 3.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::wood_parquet.floor.damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/wood_parquet_floor_damaged.png",
+              "tile_m": 3.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::wood_parquet.floor.worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/wood_parquet_floor_worn.png",
+              "tile_m": 3.0
+            }
+          }
+        },
+        "trim": {
+          "acoustic": "wood",
+          "variants": {
+            "clean": {
+              "color": [
+                0.36,
+                0.25,
+                0.15
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::wood_parquet.trim.clean",
+                "sign": "symbol"
+              }
+            },
+            "damaged": {
+              "color": [
+                0.25,
+                0.17,
+                0.1
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::wood_parquet.trim.damaged",
+                "sign": "symbol"
+              }
+            },
+            "worn": {
+              "color": [
+                0.31,
+                0.21,
+                0.12
+              ],
+              "provenance": {
+                "from": "res://room_catalog/material_palettes/PALETTES_0_3_0.md::wood_parquet.trim.worn",
+                "sign": "symbol"
+              }
+            }
+          }
+        },
+        "wall": {
+          "acoustic": "plaster",
+          "variants": {
+            "clean": {
+              "provenance": {
+                "from": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.gd::WALL_TEXTURE_PATH",
+                "sign": "icon"
+              },
+              "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png",
+              "tile_m": 4.0
+            },
+            "damaged": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::plaster_debris_wall_damaged",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/plaster_debris_wall_damaged.png",
+              "tile_m": 4.0
+            },
+            "worn": {
+              "provenance": {
+                "from": "res://scripts/generate_surface_variants.py::plaster_debris_wall_worn",
+                "sign": "symbol"
+              },
+              "texture": "res://assets/psx_extension/textures/surfaces/plaster_debris_wall_worn.png",
+              "tile_m": 4.0
+            }
+          }
+        }
+      }
+    }
+  ],
+  "registry_version": "0.3.0",
+  "schema_version": 3
+}

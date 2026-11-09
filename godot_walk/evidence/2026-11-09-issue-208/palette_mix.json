@@ -1,0 +1,1218 @@
+{
+  "new_palette_wear_counts": {
+    "metal_service": {
+      "0": 20,
+      "1": 16,
+      "2": 12
+    },
+    "tiled_institutional": {
+      "0": 21,
+      "1": 17,
+      "2": 2
+    },
+    "wood_parquet": {
+      "0": 22,
+      "1": 19,
+      "2": 10
+    }
+  },
+  "palette_counts": {
+    "backrooms_yellow": 568,
+    "industrial_concrete": 23,
+    "metal_service": 48,
+    "plaster_debris": 38,
+    "tiled_institutional": 40,
+    "wood_parquet": 51
+  },
+  "points": {
+    "aggregate_non_anchor_default_area_share": 0.878549,
+    "aggregate_whole_default_area_share": 0.804733,
+    "min_non_anchor_default_area_share": 0.784189,
+    "min_whole_default_area_share": 0.556767
+  },
+  "rows": [
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.850042,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "tiled_institutional": 1,
+        "wood_parquet": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c11",
+          "palette_id": "tiled_institutional"
+        },
+        {
+          "cell_id": "c09",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 1,
+      "whole_default_area_share": 0.850042
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 14,
+      "non_anchor_default_area_share": 0.900605,
+      "palette_counts": {
+        "backrooms_yellow": 11,
+        "tiled_institutional": 1,
+        "wood_parquet": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c06",
+          "palette_id": "tiled_institutional"
+        },
+        {
+          "cell_id": "c11",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 2,
+      "whole_default_area_share": 0.900605
+    },
+    {
+      "baseline_whole_default_area_share": 0.947441,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.845958,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "industrial_concrete": 1,
+        "tiled_institutional": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c09",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 3,
+      "whole_default_area_share": 0.801495
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.850013,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "tiled_institutional": 1,
+        "wood_parquet": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c05",
+          "palette_id": "wood_parquet"
+        },
+        {
+          "cell_id": "c10",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 4,
+      "whole_default_area_share": 0.850013
+    },
+    {
+      "baseline_whole_default_area_share": 0.703545,
+      "cells": 12,
+      "non_anchor_default_area_share": 1.0,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "industrial_concrete": 2
+      },
+      "region_seeds": [],
+      "seed": 5,
+      "whole_default_area_share": 0.703545
+    },
+    {
+      "baseline_whole_default_area_share": 0.696767,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.856,
+      "palette_counts": {
+        "backrooms_yellow": 8,
+        "industrial_concrete": 1,
+        "metal_service": 2,
+        "plaster_debris": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c04",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 6,
+      "whole_default_area_share": 0.596433
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 14,
+      "non_anchor_default_area_share": 0.876912,
+      "palette_counts": {
+        "backrooms_yellow": 11,
+        "tiled_institutional": 3
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c03",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 7,
+      "whole_default_area_share": 0.876912
+    },
+    {
+      "baseline_whole_default_area_share": 0.803862,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.89288,
+      "palette_counts": {
+        "backrooms_yellow": 8,
+        "plaster_debris": 2,
+        "wood_parquet": 3
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c07",
+          "palette_id": "wood_parquet"
+        },
+        {
+          "cell_id": "c05",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 8,
+      "whole_default_area_share": 0.717752
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.933008,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "metal_service": 1,
+        "tiled_institutional": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c07",
+          "palette_id": "tiled_institutional"
+        },
+        {
+          "cell_id": "c10",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 9,
+      "whole_default_area_share": 0.933008
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.908673,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "wood_parquet": 3
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c10",
+          "palette_id": "wood_parquet"
+        },
+        {
+          "cell_id": "c08",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 10,
+      "whole_default_area_share": 0.908673
+    },
+    {
+      "baseline_whole_default_area_share": 0.909711,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.869685,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "plaster_debris": 1,
+        "tiled_institutional": 2,
+        "wood_parquet": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c02",
+          "palette_id": "tiled_institutional"
+        },
+        {
+          "cell_id": "c10",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 11,
+      "whole_default_area_share": 0.791162
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.837089,
+      "palette_counts": {
+        "backrooms_yellow": 11,
+        "metal_service": 1,
+        "wood_parquet": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c11",
+          "palette_id": "wood_parquet"
+        },
+        {
+          "cell_id": "c10",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 12,
+      "whole_default_area_share": 0.837089
+    },
+    {
+      "baseline_whole_default_area_share": 0.936575,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.925508,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "industrial_concrete": 1,
+        "metal_service": 1,
+        "tiled_institutional": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c08",
+          "palette_id": "metal_service"
+        },
+        {
+          "cell_id": "c04",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 13,
+      "whole_default_area_share": 0.866808
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 14,
+      "non_anchor_default_area_share": 0.784189,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "wood_parquet": 4
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c04",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 14,
+      "whole_default_area_share": 0.784189
+    },
+    {
+      "baseline_whole_default_area_share": 0.725709,
+      "cells": 14,
+      "non_anchor_default_area_share": 0.877482,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "plaster_debris": 3,
+        "wood_parquet": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c11",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 15,
+      "whole_default_area_share": 0.636797
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.863774,
+      "palette_counts": {
+        "backrooms_yellow": 8,
+        "tiled_institutional": 3,
+        "wood_parquet": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c09",
+          "palette_id": "tiled_institutional"
+        },
+        {
+          "cell_id": "c11",
+          "palette_id": "tiled_institutional"
+        },
+        {
+          "cell_id": "c05",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 16,
+      "whole_default_area_share": 0.863774
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.935155,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "tiled_institutional": 1,
+        "wood_parquet": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c08",
+          "palette_id": "tiled_institutional"
+        },
+        {
+          "cell_id": "c11",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 17,
+      "whole_default_area_share": 0.935155
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.901637,
+      "palette_counts": {
+        "backrooms_yellow": 11,
+        "tiled_institutional": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c11",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 18,
+      "whole_default_area_share": 0.901637
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.873772,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "wood_parquet": 3
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c07",
+          "palette_id": "wood_parquet"
+        },
+        {
+          "cell_id": "c08",
+          "palette_id": "wood_parquet"
+        },
+        {
+          "cell_id": "c10",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 19,
+      "whole_default_area_share": 0.873772
+    },
+    {
+      "baseline_whole_default_area_share": 0.803546,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.908964,
+      "palette_counts": {
+        "backrooms_yellow": 7,
+        "plaster_debris": 3,
+        "wood_parquet": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c11",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 20,
+      "whole_default_area_share": 0.730395
+    },
+    {
+      "baseline_whole_default_area_share": 0.876831,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.858981,
+      "palette_counts": {
+        "backrooms_yellow": 8,
+        "metal_service": 3,
+        "plaster_debris": 1,
+        "wood_parquet": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c11",
+          "palette_id": "metal_service"
+        },
+        {
+          "cell_id": "c07",
+          "palette_id": "metal_service"
+        },
+        {
+          "cell_id": "c04",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 21,
+      "whole_default_area_share": 0.753182
+    },
+    {
+      "baseline_whole_default_area_share": 0.865685,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.842721,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "metal_service": 2,
+        "plaster_debris": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c06",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 22,
+      "whole_default_area_share": 0.729531
+    },
+    {
+      "baseline_whole_default_area_share": 0.860646,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.919885,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "industrial_concrete": 1,
+        "metal_service": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c06",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 23,
+      "whole_default_area_share": 0.791695
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.87454,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "tiled_institutional": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c10",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 24,
+      "whole_default_area_share": 0.87454
+    },
+    {
+      "baseline_whole_default_area_share": 0.955234,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.841449,
+      "palette_counts": {
+        "backrooms_yellow": 11,
+        "plaster_debris": 1,
+        "wood_parquet": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c10",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 25,
+      "whole_default_area_share": 0.803781
+    },
+    {
+      "baseline_whole_default_area_share": 0.849041,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.873389,
+      "palette_counts": {
+        "backrooms_yellow": 11,
+        "metal_service": 1,
+        "plaster_debris": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c02",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 26,
+      "whole_default_area_share": 0.741542
+    },
+    {
+      "baseline_whole_default_area_share": 0.683924,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.814077,
+      "palette_counts": {
+        "backrooms_yellow": 7,
+        "industrial_concrete": 1,
+        "metal_service": 3,
+        "plaster_debris": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c04",
+          "palette_id": "metal_service"
+        },
+        {
+          "cell_id": "c11",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 27,
+      "whole_default_area_share": 0.556767
+    },
+    {
+      "baseline_whole_default_area_share": 0.928378,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.874636,
+      "palette_counts": {
+        "backrooms_yellow": 8,
+        "metal_service": 2,
+        "plaster_debris": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c11",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 28,
+      "whole_default_area_share": 0.811993
+    },
+    {
+      "baseline_whole_default_area_share": 0.962895,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.806831,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "plaster_debris": 1,
+        "wood_parquet": 3
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c09",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 29,
+      "whole_default_area_share": 0.776893
+    },
+    {
+      "baseline_whole_default_area_share": 0.833205,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.911728,
+      "palette_counts": {
+        "backrooms_yellow": 8,
+        "plaster_debris": 2,
+        "tiled_institutional": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c06",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 30,
+      "whole_default_area_share": 0.759656
+    },
+    {
+      "baseline_whole_default_area_share": 0.841505,
+      "cells": 14,
+      "non_anchor_default_area_share": 0.914889,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "metal_service": 2,
+        "plaster_debris": 2,
+        "tiled_institutional": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c10",
+          "palette_id": "metal_service"
+        },
+        {
+          "cell_id": "c11",
+          "palette_id": "metal_service"
+        },
+        {
+          "cell_id": "c02",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 31,
+      "whole_default_area_share": 0.769884
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.859414,
+      "palette_counts": {
+        "backrooms_yellow": 8,
+        "metal_service": 2,
+        "tiled_institutional": 1,
+        "wood_parquet": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c11",
+          "palette_id": "metal_service"
+        },
+        {
+          "cell_id": "c07",
+          "palette_id": "tiled_institutional"
+        },
+        {
+          "cell_id": "c02",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 32,
+      "whole_default_area_share": 0.859414
+    },
+    {
+      "baseline_whole_default_area_share": 0.816453,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.869367,
+      "palette_counts": {
+        "backrooms_yellow": 8,
+        "industrial_concrete": 2,
+        "wood_parquet": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c09",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 33,
+      "whole_default_area_share": 0.709797
+    },
+    {
+      "baseline_whole_default_area_share": 0.824164,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.901412,
+      "palette_counts": {
+        "backrooms_yellow": 8,
+        "plaster_debris": 2,
+        "tiled_institutional": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c10",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 34,
+      "whole_default_area_share": 0.742912
+    },
+    {
+      "baseline_whole_default_area_share": 0.776998,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.856845,
+      "palette_counts": {
+        "backrooms_yellow": 7,
+        "industrial_concrete": 1,
+        "metal_service": 3,
+        "plaster_debris": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c11",
+          "palette_id": "metal_service"
+        },
+        {
+          "cell_id": "c03",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 35,
+      "whole_default_area_share": 0.665767
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.882003,
+      "palette_counts": {
+        "backrooms_yellow": 11,
+        "metal_service": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c09",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 36,
+      "whole_default_area_share": 0.882003
+    },
+    {
+      "baseline_whole_default_area_share": 0.892102,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.890806,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "industrial_concrete": 2,
+        "wood_parquet": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c10",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 37,
+      "whole_default_area_share": 0.79469
+    },
+    {
+      "baseline_whole_default_area_share": 0.812892,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.873684,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "industrial_concrete": 2,
+        "wood_parquet": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c09",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 38,
+      "whole_default_area_share": 0.710211
+    },
+    {
+      "baseline_whole_default_area_share": 0.762301,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.832513,
+      "palette_counts": {
+        "backrooms_yellow": 8,
+        "industrial_concrete": 2,
+        "metal_service": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c02",
+          "palette_id": "metal_service"
+        },
+        {
+          "cell_id": "c07",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 39,
+      "whole_default_area_share": 0.634626
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 14,
+      "non_anchor_default_area_share": 0.865792,
+      "palette_counts": {
+        "backrooms_yellow": 11,
+        "metal_service": 1,
+        "tiled_institutional": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c09",
+          "palette_id": "tiled_institutional"
+        },
+        {
+          "cell_id": "c04",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 40,
+      "whole_default_area_share": 0.865792
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 14,
+      "non_anchor_default_area_share": 0.812167,
+      "palette_counts": {
+        "backrooms_yellow": 12,
+        "metal_service": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c05",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 41,
+      "whole_default_area_share": 0.812167
+    },
+    {
+      "baseline_whole_default_area_share": 0.833029,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.869571,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "plaster_debris": 2,
+        "tiled_institutional": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c06",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 42,
+      "whole_default_area_share": 0.724379
+    },
+    {
+      "baseline_whole_default_area_share": 0.747951,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.895877,
+      "palette_counts": {
+        "backrooms_yellow": 8,
+        "metal_service": 2,
+        "plaster_debris": 3
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c06",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 43,
+      "whole_default_area_share": 0.670072
+    },
+    {
+      "baseline_whole_default_area_share": 0.883503,
+      "cells": 14,
+      "non_anchor_default_area_share": 0.911107,
+      "palette_counts": {
+        "backrooms_yellow": 11,
+        "plaster_debris": 2,
+        "tiled_institutional": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c07",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 44,
+      "whole_default_area_share": 0.804965
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.879931,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "metal_service": 3
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c02",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 45,
+      "whole_default_area_share": 0.879931
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.86307,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "wood_parquet": 3
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c06",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 46,
+      "whole_default_area_share": 0.86307
+    },
+    {
+      "baseline_whole_default_area_share": 0.954706,
+      "cells": 14,
+      "non_anchor_default_area_share": 0.834966,
+      "palette_counts": {
+        "backrooms_yellow": 11,
+        "industrial_concrete": 1,
+        "wood_parquet": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c03",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 47,
+      "whole_default_area_share": 0.797148
+    },
+    {
+      "baseline_whole_default_area_share": 0.891334,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.916203,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "plaster_debris": 2,
+        "tiled_institutional": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c08",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 48,
+      "whole_default_area_share": 0.816643
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 14,
+      "non_anchor_default_area_share": 0.903833,
+      "palette_counts": {
+        "backrooms_yellow": 12,
+        "metal_service": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c07",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 49,
+      "whole_default_area_share": 0.903833
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.886764,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "metal_service": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c04",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 50,
+      "whole_default_area_share": 0.886764
+    },
+    {
+      "baseline_whole_default_area_share": 0.825001,
+      "cells": 14,
+      "non_anchor_default_area_share": 0.872046,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "plaster_debris": 2,
+        "tiled_institutional": 2,
+        "wood_parquet": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c04",
+          "palette_id": "wood_parquet"
+        },
+        {
+          "cell_id": "c05",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 51,
+      "whole_default_area_share": 0.719439
+    },
+    {
+      "baseline_whole_default_area_share": 0.723249,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.888221,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "metal_service": 1,
+        "plaster_debris": 2,
+        "tiled_institutional": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c11",
+          "palette_id": "tiled_institutional"
+        },
+        {
+          "cell_id": "c10",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 52,
+      "whole_default_area_share": 0.642405
+    },
+    {
+      "baseline_whole_default_area_share": 0.95637,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.896819,
+      "palette_counts": {
+        "backrooms_yellow": 8,
+        "industrial_concrete": 2,
+        "tiled_institutional": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c11",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 53,
+      "whole_default_area_share": 0.85769
+    },
+    {
+      "baseline_whole_default_area_share": 0.890209,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.903741,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "industrial_concrete": 2,
+        "wood_parquet": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c05",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 54,
+      "whole_default_area_share": 0.804519
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.846507,
+      "palette_counts": {
+        "backrooms_yellow": 11,
+        "tiled_institutional": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c08",
+          "palette_id": "tiled_institutional"
+        }
+      ],
+      "seed": 55,
+      "whole_default_area_share": 0.846507
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.895592,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "metal_service": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c03",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 56,
+      "whole_default_area_share": 0.895592
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 14,
+      "non_anchor_default_area_share": 0.953385,
+      "palette_counts": {
+        "backrooms_yellow": 12,
+        "metal_service": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c02",
+          "palette_id": "metal_service"
+        }
+      ],
+      "seed": 57,
+      "whole_default_area_share": 0.953385
+    },
+    {
+      "baseline_whole_default_area_share": 1.0,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.851977,
+      "palette_counts": {
+        "backrooms_yellow": 10,
+        "wood_parquet": 3
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c07",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 58,
+      "whole_default_area_share": 0.851977
+    },
+    {
+      "baseline_whole_default_area_share": 0.932043,
+      "cells": 12,
+      "non_anchor_default_area_share": 0.86962,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "industrial_concrete": 1,
+        "wood_parquet": 2
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c10",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 59,
+      "whole_default_area_share": 0.810524
+    },
+    {
+      "baseline_whole_default_area_share": 0.870626,
+      "cells": 13,
+      "non_anchor_default_area_share": 0.869395,
+      "palette_counts": {
+        "backrooms_yellow": 9,
+        "industrial_concrete": 1,
+        "metal_service": 2,
+        "wood_parquet": 1
+      },
+      "region_seeds": [
+        {
+          "cell_id": "c03",
+          "palette_id": "metal_service"
+        },
+        {
+          "cell_id": "c11",
+          "palette_id": "wood_parquet"
+        }
+      ],
+      "seed": 60,
+      "whole_default_area_share": 0.756918
+    }
+  ],
+  "sweep": {
+    "cells": 768,
+    "first_seed": 1,
+    "last_seed": 60,
+    "maps": 60
+  }
+}

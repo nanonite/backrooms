@@ -1,4 +1,4 @@
-"""gmap-0.5.0: generated rooms take the material palette of nearby library figure rooms (issue 192).
+"""Generated rooms take a material palette from nearby library figure rooms (issue 192).
 
 For every walkable non-module cell, graph distance d over open (direct) edges to each placed FIGURE
 module. A module's palette is the first non-default registry palette whose style tags overlap its
@@ -6,6 +6,10 @@ accepted style_tags; ground (kit) modules and unmatched figures exert no influen
 d = 1 takes the palette, d = 2 takes it with probability 0.5 (one seeded coin per cell, drawn in
 cell_id order for every such cell whether or not it is needed), d >= 3 stays default. Competing
 anchors: smaller d, then higher rarity_tier, then module_id. Module and void cells carry no palette.
+
+gmap-0.12.0 then runs the regional floor layer (`gmap_floor_regions`): up to three non-anchored
+seed cells spread a tile, metal or wood palette over graph distance 1 on its own keyed stream.
+Library anchors always win, and the spawn cell plus its direct neighbours are excluded.
 """
 
 from __future__ import annotations
@@ -24,20 +28,30 @@ from gmap_palette_registry import (
     palette_by_id,
     registry_errors,
     registry_ref_v2,
+    registry_ref_v3,
     select_palette,
 )
 from gmap_rules import Errors, edge_cells, err
 
 RULE = "palette_assignment"
+FLOOR_REGION_RULE = "floor_region_layer"
 FULL_DISTANCE = 1
 COIN_DISTANCE = 2
 COIN_PROBABILITY = 0.5
+REGION_VERSION = "gmap-0.12.0"
+REGISTRY_VERSION_V3 = "0.3.0"
 
 
 def palette_rng(seed: int, attempt: int, version: str) -> random.Random:
     """Separate sha256-derived stream; never Python hash()."""
-    if version in ("gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0", "gmap-0.11.0"):
-        version = "gmap-0.7.0"  # v0.8 adds lighting, v0.9 surfaces, v0.10 elevation, v0.11 reverb; palette assignment is unchanged.
+    if version in (
+        "gmap-0.8.0",
+        "gmap-0.9.0",
+        "gmap-0.10.0",
+        "gmap-0.11.0",
+        "gmap-0.12.0",
+    ):
+        version = "gmap-0.7.0"  # v0.8 lighting, v0.9 surfaces, v0.10 elevation, v0.11 reverb, v0.12 floor regions; anchor draws unchanged.
     digest = hashlib.sha256(f"{seed}:{attempt}:palette:{version}".encode()).digest()
     return random.Random(int.from_bytes(digest, "big"))
 
@@ -103,15 +117,26 @@ def anchors(
 
 
 def record(
-    palette_id: str, anchor: str | None = None, distance: int | None = None
+    palette_id: str,
+    anchor: str | None = None,
+    distance: int | None = None,
+    version: str | None = None,
 ) -> dict[str, Any]:
-    return {"palette_id": palette_id, "anchor_module_id": anchor, "distance": distance}
+    result: dict[str, Any] = {
+        "palette_id": palette_id,
+        "anchor_module_id": anchor,
+        "distance": distance,
+    }
+    if version == REGION_VERSION:
+        result["registry_version"] = REGISTRY_VERSION_V3
+    return result
 
 
-def assign_palettes(
+def palette_assignment(
     document: dict[str, Any], library: Library, registry: dict[str, Any]
-) -> dict[str, dict[str, Any]]:
-    """cell_id -> palette record for every walkable non-module cell."""
+) -> tuple[dict[str, dict[str, Any]], dict[str, Any] | None]:
+    """cell_id -> palette record, plus the floor-region metadata on gmap-0.12.0."""
+    version = document["generator_version"]
     base = default_palette(registry)["palette_id"]
     graph = open_neighbours(document)
     reach = [
@@ -136,16 +161,38 @@ def assign_palettes(
             if d.get(cell["cell_id"], 99) <= COIN_DISTANCE
         ]
         if not near:
-            records[cell["cell_id"]] = record(base)
+            records[cell["cell_id"]] = record(base, version=version)
             continue
         distance, _, _, anchor = min(near, key=lambda item: item[:3])
         takes = distance == FULL_DISTANCE or coin < COIN_PROBABILITY
         records[cell["cell_id"]] = (
-            record(anchor["palette_id"], anchor["module_id"], distance)
+            record(anchor["palette_id"], anchor["module_id"], distance, version)
             if takes
-            else record(base)
+            else record(base, version=version)
         )
-    return records
+    regions = None
+    if version == REGION_VERSION:
+        from gmap_floor_regions import apply_floor_regions
+
+        records, regions = apply_floor_regions(document, records)
+        by_id = {cell["cell_id"]: cell for cell in document["cells"]}
+        for cell in sorted(document["cells"], key=lambda c: c["cell_id"]):
+            passage = cell.get("diagonal_passage")
+            if not passage:
+                continue
+            source_id = passage.get("palette_source_cell_id") or passage.get(
+                "from_cell_id"
+            )
+            if source_id in records and cell["cell_id"] in by_id:
+                records[cell["cell_id"]] = dict(records[source_id])
+    return records, regions
+
+
+def assign_palettes(
+    document: dict[str, Any], library: Library, registry: dict[str, Any]
+) -> dict[str, dict[str, Any]]:
+    """cell_id -> palette record for every walkable non-module cell."""
+    return palette_assignment(document, library, registry)[0]
 
 
 def palette_errors(
@@ -175,7 +222,17 @@ def palette_errors(
             )
         ]
     errors: Errors = []
-    if document["generator_version"] in (
+    version = document["generator_version"]
+    if version == REGION_VERSION:
+        if ref != registry_ref_v3(root):
+            errors.append(
+                err(
+                    RULE,
+                    "palette_registry_not_canonical",
+                    f"{ref['path']} is not the canonical 0.3.0 registry",
+                )
+            )
+    elif version in (
         "gmap-0.9.0",
         "gmap-0.10.0",
         "gmap-0.11.0",
@@ -205,7 +262,7 @@ def palette_errors(
         return errors
     if library is None:
         library = load_library(root / document["library_index"]["path"], root)
-    expected = assign_palettes(document, library, registry)
+    expected, regions = palette_assignment(document, library, registry)
     for cell in document["cells"]:
         got, want = cell.get("palette"), expected.get(cell["cell_id"])
         if got is not None and palette_by_id(registry, got["palette_id"]) is None:
@@ -220,4 +277,12 @@ def palette_errors(
                     f"{cell['cell_id']}: has {got}, rules give {want}",
                 )
             )
+    if version == REGION_VERSION and document.get("floor_regions") != regions:
+        errors.append(
+            err(
+                FLOOR_REGION_RULE,
+                "floor_region_metadata_mismatch",
+                "floor_regions does not match the keyed re-derivation",
+            )
+        )
     return errors

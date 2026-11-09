@@ -1,9 +1,10 @@
-"""Material palette registries (issues 192 and 199): load, validate and select palettes.
+"""Material palette registries (issues 192, 199 and 208): load, validate and select palettes.
 
-The 0.1.0 registry is frozen. The 0.2.0 registry adds surface variants and acoustic tags for
-gmap-0.9.0. Every value names where it was read or generated from; `registry_errors` re-reads
-those sources so a stale citation is caught. Nothing here edits the registries, library rooms
-or their textures.
+The 0.1.0 registry is frozen. The 0.2.0 registry adds surface variants and acoustic tags
+for gmap-0.9.0. The 0.3.0 registry adds the tile, metal and wood regional floor palettes
+for gmap-0.12.0 while keeping the three 0.2.0 palettes unchanged. Every value names where
+it was read or generated from; `registry_errors` re-reads those sources so a stale
+citation is caught. Nothing here edits the registries, library rooms or their textures.
 """
 
 from __future__ import annotations
@@ -29,9 +30,16 @@ REGISTRY_PATH_V2 = Path("godot_walk/room_catalog/material_palettes/palettes-0.2.
 SCHEMA_PATH_V2 = Path(
     "godot_walk/room_catalog/material_palettes/material_palette_v2.schema.json"
 )
+REGISTRY_PATH_V3 = Path("godot_walk/room_catalog/material_palettes/palettes-0.3.0.json")
+SCHEMA_PATH_V3 = Path(
+    "godot_walk/room_catalog/material_palettes/material_palette_v3.schema.json"
+)
 GENERATED_TEXTURE_PREFIX = "res://assets/psx_extension/textures/surfaces/"
 GENERATED_MANIFEST = Path(
     "godot_walk/assets/psx_extension/textures/surfaces/surface_variants.json"
+)
+GENERATED_MANIFEST_V3 = Path(
+    "godot_walk/assets/psx_extension/textures/surfaces/palette_0_3_0_textures.json"
 )
 SURFACES = ("wall", "floor", "ceiling")
 SURFACES_V2 = ("wall", "floor", "ceiling", "trim")
@@ -52,6 +60,11 @@ def registry_ref_v2(root: Path = ROOT) -> dict[str, str]:
     return {"path": repo_relative(path, root), "sha256": sha256_file(path)}
 
 
+def registry_ref_v3(root: Path = ROOT) -> dict[str, str]:
+    path = root / REGISTRY_PATH_V3
+    return {"path": repo_relative(path, root), "sha256": sha256_file(path)}
+
+
 def load_registry(root: Path = ROOT) -> dict[str, Any]:
     return load_json(root / REGISTRY_PATH)
 
@@ -60,8 +73,12 @@ def load_registry_v2(root: Path = ROOT) -> dict[str, Any]:
     return load_json(root / REGISTRY_PATH_V2)
 
 
+def load_registry_v3(root: Path = ROOT) -> dict[str, Any]:
+    return load_json(root / REGISTRY_PATH_V3)
+
+
 def load_registry_file(path: Path) -> dict[str, Any]:
-    """Load the registry named by a document ref (0.1.0 or 0.2.0)."""
+    """Load the registry named by a document ref (0.1.0, 0.2.0 or 0.3.0)."""
     return load_json(path)
 
 
@@ -97,12 +114,15 @@ def spec_materials(palette: dict[str, Any]) -> dict[str, Any]:
 
 
 def spec_surface_materials(
-    palette: dict[str, Any], variants: dict[str, str], wear: int
+    palette: dict[str, Any],
+    variants: dict[str, str],
+    wear: int,
+    registry_version: str = "0.2.0",
 ) -> dict[str, Any]:
     """The selected wall/floor/ceiling/trim values and acoustic tags for a v0.9 cell."""
     materials: dict[str, Any] = {
         "palette_id": palette["palette_id"],
-        "registry_version": "0.2.0",
+        "registry_version": registry_version,
         "wear": wear,
         "acoustic": {},
         "variants": {},
@@ -202,14 +222,20 @@ def _variant_provenance_errors(
 
 
 def _generated_manifest(root: Path) -> dict[str, dict[str, Any]] | None:
-    path = root / GENERATED_MANIFEST
-    if not path.is_file():
-        return None
-    try:
-        document = load_json(path)
-        return {record["output"]: record for record in document["records"]}
-    except (OSError, ValueError, KeyError, TypeError):
-        return None
+    records: dict[str, dict[str, Any]] = {}
+    found = False
+    for relative in (GENERATED_MANIFEST, GENERATED_MANIFEST_V3):
+        path = root / relative
+        if not path.is_file():
+            continue
+        found = True
+        try:
+            document = load_json(path)
+            for record in document["records"]:
+                records[record["output"]] = record
+        except (OSError, ValueError, KeyError, TypeError):
+            return None
+    return records if found else None
 
 
 def _manifest_record_errors(record: Any, expected_output: str) -> list[str]:
@@ -270,7 +296,8 @@ def _generated_texture_errors(
 
 
 def _surface_registry_errors(registry: dict[str, Any], root: Path = ROOT) -> list[str]:
-    validator = Draft202012Validator(load_json(root / SCHEMA_PATH_V2))
+    schema_path = SCHEMA_PATH_V3 if registry.get("schema_version") == 3 else SCHEMA_PATH_V2
+    validator = Draft202012Validator(load_json(root / schema_path))
     errors = [f"schema: {e.message}" for e in validator.iter_errors(registry)]
     if errors:
         return errors
@@ -319,7 +346,7 @@ def _surface_registry_errors(registry: dict[str, Any], root: Path = ROOT) -> lis
 
 def registry_errors(registry: dict[str, Any], root: Path = ROOT) -> list[str]:
     """Schema, unique ids, exactly one default, existing textures and cited constants."""
-    if registry.get("schema_version") == 2:
+    if registry.get("schema_version") in (2, 3):
         return _surface_registry_errors(registry, root)
     validator = Draft202012Validator(load_json(root / SCHEMA_PATH))
     errors = [f"schema: {e.message}" for e in validator.iter_errors(registry)]

@@ -324,6 +324,7 @@ def module_errors(
             "gmap-0.9.0",
             "gmap-0.10.0",
             "gmap-0.11.0",
+            "gmap-0.12.0",
         )
         else 0.0
     )

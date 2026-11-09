@@ -1,0 +1,169 @@
+{
+  "generator": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+  "records": [
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/metal_service_ceiling_clean.png",
+      "output_sha256": "850606c798455e6ecf54938f6646b77ef7e747158461d815a8bbb48197415cfd",
+      "palette": "metal_service",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "ceiling",
+      "variant": "clean"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/metal_service_ceiling_damaged.png",
+      "output_sha256": "5e94e429b366809861cdd6ffaea3abeff6317d8d9323da1aae831c5488ddb85b",
+      "palette": "metal_service",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "ceiling",
+      "variant": "damaged"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/metal_service_ceiling_worn.png",
+      "output_sha256": "79fd7beeb5a68b2f07394fc28ca461c39565518e47a958ada55549f970f0831f",
+      "palette": "metal_service",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "ceiling",
+      "variant": "worn"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/metal_service_floor_clean.png",
+      "output_sha256": "dba4f285b08b364b0943194cfb76373b7a8a6e92ffdd6d9de6284721277cddfd",
+      "palette": "metal_service",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "floor",
+      "variant": "clean"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/metal_service_floor_damaged.png",
+      "output_sha256": "dc6d4fdf77b80eebdd8fe68707d173e0b66a19b4f321496b554e38e44fdf4c58",
+      "palette": "metal_service",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "floor",
+      "variant": "damaged"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/metal_service_floor_worn.png",
+      "output_sha256": "14c0a1fd76dcd87dd7f023889ee6376932ed8fc3cd4f3e18148c18b36637c19d",
+      "palette": "metal_service",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "floor",
+      "variant": "worn"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/tiled_institutional_ceiling_clean.png",
+      "output_sha256": "3876196ab180075f5825af6bf13de9bd523e95ed09b5c1d4dd6bbd277b2895bb",
+      "palette": "tiled_institutional",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "ceiling",
+      "variant": "clean"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/tiled_institutional_ceiling_damaged.png",
+      "output_sha256": "c29447ed6e3d058ecfbd1d4fdb02eefe3e0f3c7caeb80af39ea89cd9f683194b",
+      "palette": "tiled_institutional",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "ceiling",
+      "variant": "damaged"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/tiled_institutional_ceiling_worn.png",
+      "output_sha256": "226d057936b4188262ba1492dd13aa54718024b93a8427693e62c91535038691",
+      "palette": "tiled_institutional",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "ceiling",
+      "variant": "worn"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/tiled_institutional_floor_clean.png",
+      "output_sha256": "4684c7083b642dc68ccc37a809b4673cf8c4b38ee09076056fe9096147d4cd23",
+      "palette": "tiled_institutional",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "floor",
+      "variant": "clean"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/tiled_institutional_floor_damaged.png",
+      "output_sha256": "0fa71f4297a7919cd4ea067018ace863f30f4fc7514c9527635decf126e03d40",
+      "palette": "tiled_institutional",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "floor",
+      "variant": "damaged"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/tiled_institutional_floor_worn.png",
+      "output_sha256": "5af3ea02594d1725b1bf52b519fdcc61f94698324a954dda8d8a4e42748c5ed0",
+      "palette": "tiled_institutional",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "floor",
+      "variant": "worn"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/tiled_institutional_wall_clean.png",
+      "output_sha256": "b4f376990c44fc0c2bee02daa5cb2e2dcaa370dad457e02e15c083226fe94ab1",
+      "palette": "tiled_institutional",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "wall",
+      "variant": "clean"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/tiled_institutional_wall_damaged.png",
+      "output_sha256": "8ca965cc9b14deaa46e0ed3d7f51d8356276a807e802e5078c3a510b2ef7f04a",
+      "palette": "tiled_institutional",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "wall",
+      "variant": "damaged"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/tiled_institutional_wall_worn.png",
+      "output_sha256": "727e37dff1e6941051e1f52ff855f32be83789a2832ad6958341279138d93ddd",
+      "palette": "tiled_institutional",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "wall",
+      "variant": "worn"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/wood_parquet_floor_clean.png",
+      "output_sha256": "aba0b2826ab467874110e897218e610e79353d419a199162d715b03dda900661",
+      "palette": "wood_parquet",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "floor",
+      "variant": "clean"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/wood_parquet_floor_damaged.png",
+      "output_sha256": "cdab65e7651b6889c4a5548829a92d453dc319cc5e7c955b1f2d600d8f87ab4d",
+      "palette": "wood_parquet",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "floor",
+      "variant": "damaged"
+    },
+    {
+      "output": "godot_walk/assets/psx_extension/textures/surfaces/wood_parquet_floor_worn.png",
+      "output_sha256": "76cc6d0e8f23a8a21363447dba1f6d2077cacc78d06df7c1457b4ddb6948470f",
+      "palette": "wood_parquet",
+      "source": "godot_walk/scripts/generate_palette_0_3_0_textures.py",
+      "source_sha256": "95ad0adafa6d11adbcd4d3ce53f59cbe70c8e91d274d96e9a22013a374aa06e5",
+      "surface": "floor",
+      "variant": "worn"
+    }
+  ],
+  "schema_version": 1,
+  "script_version": "palette-0-3-0-textures-0.1.0"
+}

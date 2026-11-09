@@ -25,6 +25,7 @@ GENERATOR_VERSION_V8 = "gmap-0.8.0"
 GENERATOR_VERSION_V9 = "gmap-0.9.0"
 GENERATOR_VERSION_V10 = "gmap-0.10.0"
 GENERATOR_VERSION_V11 = "gmap-0.11.0"
+GENERATOR_VERSION_V12 = "gmap-0.12.0"
 VERSIONS = (
     GENERATOR_VERSION,
     GENERATOR_VERSION_V2,
@@ -38,6 +39,7 @@ VERSIONS = (
     GENERATOR_VERSION_V9,
     GENERATOR_VERSION_V10,
     GENERATOR_VERSION_V11,
+    GENERATOR_VERSION_V12,
 )
 MARGIN_VERSIONS = (
     GENERATOR_VERSION_V2,
@@ -106,6 +108,7 @@ RULE_IDS_V8 = sorted([*RULE_IDS_V7, "light_layer"])
 RULE_IDS_V9 = sorted([*RULE_IDS_V8, "surface_layer"])
 RULE_IDS_V10 = sorted([*RULE_IDS_V9, "elevation_layer"])
 RULE_IDS_V11 = sorted([*RULE_IDS_V10, "reverb_layer"])
+RULE_IDS_V12 = sorted([*RULE_IDS_V11, "floor_region_layer"])
 CEILING = {
     "figure": [3.0, 6.0],
     "ground": [2.6, 4.8],
@@ -134,6 +137,8 @@ def layout_version(version: str) -> str:
 
 
 def rule_ids(version: str) -> list[str]:
+    if version == GENERATOR_VERSION_V12:
+        return RULE_IDS_V12
     if version == GENERATOR_VERSION_V11:
         return RULE_IDS_V11
     if version == GENERATOR_VERSION_V10:
@@ -214,6 +219,29 @@ def build_map(
 ) -> dict[str, Any]:
     if version not in VERSIONS:
         raise GenerationError(f"generator version must be one of {', '.join(VERSIONS)}")
+    if version == GENERATOR_VERSION_V12:
+        if stage_max not in (None, 3):
+            raise GenerationError("gmap-0.12.0 requires --stage-max=3")
+        document = build_map(
+            seed, library, cells, 3, GENERATOR_VERSION_V11, degenerate_max
+        )
+        document["generator_version"] = GENERATOR_VERSION_V12
+        document["map_id"] = map_id_for(seed, GENERATOR_VERSION_V12)
+        document["rules"] = list(rule_ids(GENERATOR_VERSION_V12))
+        from gmap_elevation import strip_elevation
+        from gmap_palette import palette_assignment
+        from gmap_palette_registry import load_registry_v3, registry_ref_v3
+
+        document["palette_registry"] = registry_ref_v3()
+        assignment_document = strip_elevation(document)
+        palettes, regions = palette_assignment(
+            assignment_document, library, load_registry_v3()
+        )
+        for record in document["cells"]:
+            if record["cell_id"] in palettes:
+                record["palette"] = palettes[record["cell_id"]]
+        document["floor_regions"] = regions
+        return document
     if version == GENERATOR_VERSION_V11:
         if stage_max not in (None, 3):
             raise GenerationError("gmap-0.11.0 requires --stage-max=3")
