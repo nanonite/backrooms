@@ -2,7 +2,10 @@
 
 The audit is deliberately deterministic: the same WAVs always produce the same
 metrics, matrix and audition bytes. It reads the committed samples under
-`godot_walk/audio/footsteps` but never rewrites them.
+`godot_walk/audio/footsteps` and never rewrites them. Flat `<tag>/<tag>_*.wav`
+samples (v0.2.0) and layered `<tag>/<layer>/` stems (v0.3.0) are both supported;
+for layered stems the walk-force transient, body and texture are summed before
+measurement.
 
 Usage:
     python3 godot_walk/scripts/footstep_audit.py report
@@ -31,7 +34,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from deterministic_json import ROOT, repo_relative, write_deterministic
 
-SCRIPT_VERSION = "footstep-audit-0.1.0"
+SCRIPT_VERSION = "footstep-audit-0.2.0"
 ISSUE_NUMBER = 202
 SAMPLE_RATE = 22050
 AUDIO_DIR = Path("godot_walk/audio/footsteps")
@@ -42,6 +45,12 @@ DEFAULT_TAG = "default"
 LAND_TAG = "land"
 AUDITION_TAGS = (*TAGS, DEFAULT_TAG, LAND_TAG)
 DISTANCE_TAGS = AUDITION_TAGS
+
+# footsteps-0.3.0 layers. The transient is baked in two brightness tiers; the
+# walk-force audition measures the soft tier, which is what most walk steps use.
+LAYER_NAMES = ("transient_soft", "transient_hard", "body", "texture")
+REQUIRED_LAYERS = ("transient_soft", "body", "texture")
+AUDIT_TRANSIENT_TIER = "transient_soft"
 
 BAND_NAMES = ("sub_200", "band_200_800", "band_800_3000", "band_above_3000")
 BAND_EDGES_HZ = (0.0, 200.0, 800.0, 3000.0, math.inf)
@@ -96,6 +105,26 @@ def read_wav(path: Path) -> tuple[np.ndarray, int]:
     if channels > 1:
         samples = samples.reshape(-1, channels).mean(axis=1)
     return samples, sample_rate
+
+
+def read_mix(paths: list[Path]) -> tuple[np.ndarray, int]:
+    """Sum layer stems that start together, preserving their baked onset offsets."""
+    clips = []
+    sample_rate = None
+    for path in paths:
+        clip, rate = read_wav(path)
+        if sample_rate is None:
+            sample_rate = rate
+        elif rate != sample_rate:
+            raise ValueError(f"{path}: sample rate {rate} != {sample_rate}")
+        clips.append(clip)
+    if not clips or sample_rate is None:
+        raise ValueError("cannot mix an empty layer list")
+    length = max(len(clip) for clip in clips)
+    mixed = np.zeros(length, dtype=np.float64)
+    for clip in clips:
+        mixed[: len(clip)] += clip
+    return mixed, sample_rate
 
 
 def _band_energies(
@@ -167,15 +196,16 @@ def _display_path(path: Path) -> str:
         return path.as_posix()
 
 
-def measure_sample(path: Path) -> dict[str, Any]:
-    samples, sample_rate = read_wav(path)
+def _measure_array(
+    samples: np.ndarray, sample_rate: int, path_label: str
+) -> dict[str, Any]:
     if len(samples) < 3:
-        raise ValueError(f"{path}: too short to measure")
+        raise ValueError(f"{path_label}: too short to measure")
     rms = float(np.sqrt(np.mean(samples * samples)))
     peak = float(np.max(np.abs(samples)))
     energies, fractions = _band_energies(samples, sample_rate)
     return {
-        "path": path.as_posix(),
+        "path": path_label,
         "duration_s": round(len(samples) / sample_rate, 6),
         "rms_dbfs": round(_db(rms), 3),
         "peak_dbfs": round(_db(peak), 3),
@@ -190,6 +220,16 @@ def measure_sample(path: Path) -> dict[str, Any]:
         },
         "t60_s": round(_decay_seconds(samples, sample_rate), 6),
     }
+
+
+def measure_sample(path: Path) -> dict[str, Any]:
+    samples, sample_rate = read_wav(path)
+    return _measure_array(samples, sample_rate, path.as_posix())
+
+
+def measure_variant(paths: list[Path], path_label: str) -> dict[str, Any]:
+    samples, sample_rate = read_mix(paths)
+    return _measure_array(samples, sample_rate, path_label)
 
 
 def _mean(values: list[float]) -> float:
@@ -253,16 +293,67 @@ def _tag_files(audio_dir: Path, tag: str) -> list[Path]:
     )
 
 
+def layered_variants(
+    audio_dir: Path, tag: str
+) -> list[tuple[int, dict[str, Path]]] | None:
+    """Return (variant number, layer paths) for a layered tag, or None if flat."""
+    found: dict[str, list[Path]] = {}
+    for layer in LAYER_NAMES:
+        files = sorted(
+            path
+            for path in (audio_dir / tag / layer).glob(f"{tag}_{layer}_*.wav")
+            if path.is_file()
+        )
+        if files:
+            found[layer] = files
+    if not found:
+        return None
+    variants: dict[int, dict[str, Path]] = {}
+    for layer, files in found.items():
+        prefix = f"{tag}_{layer}_"
+        for path in files:
+            number_text = path.stem.removeprefix(prefix)
+            if not number_text.isdigit():
+                raise ValueError(f"{path}: unexpected layered variant name")
+            variants.setdefault(int(number_text), {})[layer] = path
+    ordered = []
+    for number in sorted(variants):
+        missing = [layer for layer in REQUIRED_LAYERS if layer not in variants[number]]
+        if missing:
+            raise ValueError(
+                f"{audio_dir / tag}: variant {number:02d} is missing {', '.join(missing)}"
+            )
+        ordered.append((number, variants[number]))
+    return ordered
+
+
+def _variant_label(audio_dir: Path, tag: str, number: int) -> str:
+    return f"{_display_path(audio_dir / tag)}/{tag}_{number:02d} (layered)"
+
+
+def _variant_paths(paths: dict[str, Path]) -> list[Path]:
+    return [paths[AUDIT_TRANSIENT_TIER], paths["body"], paths["texture"]]
+
+
 def audit_directory(audio_dir: Path = AUDIO_DIR) -> dict[str, Any]:
     tags: dict[str, Any] = {}
     variants: dict[str, list[dict[str, Any]]] = {}
     for tag in AUDITION_TAGS:
-        files = _tag_files(audio_dir, tag)
-        if not files:
-            raise FileNotFoundError(f"{audio_dir / tag}: no {tag}_*.wav samples")
-        samples = [measure_sample(path) for path in files]
-        for sample in samples:
-            sample["path"] = _display_path(Path(sample["path"]))
+        layered = layered_variants(audio_dir, tag)
+        if layered is not None:
+            samples = [
+                measure_variant(
+                    _variant_paths(paths), _variant_label(audio_dir, tag, number)
+                )
+                for number, paths in layered
+            ]
+        else:
+            files = _tag_files(audio_dir, tag)
+            if not files:
+                raise FileNotFoundError(f"{audio_dir / tag}: no {tag}_*.wav samples")
+            samples = [measure_sample(path) for path in files]
+            for sample in samples:
+                sample["path"] = _display_path(Path(sample["path"]))
         variants[tag] = samples
         tags[tag] = aggregate_tag(tag, samples)
 
@@ -363,25 +454,35 @@ def _silence(sample_rate: int, seconds: float) -> np.ndarray:
     return np.zeros(int(sample_rate * seconds), dtype=np.float64)
 
 
+def _tag_clips(audio_dir: Path, tag: str) -> list[tuple[str, np.ndarray, int]]:
+    layered = layered_variants(audio_dir, tag)
+    if layered is not None:
+        return [
+            (_variant_label(audio_dir, tag, number), *read_mix(_variant_paths(paths)))
+            for number, paths in layered
+        ]
+    files = _tag_files(audio_dir, tag)
+    if not files:
+        raise FileNotFoundError(f"{audio_dir / tag}: no {tag}_*.wav samples")
+    return [(str(path), *read_wav(path)) for path in files]
+
+
 def _audition_segments(
     audio_dir: Path, sample_rate: int
 ) -> tuple[list[np.ndarray], dict[str, Any]]:
     segments = [_silence(sample_rate, AUDITION_LEAD_IN_SECONDS)]
     gains: dict[str, list[float]] = {}
     for tag in AUDITION_TAGS:
-        files = _tag_files(audio_dir, tag)
-        if not files:
-            raise FileNotFoundError(f"{audio_dir / tag}: no {tag}_*.wav samples")
+        clips = _tag_clips(audio_dir, tag)
         gains[tag] = []
         for repeat in range(AUDITION_REPEATS):
             if repeat == 0:
                 segments.append(_beep(sample_rate))
                 segments.append(_silence(sample_rate, AUDITION_GAP_SECONDS))
-            path = files[repeat % len(files)]
-            clip, clip_rate = read_wav(path)
+            label, clip, clip_rate = clips[repeat % len(clips)]
             if clip_rate != sample_rate:
                 raise ValueError(
-                    f"{path}: expected {sample_rate} Hz, got {clip_rate} Hz"
+                    f"{label}: expected {sample_rate} Hz, got {clip_rate} Hz"
                 )
             clip, gain = _normalise_rms(clip)
             gains[tag].append(round(gain, 6))

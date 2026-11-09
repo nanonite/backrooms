@@ -1,9 +1,14 @@
 extends "res://scripts/player.gd"
 
 ## Generated-maze walkthrough player: base movement, hold-Shift sprint (#191) and
-## material-aware footsteps (#200). Applied via set_script in
+## layered material-aware footsteps (#200, #203). Applied via set_script in
 ## generative_map_assembly.gd only, so every other scene keeps the unmodified
 ## player.gd and project.godot stays untouched.
+##
+## Each step takes one pooled player per layer: a brightness-tuned transient,
+## a modal body and a granular texture. The 0-8 ms per-layer onset offsets are
+## baked into the stems, so playback needs neither a timer allocation nor a
+## per-frame DSP pass.
 
 const SPRINT_SPEED: float = 9.0
 const SPRINT_ACTION := &"sprint"
@@ -12,12 +17,30 @@ const SPRINT_STRIDE_M := 1.0
 const LANDING_AIR_SECONDS := 0.3
 const VARIANT_COUNT := 4
 const DEFAULT_TAG := "default"
+const LAND_TAG := "land"
 const ACOUSTIC_TAGS := ["carpet", "concrete", "tile", "plaster", "metal", "wood", "debris"]
 const AUDIO_ROOT := "res://audio/footsteps"
-const WALK_VOLUME_DB := -18.0
-const SPRINT_VOLUME_DB := -14.0
-const LANDING_VOLUME_DB := -15.0
+const TRANSIENT_SOFT := "transient_soft"
+const TRANSIENT_HARD := "transient_hard"
+const BODY := "body"
+const TEXTURE := "texture"
+const LAYERS := [TRANSIENT_SOFT, TRANSIENT_HARD, BODY, TEXTURE]
+const POOL_PER_LAYER := 4
+const WALK_FORCE := 0.5
+const SPRINT_FORCE := 0.8
+const LAND_FORCE := 1.0
+const BRIGHTNESS_LOW_FORCE := 0.30
+const BRIGHTNESS_HIGH_FORCE := 0.80
+const TRANSIENT_GAIN_LOW := 0.75
+const TRANSIENT_GAIN_HIGH := 1.0
+const BODY_GAIN_LOW := 0.85
+const BODY_GAIN_HIGH := 1.0
+const TEXTURE_GAIN_LOW := 0.50
+const TEXTURE_GAIN_HIGH := 1.0
 const PITCH_JITTER := 0.05
+const WALK_VOLUME_DB := 0.0
+const SPRINT_VOLUME_DB := 1.5
+const LANDING_VOLUME_DB := 0.0
 
 signal footstep_event(tag: String, sprinting: bool)
 signal landing_event()
@@ -25,11 +48,11 @@ signal landing_event()
 var _distance_since_step: float = 0.0
 var _air_time: float = 0.0
 var _was_on_floor: bool = true
-var _streams: Dictionary = {}
+var _layer_streams: Dictionary = {}
 var _last_variant: Dictionary = {}
 var _unknown_floors: Dictionary = {}
-var _audio: AudioStreamPlayer
-var _land_stream: AudioStream
+var _pools: Dictionary = {}
+var _pool_cursor: Dictionary = {}
 var _rng := RandomNumberGenerator.new()
 
 
@@ -37,10 +60,7 @@ func _ready() -> void:
 	super()
 	_register_sprint_action()
 	_rng.randomize()
-	_audio = AudioStreamPlayer.new()
-	_audio.name = "FootstepAudio"
-	_audio.volume_db = WALK_VOLUME_DB
-	add_child(_audio)
+	_create_pools()
 	_load_footstep_streams()
 
 
@@ -81,25 +101,78 @@ func _physics_process(delta: float) -> void:
 
 func _play_step(sprinting: bool) -> void:
 	var tag := _floor_acoustic()
-	var play_tag := tag if _streams.has(tag) else DEFAULT_TAG
-	var variants: Array = _streams.get(play_tag, [])
-	if variants.is_empty() or _audio == null:
-		footstep_event.emit(tag, sprinting)
-		return
-	var index := _pick_variant(play_tag, variants.size())
-	_audio.stream = variants[index]
-	_audio.volume_db = SPRINT_VOLUME_DB if sprinting else WALK_VOLUME_DB
-	_audio.pitch_scale = 1.0 + _rng.randf_range(-PITCH_JITTER, PITCH_JITTER)
-	_audio.play()
+	var play_tag := tag if _has_streams(tag) else DEFAULT_TAG
+	var force := _impact_force(Vector2(velocity.x, velocity.z).length())
+	var master := SPRINT_VOLUME_DB if sprinting else WALK_VOLUME_DB
+	_play_layer(
+		play_tag, _choose_transient(force), master,
+		_layer_gain(TRANSIENT_GAIN_LOW, TRANSIENT_GAIN_HIGH, force), _pitch()
+	)
+	_play_layer(
+		play_tag, BODY, master,
+		_layer_gain(BODY_GAIN_LOW, BODY_GAIN_HIGH, force), _pitch()
+	)
+	_play_layer(
+		play_tag, TEXTURE, master,
+		_layer_gain(TEXTURE_GAIN_LOW, TEXTURE_GAIN_HIGH, force), _pitch()
+	)
 	footstep_event.emit(tag, sprinting)
 
 
 func _play_landing() -> void:
-	if _land_stream != null and _audio != null:
-		_audio.stream = _land_stream
-		_audio.volume_db = LANDING_VOLUME_DB
-		_audio.pitch_scale = 1.0 + _rng.randf_range(-PITCH_JITTER, PITCH_JITTER)
-		_audio.play()
+	_play_layer(
+		LAND_TAG, TRANSIENT_HARD, LANDING_VOLUME_DB,
+		_layer_gain(TRANSIENT_GAIN_LOW, TRANSIENT_GAIN_HIGH, LAND_FORCE), _pitch()
+	)
+	_play_layer(
+		LAND_TAG, BODY, LANDING_VOLUME_DB,
+		_layer_gain(BODY_GAIN_LOW, BODY_GAIN_HIGH, LAND_FORCE), _pitch()
+	)
+	_play_layer(
+		LAND_TAG, TEXTURE, LANDING_VOLUME_DB,
+		_layer_gain(TEXTURE_GAIN_LOW, TEXTURE_GAIN_HIGH, LAND_FORCE), _pitch()
+	)
+
+
+func _play_layer(tag: String, layer: String, master_db: float, gain: float, pitch: float) -> void:
+	var key := _stream_key(tag, layer)
+	if not _layer_streams.has(key):
+		return
+	var variants: Array = _layer_streams[key]
+	var player := _acquire_player(layer)
+	player.stream = variants[_pick_variant(key, variants.size())]
+	player.volume_db = master_db + linear_to_db(gain)
+	player.pitch_scale = pitch
+	player.play()
+
+
+func _impact_force(speed: float) -> float:
+	if speed <= SPEED:
+		return lerpf(WALK_FORCE * 0.6, WALK_FORCE, clampf(speed / SPEED, 0.0, 1.0))
+	var sprint_ratio := clampf((speed - SPEED) / (SPRINT_SPEED - SPEED), 0.0, 1.0)
+	return lerpf(WALK_FORCE, SPRINT_FORCE, sprint_ratio)
+
+
+func _layer_gain(gain_low: float, gain_high: float, force: float) -> float:
+	# Normalised so a walk-force step reproduces the baked -19.9 dBFS RMS mix.
+	var reference := lerpf(gain_low, gain_high, WALK_FORCE)
+	return lerpf(gain_low, gain_high, force) / reference
+
+
+func _choose_transient(force: float) -> String:
+	var brightness := clampf(
+		(force - BRIGHTNESS_LOW_FORCE) / (BRIGHTNESS_HIGH_FORCE - BRIGHTNESS_LOW_FORCE),
+		0.0,
+		1.0
+	)
+	# Dithered gain crossfade: the hard tier's probability follows force, so the
+	# average brightness tracks force continuously while one transient player is
+	# enough for a step.
+	return TRANSIENT_HARD if _rng.randf() < brightness else TRANSIENT_SOFT
+
+
+func _pitch() -> float:
+	return 1.0 + _rng.randf_range(-PITCH_JITTER, PITCH_JITTER)
 
 
 func _floor_acoustic() -> String:
@@ -123,37 +196,74 @@ func _floor_acoustic() -> String:
 	return DEFAULT_TAG
 
 
-func _pick_variant(tag: String, count: int) -> int:
-	var previous := int(_last_variant.get(tag, -1))
+func _pick_variant(key: String, count: int) -> int:
+	var previous := int(_last_variant.get(key, -1))
 	var index := _rng.randi_range(0, count - 1)
 	if count > 1 and index == previous:
 		index = (index + 1) % count
-	_last_variant[tag] = index
+	_last_variant[key] = index
 	return index
+
+
+func _create_pools() -> void:
+	for layer: String in LAYERS:
+		var players: Array = []
+		for index in POOL_PER_LAYER:
+			var player := AudioStreamPlayer.new()
+			player.name = "Footstep_%s_%d" % [layer, index]
+			player.volume_db = WALK_VOLUME_DB
+			add_child(player)
+			players.append(player)
+		_pools[layer] = players
+		_pool_cursor[layer] = 0
+
+
+func _acquire_player(layer: String) -> AudioStreamPlayer:
+	var players: Array = _pools[layer]
+	var cursor := int(_pool_cursor[layer])
+	var player := players[cursor] as AudioStreamPlayer
+	_pool_cursor[layer] = (cursor + 1) % players.size()
+	if player.playing:
+		player.stop()
+	return player
+
+
+func _has_streams(tag: String) -> bool:
+	return _layer_streams.has(_stream_key(tag, BODY))
+
+
+func _stream_key(tag: String, layer: String) -> String:
+	return "%s/%s" % [tag, layer]
 
 
 func _load_footstep_streams() -> void:
 	for tag: String in ACOUSTIC_TAGS + [DEFAULT_TAG]:
-		var variants: Array = []
-		for variant in range(1, VARIANT_COUNT + 1):
-			var stream := _load_stream(tag, variant)
-			if stream != null:
-				variants.append(stream)
-		if not variants.is_empty():
-			_streams[tag] = variants
-	_land_stream = _load_stream("land", 1)
+		for layer: String in LAYERS:
+			_load_tag_layer(tag, layer, VARIANT_COUNT)
+	for layer: String in LAYERS:
+		_load_tag_layer(LAND_TAG, layer, 1)
 
 
-func _load_stream(tag: String, variant: int) -> AudioStreamWAV:
-	var path := ProjectSettings.globalize_path(_footstep_path(tag, variant))
+func _load_tag_layer(tag: String, layer: String, variant_count: int) -> void:
+	var variants: Array = []
+	for variant in range(1, variant_count + 1):
+		var stream := _load_stream(tag, layer, variant)
+		if stream != null:
+			variants.append(stream)
+	if not variants.is_empty():
+		_layer_streams[_stream_key(tag, layer)] = variants
+
+
+func _load_stream(tag: String, layer: String, variant: int) -> AudioStreamWAV:
+	var path := ProjectSettings.globalize_path(_footstep_path(tag, layer, variant))
 	if not FileAccess.file_exists(path):
 		push_warning("Missing footstep sample: %s" % path)
 		return null
 	return AudioStreamWAV.load_from_file(path)
 
 
-func _footstep_path(tag: String, variant: int) -> String:
-	return "%s/%s/%s_%02d.wav" % [AUDIO_ROOT, tag, tag, variant]
+func _footstep_path(tag: String, layer: String, variant: int) -> String:
+	return "%s/%s/%s/%s_%s_%02d.wav" % [AUDIO_ROOT, tag, layer, tag, layer, variant]
 
 
 static func _register_sprint_action() -> void:

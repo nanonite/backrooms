@@ -42,6 +42,8 @@ func _check_footstep_path() -> void:
 	world.add_child(player)
 	for _frame in 6:
 		await physics_frame
+	_check_layered_players(player)
+	var child_count := player.get_child_count()
 
 	var steps: Array[String] = []
 	var sprint_steps: Array[bool] = []
@@ -118,8 +120,46 @@ func _check_footstep_path() -> void:
 		await physics_frame
 	_expect(steps.size() == steps_before_landing, "airborne motion emitted footsteps")
 	_expect(landings.size() == landings_before + 1, "expected exactly one landing event, got %d" % (landings.size() - landings_before))
+	_expect(player.get_child_count() == child_count, "footsteps allocated stream players during playback")
 
 	world.free()
+
+
+func _check_layered_players(player: Node) -> void:
+	var pools: Dictionary = player.get("_pools")
+	_expect(pools.size() == WALK_PLAYER.LAYERS.size(), "expected %d layer pools, got %d" % [WALK_PLAYER.LAYERS.size(), pools.size()])
+	for layer: String in WALK_PLAYER.LAYERS:
+		_expect(pools.has(layer), "missing player pool for %s" % layer)
+		if pools.has(layer):
+			_expect(pools[layer].size() == WALK_PLAYER.POOL_PER_LAYER, "%s pool has %d players, expected %d" % [layer, pools[layer].size(), WALK_PLAYER.POOL_PER_LAYER])
+	var streams: Dictionary = player.get("_layer_streams")
+	for tag: String in WALK_PLAYER.ACOUSTIC_TAGS + [WALK_PLAYER.DEFAULT_TAG]:
+		for layer: String in WALK_PLAYER.LAYERS:
+			var key := "%s/%s" % [tag, layer]
+			_expect(streams.has(key), "missing streams for %s" % key)
+			if streams.has(key):
+				_expect(streams[key].size() == WALK_PLAYER.VARIANT_COUNT, "%s has %d variants" % [key, streams[key].size()])
+	for layer: String in WALK_PLAYER.LAYERS:
+		var key := "%s/%s" % [WALK_PLAYER.LAND_TAG, layer]
+		_expect(streams.has(key), "missing landing streams for %s" % key)
+		if streams.has(key):
+			_expect(streams[key].size() == 1, "landing %s should have one variant" % layer)
+	var audio_players := 0
+	for child: Node in player.get_children():
+		if child is AudioStreamPlayer:
+			audio_players += 1
+	_expect(audio_players == WALK_PLAYER.LAYERS.size() * WALK_PLAYER.POOL_PER_LAYER, "expected %d pooled players, got %d" % [WALK_PLAYER.LAYERS.size() * WALK_PLAYER.POOL_PER_LAYER, audio_players])
+	_expect(is_equal_approx(float(player.call("_impact_force", WALK_PLAYER.SPEED)), WALK_PLAYER.WALK_FORCE), "walk speed did not map to walk force")
+	_expect(is_equal_approx(float(player.call("_impact_force", WALK_PLAYER.SPRINT_SPEED)), WALK_PLAYER.SPRINT_FORCE), "sprint speed did not map to sprint force")
+	player.call("_play_step", false)
+	var playing := 0
+	for child: Node in player.get_children():
+		if child is AudioStreamPlayer and child.playing:
+			playing += 1
+	_expect(playing == 3, "one step started %d players, expected 3" % playing)
+	for child: Node in player.get_children():
+		if child is AudioStreamPlayer:
+			child.stop()
 
 
 func _add_floor(world: Node3D, from_x: float, to_x: float, tag: String, library_floor: bool) -> void:

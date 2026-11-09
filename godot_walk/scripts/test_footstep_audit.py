@@ -94,7 +94,7 @@ def _samples_version() -> str:
 
 
 def test_metrics_are_deterministic():
-    path = ROOT / AUDIO_DIR / "metal" / "metal_01.wav"
+    path = ROOT / AUDIO_DIR / "metal" / "body" / "metal_body_01.wav"
     assert measure_sample(path) == measure_sample(path)
     first = audit_directory(ROOT / AUDIO_DIR)
     second = audit_directory(ROOT / AUDIO_DIR)
@@ -113,6 +113,17 @@ def test_v020_fails_loudness_and_separability():
     assert report["loudness"]["violations"]
     assert report["separability"]["passes"] is False
     assert report["separability"]["minimum_distance"] < SEPARABILITY_THRESHOLD
+
+
+def test_v030_passes_loudness_and_separability():
+    if _samples_version() != "footsteps-0.3.0":
+        pytest.skip("layered assertion applies to the footstep stems 0.3.0")
+    report = audit_directory(ROOT / AUDIO_DIR)
+    assert report["loudness"]["passes"] is True
+    assert report["separability"]["passes"] is True
+    assert report["separability"]["minimum_distance"] >= SEPARABILITY_THRESHOLD
+    for tag in AUDITION_TAGS:
+        assert report["tags"][tag]["variant_count"] == (1 if tag == "land" else 4)
 
 
 def test_synthetic_contrasting_set_passes(tmp_path: Path):
