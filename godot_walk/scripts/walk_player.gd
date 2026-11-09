@@ -1,14 +1,16 @@
 extends "res://scripts/player.gd"
 
 ## Generated-maze walkthrough player: base movement, hold-Shift sprint (#191),
-## layered material-aware footsteps (#200, #203) and Spacebar jump (#206).
+## layered material-aware footsteps (#200, #203), Spacebar jump (#206) and the
+## ray-cast room-acoustics probe plus footstep reverb bus (#205).
 ## Applied via set_script in generative_map_assembly.gd only, so every other
 ## scene keeps the unmodified player.gd and project.godot stays untouched.
 ##
 ## Each step takes one pooled player per layer: a brightness-tuned transient,
 ## a modal body and a granular texture. The 0-8 ms per-layer onset offsets are
 ## baked into the stems, so playback needs neither a timer allocation nor a
-## per-frame DSP pass.
+## per-frame DSP pass. The probe runs at about 4 Hz and on each step; a single
+## stock AudioEffectReverb on the Footsteps bus consumes its mapping.
 
 const SPRINT_SPEED: float = 9.0
 const SPRINT_ACTION := &"sprint"
@@ -48,6 +50,10 @@ const PITCH_JITTER := 0.05
 const WALK_VOLUME_DB := 0.0
 const SPRINT_VOLUME_DB := 1.5
 const LANDING_VOLUME_DB := 0.0
+const ROOM_PROBE := preload("res://scripts/room_acoustic_probe.gd")
+const ROOM_REVERB := preload("res://scripts/room_reverb_bus.gd")
+const PLAYER_HALF_HEIGHT_M := 0.6
+const ACOUSTIC_PROBE_INTERVAL_SECONDS := 0.25
 
 signal footstep_event(tag: String, sprinting: bool)
 signal landing_event()
@@ -62,6 +68,11 @@ var _unknown_floors: Dictionary = {}
 var _pools: Dictionary = {}
 var _pool_cursor: Dictionary = {}
 var _rng := RandomNumberGenerator.new()
+var _acoustic_probe
+var _room_reverb
+var _probe_exclude: Array[RID] = []
+var _probe_elapsed: float = 0.0
+var _room_wet: bool = false
 
 
 func _ready() -> void:
@@ -70,6 +81,7 @@ func _ready() -> void:
 	_rng.randomize()
 	_create_pools()
 	_load_footstep_streams()
+	_create_room_acoustics()
 
 
 func _physics_process(delta: float) -> void:
@@ -109,9 +121,11 @@ func _physics_process(delta: float) -> void:
 			while _distance_since_step >= stride:
 				_distance_since_step -= stride
 				_play_step(sprinting)
+	_update_room_acoustics(delta)
 
 
 func _play_step(sprinting: bool) -> void:
+	_refresh_room_acoustics()
 	var tag := _floor_acoustic()
 	var play_tag := tag if _has_streams(tag) else DEFAULT_TAG
 	var force := _impact_force(Vector2(velocity.x, velocity.z).length())
@@ -132,6 +146,7 @@ func _play_step(sprinting: bool) -> void:
 
 
 func _play_landing() -> void:
+	_refresh_room_acoustics()
 	_play_layer(
 		LAND_TAG, TRANSIENT_HARD, LANDING_VOLUME_DB,
 		_layer_gain(TRANSIENT_GAIN_LOW, TRANSIENT_GAIN_HIGH, LAND_FORCE), _pitch()
@@ -180,6 +195,61 @@ func _play_layer(tag: String, layer: String, master_db: float, gain: float, pitc
 	player.volume_db = master_db + linear_to_db(gain)
 	player.pitch_scale = pitch
 	player.play()
+
+
+## Create the dedicated Footsteps bus, route every pooled player to it and add
+## the probe. When the project-level toggle is off, no bus or probe is created
+## and the footstep players keep the default Master route.
+func _create_room_acoustics() -> void:
+	_room_reverb = ROOM_REVERB.new()
+	if not _room_reverb.ensure_bus():
+		_room_reverb = null
+		return
+	for layer: String in LAYERS:
+		for player: AudioStreamPlayer in _pools[layer]:
+			player.bus = ROOM_REVERB.BUS_NAME
+	_acoustic_probe = ROOM_PROBE.new()
+	_acoustic_probe.name = "RoomAcousticProbe"
+	add_child(_acoustic_probe)
+	_probe_exclude.append(get_rid())
+
+
+func _update_room_acoustics(delta: float) -> void:
+	if _room_reverb == null or _acoustic_probe == null:
+		return
+	_probe_elapsed += delta
+	if _probe_elapsed >= ACOUSTIC_PROBE_INTERVAL_SECONDS:
+		_refresh_room_acoustics()
+	_room_reverb.update(delta)
+
+
+## One probe sample plus a fresh room-flag read. The flag is runtime metadata
+## (#204), so a `set_room_reverb` mutation takes effect on the next sample.
+func _refresh_room_acoustics() -> void:
+	if _room_reverb == null or _acoustic_probe == null:
+		return
+	_probe_elapsed = 0.0
+	var floor_y := global_position.y - PLAYER_HALF_HEIGHT_M
+	var head_origin: Vector3 = head.global_position if head != null else global_position
+	_acoustic_probe.sample(
+		get_world_3d().direct_space_state, head_origin, floor_y, _probe_exclude,
+		_room_ceiling_hint())
+	_room_wet = _room_reverb_at_player()
+	_room_reverb.set_targets(_acoustic_probe.parameters, _room_wet)
+
+
+func _room_reverb_at_player() -> bool:
+	var parent := get_parent()
+	if parent == null or not parent.has_method("room_reverb_at"):
+		return false
+	return bool(parent.call("room_reverb_at", global_position))
+
+
+func _room_ceiling_hint() -> float:
+	var parent := get_parent()
+	if parent == null or not parent.has_method("room_ceiling_height_at"):
+		return 0.0
+	return float(parent.call("room_ceiling_height_at", global_position))
 
 
 func _impact_force(speed: float) -> float:

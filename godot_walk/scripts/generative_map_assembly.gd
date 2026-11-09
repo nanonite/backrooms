@@ -210,6 +210,81 @@ func set_room_reverb(cell_id: String, enabled: bool) -> bool:
 	return true
 
 
+## Walkable cell under a world-space point, or "" outside every room. The
+## highest compatible floor wins, then the smaller envelope (a threshold cell
+## inside a larger room). Used by the acoustic probe every sample, so a runtime
+## #209 mutation is read fresh rather than baked into the player.
+func cell_at(world_position: Vector3) -> String:
+	var best := ""
+	var best_floor := -INF
+	var best_area := INF
+	for cell: Dictionary in map.get("cells", []):
+		if String(cell.get("role", "")) == "void":
+			continue
+		if not _cell_contains(cell, world_position):
+			continue
+		var floor_y := float(cell.get("floor_y", 0.0))
+		var heights: Array = cell.get("ceiling_range_m", [0.0, 0.0])
+		var ceiling := maxf(float(heights[0]), float(heights[heights.size() - 1]))
+		if world_position.y < floor_y - 0.1 or world_position.y > floor_y + ceiling + 0.5:
+			continue
+		var area := _envelope_area(cell.get("envelope_xz", []))
+		if best.is_empty() or floor_y > best_floor + 0.001 or (
+			is_equal_approx(floor_y, best_floor) and area < best_area
+		):
+			best = String(cell.cell_id)
+			best_floor = floor_y
+			best_area = area
+	return best
+
+
+## Current reverb permission at a world-space point. The flag is read from the
+## instanced room's metadata, so `set_room_reverb` changes it immediately; a
+## missing flag reads as dry.
+func room_reverb_at(world_position: Vector3) -> bool:
+	var cell_id := cell_at(world_position)
+	return not cell_id.is_empty() and room_reverb_enabled(cell_id)
+
+
+## Authored ceiling over a point, above the cell floor. Generated ceilings are
+## rendered but have no collider, so the probe uses this as a fallback when its
+## up ray misses; a real collider still wins when one exists.
+func room_ceiling_height_at(world_position: Vector3) -> float:
+	var cell_id := cell_at(world_position)
+	if cell_id.is_empty():
+		return 0.0
+	var room := room_node(cell_id)
+	if room != null and room.has_meta("ceiling_height_m"):
+		return float(room.get_meta("ceiling_height_m"))
+	for cell: Dictionary in map.get("cells", []):
+		if String(cell.get("cell_id", "")) != cell_id:
+			continue
+		var heights: Array = cell.get("ceiling_range_m", [0.0, 0.0])
+		return maxf(float(heights[0]), float(heights[heights.size() - 1]))
+	return 0.0
+
+
+static func _cell_contains(cell: Dictionary, world_position: Vector3) -> bool:
+	var points: Array = cell.get("envelope_xz", [])
+	if points.size() < 3:
+		return false
+	var polygon := PackedVector2Array()
+	for point: Array in points:
+		polygon.append(Vector2(float(point[0]), float(point[1])))
+	return Geometry2D.is_point_in_polygon(Vector2(world_position.x, world_position.z), polygon)
+
+
+static func _envelope_area(points: Array) -> float:
+	if points.size() < 3:
+		return INF
+	var twice_area := 0.0
+	for index in points.size():
+		var current: Array = points[index]
+		var following: Array = points[(index + 1) % points.size()]
+		twice_area += float(current[0]) * float(following[1]) - float(following[0]) * float(current[1])
+	return absf(twice_area) / 2.0
+
+
 ## Library index entries by "module_id@version" (the map's library_index path, below res://).
 func _library_entries() -> Dictionary:
 	var entries := {}
