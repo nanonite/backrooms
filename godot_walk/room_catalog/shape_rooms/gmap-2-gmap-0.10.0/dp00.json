@@ -1,0 +1,215 @@
+{
+  "area_m2": 11.483416,
+  "arm_width_m": null,
+  "arms_xz": [
+    [
+      3.929756,
+      -6.070244,
+      9.070244,
+      -0.929756
+    ]
+  ],
+  "ceiling_height_m": 2.6,
+  "cell_id": "dp00",
+  "construction": "box",
+  "diagonal_passage": {
+    "clear_width_m": 2.0,
+    "length_m": 4.949747468,
+    "link_id": "dl00"
+  },
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0.7071067811865476,
+        0.7071067811865476
+      ],
+      "port_id": "dp00:a",
+      "pos_xz": [
+        8.25,
+        -1.75
+      ],
+      "sill_height_m": 0.0,
+      "to_cell_id": "c03",
+      "to_port_id": "c03:d0",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        -0.7071067811865476,
+        -0.7071067811865476
+      ],
+      "port_id": "dp00:b",
+      "pos_xz": [
+        4.75,
+        -5.25
+      ],
+      "sill_height_m": 0.0,
+      "to_cell_id": "c06",
+      "to_port_id": "c06:d0",
+      "width_m": 2.0
+    }
+  ],
+  "envelope_xz": [
+    [
+      3.929756,
+      -6.070244
+    ],
+    [
+      9.070244,
+      -6.070244
+    ],
+    [
+      9.070244,
+      -0.929756
+    ],
+    [
+      3.929756,
+      -0.929756
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_grid",
+      "kind": "ceiling_lamp_grid",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:dp00:a",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:dp00:b",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "diagonal_passage",
+      "kind": "diagonal_passage",
+      "sign": "symbol"
+    }
+  ],
+  "floor_y": 0.0,
+  "generator_version": "shape-room-0.10.0",
+  "lamps_xz": [
+    [
+      6.5,
+      -3.5
+    ]
+  ],
+  "light": {
+    "color_temp_k": 4855,
+    "lamps": [
+      {
+        "flicker_seed": 1460280703,
+        "lamp_index": 0,
+        "state": "flicker"
+      }
+    ],
+    "tier": "normal"
+  },
+  "map_id": "gmap-2-gmap-0.10.0",
+  "map_sha256": "665d8441e0e6d5ee5b6bbfd973845c56396a8d6beb2c8a5fee1a7ae6c5b20fc4",
+  "material_source": "palette_registry",
+  "materials": {
+    "acoustic": {
+      "ceiling": "tile",
+      "floor": "carpet",
+      "trim": "metal",
+      "wall": "plaster"
+    },
+    "ceiling": {
+      "acoustic": "tile",
+      "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+      "tile_m": 4.0,
+      "variant": "clean"
+    },
+    "floor": {
+      "acoustic": "carpet",
+      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
+      "tile_m": 4.0,
+      "variant": "clean"
+    },
+    "lamp_color": [
+      1.0,
+      0.97,
+      0.76
+    ],
+    "palette_id": "backrooms_yellow",
+    "registry_version": "0.2.0",
+    "trim_color": [
+      0.37,
+      0.34,
+      0.23
+    ],
+    "variants": {
+      "ceiling": "clean",
+      "floor": "clean",
+      "trim": "clean",
+      "wall": "clean"
+    },
+    "wall": {
+      "acoustic": "plaster",
+      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+      "tile_m": 1.5,
+      "variant": "clean"
+    },
+    "wear": 0
+  },
+  "original_cell_status": "shape_room_pending",
+  "outline_xz": [
+    [
+      9.070244,
+      -2.570244
+    ],
+    [
+      5.570244,
+      -6.070244
+    ],
+    [
+      3.929756,
+      -4.429756
+    ],
+    [
+      7.429756,
+      -0.929756
+    ]
+  ],
+  "primitive": "straight",
+  "primitive_class": "diagonal_passage",
+  "rarity_tier": 0,
+  "rects": [
+    [
+      3.929756,
+      -6.070244,
+      9.070244,
+      -0.929756
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "threshold",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 2
+}

@@ -44,9 +44,11 @@ static func build(parent: Node3D, spec: Dictionary, materials: Dictionary,
 	context["diagonal_collision"] = bool(options.get("diagonal_collision", true))
 	context["diagonal_pullback"] = float(options.get("diagonal_pullback", 0.0))
 	context["light_layer"] = int(options.get("light_layer", 1))
+	context["ramps"] = spec.get("ramps", [])
 	_add_floor(visuals, boundaries, context)
 	_add_ceiling(visuals, context)
 	_add_walls(visuals, boundaries, context)
+	_add_ramps(visuals, boundaries, context)
 	_add_lamps(visuals, context)
 	if spec.has("light"):
 		var light_layer := int(context.light_layer)
@@ -82,6 +84,7 @@ static func _context(spec: Dictionary, materials: Dictionary, forced_closed: Pac
 		doorway["door_width"] = size.x
 		doorway["door_height"] = size.y
 		doorway["recess"] = MODULE_JOINT_RECESS if module_joints.has(String(source.port_id)) else 0.0
+		doorway["sill"] = float(source.get("sill_height_m", 0.0))
 		doorway["effective_kind"] = "closed_visible" if (
 			String(source.kind) != "open" or forced_closed.has(String(source.port_id))) else "open"
 		doorways.append(doorway)
@@ -239,7 +242,8 @@ static func _edge_gaps(frame: Dictionary, doorways: Array[Dictionary]) -> Array[
 		var half: float = float(doorway.door_width) / 2.0 + float(doorway.recess)
 		if on_line and faces_out and along - half > -EPSILON and along + half < length + EPSILON:
 			gaps.append({"doorway": doorway, "from": along - half, "to": along + half,
-				"height": float(doorway.door_height) + float(doorway.recess)})
+				"height": float(doorway.door_height) + float(doorway.recess),
+				"sill": float(doorway.get("sill", 0.0))})
 	gaps.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["from"] < b["from"])
 	return gaps
 
@@ -283,9 +287,17 @@ static func _add_doorway(visuals: Node3D, boundaries: Node3D, context: Dictionar
 	var doorway: Dictionary = gap.doorway
 	var port := String(doorway.port_id)
 	var door_height: float = gap.height
-	var header := _edge_box(frame, gap["from"], gap["to"], 0.0, WALL_THICKNESS, door_height, context.height)
+	var sill: float = float(gap.get("sill", 0.0))
+	var opening_top := sill + door_height
+	if sill > EPSILON:
+		# The riser below a raised opening: a ramp's threshold or the solid drop face.
+		var sill_wall := _edge_box(frame, gap["from"], gap["to"], 0.0, WALL_THICKNESS, 0.0, sill)
+		var sill_material := MATERIALS.scaled(context.materials, "wallpaper", sill_wall.size_along, sill)
+		_add_box(visuals, "WallSill_" + port + "Visual", sill_wall.center, sill_wall.size, sill_material, sill_wall.yaw)
+		_add_body(boundaries, "WallSill_" + port, sill_wall.center, sill_wall.size, sill_wall.yaw)
+	var header := _edge_box(frame, gap["from"], gap["to"], 0.0, WALL_THICKNESS, opening_top, context.height)
 	if not context.diagonal_passage_visuals:
-		var material := MATERIALS.scaled(context.materials, "wallpaper", header.size_along, context.height - door_height)
+		var material := MATERIALS.scaled(context.materials, "wallpaper", header.size_along, context.height - opening_top)
 		_add_box(visuals, "Header_" + port + "Visual", header.center, header.size, material, header.yaw)
 	_add_body(boundaries, "Header_" + port, header.center, header.size, header.yaw)
 	if not context.diagonal_passage_visuals:
@@ -307,17 +319,22 @@ static func _add_doorway(visuals: Node3D, boundaries: Node3D, context: Dictionar
 ## perpendicular wall, sharing its outer and bottom planes.
 static func _add_trim(visuals: Node3D, context: Dictionary, frame: Dictionary, gap: Dictionary, port: String) -> void:
 	var door_height: float = gap.height
+	var sill: float = float(gap.get("sill", 0.0))
 	var depth := WALL_THICKNESS + TRIM_PROTRUSION
 	var trim: Material = context.materials.trim
 	var low_from: float = gap["from"] + (WALL_THICKNESS if gap["from"] < EPSILON else 0.0)
 	var high_to: float = gap["to"] - (WALL_THICKNESS if gap["to"] > frame.length - EPSILON else 0.0)
 	var jamb_top := door_height - TRIM_HEIGHT
-	var low := _edge_box(frame, low_from, low_from + TRIM_WIDTH, 0.0, depth, 0.0, jamb_top)
-	var high := _edge_box(frame, high_to - TRIM_WIDTH, high_to, 0.0, depth, 0.0, jamb_top)
-	var lintel := _edge_box(frame, low_from, high_to, 0.0, depth, jamb_top, door_height)
+	var low := _edge_box(frame, low_from, low_from + TRIM_WIDTH, 0.0, depth, sill, sill + jamb_top)
+	var high := _edge_box(frame, high_to - TRIM_WIDTH, high_to, 0.0, depth, sill, sill + jamb_top)
+	var lintel := _edge_box(frame, low_from, high_to, 0.0, depth, sill + jamb_top, sill + door_height)
 	_add_box(visuals, "TrimJambLow_" + port, low.center, low.size, trim, low.yaw)
 	_add_box(visuals, "TrimJambHigh_" + port, high.center, high.size, trim, high.yaw)
 	_add_box(visuals, "TrimLintel_" + port, lintel.center, lintel.size, trim, lintel.yaw)
+	if sill > EPSILON:
+		# A ledge lip finishes the raised threshold of a drop or ramp.
+		var lip := _edge_box(frame, low_from + TRIM_WIDTH, high_to - TRIM_WIDTH, 0.0, depth, sill, sill + TRIM_HEIGHT)
+		_add_box(visuals, "TrimLedge_" + port, lip.center, lip.size, trim, lip.yaw)
 
 
 static func _add_closed_door(visuals: Node3D, boundaries: Node3D, context: Dictionary,
@@ -332,6 +349,52 @@ static func _add_closed_door(visuals: Node3D, boundaries: Node3D, context: Dicti
 ## Box over [from, to] along an outline edge, [depth_from, depth_to] inward from the edge and
 ## [y_from, y_to] up. Returns center, size, the along-edge length and the yaw (zero on an axis-aligned
 ## edge; a diagonal edge turns the box about Y so its local X runs along the wall).
+static func _add_ramps(visuals: Node3D, boundaries: Node3D, context: Dictionary) -> void:
+	for ramp: Dictionary in context.ramps:
+		_add_ramp(visuals, boundaries, context, ramp)
+
+
+static func _add_ramp(visuals: Node3D, boundaries: Node3D, context: Dictionary, ramp: Dictionary) -> void:
+	var port := String(ramp.port_id)
+	var start := Vector2(float(ramp.start_xz[0]), float(ramp.start_xz[1]))
+	var direction := Vector2(float(ramp.direction_xz[0]), float(ramp.direction_xz[1])).normalized()
+	start += direction * WALL_THICKNESS
+	var lateral := Vector2(-direction.y, direction.x)
+	var run := float(ramp.run_m)
+	var rise := float(ramp.rise_m)
+	var width := float(ramp.width_m)
+	var steps := maxi(6, int(ceil(run / 0.32)))
+	var material := MATERIALS.scaled(context.materials, "floor", run, width / maxf(1.0, float(steps)))
+	for index in steps:
+		var from := run * float(index) / float(steps)
+		var to := run * float(index + 1) / float(steps)
+		var top := rise * (1.0 - (float(index) + 0.5) / float(steps))
+		var center := start + direction * ((from + to) / 2.0)
+		var along := to - from
+		var size := Vector3(along, top, width) if absf(direction.x) > 0.5 else Vector3(width, top, along)
+		_add_box(visuals, "RampStep_%s_%02d" % [port, index],
+			Vector3(center.x, top / 2.0, center.y), size, material)
+	var body := StaticBody3D.new()
+	body.name = "Ramp_" + port
+	boundaries.add_child(body)
+	var collision := CollisionShape3D.new()
+	collision.name = "RampSlope"
+	var shape := ConvexPolygonShape3D.new()
+	var finish := start + direction * run
+	var half := lateral * (width / 2.0)
+	var points := PackedVector3Array([
+		Vector3(start.x - half.x, 0.0, start.y - half.y),
+		Vector3(start.x + half.x, 0.0, start.y + half.y),
+		Vector3(start.x - half.x, rise, start.y - half.y),
+		Vector3(start.x + half.x, rise, start.y + half.y),
+		Vector3(finish.x - half.x, 0.0, finish.y - half.y),
+		Vector3(finish.x + half.x, 0.0, finish.y + half.y),
+	])
+	shape.points = points
+	collision.shape = shape
+	body.add_child(collision)
+
+
 static func _edge_box(frame: Dictionary, from: float, to: float, depth_from: float, depth_to: float,
 		y_from: float, y_to: float) -> Dictionary:
 	var middle: Vector2 = frame.start + frame.direction * ((from + to) / 2.0) + frame.inward * ((depth_from + depth_to) / 2.0)

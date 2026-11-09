@@ -24,12 +24,11 @@ const MODULE_SWITCHES := {
 	"enable_environment": false, "apply_psx_preset": false,
 }
 const SPAWN_HEIGHT := 0.6
-const SAFETY_DEPTH := -4.0
 const SAFETY_MARGIN := 10.0
 const GENERATED_LIGHT_LAYER_COUNT := 19
 const MODULE_RENDER_LAYER := 20
 const LIGHT_CULL_DISTANCE_M := 6.2
-const LIT_VERSIONS := ["gmap-0.8.0", "gmap-0.9.0"]
+const LIT_VERSIONS := ["gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0"]
 const MODULE_ACOUSTICS_PATH := "res://room_catalog/module_acoustics.json"
 const MODULE_FLOOR_FALLBACKS := ["WalkableFloor", "AuthoredFloor", "AuthoredPlanarRouteFloor", "ConnectorThreshold"]
 ## Fallback map/rooms pair when no user args are given (godot-mcp run_project, #197). Gitignored.
@@ -132,6 +131,8 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 				_module_joints(specs[cell_id]),
 				{"diagonal_collision": diagonal_collision, "diagonal_pullback": diagonal_pullback,
 				"light_layer": _light_layer(cell_id)})
+			(rooms[cell_id] as Node3D).position.y = float(cell.get("floor_y", 0.0))
+	_add_risers()
 	_add_safety_net()
 	origin_cell = String(map.cells[0].cell_id)
 	if not specs.has(origin_cell):
@@ -189,7 +190,7 @@ func _place_module(cell: Dictionary, library_entries: Dictionary) -> void:
 	var room := packed.instantiate() as Node3D
 	room.name = String(cell.cell_id)
 	_apply_module_switches(room)
-	room.position = Vector3(float(placement.translation_xz[0]), floor_offset, float(placement.translation_xz[1]))
+	room.position = Vector3(float(placement.translation_xz[0]), float(cell.get("floor_y", 0.0)) + floor_offset, float(placement.translation_xz[1]))
 	room.rotation.y = -deg_to_rad(float(placement.rotation_deg))
 	add_child(room)
 	_strip_world_environments(room)
@@ -282,17 +283,125 @@ func _forced_closed(spec: Dictionary) -> PackedStringArray:
 	return closed
 
 
+func _add_risers() -> void:
+	if String(map.get("generator_version", "")) not in ["gmap-0.10.0"]:
+		return
+	var host := Node3D.new()
+	host.name = "Risers"
+	add_child(host)
+	var cells: Array[Dictionary] = []
+	for cell: Dictionary in map.cells:
+		if String(cell.role) != "void":
+			cells.append(cell)
+	for left_index in cells.size():
+		for right_index in range(left_index + 1, cells.size()):
+			_add_riser(host, cells[left_index], cells[right_index])
+
+
+func _add_riser(host: Node3D, left: Dictionary, right: Dictionary) -> void:
+	var shared := _shared_envelope_boundary(left, right)
+	if shared.is_empty():
+		return
+	var left_floor := float(left.get("floor_y", 0.0))
+	var right_floor := float(right.get("floor_y", 0.0))
+	if absf(left_floor - right_floor) <= 0.0001:
+		return
+	var upper_is_left := left_floor > right_floor
+	var upper: Dictionary = left if upper_is_left else right
+	var lower: Dictionary = right if upper_is_left else left
+	var upper_id := String(upper.cell_id)
+	var lower_id := String(lower.cell_id)
+	var bottom := minf(left_floor, right_floor)
+	var top := maxf(left_floor, right_floor) - 0.05
+	var height := top - bottom
+	var along: float = float(shared.high) - float(shared.low)
+	if along <= 0.0001 or height <= 0.0001:
+		return
+	var thickness := 0.16
+	var into := (-1.0 if bool(shared.left_is_low) else 1.0) * (1.0 if upper_is_left else -1.0)
+	var center := Vector3.ZERO
+	var size := Vector3.ZERO
+	if String(shared.axis) == "x":
+		center = Vector3(float(shared.boundary) + into * thickness / 2.0, (bottom + top) / 2.0,
+			(float(shared.low) + float(shared.high)) / 2.0)
+		size = Vector3(thickness, height, along)
+	else:
+		center = Vector3((float(shared.low) + float(shared.high)) / 2.0, (bottom + top) / 2.0,
+			float(shared.boundary) + into * thickness / 2.0)
+		size = Vector3(along, height, thickness)
+	var visual := MeshInstance3D.new()
+	visual.name = "WallRiser_%s_%sVisual" % [upper_id, lower_id]
+	visual.position = center
+	var mesh := BoxMesh.new()
+	mesh.size = size
+	visual.mesh = mesh
+	var upper_spec: Dictionary = specs.get(upper_id, {})
+	var material_set: Dictionary = materials_for(upper_spec) if not upper_spec.is_empty() else materials
+	visual.material_override = MATERIALS.scaled(material_set, "wallpaper", along, height)
+	if String(map.get("generator_version", "")) in LIT_VERSIONS:
+		var layer := MODULE_RENDER_LAYER if module_rooms.has(upper_id) else _light_layer(upper_id)
+		visual.layers = 1 << (layer - 1)
+	host.add_child(visual)
+	var body := StaticBody3D.new()
+	body.name = "WallRiser_%s_%s" % [upper_id, lower_id]
+	body.position = center
+	host.add_child(body)
+	var collision := CollisionShape3D.new()
+	collision.name = "CollisionShape3D"
+	var shape := BoxShape3D.new()
+	shape.size = size
+	collision.shape = shape
+	body.add_child(collision)
+
+
+## Shared axis-aligned envelope boundary, with the side into the higher cell.
+func _shared_envelope_boundary(left: Dictionary, right: Dictionary) -> Dictionary:
+	var left_rect := _envelope_rect(left)
+	var right_rect := _envelope_rect(right)
+	if absf(left_rect.end.x - right_rect.position.x) <= 0.0001:
+		return {"axis": "x", "boundary": left_rect.end.x,
+			"low": maxf(left_rect.position.y, right_rect.position.y),
+			"high": minf(left_rect.end.y, right_rect.end.y), "left_is_low": true} if minf(left_rect.end.y, right_rect.end.y) - maxf(left_rect.position.y, right_rect.position.y) > 0.0001 else {}
+	if absf(left_rect.position.x - right_rect.end.x) <= 0.0001:
+		return {"axis": "x", "boundary": left_rect.position.x,
+			"low": maxf(left_rect.position.y, right_rect.position.y),
+			"high": minf(left_rect.end.y, right_rect.end.y), "left_is_low": false} if minf(left_rect.end.y, right_rect.end.y) - maxf(left_rect.position.y, right_rect.position.y) > 0.0001 else {}
+	if absf(left_rect.end.y - right_rect.position.y) <= 0.0001:
+		return {"axis": "z", "boundary": left_rect.end.y,
+			"low": maxf(left_rect.position.x, right_rect.position.x),
+			"high": minf(left_rect.end.x, right_rect.end.x), "left_is_low": true} if minf(left_rect.end.x, right_rect.end.x) - maxf(left_rect.position.x, right_rect.position.x) > 0.0001 else {}
+	if absf(left_rect.position.y - right_rect.end.y) <= 0.0001:
+		return {"axis": "z", "boundary": left_rect.position.y,
+			"low": maxf(left_rect.position.x, right_rect.position.x),
+			"high": minf(left_rect.end.x, right_rect.end.x), "left_is_low": false} if minf(left_rect.end.x, right_rect.end.x) - maxf(left_rect.position.x, right_rect.position.x) > 0.0001 else {}
+	return {}
+
+
+func _envelope_rect(cell: Dictionary) -> Rect2:
+	var points: Array = cell.envelope_xz
+	var minimum := Vector2(float(points[0][0]), float(points[0][1]))
+	var maximum := minimum
+	for point: Array in points:
+		minimum.x = minf(minimum.x, float(point[0]))
+		minimum.y = minf(minimum.y, float(point[1]))
+		maximum.x = maxf(maximum.x, float(point[0]))
+		maximum.y = maxf(maximum.y, float(point[1]))
+	return Rect2(minimum, maximum - minimum)
+
+
 func _add_safety_net() -> void:
 	var bounds := Rect2()
 	var first := true
+	var lowest := 0.0
 	for cell: Dictionary in map.cells:
 		var envelope := Rect2(Vector2(cell.envelope_xz[0][0], cell.envelope_xz[0][1]), Vector2.ZERO)
 		envelope = envelope.expand(Vector2(cell.envelope_xz[2][0], cell.envelope_xz[2][1]))
 		bounds = envelope if first else bounds.merge(envelope)
+		lowest = minf(lowest, float(cell.get("floor_y", 0.0))) if not first else float(cell.get("floor_y", 0.0))
 		first = false
 	var safety := StaticBody3D.new()
 	safety.name = "SafetyNet"
-	safety.position = Vector3(bounds.get_center().x, SAFETY_DEPTH, bounds.get_center().y)
+	safety.position = Vector3(bounds.get_center().x, lowest - 4.0, bounds.get_center().y)
 	add_child(safety)
 	var shape := CollisionShape3D.new()
 	var box := BoxShape3D.new()
@@ -307,7 +416,8 @@ func _compute_spawn(spec: Dictionary) -> void:
 		if _area(rect) > _area(largest):
 			largest = rect
 	var center := Vector2((float(largest[0]) + float(largest[2])) / 2.0, (float(largest[1]) + float(largest[3])) / 2.0)
-	spawn_position = Vector3(center.x, SPAWN_HEIGHT, center.y)
+	var floor_y := float(spec.get("floor_y", 0.0))
+	spawn_position = Vector3(center.x, floor_y + SPAWN_HEIGHT, center.y)
 	spawn_yaw = 0.0
 	for doorway: Dictionary in spec.doorways:
 		if String(doorway.kind) == "open":

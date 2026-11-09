@@ -17,6 +17,7 @@ from gmap_build import (
     GENERATOR_VERSION_V7,
     GENERATOR_VERSION_V8,
     GENERATOR_VERSION_V9,
+    GENERATOR_VERSION_V10,
     GENERATOR_VERSION_V61,
     MARGIN_VERSIONS,
     MODULE_VERSIONS,
@@ -130,11 +131,11 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
     cells, edges = document["cells"], document["edges"]
     rects, errors = parse_rects(cells)
     light_library = None
-    if document["generator_version"] in (GENERATOR_VERSION_V8, GENERATOR_VERSION_V9):
+    if document["generator_version"] in (GENERATOR_VERSION_V8, GENERATOR_VERSION_V9, GENERATOR_VERSION_V10):
         light_library, library_errors = _load_library_for_validation(document, root)
         errors += library_errors
     library_unavailable = (
-        document["generator_version"] in (GENERATOR_VERSION_V8, GENERATOR_VERSION_V9)
+        document["generator_version"] in (GENERATOR_VERSION_V8, GENERATOR_VERSION_V9, GENERATOR_VERSION_V10)
         and light_library is None
     )
     map_cells = [c for c in cells if not c.get("diagonal_passage")]
@@ -159,6 +160,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V7,
             GENERATOR_VERSION_V8,
             GENERATOR_VERSION_V9,
+            GENERATOR_VERSION_V10,
         ):
             margin_cells = [
                 {
@@ -185,11 +187,12 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V7,
             GENERATOR_VERSION_V8,
             GENERATOR_VERSION_V9,
+            GENERATOR_VERSION_V10,
         ):
             base = {
                 **document,
                 "cells": map_cells,
-                "edges": [e for e in edges if e.get("kind") != "diagonal"],
+                "edges": [e for e in edges if e.get("kind") not in ("diagonal", "elevation_loop")],
             }
             errors += module_errors(base, map_rects, root, light_library)
         else:
@@ -200,6 +203,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         GENERATOR_VERSION_V7,
         GENERATOR_VERSION_V8,
         GENERATOR_VERSION_V9,
+        GENERATOR_VERSION_V10,
     ):
         errors += landmark_errors(document)
     palette_issues: Errors = []
@@ -212,10 +216,16 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V7,
             GENERATOR_VERSION_V8,
             GENERATOR_VERSION_V9,
+            GENERATOR_VERSION_V10,
         )
         and not library_unavailable
     ):
-        palette_issues = palette_errors(document, root, light_library)
+        checks_document = document
+        if document["generator_version"] == GENERATOR_VERSION_V10:
+            from gmap_elevation import strip_elevation
+
+            checks_document = strip_elevation(document)
+        palette_issues = palette_errors(checks_document, root, light_library)
         errors += palette_issues
     palette_registry_blocked = any(
         error["code"]
@@ -228,7 +238,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         for error in palette_issues
     )
     if (
-        document["generator_version"] == GENERATOR_VERSION_V9
+        document["generator_version"] in (GENERATOR_VERSION_V9, GENERATOR_VERSION_V10)
         and not library_unavailable
         and not palette_registry_blocked
     ):
@@ -253,13 +263,14 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         GENERATOR_VERSION_V7,
         GENERATOR_VERSION_V8,
         GENERATOR_VERSION_V9,
+        GENERATOR_VERSION_V10,
     ):
         tree_walkable = [
             c
             for c in walkable
             if not next(x for x in cells if x["cell_id"] == c).get("diagonal_passage")
         ]
-        tree_edges = [e for e in edges if e.get("kind") != "diagonal"]
+        tree_edges = [e for e in edges if e.get("kind") not in ("diagonal", "elevation_loop")]
         errors += check_tree(tree_walkable, tree_edges)
         errors += diagonal_errors(document)
         if document["generator_version"] in (
@@ -267,6 +278,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V7,
             GENERATOR_VERSION_V8,
             GENERATOR_VERSION_V9,
+            GENERATOR_VERSION_V10,
         ):
             errors += reservation_errors(document)
     else:
@@ -276,10 +288,14 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         roles, edges, document["void_budget"]
     )
     if (
-        document["generator_version"] in (GENERATOR_VERSION_V8, GENERATOR_VERSION_V9)
+        document["generator_version"] in (GENERATOR_VERSION_V8, GENERATOR_VERSION_V9, GENERATOR_VERSION_V10)
         and light_library is not None
     ):
         errors += light_errors(document, light_library)
+    if document["generator_version"] == GENERATOR_VERSION_V10:
+        from gmap_elevation import elevation_errors
+
+        errors += elevation_errors(document)
     return errors
 
 

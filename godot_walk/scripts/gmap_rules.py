@@ -133,7 +133,7 @@ def check_tree(walkable: list[str], edges: list[dict[str, Any]]) -> Errors:
 
     errors = []
     for edge in edges:
-        if edge.get("kind") == "diagonal":
+        if edge.get("kind") in ("diagonal", "elevation_loop"):
             continue
         a, b = edge_cells(edge)
         if edge["connector"] != "direct" or a not in parent or b not in parent:

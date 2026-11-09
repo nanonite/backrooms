@@ -6,6 +6,7 @@ import math
 from typing import Any
 
 from doorway_sizes import DEFAULT_TYPE, doorway_size
+from gmap_elevation import RAMP_RISE_M, RAMP_RUN_M, RAMP_WIDTH_M
 from gmap_geometry import polygon_rect
 from poetics_geometry import classify_primitive, num, signed_area
 from shape_room_arms import arm_rects, arm_width_range, primitive_for
@@ -41,6 +42,7 @@ from shape_room_rng import (
     GENERATOR_VERSION_V7,
     GENERATOR_VERSION_V8,
     GENERATOR_VERSION_V9,
+    GENERATOR_VERSION_V10,
     V4_PLUS,
     cell_rng,
     version_for_map,
@@ -132,10 +134,60 @@ def draw(
     }
 
 
+def ramp_records(
+    cell: dict[str, Any], document: dict[str, Any]
+) -> list[dict[str, Any]]:
+    """Ramps that descend inside this cell, in room-local coordinates."""
+    records: list[dict[str, Any]] = []
+    if "floor_y" not in cell:
+        return records
+    for edge in document["edges"]:
+        ramp = edge.get("ramp")
+        if not ramp or str(ramp.get("lower_cell_id", "")) != cell["cell_id"]:
+            continue
+        upper = str(ramp.get("upper_cell_id", ""))
+        port_id = edge["from"] if edge["from"].split(":")[0] == cell["cell_id"] else edge["to"]
+        port = next(
+            (item for item in cell["required_ports"] if item["port_id"] == port_id),
+            None,
+        )
+        if port is None:
+            continue
+        normal = (float(port["normal"][0]), float(port["normal"][1]))
+        direction = (-normal[0], -normal[1])
+        records.append(
+            {
+                "port_id": port_id,
+                "upper_cell_id": upper,
+                "start_xz": [num(v) for v in port["pos_xz"]],
+                "direction_xz": [num(direction[0]), num(direction[1])],
+                "run_m": num(float(ramp.get("run_m", RAMP_RUN_M))),
+                "rise_m": num(float(ramp.get("rise_m", RAMP_RISE_M))),
+                "width_m": num(float(ramp.get("width_m", RAMP_WIDTH_M))),
+                "angle_deg": num(float(ramp.get("angle_deg", 24.78))),
+            }
+        )
+    return records
+
+
 def doorway_records(
-    cell: dict[str, Any], links: dict[str, tuple[str, str]], typed: bool = False
+    cell: dict[str, Any],
+    links: dict[str, tuple[str, str]],
+    typed: bool = False,
+    document: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     """Doorway records; `typed` (shape-room-0.3.0) also names each doorway's compatibility type."""
+    edges = {}
+    floors = {}
+    if document is not None and "cells" in document:
+        floors = {
+            item["cell_id"]: float(item.get("floor_y", 0.0))
+            for item in document["cells"]
+        }
+        for edge in document["edges"]:
+            edges[edge["from"]] = edge
+            edges[edge["to"]] = edge
+    own_floor = floors.get(cell["cell_id"], 0.0)
     records = []
     for port in sorted(cell["required_ports"], key=lambda p: p["port_id"]):
         if port["port_id"] not in links:
@@ -156,6 +208,14 @@ def doorway_records(
         }
         if typed:
             record["compatibility_type"] = port["compatibility_type"]
+        if document is not None and "floor_y" in cell:
+            edge = edges.get(port["port_id"], {})
+            vertical = str(edge.get("vertical", "level"))
+            other_floor = floors.get(record["to_cell_id"], own_floor)
+            sill = max(0.0, other_floor - own_floor) if vertical in ("ramp", "drop") else 0.0
+            record["sill_height_m"] = num(sill)
+            if vertical != "level":
+                record["vertical"] = vertical
         records.append(record)
     return records
 
@@ -344,7 +404,9 @@ def build_spec(
     geometry = room_geometry(
         cell, envelope, choices, set(degenerate_ports(cell)) if v2 else None, document
     )
-    doorways = doorway_records(cell, links, version in (GENERATOR_VERSION_V3, *V4_PLUS))
+    doorways = doorway_records(
+        cell, links, version in (GENERATOR_VERSION_V3, *V4_PLUS), document
+    )
     is_arms = choices["construction"] == "arms"
     spec = {
         "schema_version": 1,
@@ -376,6 +438,7 @@ def build_spec(
             GENERATOR_VERSION_V7,
             GENERATOR_VERSION_V8,
             GENERATOR_VERSION_V9,
+            GENERATOR_VERSION_V10,
         )
         else "kit_default",
         "materials": palette_materials(cell)
@@ -386,12 +449,18 @@ def build_spec(
             GENERATOR_VERSION_V7,
             GENERATOR_VERSION_V8,
             GENERATOR_VERSION_V9,
+            GENERATOR_VERSION_V10,
         )
         else MATERIALS,
         "features": feature_records(doorways),
         "registration_accepted": False,
         "scale_calibrated": False,
     }
+    if "floor_y" in cell:
+        spec["floor_y"] = num(float(cell["floor_y"]))
+        ramps = ramp_records(cell, document)
+        if ramps:
+            spec["ramps"] = ramps
     if v2:
         spec.update(mode_fields(cell))
     if geometry["chamfers"]:
@@ -414,7 +483,7 @@ def _landmark_spec(
     version: str,
 ) -> dict[str, Any]:
     geometry = landmark_fields(cell)
-    doors = doorway_records(cell, links, True)
+    doors = doorway_records(cell, links, True, document)
     lo_x, lo_z = (
         min(p[0] for p in cell["envelope_xz"]),
         min(p[1] for p in cell["envelope_xz"]),
@@ -472,6 +541,8 @@ def _landmark_spec(
         "scale_calibrated": False,
         "landmark": dict(cell["landmark"]),
     }
+    if "floor_y" in cell:
+        spec["floor_y"] = num(float(cell["floor_y"]))
     spec.update(mode_fields(cell))
     return spec
 
@@ -486,12 +557,12 @@ def _diagonal_passage_spec(
     version: str,
 ) -> dict[str, Any]:
     meta = cell["diagonal_passage"]
-    doorways = doorway_records(cell, links, True)
+    doorways = doorway_records(cell, links, True, document)
     low_x, low_z, high_x, high_z = envelope
     broad: Rect = (low_x, low_z, high_x, high_z)
     outline = [[num(p[0]), num(p[1])] for p in meta["outline_xz"]]
     area = abs(signed_area([(p[0], p[1]) for p in outline]))
-    return {
+    spec = {
         "schema_version": 1,
         "generator_version": version,
         "map_id": document["map_id"],
@@ -531,3 +602,6 @@ def _diagonal_passage_spec(
             "length_m": meta["length_m"],
         },
     }
+    if "floor_y" in cell:
+        spec["floor_y"] = num(float(cell["floor_y"]))
+    return spec

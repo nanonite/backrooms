@@ -12,7 +12,7 @@
   ],
   "properties": {
     "schema_version": { "const": 1 },
-    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0", "shape-room-0.8.0", "shape-room-0.9.0"] },
+    "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0", "shape-room-0.8.0", "shape-room-0.9.0", "shape-room-0.10.0"] },
     "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
     "map_sha256": { "$ref": "#/$defs/sha256" },
     "cell_id": { "type": "string", "minLength": 1 },
@@ -30,6 +30,30 @@
     "outline_xz": { "type": "array", "minItems": 4, "items": { "$ref": "#/$defs/point_xz" } },
     "area_m2": { "type": "number", "exclusiveMinimum": 0 },
     "ceiling_height_m": { "type": "number", "exclusiveMinimum": 2.1 },
+    "floor_y": {
+      "description": "gmap-0.10.0: absolute map floor level; the room itself stays local with floor at y = 0.",
+      "type": "number"
+    },
+    "ramps": {
+      "description": "gmap-0.10.0: ramps that descend inside this room from an upper doorway.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["port_id", "upper_cell_id", "start_xz", "direction_xz", "run_m", "rise_m", "width_m", "angle_deg"],
+        "properties": {
+          "port_id": {"type": "string", "minLength": 1},
+          "upper_cell_id": {"type": "string", "minLength": 1},
+          "start_xz": {"$ref": "#/$defs/point_xz"},
+          "direction_xz": {"$ref": "#/$defs/point_xz"},
+          "run_m": {"type": "number", "exclusiveMinimum": 0},
+          "rise_m": {"type": "number", "exclusiveMinimum": 0},
+          "width_m": {"type": "number", "exclusiveMinimum": 0},
+          "angle_deg": {"type": "number", "exclusiveMinimum": 0, "maximum": 25.0}
+        },
+        "additionalProperties": false
+      }
+    },
     "doorways": {
       "type": "array",
       "minItems": 1,
@@ -41,6 +65,8 @@
           "pos_xz": { "$ref": "#/$defs/point_xz" },
           "normal": { "$ref": "#/$defs/direction8" },
           "width_m": { "enum": [2.0, 2.4] },
+          "sill_height_m": {"type": "number", "minimum": 0},
+          "vertical": {"enum": ["ramp", "drop"]},
           "height_m": { "enum": [2.1, 2.2] },
           "compatibility_type": {
             "description": "Optional (shape-room-0.3.0). Selects the doorway size from the shared lookup table (scripts/doorway_sizes.py / .gd).",
@@ -207,6 +233,7 @@
     {"if": {"properties": {"shape_stage": {"const": 3}}, "required": ["shape_stage"]}, "then": {"properties": {"construction": {"const": "regular_polygon"}}}},
     {"if": {"properties": {"generator_version": {"const": "shape-room-0.8.0"}}, "required": ["generator_version"]}, "then": {"required": ["light"]}},
     {"if": {"properties": {"generator_version": {"const": "shape-room-0.9.0"}}, "required": ["generator_version"]}, "then": {"required": ["light"], "properties": {"materials": {"required": ["registry_version", "wear", "acoustic", "variants"]}}}},
+    {"if": {"properties": {"generator_version": {"const": "shape-room-0.10.0"}}, "required": ["generator_version"]}, "then": {"required": ["floor_y", "light"], "properties": {"materials": {"required": ["registry_version", "wear", "acoustic", "variants"]}}}},
     {"if": {"not": {"properties": {"construction": {"const": "regular_polygon"}}, "required": ["construction"]}}, "then": {"properties": {"arms_xz": {"minItems": 1}}}}
   ],
   "additionalProperties": false,
@@ -255,7 +282,7 @@
       "required": ["schema_version", "generator_version", "map_id", "map_file", "mode", "rooms"],
       "properties": {
         "schema_version": { "const": 1 },
-        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0", "shape-room-0.8.0", "shape-room-0.9.0"] },
+        "generator_version": { "enum": ["shape-room-0.1.0", "shape-room-0.2.0", "shape-room-0.3.0", "shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0", "shape-room-0.8.0", "shape-room-0.9.0", "shape-room-0.10.0"] },
         "map_id": { "type": "string", "pattern": "^gmap-[0-9]+-.+$" },
         "map_file": {
           "type": "object",

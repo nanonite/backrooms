@@ -59,6 +59,10 @@
           "cell_id": { "type": "string", "minLength": 1 },
           "envelope_xz": { "type": "array", "minItems": 3, "items": { "$ref": "#/$defs/point_xz" } },
           "ceiling_range_m": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+          "floor_y": {
+            "description": "gmap-0.10.0: floor level in metres, one of -3.0, -1.5, 0, 1.5, 3.0. The spawn cell is 0.",
+            "enum": [-3.0, -1.5, 0.0, 1.5, 3.0]
+          },
           "allowed_primitives": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
           "required_ports": {
             "type": "array",
@@ -173,8 +177,35 @@
             "description": "Optional (gmap-0.3.0). proposed_untested: a new joint (generated cell to a library module's tested socket) that no operator has walked; it never inherits the #160 / #168 pair approval.",
             "enum": ["proposed_untested"]
           },
-          "kind": {"enum": ["diagonal"]},
-          "diagonal_link_id": {"type": "string", "minLength": 1}
+          "kind": {"enum": ["diagonal", "elevation_loop"]},
+          "diagonal_link_id": {"type": "string", "minLength": 1},
+          "vertical": {
+            "description": "gmap-0.10.0: level, bidirectional ramp, or one-way drop from upper to lower.",
+            "enum": ["level", "ramp", "drop"]
+          },
+          "ramp": {
+            "type": "object",
+            "required": ["lower_cell_id", "upper_cell_id", "rise_m", "run_m", "width_m", "angle_deg"],
+            "properties": {
+              "lower_cell_id": {"type": "string", "minLength": 1},
+              "upper_cell_id": {"type": "string", "minLength": 1},
+              "rise_m": {"type": "number", "exclusiveMinimum": 0},
+              "run_m": {"type": "number", "exclusiveMinimum": 0},
+              "width_m": {"type": "number", "exclusiveMinimum": 0},
+              "angle_deg": {"type": "number", "exclusiveMinimum": 0, "maximum": 25.0}
+            },
+            "additionalProperties": false
+          },
+          "drop": {
+            "type": "object",
+            "required": ["upper_cell_id", "lower_cell_id", "drop_m"],
+            "properties": {
+              "upper_cell_id": {"type": "string", "minLength": 1},
+              "lower_cell_id": {"type": "string", "minLength": 1},
+              "drop_m": {"type": "number", "minimum": 1.5, "maximum": 4.5}
+            },
+            "additionalProperties": false
+          }
         },
         "additionalProperties": false
       }
@@ -266,7 +297,45 @@
       },
       "additionalProperties": false
     },
+    "elevation_loops": {
+      "description": "gmap-0.10.0: non-tree level loop edges added so drops keep a return route.",
+      "type": "object",
+      "required": ["budget", "used", "pairs"],
+      "properties": {
+        "budget": {"type": "integer", "minimum": 0},
+        "used": {"type": "integer", "minimum": 0},
+        "pairs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["from_cell_id", "to_cell_id", "port_id"],
+            "properties": {
+              "from_cell_id": {"type": "string", "minLength": 1},
+              "to_cell_id": {"type": "string", "minLength": 1},
+              "port_id": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
     "rules": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "elevation": {
+      "description": "gmap-0.10.0: deterministic elevation layer parameters.",
+      "type": "object",
+      "required": ["stream", "levels_m", "change_probability", "drop_probability", "ramp_rise_m", "ramp_min_run_m", "clearance_m"],
+      "properties": {
+        "stream": {"type": "string", "minLength": 1},
+        "levels_m": {"type": "array", "items": {"type": "number"}, "minItems": 5, "maxItems": 5, "uniqueItems": true},
+        "change_probability": {"type": "number", "minimum": 0, "maximum": 1},
+        "drop_probability": {"type": "number", "minimum": 0, "maximum": 1},
+        "ramp_rise_m": {"type": "number", "exclusiveMinimum": 0},
+        "ramp_min_run_m": {"type": "number", "exclusiveMinimum": 0},
+        "clearance_m": {"type": "number", "exclusiveMinimum": 0}
+      },
+      "additionalProperties": false
+    },
     "registration_accepted": { "const": false },
     "scale_calibrated": { "const": false }
   },
@@ -322,6 +391,31 @@
               ]
             }
           }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"generator_version": {"const": "gmap-0.10.0"}}, "required": ["generator_version"]},
+      "then": {
+        "required": ["layout_variant", "growth_cell_target", "dark_wing", "palette_registry", "elevation", "elevation_loops"],
+        "properties": {
+          "shape_stage_max": {"const": 3},
+          "cells": {
+            "items": {
+              "allOf": [
+                {"required": ["floor_y"]},
+                {
+                  "if": {
+                    "properties": {"role": {"enum": ["ground", "figure", "threshold"]}},
+                    "required": ["role"],
+                    "not": {"required": ["module"]}
+                  },
+                  "then": {"required": ["light", "wear", "surface_variants"]}
+                }
+              ]
+            }
+          },
+          "edges": {"items": {"required": ["vertical"]}}
         }
       }
     }

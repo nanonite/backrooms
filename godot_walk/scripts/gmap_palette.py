@@ -36,8 +36,8 @@ COIN_PROBABILITY = 0.5
 
 def palette_rng(seed: int, attempt: int, version: str) -> random.Random:
     """Separate sha256-derived stream; never Python hash()."""
-    if version in ("gmap-0.8.0", "gmap-0.9.0"):
-        version = "gmap-0.7.0"  # v0.8 adds lighting, v0.9 adds surfaces; palette assignment is unchanged.
+    if version in ("gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0"):
+        version = "gmap-0.7.0"  # v0.8 adds lighting, v0.9 surfaces, v0.10 elevation; palette assignment is unchanged.
     digest = hashlib.sha256(f"{seed}:{attempt}:palette:{version}".encode()).digest()
     return random.Random(int.from_bytes(digest, "big"))
 
@@ -175,7 +175,7 @@ def palette_errors(
             )
         ]
     errors: Errors = []
-    if document["generator_version"] == "gmap-0.9.0" and ref != registry_ref_v2(root):
+    if document["generator_version"] in ("gmap-0.9.0", "gmap-0.10.0") and ref != registry_ref_v2(root):
         errors.append(
             err(
                 RULE,
