@@ -1,0 +1,1134 @@
+{
+  "audio_dir": "godot_walk/audio/footsteps",
+  "distance_tags": [
+    "carpet",
+    "concrete",
+    "tile",
+    "plaster",
+    "metal",
+    "wood",
+    "debris",
+    "default",
+    "land"
+  ],
+  "generator": "godot_walk/scripts/footstep_audit.py",
+  "generator_version": "footstep-audit-0.1.0",
+  "loudness": {
+    "passes": false,
+    "target_dbfs": -19.9,
+    "tolerance_db": 1.5,
+    "violations": [
+      {
+        "deviation_db": -1.689,
+        "rms_dbfs": -21.589,
+        "tag": "carpet",
+        "variant": "godot_walk/audio/footsteps/carpet/carpet_01.wav"
+      },
+      {
+        "deviation_db": 2.126,
+        "rms_dbfs": -17.774,
+        "tag": "carpet",
+        "variant": "godot_walk/audio/footsteps/carpet/carpet_04.wav"
+      },
+      {
+        "deviation_db": -2.929,
+        "rms_dbfs": -22.829,
+        "tag": "concrete",
+        "variant": "godot_walk/audio/footsteps/concrete/concrete_01.wav"
+      },
+      {
+        "deviation_db": -1.543,
+        "rms_dbfs": -21.443,
+        "tag": "concrete",
+        "variant": "godot_walk/audio/footsteps/concrete/concrete_03.wav"
+      },
+      {
+        "deviation_db": -1.789,
+        "rms_dbfs": -21.689,
+        "tag": "tile",
+        "variant": "godot_walk/audio/footsteps/tile/tile_01.wav"
+      },
+      {
+        "deviation_db": -1.979,
+        "rms_dbfs": -21.879,
+        "tag": "tile",
+        "variant": "godot_walk/audio/footsteps/tile/tile_04.wav"
+      },
+      {
+        "deviation_db": -2.598,
+        "rms_dbfs": -22.498,
+        "tag": "plaster",
+        "variant": "godot_walk/audio/footsteps/plaster/plaster_01.wav"
+      },
+      {
+        "deviation_db": -2.199,
+        "rms_dbfs": -22.099,
+        "tag": "plaster",
+        "variant": "godot_walk/audio/footsteps/plaster/plaster_04.wav"
+      },
+      {
+        "deviation_db": -3.345,
+        "rms_dbfs": -23.245,
+        "tag": "metal",
+        "variant": "godot_walk/audio/footsteps/metal/metal_01.wav"
+      },
+      {
+        "deviation_db": -2.546,
+        "rms_dbfs": -22.446,
+        "tag": "metal",
+        "variant": "godot_walk/audio/footsteps/metal/metal_02.wav"
+      },
+      {
+        "deviation_db": -1.514,
+        "rms_dbfs": -21.414,
+        "tag": "metal",
+        "variant": "godot_walk/audio/footsteps/metal/metal_04.wav"
+      },
+      {
+        "deviation_db": -2.588,
+        "rms_dbfs": -22.488,
+        "tag": "wood",
+        "variant": "godot_walk/audio/footsteps/wood/wood_01.wav"
+      },
+      {
+        "deviation_db": -2.642,
+        "rms_dbfs": -22.542,
+        "tag": "wood",
+        "variant": "godot_walk/audio/footsteps/wood/wood_02.wav"
+      },
+      {
+        "deviation_db": -1.697,
+        "rms_dbfs": -21.597,
+        "tag": "debris",
+        "variant": "godot_walk/audio/footsteps/debris/debris_02.wav"
+      },
+      {
+        "deviation_db": -1.682,
+        "rms_dbfs": -21.582,
+        "tag": "debris",
+        "variant": "godot_walk/audio/footsteps/debris/debris_03.wav"
+      },
+      {
+        "deviation_db": -2.094,
+        "rms_dbfs": -21.994,
+        "tag": "default",
+        "variant": "godot_walk/audio/footsteps/default/default_02.wav"
+      }
+    ]
+  },
+  "matrix": {
+    "carpet": {
+      "carpet": 0.0,
+      "concrete": 0.652998,
+      "debris": 0.267916,
+      "default": 0.481965,
+      "land": 0.678363,
+      "metal": 1.057229,
+      "plaster": 0.279987,
+      "tile": 0.91771,
+      "wood": 0.690237
+    },
+    "concrete": {
+      "carpet": 0.652998,
+      "concrete": 0.0,
+      "debris": 0.39253,
+      "default": 0.188853,
+      "land": 1.326686,
+      "metal": 0.427593,
+      "plaster": 0.39566,
+      "tile": 0.279227,
+      "wood": 0.045709
+    },
+    "debris": {
+      "carpet": 0.267916,
+      "concrete": 0.39253,
+      "debris": 0.0,
+      "default": 0.239527,
+      "land": 0.93712,
+      "metal": 0.796936,
+      "plaster": 0.083415,
+      "tile": 0.656557,
+      "wood": 0.431048
+    },
+    "default": {
+      "carpet": 0.481965,
+      "concrete": 0.188853,
+      "debris": 0.239527,
+      "default": 0.0,
+      "land": 1.160132,
+      "metal": 0.614038,
+      "plaster": 0.226025,
+      "tile": 0.465906,
+      "wood": 0.218462
+    },
+    "land": {
+      "carpet": 0.678363,
+      "concrete": 1.326686,
+      "debris": 0.93712,
+      "default": 1.160132,
+      "land": 0.0,
+      "metal": 1.712891,
+      "plaster": 0.952255,
+      "tile": 1.581003,
+      "wood": 1.365296
+    },
+    "metal": {
+      "carpet": 1.057229,
+      "concrete": 0.427593,
+      "debris": 0.796936,
+      "default": 0.614038,
+      "land": 1.712891,
+      "metal": 0.0,
+      "plaster": 0.815187,
+      "tile": 0.14921,
+      "wood": 0.402991
+    },
+    "plaster": {
+      "carpet": 0.279987,
+      "concrete": 0.39566,
+      "debris": 0.083415,
+      "default": 0.226025,
+      "land": 0.952255,
+      "metal": 0.815187,
+      "plaster": 0.0,
+      "tile": 0.67039,
+      "wood": 0.43011
+    },
+    "tile": {
+      "carpet": 0.91771,
+      "concrete": 0.279227,
+      "debris": 0.656557,
+      "default": 0.465906,
+      "land": 1.581003,
+      "metal": 0.14921,
+      "plaster": 0.67039,
+      "tile": 0.0,
+      "wood": 0.253845
+    },
+    "wood": {
+      "carpet": 0.690237,
+      "concrete": 0.045709,
+      "debris": 0.431048,
+      "default": 0.218462,
+      "land": 1.365296,
+      "metal": 0.402991,
+      "plaster": 0.43011,
+      "tile": 0.253845,
+      "wood": 0.0
+    }
+  },
+  "schema_version": 1,
+  "separability": {
+    "minimum_distance": 0.045709,
+    "minimum_pair": [
+      "concrete",
+      "wood"
+    ],
+    "passes": false,
+    "threshold": 0.6
+  },
+  "tags": {
+    "carpet": {
+      "band_energy_dbfs": {
+        "band_200_800": -28.243,
+        "band_800_3000": -44.052,
+        "band_above_3000": -78.469,
+        "sub_200": -26.035
+      },
+      "band_fraction": {
+        "band_200_800": 0.372868,
+        "band_800_3000": 0.009871,
+        "band_above_3000": 4e-06,
+        "sub_200": 0.617258
+      },
+      "crest_factor_db": 13.898,
+      "peak_dbfs": -6.021,
+      "rms_dbfs": -19.919,
+      "spectral_centroid_hz": 190.9,
+      "t60_s": 0.421331,
+      "tag": "carpet",
+      "variant_count": 4
+    },
+    "concrete": {
+      "band_energy_dbfs": {
+        "band_200_800": -28.171,
+        "band_800_3000": -38.558,
+        "band_above_3000": -69.234,
+        "sub_200": -28.197
+      },
+      "band_fraction": {
+        "band_200_800": 0.479763,
+        "band_800_3000": 0.0438,
+        "band_above_3000": 3.7e-05,
+        "sub_200": 0.476399
+      },
+      "crest_factor_db": 14.88,
+      "peak_dbfs": -6.021,
+      "rms_dbfs": -20.901,
+      "spectral_centroid_hz": 281.845,
+      "t60_s": 0.353208,
+      "tag": "concrete",
+      "variant_count": 4
+    },
+    "debris": {
+      "band_energy_dbfs": {
+        "band_200_800": -30.116,
+        "band_800_3000": -42.358,
+        "band_above_3000": -75.268,
+        "sub_200": -28.459
+      },
+      "band_fraction": {
+        "band_200_800": 0.395998,
+        "band_800_3000": 0.02463,
+        "band_above_3000": 1.2e-05,
+        "sub_200": 0.57936
+      },
+      "crest_factor_db": 15.41,
+      "peak_dbfs": -6.021,
+      "rms_dbfs": -21.431,
+      "spectral_centroid_hz": 227.236,
+      "t60_s": 0.399447,
+      "tag": "debris",
+      "variant_count": 4
+    },
+    "default": {
+      "band_energy_dbfs": {
+        "band_200_800": -28.909,
+        "band_800_3000": -41.327,
+        "band_above_3000": -74.589,
+        "sub_200": -28.549
+      },
+      "band_fraction": {
+        "band_200_800": 0.466456,
+        "band_800_3000": 0.027021,
+        "band_above_3000": 1.3e-05,
+        "sub_200": 0.506511
+      },
+      "crest_factor_db": 14.862,
+      "peak_dbfs": -6.021,
+      "rms_dbfs": -20.884,
+      "spectral_centroid_hz": 249.048,
+      "t60_s": 0.348445,
+      "tag": "default",
+      "variant_count": 4
+    },
+    "land": {
+      "band_energy_dbfs": {
+        "band_200_800": -29.362,
+        "band_800_3000": -47.244,
+        "band_above_3000": -83.252,
+        "sub_200": -24.156
+      },
+      "band_fraction": {
+        "band_200_800": 0.230851,
+        "band_800_3000": 0.003759,
+        "band_above_3000": 1e-06,
+        "sub_200": 0.765388
+      },
+      "crest_factor_db": 14.031,
+      "peak_dbfs": -6.021,
+      "rms_dbfs": -20.052,
+      "spectral_centroid_hz": 131.44,
+      "t60_s": 0.561536,
+      "tag": "land",
+      "variant_count": 1
+    },
+    "metal": {
+      "band_energy_dbfs": {
+        "band_200_800": -30.288,
+        "band_800_3000": -38.059,
+        "band_above_3000": -66.154,
+        "sub_200": -31.845
+      },
+      "band_fraction": {
+        "band_200_800": 0.535656,
+        "band_800_3000": 0.089385,
+        "band_above_3000": 0.000139,
+        "sub_200": 0.37482
+      },
+      "crest_factor_db": 15.976,
+      "peak_dbfs": -6.021,
+      "rms_dbfs": -21.997,
+      "spectral_centroid_hz": 364.42,
+      "t60_s": 0.376693,
+      "tag": "metal",
+      "variant_count": 4
+    },
+    "plaster": {
+      "band_energy_dbfs": {
+        "band_200_800": -31.459,
+        "band_800_3000": -44.253,
+        "band_above_3000": -76.491,
+        "sub_200": -29.662
+      },
+      "band_fraction": {
+        "band_200_800": 0.390423,
+        "band_800_3000": 0.020721,
+        "band_above_3000": 1.2e-05,
+        "sub_200": 0.588844
+      },
+      "crest_factor_db": 15.495,
+      "peak_dbfs": -6.021,
+      "rms_dbfs": -21.517,
+      "spectral_centroid_hz": 225.352,
+      "t60_s": 0.368612,
+      "tag": "plaster",
+      "variant_count": 4
+    },
+    "tile": {
+      "band_energy_dbfs": {
+        "band_200_800": -28.028,
+        "band_800_3000": -36.584,
+        "band_above_3000": -65.591,
+        "sub_200": -29.153
+      },
+      "band_fraction": {
+        "band_200_800": 0.519333,
+        "band_800_3000": 0.073054,
+        "band_above_3000": 9.1e-05,
+        "sub_200": 0.407522
+      },
+      "crest_factor_db": 14.672,
+      "peak_dbfs": -6.021,
+      "rms_dbfs": -20.693,
+      "spectral_centroid_hz": 333.083,
+      "t60_s": 0.364087,
+      "tag": "tile",
+      "variant_count": 4
+    },
+    "wood": {
+      "band_energy_dbfs": {
+        "band_200_800": -29.496,
+        "band_800_3000": -40.414,
+        "band_above_3000": -72.449,
+        "sub_200": -29.728
+      },
+      "band_fraction": {
+        "band_200_800": 0.492649,
+        "band_800_3000": 0.040067,
+        "band_above_3000": 2.5e-05,
+        "sub_200": 0.467259
+      },
+      "crest_factor_db": 15.21,
+      "peak_dbfs": -6.021,
+      "rms_dbfs": -21.231,
+      "spectral_centroid_hz": 286.742,
+      "t60_s": 0.343312,
+      "tag": "wood",
+      "variant_count": 4
+    }
+  },
+  "variants": {
+    "carpet": [
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -30.259,
+          "band_800_3000": -45.457,
+          "band_above_3000": -79.964,
+          "sub_200": -27.66
+        },
+        "band_fraction": {
+          "band_200_800": 0.350892,
+          "band_800_3000": 0.010602,
+          "band_above_3000": 4e-06,
+          "sub_200": 0.638502
+        },
+        "crest_factor_db": 15.568,
+        "duration_s": 0.22,
+        "path": "godot_walk/audio/footsteps/carpet/carpet_01.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -21.589,
+        "spectral_centroid_hz": 190.433,
+        "t60_s": 0.44184
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -27.301,
+          "band_800_3000": -43.246,
+          "band_above_3000": -77.927,
+          "sub_200": -26.521
+        },
+        "band_fraction": {
+          "band_200_800": 0.450036,
+          "band_800_3000": 0.011448,
+          "band_above_3000": 4e-06,
+          "sub_200": 0.538513
+        },
+        "crest_factor_db": 13.668,
+        "duration_s": 0.22,
+        "path": "godot_walk/audio/footsteps/carpet/carpet_02.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -19.689,
+        "spectral_centroid_hz": 222.024,
+        "t60_s": 0.452593
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -29.65,
+          "band_800_3000": -45.155,
+          "band_above_3000": -79.186,
+          "sub_200": -27.375
+        },
+        "band_fraction": {
+          "band_200_800": 0.36808,
+          "band_800_3000": 0.010362,
+          "band_above_3000": 4e-06,
+          "sub_200": 0.621554
+        },
+        "crest_factor_db": 14.604,
+        "duration_s": 0.22,
+        "path": "godot_walk/audio/footsteps/carpet/carpet_03.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -20.625,
+        "spectral_centroid_hz": 188.841,
+        "t60_s": 0.375135
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -25.761,
+          "band_800_3000": -42.351,
+          "band_above_3000": -76.798,
+          "sub_200": -22.582
+        },
+        "band_fraction": {
+          "band_200_800": 0.322464,
+          "band_800_3000": 0.007071,
+          "band_above_3000": 3e-06,
+          "sub_200": 0.670463
+        },
+        "crest_factor_db": 11.752,
+        "duration_s": 0.22,
+        "path": "godot_walk/audio/footsteps/carpet/carpet_04.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -17.774,
+        "spectral_centroid_hz": 162.302,
+        "t60_s": 0.415756
+      }
+    ],
+    "concrete": [
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -31.693,
+          "band_800_3000": -42.576,
+          "band_above_3000": -73.032,
+          "sub_200": -32.128
+        },
+        "band_fraction": {
+          "band_200_800": 0.503425,
+          "band_800_3000": 0.041079,
+          "band_above_3000": 3.7e-05,
+          "sub_200": 0.455459
+        },
+        "crest_factor_db": 16.808,
+        "duration_s": 0.2,
+        "path": "godot_walk/audio/footsteps/concrete/concrete_01.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -22.829,
+        "spectral_centroid_hz": 289.806,
+        "t60_s": 0.333622
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -24.687,
+          "band_800_3000": -36.002,
+          "band_above_3000": -66.131,
+          "sub_200": -25.284
+        },
+        "band_fraction": {
+          "band_200_800": 0.513982,
+          "band_800_3000": 0.037974,
+          "band_above_3000": 3.7e-05,
+          "sub_200": 0.448007
+        },
+        "crest_factor_db": 13.106,
+        "duration_s": 0.2,
+        "path": "godot_walk/audio/footsteps/concrete/concrete_02.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -19.127,
+        "spectral_centroid_hz": 291.565,
+        "t60_s": 0.440874
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -28.062,
+          "band_800_3000": -38.154,
+          "band_above_3000": -69.086,
+          "sub_200": -28.947
+        },
+        "band_fraction": {
+          "band_200_800": 0.522539,
+          "band_800_3000": 0.051166,
+          "band_above_3000": 4.1e-05,
+          "sub_200": 0.426254
+        },
+        "crest_factor_db": 15.421,
+        "duration_s": 0.2,
+        "path": "godot_walk/audio/footsteps/concrete/concrete_03.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -21.443,
+        "spectral_centroid_hz": 297.401,
+        "t60_s": 0.341041
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -28.243,
+          "band_800_3000": -37.5,
+          "band_above_3000": -68.687,
+          "sub_200": -26.427
+        },
+        "band_fraction": {
+          "band_200_800": 0.379107,
+          "band_800_3000": 0.044983,
+          "band_above_3000": 3.4e-05,
+          "sub_200": 0.575876
+        },
+        "crest_factor_db": 14.186,
+        "duration_s": 0.2,
+        "path": "godot_walk/audio/footsteps/concrete/concrete_04.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -20.207,
+        "spectral_centroid_hz": 248.608,
+        "t60_s": 0.297296
+      }
+    ],
+    "debris": [
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -28.125,
+          "band_800_3000": -40.411,
+          "band_above_3000": -73.416,
+          "sub_200": -26.876
+        },
+        "band_fraction": {
+          "band_200_800": 0.418001,
+          "band_800_3000": 0.024692,
+          "band_above_3000": 1.2e-05,
+          "sub_200": 0.557295
+        },
+        "crest_factor_db": 15.124,
+        "duration_s": 0.24,
+        "path": "godot_walk/audio/footsteps/debris/debris_01.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -21.145,
+        "spectral_centroid_hz": 228.499,
+        "t60_s": 0.535302
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -31.561,
+          "band_800_3000": -41.947,
+          "band_above_3000": -75.699,
+          "sub_200": -29.762
+        },
+        "band_fraction": {
+          "band_200_800": 0.383909,
+          "band_800_3000": 0.035122,
+          "band_above_3000": 1.5e-05,
+          "sub_200": 0.580954
+        },
+        "crest_factor_db": 15.576,
+        "duration_s": 0.24,
+        "path": "godot_walk/audio/footsteps/debris/debris_02.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -21.597,
+        "spectral_centroid_hz": 227.028,
+        "t60_s": 0.336539
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -30.511,
+          "band_800_3000": -42.443,
+          "band_above_3000": -75.258,
+          "sub_200": -28.305
+        },
+        "band_fraction": {
+          "band_200_800": 0.366888,
+          "band_800_3000": 0.023509,
+          "band_above_3000": 1.2e-05,
+          "sub_200": 0.60959
+        },
+        "crest_factor_db": 15.56,
+        "duration_s": 0.24,
+        "path": "godot_walk/audio/footsteps/debris/debris_03.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -21.582,
+        "spectral_centroid_hz": 227.452,
+        "t60_s": 0.308117
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -30.267,
+          "band_800_3000": -44.632,
+          "band_above_3000": -76.699,
+          "sub_200": -28.893
+        },
+        "band_fraction": {
+          "band_200_800": 0.415195,
+          "band_800_3000": 0.015197,
+          "band_above_3000": 9e-06,
+          "sub_200": 0.569599
+        },
+        "crest_factor_db": 15.378,
+        "duration_s": 0.24,
+        "path": "godot_walk/audio/footsteps/debris/debris_04.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -21.4,
+        "spectral_centroid_hz": 225.965,
+        "t60_s": 0.417831
+      }
+    ],
+    "default": [
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -28.403,
+          "band_800_3000": -39.515,
+          "band_above_3000": -73.85,
+          "sub_200": -27.667
+        },
+        "band_fraction": {
+          "band_200_800": 0.442066,
+          "band_800_3000": 0.034225,
+          "band_above_3000": 1.3e-05,
+          "sub_200": 0.523697
+        },
+        "crest_factor_db": 14.59,
+        "duration_s": 0.209977,
+        "path": "godot_walk/audio/footsteps/default/default_01.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -20.612,
+        "spectral_centroid_hz": 251.485,
+        "t60_s": 0.275106
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -30.729,
+          "band_800_3000": -42.891,
+          "band_above_3000": -76.626,
+          "sub_200": -29.929
+        },
+        "band_fraction": {
+          "band_200_800": 0.441879,
+          "band_800_3000": 0.026864,
+          "band_above_3000": 1.1e-05,
+          "sub_200": 0.531246
+        },
+        "crest_factor_db": 15.973,
+        "duration_s": 0.209977,
+        "path": "godot_walk/audio/footsteps/default/default_02.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -21.994,
+        "spectral_centroid_hz": 242.423,
+        "t60_s": 0.31532
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -28.929,
+          "band_800_3000": -42.03,
+          "band_above_3000": -75.002,
+          "sub_200": -28.853
+        },
+        "band_fraction": {
+          "band_200_800": 0.483868,
+          "band_800_3000": 0.023694,
+          "band_above_3000": 1.2e-05,
+          "sub_200": 0.492426
+        },
+        "crest_factor_db": 14.821,
+        "duration_s": 0.209977,
+        "path": "godot_walk/audio/footsteps/default/default_03.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -20.843,
+        "spectral_centroid_hz": 253.105,
+        "t60_s": 0.387214
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -27.574,
+          "band_800_3000": -40.872,
+          "band_above_3000": -72.878,
+          "sub_200": -27.746
+        },
+        "band_fraction": {
+          "band_200_800": 0.49801,
+          "band_800_3000": 0.0233,
+          "band_above_3000": 1.5e-05,
+          "sub_200": 0.478675
+        },
+        "crest_factor_db": 14.065,
+        "duration_s": 0.209977,
+        "path": "godot_walk/audio/footsteps/default/default_04.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -20.086,
+        "spectral_centroid_hz": 249.179,
+        "t60_s": 0.41614
+      }
+    ],
+    "land": [
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -29.362,
+          "band_800_3000": -47.244,
+          "band_above_3000": -83.252,
+          "sub_200": -24.156
+        },
+        "band_fraction": {
+          "band_200_800": 0.230851,
+          "band_800_3000": 0.003759,
+          "band_above_3000": 1e-06,
+          "sub_200": 0.765388
+        },
+        "crest_factor_db": 14.031,
+        "duration_s": 0.269977,
+        "path": "godot_walk/audio/footsteps/land/land_01.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -20.052,
+        "spectral_centroid_hz": 131.44,
+        "t60_s": 0.561536
+      }
+    ],
+    "metal": [
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -30.644,
+          "band_800_3000": -38.749,
+          "band_above_3000": -66.627,
+          "sub_200": -33.02
+        },
+        "band_fraction": {
+          "band_200_800": 0.576823,
+          "band_800_3000": 0.089253,
+          "band_above_3000": 0.000145,
+          "sub_200": 0.333779
+        },
+        "crest_factor_db": 17.224,
+        "duration_s": 0.229977,
+        "path": "godot_walk/audio/footsteps/metal/metal_01.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -23.245,
+        "spectral_centroid_hz": 359.414,
+        "t60_s": 0.370508
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -31.952,
+          "band_800_3000": -39.121,
+          "band_above_3000": -68.067,
+          "sub_200": -32.613
+        },
+        "band_fraction": {
+          "band_200_800": 0.487537,
+          "band_800_3000": 0.093576,
+          "band_above_3000": 0.000119,
+          "sub_200": 0.418768
+        },
+        "crest_factor_db": 16.425,
+        "duration_s": 0.229977,
+        "path": "godot_walk/audio/footsteps/metal/metal_02.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -22.446,
+        "spectral_centroid_hz": 345.685,
+        "t60_s": 0.385892
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -27.389,
+          "band_800_3000": -35.156,
+          "band_above_3000": -63.172,
+          "sub_200": -29.032
+        },
+        "band_fraction": {
+          "band_200_800": 0.539772,
+          "band_800_3000": 0.090269,
+          "band_above_3000": 0.000143,
+          "sub_200": 0.369816
+        },
+        "crest_factor_db": 14.863,
+        "duration_s": 0.229977,
+        "path": "godot_walk/audio/footsteps/metal/metal_03.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -20.884,
+        "spectral_centroid_hz": 382.341,
+        "t60_s": 0.46843
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -31.166,
+          "band_800_3000": -39.212,
+          "band_above_3000": -66.752,
+          "sub_200": -32.715
+        },
+        "band_fraction": {
+          "band_200_800": 0.538493,
+          "band_800_3000": 0.084441,
+          "band_above_3000": 0.000149,
+          "sub_200": 0.376918
+        },
+        "crest_factor_db": 15.393,
+        "duration_s": 0.229977,
+        "path": "godot_walk/audio/footsteps/metal/metal_04.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -21.414,
+        "spectral_centroid_hz": 370.241,
+        "t60_s": 0.281942
+      }
+    ],
+    "plaster": [
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -32.061,
+          "band_800_3000": -44.351,
+          "band_above_3000": -77.325,
+          "sub_200": -30.986
+        },
+        "band_fraction": {
+          "band_200_800": 0.427358,
+          "band_800_3000": 0.025226,
+          "band_above_3000": 1.3e-05,
+          "sub_200": 0.547403
+        },
+        "crest_factor_db": 16.477,
+        "duration_s": 0.209977,
+        "path": "godot_walk/audio/footsteps/plaster/plaster_01.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -22.498,
+        "spectral_centroid_hz": 236.534,
+        "t60_s": 0.259345
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -29.175,
+          "band_800_3000": -41.395,
+          "band_above_3000": -74.53,
+          "sub_200": -26.882
+        },
+        "band_fraction": {
+          "band_200_800": 0.362952,
+          "band_800_3000": 0.021766,
+          "band_above_3000": 1.1e-05,
+          "sub_200": 0.615272
+        },
+        "crest_factor_db": 14.264,
+        "duration_s": 0.209977,
+        "path": "godot_walk/audio/footsteps/plaster/plaster_02.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -20.285,
+        "spectral_centroid_hz": 236.488,
+        "t60_s": 0.442476
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -31.555,
+          "band_800_3000": -44.808,
+          "band_above_3000": -77.009,
+          "sub_200": -30.522
+        },
+        "band_fraction": {
+          "band_200_800": 0.431836,
+          "band_800_3000": 0.020418,
+          "band_above_3000": 1.2e-05,
+          "sub_200": 0.547733
+        },
+        "crest_factor_db": 15.163,
+        "duration_s": 0.209977,
+        "path": "godot_walk/audio/footsteps/plaster/plaster_03.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -21.185,
+        "spectral_centroid_hz": 233.794,
+        "t60_s": 0.309331
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -33.045,
+          "band_800_3000": -46.459,
+          "band_above_3000": -77.099,
+          "sub_200": -30.259
+        },
+        "band_fraction": {
+          "band_200_800": 0.339546,
+          "band_800_3000": 0.015473,
+          "band_above_3000": 1.3e-05,
+          "sub_200": 0.644968
+        },
+        "crest_factor_db": 16.078,
+        "duration_s": 0.209977,
+        "path": "godot_walk/audio/footsteps/plaster/plaster_04.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -22.099,
+        "spectral_centroid_hz": 194.59,
+        "t60_s": 0.463297
+      }
+    ],
+    "tile": [
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -30.639,
+          "band_800_3000": -37.671,
+          "band_above_3000": -67.073,
+          "sub_200": -30.009
+        },
+        "band_fraction": {
+          "band_200_800": 0.424718,
+          "band_800_3000": 0.084127,
+          "band_above_3000": 9.7e-05,
+          "sub_200": 0.491058
+        },
+        "crest_factor_db": 15.668,
+        "duration_s": 0.189977,
+        "path": "godot_walk/audio/footsteps/tile/tile_01.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -21.689,
+        "spectral_centroid_hz": 310.646,
+        "t60_s": 0.295726
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -27.628,
+          "band_800_3000": -36.497,
+          "band_above_3000": -65.8,
+          "sub_200": -28.415
+        },
+        "band_fraction": {
+          "band_200_800": 0.50913,
+          "band_800_3000": 0.066056,
+          "band_above_3000": 7.8e-05,
+          "sub_200": 0.424736
+        },
+        "crest_factor_db": 14.748,
+        "duration_s": 0.189977,
+        "path": "godot_walk/audio/footsteps/tile/tile_02.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -20.769,
+        "spectral_centroid_hz": 319.438,
+        "t60_s": 0.41561
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -25.706,
+          "band_800_3000": -35.383,
+          "band_above_3000": -63.372,
+          "sub_200": -26.037
+        },
+        "band_fraction": {
+          "band_200_800": 0.491509,
+          "band_800_3000": 0.05295,
+          "band_above_3000": 8.4e-05,
+          "sub_200": 0.455457
+        },
+        "crest_factor_db": 12.414,
+        "duration_s": 0.189977,
+        "path": "godot_walk/audio/footsteps/tile/tile_03.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -18.435,
+        "spectral_centroid_hz": 308.456,
+        "t60_s": 0.374914
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -28.14,
+          "band_800_3000": -36.785,
+          "band_above_3000": -66.119,
+          "sub_200": -32.152
+        },
+        "band_fraction": {
+          "band_200_800": 0.651974,
+          "band_800_3000": 0.089084,
+          "band_above_3000": 0.000104,
+          "sub_200": 0.258837
+        },
+        "crest_factor_db": 15.858,
+        "duration_s": 0.189977,
+        "path": "godot_walk/audio/footsteps/tile/tile_04.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -21.879,
+        "spectral_centroid_hz": 393.791,
+        "t60_s": 0.370099
+      }
+    ],
+    "wood": [
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -31.187,
+          "band_800_3000": -42.857,
+          "band_above_3000": -74.977,
+          "sub_200": -31.26
+        },
+        "band_fraction": {
+          "band_200_800": 0.487473,
+          "band_800_3000": 0.033181,
+          "band_above_3000": 2e-05,
+          "sub_200": 0.479326
+        },
+        "crest_factor_db": 16.467,
+        "duration_s": 0.209977,
+        "path": "godot_walk/audio/footsteps/wood/wood_01.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -22.488,
+        "spectral_centroid_hz": 276.221,
+        "t60_s": 0.340153
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -31.477,
+          "band_800_3000": -42.779,
+          "band_above_3000": -73.551,
+          "sub_200": -32.09
+        },
+        "band_fraction": {
+          "band_200_800": 0.514825,
+          "band_800_3000": 0.038145,
+          "band_above_3000": 3.2e-05,
+          "sub_200": 0.446998
+        },
+        "crest_factor_db": 16.521,
+        "duration_s": 0.209977,
+        "path": "godot_walk/audio/footsteps/wood/wood_02.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -22.542,
+        "spectral_centroid_hz": 290.632,
+        "t60_s": 0.147653
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -28.493,
+          "band_800_3000": -38.614,
+          "band_above_3000": -71.288,
+          "sub_200": -27.639
+        },
+        "band_fraction": {
+          "band_200_800": 0.432027,
+          "band_800_3000": 0.042017,
+          "band_above_3000": 2.3e-05,
+          "sub_200": 0.525933
+        },
+        "crest_factor_db": 14.524,
+        "duration_s": 0.209977,
+        "path": "godot_walk/audio/footsteps/wood/wood_03.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -20.546,
+        "spectral_centroid_hz": 283.67,
+        "t60_s": 0.418644
+      },
+      {
+        "band_energy_dbfs": {
+          "band_200_800": -26.828,
+          "band_800_3000": -37.407,
+          "band_above_3000": -69.981,
+          "sub_200": -27.922
+        },
+        "band_fraction": {
+          "band_200_800": 0.536271,
+          "band_800_3000": 0.046924,
+          "band_above_3000": 2.6e-05,
+          "sub_200": 0.416779
+        },
+        "crest_factor_db": 13.329,
+        "duration_s": 0.209977,
+        "path": "godot_walk/audio/footsteps/wood/wood_04.wav",
+        "peak_dbfs": -6.021,
+        "rms_dbfs": -19.35,
+        "spectral_centroid_hz": 296.444,
+        "t60_s": 0.466797
+      }
+    ]
+  }
+}
