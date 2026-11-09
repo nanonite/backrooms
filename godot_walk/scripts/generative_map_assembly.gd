@@ -12,6 +12,11 @@ extends Node3D
 ## it enters the tree (and the standalone player / environment / preset switches are turned
 ## off). No library scene or catalog file is edited. The joint is a proposed, untested
 ## connection; the walkthrough never marks it accepted.
+##
+## gmap-0.11.0 (#204) copies each cell's `reverb` flag onto its instanced room as
+## `reverb_enabled` metadata, with a nominal `room_volume_m3` figure. The flag is not baked
+## into geometry: `set_room_reverb` changes it at runtime, and the later mutation issue can
+## flip one visited room without rebuilding the map.
 
 const BUILDER := preload("res://scripts/shape_room_builder.gd")
 const MATERIALS := preload("res://scripts/shape_room_materials.gd")
@@ -28,7 +33,8 @@ const SAFETY_MARGIN := 10.0
 const GENERATED_LIGHT_LAYER_COUNT := 19
 const MODULE_RENDER_LAYER := 20
 const LIGHT_CULL_DISTANCE_M := 6.2
-const LIT_VERSIONS := ["gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0"]
+const LIT_VERSIONS := ["gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0", "gmap-0.11.0"]
+const ELEVATED_VERSIONS := ["gmap-0.10.0", "gmap-0.11.0"]
 const MODULE_ACOUSTICS_PATH := "res://room_catalog/module_acoustics.json"
 const MODULE_FLOOR_FALLBACKS := ["WalkableFloor", "AuthoredFloor", "AuthoredPlanarRouteFloor", "ConnectorThreshold"]
 ## Fallback map/rooms pair when no user args are given (godot-mcp run_project, #197). Gitignored.
@@ -132,6 +138,7 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 				{"diagonal_collision": diagonal_collision, "diagonal_pullback": diagonal_pullback,
 				"light_layer": _light_layer(cell_id)})
 			(rooms[cell_id] as Node3D).position.y = float(cell.get("floor_y", 0.0))
+			_tag_reverb(rooms[cell_id], cell)
 	_add_risers()
 	_add_safety_net()
 	origin_cell = String(map.cells[0].cell_id)
@@ -159,6 +166,48 @@ func materials_for(spec: Dictionary) -> Dictionary:
 
 func has_room(cell_id: String) -> bool:
 	return specs.has(cell_id) or module_rooms.has(cell_id)
+
+
+## gmap-0.11.0 (#204): the map's reverb flag is runtime metadata, not baked geometry.
+func _tag_reverb(room: Node3D, cell: Dictionary) -> void:
+	room.set_meta("reverb_enabled", bool(cell.get("reverb", false)))
+	room.set_meta("room_volume_m3", nominal_room_volume_m3(cell))
+
+
+## Envelope area times the authored maximum ceiling: the same nominal figure the map
+## generator biases its wet draw with. It is a heuristic, not a measured acoustic volume.
+static func nominal_room_volume_m3(cell: Dictionary) -> float:
+	var points: Array = cell.envelope_xz
+	var twice_area := 0.0
+	for index in points.size():
+		var current: Array = points[index]
+		var following: Array = points[(index + 1) % points.size()]
+		twice_area += float(current[0]) * float(following[1]) - float(following[0]) * float(current[1])
+	var heights: Array = cell.ceiling_range_m
+	var height := maxf(float(heights[0]), float(heights[heights.size() - 1]))
+	return absf(twice_area) / 2.0 * height
+
+
+func room_node(cell_id: String) -> Node3D:
+	if rooms.has(cell_id):
+		return rooms[cell_id] as Node3D
+	if module_rooms.has(cell_id):
+		return module_rooms[cell_id] as Node3D
+	return null
+
+
+func room_reverb_enabled(cell_id: String) -> bool:
+	var room := room_node(cell_id)
+	return room != null and bool(room.get_meta("reverb_enabled", false))
+
+
+## Runtime mutation point for the wet/dry tell; the map document is never edited.
+func set_room_reverb(cell_id: String, enabled: bool) -> bool:
+	var room := room_node(cell_id)
+	if room == null:
+		return false
+	room.set_meta("reverb_enabled", enabled)
+	return true
 
 
 ## Library index entries by "module_id@version" (the map's library_index path, below res://).
@@ -201,6 +250,7 @@ func _place_module(cell: Dictionary, library_entries: Dictionary) -> void:
 	room.set_meta("module_id", String(placement.module_id))
 	room.set_meta("connection_status", "proposed_untested")
 	room.set_meta("operator_approved", false)
+	_tag_reverb(room, cell)
 	module_rooms[String(cell.cell_id)] = room
 	module_info[String(cell.cell_id)] = {"placement": placement, "entry": entry, "socket": socket,
 		"floor_offset": floor_offset}
@@ -284,7 +334,7 @@ func _forced_closed(spec: Dictionary) -> PackedStringArray:
 
 
 func _add_risers() -> void:
-	if String(map.get("generator_version", "")) not in ["gmap-0.10.0"]:
+	if String(map.get("generator_version", "")) not in ELEVATED_VERSIONS:
 		return
 	var host := Node3D.new()
 	host.name = "Risers"

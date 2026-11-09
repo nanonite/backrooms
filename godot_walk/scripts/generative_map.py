@@ -17,7 +17,7 @@ from jsonschema import Draft202012Validator
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from deterministic_json import (  # noqa: E402
+from deterministic_json import (
     ROOT,
     DeterministicWriteError,
     canonical_bytes,
@@ -27,20 +27,21 @@ from deterministic_json import (  # noqa: E402
     sha256_bytes,
     write_new,
 )
-from gmap_build import (  # noqa: E402
+from gmap_build import (
     DEFAULT_DEGENERATE_MAX,
     GENERATOR_VERSION,
     GENERATOR_VERSION_V2,
     VERSIONS,
     build_map,
 )
-from gmap_fill import build_fill  # noqa: E402
-from gmap_grow import GenerationError  # noqa: E402
-from gmap_library import load_library  # noqa: E402
-from gmap_rules import Errors, err  # noqa: E402
-from gmap_svg import render_svg  # noqa: E402
-from gmap_validate import validate_document  # noqa: E402
-from library_index import LibraryIndexError, load_json  # noqa: E402
+from gmap_fill import build_fill
+from gmap_grow import GenerationError
+from gmap_library import load_library
+from gmap_reverb import reverb_summary
+from gmap_rules import Errors, err
+from gmap_svg import render_svg
+from gmap_validate import validate_document
+from library_index import LibraryIndexError, load_json
 
 OUT_DIR = Path("godot_walk/room_catalog/generative_maps")
 FILL_SCHEMA = Path("godot_walk/room_catalog/generative_map_fill.schema.json")
@@ -76,6 +77,7 @@ def generate(
     return {
         "map_id": document["map_id"],
         "attempt": document["attempt"],
+        "summary": {"reverb": reverb_summary(document)},
         "files": [
             {"path": display(path, root), "status": "created" if s == "create" else s}
             for (path, _), s in zip(planned, statuses)
@@ -148,11 +150,25 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(result, sort_keys=True))
             return 0
         path = resolve_cli_path(arguments.map)
-        errors = validate_path(path)
+        document = load_json(path)
+        errors = validate_document(document)
+        if not errors:
+            errors = fill_errors(path, document, root=ROOT)
+        summary = reverb_summary(document)
     except (GenerationError, DeterministicWriteError, LibraryIndexError, ValueError, OSError, KeyError) as error:
         print(f"generative_map: {error}", file=sys.stderr)
         return 1
-    print(json.dumps({"valid": not errors, "errors": errors, "map": path.name}, sort_keys=True))
+    print(
+        json.dumps(
+            {
+                "valid": not errors,
+                "errors": errors,
+                "map": path.name,
+                "summary": {"reverb": summary},
+            },
+            sort_keys=True,
+        )
+    )
     return 1 if errors else 0
 
 

@@ -167,7 +167,7 @@ func _run_positive() -> Dictionary:
 	_fail_all(palette.failures)
 	var surface := SURFACE_CHECKS.check(assembly, specs)
 	_fail_all(surface.failures)
-	var lighting := _check_lighting(assembly) if map.get("generator_version", "") in ["gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0"] else {}
+	var lighting := _check_lighting(assembly) if map.get("generator_version", "") in ["gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0", "gmap-0.11.0"] else {}
 	await _release(assembly)
 	var positive := {"rooms": rooms.rooms, "edges": edges, "flood": flood, "trim": trim, "modules": modules, "diagonal": diagonal,
 		"diagonal_links": diagonal_links}
@@ -192,7 +192,7 @@ func _run_negative_controls() -> Dictionary:
 	controls["diagonal_passage_collision_removed"] = await _control_diagonal_passage_collision_removed()
 	controls["diagonal_floor_without_declared_link"] = await _control_diagonal_floor_without_declared_link()
 	controls["diagonal_frame_unaligned"] = await _control_diagonal_frame_unaligned()
-	if map.get("generator_version", "") in ["gmap-0.7.0", "gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0"]:
+	if map.get("generator_version", "") in ["gmap-0.7.0", "gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0", "gmap-0.11.0"]:
 		controls["landmark_port_off_midpoint"] = await _control_landmark_port_off_midpoint()
 	if specs.values().any(func(spec: Dictionary) -> bool: return spec.materials.has("palette_id")):
 		controls["wrong_palette"] = await _control_wrong_palette()

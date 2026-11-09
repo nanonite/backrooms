@@ -24,6 +24,7 @@ GENERATOR_VERSION_V7 = "gmap-0.7.0"
 GENERATOR_VERSION_V8 = "gmap-0.8.0"
 GENERATOR_VERSION_V9 = "gmap-0.9.0"
 GENERATOR_VERSION_V10 = "gmap-0.10.0"
+GENERATOR_VERSION_V11 = "gmap-0.11.0"
 VERSIONS = (
     GENERATOR_VERSION,
     GENERATOR_VERSION_V2,
@@ -36,6 +37,7 @@ VERSIONS = (
     GENERATOR_VERSION_V8,
     GENERATOR_VERSION_V9,
     GENERATOR_VERSION_V10,
+    GENERATOR_VERSION_V11,
 )
 MARGIN_VERSIONS = (
     GENERATOR_VERSION_V2,
@@ -103,6 +105,7 @@ RULE_IDS_V7 = sorted([*RULE_IDS_V61, "landmark_contract"])
 RULE_IDS_V8 = sorted([*RULE_IDS_V7, "light_layer"])
 RULE_IDS_V9 = sorted([*RULE_IDS_V8, "surface_layer"])
 RULE_IDS_V10 = sorted([*RULE_IDS_V9, "elevation_layer"])
+RULE_IDS_V11 = sorted([*RULE_IDS_V10, "reverb_layer"])
 CEILING = {
     "figure": [3.0, 6.0],
     "ground": [2.6, 4.8],
@@ -131,6 +134,8 @@ def layout_version(version: str) -> str:
 
 
 def rule_ids(version: str) -> list[str]:
+    if version == GENERATOR_VERSION_V11:
+        return RULE_IDS_V11
     if version == GENERATOR_VERSION_V10:
         return RULE_IDS_V10
     if version == GENERATOR_VERSION_V9:
@@ -209,6 +214,19 @@ def build_map(
 ) -> dict[str, Any]:
     if version not in VERSIONS:
         raise GenerationError(f"generator version must be one of {', '.join(VERSIONS)}")
+    if version == GENERATOR_VERSION_V11:
+        if stage_max not in (None, 3):
+            raise GenerationError("gmap-0.11.0 requires --stage-max=3")
+        document = build_map(
+            seed, library, cells, 3, GENERATOR_VERSION_V10, degenerate_max
+        )
+        document["generator_version"] = GENERATOR_VERSION_V11
+        document["map_id"] = map_id_for(seed, GENERATOR_VERSION_V11)
+        document["rules"] = list(rule_ids(GENERATOR_VERSION_V11))
+        from gmap_reverb import assign_reverb
+
+        assign_reverb(document)
+        return document
     if version == GENERATOR_VERSION_V10:
         if stage_max not in (None, 3):
             raise GenerationError("gmap-0.10.0 requires --stage-max=3")

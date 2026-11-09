@@ -91,7 +91,7 @@ static func check_flood(space: PhysicsDirectSpaceState3D, assembly: Node3D) -> D
 	for cell: Dictionary in assembly.map.cells:
 		_sample_cell(space, cell, clear, owners)
 	var diagonal_pairs := {}
-	if String(assembly.map.get("generator_version", "")) in ["gmap-0.6.0", "gmap-0.6.1", "gmap-0.7.0", "gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0"]:
+	if String(assembly.map.get("generator_version", "")) in ["gmap-0.6.0", "gmap-0.6.1", "gmap-0.7.0", "gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0", "gmap-0.11.0"]:
 		for edge: Dictionary in assembly.map.edges:
 			if String(edge.get("kind", "")) == "diagonal":
 				var cells := [String(edge.from).get_slice(":", 0), String(edge.to).get_slice(":", 0)]

@@ -122,6 +122,10 @@
             },
             "additionalProperties": false
           },
+          "reverb": {
+            "description": "gmap-0.11.0: true = wet ringing room, false = dry room. One flag per walkable cell, shared by the cell's whole module or shape room; void cells carry none and the spawn cell is always dry.",
+            "type": "boolean"
+          },
           "diagonal_passage": {
             "type": "object",
             "required": ["link_id", "from_cell_id", "to_cell_id", "from_port_id", "to_port_id", "clear_width_m", "wall_thickness_m", "length_m", "outline_xz", "palette_source_cell_id"],
@@ -336,6 +340,23 @@
       },
       "additionalProperties": false
     },
+    "reverb_layer": {
+      "description": "gmap-0.11.0: per-room wet/dry reverb parameters. Each cell's flag comes from its own sha256 keyed draw over seed, attempt, stream and cell_id, so one cell can be re-drawn without shifting the others; a later runtime mutation may flip a visited room.",
+      "type": "object",
+      "required": ["stream", "base_probability", "volume_reference_m3", "volume_full_bonus_m3", "max_volume_bonus", "double_height_m", "double_height_bonus", "max_probability", "selection"],
+      "properties": {
+        "stream": {"type": "string", "minLength": 1},
+        "base_probability": {"type": "number", "minimum": 0, "maximum": 1},
+        "volume_reference_m3": {"type": "number", "exclusiveMinimum": 0},
+        "volume_full_bonus_m3": {"type": "number", "exclusiveMinimum": 0},
+        "max_volume_bonus": {"type": "number", "minimum": 0, "maximum": 1},
+        "double_height_m": {"type": "number", "exclusiveMinimum": 0},
+        "double_height_bonus": {"type": "number", "minimum": 0, "maximum": 1},
+        "max_probability": {"type": "number", "minimum": 0, "maximum": 1},
+        "selection": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
     "registration_accepted": { "const": false },
     "scale_calibrated": { "const": false }
   },
@@ -404,6 +425,35 @@
             "items": {
               "allOf": [
                 {"required": ["floor_y"]},
+                {
+                  "if": {
+                    "properties": {"role": {"enum": ["ground", "figure", "threshold"]}},
+                    "required": ["role"],
+                    "not": {"required": ["module"]}
+                  },
+                  "then": {"required": ["light", "wear", "surface_variants"]}
+                }
+              ]
+            }
+          },
+          "edges": {"items": {"required": ["vertical"]}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"generator_version": {"const": "gmap-0.11.0"}}, "required": ["generator_version"]},
+      "then": {
+        "required": ["layout_variant", "growth_cell_target", "dark_wing", "palette_registry", "elevation", "elevation_loops", "reverb_layer"],
+        "properties": {
+          "shape_stage_max": {"const": 3},
+          "cells": {
+            "items": {
+              "allOf": [
+                {"required": ["floor_y"]},
+                {
+                  "if": {"properties": {"role": {"enum": ["ground", "figure", "threshold"]}}, "required": ["role"]},
+                  "then": {"required": ["reverb"]}
+                },
                 {
                   "if": {
                     "properties": {"role": {"enum": ["ground", "figure", "threshold"]}},

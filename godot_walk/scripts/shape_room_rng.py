@@ -46,13 +46,16 @@ MAP_VERSION_V7 = "gmap-0.7.0"
 MAP_VERSION_V8 = "gmap-0.8.0"
 MAP_VERSION_V9 = "gmap-0.9.0"
 MAP_VERSION_V10 = "gmap-0.10.0"
+MAP_VERSION_V11 = "gmap-0.11.0"
 
 
 def version_for_map(document: dict) -> str:
-    """shape-room-0.5.0 for gmap-0.5.0 (palette materials), shape-room-0.4.0 for gmap-0.4.0 (45-degree walls), shape-room-0.3.0 for gmap-0.3.0 (per-port
-    doorway sizes), shape-room-0.2.0 for gmap-0.2.0 (strict doorway margins), else shape-room-0.1.0."""
+    """shape-room-0.10.0 for gmap-0.10.0 / gmap-0.11.0 (elevation), shape-room-0.5.0
+    for gmap-0.5.0 (palette materials), shape-room-0.4.0 for gmap-0.4.0 (45-degree
+    walls), shape-room-0.3.0 for gmap-0.3.0 (per-port doorway sizes), shape-room-0.2.0
+    for gmap-0.2.0 (strict doorway margins), else shape-room-0.1.0."""
     version = document.get("generator_version")
-    if version == MAP_VERSION_V10:
+    if version in (MAP_VERSION_V10, MAP_VERSION_V11):
         return GENERATOR_VERSION_V10
     if version == MAP_VERSION_V7:
         return GENERATOR_VERSION_V7

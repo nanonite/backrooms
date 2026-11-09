@@ -42,6 +42,7 @@ LEGACY_VERSIONS = (
     build.GENERATOR_VERSION_V7,
     build.GENERATOR_VERSION_V8,
     build.GENERATOR_VERSION_V9,
+    build.GENERATOR_VERSION_V10,
 )
 
 
@@ -68,7 +69,7 @@ def changed_edges(document: dict) -> list[dict]:
 
 
 def test_old_versions_are_byte_identical(library):
-    """0.1.0-0.9.0 keep their committed bytes after the 0.10.0 layer exists."""
+    """0.1.0-0.10.0 keep their committed bytes after the 0.11.0 layer exists."""
     for seed in (1, 2, 3):
         for version in LEGACY_VERSIONS:
             document = build.build_map(seed, library, cells=12, version=version)
