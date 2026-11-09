@@ -104,10 +104,18 @@ reporting them.
 - **Memory.** Direction and preferences are in the auto-memory index; keep
   `generative-map-direction` current when the goal shifts.
 
-## Backlog map (2026-11-08)
+## Backlog map (2026-11-09)
 
-Sound and feel track, in order: #206 jump, #201 elevation, #204 per-room reverb flag,
-#205 ray-cast probe and reverb bus, #207 footstep material gallery, #208 tile/metal/wood
-floor palettes (carpet kept at 55%+). Design: #209 mutating-maze proposal. Research: #210
-view-consensus seed selection (FreeView). Eventually: wall-material acoustics. Done:
-#202 audit harness, #203 layered footsteps (operator-approved).
+Done (operator-approved): #202 audit harness, #203 layered footsteps, #206 jump, #201
+elevation, #204 per-room reverb flag, #205 ray-cast probe and reverb bus, #208 tile/metal/wood
+floors (gmap-0.12.0), #212 template proposal (`docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md`).
+
+Template track (from #212, filed 2026-11-09): T1 #214 schema and manifest v3, T2 #215 module
+profiles, T3 #216 per-module acoustic probe, T4 #217 surfaces, T5 #218 lighting and scale (#187),
+T6 #219 ceiling/exits/mood, T7 #220 gmap-0.13.0, **T8 #221 picture-set intake (must work before
+the video batch)**, T9 #222 new video batch (executes #195), T10 #223 runtime overlay (after #209),
+T11 #224 wall absorption (after #213).
+
+Other open: #209 mutating-maze design proposal; #210 FreeView seed-selection spike (needs OK
+before downloading DINOv2 weights); #211 reverb range audition (after the library grows, blocked
+by #195); #213 wall-material acoustics research (after #211); #207 footstep material gallery.
