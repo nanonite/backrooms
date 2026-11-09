@@ -1,9 +1,9 @@
 extends "res://scripts/player.gd"
 
-## Generated-maze walkthrough player: base movement, hold-Shift sprint (#191) and
-## layered material-aware footsteps (#200, #203). Applied via set_script in
-## generative_map_assembly.gd only, so every other scene keeps the unmodified
-## player.gd and project.godot stays untouched.
+## Generated-maze walkthrough player: base movement, hold-Shift sprint (#191),
+## layered material-aware footsteps (#200, #203) and Spacebar jump (#206).
+## Applied via set_script in generative_map_assembly.gd only, so every other
+## scene keeps the unmodified player.gd and project.godot stays untouched.
 ##
 ## Each step takes one pooled player per layer: a brightness-tuned transient,
 ## a modal body and a granular texture. The 0-8 ms per-layer onset offsets are
@@ -15,6 +15,13 @@ const SPRINT_ACTION := &"sprint"
 const WALK_STRIDE_M := 0.7
 const SPRINT_STRIDE_M := 1.0
 const LANDING_AIR_SECONDS := 0.3
+const JUMP_ACTION := &"jump"
+const JUMP_HEIGHT_M := 0.9
+## v = sqrt(2 * g * h) for the 9.8 m/s^2 project gravity.
+const JUMP_VELOCITY := 4.2
+## A take-off is a quiet step: a quarter of walk force, below walk volume.
+const JUMP_TAKEOFF_FORCE := 0.25
+const JUMP_TAKEOFF_VOLUME_DB := -3.0
 const VARIANT_COUNT := 4
 const DEFAULT_TAG := "default"
 const LAND_TAG := "land"
@@ -44,6 +51,7 @@ const LANDING_VOLUME_DB := 0.0
 
 signal footstep_event(tag: String, sprinting: bool)
 signal landing_event()
+signal jump_event(tag: String)
 
 var _distance_since_step: float = 0.0
 var _air_time: float = 0.0
@@ -71,13 +79,17 @@ func _physics_process(delta: float) -> void:
 		_air_time += delta
 	elif not _was_on_floor:
 		if _air_time > LANDING_AIR_SECONDS:
-			_distance_since_step = 0.0
 			_play_landing()
 			landing_event.emit()
+		_distance_since_step = 0.0
 		_air_time = 0.0
 	else:
 		_air_time = 0.0
 	_was_on_floor = on_floor
+
+	var jumped := on_floor and Input.is_action_just_pressed(JUMP_ACTION)
+	if jumped:
+		_take_off()
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction := Vector3(input_dir.x, 0.0, input_dir.y).rotated(Vector3.UP, rotation.y)
@@ -89,7 +101,7 @@ func _physics_process(delta: float) -> void:
 
 	var start := global_position
 	move_and_slide()
-	if is_on_floor():
+	if is_on_floor() and not jumped:
 		var moved := Vector2(global_position.x - start.x, global_position.z - start.z).length()
 		if moved > 0.0001:
 			_distance_since_step += moved
@@ -131,6 +143,30 @@ func _play_landing() -> void:
 	_play_layer(
 		LAND_TAG, TEXTURE, LANDING_VOLUME_DB,
 		_layer_gain(TEXTURE_GAIN_LOW, TEXTURE_GAIN_HIGH, LAND_FORCE), _pitch()
+	)
+
+
+func _take_off() -> void:
+	velocity.y = JUMP_VELOCITY
+	var tag := _floor_acoustic()
+	_play_takeoff(tag)
+	jump_event.emit(tag)
+
+
+func _play_takeoff(tag: String) -> void:
+	var play_tag := tag if _has_streams(tag) else DEFAULT_TAG
+	var force := JUMP_TAKEOFF_FORCE
+	_play_layer(
+		play_tag, _choose_transient(force), JUMP_TAKEOFF_VOLUME_DB,
+		_layer_gain(TRANSIENT_GAIN_LOW, TRANSIENT_GAIN_HIGH, force), _pitch()
+	)
+	_play_layer(
+		play_tag, BODY, JUMP_TAKEOFF_VOLUME_DB,
+		_layer_gain(BODY_GAIN_LOW, BODY_GAIN_HIGH, force), _pitch()
+	)
+	_play_layer(
+		play_tag, TEXTURE, JUMP_TAKEOFF_VOLUME_DB,
+		_layer_gain(TEXTURE_GAIN_LOW, TEXTURE_GAIN_HIGH, force), _pitch()
 	)
 
 
