@@ -1,0 +1,72 @@
+{
+  "status": "error",
+  "code": "candidate_count_exceeds_limit",
+  "message": "11 candidates exceed the three-frame review limit. Provide a three-frame mechanically ranked shortlist (frame_1100, frame_1097, frame_1099) or rerun with --mechanical-shortlist.",
+  "details": {
+    "provided_count": 11,
+    "limit": 3,
+    "mechanical_shortlist": [
+      "frame_1100",
+      "frame_1097",
+      "frame_1099"
+    ],
+    "ranked": [
+      {
+        "frame_id": "frame_1100",
+        "mechanical_score": 0.749914,
+        "mechanical_rank": 1
+      },
+      {
+        "frame_id": "frame_1097",
+        "mechanical_score": 0.719725,
+        "mechanical_rank": 2
+      },
+      {
+        "frame_id": "frame_1099",
+        "mechanical_score": 0.704914,
+        "mechanical_rank": 3
+      },
+      {
+        "frame_id": "frame_1094",
+        "mechanical_score": 0.699976,
+        "mechanical_rank": 4
+      },
+      {
+        "frame_id": "frame_1096",
+        "mechanical_score": 0.691156,
+        "mechanical_rank": 5
+      },
+      {
+        "frame_id": "frame_1098",
+        "mechanical_score": 0.683758,
+        "mechanical_rank": 6
+      },
+      {
+        "frame_id": "frame_1095",
+        "mechanical_score": 0.683077,
+        "mechanical_rank": 7
+      },
+      {
+        "frame_id": "frame_1092",
+        "mechanical_score": 0.675515,
+        "mechanical_rank": 8
+      },
+      {
+        "frame_id": "frame_1090",
+        "mechanical_score": 0.66578,
+        "mechanical_rank": 9
+      },
+      {
+        "frame_id": "frame_1093",
+        "mechanical_score": 0.659381,
+        "mechanical_rank": 10
+      },
+      {
+        "frame_id": "frame_1091",
+        "mechanical_score": 0.648422,
+        "mechanical_rank": 11
+      }
+    ],
+    "requested_action": "Provide a smaller mechanically ranked shortlist or explicitly enable the deterministic shortlist."
+  }
+}

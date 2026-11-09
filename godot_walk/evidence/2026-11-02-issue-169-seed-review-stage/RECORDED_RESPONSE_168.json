@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "stage": "seed_rank_replay",
+  "status": "completed_low_confidence",
+  "opencode_version": "2.0.22",
+  "model": "opencode/nemotron-3.5-super-vl-free",
+  "usage": {
+    "listed_price_usd": 0.0,
+    "provider_usage_metadata_reported": false,
+    "actual_token_count": null
+  },
+  "source": {
+    "source_id": "video-ccf9722164a0bdc8",
+    "video_sha256": "ccf9722164a0bdc8aa0497e8f4ca16b30fcdc6b752192859fd8fef537ba5a0bb"
+  },
+  "inputs": [
+    {
+      "frame_id": "frame_4558",
+      "index_zero_based": 4557,
+      "pts_seconds": 151.9,
+      "path": "godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/frames/frame_4558.png",
+      "sha256": "a8d5141c25282a42543aaf82458af104ead3bc904a6b0e4de29e403e9345e5c1"
+    },
+    {
+      "frame_id": "frame_4559",
+      "index_zero_based": 4558,
+      "pts_seconds": 151.93333333333334,
+      "path": "godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/frames/frame_4559.png",
+      "sha256": "b1127b6d01c3723ee3f2a2b56bff7928456640e26ad5b1c745ef062b8426204c"
+    },
+    {
+      "frame_id": "frame_4560",
+      "index_zero_based": 4559,
+      "pts_seconds": 151.96666666666667,
+      "path": "godot_walk/evidence/2026-11-01-issue-168-source-zone-survey/seed-review-152s/frames/frame_4560.png",
+      "sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f"
+    }
+  ],
+  "prompt": "Compare the three attached direct-source frames in the order frame_4558, frame_4559, frame_4560. Rank them for Hunyuan panorama seed quality using visible sharpness, exposure, and room coverage. Return JSON with selected_frame_id, ranked_alternatives, evidence, uncertainty, confidence_1_to_5, and use_original_frame_not_a_composite=true. Prefer a tie if the frames are indistinguishable. Do not infer unseen areas or connectivity.",
+  "response": {
+    "selected_frame_id": "frame_4560",
+    "ranked_alternatives": ["frame_4559", "frame_4558"],
+    "evidence": "frame_4560 shows marginally sharper mid-ground boxes and right-wall corner detail, with slightly less foreground motion blur than frame_4558 and frame_4559; exposure is broadly even across all three and room coverage is identical (same static viewpoint). Differences are minimal because these are consecutive video frames.",
+    "uncertainty": "The frames are nearly indistinguishable consecutive frames from the same shot; any sharpness/exposure margin between frame_4560, frame_4559, and frame_4558 is slight and could be compression or subpixel camera-motion noise rather than a meaningful quality difference.",
+    "confidence_1_to_5": 2,
+    "use_original_frame_not_a_composite": true
+  },
+  "limitations": [
+    "The selected frame was already operator-approved; this is a regression comparison, not an independent new-source result.",
+    "The model's claimed local sharpness details were not independently measured in this run.",
+    "No complete-video seed ranking or Hunyuan inference was performed.",
+    "The model did not report token usage; paid-call accounting remains unresolved."
+  ]
+}
