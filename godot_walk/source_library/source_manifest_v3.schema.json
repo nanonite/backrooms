@@ -1,0 +1,415 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:backrooms:source-library:source-manifest-v3",
+  "title": "Versioned per-source snapshot with content, capture, scale and lighting blocks",
+  "description": "Source manifest schema v3 from docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md section 4.1. Existing v1 and v2 manifests keep their own schemas; this file never rewrites them.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "manifest_version",
+    "source_id",
+    "source_kind",
+    "content",
+    "capture",
+    "scale",
+    "lighting",
+    "source_review",
+    "frame_references",
+    "hunyuan",
+    "room_adaptations",
+    "registration_accepted",
+    "scale_calibrated"
+  ],
+  "properties": {
+    "schema_version": { "const": 3 },
+    "manifest_version": { "type": "integer", "minimum": 1 },
+    "source_id": {
+      "description": "Content hash identity. The prefix records the intake kind; source_kind is the discriminator.",
+      "type": "string",
+      "pattern": "^(video|picture-set)-[0-9a-f]{16}$"
+    },
+    "source_kind": { "enum": ["video", "picture_set"] },
+    "content": { "$ref": "#/$defs/content" },
+    "capture": { "$ref": "#/$defs/capture" },
+    "scale": { "$ref": "#/$defs/scale" },
+    "lighting": { "$ref": "#/$defs/lighting" },
+    "source_review": { "$ref": "#/$defs/source_review" },
+    "frame_references": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/frame_reference" }
+    },
+    "hunyuan": {
+      "type": "object",
+      "required": ["status", "attempts"],
+      "properties": {
+        "status": { "type": "string", "minLength": 1 },
+        "attempts": { "type": "array" },
+        "historical_attempts": { "type": "array" },
+        "historical_invocations": { "type": "integer", "minimum": 0 },
+        "policy_note": { "type": "string" },
+        "policy_invocation_limit": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": true
+    },
+    "room_adaptations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/room_adaptation" }
+    },
+    "historical_artifacts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/artifact_reference" }
+    },
+    "supersedes": { "$ref": "#/$defs/supersedes" },
+    "created_at_utc": { "type": "string", "format": "date-time" },
+    "recorded_at_utc": { "type": "string", "format": "date-time" },
+    "modeling_note": { "type": "string" },
+    "registration_accepted": { "const": false },
+    "scale_calibrated": { "const": false }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "artifact_reference": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "role": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "content": {
+      "type": "object",
+      "required": ["video", "picture_set"],
+      "properties": {
+        "video": {
+          "oneOf": [
+            { "$ref": "#/$defs/video_content" },
+            { "type": "null" }
+          ]
+        },
+        "picture_set": {
+          "oneOf": [
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/picture" }
+            },
+            { "type": "null" }
+          ]
+        },
+        "audio": { "$ref": "#/$defs/audio" }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "video": { "type": "object" },
+            "picture_set": { "type": "null" }
+          }
+        },
+        {
+          "properties": {
+            "video": { "type": "null" },
+            "picture_set": { "type": "array", "minItems": 1 }
+          }
+        }
+      ]
+    },
+    "video_content": {
+      "type": "object",
+      "required": ["path", "sha256", "metadata"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^data/videos/[^/]+$" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "metadata": {
+          "type": "object",
+          "required": ["width", "height", "fps", "frame_count", "duration_seconds"],
+          "properties": {
+            "width": { "type": "integer", "minimum": 1 },
+            "height": { "type": "integer", "minimum": 1 },
+            "fps": { "type": "number", "exclusiveMinimum": 0 },
+            "frame_count": { "type": ["integer", "null"], "minimum": 1 },
+            "duration_seconds": { "type": "number", "exclusiveMinimum": 0 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "picture": {
+      "type": "object",
+      "required": ["image_id", "path", "sha256", "width", "height", "capture_index"],
+      "properties": {
+        "image_id": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "pattern": "^data/pictures/[^/]+/[^/]+$" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "capture_index": { "type": "integer", "minimum": 1 },
+        "captured_at_utc": { "type": ["string", "null"], "format": "date-time" },
+        "camera_pose": { "type": ["object", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "audio": {
+      "type": "object",
+      "required": ["present", "path", "sha256"],
+      "properties": {
+        "present": { "type": "boolean" },
+        "path": { "type": ["string", "null"] },
+        "sha256": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": { "present": { "const": true } },
+            "required": ["present"]
+          },
+          "then": {
+            "properties": {
+              "path": { "type": "string", "minLength": 1 },
+              "sha256": { "$ref": "#/$defs/sha256" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "present": { "const": false } },
+            "required": ["present"]
+          },
+          "then": {
+            "properties": {
+              "path": { "type": "null" },
+              "sha256": { "type": "null" }
+            }
+          }
+        }
+      ]
+    },
+    "capture": {
+      "type": "object",
+      "required": [
+        "camera_model",
+        "lens",
+        "intrinsics",
+        "distortion",
+        "capture_height_m",
+        "orientation"
+      ],
+      "properties": {
+        "camera_model": { "type": ["string", "null"] },
+        "lens": { "type": ["string", "null"] },
+        "intrinsics": {
+          "type": "object",
+          "required": ["fx", "fy", "cx", "cy"],
+          "properties": {
+            "fx": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+            "fy": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+            "cx": { "type": ["number", "null"] },
+            "cy": { "type": ["number", "null"] }
+          },
+          "additionalProperties": false
+        },
+        "distortion": { "type": ["string", "object", "null"] },
+        "capture_height_m": { "type": ["number", "null"], "minimum": 0 },
+        "orientation": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "scale": {
+      "type": "object",
+      "required": ["status", "method", "anchor", "confidence", "evidence"],
+      "properties": {
+        "status": { "enum": ["uncalibrated", "calibrated"] },
+        "method": { "type": ["string", "null"] },
+        "anchor": {
+          "oneOf": [
+            { "$ref": "#/$defs/scale_anchor" },
+            { "type": "null" }
+          ]
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/artifact_reference" }
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "calibrated" } },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "method": { "type": "string", "minLength": 1 },
+              "anchor": { "type": "object" },
+              "evidence": { "minItems": 1 }
+            }
+          }
+        }
+      ]
+    },
+    "scale_anchor": {
+      "type": "object",
+      "required": ["kind", "value_m"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "value_m": { "type": "number", "exclusiveMinimum": 0 },
+        "frame_id": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "lighting": {
+      "type": "object",
+      "required": [
+        "status",
+        "color_temp_k",
+        "illuminance_lux",
+        "fixtures",
+        "confidence",
+        "evidence"
+      ],
+      "properties": {
+        "status": { "enum": ["unknown", "estimated", "measured"] },
+        "color_temp_k": { "type": ["integer", "null"] },
+        "illuminance_lux": { "type": ["number", "null"], "minimum": 0 },
+        "fixtures": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/fixture" }
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/artifact_reference" }
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "measured" } },
+            "required": ["status"]
+          },
+          "then": { "properties": { "evidence": { "minItems": 1 } } }
+        }
+      ]
+    },
+    "fixture": {
+      "type": "object",
+      "required": ["kind", "count"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "count": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": true
+    },
+    "source_review": {
+      "type": "object",
+      "required": ["status", "decision"],
+      "properties": {
+        "status": {
+          "enum": [
+            "pending_operator_review",
+            "proceed",
+            "proceed_with_limitations",
+            "reject"
+          ]
+        },
+        "decision": {
+          "enum": ["proceed", "proceed_with_limitations", "reject", null]
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "pending_operator_review" } },
+            "required": ["status"]
+          },
+          "then": { "properties": { "decision": { "type": "null" } } }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": ["proceed", "proceed_with_limitations", "reject"]
+              }
+            },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "decision": {
+                "enum": ["proceed", "proceed_with_limitations", "reject"]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "frame_reference": {
+      "type": "object",
+      "required": ["frame_id", "index_zero_based", "path", "sha256"],
+      "properties": {
+        "frame_id": { "type": "string", "minLength": 1 },
+        "index_zero_based": { "type": "integer", "minimum": 0 },
+        "timestamp_seconds": { "type": "number", "minimum": 0 },
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "historical_record_path": { "type": ["string", "null"] },
+        "decode_operation": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "room_adaptation": {
+      "type": "object",
+      "required": [
+        "adaptation_id",
+        "adaptation_path",
+        "adaptation_sha256",
+        "decision_path",
+        "decision_sha256",
+        "decision_status"
+      ],
+      "properties": {
+        "issue": { "type": "integer", "minimum": 1 },
+        "adaptation_id": { "type": "string", "minLength": 1 },
+        "adaptation_version": { "type": "string", "minLength": 1 },
+        "candidate_identity": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "adaptation_path": { "type": "string", "minLength": 1 },
+        "adaptation_sha256": { "$ref": "#/$defs/sha256" },
+        "decision_path": { "type": "string", "minLength": 1 },
+        "decision_sha256": { "$ref": "#/$defs/sha256" },
+        "decision_status": { "type": "string", "minLength": 1 },
+        "scene_path": { "type": "string", "minLength": 1 },
+        "scene_sha256": { "$ref": "#/$defs/sha256" },
+        "catalog_snapshot_path": { "type": "string", "minLength": 1 },
+        "catalog_snapshot_sha256": { "$ref": "#/$defs/sha256" },
+        "catalog_admission": { "type": "object" }
+      },
+      "additionalProperties": true
+    },
+    "supersedes": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^godot_walk/source_library/sources/(video|picture-set)-[0-9a-f]{16}/source_manifest(-v([2-9]|[1-9][0-9]+))?\\.json$"
+        },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

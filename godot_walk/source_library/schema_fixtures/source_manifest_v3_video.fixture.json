@@ -1,0 +1,65 @@
+{
+  "schema_version": 3,
+  "manifest_version": 3,
+  "source_id": "video-102caf53423018b7",
+  "source_kind": "video",
+  "content": {
+    "video": {
+      "path": "data/videos/corridor_straight.mp4",
+      "sha256": "102caf53423018b75dfd1976b5a2346b0576bdd316429f246aee87a884ba3d4b",
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24.0,
+        "frame_count": 96,
+        "duration_seconds": 4.0
+      }
+    },
+    "picture_set": null,
+    "audio": {
+      "present": false,
+      "path": null,
+      "sha256": null
+    }
+  },
+  "capture": {
+    "camera_model": null,
+    "lens": null,
+    "intrinsics": {
+      "fx": null,
+      "fy": null,
+      "cx": null,
+      "cy": null
+    },
+    "distortion": null,
+    "capture_height_m": null,
+    "orientation": null
+  },
+  "scale": {
+    "status": "uncalibrated",
+    "method": null,
+    "anchor": null,
+    "confidence": 0.0,
+    "evidence": []
+  },
+  "lighting": {
+    "status": "unknown",
+    "color_temp_k": null,
+    "illuminance_lux": null,
+    "fixtures": [],
+    "confidence": 0.0,
+    "evidence": []
+  },
+  "source_review": {
+    "status": "pending_operator_review",
+    "decision": null
+  },
+  "frame_references": [],
+  "hunyuan": {
+    "status": "not_attempted",
+    "attempts": []
+  },
+  "room_adaptations": [],
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

@@ -1,0 +1,2211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/generative_map_v2.schema.json",
+  "title": "Generative map (L0) schema v2: v1 fields plus optional template, module-profile and runtime-policy references",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "map_id",
+    "generator_version",
+    "seed",
+    "catalog_snapshot",
+    "library_index",
+    "lattice",
+    "shape_stage_max",
+    "cells",
+    "edges",
+    "distribution",
+    "void_budget",
+    "rules",
+    "registration_accepted",
+    "scale_calibrated"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "map_id": {
+      "type": "string",
+      "pattern": "^gmap-[0-9]+-.+$"
+    },
+    "generator_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "template": {
+      "$ref": "#/$defs/template_ref"
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "attempt": {
+      "description": "Optional. Seed stream used by the generator (0 = the seed itself; n regenerates with stream n after a rule such as branch_required failed).",
+      "type": "integer",
+      "minimum": 0
+    },
+    "layout_variant": {
+      "description": "Required by gmap-0.6.1. Deterministic site-aware layout search variant within the recorded attempt.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 47
+    },
+    "growth_cell_target": {
+      "type": "integer",
+      "minimum": 6,
+      "maximum": 20
+    },
+    "landmark": {
+      "$ref": "#/$defs/landmark_map"
+    },
+    "dark_wing": {
+      "$ref": "#/$defs/dark_wing"
+    },
+    "catalog_snapshot": {
+      "$ref": "#/$defs/path_and_hash"
+    },
+    "library_index": {
+      "$ref": "#/$defs/library_index"
+    },
+    "lattice": {
+      "type": "object",
+      "required": [
+        "kind",
+        "unit_m",
+        "port_unit"
+      ],
+      "properties": {
+        "kind": {
+          "const": "square"
+        },
+        "unit_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "port_unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "port_step_m": {
+          "description": "Optional (gmap-0.2.0). Grid step for port positions when finer than unit_m; default: unit_m.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "shape_stage_max": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "cells": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "cell_id",
+          "envelope_xz",
+          "ceiling_range_m",
+          "allowed_primitives",
+          "required_ports",
+          "role",
+          "rarity_tier"
+        ],
+        "properties": {
+          "cell_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "envelope_xz": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "$ref": "#/$defs/point_xz"
+            }
+          },
+          "ceiling_range_m": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "floor_y": {
+            "description": "gmap-0.10.0: floor level in metres, one of -3.0, -1.5, 0, 1.5, 3.0. The spawn cell is 0.",
+            "enum": [
+              -3.0,
+              -1.5,
+              0.0,
+              1.5,
+              3.0
+            ]
+          },
+          "allowed_primitives": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "required_ports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "port_id",
+                "pos_xz",
+                "normal",
+                "compatibility_type"
+              ],
+              "properties": {
+                "port_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "pos_xz": {
+                  "$ref": "#/$defs/point_xz"
+                },
+                "normal": {
+                  "$ref": "#/$defs/direction8"
+                },
+                "compatibility_type": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "placement": {
+                  "description": "Optional (gmap-0.2.0), default standard. degenerate: the 2 m doorway touches an envelope corner (>= 1.5 m rule waived).",
+                  "enum": [
+                    "standard",
+                    "degenerate"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "role": {
+            "enum": [
+              "ground",
+              "figure",
+              "threshold",
+              "void"
+            ]
+          },
+          "rarity_tier": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          },
+          "mode": {
+            "description": "Optional (gmap-0.2.0), default standard. degenerate: may carry corner-hugging doorways (rare, budgeted).",
+            "enum": [
+              "standard",
+              "degenerate"
+            ]
+          },
+          "shape_stage_target": {
+            "description": "Optional (gmap-0.4.0). The shape stage drawn for this generated walkable cell (2: a stage-2 chamfered class, see shape_class_target).",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          "shape_class_target": {
+            "description": "Optional (gmap-0.4.0). The stage-2 primitive class drawn for this cell; present exactly when shape_stage_target is 2.",
+            "enum": [
+              "chamfered_box",
+              "chamfered_polyomino",
+              "octagon",
+              "wedge",
+              "diagonal_passage"
+            ]
+          },
+          "diagonal_link_chamfer": {
+            "type": "object",
+            "required": [
+              "corner_xz",
+              "length_m",
+              "port_id"
+            ],
+            "properties": {
+              "corner_xz": {
+                "$ref": "#/$defs/point_xz"
+              },
+              "length_m": {
+                "const": 2.5
+              },
+              "port_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          },
+          "landmark": {
+            "$ref": "#/$defs/landmark_cell"
+          },
+          "light": {
+            "$ref": "#/$defs/light"
+          },
+          "wear": {
+            "description": "gmap-0.9.0: 0 clean, 1 worn, 2 damaged. Module and void cells carry none.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2
+          },
+          "surface_variants": {
+            "description": "gmap-0.9.0: the selected clean/worn/damaged variant for each palette surface.",
+            "type": "object",
+            "required": [
+              "wall",
+              "floor",
+              "ceiling",
+              "trim"
+            ],
+            "properties": {
+              "wall": {
+                "enum": [
+                  "clean",
+                  "worn",
+                  "damaged"
+                ]
+              },
+              "floor": {
+                "enum": [
+                  "clean",
+                  "worn",
+                  "damaged"
+                ]
+              },
+              "ceiling": {
+                "enum": [
+                  "clean",
+                  "worn",
+                  "damaged"
+                ]
+              },
+              "trim": {
+                "enum": [
+                  "clean",
+                  "worn",
+                  "damaged"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "reverb": {
+            "description": "gmap-0.11.0: true = wet ringing room, false = dry room. One flag per walkable cell, shared by the cell's whole module or shape room; void cells carry none and the spawn cell is always dry.",
+            "type": "boolean"
+          },
+          "diagonal_passage": {
+            "type": "object",
+            "required": [
+              "link_id",
+              "from_cell_id",
+              "to_cell_id",
+              "from_port_id",
+              "to_port_id",
+              "clear_width_m",
+              "wall_thickness_m",
+              "length_m",
+              "outline_xz",
+              "palette_source_cell_id"
+            ],
+            "properties": {
+              "link_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "from_cell_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "to_cell_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "from_port_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "to_port_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "clear_width_m": {
+                "const": 2.0
+              },
+              "wall_thickness_m": {
+                "const": 0.16
+              },
+              "length_m": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "outline_xz": {
+                "type": "array",
+                "minItems": 4,
+                "maxItems": 4,
+                "items": {
+                  "$ref": "#/$defs/point_xz"
+                }
+              },
+              "palette_source_cell_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          },
+          "palette": {
+            "description": "Optional (gmap-0.5.0). The material palette this generated walkable cell takes: the palette of the nearest placed library figure room (anchor_module_id, graph distance over open edges), a gmap-0.12.0 regional floor palette (region_seed_cell_id, region_distance), or the registry default (all null). Module and void cells carry none.",
+            "type": "object",
+            "required": [
+              "palette_id",
+              "anchor_module_id",
+              "distance"
+            ],
+            "properties": {
+              "palette_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "anchor_module_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "distance": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 1
+              },
+              "registry_version": {
+                "description": "Optional (gmap-0.12.0). The registry the palette id was resolved from; older maps default to 0.2.0.",
+                "enum": [
+                  "0.2.0",
+                  "0.3.0"
+                ]
+              },
+              "region_seed_cell_id": {
+                "description": "Optional (gmap-0.12.0). The non-anchored seed cell whose regional floor palette this cell took.",
+                "type": "string",
+                "minLength": 1
+              },
+              "region_distance": {
+                "description": "Optional (gmap-0.12.0). Graph distance from the region seed over open direct edges.",
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2
+              }
+            },
+            "additionalProperties": false
+          },
+          "module": {
+            "description": "Optional (gmap-0.3.0). The library module placed in this leaf cell: world = R(local) + translation_xz, R = rotation_deg / 90 quarter turns (x, z) -> (-z, x).",
+            "type": "object",
+            "required": [
+              "module_id",
+              "version",
+              "rotation_deg",
+              "translation_xz",
+              "socket_id",
+              "metadata_record"
+            ],
+            "properties": {
+              "module_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "rotation_deg": {
+                "enum": [
+                  0,
+                  90,
+                  180,
+                  270
+                ]
+              },
+              "translation_xz": {
+                "$ref": "#/$defs/point_xz"
+              },
+              "socket_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "metadata_record": {
+                "$ref": "#/$defs/path_and_hash"
+              }
+            },
+            "additionalProperties": false
+          },
+          "module_profile": {
+            "$ref": "#/$defs/path_and_hash"
+          },
+          "volume": {
+            "$ref": "#/$defs/volume"
+          },
+          "mood": {
+            "$ref": "#/$defs/mood"
+          },
+          "doors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/door"
+            }
+          },
+          "mutation": {
+            "$ref": "#/$defs/mutation"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "connector"
+        ],
+        "properties": {
+          "from": {
+            "type": "string",
+            "minLength": 1
+          },
+          "to": {
+            "type": "string",
+            "minLength": 1
+          },
+          "connector": {
+            "type": "string",
+            "minLength": 1
+          },
+          "connection_status": {
+            "description": "Optional (gmap-0.3.0). proposed_untested: a new joint (generated cell to a library module's tested socket) that no operator has walked; it never inherits the #160 / #168 pair approval.",
+            "enum": [
+              "proposed_untested"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "diagonal",
+              "elevation_loop"
+            ]
+          },
+          "diagonal_link_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "vertical": {
+            "description": "gmap-0.10.0: level, bidirectional ramp, or one-way drop from upper to lower.",
+            "enum": [
+              "level",
+              "ramp",
+              "drop"
+            ]
+          },
+          "ramp": {
+            "type": "object",
+            "required": [
+              "lower_cell_id",
+              "upper_cell_id",
+              "rise_m",
+              "run_m",
+              "width_m",
+              "angle_deg"
+            ],
+            "properties": {
+              "lower_cell_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "upper_cell_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rise_m": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "run_m": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "width_m": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "angle_deg": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 25.0
+              }
+            },
+            "additionalProperties": false
+          },
+          "drop": {
+            "type": "object",
+            "required": [
+              "upper_cell_id",
+              "lower_cell_id",
+              "drop_m"
+            ],
+            "properties": {
+              "upper_cell_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "lower_cell_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "drop_m": {
+                "type": "number",
+                "minimum": 1.5,
+                "maximum": 4.5
+              }
+            },
+            "additionalProperties": false
+          },
+          "door_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "distribution": {
+      "type": "object",
+      "required": [
+        "tier_curve",
+        "repetition_budget"
+      ],
+      "properties": {
+        "tier_curve": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repetition_budget": {
+          "type": "object",
+          "required": [
+            "max_same_module_adjacent",
+            "max_same_primitive_run"
+          ],
+          "properties": {
+            "max_same_module_adjacent": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_same_primitive_run": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "void_budget": {
+      "type": "object",
+      "required": [
+        "min",
+        "max"
+      ],
+      "properties": {
+        "min": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "degenerate_budget": {
+      "description": "Optional (required by gmap-0.2.0 rules). Rare degenerate cells: at most max, used so far.",
+      "type": "object",
+      "required": [
+        "max",
+        "used"
+      ],
+      "properties": {
+        "max": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "used": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "palette_registry": {
+      "description": "Optional (required by gmap-0.5.0 rules). The material palette registry the cell palettes were assigned from, with its hash.",
+      "$ref": "#/$defs/path_and_hash"
+    },
+    "diagonal_links": {
+      "type": "object",
+      "required": [
+        "budget",
+        "used",
+        "selection_rule",
+        "nudged_cells"
+      ],
+      "properties": {
+        "budget": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "used": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "selection_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nudged_cells": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "reserved_diagonal_zones": {
+          "description": "gmap-0.6.1 growth-time sites; realized entries become links and released entries remain unoccupied.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "site_id",
+              "endpoint_ids",
+              "corner_indices",
+              "corner_xz",
+              "start_xz",
+              "finish_xz",
+              "clearance_polygon_xz",
+              "status"
+            ],
+            "properties": {
+              "site_id": {
+                "type": "string",
+                "pattern": "^ds[0-9]{2}$"
+              },
+              "endpoint_ids": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "corner_indices": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 3
+                }
+              },
+              "corner_xz": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "$ref": "#/$defs/point_xz"
+                }
+              },
+              "start_xz": {
+                "$ref": "#/$defs/point_xz"
+              },
+              "finish_xz": {
+                "$ref": "#/$defs/point_xz"
+              },
+              "clearance_polygon_xz": {
+                "type": "array",
+                "minItems": 4,
+                "maxItems": 4,
+                "items": {
+                  "$ref": "#/$defs/point_xz"
+                }
+              },
+              "status": {
+                "enum": [
+                  "realized",
+                  "released"
+                ]
+              },
+              "link_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "release_reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "status": {
+                      "const": "realized"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "link_id"
+                  ],
+                  "not": {
+                    "required": [
+                      "release_reason"
+                    ]
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "status": {
+                      "const": "released"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "release_reason"
+                  ],
+                  "not": {
+                    "required": [
+                      "link_id"
+                    ]
+                  }
+                }
+              }
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "module_budget": {
+      "description": "Optional (required by gmap-0.3.0 rules). Library modules placed as leaf cells: min..max allowed, used so far.",
+      "type": "object",
+      "required": [
+        "min",
+        "max",
+        "used"
+      ],
+      "properties": {
+        "min": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "used": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "elevation_loops": {
+      "description": "gmap-0.10.0: non-tree level loop edges added so drops keep a return route.",
+      "type": "object",
+      "required": [
+        "budget",
+        "used",
+        "pairs"
+      ],
+      "properties": {
+        "budget": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "used": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pairs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "from_cell_id",
+              "to_cell_id",
+              "port_id"
+            ],
+            "properties": {
+              "from_cell_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "to_cell_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "port_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "elevation": {
+      "description": "gmap-0.10.0: deterministic elevation layer parameters.",
+      "type": "object",
+      "required": [
+        "stream",
+        "levels_m",
+        "change_probability",
+        "drop_probability",
+        "ramp_rise_m",
+        "ramp_min_run_m",
+        "clearance_m"
+      ],
+      "properties": {
+        "stream": {
+          "type": "string",
+          "minLength": 1
+        },
+        "levels_m": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 5,
+          "maxItems": 5,
+          "uniqueItems": true
+        },
+        "change_probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "drop_probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "ramp_rise_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "ramp_min_run_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "clearance_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "reverb_layer": {
+      "description": "gmap-0.11.0: per-room wet/dry reverb parameters. Each cell's flag comes from its own sha256 keyed draw over seed, attempt, stream and cell_id, so one cell can be re-drawn without shifting the others; a later runtime mutation may flip a visited room.",
+      "type": "object",
+      "required": [
+        "stream",
+        "base_probability",
+        "volume_reference_m3",
+        "volume_full_bonus_m3",
+        "max_volume_bonus",
+        "double_height_m",
+        "double_height_bonus",
+        "max_probability",
+        "selection"
+      ],
+      "properties": {
+        "stream": {
+          "type": "string",
+          "minLength": 1
+        },
+        "base_probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "volume_reference_m3": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "volume_full_bonus_m3": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "max_volume_bonus": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "double_height_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "double_height_bonus": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "max_probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "selection": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "floor_regions": {
+      "description": "gmap-0.12.0: regional floor-palette parameters. Seed cells and their palettes come from per-cell sha256 draws on the floor_regions stream, after the library-anchor rule; anchors win, and the spawn cell plus its direct neighbours are excluded.",
+      "type": "object",
+      "required": [
+        "stream",
+        "max_seeds",
+        "radius",
+        "max_region_area_share",
+        "min_default_area_share",
+        "min_default_envelope_share",
+        "selection",
+        "seed_cells",
+        "region_area_m2",
+        "base_area_m2"
+      ],
+      "properties": {
+        "stream": {
+          "type": "string",
+          "minLength": 1
+        },
+        "max_seeds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "radius": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        "max_region_area_share": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "min_default_area_share": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "min_default_envelope_share": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "selection": {
+          "type": "string",
+          "minLength": 1
+        },
+        "seed_cells": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "required": [
+              "cell_id",
+              "palette_id"
+            ],
+            "properties": {
+              "cell_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "palette_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "region_area_m2": {
+          "type": "number",
+          "minimum": 0
+        },
+        "base_area_m2": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "registration_accepted": {
+      "const": false
+    },
+    "scale_calibrated": {
+      "const": false
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "generator_version": {
+            "const": "gmap-0.6.1"
+          }
+        },
+        "required": [
+          "generator_version"
+        ]
+      },
+      "then": {
+        "required": [
+          "layout_variant"
+        ],
+        "properties": {
+          "diagonal_links": {
+            "required": [
+              "reserved_diagonal_zones"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "generator_version": {
+            "const": "gmap-0.7.0"
+          }
+        },
+        "required": [
+          "generator_version"
+        ]
+      },
+      "then": {
+        "required": [
+          "layout_variant",
+          "growth_cell_target"
+        ],
+        "properties": {
+          "shape_stage_max": {
+            "const": 3
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "generator_version": {
+            "const": "gmap-0.8.0"
+          }
+        },
+        "required": [
+          "generator_version"
+        ]
+      },
+      "then": {
+        "required": [
+          "layout_variant",
+          "growth_cell_target",
+          "dark_wing"
+        ],
+        "properties": {
+          "shape_stage_max": {
+            "const": 3
+          },
+          "cells": {
+            "items": {
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "role": {
+                        "enum": [
+                          "ground",
+                          "figure",
+                          "threshold"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "light"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "generator_version": {
+            "const": "gmap-0.9.0"
+          }
+        },
+        "required": [
+          "generator_version"
+        ]
+      },
+      "then": {
+        "required": [
+          "layout_variant",
+          "growth_cell_target",
+          "dark_wing",
+          "palette_registry"
+        ],
+        "properties": {
+          "shape_stage_max": {
+            "const": 3
+          },
+          "cells": {
+            "items": {
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "role": {
+                        "enum": [
+                          "ground",
+                          "figure",
+                          "threshold"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "not": {
+                      "required": [
+                        "module"
+                      ]
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "light",
+                      "wear",
+                      "surface_variants"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "generator_version": {
+            "const": "gmap-0.10.0"
+          }
+        },
+        "required": [
+          "generator_version"
+        ]
+      },
+      "then": {
+        "required": [
+          "layout_variant",
+          "growth_cell_target",
+          "dark_wing",
+          "palette_registry",
+          "elevation",
+          "elevation_loops"
+        ],
+        "properties": {
+          "shape_stage_max": {
+            "const": 3
+          },
+          "cells": {
+            "items": {
+              "allOf": [
+                {
+                  "required": [
+                    "floor_y"
+                  ]
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "role": {
+                        "enum": [
+                          "ground",
+                          "figure",
+                          "threshold"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "not": {
+                      "required": [
+                        "module"
+                      ]
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "light",
+                      "wear",
+                      "surface_variants"
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "edges": {
+            "items": {
+              "required": [
+                "vertical"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "generator_version": {
+            "const": "gmap-0.11.0"
+          }
+        },
+        "required": [
+          "generator_version"
+        ]
+      },
+      "then": {
+        "required": [
+          "layout_variant",
+          "growth_cell_target",
+          "dark_wing",
+          "palette_registry",
+          "elevation",
+          "elevation_loops",
+          "reverb_layer"
+        ],
+        "properties": {
+          "shape_stage_max": {
+            "const": 3
+          },
+          "cells": {
+            "items": {
+              "allOf": [
+                {
+                  "required": [
+                    "floor_y"
+                  ]
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "role": {
+                        "enum": [
+                          "ground",
+                          "figure",
+                          "threshold"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "reverb"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "role": {
+                        "enum": [
+                          "ground",
+                          "figure",
+                          "threshold"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "not": {
+                      "required": [
+                        "module"
+                      ]
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "light",
+                      "wear",
+                      "surface_variants"
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "edges": {
+            "items": {
+              "required": [
+                "vertical"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "generator_version": {
+            "const": "gmap-0.12.0"
+          }
+        },
+        "required": [
+          "generator_version"
+        ]
+      },
+      "then": {
+        "required": [
+          "layout_variant",
+          "growth_cell_target",
+          "dark_wing",
+          "palette_registry",
+          "elevation",
+          "elevation_loops",
+          "reverb_layer",
+          "floor_regions"
+        ],
+        "properties": {
+          "shape_stage_max": {
+            "const": 3
+          },
+          "cells": {
+            "items": {
+              "allOf": [
+                {
+                  "required": [
+                    "floor_y"
+                  ]
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "role": {
+                        "enum": [
+                          "ground",
+                          "figure",
+                          "threshold"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "reverb"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "role": {
+                        "enum": [
+                          "ground",
+                          "figure",
+                          "threshold"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "not": {
+                      "required": [
+                        "module"
+                      ]
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "light",
+                      "wear",
+                      "surface_variants"
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "edges": {
+            "items": {
+              "required": [
+                "vertical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "landmark_cell": {
+      "type": "object",
+      "required": [
+        "class",
+        "inradius_m",
+        "circumradius_m",
+        "rotation_deg",
+        "port_facet_indices",
+        "status"
+      ],
+      "properties": {
+        "class": {
+          "enum": [
+            "octagon_regular",
+            "dodecagon",
+            "rotunda16",
+            "hexagon"
+          ]
+        },
+        "inradius_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "circumradius_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "rotation_deg": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 360
+        },
+        "port_facet_indices": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "uniqueItems": true
+        },
+        "status": {
+          "const": "placed"
+        }
+      },
+      "additionalProperties": false
+    },
+    "landmark_map": {
+      "type": "object",
+      "required": [
+        "class",
+        "inradius_m",
+        "circumradius_m",
+        "rotation_deg",
+        "port_facet_indices",
+        "status",
+        "target_step"
+      ],
+      "properties": {
+        "class": {
+          "enum": [
+            "octagon_regular",
+            "dodecagon",
+            "rotunda16",
+            "hexagon"
+          ]
+        },
+        "inradius_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "circumradius_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "rotation_deg": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 360
+        },
+        "port_facet_indices": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "placed",
+            "unplaced"
+          ]
+        },
+        "target_step": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "cell_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "placed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "cell_id"
+            ],
+            "not": {
+              "required": [
+                "reason"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unplaced"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "reason"
+            ],
+            "not": {
+              "required": [
+                "cell_id"
+              ]
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "light": {
+      "type": "object",
+      "required": [
+        "tier",
+        "color_temp_k",
+        "lamps"
+      ],
+      "properties": {
+        "tier": {
+          "enum": [
+            "dim",
+            "normal",
+            "bright"
+          ]
+        },
+        "color_temp_k": {
+          "type": "integer",
+          "minimum": 3800,
+          "maximum": 5200
+        },
+        "lamps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "lamp_index",
+              "state",
+              "flicker_seed"
+            ],
+            "properties": {
+              "lamp_index": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "state": {
+                "enum": [
+                  "on",
+                  "flicker",
+                  "dead"
+                ]
+              },
+              "flicker_seed": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2147483647
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "dark_wing": {
+      "type": "object",
+      "required": [
+        "status",
+        "cell_ids"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "not_selected",
+            "placed",
+            "unavailable"
+          ]
+        },
+        "cell_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "placed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "cell_ids": {
+                "minItems": 2,
+                "maxItems": 3
+              }
+            },
+            "not": {
+              "required": [
+                "reason"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_selected",
+                  "unavailable"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "cell_ids": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unavailable"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "reason"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_selected"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "not": {
+              "required": [
+                "reason"
+              ]
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "point_xz": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "path_and_hash": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "library_index": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "metadata_records": {
+          "description": "Optional (gmap-0.3.0). The poetics record read for each library module (accepted record, else the draft), sorted by module_id.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "module_id",
+              "path",
+              "sha256"
+            ],
+            "properties": {
+              "module_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "$ref": "#/$defs/sha256"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "direction8": {
+      "description": "Unit vector in one of eight directions: four cardinal, four diagonal (components +/-0.707107).",
+      "oneOf": [
+        {
+          "enum": [
+            [
+              1,
+              0
+            ],
+            [
+              -1,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              -1
+            ]
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "enum": [
+              0.707107,
+              -0.707107,
+              0.7071067811865476,
+              -0.7071067811865476
+            ]
+          }
+        }
+      ]
+    },
+    "template_ref": {
+      "type": "object",
+      "required": [
+        "version",
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^generation-template-[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "volume": {
+      "type": "object",
+      "required": [
+        "nominal_m3",
+        "measured_m3",
+        "source"
+      ],
+      "properties": {
+        "nominal_m3": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "measured_m3": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "source": {
+          "enum": [
+            "module_profile",
+            "cell_envelope"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "mood": {
+      "type": "object",
+      "required": [
+        "tension",
+        "tags"
+      ],
+      "properties": {
+        "tension": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "door": {
+      "type": "object",
+      "required": [
+        "port_id",
+        "state",
+        "lock",
+        "reroll",
+        "follower_visibility",
+        "breadcrumb"
+      ],
+      "properties": {
+        "port_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "enum": [
+            "open",
+            "closed",
+            "locked"
+          ]
+        },
+        "lock": {
+          "type": "object",
+          "required": [
+            "lock_id",
+            "unlock_condition",
+            "locked_by"
+          ],
+          "properties": {
+            "lock_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "unlock_condition": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "locked_by": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "reroll": {
+          "type": "object",
+          "required": [
+            "eligible",
+            "stream",
+            "draw_index",
+            "max_rerolls",
+            "last_reroll_id"
+          ],
+          "properties": {
+            "eligible": {
+              "type": "boolean"
+            },
+            "stream": {
+              "type": "string",
+              "minLength": 1
+            },
+            "draw_index": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "max_rerolls": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "last_reroll_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "follower_visibility": {
+          "enum": [
+            "visible",
+            "untouched"
+          ]
+        },
+        "breadcrumb": {
+          "type": "object",
+          "required": [
+            "marker_id",
+            "kind",
+            "persistent"
+          ],
+          "properties": {
+            "marker_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "kind": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "persistent": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "mutation": {
+      "type": "object",
+      "required": [
+        "eligible",
+        "classes",
+        "follower_visibility",
+        "policy",
+        "last_change_id"
+      ],
+      "properties": {
+        "eligible": {
+          "type": "boolean"
+        },
+        "classes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "door",
+              "reverb",
+              "palette",
+              "light",
+              "breadcrumb"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "follower_visibility": {
+          "enum": [
+            "visible",
+            "untouched"
+          ]
+        },
+        "policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "last_change_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "description": "Generative map schema v2 from docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md section 4.3. Every v2 addition is optional; committed gmap-0.1.0 through gmap-0.12.0 maps keep validating against generative_map.schema.json (schema v1)."
+}

@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "profile_version": "module-profile-0.1.0",
+  "module_id": "godot_gopro_industrial_hall_south_socket_v1",
+  "version": 1,
+  "source_id": "video-ccf9722164a0bdc8",
+  "origin": "source_video",
+  "poetics_ref": {
+    "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_poetics_v2.json",
+    "sha256": "0dcc9e45c524d9daba2cb88d3e956e6d22eb04d03cff6d36e1ab025654c2a25e"
+  },
+  "catalog_snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30",
+  "template_ref": {
+    "version": "generation-template-0.1.0",
+    "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+    "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8"
+  },
+  "shape": {
+    "footprint_xz": [
+      [-8.0, -6.5],
+      [8.0, -6.5],
+      [8.0, 6.5],
+      [-8.0, 6.5]
+    ],
+    "bbox_xz": {
+      "min": [-8.0, -6.5],
+      "max": [8.0, 6.5]
+    },
+    "area_m2": 208.0,
+    "ceiling_min_m": 4.78,
+    "ceiling_max_m": 4.78,
+    "ceiling_height_m": 4.78,
+    "ceiling_kind": "flat",
+    "volume_nominal_m3": 994.24,
+    "volume_measured_m3": null,
+    "volume_source": "envelope_area_x_max_ceiling",
+    "vertex_count": 4,
+    "aspect": 1.230769,
+    "convexity": 1.0,
+    "rectilinear": true,
+    "primitive": "box",
+    "shape_stage": 0,
+    "symmetry": "D2"
+  },
+  "exits": [
+    {
+      "socket_id": "south",
+      "kind": "tested",
+      "compatibility_type": "level_doorway_2m_v1",
+      "width_m": 2.0,
+      "elevation_m": 0.0,
+      "circulation_role": "connector",
+      "tested_pair_ids": [
+        "issue168_industrial_hall_south__debris_rock_north_v1"
+      ],
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_poetics_v2.json"
+    }
+  ],
+  "roles": {
+    "map_role": "figure",
+    "form_role": "figure",
+    "semantic_tags": ["hub", "landmark"],
+    "circulation_role": "hub",
+    "sightline_tags": ["long_view"]
+  },
+  "surfaces": {
+    "wall": {
+      "material_id": "concrete_wall",
+      "palette_id": "industrial_concrete",
+      "acoustic": "concrete",
+      "texture_refs": [],
+      "provenance": "fixture",
+      "sign": "icon"
+    },
+    "floor": {
+      "material_id": "concrete_floor",
+      "palette_id": "industrial_concrete",
+      "acoustic": "concrete",
+      "texture_refs": [],
+      "provenance": "fixture",
+      "sign": "icon"
+    },
+    "ceiling": {
+      "material_id": "metal_deck_ceiling",
+      "palette_id": "industrial_concrete",
+      "acoustic": "metal",
+      "texture_refs": [],
+      "provenance": "fixture",
+      "sign": "symbol"
+    },
+    "trim": {
+      "material_id": "metal_trim",
+      "palette_id": null,
+      "acoustic": "metal",
+      "texture_refs": [],
+      "provenance": "fixture",
+      "sign": "symbol"
+    }
+  },
+  "acoustics": {
+    "status": "tag_only",
+    "tag": "concrete",
+    "probe": {
+      "probe_version": "room-acoustic-probe-0.1.0",
+      "mean_distance_m": null,
+      "max_distance_m": null,
+      "ceiling_height_m": null,
+      "openness": null,
+      "room_size": null,
+      "damping": null,
+      "wet": null,
+      "predelay_msec": null,
+      "sample_points": [],
+      "evidence": []
+    },
+    "absorption": {
+      "status": "unknown",
+      "wall": null,
+      "floor": null,
+      "ceiling": null,
+      "trim": null,
+      "source": "#213",
+      "confidence": 0.0
+    }
+  },
+  "lighting": {
+    "status": "unknown",
+    "tier": null,
+    "color_temp_k": null,
+    "illuminance_lux": null,
+    "fixtures": [
+      {
+        "kind": "clerestory_window_strip",
+        "count": 2
+      }
+    ],
+    "evidence": [
+      {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_poetics_v2.json",
+        "sha256": "0dcc9e45c524d9daba2cb88d3e956e6d22eb04d03cff6d36e1ab025654c2a25e"
+      }
+    ]
+  },
+  "scale": {
+    "status": "uncalibrated",
+    "anchor": null,
+    "confidence": 0.0,
+    "evidence": []
+  },
+  "mood": {
+    "tension": null,
+    "dread": null,
+    "curiosity": null,
+    "safety": null,
+    "anomaly": null,
+    "tags": [],
+    "evidence": []
+  },
+  "runtime": {
+    "mutation_eligible": false,
+    "mutation_classes": [],
+    "follower_visibility": "visible",
+    "breadcrumb_policy": "none"
+  },
+  "translation_chain": [
+    {
+      "stage": "direct_frame",
+      "evidence": [
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png"
+      ]
+    },
+    {
+      "stage": "hunyuan_panorama",
+      "evidence": [
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/panorama/panorama.png"
+      ]
+    },
+    {
+      "stage": "godot_room",
+      "evidence": [
+        "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/room.tscn"
+      ]
+    }
+  ],
+  "eligibility": {
+    "layout_eligible_derived": true,
+    "catalog_layout_eligible": null
+  }
+}

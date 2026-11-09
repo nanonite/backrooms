@@ -1,0 +1,84 @@
+{
+  "schema_version": 3,
+  "manifest_version": 3,
+  "source_id": "picture-set-0123456789abcdef",
+  "source_kind": "picture_set",
+  "content": {
+    "video": null,
+    "picture_set": [
+      {
+        "image_id": "img_0001",
+        "path": "data/pictures/fixture_set/img_0001.jpg",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000001",
+        "width": 4000,
+        "height": 3000,
+        "capture_index": 1,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0002",
+        "path": "data/pictures/fixture_set/img_0002.jpg",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000002",
+        "width": 4000,
+        "height": 3000,
+        "capture_index": 2,
+        "captured_at_utc": "2026-11-09T12:00:00+00:00",
+        "camera_pose": {
+          "position_m": [0.0, 1.6, 0.0],
+          "yaw_deg": 90.0
+        }
+      }
+    ],
+    "audio": {
+      "present": false,
+      "path": null,
+      "sha256": null
+    }
+  },
+  "capture": {
+    "camera_model": "fixture_camera",
+    "lens": null,
+    "intrinsics": {
+      "fx": 2800.0,
+      "fy": 2800.0,
+      "cx": 2000.0,
+      "cy": 1500.0
+    },
+    "distortion": null,
+    "capture_height_m": 1.6,
+    "orientation": "landscape"
+  },
+  "scale": {
+    "status": "uncalibrated",
+    "method": null,
+    "anchor": null,
+    "confidence": 0.0,
+    "evidence": []
+  },
+  "lighting": {
+    "status": "estimated",
+    "color_temp_k": 4000,
+    "illuminance_lux": null,
+    "fixtures": [
+      {
+        "kind": "fluorescent_bay",
+        "count": 6
+      }
+    ],
+    "confidence": 0.2,
+    "evidence": []
+  },
+  "source_review": {
+    "status": "pending_operator_review",
+    "decision": null
+  },
+  "frame_references": [],
+  "hunyuan": {
+    "status": "not_attempted",
+    "attempts": []
+  },
+  "room_adaptations": [],
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

@@ -1,0 +1,483 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/module_profile.schema.json",
+  "title": "Library module profile sidecar (schema v1)",
+  "description": "Module-level sidecar from docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md section 4.2. It references an accepted module_poetics record by path and hash and never edits it.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "profile_version",
+    "module_id",
+    "version",
+    "source_id",
+    "origin",
+    "poetics_ref",
+    "catalog_snapshot_sha256",
+    "template_ref",
+    "shape",
+    "exits",
+    "roles",
+    "surfaces",
+    "acoustics",
+    "lighting",
+    "scale",
+    "mood",
+    "runtime",
+    "translation_chain",
+    "eligibility"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "profile_version": {
+      "type": "string",
+      "pattern": "^module-profile-[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "module_id": { "type": "string", "minLength": 1 },
+    "version": { "type": "integer", "minimum": 1 },
+    "source_id": {
+      "type": ["string", "null"],
+      "pattern": "^(video|picture-set)-[0-9a-f]{16}$"
+    },
+    "origin": { "enum": ["source_video", "authored_kit"] },
+    "poetics_ref": { "$ref": "#/$defs/path_and_hash" },
+    "catalog_snapshot_sha256": { "$ref": "#/$defs/sha256" },
+    "template_ref": { "$ref": "#/$defs/template_ref" },
+    "shape": { "$ref": "#/$defs/shape" },
+    "exits": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/exit" }
+    },
+    "roles": { "$ref": "#/$defs/roles" },
+    "surfaces": { "$ref": "#/$defs/surfaces" },
+    "acoustics": { "$ref": "#/$defs/acoustics" },
+    "lighting": { "$ref": "#/$defs/lighting" },
+    "scale": { "$ref": "#/$defs/scale" },
+    "mood": { "$ref": "#/$defs/mood" },
+    "runtime": { "$ref": "#/$defs/runtime" },
+    "translation_chain": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/translation_stage" }
+    },
+    "eligibility": { "$ref": "#/$defs/eligibility" }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "origin": { "const": "authored_kit" } },
+        "required": ["origin"]
+      },
+      "then": {
+        "properties": {
+          "source_id": { "type": "null" },
+          "translation_chain": { "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "origin": { "const": "source_video" } },
+        "required": ["origin"]
+      },
+      "then": { "properties": { "source_id": { "type": "string" } } }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "point_xz": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "path_and_hash": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "template_ref": {
+      "type": "object",
+      "required": ["version", "path", "sha256"],
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^generation-template-[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "artifact_reference": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "fixture": {
+      "type": "object",
+      "required": ["kind", "count"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "count": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": true
+    },
+    "scale_anchor": {
+      "type": "object",
+      "required": ["kind", "value_m"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "value_m": { "type": "number", "exclusiveMinimum": 0 },
+        "frame_id": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "shape": {
+      "type": "object",
+      "required": [
+        "footprint_xz",
+        "bbox_xz",
+        "area_m2",
+        "ceiling_min_m",
+        "ceiling_max_m",
+        "ceiling_height_m",
+        "ceiling_kind",
+        "volume_nominal_m3",
+        "volume_measured_m3",
+        "volume_source"
+      ],
+      "properties": {
+        "footprint_xz": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "$ref": "#/$defs/point_xz" }
+        },
+        "bbox_xz": {
+          "type": "object",
+          "required": ["min", "max"],
+          "properties": {
+            "min": { "$ref": "#/$defs/point_xz" },
+            "max": { "$ref": "#/$defs/point_xz" }
+          },
+          "additionalProperties": false
+        },
+        "area_m2": { "type": "number", "exclusiveMinimum": 0 },
+        "ceiling_min_m": { "type": ["number", "null"], "minimum": 0 },
+        "ceiling_max_m": { "type": ["number", "null"], "minimum": 0 },
+        "ceiling_height_m": { "type": ["number", "null"], "minimum": 0 },
+        "ceiling_kind": {
+          "enum": ["flat", "beam_grid", "coffered", "open_to_above", "unknown"]
+        },
+        "volume_nominal_m3": { "type": ["number", "null"], "minimum": 0 },
+        "volume_measured_m3": { "type": ["number", "null"], "minimum": 0 },
+        "volume_source": {
+          "enum": ["envelope_area_x_max_ceiling", "probe", "authored"]
+        },
+        "vertex_count": { "type": "integer", "minimum": 3 },
+        "aspect": { "type": "number", "minimum": 1 },
+        "convexity": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "rectilinear": { "type": "boolean" },
+        "primitive": {
+          "enum": [
+            "box",
+            "l_shape",
+            "rectilinear_polygon",
+            "chamfered_polygon",
+            "polygon"
+          ]
+        },
+        "shape_stage": { "enum": [0, 1, 2, null] },
+        "symmetry": { "enum": ["C1", "D1", "C2", "D2", "C4", "D4"] }
+      },
+      "additionalProperties": false
+    },
+    "exit": {
+      "type": "object",
+      "required": [
+        "socket_id",
+        "kind",
+        "compatibility_type",
+        "width_m",
+        "elevation_m",
+        "circulation_role",
+        "tested_pair_ids",
+        "provenance"
+      ],
+      "properties": {
+        "socket_id": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["tested", "untested", "adapter", "void"] },
+        "compatibility_type": { "type": ["string", "null"] },
+        "width_m": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+        "elevation_m": { "type": ["number", "null"] },
+        "circulation_role": {
+          "enum": ["entrance", "exit", "connector", "service", "terminal"]
+        },
+        "tested_pair_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "provenance": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": { "kind": { "const": "tested" } },
+            "required": ["kind"]
+          },
+          "then": { "properties": { "tested_pair_ids": { "minItems": 1 } } }
+        }
+      ]
+    },
+    "roles": {
+      "type": "object",
+      "required": [
+        "map_role",
+        "form_role",
+        "semantic_tags",
+        "circulation_role",
+        "sightline_tags"
+      ],
+      "properties": {
+        "map_role": { "enum": ["ground", "figure", "threshold", "void"] },
+        "form_role": { "enum": ["ground", "figure"] },
+        "semantic_tags": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "circulation_role": { "enum": ["through", "terminal", "branch", "hub"] },
+        "sightline_tags": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "surface": {
+      "type": "object",
+      "required": [
+        "material_id",
+        "palette_id",
+        "acoustic",
+        "texture_refs",
+        "provenance",
+        "sign"
+      ],
+      "properties": {
+        "material_id": { "type": "string", "minLength": 1 },
+        "palette_id": { "type": ["string", "null"] },
+        "acoustic": { "type": "string", "minLength": 1 },
+        "texture_refs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "provenance": { "type": ["string", "null"] },
+        "sign": { "enum": ["index", "icon", "symbol"] }
+      },
+      "additionalProperties": false
+    },
+    "surfaces": {
+      "type": "object",
+      "required": ["wall", "floor", "ceiling", "trim"],
+      "properties": {
+        "wall": { "$ref": "#/$defs/surface" },
+        "floor": { "$ref": "#/$defs/surface" },
+        "ceiling": { "$ref": "#/$defs/surface" },
+        "trim": { "$ref": "#/$defs/surface" }
+      },
+      "additionalProperties": false
+    },
+    "acoustics": {
+      "type": "object",
+      "required": ["status", "tag", "probe", "absorption"],
+      "properties": {
+        "status": { "enum": ["tag_only", "probed", "measured"] },
+        "tag": { "type": ["string", "null"] },
+        "probe": {
+          "type": "object",
+          "required": [
+            "probe_version",
+            "mean_distance_m",
+            "max_distance_m",
+            "ceiling_height_m",
+            "openness",
+            "room_size",
+            "damping",
+            "wet",
+            "predelay_msec",
+            "sample_points",
+            "evidence"
+          ],
+          "properties": {
+            "probe_version": { "type": ["string", "null"] },
+            "mean_distance_m": { "type": ["number", "null"], "minimum": 0 },
+            "max_distance_m": { "type": ["number", "null"], "minimum": 0 },
+            "ceiling_height_m": { "type": ["number", "null"], "minimum": 0 },
+            "openness": { "type": ["number", "null"] },
+            "room_size": { "type": ["number", "null"] },
+            "damping": { "type": ["number", "null"] },
+            "wet": { "type": ["number", "null"] },
+            "predelay_msec": { "type": ["number", "null"], "minimum": 0 },
+            "sample_points": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "evidence": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/artifact_reference" }
+            }
+          },
+          "additionalProperties": false
+        },
+        "absorption": {
+          "type": "object",
+          "required": ["status", "wall", "floor", "ceiling", "trim", "source", "confidence"],
+          "properties": {
+            "status": { "enum": ["unknown", "estimated", "measured"] },
+            "wall": { "type": ["number", "null"] },
+            "floor": { "type": ["number", "null"] },
+            "ceiling": { "type": ["number", "null"] },
+            "trim": { "type": ["number", "null"] },
+            "source": { "type": "string", "minLength": 1 },
+            "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "lighting": {
+      "type": "object",
+      "required": [
+        "status",
+        "tier",
+        "color_temp_k",
+        "illuminance_lux",
+        "fixtures",
+        "evidence"
+      ],
+      "properties": {
+        "status": { "enum": ["unknown", "source_estimated", "operator_confirmed"] },
+        "tier": { "enum": ["dim", "normal", "bright", null] },
+        "color_temp_k": { "type": ["integer", "null"] },
+        "illuminance_lux": { "type": ["number", "null"], "minimum": 0 },
+        "fixtures": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/fixture" }
+        },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/artifact_reference" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "scale": {
+      "type": "object",
+      "required": ["status", "anchor", "confidence", "evidence"],
+      "properties": {
+        "status": { "enum": ["uncalibrated", "calibrated"] },
+        "anchor": {
+          "oneOf": [
+            { "$ref": "#/$defs/scale_anchor" },
+            { "type": "null" }
+          ]
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/artifact_reference" }
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "calibrated" } },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "anchor": { "type": "object" },
+              "evidence": { "minItems": 1 }
+            }
+          }
+        }
+      ]
+    },
+    "mood": {
+      "type": "object",
+      "required": ["tension", "dread", "curiosity", "safety", "anomaly", "tags", "evidence"],
+      "properties": {
+        "tension": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "dread": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "curiosity": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "safety": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "anomaly": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/artifact_reference" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "mutation_eligible",
+        "mutation_classes",
+        "follower_visibility",
+        "breadcrumb_policy"
+      ],
+      "properties": {
+        "mutation_eligible": { "type": "boolean" },
+        "mutation_classes": {
+          "type": "array",
+          "items": { "enum": ["door", "reverb", "palette", "light", "breadcrumb"] },
+          "uniqueItems": true
+        },
+        "follower_visibility": { "enum": ["visible", "untouched"] },
+        "breadcrumb_policy": { "enum": ["none", "marker", "trail"] }
+      },
+      "additionalProperties": false
+    },
+    "translation_stage": {
+      "type": "object",
+      "required": ["stage", "evidence"],
+      "properties": {
+        "stage": { "enum": ["direct_frame", "hunyuan_panorama", "godot_room"] },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "eligibility": {
+      "type": "object",
+      "required": ["layout_eligible_derived", "catalog_layout_eligible"],
+      "properties": {
+        "layout_eligible_derived": { "type": "boolean" },
+        "catalog_layout_eligible": { "type": ["boolean", "null"] }
+      },
+      "additionalProperties": false
+    }
+  }
+}
