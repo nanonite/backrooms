@@ -28,6 +28,7 @@ from register_picture_sources import (
     register_picture_set,
 )
 from source_ingestion_policy import WorkflowGateError
+from source_ingestion_runner import approve_picture_seed
 from video_source_library import (
     PICTURE_SET_SOURCE_KIND,
     SourceLibraryError,
@@ -51,7 +52,9 @@ class PictureSetIntakeTests(unittest.TestCase):
         (self.root / "data/pictures").mkdir(parents=True)
         (self.root / "data/videos").mkdir(parents=True)
         self.pictures = create_picture_set(
-            self.root / "data/pictures/synthetic-set-001", count=3
+            self.root / "data/pictures/synthetic-set-001",
+            count=3,
+            size=(1024, 768),
         )
         self.source_id = register_picture_set(self.pictures[0].parent, self.root)
 
@@ -71,6 +74,12 @@ class PictureSetIntakeTests(unittest.TestCase):
             self.source_id, "seed-candidates-001", self.root
         )
         image = json.loads(receipt.read_text(encoding="utf-8"))["images"][0]
+        approve_picture_seed(
+            self.source_id,
+            image["image_id"],
+            "Synthetic fixture choice for issue 221 intake checks.",
+            self.root,
+        )
         source_ingestion_runner.select_image(
             self.source_id, image["image_id"], image["path"], self.root
         )
@@ -170,7 +179,13 @@ class PictureSetIntakeTests(unittest.TestCase):
         self._approve()
         status = source_ingestion_runner.source_status(self.source_id, self.root)
         self.assertEqual(
-            ["import-images", "select-image"], status["next_worker_actions"]
+            [
+                "prepare-picture-seed-review",
+                "approve-picture-seed",
+                "import-images",
+                "select-image",
+            ],
+            status["next_worker_actions"],
         )
         self._import_and_select()
         status = source_ingestion_runner.source_status(self.source_id, self.root)
@@ -251,6 +266,14 @@ class PictureSetIntakeTests(unittest.TestCase):
                     "source_manifest_sha256": entry["manifest_sha256"],
                     "seed_frame_sha256": image["sha256"],
                     "seed_image_id": image["image_id"],
+                    "seed_review_decision": seed["seed_review_decision"],
+                    "seed_review_decision_sha256": seed["seed_review_decision"][
+                        "decision_sha256"
+                    ],
+                    "seed_image_width": seed["width"],
+                    "seed_image_height": seed["height"],
+                    "seed_image_source_path": seed["source_image_path"],
+                    "seed_image_capture_index": seed["capture_index"],
                 }
             ),
             encoding="utf-8",

@@ -14,16 +14,20 @@ from contextlib import contextmanager
 from pathlib import Path, PurePosixPath
 from typing import Any
 
-from PIL import Image
-
 import module_integration_stages as integration
 from module_metadata_accept import AcceptFlags, add_accept_flags, flags_from_args
+from picture_seed_review_v1 import (
+    build_picture_seed_review,
+    make_operator_decision,
+    validate_picture_seed_decision,
+)
 from picture_set_sources import (
     IMPORT_MANIFEST_NAME,
     IMPORT_OPERATION,
     import_source_images,
     verify_imported_image,
 )
+from PIL import Image
 from register_video_sources import append_event
 from source_event_reconciliation import plan_reconciliation
 from source_ingestion_policy import (
@@ -149,7 +153,12 @@ def _next_worker_actions(state: WorkflowState, source_kind: str = VIDEO_SOURCE_K
         return ["feedback"]
     if state.selected_seed is None:
         if source_kind == PICTURE_SET_SOURCE_KIND:
-            return ["import-images", "select-image"]
+            return [
+                "prepare-picture-seed-review",
+                "approve-picture-seed",
+                "import-images",
+                "select-image",
+            ]
         return ["extract-frames", "select-seed"]
     if state.can_start_attempt:
         return ["run_source_hunyuan.py"]
@@ -321,8 +330,52 @@ def select_image(
         image = _direct_image_record(
             source_id, image_path, image_id, manifest, events, entry, root
         )
+        decision_event = _latest_picture_seed_decision(events)
+        if decision_event is not None:
+            decision = decision_event
+            validate_picture_seed_decision(
+                decision,
+                entry["source_sha256"],
+                image_id,
+                image["sha256"],
+                enforce_hunyuan_resolution=False,
+                expected_image=image,
+            )
+            image["seed_review_decision"] = decision
         require_seed_selection(state, image)
         append_event(source_id, "seed_selected", image, root)
+
+
+def prepare_picture_seed_review(source_id: str, root: Path = ROOT) -> dict[str, Any]:
+    """Build a versioned, bounded review package from registered originals."""
+    return build_picture_seed_review(source_id, root)
+
+
+def approve_picture_seed(
+    source_id: str, image_id: str, rationale: str, root: Path = ROOT
+) -> dict[str, Any]:
+    """Record an explicit operator choice for one of the reviewed images."""
+    with _source_lock(source_id, root):
+        manifest, events, _entry = load_source(source_id, root)
+        state = evaluate_workflow(manifest, events)
+        if state.source_decision not in {"proceed", "proceed_with_limitations"}:
+            raise WorkflowGateError(
+                "Approve source suitability before approving a seed"
+            )
+        review = build_picture_seed_review(source_id, root)
+        decision = make_operator_decision(review, image_id, rationale)
+        append_event(source_id, "picture_seed_review_decision", decision, root)
+        return decision
+
+
+def _latest_picture_seed_decision(
+    events: list[dict[str, Any]],
+) -> dict[str, Any] | None:
+    for event in reversed(events):
+        if event.get("event_type") == "picture_seed_review_decision":
+            payload = event.get("payload")
+            return payload if isinstance(payload, dict) else None
+    return None
 
 
 def _direct_image_record(
@@ -1054,6 +1107,18 @@ def main() -> int:
     image_parser.add_argument("source_id")
     image_parser.add_argument("--image-id", required=True)
     image_parser.add_argument("--path", required=True)
+    picture_review_parser = commands.add_parser(
+        "prepare-picture-seed-review",
+        help="Rank registered picture originals for a bounded vision review",
+    )
+    picture_review_parser.add_argument("source_id")
+    picture_decision_parser = commands.add_parser(
+        "approve-picture-seed",
+        help="Operator only: approve one reviewed picture as the Hunyuan seed",
+    )
+    picture_decision_parser.add_argument("source_id")
+    picture_decision_parser.add_argument("--image-id", required=True)
+    picture_decision_parser.add_argument("--reason", required=True)
     room_attempt_parser = commands.add_parser("authorize-room-attempt")
     room_attempt_parser.add_argument("source_id")
     room_attempt_parser.add_argument("--room-id", required=True)
@@ -1139,6 +1204,11 @@ def main() -> int:
         select_seed(args.source_id, args.frame_id, args.path)
     elif args.action == "select-image":
         select_image(args.source_id, args.image_id, args.path)
+    elif args.action == "prepare-picture-seed-review":
+        print(json.dumps(prepare_picture_seed_review(args.source_id), indent=2))
+    elif args.action == "approve-picture-seed":
+        decision = approve_picture_seed(args.source_id, args.image_id, args.reason)
+        print(json.dumps(decision, indent=2))
     elif args.action == "authorize-room-attempt":
         authorize_room_attempt(args.source_id, args.room_id, args.reason)
     elif args.action == "feedback":

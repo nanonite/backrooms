@@ -158,8 +158,17 @@ def append_receipt_index(
             "created_at_utc": receipt["created_at_utc"],
             "status": receipt["status"],
             "source_id": source_id,
-            "source_video_sha256": receipt["source"]["video_sha256"],
         }
+        source = receipt["source"]
+        if isinstance(source.get("video_sha256"), str):
+            record["source_video_sha256"] = source["video_sha256"]
+        elif isinstance(source.get("source_image_set_sha256"), str):
+            record["source_kind"] = "picture_set"
+            record["source_image_set_sha256"] = source["source_image_set_sha256"]
+        else:
+            raise SeedReviewError(
+                "receipt_invalid", "Receipt source lacks a supported source hash"
+            )
         stream.seek(0, os.SEEK_END)
         stream.write(json.dumps(record, separators=(",", ":"), ensure_ascii=False))
         stream.write("\n")
@@ -192,7 +201,7 @@ def find_existing_receipt(
 def _receipt_directory(
     receipts_dir: Path, source_id: str, root: Path, *, create: bool = True
 ) -> Path:
-    if not re.fullmatch(r"video-[0-9a-f]{16}", source_id):
+    if not re.fullmatch(r"(?:video|picture-set)-[0-9a-f]{16}", source_id):
         raise SeedReviewError("unsafe_source_id", "Unsafe source ID for receipts")
     repo = root.resolve()
     base = receipts_dir if receipts_dir.is_absolute() else repo / receipts_dir

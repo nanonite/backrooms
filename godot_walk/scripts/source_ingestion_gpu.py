@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any
 
 from gpu_job_lock import GpuJobLockError, exclusive_gpu_job
+from picture_seed_review_v1 import validate_picture_seed_decision
 from register_video_sources import append_event
 from source_ingestion_policy import (
     WorkflowGateError,
@@ -198,6 +199,18 @@ def _validated_seed(
             raise WorkflowGateError("Select a current direct-source image before Hunyuan")
         if not seed.get("image_id"):
             raise WorkflowGateError("The selected seed has no image ID")
+        decision = seed.get("seed_review_decision")
+        if not isinstance(decision, dict):
+            raise WorkflowGateError(
+                "Approve a picture seed through picture-set review before Hunyuan"
+            )
+        validate_picture_seed_decision(
+            decision,
+            entry["source_sha256"],
+            seed["image_id"],
+            seed["sha256"],
+            expected_image=seed,
+        )
     elif seed.get("source_video_sha256") != entry["source_sha256"]:
         raise WorkflowGateError("Select a current direct-source frame before Hunyuan")
     path = root / seed["path"]
@@ -318,7 +331,7 @@ def _run_guarded_attempt(
                 seed_frame,
                 preflight,
                 root,
-                seed_image_id=settings["seed_frame"].get("image_id"),
+                seed_record=settings["seed_frame"],
             )
             append_event(source_id, "hunyuan_guard_passed", guard_record, root)
             return _invoke_panogen(
@@ -388,7 +401,7 @@ def _write_guard_receipt(
     seed_frame: Path,
     preflight: dict[str, Any],
     root: Path,
-    seed_image_id: str | None = None,
+    seed_record: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     source_kind = _source_kind(entry)
     data = {
@@ -402,8 +415,29 @@ def _write_guard_receipt(
         "preflight": preflight,
     }
     if source_kind == PICTURE_SET_SOURCE_KIND:
+        record = seed_record or {}
+        decision = record.get("seed_review_decision")
+        if not isinstance(decision, dict):
+            raise WorkflowGateError(
+                "Picture-set GPU guard requires a matching seed-review decision"
+            )
+        validate_picture_seed_decision(
+            decision,
+            entry["source_sha256"],
+            record.get("image_id"),
+            record.get("sha256"),
+            expected_image=record,
+        )
+        if record.get("sha256") != data["seed_frame_sha256"]:
+            raise SourceLibraryError("Selected seed changed before guard receipt")
         data["source_image_set_sha256"] = entry["source_sha256"]
-        data["seed_image_id"] = seed_image_id
+        data["seed_image_id"] = record.get("image_id")
+        data["seed_image_width"] = record.get("width")
+        data["seed_image_height"] = record.get("height")
+        data["seed_image_source_path"] = record.get("source_image_path")
+        data["seed_image_capture_index"] = record.get("capture_index")
+        data["seed_review_decision"] = decision
+        data["seed_review_decision_sha256"] = decision["decision_sha256"]
     else:
         data["source_video_sha256"] = entry["source_sha256"]
     path = attempt_dir / "gpu_guard.json"

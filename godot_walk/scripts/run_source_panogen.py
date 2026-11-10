@@ -11,6 +11,8 @@ import sys
 from pathlib import Path
 from types import SimpleNamespace
 
+from picture_seed_review_v1 import validate_picture_seed_decision
+
 ROOT = Path(__file__).resolve().parents[2]
 HUNYUAN = Path("/mnt/sharedOs/backrooms-track-a-runtime/HunyuanWorld-1.0")
 EXPECTED_COMMIT = "57fa9f3a79eae1079c279968cdb9d82c75fa7c86"
@@ -116,7 +118,6 @@ def _build_demo(arguments: argparse.Namespace):
         FluxFp8AttnProcessor2_0,
     )
     from hy3dworld.AngelSlim.gemm_quantization_processor import FluxFp8GeMMProcessor
-
     from source_panogen_offload import configure_demo_state, configure_pipeline
 
     if arguments.offload_mode != "sequential_cpu":
@@ -201,6 +202,32 @@ def _validate_guard_source(
         ):
             raise RuntimeError(
                 "Panogen requires a passing image-set-bound GPU guard receipt"
+            )
+        decision = receipt.get("seed_review_decision")
+        if not isinstance(decision, dict):
+            raise RuntimeError(
+                "Panogen requires a passing picture-seed-review-bound GPU guard receipt"
+            )
+        try:
+            validate_picture_seed_decision(
+                decision,
+                getattr(arguments, "source_image_set_sha256", None),
+                getattr(arguments, "image_id", None),
+                getattr(arguments, "seed_frame_sha256", None),
+                expected_image={
+                    "source_image_path": receipt.get("seed_image_source_path"),
+                    "width": receipt.get("seed_image_width"),
+                    "height": receipt.get("seed_image_height"),
+                    "capture_index": receipt.get("seed_image_capture_index"),
+                },
+            )
+        except (AttributeError, TypeError, ValueError) as error:
+            raise RuntimeError(
+                "Panogen requires a passing picture-seed-review-bound GPU guard receipt"
+            ) from error
+        if receipt.get("seed_review_decision_sha256") != decision["decision_sha256"]:
+            raise RuntimeError(
+                "GPU guard receipt does not bind the picture seed-review decision"
             )
         return
     if (
