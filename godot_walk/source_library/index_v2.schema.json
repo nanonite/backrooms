@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:backrooms:source-library:index-v2",
+  "title": "Backrooms source-library index with video and picture-set sources",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "index_version", "sources"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "index_version": {"type": "integer", "minimum": 1},
+    "sources": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/source"},
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "source_path", "source_sha256", "manifest_path", "manifest_sha256"],
+      "properties": {
+        "source_id": {"type": "string", "pattern": "^(video|picture-set)-[0-9a-f]{16}$"},
+        "source_path": {
+          "oneOf": [
+            {"type": "string", "pattern": "^data/videos/[^/]+$"},
+            {"type": "string", "pattern": "^data/pictures/[^/]+$"}
+          ]
+        },
+        "source_sha256": {"$ref": "#/$defs/sha256"},
+        "manifest_path": {"type": "string", "pattern": "^godot_walk/source_library/sources/(video|picture-set)-[0-9a-f]{16}/source_manifest(-v([2-9]|[1-9][0-9]+))?\\.json$"},
+        "manifest_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}

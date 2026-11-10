@@ -1,4 +1,9 @@
-"""Safe registration and validation for the local per-video source library."""
+"""Safe registration and validation for the local source library.
+
+The library holds direct video sources and picture sets. Video manifests keep
+their v1/v2 shape; new picture-set manifests use source-manifest schema v3 and
+never rewrite an older record.
+"""
 
 from __future__ import annotations
 
@@ -14,13 +19,28 @@ from fractions import Fraction
 from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Any
 
+from PIL import Image
+
 ROOT = Path(__file__).resolve().parents[2]
 LIBRARY = Path("godot_walk/source_library")
 INDEX_PATH = LIBRARY / "index.json"
 VIDEO_DIR = Path("data/videos")
+PICTURE_DIR = Path("data/pictures")
 VIDEO_SUFFIXES = {".mp4", ".mov", ".mkv", ".webm"}
-SOURCE_ID_PATTERN = re.compile(r"^video-[0-9a-f]{16}$")
+PICTURE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff"}
+VIDEO_SOURCE_KIND = "video"
+PICTURE_SET_SOURCE_KIND = "picture_set"
+SOURCE_KINDS = (VIDEO_SOURCE_KIND, PICTURE_SET_SOURCE_KIND)
+SOURCE_ID_PATTERN = re.compile(r"^(video|picture-set)-[0-9a-f]{16}$")
 VERSIONED_MANIFEST_PATTERN = re.compile(r"^source_manifest-v([2-9]|[1-9][0-9]+)\.json$")
+PICTURE_SET_IDENTITY_FIELDS = (
+    "image_id",
+    "path",
+    "sha256",
+    "width",
+    "height",
+    "capture_index",
+)
 
 
 class SourceLibraryError(ValueError):
@@ -35,9 +55,23 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def safe_source_id(digest: str) -> str:
+def source_kind_for_id(source_id: str) -> str:
+    if not isinstance(source_id, str):
+        raise SourceLibraryError("Source ID is not safe")
+    if source_id.startswith("picture-set-"):
+        return PICTURE_SET_SOURCE_KIND
+    if source_id.startswith("video-"):
+        return VIDEO_SOURCE_KIND
+    raise SourceLibraryError("Source ID is not safe")
+
+
+def safe_source_id(digest: str, source_kind: str = VIDEO_SOURCE_KIND) -> str:
     if re.fullmatch(r"[0-9a-f]{64}", digest) is None:
         raise SourceLibraryError("Source SHA-256 must contain 64 lowercase hex digits")
+    if source_kind == PICTURE_SET_SOURCE_KIND:
+        return f"picture-set-{digest[:16]}"
+    if source_kind != VIDEO_SOURCE_KIND:
+        raise SourceLibraryError(f"Unsupported source kind: {source_kind}")
     return f"video-{digest[:16]}"
 
 
@@ -63,6 +97,93 @@ def canonical_video_path(path: Path, root: Path = ROOT) -> tuple[Path, str]:
     if not resolved.relative_to(repo).as_posix().startswith("data/videos/"):
         raise SourceLibraryError("Canonical source path is outside data/videos")
     return resolved, resolved.relative_to(repo).as_posix()
+
+
+def canonical_picture_set_path(path: Path, root: Path = ROOT) -> tuple[Path, str]:
+    repo = root.resolve()
+    intake = repo / PICTURE_DIR
+    if intake.is_symlink():
+        raise SourceLibraryError(
+            "The data/pictures intake directory may not be a symlink"
+        )
+    if not intake.is_dir():
+        raise SourceLibraryError("Local intake directory data/pictures does not exist")
+    if path.is_symlink():
+        raise SourceLibraryError(f"Picture set may not be a symlink: {path}")
+    resolved = path.resolve(strict=True)
+    picture_root = intake.resolve(strict=True)
+    if not picture_root.is_relative_to(repo):
+        raise SourceLibraryError(
+            "The data/pictures intake directory escapes the repository"
+        )
+    if not resolved.is_relative_to(picture_root) or resolved.parent != picture_root:
+        raise SourceLibraryError(
+            "Picture sets must be direct directories under data/pictures"
+        )
+    if not resolved.is_dir():
+        raise SourceLibraryError(f"Unsupported or non-directory picture set: {path}")
+    relative = resolved.relative_to(repo).as_posix()
+    if not relative.startswith("data/pictures/"):
+        raise SourceLibraryError("Canonical source path is outside data/pictures")
+    return resolved, relative
+
+
+def picture_set_images(directory: Path) -> list[Path]:
+    """Return the direct, supported image files of one picture set in stable order."""
+    images = [
+        path
+        for path in directory.iterdir()
+        if path.is_file() and not path.is_symlink() and path.suffix.lower() in PICTURE_SUFFIXES
+    ]
+    return sorted(images, key=lambda item: (item.name.casefold(), item.name))
+
+
+def probe_picture(path: Path) -> dict[str, int]:
+    try:
+        with Image.open(path) as image:
+            width, height = image.size
+            image.verify()
+    except (OSError, ValueError) as error:
+        raise SourceLibraryError(f"Cannot read picture: {path}") from error
+    if width <= 0 or height <= 0:
+        raise SourceLibraryError("Picture dimensions must be positive")
+    return {"width": width, "height": height}
+
+
+def probe_picture_set(picture_dir: Path, root: Path = ROOT) -> list[dict[str, Any]]:
+    """Hash every image and read its dimensions; no image is copied or edited."""
+    directory, relative = canonical_picture_set_path(picture_dir, root)
+    files = picture_set_images(directory)
+    if not files:
+        raise SourceLibraryError(f"Picture set contains no supported images: {relative}")
+    images = []
+    for capture_index, path in enumerate(files, start=1):
+        dimensions = probe_picture(path)
+        images.append(
+            {
+                "image_id": f"img_{capture_index:04d}",
+                "path": (Path(relative) / path.name).as_posix(),
+                "sha256": sha256_file(path),
+                "width": dimensions["width"],
+                "height": dimensions["height"],
+                "capture_index": capture_index,
+                "captured_at_utc": None,
+                "camera_pose": None,
+            }
+        )
+    return images
+
+
+def picture_set_sha256(images: list[dict[str, Any]]) -> str:
+    """Hash the ordered, direct-source image identity of one picture set."""
+    identity = [
+        {field: image.get(field) for field in PICTURE_SET_IDENTITY_FIELDS}
+        for image in images
+    ]
+    payload = json.dumps(
+        identity, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
 
 
 def probe_video(path: Path) -> dict[str, Any]:
@@ -128,8 +249,14 @@ def validate_index(root: Path = ROOT) -> list[dict[str, Any]]:
     index_path = root / INDEX_PATH
     _reject_symlink_path(index_path, root)
     index = _read_json(index_path)
-    if index.get("schema_version") != 1 or not isinstance(index.get("sources"), list):
+    version = index.get("schema_version")
+    if version not in (1, 2) or not isinstance(index.get("sources"), list):
         raise SourceLibraryError("Unsupported source-library index")
+    for entry in index["sources"]:
+        if version == 1 and isinstance(entry, dict) and str(
+            entry.get("source_id", "")
+        ).startswith("picture-set-"):
+            raise SourceLibraryError("Picture-set sources require index schema 2")
     seen_paths: set[str] = set()
     seen_hashes: set[str] = set()
     for entry in index["sources"]:
@@ -145,17 +272,18 @@ def _validate_index_entry(
     source_id = entry.get("source_id")
     if not isinstance(source_id, str) or SOURCE_ID_PATTERN.fullmatch(source_id) is None:
         raise SourceLibraryError("Index contains an unsafe source ID")
+    source_kind = source_kind_for_id(source_id)
+    if entry.get("source_kind", source_kind) != source_kind:
+        raise SourceLibraryError(f"Malformed source index entry: {source_id}")
     source_path = entry.get("source_path")
     source_digest = entry.get("source_sha256")
     manifest_path_text = entry.get("manifest_path")
     manifest_path = _source_manifest_path(manifest_path_text, source_id, root)
     if (
-        not isinstance(source_path, str)
-        or not source_path.startswith("data/videos/")
-        or Path(source_path).name != source_path.removeprefix("data/videos/")
+        not _valid_source_path(source_path, source_kind)
         or not isinstance(source_digest, str)
         or re.fullmatch(r"[0-9a-f]{64}", source_digest) is None
-        or source_id != safe_source_id(source_digest)
+        or source_id != safe_source_id(source_digest, source_kind)
         or manifest_path is None
         or not isinstance(entry.get("manifest_sha256"), str)
         or re.fullmatch(r"[0-9a-f]{64}", entry["manifest_sha256"]) is None
@@ -170,21 +298,147 @@ def _validate_index_entry(
     chain = _read_manifest_chain(manifest_path, source_id, root)
     if chain[0][1] != entry["manifest_sha256"]:
         raise SourceLibraryError(f"Source manifest changed: {source_id}")
-    video, canonical = canonical_video_path(root / source_path, root)
-    if canonical != source_path or sha256_file(video) != source_digest:
-        raise SourceLibraryError(
-            f"Source video changed since registration: {source_id}"
-        )
+    if chain[0][0].get("source_kind", VIDEO_SOURCE_KIND) != source_kind:
+        raise SourceLibraryError(f"Manifest source kind mismatch: {source_id}")
     for ancestor, _digest, _path in chain:
         if ancestor.get("source_id") != source_id:
             raise SourceLibraryError(f"Source ID mismatch in manifest: {source_id}")
-        canonical_video = ancestor.get("canonical_video", {})
-        if (
-            canonical_video.get("path") != source_path
-            or canonical_video.get("sha256") != source_digest
-        ):
-            raise SourceLibraryError(f"Manifest source hash mismatch: {source_id}")
+        _validate_manifest_source(
+            ancestor, source_id, source_kind, source_path, source_digest, root
+        )
         _validate_manifest_references(ancestor, root)
+
+
+def _valid_source_path(source_path: Any, source_kind: str) -> bool:
+    if not isinstance(source_path, str):
+        return False
+    if source_kind == VIDEO_SOURCE_KIND:
+        return (
+            source_path.startswith("data/videos/")
+            and Path(source_path).name == source_path.removeprefix("data/videos/")
+        )
+    relative = PurePosixPath(source_path)
+    return (
+        source_path.startswith("data/pictures/")
+        and len(relative.parts) == 3
+        and relative.parts[0] == "data"
+        and relative.parts[1] == "pictures"
+        and relative.parts[2] not in {"", ".", ".."}
+    )
+
+
+def _validate_manifest_source(
+    manifest: dict[str, Any],
+    source_id: str,
+    source_kind: str,
+    source_path: str,
+    source_digest: str,
+    root: Path,
+) -> None:
+    manifest_kind, content_path, content_digest, pictures = _manifest_identity(manifest)
+    if manifest_kind != source_kind:
+        raise SourceLibraryError(f"Manifest source kind mismatch: {source_id}")
+    if manifest_kind == VIDEO_SOURCE_KIND:
+        video, canonical = canonical_video_path(root / source_path, root)
+        if canonical != source_path or sha256_file(video) != source_digest:
+            raise SourceLibraryError(
+                f"Source video changed since registration: {source_id}"
+            )
+        if content_path != source_path or content_digest != source_digest:
+            raise SourceLibraryError(f"Manifest source hash mismatch: {source_id}")
+        return
+    if content_digest != source_digest:
+        raise SourceLibraryError(f"Manifest source hash mismatch: {source_id}")
+    _validate_picture_set_content(pictures or [], source_path, source_digest, source_id, root)
+
+
+def _manifest_identity(
+    manifest: dict[str, Any],
+) -> tuple[str, str | None, str | None, list[dict[str, Any]] | None]:
+    if manifest.get("schema_version") == 3:
+        source_kind = manifest.get("source_kind")
+        content = manifest.get("content")
+        if not isinstance(content, dict):
+            raise SourceLibraryError("Source manifest has no content block")
+        if source_kind == PICTURE_SET_SOURCE_KIND:
+            pictures = content.get("picture_set")
+            if not isinstance(pictures, list) or not pictures:
+                raise SourceLibraryError("Picture-set manifest has no images")
+            if content.get("video") is not None:
+                raise SourceLibraryError("Picture-set manifest also declares a video")
+            return source_kind, None, picture_set_sha256(pictures), pictures
+        if source_kind == VIDEO_SOURCE_KIND:
+            video = content.get("video")
+            if not isinstance(video, dict):
+                raise SourceLibraryError("Video manifest has no video block")
+            if content.get("picture_set") is not None:
+                raise SourceLibraryError("Video manifest also declares a picture set")
+            return source_kind, video.get("path"), video.get("sha256"), None
+        raise SourceLibraryError("Unsupported source kind in manifest")
+    canonical_video = manifest.get("canonical_video")
+    if not isinstance(canonical_video, dict):
+        raise SourceLibraryError("Source manifest has no canonical video")
+    return (
+        VIDEO_SOURCE_KIND,
+        canonical_video.get("path"),
+        canonical_video.get("sha256"),
+        None,
+    )
+
+
+def _validate_picture_set_content(
+    pictures: list[dict[str, Any]],
+    source_path: str,
+    source_digest: str,
+    source_id: str,
+    root: Path,
+) -> None:
+    if picture_set_sha256(pictures) != source_digest:
+        raise SourceLibraryError(f"Picture-set hash mismatch: {source_id}")
+    directory = root / source_path
+    _reject_symlink_path(directory, root)
+    if not directory.is_dir():
+        raise SourceLibraryError(f"Picture set is missing: {source_path}")
+    expected_paths = set()
+    seen_indexes = set()
+    for picture in pictures:
+        path_text = picture.get("path")
+        if not isinstance(path_text, str):
+            raise SourceLibraryError(f"Picture entry has no path: {source_id}")
+        relative = PurePosixPath(path_text)
+        if (
+            relative.is_absolute()
+            or any(part in {"", ".", ".."} for part in path_text.split("/"))
+            or relative.parent.as_posix() != source_path
+            or relative.name in {"", ".", ".."}
+        ):
+            raise SourceLibraryError(f"Picture path escapes its set: {path_text}")
+        capture_index = picture.get("capture_index")
+        if (
+            not isinstance(capture_index, int)
+            or isinstance(capture_index, bool)
+            or capture_index < 1
+            or capture_index in seen_indexes
+        ):
+            raise SourceLibraryError(f"Picture capture indexes are invalid: {source_id}")
+        seen_indexes.add(capture_index)
+        path = root.joinpath(*relative.parts)
+        _reject_symlink_path(path, root)
+        if not path.is_file() or sha256_file(path) != picture.get("sha256"):
+            raise SourceLibraryError(f"Picture changed since registration: {path_text}")
+        dimensions = probe_picture(path)
+        if (dimensions["width"], dimensions["height"]) != (
+            picture.get("width"),
+            picture.get("height"),
+        ):
+            raise SourceLibraryError(f"Picture dimensions changed: {path_text}")
+        expected_paths.add(path_text)
+    actual_paths = {
+        (Path(source_path) / path.name).as_posix()
+        for path in picture_set_images(directory)
+    }
+    if actual_paths != expected_paths:
+        raise SourceLibraryError(f"Picture set contents changed: {source_id}")
 
 
 def _source_manifest_path(path_text: Any, source_id: str, root: Path) -> Path | None:
@@ -217,6 +471,8 @@ def _read_manifest_chain(
         digest = sha256_file(path)
         chain.append((manifest, digest, path))
         _validate_manifest_version(manifest, path.name, expected_version)
+        if manifest.get("schema_version") == 3 and "supersedes" not in manifest:
+            break
         if expected_version == 1:
             break
         path = _manifest_parent(manifest, source_id, expected_version, root)
@@ -240,10 +496,12 @@ def _validate_manifest_version(
         if filename != "source_manifest.json" or manifest.get("schema_version") != 1:
             raise SourceLibraryError("The original source manifest must remain v1")
         return
+    schema_version = manifest.get("schema_version")
     if (
         filename != f"source_manifest-v{expected_version}.json"
-        or manifest.get("schema_version") != 2
+        or schema_version not in (2, 3)
         or manifest.get("manifest_version") != expected_version
+        or (schema_version == 3 and expected_version < 3)
     ):
         raise SourceLibraryError("Versioned source manifest identity is invalid")
 

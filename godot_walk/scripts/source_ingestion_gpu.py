@@ -27,7 +27,9 @@ from source_ingestion_runner import (
 )
 from video_source_library import (
     LIBRARY,
+    PICTURE_SET_SOURCE_KIND,
     ROOT,
+    VIDEO_SOURCE_KIND,
     SourceLibraryError,
     sha256_file,
     write_new_json,
@@ -98,7 +100,8 @@ def _run_locked_source_attempt(
     if runner is subprocess.run:
         _validate_local_runtime()
     attempt_id = _next_attempt_id(state.attempts_used, events)
-    seed_frame = _validated_seed(state.selected_seed, entry, root)
+    source_kind = manifest.get("source_kind", VIDEO_SOURCE_KIND)
+    seed_frame = _validated_seed(state.selected_seed, entry, root, source_kind)
     attempt_dir = _create_attempt_dir(root, source_id, attempt_id)
     settings = _attempt_settings(
         source_id,
@@ -183,13 +186,23 @@ def _validate_settings(
 
 
 def _validated_seed(
-    seed: dict[str, Any] | None, entry: dict[str, Any], root: Path
+    seed: dict[str, Any] | None,
+    entry: dict[str, Any],
+    root: Path,
+    source_kind: str = VIDEO_SOURCE_KIND,
 ) -> Path:
-    if seed is None or seed.get("source_video_sha256") != entry["source_sha256"]:
+    if seed is None:
+        raise WorkflowGateError("Select a current direct-source seed before Hunyuan")
+    if source_kind == PICTURE_SET_SOURCE_KIND:
+        if seed.get("source_image_set_sha256") != entry["source_sha256"]:
+            raise WorkflowGateError("Select a current direct-source image before Hunyuan")
+        if not seed.get("image_id"):
+            raise WorkflowGateError("The selected seed has no image ID")
+    elif seed.get("source_video_sha256") != entry["source_sha256"]:
         raise WorkflowGateError("Select a current direct-source frame before Hunyuan")
     path = root / seed["path"]
     if not path.is_file() or path.is_symlink() or sha256_file(path) != seed["sha256"]:
-        raise SourceLibraryError("Selected seed frame is missing or changed")
+        raise SourceLibraryError("Selected seed is missing or changed")
     return path
 
 
@@ -207,11 +220,13 @@ def _attempt_settings(
 ) -> dict[str, Any]:
     from source_ingestion_resource_guard import DEFAULT_LIMITS
 
-    return {
+    source_kind = _source_kind(entry)
+    settings = {
         "schema_version": 2,
         "diagnostic_profile": DIAGNOSTIC_PROFILE,
         "source_id": source_id,
-        "source_video_sha256": entry["source_sha256"],
+        "source_kind": source_kind,
+        "source_sha256": entry["source_sha256"],
         "source_manifest_sha256": entry["manifest_sha256"],
         "attempt_id": attempt_id,
         "seed_frame": seed,
@@ -245,6 +260,20 @@ def _attempt_settings(
         "fp8_gemm": True,
         "true_cfg_scale": 1.0,
     }
+    if source_kind == PICTURE_SET_SOURCE_KIND:
+        settings["source_image_set_sha256"] = entry["source_sha256"]
+        settings["seed_image_id"] = seed.get("image_id")
+    else:
+        settings["source_video_sha256"] = entry["source_sha256"]
+    return settings
+
+
+def _source_kind(entry: dict[str, Any]) -> str:
+    return (
+        PICTURE_SET_SOURCE_KIND
+        if entry.get("source_path", "").startswith("data/pictures/")
+        else VIDEO_SOURCE_KIND
+    )
 
 
 def _run_guarded_attempt(
@@ -283,7 +312,13 @@ def _run_guarded_attempt(
                     preflight_details=details,
                 )
             guard_record = _write_guard_receipt(
-                attempt_dir, source_id, entry, seed_frame, preflight, root
+                attempt_dir,
+                source_id,
+                entry,
+                seed_frame,
+                preflight,
+                root,
+                seed_image_id=settings["seed_frame"].get("image_id"),
             )
             append_event(source_id, "hunyuan_guard_passed", guard_record, root)
             return _invoke_panogen(
@@ -353,16 +388,24 @@ def _write_guard_receipt(
     seed_frame: Path,
     preflight: dict[str, Any],
     root: Path,
+    seed_image_id: str | None = None,
 ) -> dict[str, Any]:
+    source_kind = _source_kind(entry)
     data = {
         "status": "passed",
         "source_id": source_id,
-        "source_video_sha256": entry["source_sha256"],
+        "source_kind": source_kind,
+        "source_sha256": entry["source_sha256"],
         "source_manifest_sha256": entry["manifest_sha256"],
         "seed_frame_sha256": sha256_file(seed_frame),
         "checked_at_utc": datetime.now(timezone.utc).isoformat(),
         "preflight": preflight,
     }
+    if source_kind == PICTURE_SET_SOURCE_KIND:
+        data["source_image_set_sha256"] = entry["source_sha256"]
+        data["seed_image_id"] = seed_image_id
+    else:
+        data["source_video_sha256"] = entry["source_sha256"]
     path = attempt_dir / "gpu_guard.json"
     write_new_json(path, data)
     return {"path": path.relative_to(root).as_posix(), "sha256": sha256_file(path)}
@@ -437,7 +480,8 @@ def _verify_candidate_identity(
 ) -> None:
     _, _, entry = load_source(source_id, root)
     if (
-        entry["source_sha256"] != settings["source_video_sha256"]
+        entry["source_sha256"]
+        != settings.get("source_sha256", settings.get("source_video_sha256"))
         or entry["manifest_sha256"] != settings["source_manifest_sha256"]
     ):
         raise SourceLibraryError("Source identity changed before Hunyuan invocation")
@@ -450,42 +494,61 @@ def _panogen_command(
     guard_receipt: dict[str, str],
     root: Path,
 ) -> list[str]:
-    return [
+    source_kind = settings.get("source_kind", VIDEO_SOURCE_KIND)
+    command = [
         str(HUNYUAN_PYTHON),
         str(SCRIPTS / "run_source_panogen.py"),
         "--source-id",
         settings["source_id"],
+        "--source-kind",
+        source_kind,
         "--seed-frame",
         str(seed_frame),
         "--seed-frame-sha256",
         settings["seed_frame"]["sha256"],
-        "--source-video-sha256",
-        settings["source_video_sha256"],
-        "--source-manifest-sha256",
-        settings["source_manifest_sha256"],
-        "--guard-receipt",
-        str(root / guard_receipt["path"]),
-        "--guard-receipt-sha256",
-        guard_receipt["sha256"],
-        "--output-dir",
-        str(attempt_dir / "panorama"),
-        "--prompt",
-        settings["prompt"],
-        "--width",
-        str(settings["width"]),
-        "--height",
-        str(settings["height"]),
-        "--seed",
-        str(settings["diffusion_seed"]),
-        "--offload-mode",
-        settings["offload_mode"],
-        "--no-cache",
-        "--vae-tiling",
-        "--fp8-attention",
-        "--fp8-gemm",
-        "--true-cfg-scale",
-        str(settings["true_cfg_scale"]),
     ]
+    if source_kind == PICTURE_SET_SOURCE_KIND:
+        command.extend(
+            [
+                "--source-image-set-sha256",
+                settings["source_image_set_sha256"],
+                "--image-id",
+                settings["seed_image_id"],
+            ]
+        )
+    else:
+        command.extend(
+            ["--source-video-sha256", settings["source_video_sha256"]]
+        )
+    command.extend(
+        [
+            "--source-manifest-sha256",
+            settings["source_manifest_sha256"],
+            "--guard-receipt",
+            str(root / guard_receipt["path"]),
+            "--guard-receipt-sha256",
+            guard_receipt["sha256"],
+            "--output-dir",
+            str(attempt_dir / "panorama"),
+            "--prompt",
+            settings["prompt"],
+            "--width",
+            str(settings["width"]),
+            "--height",
+            str(settings["height"]),
+            "--seed",
+            str(settings["diffusion_seed"]),
+            "--offload-mode",
+            settings["offload_mode"],
+            "--no-cache",
+            "--vae-tiling",
+            "--fp8-attention",
+            "--fp8-gemm",
+            "--true-cfg-scale",
+            str(settings["true_cfg_scale"]),
+        ]
+    )
+    return command
 
 
 def _run_process(
@@ -653,21 +716,25 @@ def _record_attempt_started(
     root: Path,
     execution_receipt: dict[str, str] | None = None,
 ) -> None:
-    append_event(
-        source_id,
-        "hunyuan_attempt_started",
-        {
-            "attempt_id": attempt_id,
-            "run_id": settings["run_id"],
-            "source_video_sha256": settings["source_video_sha256"],
-            "source_manifest_sha256": settings["source_manifest_sha256"],
-            "seed_frame_sha256": settings["seed_frame"]["sha256"],
-            "config_sha256": sha256_file(attempt_dir / "attempt_config.json"),
-            "guard_receipt": guard_receipt,
-            "execution_guard_receipt": execution_receipt,
-        },
-        root,
-    )
+    payload = {
+        "attempt_id": attempt_id,
+        "run_id": settings["run_id"],
+        "source_kind": settings.get("source_kind", VIDEO_SOURCE_KIND),
+        "source_sha256": settings.get(
+            "source_sha256", settings.get("source_video_sha256")
+        ),
+        "source_manifest_sha256": settings["source_manifest_sha256"],
+        "seed_frame_sha256": settings["seed_frame"]["sha256"],
+        "config_sha256": sha256_file(attempt_dir / "attempt_config.json"),
+        "guard_receipt": guard_receipt,
+        "execution_guard_receipt": execution_receipt,
+    }
+    if payload["source_kind"] == PICTURE_SET_SOURCE_KIND:
+        payload["source_image_set_sha256"] = settings["source_image_set_sha256"]
+        payload["seed_image_id"] = settings["seed_image_id"]
+    else:
+        payload["source_video_sha256"] = settings["source_video_sha256"]
+    append_event(source_id, "hunyuan_attempt_started", payload, root)
 
 
 def _write_execution_guard(

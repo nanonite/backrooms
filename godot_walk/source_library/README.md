@@ -1,4 +1,4 @@
-# Per-video room library
+# Per-source room library
 
 `data/videos/` remains the local drop folder. Registration hashes and probes
 each direct child in place; it never moves, rewrites, stages, or commits source
@@ -164,3 +164,50 @@ python3 godot_walk/scripts/module_poetics.py accept-kit --module-id <id> ...same
 an `integration_proposals/**/*.json` file has no citing event with its exact
 hash. `status` lists these stages in `next_worker_actions` once their
 preconditions hold.
+
+## Picture-set sources
+
+`data/pictures/<set>/` is the local drop folder for a direct picture set. Each
+image is hashed and probed in place; registration never copies, resizes or
+edits it. New picture-set manifests use `source-manifest` schema v3 and carry
+`source_kind: picture_set`, `content.picture_set[]`, `capture`, `scale`,
+`lighting` and the pending source review. The index moves to schema v2 when a
+picture set is present; old video entries stay valid.
+
+```bash
+P=godot_walk/scripts/register_picture_sources.py
+python3 $P inventory
+python3 $P register data/pictures/<set>
+python3 $P validate
+
+R=godot_walk/scripts/source_ingestion_runner.py
+python3 $R status picture-set-<16 hex>
+python3 $R review-source picture-set-<16 hex> \
+  --decision proceed_with_limitations --reason "<operator rationale>"
+python3 $R import-images picture-set-<16 hex> --run-id seed-candidates-001
+python3 $R select-image picture-set-<16 hex> \
+  --image-id img_0001 \
+  --path godot_walk/source_library/sources/picture-set-<16 hex>/images/seed-candidates-001/<imported image file>
+```
+
+`import-images` copies each source image byte-for-byte into the source folder
+and writes `import_manifest.json` with the image-set hash, every per-image
+hash and the image dimensions. `select-image` accepts only an imported image
+from that receipt. A picture seed has an `image_id` and capture index and no
+frame timestamp; none is invented. Hunyuan and Panogen guard receipts bind
+`source_image_set_sha256` plus `seed_image_id` instead of
+`source_video_sha256` and a video frame ID. Everything downstream — accepted
+poetics, module profile, palette, acoustics, map and assembly — is the same
+pipeline.
+
+For a CPU-only end-to-end check, generate a deterministic synthetic set first:
+
+```bash
+python3 godot_walk/scripts/generate_picture_set_fixture.py \
+  --output data/pictures/synthetic-picture-set-221
+python3 godot_walk/scripts/register_picture_sources.py register \
+  data/pictures/synthetic-picture-set-221
+```
+
+A real operator-supplied picture set and its seed review remain the human step;
+the synthetic set only proves the intake wiring.

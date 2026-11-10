@@ -50,9 +50,14 @@ def main() -> int:
 def _arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-id", required=True)
+    parser.add_argument(
+        "--source-kind", choices=("video", "picture_set"), default="video"
+    )
     parser.add_argument("--seed-frame", required=True, type=Path)
     parser.add_argument("--seed-frame-sha256", required=True)
-    parser.add_argument("--source-video-sha256", required=True)
+    parser.add_argument("--source-video-sha256")
+    parser.add_argument("--source-image-set-sha256")
+    parser.add_argument("--image-id")
     parser.add_argument("--source-manifest-sha256", required=True)
     parser.add_argument("--guard-receipt-sha256", required=True)
     parser.add_argument("--guard-receipt", required=True, type=Path)
@@ -86,6 +91,18 @@ def _arguments() -> argparse.Namespace:
         parser.error("The diagnostic profile requires caching to be disabled")
     if not arguments.fp8_attention or not arguments.fp8_gemm:
         parser.error("The diagnostic profile requires both existing FP8 processors")
+    if arguments.source_kind == "video":
+        if not arguments.source_video_sha256:
+            parser.error("Video sources require --source-video-sha256")
+        if arguments.source_image_set_sha256 or arguments.image_id:
+            parser.error("Video sources cannot carry picture-set arguments")
+    else:
+        if not arguments.source_image_set_sha256 or not arguments.image_id:
+            parser.error(
+                "Picture-set sources require --source-image-set-sha256 and --image-id"
+            )
+        if arguments.source_video_sha256:
+            parser.error("Picture-set sources cannot carry --source-video-sha256")
     return arguments
 
 
@@ -99,6 +116,7 @@ def _build_demo(arguments: argparse.Namespace):
         FluxFp8AttnProcessor2_0,
     )
     from hy3dworld.AngelSlim.gemm_quantization_processor import FluxFp8GeMMProcessor
+
     from source_panogen_offload import configure_demo_state, configure_pipeline
 
     if arguments.offload_mode != "sequential_cpu":
@@ -156,19 +174,41 @@ def _validate_offload_compatibility() -> None:
 
 def _validate_guard_and_seed(arguments: argparse.Namespace) -> None:
     receipt = json.loads(arguments.guard_receipt.read_text(encoding="utf-8"))
-    if (
-        receipt.get("status") != "passed"
-        or receipt.get("source_id") != arguments.source_id
-        or receipt.get("source_video_sha256") != arguments.source_video_sha256
-        or receipt.get("source_manifest_sha256") != arguments.source_manifest_sha256
-    ):
-        raise RuntimeError("Panogen requires a passing source-bound GPU guard receipt")
+    _validate_guard_source(receipt, arguments)
     if receipt.get("seed_frame_sha256") != arguments.seed_frame_sha256:
         raise RuntimeError("GPU guard receipt does not bind this seed frame")
     if _sha256(arguments.guard_receipt) != arguments.guard_receipt_sha256:
         raise RuntimeError("GPU guard receipt hash changed")
     if _sha256(arguments.seed_frame) != arguments.seed_frame_sha256:
-        raise RuntimeError("Direct-source seed frame hash changed")
+        raise RuntimeError("Direct-source seed hash changed")
+
+
+def _validate_guard_source(
+    receipt: dict[str, object], arguments: argparse.Namespace
+) -> None:
+    if (
+        receipt.get("status") != "passed"
+        or receipt.get("source_id") != arguments.source_id
+        or receipt.get("source_manifest_sha256") != arguments.source_manifest_sha256
+    ):
+        raise RuntimeError("Panogen requires a passing source-bound GPU guard receipt")
+    if getattr(arguments, "source_kind", "video") == "picture_set":
+        if (
+            receipt.get("source_kind") != "picture_set"
+            or receipt.get("source_image_set_sha256")
+            != getattr(arguments, "source_image_set_sha256", None)
+            or receipt.get("seed_image_id") != getattr(arguments, "image_id", None)
+        ):
+            raise RuntimeError(
+                "Panogen requires a passing image-set-bound GPU guard receipt"
+            )
+        return
+    if (
+        receipt.get("source_kind", "video") != "video"
+        or receipt.get("source_video_sha256")
+        != getattr(arguments, "source_video_sha256", None)
+    ):
+        raise RuntimeError("Panogen requires a passing video-bound GPU guard receipt")
 
 
 def _validate_runtime() -> None:

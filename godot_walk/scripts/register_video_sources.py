@@ -15,8 +15,12 @@ from source_event_reconciliation import validate_decision_event_coverage
 from video_source_library import (
     INDEX_PATH,
     LIBRARY,
+    PICTURE_SET_SOURCE_KIND,
     ROOT,
+    SOURCE_ID_PATTERN,
     VIDEO_DIR,
+    VIDEO_SOURCE_KIND,
+    VIDEO_SUFFIXES,
     Probe,
     SourceLibraryError,
     canonical_video_path,
@@ -24,6 +28,7 @@ from video_source_library import (
     probe_video,
     safe_source_id,
     sha256_file,
+    source_kind_for_id,
     utc_now,
     validate_index,
     write_new_json,
@@ -220,8 +225,12 @@ def _index_entry(
 def write_index_snapshot(
     root: Path, entries: list[dict[str, Any]], revision: int
 ) -> None:
+    has_picture_sets = any(
+        source_kind_for_id(item["source_id"]) == PICTURE_SET_SOURCE_KIND
+        for item in entries
+    )
     index = {
-        "schema_version": 1,
+        "schema_version": 2 if has_picture_sets else 1,
         "index_version": revision,
         "sources": sorted(entries, key=lambda item: item["source_id"]),
     }
@@ -326,7 +335,7 @@ def inventory(root: Path = ROOT, probe: Probe = probe_video) -> list[str]:
         raise SourceLibraryError("Local intake directory data/videos does not exist")
     registered = []
     for path in sorted(video_dir.iterdir(), key=lambda item: item.name.casefold()):
-        if path.is_file() and path.suffix.lower() in {".mp4", ".mov", ".mkv", ".webm"}:
+        if path.is_file() and path.suffix.lower() in VIDEO_SUFFIXES:
             registered.append(register_video(path, root, probe))
     return registered
 
@@ -336,7 +345,7 @@ def append_event(
 ) -> None:
     if (
         not isinstance(source_id, str)
-        or re.fullmatch(r"video-[0-9a-f]{16}", source_id) is None
+        or SOURCE_ID_PATTERN.fullmatch(source_id) is None
     ):
         raise SourceLibraryError("Unsafe source ID")
     if re.fullmatch(r"[a-z][a-z0-9_]{1,63}", event_type) is None:
@@ -357,16 +366,22 @@ def append_event(
         if content and not content.endswith("\n"):
             raise SourceLibraryError("Source event log ends with a partial record")
         _validate_event_lines(lines)
+        source_kind = source_kind_for_id(source_id)
         event = {
             "schema_version": 1,
             "sequence": len(lines) + 1,
             "event_type": event_type,
             "occurred_at_utc": utc_now(),
             "source_id": source_id,
-            "source_video_sha256": source_entry["source_sha256"],
+            "source_kind": source_kind,
+            "source_sha256": source_entry["source_sha256"],
             "source_manifest_sha256": source_entry["manifest_sha256"],
             "payload": payload,
         }
+        if source_kind == VIDEO_SOURCE_KIND:
+            event["source_video_sha256"] = source_entry["source_sha256"]
+        else:
+            event["source_image_set_sha256"] = source_entry["source_sha256"]
         stream.seek(0, os.SEEK_END)
         stream.write(
             json.dumps(event, ensure_ascii=False, separators=(",", ":")) + "\n"

@@ -525,14 +525,27 @@ def require_source_decision(decision: str, rationale: str) -> None:
 def require_seed_selection(state: WorkflowState, frame: dict[str, Any]) -> None:
     if state.source_decision not in {"proceed", "proceed_with_limitations"}:
         raise WorkflowGateError("Approve source suitability before selecting a seed")
-    if frame.get("decode_operation") != "direct_source_video_decode_no_resize_or_edit":
-        raise WorkflowGateError(
-            "Hunyuan seed must be directly decoded from the source video"
-        )
-    if not frame.get("path") or not frame.get("sha256") or not frame.get("frame_id"):
-        raise WorkflowGateError(
-            "Seed selection must identify the exact frame path and hash"
-        )
+    operation = frame.get("decode_operation")
+    if operation == "direct_source_video_decode_no_resize_or_edit":
+        if not frame.get("path") or not frame.get("sha256") or not frame.get("frame_id"):
+            raise WorkflowGateError(
+                "Seed selection must identify the exact frame path and hash"
+            )
+        return
+    if operation == "direct_source_picture_import_no_resize_or_edit":
+        if (
+            not frame.get("path")
+            or not frame.get("sha256")
+            or not frame.get("image_id")
+            or not isinstance(frame.get("capture_index"), int)
+        ):
+            raise WorkflowGateError(
+                "Image seed selection must identify the exact image path and hash"
+            )
+        return
+    raise WorkflowGateError(
+        "Hunyuan seed must be directly decoded or imported from the source"
+    )
 
 
 def require_attempt_start(state: WorkflowState) -> None:

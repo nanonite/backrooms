@@ -14,9 +14,16 @@ from contextlib import contextmanager
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+from PIL import Image
+
 import module_integration_stages as integration
 from module_metadata_accept import AcceptFlags, add_accept_flags, flags_from_args
-from PIL import Image
+from picture_set_sources import (
+    IMPORT_MANIFEST_NAME,
+    IMPORT_OPERATION,
+    import_source_images,
+    verify_imported_image,
+)
 from register_video_sources import append_event
 from source_event_reconciliation import plan_reconciliation
 from source_ingestion_policy import (
@@ -33,15 +40,19 @@ from source_ingestion_policy import (
 from video_adaptation_sources import extract_source_frames
 from video_source_library import (
     LIBRARY,
+    PICTURE_SET_SOURCE_KIND,
     ROOT,
+    SOURCE_ID_PATTERN,
+    VIDEO_SOURCE_KIND,
     SourceLibraryError,
     manifest_lineage_hashes,
+    picture_set_sha256,
+    probe_picture_set,
     sha256_file,
     validate_index,
 )
 
 RUN_ID_PATTERN = re.compile(r"^[a-z0-9][a-z0-9-]{2,63}$")
-SOURCE_ID_PATTERN = re.compile(r"^video-[0-9a-f]{16}$")
 
 
 def load_source(
@@ -70,8 +81,13 @@ def _verify_event_identity(
     for event in events:
         if event.get("source_id") not in (None, source_id):
             raise SourceLibraryError("Event belongs to a different source")
-        if event.get("source_video_sha256") not in (None, entry["source_sha256"]):
-            raise SourceLibraryError("Event is stale for the registered source video")
+        event_hash = event.get("source_sha256")
+        if event_hash is None:
+            event_hash = event.get("source_video_sha256")
+        if event_hash is None:
+            event_hash = event.get("source_image_set_sha256")
+        if event_hash not in (None, entry["source_sha256"]):
+            raise SourceLibraryError("Event is stale for the registered source")
         if event.get("source_manifest_sha256") not in (None, *manifest_hashes):
             raise SourceLibraryError(
                 "Event is stale for the registered source manifest"
@@ -101,8 +117,10 @@ def _read_events(path: Path, root: Path) -> list[dict[str, Any]]:
 def source_status(source_id: str, root: Path = ROOT) -> dict[str, Any]:
     manifest, events, entry = load_source(source_id, root)
     state = evaluate_workflow(manifest, events)
+    source_kind = manifest.get("source_kind", VIDEO_SOURCE_KIND)
     return {
         "source_id": source_id,
+        "source_kind": source_kind,
         "source_path": entry["source_path"],
         "source_sha256": entry["source_sha256"],
         "source_manifest_path": entry["manifest_path"],
@@ -117,12 +135,12 @@ def source_status(source_id: str, root: Path = ROOT) -> dict[str, Any]:
         "stopped_reason": state.stopped_reason,
         "can_start_attempt": state.can_start_attempt,
         "manual_fallback_allowed": state.manual_fallback_allowed,
-        "next_worker_actions": _next_worker_actions(state)
+        "next_worker_actions": _next_worker_actions(state, source_kind)
         + integration.available_stages(source_id, events, root),
     }
 
 
-def _next_worker_actions(state: WorkflowState) -> list[str]:
+def _next_worker_actions(state: WorkflowState, source_kind: str = VIDEO_SOURCE_KIND) -> list[str]:
     if state.source_decision is None:
         return ["review-source"]
     if state.source_decision == "reject":
@@ -130,6 +148,8 @@ def _next_worker_actions(state: WorkflowState) -> list[str]:
     if state.awaiting_feedback:
         return ["feedback"]
     if state.selected_seed is None:
+        if source_kind == PICTURE_SET_SOURCE_KIND:
+            return ["import-images", "select-image"]
         return ["extract-frames", "select-seed"]
     if state.can_start_attempt:
         return ["run_source_hunyuan.py"]
@@ -143,17 +163,23 @@ def record_source_review(
 ) -> None:
     require_source_decision(decision, rationale)
     with _source_lock(source_id, root):
-        _, events, entry = load_source(source_id, root)
+        manifest, events, entry = load_source(source_id, root)
         prior = [
             event
             for event in events
             if event["event_type"] == "source_suitability_decision"
         ]
+        source_kind = manifest.get("source_kind", VIDEO_SOURCE_KIND)
         payload = {
             "decision": decision,
             "rationale": rationale.strip(),
-            "source_video_sha256": entry["source_sha256"],
+            "source_kind": source_kind,
+            "source_sha256": entry["source_sha256"],
         }
+        if source_kind == PICTURE_SET_SOURCE_KIND:
+            payload["source_image_set_sha256"] = entry["source_sha256"]
+        else:
+            payload["source_video_sha256"] = entry["source_sha256"]
         if prior:
             payload["supersedes_sequence"] = prior[-1]["sequence"]
         append_event(source_id, "source_suitability_decision", payload, root)
@@ -192,6 +218,10 @@ def extract_frames(
             raise WorkflowGateError(
                 "Operator must approve source suitability before frame extraction"
             )
+        if manifest.get("source_kind", VIDEO_SOURCE_KIND) != VIDEO_SOURCE_KIND:
+            raise WorkflowGateError(
+                "Frame extraction requires a video source; use import-images"
+            )
         source_path = entry["source_path"]
         output = f"{LIBRARY.as_posix()}/sources/{source_id}/frames/{run_id}"
         output_path = root / output
@@ -216,6 +246,185 @@ def extract_frames(
             root,
         )
     return receipt
+
+
+def import_images(
+    source_id: str, run_id: str, root: Path = ROOT
+) -> Path:
+    """Import a registered picture set as direct, unedited source images."""
+    _validate_run_id(run_id)
+    with _source_lock(source_id, root):
+        manifest, events, entry = load_source(source_id, root)
+        state = evaluate_workflow(manifest, events)
+        if state.source_decision not in {"proceed", "proceed_with_limitations"}:
+            raise WorkflowGateError(
+                "Operator must approve source suitability before image import"
+            )
+        if manifest.get("source_kind") != PICTURE_SET_SOURCE_KIND:
+            raise WorkflowGateError(
+                "Image import requires a picture-set source; use extract-frames"
+            )
+        images = _registered_picture_set(manifest, entry, root)
+        output = f"{LIBRARY.as_posix()}/sources/{source_id}/images/{run_id}"
+        output_path = root / output
+        if output_path.exists() or output_path.is_symlink():
+            raise FileExistsError(f"Refusing to overwrite image batch: {output}")
+        receipt = import_source_images(
+            images, entry["source_path"], output_path, root
+        )
+        _registered_picture_set(manifest, entry, root)
+        append_event(
+            source_id,
+            "direct_image_batch_imported",
+            {
+                "run_id": run_id,
+                "source_kind": PICTURE_SET_SOURCE_KIND,
+                "source_image_set_sha256": entry["source_sha256"],
+                "source_path": entry["source_path"],
+                "import_manifest": receipt.relative_to(root).as_posix(),
+                "import_manifest_sha256": sha256_file(receipt),
+                "image_count": len(images),
+            },
+            root,
+        )
+    return receipt
+
+
+def _registered_picture_set(
+    manifest: dict[str, Any], entry: dict[str, Any], root: Path
+) -> list[dict[str, Any]]:
+    content = manifest.get("content")
+    if not isinstance(content, dict):
+        raise SourceLibraryError("Picture-set manifest has no content block")
+    images = content.get("picture_set")
+    if not isinstance(images, list) or not images:
+        raise SourceLibraryError("Picture-set manifest has no images")
+    if picture_set_sha256(images) != entry["source_sha256"]:
+        raise SourceLibraryError("Picture-set hash does not match its registration")
+    current = probe_picture_set(root / entry["source_path"], root)
+    if current != images:
+        raise SourceLibraryError("Picture set changed since registration")
+    return images
+
+
+def select_image(
+    source_id: str, image_id: str, image_path: str, root: Path = ROOT
+) -> None:
+    """Select one imported picture as the direct-source seed; no timestamp exists."""
+    with _source_lock(source_id, root):
+        manifest, events, entry = load_source(source_id, root)
+        state = evaluate_workflow(manifest, events)
+        if manifest.get("source_kind") != PICTURE_SET_SOURCE_KIND:
+            raise WorkflowGateError(
+                "Image selection requires a picture-set source; use select-seed"
+            )
+        image = _direct_image_record(
+            source_id, image_path, image_id, manifest, events, entry, root
+        )
+        require_seed_selection(state, image)
+        append_event(source_id, "seed_selected", image, root)
+
+
+def _direct_image_record(
+    source_id: str,
+    image_path: str,
+    image_id: str,
+    source_manifest: dict[str, Any],
+    events: list[dict[str, Any]],
+    entry: dict[str, Any],
+    root: Path,
+) -> dict[str, Any]:
+    source_folder = (LIBRARY / "sources" / source_id / "images").as_posix() + "/"
+    relative = PurePosixPath(image_path)
+    if (
+        not image_path.startswith(source_folder)
+        or relative.is_absolute()
+        or any(part in {"", ".", ".."} for part in image_path.split("/"))
+        or "\\" in image_path
+    ):
+        raise SourceLibraryError("Selected image must be inside this source's image folder")
+    image_file = root.joinpath(*relative.parts)
+    _reject_symlink_components(root / source_folder, root)
+    resolved = image_file.resolve(strict=False)
+    if (
+        not resolved.is_relative_to(root.resolve())
+        or not image_file.is_file()
+        or image_file.is_symlink()
+    ):
+        raise SourceLibraryError("Selected source image is missing or unsafe")
+    source_images = {
+        image["image_id"]: image
+        for image in _registered_picture_set(source_manifest, entry, root)
+    }
+    source_image = source_images.get(image_id)
+    if source_image is None:
+        raise SourceLibraryError("Selected image ID is absent from the picture set")
+    for manifest_path in sorted((root / source_folder).glob(f"*/{IMPORT_MANIFEST_NAME}")):
+        _reject_symlink_components(manifest_path, root)
+        manifest_relative = manifest_path.relative_to(root).as_posix()
+        manifest_hash = sha256_file(manifest_path)
+        if not _has_import_event(events, manifest_relative, manifest_hash, entry):
+            continue
+        import_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        _verify_import_manifest(import_manifest, source_manifest, entry)
+        for item in import_manifest.get("images", []):
+            if item["image_id"] != image_id or item["path"] != image_path:
+                continue
+            verify_imported_image(item, source_image, root)
+            result = dict(item)
+            result.update(
+                {
+                    "source_kind": PICTURE_SET_SOURCE_KIND,
+                    "decode_operation": IMPORT_OPERATION,
+                    "source_image_path": source_image["path"],
+                    "source_image_sha256": source_image["sha256"],
+                    "source_image_set_sha256": entry["source_sha256"],
+                    "import_manifest": manifest_relative,
+                    "import_manifest_sha256": manifest_hash,
+                }
+            )
+            result.pop("source_path", None)
+            result.pop("source_sha256", None)
+            return result
+    raise SourceLibraryError(
+        "Image ID and path do not appear in a source import receipt"
+    )
+
+
+def _has_import_event(
+    events: list[dict[str, Any]],
+    path: str,
+    digest: str,
+    entry: dict[str, Any],
+) -> bool:
+    return any(
+        event["event_type"] == "direct_image_batch_imported"
+        and event["payload"].get("import_manifest") == path
+        and event["payload"].get("import_manifest_sha256") == digest
+        and event["payload"].get("source_image_set_sha256")
+        == entry["source_sha256"]
+        for event in events
+    )
+
+
+def _verify_import_manifest(
+    import_manifest: dict[str, Any],
+    source_manifest: dict[str, Any],
+    entry: dict[str, Any],
+) -> None:
+    content = source_manifest.get("content") or {}
+    images = content.get("picture_set") or []
+    if (
+        import_manifest.get("source_kind") != PICTURE_SET_SOURCE_KIND
+        or import_manifest.get("source_path") != entry["source_path"]
+        or import_manifest.get("source_image_set_sha256")
+        != entry["source_sha256"]
+        or picture_set_sha256(images) != entry["source_sha256"]
+        or import_manifest.get("importer") != "direct_file_copy_no_resize_or_edit"
+    ):
+        raise SourceLibraryError(
+            "Image import is not bound to the exact source picture set"
+        )
 
 
 def _validate_run_id(run_id: str) -> None:
@@ -323,6 +532,10 @@ def select_seed(
     with _source_lock(source_id, root):
         manifest, events, entry = load_source(source_id, root)
         state = evaluate_workflow(manifest, events)
+        if manifest.get("source_kind") == PICTURE_SET_SOURCE_KIND:
+            raise WorkflowGateError(
+                "Frame selection requires a video source; use select-image"
+            )
         frame = _direct_frame_record(
             source_id, frame_path, frame_id, manifest, events, root
         )
@@ -394,25 +607,46 @@ def _verified_room_seed(
     entry: dict[str, Any],
     root: Path,
 ) -> dict[str, Any]:
-    if (
-        not isinstance(seed, dict)
-        or not isinstance(seed.get("path"), str)
-        or not isinstance(seed.get("frame_id"), str)
-        or seed.get("source_video_sha256") != entry["source_sha256"]
-    ):
-        raise WorkflowGateError("The selected room seed is stale for this source")
-    verified = _direct_frame_record(
-        source_id, seed["path"], seed["frame_id"], manifest, events, root
-    )
-    required_fields = (
-        "frame_id",
-        "index_zero_based",
-        "path",
-        "sha256",
-        "decode_operation",
-        "extraction_manifest",
-        "extraction_manifest_sha256",
-    )
+    if manifest.get("source_kind") == PICTURE_SET_SOURCE_KIND:
+        if (
+            not isinstance(seed, dict)
+            or not isinstance(seed.get("path"), str)
+            or not isinstance(seed.get("image_id"), str)
+            or seed.get("source_image_set_sha256") != entry["source_sha256"]
+        ):
+            raise WorkflowGateError("The selected room seed is stale for this source")
+        verified = _direct_image_record(
+            source_id, seed["path"], seed["image_id"], manifest, events, entry, root
+        )
+        required_fields = (
+            "image_id",
+            "capture_index",
+            "path",
+            "sha256",
+            "decode_operation",
+            "import_manifest",
+            "import_manifest_sha256",
+        )
+    else:
+        if (
+            not isinstance(seed, dict)
+            or not isinstance(seed.get("path"), str)
+            or not isinstance(seed.get("frame_id"), str)
+            or seed.get("source_video_sha256") != entry["source_sha256"]
+        ):
+            raise WorkflowGateError("The selected room seed is stale for this source")
+        verified = _direct_frame_record(
+            source_id, seed["path"], seed["frame_id"], manifest, events, root
+        )
+        required_fields = (
+            "frame_id",
+            "index_zero_based",
+            "path",
+            "sha256",
+            "decode_operation",
+            "extraction_manifest",
+            "extraction_manifest_sha256",
+        )
     if any(seed.get(key) != verified.get(key) for key in required_fields):
         raise SourceLibraryError("Selected room seed no longer matches its extraction")
     return seed
@@ -803,10 +1037,23 @@ def main() -> int:
     extract_parser.add_argument("source_id")
     extract_parser.add_argument("--run-id", required=True)
     extract_parser.add_argument("--indices", required=True, type=_indices)
+    import_parser = commands.add_parser(
+        "import-images",
+        help="Import a registered picture set without resize or edit",
+    )
+    import_parser.add_argument("source_id")
+    import_parser.add_argument("--run-id", required=True)
     seed_parser = commands.add_parser("select-seed")
     seed_parser.add_argument("source_id")
     seed_parser.add_argument("--frame-id", required=True)
     seed_parser.add_argument("--path", required=True)
+    image_parser = commands.add_parser(
+        "select-image",
+        help="Select one imported picture as the direct-source seed",
+    )
+    image_parser.add_argument("source_id")
+    image_parser.add_argument("--image-id", required=True)
+    image_parser.add_argument("--path", required=True)
     room_attempt_parser = commands.add_parser("authorize-room-attempt")
     room_attempt_parser.add_argument("source_id")
     room_attempt_parser.add_argument("--room-id", required=True)
@@ -884,8 +1131,14 @@ def main() -> int:
         print(
             extract_frames(args.source_id, args.run_id, args.indices).relative_to(ROOT)
         )
+    elif args.action == "import-images":
+        print(
+            import_images(args.source_id, args.run_id).relative_to(ROOT)
+        )
     elif args.action == "select-seed":
         select_seed(args.source_id, args.frame_id, args.path)
+    elif args.action == "select-image":
+        select_image(args.source_id, args.image_id, args.path)
     elif args.action == "authorize-room-attempt":
         authorize_room_attempt(args.source_id, args.room_id, args.reason)
     elif args.action == "feedback":
