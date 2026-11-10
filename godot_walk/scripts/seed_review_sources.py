@@ -57,7 +57,9 @@ def load_source_record(source_id: str, root: Path = ROOT) -> SourceRecord:
     index = read_json_object(
         root / SOURCE_LIBRARY_INDEX.relative_to(ROOT), "source index"
     )
-    if index.get("schema_version") != 1 or not isinstance(index.get("sources"), list):
+    if index.get("schema_version") not in (1, 2) or not isinstance(
+        index.get("sources"), list
+    ):
         raise SeedReviewError(
             "source_index_invalid", "Unsupported source-library index"
         )
