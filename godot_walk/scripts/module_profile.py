@@ -24,6 +24,8 @@ PROFILE_VERSION = "module-profile-0.1.0"
 TEMPLATE_VERSION = "generation-template-0.1.0"
 TEMPLATE_PATH = Path("docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md")
 SURFACES = ("wall", "floor", "ceiling", "trim")
+PLACEHOLDER_CIRCULATION_ROLE = "branch"
+SURFACE_SIGN = {"wall": "icon", "floor": "icon", "ceiling": "symbol", "trim": "symbol"}
 
 
 def template_ref(root: Path = ROOT) -> dict[str, str]:
@@ -188,11 +190,15 @@ def _exit_record(
         "elevation_m": socket.get("floor_elevation_m"),
         "circulation_role": "connector",
         "tested_pair_ids": tested_pair_ids,
-        "provenance": poetics_path,
+        "provenance": (
+            f"{poetics_path}; socket data from the library index; "
+            "circulation_role is an unreviewed placeholder (#219)"
+        ),
     }
 
 
 def _roles(poetics: dict[str, Any]) -> dict[str, Any]:
+    """Ground/figure comes from the accepted poetics; the rest waits for #219."""
     form_role = poetics.get("form_role")
     if form_role not in {"ground", "figure"}:
         raise SourceLibraryError("Accepted poetics must carry a ground/figure role")
@@ -200,20 +206,25 @@ def _roles(poetics: dict[str, Any]) -> dict[str, Any]:
         "map_role": form_role,
         "form_role": form_role,
         "semantic_tags": [],
-        "circulation_role": "branch",
+        "circulation_role": PLACEHOLDER_CIRCULATION_ROLE,
         "sightline_tags": [],
     }
 
 
 def _surfaces(tag: str, poetics_path: str) -> dict[str, Any]:
+    """Tag-only surfaces: #217 owns the reviewed material and palette identifiers."""
+    provenance = (
+        f"{poetics_path}; acoustic tag derived from accepted style_tags; "
+        "material_id and palette_id are unreviewed placeholders (#217)"
+    )
     return {
         surface: {
             "material_id": f"{tag}_{surface}_material",
             "palette_id": None,
             "acoustic": tag,
             "texture_refs": [],
-            "provenance": poetics_path,
-            "sign": "icon" if surface in {"wall", "floor"} else "symbol",
+            "provenance": provenance,
+            "sign": SURFACE_SIGN[surface],
         }
         for surface in SURFACES
     }

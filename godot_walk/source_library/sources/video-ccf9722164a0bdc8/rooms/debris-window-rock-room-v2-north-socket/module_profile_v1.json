@@ -1,0 +1,197 @@
+{
+  "acoustics": {
+    "absorption": {
+      "ceiling": null,
+      "confidence": 0.0,
+      "floor": null,
+      "source": "#213",
+      "status": "unknown",
+      "trim": null,
+      "wall": null
+    },
+    "probe": {
+      "ceiling_height_m": null,
+      "damping": null,
+      "evidence": [],
+      "max_distance_m": null,
+      "mean_distance_m": null,
+      "openness": null,
+      "predelay_msec": null,
+      "probe_version": null,
+      "room_size": null,
+      "sample_points": [],
+      "wet": null
+    },
+    "status": "tag_only",
+    "tag": "debris"
+  },
+  "catalog_snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30",
+  "eligibility": {
+    "catalog_layout_eligible": false,
+    "layout_eligible_derived": true
+  },
+  "exits": [
+    {
+      "circulation_role": "connector",
+      "compatibility_type": "authored_direct_doorway_2.4x2.2_v1",
+      "elevation_m": 0.0,
+      "kind": "tested",
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_poetics_v2.json; socket data from the library index; circulation_role is an unreviewed placeholder (#219)",
+      "socket_id": "north",
+      "tested_pair_ids": [
+        "issue168_industrial_hall_south__debris_rock_north_v1"
+      ],
+      "width_m": 2.4
+    }
+  ],
+  "lighting": {
+    "color_temp_k": null,
+    "evidence": [],
+    "fixtures": [],
+    "illuminance_lux": null,
+    "status": "unknown",
+    "tier": null
+  },
+  "module_id": "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+  "mood": {
+    "anomaly": null,
+    "curiosity": null,
+    "dread": null,
+    "evidence": [],
+    "safety": null,
+    "tags": [],
+    "tension": null
+  },
+  "origin": "source_video",
+  "poetics_ref": {
+    "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_poetics_v2.json",
+    "sha256": "2eb7508f68a994e5d1159269b32522c4780434198e2adfbd648ee59a0b389df4"
+  },
+  "profile_version": "module-profile-0.1.0",
+  "roles": {
+    "circulation_role": "branch",
+    "form_role": "figure",
+    "map_role": "figure",
+    "semantic_tags": [],
+    "sightline_tags": []
+  },
+  "runtime": {
+    "breadcrumb_policy": "none",
+    "follower_visibility": "visible",
+    "mutation_classes": [],
+    "mutation_eligible": false
+  },
+  "scale": {
+    "anchor": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "status": "uncalibrated"
+  },
+  "schema_version": 1,
+  "shape": {
+    "area_m2": 120.0,
+    "aspect": 1.2,
+    "bbox_xz": {
+      "max": [
+        6.0,
+        5.0
+      ],
+      "min": [
+        -6.0,
+        -5.0
+      ]
+    },
+    "ceiling_height_m": 3.92,
+    "ceiling_kind": "unknown",
+    "ceiling_max_m": 3.92,
+    "ceiling_min_m": 3.92,
+    "convexity": 1.0,
+    "footprint_xz": [
+      [
+        -6.0,
+        -5.0
+      ],
+      [
+        6.0,
+        -5.0
+      ],
+      [
+        6.0,
+        5.0
+      ],
+      [
+        -6.0,
+        5.0
+      ]
+    ],
+    "primitive": "box",
+    "rectilinear": true,
+    "shape_stage": 0,
+    "symmetry": "D2",
+    "vertex_count": 4,
+    "volume_measured_m3": null,
+    "volume_nominal_m3": 470.4,
+    "volume_source": "envelope_area_x_max_ceiling"
+  },
+  "source_id": "video-ccf9722164a0bdc8",
+  "surfaces": {
+    "ceiling": {
+      "acoustic": "debris",
+      "material_id": "debris_ceiling_material",
+      "palette_id": null,
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_poetics_v2.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+      "sign": "symbol",
+      "texture_refs": []
+    },
+    "floor": {
+      "acoustic": "debris",
+      "material_id": "debris_floor_material",
+      "palette_id": null,
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_poetics_v2.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+      "sign": "icon",
+      "texture_refs": []
+    },
+    "trim": {
+      "acoustic": "debris",
+      "material_id": "debris_trim_material",
+      "palette_id": null,
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_poetics_v2.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+      "sign": "symbol",
+      "texture_refs": []
+    },
+    "wall": {
+      "acoustic": "debris",
+      "material_id": "debris_wall_material",
+      "palette_id": null,
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_poetics_v2.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+      "sign": "icon",
+      "texture_refs": []
+    }
+  },
+  "template_ref": {
+    "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+    "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+    "version": "generation-template-0.1.0"
+  },
+  "translation_chain": [
+    {
+      "evidence": [
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png"
+      ],
+      "stage": "direct_frame"
+    },
+    {
+      "evidence": [
+        "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-006/panorama/panorama.png"
+      ],
+      "stage": "hunyuan_panorama"
+    },
+    {
+      "evidence": [
+        "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/room.tscn"
+      ],
+      "stage": "godot_room"
+    }
+  ],
+  "version": 1
+}

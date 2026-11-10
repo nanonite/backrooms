@@ -1,0 +1,186 @@
+{
+  "acoustics": {
+    "absorption": {
+      "ceiling": null,
+      "confidence": 0.0,
+      "floor": null,
+      "source": "#213",
+      "status": "unknown",
+      "trim": null,
+      "wall": null
+    },
+    "probe": {
+      "ceiling_height_m": null,
+      "damping": null,
+      "evidence": [],
+      "max_distance_m": null,
+      "mean_distance_m": null,
+      "openness": null,
+      "predelay_msec": null,
+      "probe_version": null,
+      "room_size": null,
+      "sample_points": [],
+      "wet": null
+    },
+    "status": "tag_only",
+    "tag": "carpet"
+  },
+  "catalog_snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30",
+  "eligibility": {
+    "catalog_layout_eligible": null,
+    "layout_eligible_derived": false
+  },
+  "exits": [
+    {
+      "circulation_role": "connector",
+      "compatibility_type": "level_doorway_2m_v1",
+      "elevation_m": -1.27099049,
+      "kind": "untested",
+      "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; socket data from the library index; circulation_role is an unreviewed placeholder (#219)",
+      "socket_id": "east",
+      "tested_pair_ids": [],
+      "width_m": 2.0
+    },
+    {
+      "circulation_role": "connector",
+      "compatibility_type": "level_doorway_2m_v1",
+      "elevation_m": -1.27099049,
+      "kind": "untested",
+      "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; socket data from the library index; circulation_role is an unreviewed placeholder (#219)",
+      "socket_id": "west",
+      "tested_pair_ids": [],
+      "width_m": 2.0
+    }
+  ],
+  "lighting": {
+    "color_temp_k": null,
+    "evidence": [],
+    "fixtures": [],
+    "illuminance_lux": null,
+    "status": "unknown",
+    "tier": null
+  },
+  "module_id": "godot_early_pocket_pass_through_v1",
+  "mood": {
+    "anomaly": null,
+    "curiosity": null,
+    "dread": null,
+    "evidence": [],
+    "safety": null,
+    "tags": [],
+    "tension": null
+  },
+  "origin": "authored_kit",
+  "poetics_ref": {
+    "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json",
+    "sha256": "7e8c4148ab2aaa45af7102719a7f820893b9368480757d6652f1f971774d1b3d"
+  },
+  "profile_version": "module-profile-0.1.0",
+  "roles": {
+    "circulation_role": "branch",
+    "form_role": "ground",
+    "map_role": "ground",
+    "semantic_tags": [],
+    "sightline_tags": []
+  },
+  "runtime": {
+    "breadcrumb_policy": "none",
+    "follower_visibility": "visible",
+    "mutation_classes": [],
+    "mutation_eligible": false
+  },
+  "scale": {
+    "anchor": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "status": "uncalibrated"
+  },
+  "schema_version": 1,
+  "shape": {
+    "area_m2": 82.8,
+    "aspect": 2.3,
+    "bbox_xz": {
+      "max": [
+        6.0,
+        13.8
+      ],
+      "min": [
+        0.0,
+        0.0
+      ]
+    },
+    "ceiling_height_m": 2.4,
+    "ceiling_kind": "unknown",
+    "ceiling_max_m": 2.4,
+    "ceiling_min_m": 2.4,
+    "convexity": 1.0,
+    "footprint_xz": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        6.0,
+        0.0
+      ],
+      [
+        6.0,
+        13.8
+      ],
+      [
+        0.0,
+        13.8
+      ]
+    ],
+    "primitive": "box",
+    "rectilinear": true,
+    "shape_stage": 0,
+    "symmetry": "D2",
+    "vertex_count": 4,
+    "volume_measured_m3": null,
+    "volume_nominal_m3": 198.72,
+    "volume_source": "envelope_area_x_max_ceiling"
+  },
+  "source_id": null,
+  "surfaces": {
+    "ceiling": {
+      "acoustic": "carpet",
+      "material_id": "carpet_ceiling_material",
+      "palette_id": null,
+      "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+      "sign": "symbol",
+      "texture_refs": []
+    },
+    "floor": {
+      "acoustic": "carpet",
+      "material_id": "carpet_floor_material",
+      "palette_id": null,
+      "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+      "sign": "icon",
+      "texture_refs": []
+    },
+    "trim": {
+      "acoustic": "carpet",
+      "material_id": "carpet_trim_material",
+      "palette_id": null,
+      "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+      "sign": "symbol",
+      "texture_refs": []
+    },
+    "wall": {
+      "acoustic": "carpet",
+      "material_id": "carpet_wall_material",
+      "palette_id": null,
+      "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+      "sign": "icon",
+      "texture_refs": []
+    }
+  },
+  "template_ref": {
+    "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+    "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+    "version": "generation-template-0.1.0"
+  },
+  "translation_chain": [],
+  "version": 1
+}
