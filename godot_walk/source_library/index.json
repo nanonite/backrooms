@@ -1,7 +1,14 @@
 {
-  "schema_version": 1,
-  "index_version": 21,
+  "schema_version": 2,
+  "index_version": 22,
   "sources": [
+    {
+      "source_id": "picture-set-d160eaa3cc847d5c",
+      "source_path": "data/pictures/single_backrooms_esq",
+      "source_sha256": "d160eaa3cc847d5cc7bfb621b59ab6925ec03067ed06336b80b1c188a22c1b6c",
+      "manifest_path": "godot_walk/source_library/sources/picture-set-d160eaa3cc847d5c/source_manifest-v3.json",
+      "manifest_sha256": "6123576ee0bc0bfb31026c9c2bf49d80a73435978b1e915216db06a4a1f994c5"
+    },
     {
       "source_id": "video-102caf53423018b7",
       "source_path": "data/videos/corridor_straight.mp4",

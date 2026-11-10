@@ -1,0 +1,633 @@
+{
+  "schema_version": 3,
+  "manifest_version": 3,
+  "source_id": "picture-set-d160eaa3cc847d5c",
+  "source_kind": "picture_set",
+  "created_at_utc": "2026-11-10T01:37:45.924875+00:00",
+  "content": {
+    "video": null,
+    "picture_set": [
+      {
+        "image_id": "img_0001",
+        "path": "data/pictures/single_backrooms_esq/bafkreia5n5swyxu5pg5pw7shtiwt7ebirz2ztxclqbrobzsle6hlymwojm.webp",
+        "sha256": "fd606b3c8363a4061f5c4a47c31f6f005d8a15833bb05192a8e3fd96efcd1e4a",
+        "width": 3000,
+        "height": 4000,
+        "capture_index": 1,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0002",
+        "path": "data/pictures/single_backrooms_esq/bafkreia6zbqcwiopvvarvpeo47sgmacdz66vd3p6wgephqymy6bdpi7wq4.webp",
+        "sha256": "35deb18abae3868e2bcc958b8fe73ae98c080c229a04a18ef460cc872fa0d378",
+        "width": 2999,
+        "height": 4000,
+        "capture_index": 2,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0003",
+        "path": "data/pictures/single_backrooms_esq/bafkreiaavhom7z343dfvrk3drox6fgapnv4cv2swagu4tm3fbkdyk7b27q.webp",
+        "sha256": "506b3c41c395e09d3e43dbb3a3af3bed166cb339c9bdabf368d63e40697b1f8a",
+        "width": 1080,
+        "height": 1440,
+        "capture_index": 3,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0004",
+        "path": "data/pictures/single_backrooms_esq/bafkreiacfavjjjhf7zbsjojsjvh6d2mskn6jqgk7eoyelna765rpcgwwrm.webp",
+        "sha256": "269487b5f6bdc5d6cd3dd4c536f179e9a30536da112aca8a6194800bf0521c30",
+        "width": 4000,
+        "height": 2252,
+        "capture_index": 4,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0005",
+        "path": "data/pictures/single_backrooms_esq/bafkreiammy2pcnbfwri6cm5xpes57zalyrvlhez25b3oj6qwdj6e25hgta.webp",
+        "sha256": "c10e85d246b7bf710c464127fe199a2ad0a8705c8fd3b42f59c22fed85caffce",
+        "width": 3000,
+        "height": 4000,
+        "capture_index": 5,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0006",
+        "path": "data/pictures/single_backrooms_esq/bafkreib2w6qrzpcue4xgz3c5op5e6fdvutt5ylzbscfybcowe2kb4ymety.webp",
+        "sha256": "96c8b3a144a007cc2e84ac757c737660e8a427e8c87ee6984657e2d2b7de3460",
+        "width": 1936,
+        "height": 2592,
+        "capture_index": 6,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0007",
+        "path": "data/pictures/single_backrooms_esq/bafkreib3lkvlwzcagsgcne2fvwrrhwcxns4gztpvipsr5txhsu2j4hyrfy.webp",
+        "sha256": "1f23a8f51061346735f65541f7af0eb4913a9c70cce3b669ae1487a3ac11c50d",
+        "width": 4000,
+        "height": 2835,
+        "capture_index": 7,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0008",
+        "path": "data/pictures/single_backrooms_esq/bafkreibcb7ojxivv6htio6mem7t2bn7ubrdgvqd5whsymvy7tigmhdgmoi.webp",
+        "sha256": "9ce068bc40eff119d29132b20d6845910d1cd47146b4ca88d6e7a903c4165a1c",
+        "width": 453,
+        "height": 604,
+        "capture_index": 8,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0009",
+        "path": "data/pictures/single_backrooms_esq/bafkreibggijrn3pxv6vvyauh4hxj3fx776c2g2jymjlfbs33vaddxcguri.webp",
+        "sha256": "f3c199006591515e0b01f0117cd26e57f7d2d01d7655f45006fa11b8dda84e89",
+        "width": 4000,
+        "height": 2667,
+        "capture_index": 9,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0010",
+        "path": "data/pictures/single_backrooms_esq/bafkreibkke4b6pyeto5vxr2ctfc4e6vpnkbcmydwscpom36ah6xtjzjh4a.webp",
+        "sha256": "fd8e0709ad888f0b17b25645ca94e8cbabf502f2882758665d99eddf4fb0ef5d",
+        "width": 2666,
+        "height": 3999,
+        "capture_index": 10,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0011",
+        "path": "data/pictures/single_backrooms_esq/bafkreibnm6kphsi5x7iedtypx4ylz7ieangstie2yg6xyaqo5eo2gxg27y.webp",
+        "sha256": "28de89d71b10f2062950fa36ebf911e8d498905cce094f19672b0fc07ffa2df2",
+        "width": 4000,
+        "height": 2252,
+        "capture_index": 11,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0012",
+        "path": "data/pictures/single_backrooms_esq/bafkreibpngmanmygiqu4bqoubzci2nw4xz25dzyeiyfm2dsfmoak3cn4ea.webp",
+        "sha256": "7067773f41cf39a5c38b25a1d07eda893d97be09958b69de4d93e4562da0b277",
+        "width": 2592,
+        "height": 1944,
+        "capture_index": 12,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0013",
+        "path": "data/pictures/single_backrooms_esq/bafkreibu7isaxmusk6p66dzcrcnvgn45xruqombxktpnjh3tqml7zfoxwm.webp",
+        "sha256": "6dfe931165e654a66d50260173d0d46d93c606960770774066745b9f127f6bfe",
+        "width": 1477,
+        "height": 1108,
+        "capture_index": 13,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0014",
+        "path": "data/pictures/single_backrooms_esq/bafkreibxcaxfzylf3kxzkw2aantndgbga5vazqlqrtl7rzqngc2cjcc2qa.webp",
+        "sha256": "18132c2f3d5ea514fe9ebe8e895a3c51297059a9aa96299786f15bd01b22c940",
+        "width": 4000,
+        "height": 2252,
+        "capture_index": 14,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0015",
+        "path": "data/pictures/single_backrooms_esq/bafkreica5cv2bf6il2socdqm76lx2k2d5a5ff6warpyx7m4fahbb67p3hi.webp",
+        "sha256": "0b17e523e44e50cee5725b0c5c8841087f2b3e7aacdcb833c469a3299d06e4a5",
+        "width": 2666,
+        "height": 3999,
+        "capture_index": 15,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0016",
+        "path": "data/pictures/single_backrooms_esq/bafkreicav2xoi6bh2xiwke3nh2cmosclu5uelpa6efwm24mpvaxb5323lm.webp",
+        "sha256": "7784f43fd2c940f38bd98ffcb37f38a3f4c108fc6d68b53d87a3ebad92fa8607",
+        "width": 2672,
+        "height": 1504,
+        "capture_index": 16,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0017",
+        "path": "data/pictures/single_backrooms_esq/bafkreicgkhjf7i73w4bvxccx2w673xivuvhxsvr65wvovk7cxviwq76tie.webp",
+        "sha256": "02387f7812a418d1d60864e3b65b88ba573385f5203b024d905dff19745d16c6",
+        "width": 2666,
+        "height": 3999,
+        "capture_index": 17,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0018",
+        "path": "data/pictures/single_backrooms_esq/bafkreicnqqlcqyt3m5xeoj7ysoypb5ify7zdifykeelxytqn57lukzpddy.webp",
+        "sha256": "603010b0516ff628802418152177155b8d48875234a15c9e9dca8003b8e6481c",
+        "width": 1824,
+        "height": 2736,
+        "capture_index": 18,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0019",
+        "path": "data/pictures/single_backrooms_esq/bafkreicogs62l264oyodw2jjtlu5h7e7ybfp2qau42jz3vgo2yz5zyazfi.webp",
+        "sha256": "5e9133450c3c7c34cc7ea5502a5d75ba1974e2b506e14b65d0410909d0d59c4a",
+        "width": 2280,
+        "height": 2280,
+        "capture_index": 19,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0020",
+        "path": "data/pictures/single_backrooms_esq/bafkreicrqkrbicmboqdvhztyice3voexfiat6tq4duhdvg3d2byjgcbmxe.webp",
+        "sha256": "629f3dc8a4bdf06d858b76cda004cbaaab00f090f62fb79e030e54418c9c59d1",
+        "width": 3000,
+        "height": 4000,
+        "capture_index": 20,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0021",
+        "path": "data/pictures/single_backrooms_esq/bafkreicsl6gr4exrjorch2ovmgulcemn2khwugri42akeiblxp7vvbbgly.webp",
+        "sha256": "45e61ea23fc77f38f3c16d9ff671de190e45465c6a63cd7c4a0e825dbac1f801",
+        "width": 4000,
+        "height": 2252,
+        "capture_index": 21,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0022",
+        "path": "data/pictures/single_backrooms_esq/bafkreicuj2nboz5fsms3fyy45jkummp36wikymug65nf5pzwbgy55b7wn4.webp",
+        "sha256": "e18b86bb8fc0a103245f9bd6b8482466b5b1b91c86d3912aa8a0d83151fb711a",
+        "width": 4000,
+        "height": 2837,
+        "capture_index": 22,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0023",
+        "path": "data/pictures/single_backrooms_esq/bafkreid5a5lnnrx6dpkhhj66zomd3cjc25jgp2xeocujw4r4nv5fp3ke6u.webp",
+        "sha256": "1e0222754522c005ab7a6af2c09921a5bd6a8469d76f3c9ed750e1c670b3e4ba",
+        "width": 1024,
+        "height": 1024,
+        "capture_index": 23,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0024",
+        "path": "data/pictures/single_backrooms_esq/bafkreid7dykfw7evwo44khhxjd3kaxpsqrow5siql3bihfznzt2spmqjua.webp",
+        "sha256": "a6badabb2de1f968b82b982777ca9eb1064e531426771e886863c029bbdfbd07",
+        "width": 500,
+        "height": 374,
+        "capture_index": 24,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0025",
+        "path": "data/pictures/single_backrooms_esq/bafkreidbjri4jerlwp6w37yrxcc4piax3yecteimgd4uscmivrdtdb6gmi.webp",
+        "sha256": "d9c5fdef7d32738091e46429a2843dde4d5b62989f2d817acbe2447c479f51a2",
+        "width": 3000,
+        "height": 3999,
+        "capture_index": 25,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0026",
+        "path": "data/pictures/single_backrooms_esq/bafkreidqfrrvtyl7zxvle5pqnrhxq4bv5r4wvot6gs7ik25su2aq7f5qva.webp",
+        "sha256": "9153347442d1efba4fd219589d3c9bac8be597118267db53c8696e112a436097",
+        "width": 720,
+        "height": 960,
+        "capture_index": 26,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0027",
+        "path": "data/pictures/single_backrooms_esq/bafkreidqgnov2ttem62wkdeda3f77kjmebphr4jtieynh3atbbnsojyy6m.webp",
+        "sha256": "108a753a52e4a231a161f4b83fa71854f523bdbe026db349bca6fc48046d9d5a",
+        "width": 1080,
+        "height": 1440,
+        "capture_index": 27,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0028",
+        "path": "data/pictures/single_backrooms_esq/bafkreidsl4ofawg3z3i5fkt2zln4zyhqtjtxrzcmrlfktwaskwh3vypqqq.webp",
+        "sha256": "0142ece4260e0611bf6dc5b56579ffc7d46c85abe55b93eb9cb1392a1cecde98",
+        "width": 832,
+        "height": 1248,
+        "capture_index": 28,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0029",
+        "path": "data/pictures/single_backrooms_esq/bafkreie3pivwfjtao4eyz6rugcz2lnsdihdlsrchw65tzk7lcrbnvac3by.webp",
+        "sha256": "182e42094dc15bd8032ebecf8a74dd08b530d841829d4ff8ab77f4d678267b44",
+        "width": 3980,
+        "height": 2980,
+        "capture_index": 29,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0030",
+        "path": "data/pictures/single_backrooms_esq/bafkreie7jdd53dz4g6sn6eb5ozoz7vewapfdyb3zow344paelzcevlzepq.webp",
+        "sha256": "f8ff9d5cde00bb9e57a663f6b9678612c69fb16b1e23dd5317726a60b8b605f3",
+        "width": 583,
+        "height": 800,
+        "capture_index": 30,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0031",
+        "path": "data/pictures/single_backrooms_esq/bafkreieaqt5cbrbbvfcb2pa55qxilxu7b4wlbc7t524v6ltpp6emkwtzxq.webp",
+        "sha256": "3126935030fd01f466f717c04205aa96a30fbdd6daa8d12fb05996d49c7f3c5e",
+        "width": 2280,
+        "height": 2280,
+        "capture_index": 31,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0032",
+        "path": "data/pictures/single_backrooms_esq/bafkreiecgswdczpkbe7clgsd2nynggswva64g244ldbj52r5zrowssqgl4.webp",
+        "sha256": "73840b50fc1f39efecc4c4204ded239c462e30c97ead1a688024b3cfc08bf997",
+        "width": 2666,
+        "height": 4000,
+        "capture_index": 32,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0033",
+        "path": "data/pictures/single_backrooms_esq/bafkreieclm5ncmpixbnqmvj5nz75usuwu2efrw2qhflxce43rkqhe242nm.webp",
+        "sha256": "5bf9295eff3770d651dad37a51e4b0fe40031a8bf2b3a67e2ee46b8b72f74446",
+        "width": 4000,
+        "height": 3000,
+        "capture_index": 33,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0034",
+        "path": "data/pictures/single_backrooms_esq/bafkreieok5tvircwjmkzhmjgnruqfnf3xrcmiqip3fkkgvfrojr4ajvqai.webp",
+        "sha256": "87a27d9e41143de249c0e0ef2d72a642755704fd02b2fe14a50d4858fd2e6b60",
+        "width": 900,
+        "height": 675,
+        "capture_index": 34,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0035",
+        "path": "data/pictures/single_backrooms_esq/bafkreiezr45fuwfk63wxgmpghv3rp6qslzzhrqyzav2vqfkxm2doigja4i.webp",
+        "sha256": "24ad33d16e4edc907192d23adf08a33277ee0012d2c1d0541a80f29baadb6f8d",
+        "width": 4000,
+        "height": 3000,
+        "capture_index": 35,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0036",
+        "path": "data/pictures/single_backrooms_esq/bafkreif6yus3w3oisuateujuctj64425dyut5gaju72fhs45f5cinmtsva.webp",
+        "sha256": "fac03cb4e73af85fe25442bfeaec69e5145292061e1d535682e2643055040ce9",
+        "width": 2990,
+        "height": 3817,
+        "capture_index": 36,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0037",
+        "path": "data/pictures/single_backrooms_esq/bafkreif7jv5hkwjbzmsv4lloaiwseraku6wdxtthqy73yldhlnjyysgu6q.webp",
+        "sha256": "8c76db8be02d50d41a05f257fd6ec1216850eda0c456ac71649ae51a6fe95d40",
+        "width": 750,
+        "height": 1000,
+        "capture_index": 37,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0038",
+        "path": "data/pictures/single_backrooms_esq/bafkreifgdlaoipthgk6cpl3f5an5m6r2bj3owx3gm2bgy7fwxzftjiu7ey.webp",
+        "sha256": "9fe43b100a5b288f795d6f6290ee429e63c0f8eb280ecda1295789d99c3bfe20",
+        "width": 550,
+        "height": 413,
+        "capture_index": 38,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0039",
+        "path": "data/pictures/single_backrooms_esq/bafkreifhghqtgqwnfgds5gc3xssciskoteuevk7ydo2lqtsanlkcnay5hq.webp",
+        "sha256": "555b27a83e32de80e1bf57172ab5e42cd9fa57792347cb2694d5d2dc2b2f038b",
+        "width": 4000,
+        "height": 1848,
+        "capture_index": 39,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0040",
+        "path": "data/pictures/single_backrooms_esq/bafkreifhsvj2eoqcodrgphmkdk7ncba4al5vwjnabw3krpmbj43gkpx2hu.webp",
+        "sha256": "1fa762346725e6fa0a54d2af7850cac51648afdcd2dc1791fd24098998ba4ef0",
+        "width": 2810,
+        "height": 4000,
+        "capture_index": 40,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0041",
+        "path": "data/pictures/single_backrooms_esq/bafkreifki22x2osd6t3kx44l6fvjkdyybqxkmfd4cqvnxemjxo7lclo66q.webp",
+        "sha256": "d7acc552dccf302d1a1e841016cd84feafaa9f3f4255778eb1774a36da1f8b58",
+        "width": 2624,
+        "height": 3852,
+        "capture_index": 41,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0042",
+        "path": "data/pictures/single_backrooms_esq/bafkreifr5bn44wpirkdvph7mx33chr5ltcunrvrmmm6fbk5cwjity53pkm.webp",
+        "sha256": "57b4d33ccbc8a6c748fb923e2acb00af26bafc05b066f1c99208f31f65f2bf24",
+        "width": 4000,
+        "height": 2666,
+        "capture_index": 42,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0043",
+        "path": "data/pictures/single_backrooms_esq/bafkreifsvqf444utvx35jfijlucjucn3nh3guaal6fpb6ciopoen5u6mei.webp",
+        "sha256": "dc19ab4f00be1de73dfc78c507d8805dcf90b8941bbbe8de684a4271b56f3666",
+        "width": 3000,
+        "height": 4000,
+        "capture_index": 43,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0044",
+        "path": "data/pictures/single_backrooms_esq/bafkreifzl2uipmlrhv5q3y6ppla4ieuwmi6canhjxyez7ckxbsnzdkeonq.webp",
+        "sha256": "613c06203c401c8ce619f4737c7021fac61e170b2ec4ad94e0f3048d47f9e78d",
+        "width": 3999,
+        "height": 2666,
+        "capture_index": 44,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0045",
+        "path": "data/pictures/single_backrooms_esq/bafkreig6xkk5fch4kpklddpb2ge3jcnypc6lotxujzzu4neswqow4igs5e.webp",
+        "sha256": "02e1281b9a6cc8bde92920e6ceb6c3f3234766434c66f39ad7d769e3f58a8ae2",
+        "width": 4000,
+        "height": 2836,
+        "capture_index": 45,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0046",
+        "path": "data/pictures/single_backrooms_esq/bafkreigafkj33b5qyyokcd7hqvf56gbcyea6ycefwh4hblxj7razxxzxa4.webp",
+        "sha256": "3aa9b7a723857f72274aa95e1f01df238dd279fa711fa234028b7af5657f5e73",
+        "width": 832,
+        "height": 1248,
+        "capture_index": 46,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0047",
+        "path": "data/pictures/single_backrooms_esq/bafkreigai5gzslzhx7cj3yrentbhnsyflrhdpzsonqcqwtjvd3onv7kaua.webp",
+        "sha256": "5e1879dfe19d1e5cb4c7e95317db564dd7c2f80c9719cdff828f84bf1e644de1",
+        "width": 4000,
+        "height": 3000,
+        "capture_index": 47,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0048",
+        "path": "data/pictures/single_backrooms_esq/bafkreigg3nsbbtxmzwuudh673jey6wom64km5kenjf6lzwtcrkfwcwgode.webp",
+        "sha256": "c1d3b0b6f13e760f418e1f1fa77e89857030dd2258c3ca5b63095af93576fae3",
+        "width": 4000,
+        "height": 2499,
+        "capture_index": 48,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0049",
+        "path": "data/pictures/single_backrooms_esq/bafkreigrykwfst6tpo5onlrs6jr2nt7prl6dbgyd3r75gzytthzkswhnrq.webp",
+        "sha256": "9201d96c96d74192af47de13977f422e0ad136d1f59b8e3667b2caeb3b6ac1ba",
+        "width": 2000,
+        "height": 1428,
+        "capture_index": 49,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0050",
+        "path": "data/pictures/single_backrooms_esq/bafkreigvhk2t4fe4cgkllo2rbk3qpd4w5upgd6ifcf6dnos5wjh5bpiphi.webp",
+        "sha256": "2b41d70ad1a92ec912d0c6d5f2126ee67560517e8d994a25a2b54262e91f5ec8",
+        "width": 4000,
+        "height": 3000,
+        "capture_index": 50,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0051",
+        "path": "data/pictures/single_backrooms_esq/bafkreih2cquezzqokjpnsnzofmkosu5lsdqvefhwlldujgziueczrdv63u.webp",
+        "sha256": "cbcab23c2f5c6b09c76768ad2b91aff2342736d0d48740f44579dfffc3cfa70c",
+        "width": 2094,
+        "height": 1485,
+        "capture_index": 51,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0052",
+        "path": "data/pictures/single_backrooms_esq/bafkreihanjdrgx67rg2wh5ytx3nuqermhrxdnfubwx35hezwoua5dhybvu.webp",
+        "sha256": "9a4a75521abd4968a97a36cf156724498a71e8991aa5ffa15fdc67b278f5bb34",
+        "width": 4000,
+        "height": 2835,
+        "capture_index": 52,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0053",
+        "path": "data/pictures/single_backrooms_esq/bafkreihfusi5a4666v3yk6vkif2hbrhd43bbonhihz74jhbylbcffzns5m.webp",
+        "sha256": "bf3ef3b7e6869bb5d664763de97543cf5255ad5f28641765e922204e98a02f42",
+        "width": 1080,
+        "height": 1440,
+        "capture_index": 53,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0054",
+        "path": "data/pictures/single_backrooms_esq/bafkreihnrsqdb7yhz6qm7vtnlhgegim3mpz625vbnjvstoht2wcidhew3i.webp",
+        "sha256": "b28b8cebe1e08c2e55db619b1dbb7a90f5d6abb6307312b280c47807a617b63e",
+        "width": 3000,
+        "height": 4000,
+        "capture_index": 54,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0055",
+        "path": "data/pictures/single_backrooms_esq/bafkreihorhjf6bodu42w5yb2pl3iy7hafkw3oqpr65pxootprsxz7iut4e.webp",
+        "sha256": "29dfffcafdb6861a910189e12cd58bf06ea853c87d5e5131c31d02922f0f1216",
+        "width": 4000,
+        "height": 3000,
+        "capture_index": 55,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0056",
+        "path": "data/pictures/single_backrooms_esq/bafkreihwom34nwejd7qdense2brjzv7qz3miwg4ue4fajwtptgbnjac75e.webp",
+        "sha256": "7bf9003ddde694fc2ef51cf0df866c9ef39cbb3109506231b949bd6eaca21eef",
+        "width": 2311,
+        "height": 3193,
+        "capture_index": 56,
+        "captured_at_utc": null,
+        "camera_pose": null
+      },
+      {
+        "image_id": "img_0057",
+        "path": "data/pictures/single_backrooms_esq/bafkreihwu37r3acw44ahsigf6mi3jjs6ynuf3bjuhombaootcug442lmaa.webp",
+        "sha256": "f83713cf0b056a2c59ec5c9bda61c0d8ec8c1a2643254edc5ad00fdf766d2806",
+        "width": 2999,
+        "height": 4000,
+        "capture_index": 57,
+        "captured_at_utc": null,
+        "camera_pose": null
+      }
+    ],
+    "audio": {
+      "present": false,
+      "path": null,
+      "sha256": null
+    }
+  },
+  "capture": {
+    "camera_model": null,
+    "lens": null,
+    "intrinsics": {
+      "fx": null,
+      "fy": null,
+      "cx": null,
+      "cy": null
+    },
+    "distortion": null,
+    "capture_height_m": null,
+    "orientation": null
+  },
+  "scale": {
+    "status": "uncalibrated",
+    "method": null,
+    "anchor": null,
+    "confidence": 0.0,
+    "evidence": []
+  },
+  "lighting": {
+    "status": "unknown",
+    "color_temp_k": null,
+    "illuminance_lux": null,
+    "fixtures": [],
+    "confidence": 0.0,
+    "evidence": []
+  },
+  "source_review": {
+    "status": "pending_operator_review",
+    "decision": null
+  },
+  "frame_references": [],
+  "hunyuan": {
+    "status": "not_attempted",
+    "attempts": [],
+    "historical_attempts": [],
+    "historical_invocations": 0,
+    "policy_invocation_limit": 3,
+    "policy_note": "Picture-set registration does not authorize a model run."
+  },
+  "room_adaptations": [],
+  "historical_artifacts": [],
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "modeling_note": "Picture-set images are direct source inputs. Import records image identity and dimensions; it never invents a frame timestamp."
+}
