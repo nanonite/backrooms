@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "picture-seed-review-decision-v1",
+  "title": "Picture-set operator seed decision v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "review_spec",
+    "decision",
+    "source_kind",
+    "source_id",
+    "source_image_set_sha256",
+    "review_request_sha256",
+    "image_id",
+    "image_sha256",
+    "path",
+    "capture_index",
+    "width",
+    "height",
+    "resolution_warning",
+    "operator_rationale",
+    "decision_sha256"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "review_spec": { "const": "picture_seed_review_v1" },
+    "decision": { "const": "approved" },
+    "source_kind": { "const": "picture_set" },
+    "source_id": { "type": "string", "pattern": "^picture-set-[0-9a-f]{16}$" },
+    "source_image_set_sha256": { "$ref": "#/$defs/sha256" },
+    "review_request_sha256": { "$ref": "#/$defs/sha256" },
+    "image_id": { "type": "string", "pattern": "^img_[0-9]{4,}$" },
+    "image_sha256": { "$ref": "#/$defs/sha256" },
+    "path": { "type": "string", "pattern": "^data/pictures/" },
+    "capture_index": { "type": "integer", "minimum": 1 },
+    "width": { "type": "integer", "minimum": 1 },
+    "height": { "type": "integer", "minimum": 1 },
+    "resolution_warning": { "type": "boolean" },
+    "operator_rationale": { "type": "string", "minLength": 1 },
+    "decision_sha256": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "additionalProperties": false
+}
