@@ -28,8 +28,27 @@ from picture_seed_review_v1 import (
 from register_picture_sources import register_picture_set
 from seed_review_errors import SeedReviewError
 from seed_review_paths import canonical_sha256, sha256_file
-from seed_review_provider import ModelIdentity
+from picture_seed_review_runner_v1 import run_picture_seed_review
+from seed_review_provider import ModelIdentity, ModelInvocation, ProviderResponse
+from seed_review_response import RecordedResponse
 from video_source_library import PICTURE_SET_SOURCE_KIND
+
+
+class RecordingPictureModel:
+    def __init__(self, response: dict) -> None:
+        self.response = response
+        self.calls: list[ModelInvocation] = []
+
+    def invoke(self, invocation: ModelInvocation) -> ProviderResponse:
+        self.calls.append(invocation)
+        return ProviderResponse(
+            status="completed",
+            raw_text=json.dumps(self.response),
+            usage_payload={"input_tokens": 17, "output_tokens": 8},
+            error=None,
+            elapsed_seconds=0.1,
+            command=("mock-picture-review",),
+        )
 
 
 class PictureSeedReviewV1Tests(unittest.TestCase):
@@ -124,6 +143,80 @@ class PictureSeedReviewV1Tests(unittest.TestCase):
         self.assertIn("not resized", invocation.prompt)
         self.assertIn("not time", invocation.prompt)
 
+    def test_picture_model_review_is_disabled_by_default(self) -> None:
+        model = RecordingPictureModel(self._model_response())
+        with self.assertRaises(SeedReviewError) as caught:
+            run_picture_seed_review(
+                source_id=self.source_id,
+                identity=self._identity(),
+                root=self.root,
+                model=model,
+                receipts_dir=self.root / "godot_walk/evidence/review-receipts",
+            )
+        self.assertEqual("model_stage_not_enabled", caught.exception.code)
+        self.assertEqual([], model.calls)
+
+    def test_production_review_forwards_no_more_than_three_originals(self) -> None:
+        model = RecordingPictureModel(self._model_response())
+        run = run_picture_seed_review(
+            source_id=self.source_id,
+            identity=self._identity(),
+            root=self.root,
+            model=model,
+            enable_model=True,
+            receipts_dir=self.root / "godot_walk/evidence/review-receipts",
+        )
+        self.assertEqual(1, len(model.calls))
+        self.assertEqual(3, len(model.calls[0].image_paths))
+        self.assertEqual(
+            [image["image_id"] for image in self.review["candidates"]],
+            [image["image_id"] for image in run.receipt["reviewed_images"]],
+        )
+        self.assertEqual(
+            self.record.source_image_set_sha256,
+            run.receipt["source"]["source_image_set_sha256"],
+        )
+        self.assertFalse(run.receipt["operator_decision_recorded"])
+
+    def test_replayed_picture_response_writes_a_bound_advisory_receipt(self) -> None:
+        receipts_dir = self.root / "godot_walk/evidence/replay-receipts"
+        replay = RecordedResponse(
+            response=self._model_response(),
+            fixture_path="godot_walk/fixtures/picture-response.json",
+            fixture_sha256="a" * 64,
+            usage_payload={"input_tokens": 9, "output_tokens": 4},
+            provenance={"kind": "synthetic_test_fixture"},
+        )
+        run = run_picture_seed_review(
+            source_id=self.source_id,
+            identity=self._identity(),
+            root=self.root,
+            replay_response=replay,
+            receipts_dir=receipts_dir,
+        )
+        self.assertEqual("replayed_recorded_response", run.receipt["invocation_mode"])
+        self.assertFalse(run.receipt["guards"]["model_invoked"])
+        self.assertEqual(self.record.source_image_set_sha256, run.receipt["source"]["source_image_set_sha256"])
+        self.assertEqual(
+            [
+                {"image_id": item["image_id"], "sha256": item["sha256"]}
+                for item in self.review["candidates"]
+            ],
+            run.receipt["reviewed_images"],
+        )
+        self.assertEqual(
+            self.review["candidates"][0]["image_id"],
+            run.receipt["result"]["selected_image_id"],
+        )
+        self.assertFalse(run.receipt["operator_decision_recorded"])
+        index = json.loads(
+            (run.receipt_path.parent / "receipts.jsonl").read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            self.record.source_image_set_sha256,
+            index["source_image_set_sha256"],
+        )
+
     def test_guard_accepts_matching_decision_and_rejects_mismatched_bindings(
         self,
     ) -> None:
@@ -214,6 +307,25 @@ class PictureSeedReviewV1Tests(unittest.TestCase):
     def _resign(self, decision: dict) -> None:
         decision.pop("decision_sha256", None)
         decision["decision_sha256"] = canonical_sha256(decision)
+
+    def _identity(self) -> ModelIdentity:
+        return ModelIdentity(
+            provider="test",
+            model="vision",
+            image_input_supported=True,
+            image_input_support_basis="unit-test",
+            is_free=True,
+            listed_price_usd=0.0,
+            accounting="free_no_charge",
+        )
+
+    def _model_response(self) -> dict:
+        return {
+            "selected_image_id": self.review["candidates"][0]["image_id"],
+            "evidence": "The original is clear and well exposed.",
+            "uncertainty": "Only the visible image was reviewed.",
+            "confidence_1_to_5": 4,
+        }
 
 
 if __name__ == "__main__":
