@@ -88,7 +88,7 @@
         "kind": {"type": "string", "minLength": 1},
         "value_m": {"type": "number", "exclusiveMinimum": 0},
         "frame_id": {"type": ["string", "null"]},
-        "status": {"enum": ["estimated", "measured"]},
+        "status": {"enum": ["none", "estimated", "measured"]},
         "provenance": {"type": "string", "minLength": 1},
         "evidence": {"type": "array", "items": {"$ref": "#/$defs/reference"}},
         "review_status": {"enum": ["not_reviewed", "pending_operator_review", "pending_vision_model_review", "operator_reviewed", "vision_model_reviewed"]},
@@ -103,7 +103,8 @@
       "properties": {
         "path": {"type": "string", "minLength": 1},
         "sha256": {"$ref": "#/$defs/sha256"},
-        "json_pointer": {"type": "string", "pattern": "^/"}
+        "json_pointer": {"type": "string", "pattern": "^/"},
+        "tolerance_m": {"type": "number", "minimum": 0, "maximum": 0.1}
       },
       "additionalProperties": false
     },

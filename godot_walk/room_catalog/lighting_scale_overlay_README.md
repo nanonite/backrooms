@@ -36,6 +36,23 @@ rejected until the manifest itself records accepted calibration. Estimated
 anchors always remain uncalibrated. This issue leaves all `scale_calibrated`
 and `registration_accepted` base-record flags false.
 
+### Claims accepted by the validator
+
+| Field claim | Allowed claim | Required support; unsupported claims are rejected |
+| --- | --- | --- |
+| Anchor provenance/status | No anchor (`null`), or an `estimated` or `measured` anchor object | A measured anchor has exactly one measurement reference; an estimated anchor has none. An anchor object with status `none` is contradictory because it also carries a dimension and is rejected. |
+| Measurement reference | A committed measurement | The path exists in the repository and Git `HEAD`, the SHA-256 matches both, its JSON pointer resolves to a real finite positive number (booleans excluded), and that number matches `value_m` within `tolerance_m` (default `0`, bounded to `0..0.1 m`). Any supplied reference is checked even when the anchor is estimated or another status is inconsistent. |
+| Scale aggregate status | `uncalibrated` or `calibrated` | `calibrated` is accepted exactly when the anchor is measured and its complete measurement check passes. A source manifest must also have accepted calibration. |
+| Per-field review status | `not_reviewed`, pending operator/model review, or operator/model reviewed | Reviewed claims require field evidence and a review record with reviewer kind, reviewer, timezone-aware date, what was reviewed, and committed evidence. Reviewer kind must match the claimed status. Pending and not-reviewed fields cannot claim review evidence. |
+| Lighting aggregate status | Uncalibrated/not reviewed, estimated/pending review, or reviewed | Its status and review status must agree with every contributing lighting field. Mixed field review states and aggregate claims unsupported by all fields are rejected. |
+| Scale review status | The anchor's review status, or not reviewed when there is no anchor | Aggregate and anchor review states must agree, with the same review evidence rules. |
+| Provenance and numeric values | Nonempty provenance; finite numeric estimates | Numeric fields reject booleans and non-finite values. Provenance text does not count as review or measurement evidence. |
+
+The state helper first validates an overlay. It returns `valid: false` and the
+uncalibrated defaults with errors for any invalid overlay; invalid review or
+calibration claims are never surfaced as validated state. With no overlay it
+returns `valid: true` and the explicit not-reviewed defaults.
+
 The committed source and module overlays are examples only. Their lighting and
 anchor values are agent-proposed estimates, pending operator review; no
 operator or vision-model review has occurred. The source example is a picture

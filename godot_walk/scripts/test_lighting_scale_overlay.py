@@ -352,6 +352,187 @@ def test_state_helper_does_not_expose_invalid_aggregate_claims() -> None:
     state = ls.lighting_scale_state(record)
     assert state["lighting"]["review_status"] == "not_reviewed"
     assert state["scale"]["status"] == "uncalibrated"
+    assert state["valid"] is False
+
+
+_ANCHOR_STATES = ("none", "estimated", "measured")
+_MEASUREMENT_STATES = (
+    "absent", "valid", "missing_file", "untracked", "bad_hash", "bad_pointer",
+    "bool", "string", "zero", "negative", "nan",
+)
+_AGGREGATE_STATES = ("uncalibrated", "calibrated")
+_ANCHOR_MATRIX = [
+    (anchor_status, measurement_state, aggregate_status,
+     anchor_status in {"none", "estimated"} and measurement_state == "absent"
+     and aggregate_status == "uncalibrated"
+     or anchor_status == "measured" and measurement_state == "valid"
+     and aggregate_status == "calibrated")
+    for anchor_status in _ANCHOR_STATES
+    for measurement_state in _MEASUREMENT_STATES
+    for aggregate_status in _AGGREGATE_STATES
+]
+
+
+@pytest.mark.parametrize(
+    ("anchor_status", "measurement_state", "aggregate_status", "accepted"),
+    _ANCHOR_MATRIX,
+)
+def test_anchor_status_measurement_and_aggregate_matrix(
+    monkeypatch, anchor_status: str, measurement_state: str,
+    aggregate_status: str, accepted: bool,
+) -> None:
+    anchor = None if anchor_status == "none" and measurement_state == "absent" else {
+        "status": anchor_status,
+        "measurement": None if measurement_state == "absent" else {"path": "measurement.json"},
+    }
+    record = {"scale": {"anchor": anchor, "status": aggregate_status}}
+    broken_states = {
+        "missing_file", "untracked", "bad_hash", "bad_pointer", "bool",
+        "string", "zero", "negative", "nan",
+    }
+    if measurement_state == "valid":
+        monkeypatch.setattr(ls, "_measurement_errors", lambda *_args: [])
+    elif measurement_state in broken_states:
+        monkeypatch.setattr(
+            ls, "_measurement_errors", lambda *_args: [f"invalid {measurement_state}"]
+        )
+    errors = ls._anchor_rule_errors(record, ROOT)
+    assert (not errors) is accepted, (anchor_status, measurement_state, aggregate_status, errors)
+
+
+@pytest.mark.parametrize(
+    ("measurement_value", "pointer", "tolerance", "commit_error", "expected"),
+    [
+        (1.75, "/height_m", 0, None, None),
+        (1.75, "/missing", 0, None, "pointer does not resolve"),
+        (True, "/height_m", 0, None, "finite numeric value"),
+        ("1.75", "/height_m", 0, None, "finite numeric value"),
+        (0, "/height_m", 0, None, "greater than zero"),
+        (-1, "/height_m", 0, None, "greater than zero"),
+        (float("nan"), "/height_m", 0, None, "finite numeric value"),
+        (1.75, "/height_m", 0.100001, None, "tolerance_m"),
+        (1.75, "/height_m", 0, "measurement must reference a committed measurement", "committed measurement"),
+    ],
+)
+def test_measurement_reference_is_always_checked(
+    tmp_path, monkeypatch, measurement_value, pointer, tolerance,
+    commit_error, expected,
+) -> None:
+    measurement_path = tmp_path / "measurement.json"
+    measurement_path.write_text(
+        json.dumps({"height_m": measurement_value}), encoding="utf-8"
+    )
+    measurement = {
+        "path": "measurement.json",
+        "sha256": hashlib.sha256(measurement_path.read_bytes()).hexdigest(),
+        "json_pointer": pointer,
+        "tolerance_m": tolerance,
+    }
+    monkeypatch.setattr(ls, "_committed_measurement_error", lambda *_args: commit_error)
+    errors = ls._measurement_errors({"value_m": 1.75}, measurement, tmp_path)
+    assert (not errors) is (expected is None), errors
+    if expected is not None:
+        assert any(expected in error for error in errors)
+
+
+def test_measurement_reference_rejects_missing_file_and_hash_mismatch(tmp_path, monkeypatch) -> None:
+    monkeypatch.setattr(ls, "_committed_measurement_error", lambda *_args: None)
+    measurement = {
+        "path": "absent.json", "sha256": "0" * 64,
+        "json_pointer": "/height_m",
+    }
+    assert any(
+        "missing" in error
+        for error in ls._measurement_errors({"value_m": 1.75}, measurement, tmp_path)
+    )
+    incomplete = {"path": "still-absent.json", "sha256": "0" * 64}
+    incomplete_errors = ls._measurement_errors({"value_m": 1.75}, incomplete, tmp_path)
+    assert any("missing" in error for error in incomplete_errors)
+    assert any("json_pointer is required" in error for error in incomplete_errors)
+    missing = tmp_path / "absent.json"
+    missing.write_text('{"height_m":1.75}', encoding="utf-8")
+    assert any(
+        "sha256" in error
+        for error in ls._measurement_errors({"value_m": 1.75}, measurement, tmp_path)
+    )
+
+
+def test_pointer_resolves_array_measurement(tmp_path, monkeypatch) -> None:
+    record = next(item for item in records() if item["record_kind"] == "source")
+    record = copy.deepcopy(record)
+    _copy_overlay_dependencies(record, tmp_path)
+    anchor = record["scale"]["anchor"]
+    anchor["status"] = "measured"
+    anchor["value_m"] = 2.0
+    anchor["frame_id"] = None
+    measurement_file = tmp_path / "measurement.json"
+    measurement_file.write_text('{"measurements":[2.0]}', encoding="utf-8")
+    anchor["measurement"] = {
+        "path": "measurement.json",
+        "sha256": hashlib.sha256(measurement_file.read_bytes()).hexdigest(),
+        "json_pointer": "/measurements/0",
+    }
+    base = {
+        "source_id": record["record_id"],
+        "scale_calibrated": True,
+        "scale": {
+            "status": "calibrated",
+            "anchor": {"kind": anchor["kind"], "value_m": 2.0, "frame_id": None},
+        },
+    }
+    base_file = tmp_path / "source.json"
+    base_file.write_text(json.dumps(base), encoding="utf-8")
+    base_reference = {
+        "path": "source.json",
+        "sha256": hashlib.sha256(base_file.read_bytes()).hexdigest(),
+    }
+    record["base_record"] = base_reference
+    _replace_field_evidence(record, base_reference)
+    record["scale"]["status"] = "calibrated"
+    monkeypatch.setattr(ls, "_committed_measurement_error", lambda *_args: None)
+
+    assert ls.validate_overlay(record, tmp_path) == []
+
+
+def test_overlay_returns_errors_for_null_byte_reference_path() -> None:
+    record = copy.deepcopy(records()[0])
+    record["base_record"]["path"] = "missing\u0000file"
+
+    errors = ls.validate_overlay(record)
+
+    assert errors
+    assert any("invalid or unreadable reference path" in error for error in errors)
+
+
+@pytest.mark.parametrize(
+    "mutate",
+    [
+        lambda record: record["lighting"].update(fixture_layout=None),
+        lambda record: record["scale"]["anchor"].update(status=["estimated"]),
+        lambda record: record["lighting"]["illuminance_lux"].update(
+            review_status=["pending_operator_review"]
+        ),
+    ],
+)
+def test_malformed_overlay_values_return_errors_and_invalid_state(mutate) -> None:
+    record = copy.deepcopy(records()[0])
+    mutate(record)
+
+    errors = ls.validate_overlay(record)
+    state = ls.lighting_scale_state(record)
+
+    assert errors
+    assert state["valid"] is False
+
+
+def test_anchor_status_none_rejects_a_present_dimension() -> None:
+    record = next(item for item in records() if item["record_kind"] == "source")
+    record = copy.deepcopy(record)
+    record["scale"]["anchor"]["status"] = "none"
+
+    errors = ls.validate_overlay(record)
+
+    assert any("none requires anchor to be null" in error for error in errors)
 
 
 def test_validator_reports_missing_or_unreadable_base_without_raising(tmp_path) -> None:
