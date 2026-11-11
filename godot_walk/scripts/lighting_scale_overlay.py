@@ -376,8 +376,13 @@ def _anchor_rule_errors(record: dict[str, Any], root: Path) -> list[str]:
         errors += measurement_errors
         measurement_valid = not measurement_errors
     calibrated = scale.get("status") == "calibrated"
-    if calibrated != (status == "measured" and measurement_valid):
-        errors.append("calibrated status requires an anchor marked measured with valid committed measurement")
+    reviewed_anchor = isinstance(anchor, dict) and _is_reviewed_status(
+        anchor.get("review_status")
+    )
+    if calibrated and not (status == "measured" and measurement_valid and reviewed_anchor):
+        errors.append(
+            "calibrated status requires a reviewed measured anchor with valid committed measurement"
+        )
     if calibrated and record.get("record_kind") == "source" and _valid_reference(record.get("base_record")):
         base_path = _repository_path(root, record["base_record"]["path"])
         if base_path is None:

@@ -83,7 +83,7 @@ def test_validator_rejects_estimated_anchor_marked_calibrated() -> None:
     record = copy.deepcopy(records()[0])
     record["scale"]["status"] = "calibrated"
     assert any(
-        "anchor marked measured" in error for error in ls.validate_overlay(record)
+        "reviewed measured anchor" in error for error in ls.validate_overlay(record)
     )
 
 
@@ -404,6 +404,74 @@ def _write_fixture_repo(root: Path, measurement_state: str) -> dict:
     return record
 
 
+def _set_fixture_scale_review(root: Path, record: dict, calibrated: bool, reviewed: bool) -> None:
+    base_path = root / record["base_record"]["path"]
+    base = json.loads(base_path.read_text(encoding="utf-8"))
+    anchor = record["scale"]["anchor"]
+    base["scale"] = {
+        "status": "calibrated" if calibrated else "uncalibrated",
+        "anchor": {
+            "kind": anchor["kind"],
+            "value_m": anchor["value_m"],
+            "frame_id": anchor.get("frame_id"),
+        },
+    }
+    base_path.write_text(json.dumps(base), encoding="utf-8")
+    subprocess.run(["git", "add", "base.json"], cwd=root, check=True)
+    subprocess.run(["git", "commit", "-qm", "matching base scale"], cwd=root, check=True)
+    reference = {
+        "path": "base.json",
+        "sha256": hashlib.sha256(base_path.read_bytes()).hexdigest(),
+    }
+    record["base_record"] = reference
+    _replace_field_evidence(record, reference)
+    anchor["status"] = "measured"
+    anchor["review_status"] = "operator_reviewed" if reviewed else "pending_operator_review"
+    record["scale"]["status"] = "calibrated" if calibrated else "uncalibrated"
+    record["scale"]["review_status"] = anchor["review_status"]
+    if reviewed:
+        review = [{
+            "reviewer_kind": "operator",
+            "reviewer": "fixture-operator",
+            "reviewed_at": "2026-11-11T00:00:00Z",
+            "what_was_reviewed": "Measured anchor and cited measurement",
+            "evidence": [reference],
+        }]
+        anchor["review_evidence"] = copy.deepcopy(review)
+        record["scale"]["review_evidence"] = review
+    else:
+        anchor["review_evidence"] = []
+        record["scale"]["review_evidence"] = []
+
+
+@pytest.mark.parametrize(
+    ("calibrated", "reviewed", "include_review_evidence", "accepted"),
+    [
+        (True, True, True, True),
+        (True, False, False, False),
+        (True, True, False, False),
+        (False, False, False, True),
+    ],
+)
+def test_calibration_requires_reviewed_measured_anchor_with_real_fixture_files(
+    tmp_path, calibrated: bool, reviewed: bool, include_review_evidence: bool, accepted: bool,
+) -> None:
+    root = tmp_path / f"calibrated-{calibrated}-reviewed-{reviewed}-evidence-{include_review_evidence}"
+    root.mkdir()
+    record = _write_fixture_repo(root, "valid")
+    record["scale"]["anchor"]["value_m"] = 1.75
+    _set_fixture_scale_review(root, record, calibrated, reviewed)
+    if reviewed and not include_review_evidence:
+        record["scale"]["anchor"]["review_evidence"] = []
+        record["scale"]["review_evidence"] = []
+
+    errors = ls.validate_overlay(record, root)
+
+    assert (not errors) is accepted, errors
+    if not accepted:
+        assert ls.lighting_scale_state(record, root)["valid"] is False
+
+
 @pytest.mark.parametrize(
     ("anchor_status", "measurement_state", "aggregate_status"),
     [(anchor, measurement, aggregate) for anchor in _ANCHOR_STATES
@@ -451,6 +519,11 @@ def test_anchor_status_measurement_and_aggregate_matrix_real_validator(
     accepted = (
         anchor_status == "measured" and measurement_state == "valid"
         and aggregate_status == "calibrated"
+        and record["scale"]["anchor"].get("review_status")
+        in {"operator_reviewed", "vision_model_reviewed"}
+    ) or (
+        anchor_status == "measured" and measurement_state == "valid"
+        and aggregate_status == "uncalibrated"
     ) or (
         anchor_status in {"none", "estimated"} and measurement_state == "absent"
         and aggregate_status == "uncalibrated"
@@ -459,18 +532,19 @@ def test_anchor_status_measurement_and_aggregate_matrix_real_validator(
     assert (not errors) is accepted, (anchor_status, measurement_state, aggregate_status, errors)
 
 
-def _leaf_paths(value, prefix=()):
+def _all_paths(value, prefix=()):
+    yield prefix
     if isinstance(value, dict):
         for key, item in value.items():
-            yield from _leaf_paths(item, prefix + (key,))
+            yield from _all_paths(item, prefix + (key,))
     elif isinstance(value, list):
         for index, item in enumerate(value):
-            yield from _leaf_paths(item, prefix + (index,))
-    else:
-        yield prefix
+            yield from _all_paths(item, prefix + (index,))
 
 
 def _replace_path(value, path, replacement):
+    if not path:
+        return copy.deepcopy(replacement)
     result = copy.deepcopy(value)
     target = result
     for component in path[:-1]:
@@ -482,7 +556,7 @@ def _replace_path(value, path, replacement):
 @pytest.mark.parametrize("replacement", [None, True, [], {}, "x", -1, 0, 3.5, ["a"], {"a": 1}, "bad\u0000value"])
 def test_all_example_paths_are_type_fuzzed_without_raising(replacement) -> None:
     for original in records():
-        for path in _leaf_paths(original):
+        for path in _all_paths(original):
             malformed = _replace_path(original, path, replacement)
             errors = ls.validate_overlay(malformed)
             state = ls.lighting_scale_state(malformed)
@@ -599,6 +673,17 @@ def test_pointer_resolves_array_measurement(tmp_path, monkeypatch) -> None:
     record["base_record"] = base_reference
     _replace_field_evidence(record, base_reference)
     record["scale"]["status"] = "calibrated"
+    review_evidence = [{
+        "reviewer_kind": "operator",
+        "reviewer": "fixture-operator",
+        "reviewed_at": "2026-11-11T00:00:00Z",
+        "what_was_reviewed": "Measured anchor and cited measurement",
+        "evidence": [base_reference],
+    }]
+    anchor["review_status"] = "operator_reviewed"
+    anchor["review_evidence"] = copy.deepcopy(review_evidence)
+    record["scale"]["review_status"] = "operator_reviewed"
+    record["scale"]["review_evidence"] = review_evidence
     monkeypatch.setattr(ls, "_committed_measurement_error", lambda *_args: None)
 
     assert ls.validate_overlay(record, tmp_path) == []
