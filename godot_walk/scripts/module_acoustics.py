@@ -7,6 +7,8 @@ accepted poetics record path/hash. Library scenes are never edited.
 Usage:
     python3 godot_walk/scripts/module_acoustics.py generate
     python3 godot_walk/scripts/module_acoustics.py check
+    python3 godot_walk/scripts/module_acoustics.py generate-v2
+    python3 godot_walk/scripts/module_acoustics.py check-v2
 """
 
 from __future__ import annotations
@@ -108,10 +110,40 @@ def check(library: Library, root: Path = ROOT) -> list[str]:
     return []
 
 
+def load_v2(root: Path = ROOT) -> dict[str, Any]:
+    """Load the versioned measured sidecar while preserving the v0.1.0 API."""
+    from module_acoustics_v2 import load_v2 as load_document
+
+    return load_document(root)
+
+
+def generate_v2(root: Path = ROOT) -> dict[str, Any]:
+    """Generate the versioned measured sidecar from committed probe output."""
+    from module_acoustics_v2 import generate as generate_document
+
+    return generate_document(root)
+
+
+def check_v2(root: Path = ROOT) -> list[str]:
+    """Validate the versioned measured sidecar and its hash pins."""
+    from module_acoustics_v2 import check as check_document
+
+    return check_document(root)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("generate", "check"))
+    parser.add_argument(
+        "command", choices=("generate", "check", "generate-v2", "check-v2")
+    )
     arguments = parser.parse_args(argv)
+    if arguments.command == "generate-v2":
+        print(json.dumps(generate_v2(), sort_keys=True))
+        return 0
+    if arguments.command == "check-v2":
+        errors = check_v2()
+        print(json.dumps({"valid": not errors, "errors": errors}, sort_keys=True))
+        return 1 if errors else 0
     library = load_library(ROOT / INDEX)
     if arguments.command == "generate":
         print(json.dumps(generate(library), sort_keys=True))
