@@ -600,6 +600,7 @@ def module_profile_paths(root: Path = ROOT) -> list[Path]:
         path
         for path in (root / MODULE_PROFILE_DIR).glob("*.json")
         if not path.name.endswith("-t6-v1.json")
+        and not path.name.endswith("-lighting-scale-v1.json")
     }
     paths.update(root.glob(SOURCE_PROFILE_GLOB))
     return sorted(paths)
@@ -639,6 +640,12 @@ def validate_repository(root: Path = ROOT) -> ValidationReport:
         t6_profile_paths, module_profile_t6_errors, root, "module profile T6"
     )
     errors += _validate_files(map_paths, generative_map_errors, root, "generative map")
+    from lighting_scale_overlay import overlay_paths, validate_overlay
+
+    overlay_records = [path for path in overlay_paths(root) if path.is_file()]
+    errors += _validate_files(
+        overlay_records, validate_overlay, root, "lighting/scale overlay"
+    )
     return ValidationReport(
         source_manifests=len(manifest_paths),
         module_profiles=len(profile_paths) + len(t6_profile_paths),
