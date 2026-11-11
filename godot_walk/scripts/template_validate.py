@@ -4,6 +4,7 @@ The template schemas are frozen by version:
 
 * source manifests: v1, v2 and v3 keep their own schema files;
 * module profiles: schema v1 in ``module_profile.schema.json``;
+* module profile T6 overlays: schema v1 in ``module_profile_t6.schema.json``;
 * generative maps: schema v1 and the optional additions in schema v2.
 
 Nothing here derives, writes or rewrites a record. Existing source manifests and
@@ -34,6 +35,9 @@ SOURCE_MANIFEST_SCHEMAS = {
 MODULE_PROFILE_SCHEMA = Path(
     "godot_walk/room_catalog/module_profile.schema.json"
 )
+MODULE_PROFILE_T6_SCHEMA = Path(
+    "godot_walk/room_catalog/module_profile_t6.schema.json"
+)
 GENERATIVE_MAP_SCHEMAS = {
     1: Path("godot_walk/room_catalog/generative_map.schema.json"),
     2: Path("godot_walk/room_catalog/generative_map_v2.schema.json"),
@@ -41,6 +45,10 @@ GENERATIVE_MAP_SCHEMAS = {
 MODULE_PROFILE_DIR = Path("godot_walk/room_catalog/module_profiles")
 SOURCE_PROFILE_GLOB = (
     "godot_walk/source_library/sources/*/rooms/*/module_profile_v1.json"
+)
+T6_PROFILE_DIR = Path("godot_walk/room_catalog/module_profiles")
+T6_SOURCE_PROFILE_GLOB = (
+    "godot_walk/source_library/sources/*/rooms/*/module_profile_t6_v1.json"
 )
 CATALOG_SNAPSHOT_DIR = Path("godot_walk/room_catalog/catalog_snapshots")
 
@@ -215,6 +223,44 @@ def module_profile_errors(record: dict[str, Any], root: Path = ROOT) -> list[str
     return errors
 
 
+def module_profile_t6_errors(
+    record: dict[str, Any], root: Path = ROOT
+) -> list[str]:
+    """Validate an editable T6 overlay and its frozen base/evidence references."""
+    errors = schema_errors(record, load_schema(MODULE_PROFILE_T6_SCHEMA, root))
+    if errors:
+        return errors
+    errors += _reference_errors(record["base_profile"], root, "base_profile")
+    errors += _reference_errors(record["template_ref"], root, "template_ref")
+    for index, evidence in enumerate(record["mood"]["evidence"]):
+        errors += _reference_errors(evidence, root, f"mood.evidence[{index}]")
+    if errors:
+        return errors
+    base_path = (root / record["base_profile"]["path"]).resolve()
+    try:
+        base = json.loads(base_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        return [f"base_profile: cannot read referenced profile: {error}"]
+    if record["module_id"] != base.get("module_id"):
+        errors.append("module_id does not match base profile")
+    if len(record["exits"]) != len(base.get("exits", [])):
+        errors.append("exits must describe exactly the recorded base profile sockets")
+    for index, (exit_record, base_exit) in enumerate(
+        zip(record["exits"], base.get("exits", []))
+    ):
+        for field in (
+            "socket_id",
+            "kind",
+            "compatibility_type",
+            "width_m",
+            "elevation_m",
+            "tested_pair_ids",
+        ):
+            if exit_record[field] != base_exit[field]:
+                errors.append(f"exits[{index}].{field} differs from recorded socket")
+    return errors
+
+
 def generative_map_schema_errors(
     record: dict[str, Any], root: Path = ROOT
 ) -> list[str]:
@@ -289,8 +335,18 @@ def source_manifest_paths(root: Path = ROOT) -> list[Path]:
 
 
 def module_profile_paths(root: Path = ROOT) -> list[Path]:
-    paths = set((root / MODULE_PROFILE_DIR).glob("*.json"))
+    paths = {
+        path
+        for path in (root / MODULE_PROFILE_DIR).glob("*.json")
+        if not path.name.endswith("-t6-v1.json")
+    }
     paths.update(root.glob(SOURCE_PROFILE_GLOB))
+    return sorted(paths)
+
+
+def module_profile_t6_paths(root: Path = ROOT) -> list[Path]:
+    paths = set((root / T6_PROFILE_DIR).glob("*-t6-v1.json"))
+    paths.update(root.glob(T6_SOURCE_PROFILE_GLOB))
     return sorted(paths)
 
 
@@ -307,6 +363,9 @@ def validate_repository(root: Path = ROOT) -> ValidationReport:
         path for path in source_manifest_paths(root) if path.is_file()
     ]
     profile_paths = [path for path in module_profile_paths(root) if path.is_file()]
+    t6_profile_paths = [
+        path for path in module_profile_t6_paths(root) if path.is_file()
+    ]
     map_paths = [path for path in generative_map_paths(root) if path.is_file()]
     errors: list[str] = []
     errors += _validate_files(
@@ -315,10 +374,13 @@ def validate_repository(root: Path = ROOT) -> ValidationReport:
     errors += _validate_files(
         profile_paths, module_profile_errors, root, "module profile"
     )
+    errors += _validate_files(
+        t6_profile_paths, module_profile_t6_errors, root, "module profile T6"
+    )
     errors += _validate_files(map_paths, generative_map_errors, root, "generative map")
     return ValidationReport(
         source_manifests=len(manifest_paths),
-        module_profiles=len(profile_paths),
+        module_profiles=len(profile_paths) + len(t6_profile_paths),
         generative_maps=len(map_paths),
         errors=tuple(errors),
     )

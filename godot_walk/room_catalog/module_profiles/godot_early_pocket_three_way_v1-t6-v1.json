@@ -1,0 +1,116 @@
+{
+  "base_profile": {
+    "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_three_way_v1-v1.json",
+    "sha256": "c6bfbfbc7e394b5e760d56ec0377c38581ddf0a637b519b563ed2f386e6b6fdd"
+  },
+  "ceiling_volume": {
+    "ceiling_height_m": {
+      "basis_status": "measured",
+      "source": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json#/modules/godot_early_pocket_three_way_v1@1/metrics/ceiling_height_m; #216 headless probe; up-ray result is capped by the profile ceiling hint",
+      "status": "measured",
+      "value": 2.4
+    },
+    "ceiling_kind": {
+      "basis_status": "authored",
+      "source": "godot_walk/room_catalog/module_poetics/godot_early_pocket_three_way_v1-v1.accepted.json#/poetics/style_tags; ceiling-kind interpretation is a draft",
+      "status": "authored",
+      "value": "beam_grid"
+    },
+    "ceiling_max_m": {
+      "basis_status": "authored",
+      "source": "godot_walk/room_catalog/module_poetics/godot_early_pocket_three_way_v1-v1.accepted.json#/shape/ceiling_max_m",
+      "status": "authored",
+      "value": 2.4
+    },
+    "ceiling_min_m": {
+      "basis_status": "authored",
+      "source": "godot_walk/room_catalog/module_poetics/godot_early_pocket_three_way_v1-v1.accepted.json#/shape/ceiling_min_m",
+      "status": "authored",
+      "value": 2.4
+    },
+    "volume_measured_m3": {
+      "basis_status": "unmeasured",
+      "source": "No committed per-module volume measurement exists",
+      "status": "unmeasured",
+      "value": null
+    },
+    "volume_nominal_m3": {
+      "basis_status": "authored",
+      "derivation": "footprint area x authored maximum ceiling; nominal envelope heuristic",
+      "source": "godot_walk/room_catalog/module_profiles/godot_early_pocket_three_way_v1-v1.json#/shape; derived from authored footprint area and authored maximum ceiling",
+      "status": "derived",
+      "value": 198.72
+    }
+  },
+  "exits": [
+    {
+      "circulation_role": "connector",
+      "compatibility_type": "level_doorway_2m_v1",
+      "elevation_m": -1.27099049,
+      "kind": "untested",
+      "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_three_way_v1-v1.accepted.json; accepted ports and library index socket data",
+      "socket_id": "east",
+      "tested_pair_ids": [],
+      "width_m": 2.0
+    },
+    {
+      "circulation_role": "connector",
+      "compatibility_type": "level_doorway_2m_v1",
+      "elevation_m": -1.27099049,
+      "kind": "untested",
+      "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_three_way_v1-v1.accepted.json; accepted ports and library index socket data",
+      "socket_id": "north",
+      "tested_pair_ids": [],
+      "width_m": 2.0
+    },
+    {
+      "circulation_role": "connector",
+      "compatibility_type": "level_doorway_2m_v1",
+      "elevation_m": -1.27099049,
+      "kind": "untested",
+      "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_three_way_v1-v1.accepted.json; accepted ports and library index socket data",
+      "socket_id": "west",
+      "tested_pair_ids": [],
+      "width_m": 2.0
+    }
+  ],
+  "module_id": "godot_early_pocket_three_way_v1",
+  "mood": {
+    "anomaly": 0.1,
+    "curiosity": 0.3,
+    "dread": 0.15,
+    "evidence": [
+      {
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_three_way_v1-v1.accepted.json",
+        "sha256": "f03cff792927988fc13e6ad5512c78b09ae95d481baaded5e127c5bd44696ec6"
+      }
+    ],
+    "review_status": "agent_proposed_draft_pending_operator_review",
+    "safety": 0.65,
+    "tags": [
+      "quiet",
+      "choice"
+    ],
+    "tension": 0.3
+  },
+  "profile_version": "module-profile-t6-0.1.0",
+  "roles": {
+    "circulation_role": "branch",
+    "form_role": "ground",
+    "map_role": "ground",
+    "review_status": "agent_proposed_draft_pending_operator_review",
+    "semantic_tags": [
+      "carpeted",
+      "multi_socket"
+    ],
+    "sightline_tags": [
+      "occluded"
+    ]
+  },
+  "schema_version": 1,
+  "template_ref": {
+    "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+    "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+    "version": "generation-template-0.1.0"
+  }
+}
