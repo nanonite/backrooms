@@ -16,6 +16,7 @@ SOURCE_PROFILE_GLOB = "godot_walk/source_library/sources/*/rooms/*/module_profil
 REGISTRY_PATH = Path("godot_walk/room_catalog/material_palettes/palettes-0.3.0.json")
 ACOUSTICS_PATH = Path("godot_walk/room_catalog/module_acoustics_v0.2.0.json")
 SCHEMA_PATH = Path("godot_walk/room_catalog/module_surface_palette.schema.json")
+PROFILE_SCHEMA_PATH = Path("godot_walk/room_catalog/module_profile.schema.json")
 REPORT_PATH = Path("godot_walk/room_catalog/module_surface_palette_coverage_v0.1.0.json")
 TABLE_PATH = Path("godot_walk/room_catalog/module_surface_palette_mapping_v0.1.0.md")
 SURFACES = ("wall", "floor", "ceiling", "trim")
@@ -48,62 +49,88 @@ def palette_for(
     acoustic: str,
     evidence: list[str],
     registry: dict[str, dict[str, Any]],
-) -> tuple[str | None, str]:
+) -> str | None:
     for palette_id, record in registry.items():
         if module_id in record["source_module_ids"]:
-            return palette_id, "observed"
+            return palette_id
     if "dark_carpet" in evidence:
-        return None, "proposed"
+        return None
     if acoustic == "carpet" and "backrooms_yellow" in registry:
-        return "backrooms_yellow", "proposed"
-    return None, "bespoke"
+        return "backrooms_yellow"
+    return None
 
 
 def surface_entry(
     module_id: str,
     surface: str,
     palette_id: str | None,
-    status: str,
     evidence: list[str],
     registry: dict[str, dict[str, Any]],
     profile_path: Path,
-) -> dict[str, Any]:
+    root: Path,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    profile_reference = profile_path.resolve().relative_to(root.resolve()).as_posix()
     if palette_id is None:
         acoustic = "carpet" if surface == "floor" and "dark_carpet" in evidence else "unknown"
         label = "dark_carpet" if surface == "floor" and acoustic == "carpet" else "unknown"
         status = "bespoke" if label == "dark_carpet" else "null"
-        return {
+        basis = (
+            f"{profile_reference}; {ACOUSTICS_PATH.as_posix()} evidence {evidence}; "
+            f"no palettes-0.3.0 surface is evidenced for {surface}"
+        )
+        return (
+            {
             "material_id": f"{module_id}.{label}_{surface}",
             "palette_id": None,
             "acoustic": acoustic,
             "texture_refs": [],
-            "basis": (
-                f"{profile_path.as_posix()}; {ACOUSTICS_PATH.as_posix()} evidence {evidence}; "
-                f"no palettes-0.3.0 surface is evidenced for {surface}"
-            ),
-            "status": status,
-            "evidence_status": "observed" if label == "dark_carpet" else "proposed",
-            "bespoke_reason": f"No supported palettes-0.3.0 mapping for this module's {surface}; retain an explicit {label} slot pending operator review.",
+            "provenance": basis,
             "sign": "symbol",
-        }
+            },
+            {
+                "basis": basis,
+                "status": status,
+                "evidence_status": "observed" if label == "dark_carpet" else "proposed",
+                "bespoke_reason": f"No supported palettes-0.3.0 mapping for this module's {surface}; retain an explicit {label} slot pending operator review.",
+            },
+        )
     material = registry[palette_id]["surfaces"][surface]
     clean = material["variants"]["clean"]
     source_modules = registry[palette_id]["source_module_ids"]
-    relation = "registry source_module_ids" if module_id in source_modules else "matching module acoustic evidence; palette choice is a proposal"
-    return {
-        "material_id": f"{palette_id}.{surface}",
-        "palette_id": palette_id,
-        "acoustic": material["acoustic"],
-        "texture_refs": [clean["texture"]] if "texture" in clean else [],
-        "basis": (
-            f"{profile_path.as_posix()}; {ACOUSTICS_PATH.as_posix()} evidence {evidence}; "
-            f"{REGISTRY_PATH.as_posix()} {palette_id}.{surface} via {relation}"
-        ),
-        "status": "resolved",
-        "evidence_status": status,
-        "bespoke_reason": None,
-        "sign": clean["provenance"]["sign"],
-    }
+    provenance = clean.get("provenance", {})
+    provenance_source = provenance.get("from", "")
+    provenance_field = provenance_source.rsplit("::", 1)[-1].lower()
+    observed = (
+        module_id in source_modules
+        and provenance.get("sign") == "icon"
+        and provenance_source.startswith("res://source_library/")
+        and provenance_field.startswith(f"{surface}_")
+    )
+    relation = (
+        f"registry module match and direct {surface} provenance ({provenance_source})"
+        if observed
+        else "palette registry entry; per-surface assignment is a proposal"
+    )
+    basis = (
+        f"{profile_reference}; {ACOUSTICS_PATH.as_posix()} evidence {evidence}; "
+        f"{REGISTRY_PATH.as_posix()} {palette_id}.{surface} via {relation}"
+    )
+    return (
+        {
+            "material_id": f"{palette_id}.{surface}",
+            "palette_id": palette_id,
+            "acoustic": material["acoustic"],
+            "texture_refs": [clean["texture"]] if "texture" in clean else [],
+            "provenance": basis,
+            "sign": clean["provenance"]["sign"],
+        },
+        {
+            "basis": basis,
+            "status": "resolved",
+            "evidence_status": "observed" if observed else "proposed",
+            "bespoke_reason": None,
+        },
+    )
 
 
 def build_descriptor(profile_path: Path, root: Path = ROOT) -> dict[str, Any]:
@@ -113,7 +140,7 @@ def build_descriptor(profile_path: Path, root: Path = ROOT) -> dict[str, Any]:
     if acoustic_record is None:
         raise ValueError(f"no module acoustics record for {profile['module_id']}@{profile['version']}")
     registry = registry_surfaces(root)
-    palette_id, status = palette_for(
+    palette_id = palette_for(
         profile["module_id"], acoustic_record["acoustic"], acoustic_record["evidence"], registry
     )
     relative_profile = profile_path.resolve().relative_to(root.resolve()).as_posix()
@@ -123,12 +150,15 @@ def build_descriptor(profile_path: Path, root: Path = ROOT) -> dict[str, Any]:
         "module_id": profile["module_id"],
         "profile_ref": {"path": relative_profile, "sha256": sha256_file(profile_path)},
         "surfaces": {},
+        "review": {"operator_review": "pending", "surfaces": {}},
     }
     evidence = acoustic_record["evidence"]
     for surface in SURFACES:
-        descriptor["surfaces"][surface] = surface_entry(
-            profile["module_id"], surface, palette_id, status, evidence, registry, profile_path
+        profile_surface, review_surface = surface_entry(
+            profile["module_id"], surface, palette_id, evidence, registry, profile_path, root
         )
+        descriptor["surfaces"][surface] = profile_surface
+        descriptor["review"]["surfaces"][surface] = review_surface
     return descriptor
 
 
@@ -141,6 +171,16 @@ def validate_descriptor(
 
         schema = json.loads((root / SCHEMA_PATH).read_text(encoding="utf-8"))
         jsonschema.validate(descriptor, schema)
+        profile_schema = json.loads((root / PROFILE_SCHEMA_PATH).read_text(encoding="utf-8"))
+        profile_surface_schema = {
+            "$schema": profile_schema["$schema"],
+            "$defs": profile_schema["$defs"],
+            "type": "object",
+            "required": ["surfaces"],
+            "properties": {"surfaces": {"$ref": "#/$defs/surfaces"}},
+            "additionalProperties": False,
+        }
+        jsonschema.validate({"surfaces": descriptor.get("surfaces")}, profile_surface_schema)
     except ImportError:
         errors.append("jsonschema is required to validate surface/palette descriptors")
     except Exception as exc:  # jsonschema reports several concrete validation exception types
@@ -154,25 +194,30 @@ def validate_descriptor(
         errors.append("profile_ref.sha256 does not match its profile")
     registry = registry_surfaces(root)
     surfaces = descriptor.get("surfaces", {})
+    review_surfaces = descriptor.get("review", {}).get("surfaces", {})
     for name in SURFACES:
         entry = surfaces.get(name)
-        if not isinstance(entry, dict):
+        review = review_surfaces.get(name)
+        if not isinstance(entry, dict) or not isinstance(review, dict):
             errors.append(f"{name}: unresolved surface")
             continue
         palette_id = entry.get("palette_id")
-        if entry.get("status") in ("null", "bespoke"):
-            if palette_id is not None or not entry.get("bespoke_reason"):
+        status = review.get("status")
+        if status in ("null", "bespoke"):
+            if palette_id is not None or not review.get("bespoke_reason"):
                 errors.append(f"{name}: bespoke surface requires null palette_id and a reason")
-        elif entry.get("status") != "resolved":
-            errors.append(f"{name}: unsupported resolution status {entry.get('status')!r}")
+        elif status != "resolved":
+            errors.append(f"{name}: unsupported resolution status {status!r}")
         elif palette_id not in registry:
             errors.append(f"{name}: unresolved palette_id {palette_id!r}")
         elif name not in registry[palette_id]["surfaces"]:
             errors.append(f"{name}: {palette_id} has no registry surface")
         elif entry.get("acoustic") != registry[palette_id]["surfaces"][name]["acoustic"]:
             errors.append(f"{name}: acoustic does not match {palette_id} registry data")
-        if not entry.get("basis"):
+        if not review.get("basis"):
             errors.append(f"{name}: missing evidence basis")
+        if entry.get("provenance") != review.get("basis"):
+            errors.append(f"{name}: provenance does not match review basis")
     return errors
 
 
@@ -183,7 +228,8 @@ def coverage_report(descriptors: list[dict[str, Any]]) -> dict[str, Any]:
         surfaces = {}
         for name in SURFACES:
             entry = descriptor.get("surfaces", {}).get(name)
-            status = entry.get("status", "unresolved") if isinstance(entry, dict) else "unresolved"
+            review = descriptor.get("review", {}).get("surfaces", {}).get(name)
+            status = review.get("status", "unresolved") if isinstance(review, dict) else "unresolved"
             counts[status if status in counts else "unresolved"] += 1
             surfaces[name] = {"status": status, "palette_id": entry.get("palette_id") if isinstance(entry, dict) else None}
         rows.append({"module_id": descriptor["module_id"], "surfaces": surfaces})
@@ -201,7 +247,7 @@ def mapping_table(descriptors: list[dict[str, Any]]) -> str:
     lines = [
         "# Module surface and palette mapping (0.1.0)",
         "",
-        "Operator mapping review: **pending**. `resolved` rows use a palette registry source-module mapping (`observed`) or matching carpet acoustic evidence (`proposed`). `null` rows have no supported palette assignment; `bespoke` rows retain an identified material without a palette match.",
+        "Operator mapping review: **pending**. `observed` rows have matching module and direct surface provenance; assignments based on acoustic evidence or palette registry entries without direct surface evidence are `proposed`. `null` rows have no supported palette assignment; `bespoke` rows retain an identified material without a palette match.",
         "",
         "| Module | Surface | Material ID | Palette ID | State | Basis |",
         "|---|---|---|---|---|---|",
@@ -209,10 +255,11 @@ def mapping_table(descriptors: list[dict[str, Any]]) -> str:
     for descriptor in descriptors:
         for name in SURFACES:
             entry = descriptor["surfaces"][name]
-            basis = entry["basis"].replace("|", "\\|")
+            review = descriptor["review"]["surfaces"][name]
+            basis = review["basis"].replace("|", "\\|")
             lines.append(
                 f"| `{descriptor['module_id']}` | {name} | `{entry['material_id']}` | "
-                f"{entry['palette_id'] or 'null'} | {entry['status']} ({entry['evidence_status']}) | {basis} |"
+                f"{entry['palette_id'] or 'null'} | {review['status']} ({review['evidence_status']}) | {basis} |"
             )
     return "\n".join(lines) + "\n"
 
@@ -245,6 +292,12 @@ def run(root: Path, build: bool) -> list[str]:
             errors.append(f"{REPORT_PATH}: differs from descriptor coverage")
     else:
         errors.append(f"{REPORT_PATH}: coverage report missing")
+    table_path = root / TABLE_PATH
+    if not build:
+        if not table_path.is_file():
+            errors.append(f"{TABLE_PATH}: mapping table missing")
+        elif table_path.read_text(encoding="utf-8") != mapping_table(descriptors):
+            errors.append(f"{TABLE_PATH}: differs from descriptor mappings; run build")
     if len(profiles) != 11:
         errors.append(f"expected 11 admitted module profiles, found {len(profiles)}")
     if any(count for key, count in coverage_report(descriptors)["counts"].items() if key == "unresolved"):

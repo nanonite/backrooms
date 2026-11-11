@@ -4,9 +4,12 @@ Issue #217 adds one `module_surface_palette_v1.json` descriptor per admitted
 module profile. Source-room descriptors sit beside their profile; authored-kit
 descriptors live in `room_catalog/module_surface_palettes/` so the existing
 profile loaders continue to see only profile records. Each descriptor links to
-the unchanged profile by path and SHA-256 and describes `wall`, `floor`,
-`ceiling`, and `trim` with material ID, palette ID, acoustic tag, texture
-references, evidence basis, and review state.
+the unchanged profile by path and SHA-256. Its `surfaces` block follows the
+exact surface schema from `module_profile.schema.json`, so it can be copied into
+a module profile without transforming its records. Provenance carries the
+evidence basis; a sibling `review.surfaces` block stores resolution status,
+evidence status, and any bespoke reason without adding fields rejected by the
+profile schema.
 
 The descriptors extend the existing module profile records without changing
 their hashes, any accepted poetics, library scene, catalog, or palette registry.

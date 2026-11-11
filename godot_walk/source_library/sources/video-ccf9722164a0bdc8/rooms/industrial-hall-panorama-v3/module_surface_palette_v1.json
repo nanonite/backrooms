@@ -5,52 +5,69 @@
     "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json",
     "sha256": "f5cf9e24d989ede82dc7cbe5bc472149a0ca866d0fc0157be15a308254e149f8"
   },
+  "review": {
+    "operator_review": "pending",
+    "surfaces": {
+      "ceiling": {
+        "basis": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.ceiling via palette registry entry; per-surface assignment is a proposal",
+        "bespoke_reason": null,
+        "evidence_status": "proposed",
+        "status": "resolved"
+      },
+      "floor": {
+        "basis": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.floor via registry module match and direct floor provenance (res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.gd::FLOOR_TEXTURE_PATH)",
+        "bespoke_reason": null,
+        "evidence_status": "observed",
+        "status": "resolved"
+      },
+      "trim": {
+        "basis": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.trim via palette registry entry; per-surface assignment is a proposal",
+        "bespoke_reason": null,
+        "evidence_status": "proposed",
+        "status": "resolved"
+      },
+      "wall": {
+        "basis": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.wall via palette registry entry; per-surface assignment is a proposal",
+        "bespoke_reason": null,
+        "evidence_status": "proposed",
+        "status": "resolved"
+      }
+    }
+  },
   "schema_version": 1,
   "surfaces": {
     "ceiling": {
       "acoustic": "metal",
-      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.ceiling via registry source_module_ids",
-      "bespoke_reason": null,
-      "evidence_status": "observed",
       "material_id": "industrial_concrete.ceiling",
       "palette_id": "industrial_concrete",
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.ceiling via palette registry entry; per-surface assignment is a proposal",
       "sign": "symbol",
-      "status": "resolved",
       "texture_refs": []
     },
     "floor": {
       "acoustic": "concrete",
-      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.floor via registry source_module_ids",
-      "bespoke_reason": null,
-      "evidence_status": "observed",
       "material_id": "industrial_concrete.floor",
       "palette_id": "industrial_concrete",
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.floor via registry module match and direct floor provenance (res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/room.gd::FLOOR_TEXTURE_PATH)",
       "sign": "icon",
-      "status": "resolved",
       "texture_refs": [
         "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png"
       ]
     },
     "trim": {
       "acoustic": "metal",
-      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.trim via registry source_module_ids",
-      "bespoke_reason": null,
-      "evidence_status": "observed",
       "material_id": "industrial_concrete.trim",
       "palette_id": "industrial_concrete",
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.trim via palette registry entry; per-surface assignment is a proposal",
       "sign": "symbol",
-      "status": "resolved",
       "texture_refs": []
     },
     "wall": {
       "acoustic": "concrete",
-      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.wall via registry source_module_ids",
-      "bespoke_reason": null,
-      "evidence_status": "observed",
       "material_id": "industrial_concrete.wall",
       "palette_id": "industrial_concrete",
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.wall via palette registry entry; per-surface assignment is a proposal",
       "sign": "symbol",
-      "status": "resolved",
       "texture_refs": []
     }
   }
