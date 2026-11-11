@@ -6,8 +6,9 @@
   "ceiling_volume": {
     "ceiling_height_m": {
       "basis_status": "measured",
-      "source": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json#/modules/video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1@1/metrics/ceiling_height_m; #216 headless probe; up-ray result is capped by the profile ceiling hint",
+      "source": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json#/modules/video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1@1/metrics/ceiling_height_m; Issue 216 headless probe; up-ray result is capped by the profile ceiling hint",
       "status": "measured",
+      "tolerance": 1e-06,
       "value": 3.92
     },
     "ceiling_kind": {
@@ -18,13 +19,13 @@
     },
     "ceiling_max_m": {
       "basis_status": "authored",
-      "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_poetics_v2.json#/shape/ceiling_max_m",
+      "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_profile_v1.json#/shape/ceiling_max_m",
       "status": "authored",
       "value": 3.92
     },
     "ceiling_min_m": {
       "basis_status": "authored",
-      "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_poetics_v2.json#/shape/ceiling_min_m",
+      "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_profile_v1.json#/shape/ceiling_min_m",
       "status": "authored",
       "value": 3.92
     },
@@ -37,7 +38,7 @@
     "volume_nominal_m3": {
       "basis_status": "authored",
       "derivation": "footprint area x authored maximum ceiling; nominal envelope heuristic",
-      "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_profile_v1.json#/shape; derived from authored footprint area and authored maximum ceiling",
+      "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_profile_v1.json#/shape/area_m2; godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_profile_v1.json#/shape/ceiling_max_m; authored inputs",
       "status": "derived",
       "value": 470.4
     }

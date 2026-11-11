@@ -21,10 +21,9 @@ from deterministic_json import (
 )
 
 PROFILE_VERSION = "module-profile-t6-0.1.0"
-SCHEMA = Path("godot_walk/room_catalog/module_profile_t6.schema.json")
 PROBE_RESULTS = Path("godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json")
 REVIEW_STATUS = "agent_proposed_draft_pending_operator_review"
-PROBE_CEILING_NOTE = "#216 headless probe; up-ray result is capped by the profile ceiling hint"
+PROBE_CEILING_NOTE = "Issue 216 headless probe; up-ray result is capped by the profile ceiling hint"
 
 # These are taste drafts grounded in accepted poetics and source descriptions.
 # They do not claim operator or vision-model review.
@@ -59,13 +58,14 @@ def build_records(root: Path = ROOT) -> list[tuple[Path, dict[str, Any]]]:
         base = json.loads(item.path.read_text(encoding="utf-8"))
         draft = DRAFTS[item.module_id]
         source = base["poetics_ref"]["path"]
+        base_source = repo_relative(item.path, root)
         poetics = base["shape"]
         probe = measurements[f"{item.module_id}@{item.version}"]
         authored = lambda key: {
             "value": poetics[key],
             "status": "authored",
             "basis_status": "authored",
-            "source": f"{source}#/shape/{key}",
+            "source": f"{base_source}#/shape/{key}",
         }
         measured_height = probe["metrics"]["ceiling_height_m"]
         exits = []
@@ -86,6 +86,7 @@ def build_records(root: Path = ROOT) -> list[tuple[Path, dict[str, Any]]]:
                     "value": measured_height,
                     "status": "measured",
                     "basis_status": "measured",
+                    "tolerance": 0.000001,
                     "source": f"{PROBE_RESULTS.as_posix()}#/modules/{item.module_id}@{item.version}/metrics/ceiling_height_m; {PROBE_CEILING_NOTE}",
                 },
                 "ceiling_kind": {
@@ -99,7 +100,7 @@ def build_records(root: Path = ROOT) -> list[tuple[Path, dict[str, Any]]]:
                     "status": "derived",
                     "basis_status": "authored",
                     "derivation": "footprint area x authored maximum ceiling; nominal envelope heuristic",
-                    "source": f"{source}#/shape; derived from authored footprint area and authored maximum ceiling",
+                    "source": f"{base_source}#/shape/area_m2; {base_source}#/shape/ceiling_max_m; authored inputs",
                 },
                 "volume_measured_m3": {
                     "value": None,
@@ -117,35 +118,7 @@ def build_records(root: Path = ROOT) -> list[tuple[Path, dict[str, Any]]]:
 
 
 def validate_record(record: dict[str, Any], root: Path = ROOT) -> list[str]:
-    errors = tv.schema_errors(record, tv.load_schema(SCHEMA, root))
-    if errors:
-        return errors
-    errors += tv._reference_errors(record["base_profile"], root, "base_profile")
-    errors += tv._reference_errors(record["template_ref"], root, "template_ref")
-    for index, evidence in enumerate(record["mood"]["evidence"]):
-        errors += tv._reference_errors(evidence, root, f"mood.evidence[{index}]")
-    if errors:
-        return errors
-    base_path = root / record["base_profile"]["path"]
-    try:
-        base = json.loads(base_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as error:
-        return [f"base_profile: cannot read referenced profile: {error}"]
-    if not isinstance(base, dict):
-        return ["base_profile: referenced profile must be a JSON object"]
-    if record["module_id"] != base["module_id"]:
-        errors.append("module_id does not match base profile")
-    if record["exits"] != _expected_exit_projection(base):
-        errors.append("exits differ from the authored/recorded base profile sockets")
-    for key, metric in record["ceiling_volume"].items():
-        if not metric["source"].strip():
-            errors.append(f"ceiling_volume.{key}: source is empty")
-    return errors
-
-
-def _expected_exit_projection(base: dict[str, Any]) -> list[dict[str, Any]]:
-    source = base["poetics_ref"]["path"]
-    return [{**exit_record, "provenance": f"{source}; accepted ports and library index socket data"} for exit_record in base["exits"]]
+    return tv.module_profile_t6_errors(record, root)
 
 
 def check(root: Path = ROOT) -> list[str]:
