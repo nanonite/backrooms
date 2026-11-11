@@ -102,9 +102,35 @@ and #219: those are distinct facts with distinct sources.
       "provenance": {"kind": "agent-proposed", "source": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json#/mood", "evidence": [{"path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json", "sha256": "7e8c4148ab2aaa45af7102719a7f820893b9368480757d6652f1f971774d1b3d"}]},
       "review_state": "agent_proposed_draft_pending_operator_review"
     },
-    "acoustics.probe.wet": {
-      "value": 0.521677720089963,
-      "provenance": {"kind": "measured", "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe", "method": "room-acoustic-probe-#205", "evidence": [{"path": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json", "sha256": "3fbdd8ea4ffb7ce69402bc3a5825dbdbef065d26d1ac36586dd629d02b91b6c2"}]}
+    "acoustics.probe": {
+      "committed_block": {
+        "value": {
+          "ceiling_height_m": 2.4,
+          "damping": 0.616099302191483,
+          "max_distance_m": 20.0,
+          "mean_distance_m": 7.6380337079366,
+          "openness": 0.166666666666667,
+          "predelay_msec": 22.2683198482117,
+          "room_size": 0.702082418692739,
+          "wet": 0.521677720089963
+        },
+        "provenance": {
+          "committed_label": "measured",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/provenance",
+          "meaning_at_issue_216": "from a probe run, not derived from poetics tags"
+        }
+      },
+      "proposed_fields": {
+        "mean_distance_m": {"value": 7.6380337079366, "provenance": {"kind": "measured", "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/mean_distance_m", "evidence": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json; horizontal ray-fan mean"}},
+        "max_distance_m": {"value": 20.0, "provenance": {"kind": "measured", "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/max_distance_m", "evidence": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json; maximum horizontal ray distance, with misses set to the ray-length cap"}},
+        "ceiling_height_m": {"value": 2.4, "provenance": {"kind": "measured", "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/ceiling_height_m", "evidence": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json; up-ray result is capped by the profile ceiling hint", "limitation": "The up-ray ceiling estimate is capped by the 2.4 m profile ceiling hint; it is not an uncapped ceiling measurement."}},
+        "openness": {"value": 0.166666666666667, "provenance": {"kind": "measured", "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/openness", "evidence": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json; fraction of horizontal rays with no hit"}},
+        "room_size": {"value": 0.702082418692739, "provenance": {"kind": "derived", "committed_block_label": "measured", "basis": ["mean_distance_m", "ceiling_height_m"], "method": "room_acoustic_probe.gd map_metrics; clamped wall_size and height_size formula"}},
+        "damping": {"value": 0.616099302191483, "provenance": {"kind": "derived", "committed_block_label": "measured", "basis": ["mean_distance_m", "ceiling_height_m", "openness"], "method": "room_acoustic_probe.gd map_metrics; clamped wall_size, height_size, and openness formula"}},
+        "wet": {"value": 0.521677720089963, "provenance": {"kind": "derived", "committed_block_label": "measured", "basis": ["mean_distance_m", "ceiling_height_m", "openness"], "method": "godot_walk/scripts/room_acoustic_probe.gd map_metrics: clamp((0.18 + 0.48 * wall_size + 0.14 * height_size) * (1.0 - 0.35 * openness), 0.0, 0.75)"}},
+        "predelay_msec": {"value": 22.2683198482117, "provenance": {"kind": "derived", "committed_block_label": "measured", "basis": ["mean_distance_m"], "method": "godot_walk/scripts/room_acoustic_probe.gd map_metrics; mean ray distance / speed of sound, clamped to configured pre-delay bounds"}}
+      },
+      "evidence": [{"path": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json", "sha256": "3fbdd8ea4ffb7ce69402bc3a5825dbdbef065d26d1ac36586dd629d02b91b6c2"}]
     },
     "acoustics.absorption.status": {
       "value": "unknown",
@@ -139,6 +165,19 @@ hashes, evidence arrays, nulls, fixture details, all surfaces, exits, tags,
 and review evidence), not only the representative fields above. The example
 uses shortened source labels for readability in the field paths; canonical
 records should use repository-relative paths and JSON pointers as evidence.
+
+For acoustics the example deliberately preserves both levels of labeling. The
+committed v0.2.0 probe block says `provenance: "measured"` as required by
+Issue #216, meaning it came from a probe run rather than poetics tags. The
+proposed aggregate keeps that label and all block values under
+`committed_block`, then refines the fields under `proposed_fields`: mean/max
+wall distance, ceiling height, and openness are measured probe inputs;
+`room_size`, `damping`, `wet`, and `predelay_msec` are derived from those
+inputs by `godot_walk/scripts/room_acoustic_probe.gd`. The ceiling estimate
+retains the T6 overlay's caveat: the up-ray result is capped by the profile
+ceiling hint and is not an uncapped ceiling measurement. This per-field split
+is a proposed provenance refinement, not a reinterpretation of the committed
+block label, and remains an operator question below.
 
 ### Review-state and approval evidence
 
@@ -318,6 +357,8 @@ being built now.**
   Chainlink issue links are not available to offline validators?
 * Should the authored aggregate be manually editable, generated with a locked
   section merge, or fully generated after operator acceptance of each layer?
+* Should the proposed acoustics per-field provenance refinement be adopted
+  while retaining the committed v0.2.0 probe-block label `measured` verbatim?
 * Which old map versions and save files must remain loadable, and for how long?
 * Should source-wide `source_lighting_scale_v1.json` remain separate as
   proposed, or should source-level metadata have its own aggregate record?
