@@ -5,6 +5,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import subprocess
 import tempfile
 from pathlib import Path
 
@@ -361,43 +362,152 @@ _MEASUREMENT_STATES = (
     "bool", "string", "zero", "negative", "nan",
 )
 _AGGREGATE_STATES = ("uncalibrated", "calibrated")
-_ANCHOR_MATRIX = [
-    (anchor_status, measurement_state, aggregate_status,
-     anchor_status in {"none", "estimated"} and measurement_state == "absent"
-     and aggregate_status == "uncalibrated"
-     or anchor_status == "measured" and measurement_state == "valid"
-     and aggregate_status == "calibrated")
-    for anchor_status in _ANCHOR_STATES
-    for measurement_state in _MEASUREMENT_STATES
-    for aggregate_status in _AGGREGATE_STATES
-]
+def _write_fixture_repo(root: Path, measurement_state: str) -> dict:
+    record = copy.deepcopy(next(item for item in records() if item["record_kind"] == "module"))
+    _copy_overlay_dependencies(record, root)
+    base = json.loads((ROOT / record["base_record"]["path"]).read_text(encoding="utf-8"))
+    base_path = root / "base.json"
+    base_path.parent.mkdir(parents=True, exist_ok=True)
+    base_path.write_text(json.dumps(base), encoding="utf-8")
+    base_ref = {"path": "base.json", "sha256": hashlib.sha256(base_path.read_bytes()).hexdigest()}
+    record["base_record"] = base_ref
+    _replace_field_evidence(record, base_ref)
+    measurement_values = {
+        "valid": 1.75, "bool": True, "string": "1.75", "zero": 0,
+        "negative": -1, "nan": float("nan"),
+    }
+    if measurement_state not in {"absent", "missing_file"}:
+        value = measurement_values.get(measurement_state, 1.75)
+        measurement_path = root / "measurement.json"
+        measurement_path.write_text(json.dumps({"height_m": value}), encoding="utf-8")
+        measurement_ref = {
+            "path": "measurement.json",
+            "sha256": hashlib.sha256(measurement_path.read_bytes()).hexdigest(),
+            "json_pointer": "/height_m" if measurement_state != "bad_pointer" else "/wrong",
+            "tolerance_m": 0,
+        }
+        if measurement_state == "bad_hash":
+            measurement_ref["sha256"] = "0" * 64
+        record["scale"]["anchor"]["measurement"] = measurement_ref
+        if measurement_state == "untracked":
+            tracked = ["docs", "godot_walk"]
+        else:
+            tracked = ["docs", "godot_walk", "measurement.json"]
+    else:
+        record["scale"]["anchor"]["measurement"] = None
+        tracked = ["docs", "godot_walk"]
+    subprocess.run(["git", "init", "-q"], cwd=root, check=True)
+    subprocess.run(["git", "config", "user.email", "test@example.invalid"], cwd=root, check=True)
+    subprocess.run(["git", "config", "user.name", "Fixture"], cwd=root, check=True)
+    subprocess.run(["git", "add", *tracked], cwd=root, check=True)
+    subprocess.run(["git", "commit", "-qm", "fixtures"], cwd=root, check=True)
+    return record
 
 
 @pytest.mark.parametrize(
-    ("anchor_status", "measurement_state", "aggregate_status", "accepted"),
-    _ANCHOR_MATRIX,
+    ("anchor_status", "measurement_state", "aggregate_status"),
+    [(anchor, measurement, aggregate) for anchor in _ANCHOR_STATES
+     for measurement in _MEASUREMENT_STATES for aggregate in _AGGREGATE_STATES],
 )
-def test_anchor_status_measurement_and_aggregate_matrix(
-    monkeypatch, anchor_status: str, measurement_state: str,
-    aggregate_status: str, accepted: bool,
+def test_anchor_status_measurement_and_aggregate_matrix_real_validator(
+    tmp_path, anchor_status: str, measurement_state: str, aggregate_status: str,
 ) -> None:
-    anchor = None if anchor_status == "none" and measurement_state == "absent" else {
-        "status": anchor_status,
-        "measurement": None if measurement_state == "absent" else {"path": "measurement.json"},
+    root = tmp_path / f"{anchor_status}-{measurement_state}-{aggregate_status}"
+    root.mkdir()
+    record = _write_fixture_repo(root, measurement_state)
+    anchor = record["scale"]["anchor"]
+    record["scale"]["status"] = aggregate_status
+    if anchor_status == "none":
+        if measurement_state == "absent":
+            record["scale"]["anchor"] = None
+        else:
+            anchor["status"] = "none"
+            anchor["value_m"] = 1.75
+        record["scale"]["review_status"] = "not_reviewed"
+    else:
+        anchor["status"] = anchor_status
+        anchor["value_m"] = 1.75
+        if measurement_state == "absent":
+            anchor["measurement"] = None
+        elif measurement_state == "missing_file":
+            anchor["measurement"] = {
+                "path": "missing.json", "sha256": "0" * 64,
+                "json_pointer": "/height_m", "tolerance_m": 0,
+            }
+    base_path = root / "base.json"
+    base = json.loads(base_path.read_text(encoding="utf-8"))
+    base["scale"] = {
+        "status": aggregate_status,
+        "anchor": None if anchor_status == "none" else {
+            "kind": anchor["kind"], "value_m": 1.75, "frame_id": anchor.get("frame_id")
+        },
     }
-    record = {"scale": {"anchor": anchor, "status": aggregate_status}}
-    broken_states = {
-        "missing_file", "untracked", "bad_hash", "bad_pointer", "bool",
-        "string", "zero", "negative", "nan",
-    }
-    if measurement_state == "valid":
-        monkeypatch.setattr(ls, "_measurement_errors", lambda *_args: [])
-    elif measurement_state in broken_states:
-        monkeypatch.setattr(
-            ls, "_measurement_errors", lambda *_args: [f"invalid {measurement_state}"]
-        )
-    errors = ls._anchor_rule_errors(record, ROOT)
+    base_path.write_text(json.dumps(base), encoding="utf-8")
+    base_ref = {"path": "base.json", "sha256": hashlib.sha256(base_path.read_bytes()).hexdigest()}
+    record["base_record"] = base_ref
+    _replace_field_evidence(record, base_ref)
+    subprocess.run(["git", "add", "base.json"], cwd=root, check=True)
+    subprocess.run(["git", "commit", "-qm", "base update"], cwd=root, check=True)
+    accepted = (
+        anchor_status == "measured" and measurement_state == "valid"
+        and aggregate_status == "calibrated"
+    ) or (
+        anchor_status in {"none", "estimated"} and measurement_state == "absent"
+        and aggregate_status == "uncalibrated"
+    )
+    errors = ls.validate_overlay(record, root)
     assert (not errors) is accepted, (anchor_status, measurement_state, aggregate_status, errors)
+
+
+def _leaf_paths(value, prefix=()):
+    if isinstance(value, dict):
+        for key, item in value.items():
+            yield from _leaf_paths(item, prefix + (key,))
+    elif isinstance(value, list):
+        for index, item in enumerate(value):
+            yield from _leaf_paths(item, prefix + (index,))
+    else:
+        yield prefix
+
+
+def _replace_path(value, path, replacement):
+    result = copy.deepcopy(value)
+    target = result
+    for component in path[:-1]:
+        target = target[component]
+    target[path[-1]] = replacement
+    return result
+
+
+@pytest.mark.parametrize("replacement", [None, True, [], {}, "x", -1, 0, 3.5, ["a"], {"a": 1}, "bad\u0000value"])
+def test_all_example_paths_are_type_fuzzed_without_raising(replacement) -> None:
+    for original in records():
+        for path in _leaf_paths(original):
+            malformed = _replace_path(original, path, replacement)
+            errors = ls.validate_overlay(malformed)
+            state = ls.lighting_scale_state(malformed)
+            assert isinstance(errors, list), path
+            assert isinstance(state, dict), path
+
+
+@pytest.mark.parametrize("record", [None, True, [], {}, "x", -1, 0, 3.5, ["a"], {"a": 1}, "bad\u0000value"])
+def test_non_object_json_records_return_errors_without_raising(record) -> None:
+    errors = ls.validate_overlay(record)
+    state = ls.lighting_scale_state(record)
+
+    assert isinstance(errors, list)
+    assert isinstance(state, dict)
+
+
+def test_extremely_large_integer_returns_validation_error_without_raising() -> None:
+    record = copy.deepcopy(next(item for item in records() if item["record_kind"] == "source"))
+    record["lighting"]["colour_temperature_k"]["value"] = 10**400
+
+    errors = ls.validate_overlay(record)
+    state = ls.lighting_scale_state(record)
+
+    assert any("numeric values must be finite" in error for error in errors)
+    assert state["valid"] is False
 
 
 @pytest.mark.parametrize(

@@ -93,7 +93,7 @@ def _is_array_index(component: str) -> bool:
     )
 
 
-def validate_overlay(record: dict[str, Any], root: Path = ROOT) -> list[str]:
+def validate_overlay(record: Any, root: Path = ROOT) -> list[str]:
     """Validate schema, every supplied reference, status claims and calibration."""
     import template_validate as tv
 
@@ -102,10 +102,10 @@ def validate_overlay(record: dict[str, Any], root: Path = ROOT) -> list[str]:
     except tv.TemplateValidationError as error:
         return [str(error)]
     errors = tv.schema_errors(record, schema)
+    if errors:
+        return errors
     errors += _all_reference_errors(record, root)
     errors += _finite_number_errors(record)
-    if not isinstance(record, dict):
-        return errors
     lighting = record.get("lighting")
     scale = record.get("scale")
     if not isinstance(lighting, dict) or not isinstance(scale, dict):
@@ -229,13 +229,22 @@ def _finite_number_errors(value: Any, label: str = "overlay") -> list[str]:
             if key in {"value", "value_m", "tolerance_m", "count"}:
                 if isinstance(item, bool):
                     errors.append(f"{field_label}: boolean is not a numeric value")
-                elif isinstance(item, (int, float)) and not math.isfinite(item):
+                elif isinstance(item, (int, float)) and not _is_finite_number(item):
                     errors.append(f"{field_label}: numeric values must be finite")
             errors += _finite_number_errors(item, field_label)
         return errors
     if isinstance(value, list):
         return [error for index, item in enumerate(value) for error in _finite_number_errors(item, f"{label}[{index}]")]
     return []
+
+
+def _is_finite_number(value: Any) -> bool:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return False
+    try:
+        return math.isfinite(value)
+    except OverflowError:
+        return False
 
 
 def _check_identity(record: dict[str, Any], base: dict[str, Any]) -> list[str]:
@@ -392,7 +401,7 @@ def _measurement_errors(anchor: dict[str, Any], measurement: dict[str, Any], roo
     if "json_pointer" not in measurement:
         errors.append("scale.anchor.measurement reference is incomplete: json_pointer is required")
     tolerance = measurement.get("tolerance_m", 0)
-    if isinstance(tolerance, bool) or not isinstance(tolerance, (int, float)) or not math.isfinite(tolerance) or tolerance < 0 or tolerance > 0.1:
+    if not _is_finite_number(tolerance) or tolerance < 0 or tolerance > 0.1:
         errors.append("scale.anchor.measurement tolerance_m must be finite and between 0 and 0.1")
     if errors or "json_pointer" not in measurement:
         return errors
@@ -406,10 +415,10 @@ def _measurement_errors(anchor: dict[str, Any], measurement: dict[str, Any], roo
         measured_value = _pointer_value(source, measurement["json_pointer"])
     except (KeyError, AttributeError, TypeError, ValueError):
         return ["scale.anchor.measurement json_pointer does not resolve"]
-    if isinstance(measured_value, bool) or not isinstance(measured_value, (int, float)) or not math.isfinite(measured_value) or measured_value <= 0:
+    if not _is_finite_number(measured_value) or measured_value <= 0:
         return ["scale.anchor.measurement must resolve to a finite numeric value greater than zero"]
     value_m = anchor.get("value_m")
-    if isinstance(value_m, bool) or not isinstance(value_m, (int, float)) or not math.isfinite(value_m):
+    if not _is_finite_number(value_m):
         return ["scale.anchor.value_m must be a finite numeric value"]
     if abs(measured_value - value_m) > tolerance:
         return ["scale.anchor value does not match cited committed measurement within tolerance"]
