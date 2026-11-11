@@ -1,0 +1,237 @@
+{
+	"modules": {
+		"godot_early_pocket_pass_through_v1@1": {
+			"ceiling_hint_m": 2.4,
+			"floor_y_m": -1.27099049,
+			"metrics": {
+				"ceiling_height_m": 2.4,
+				"damping": 0.616099302191483,
+				"max_distance_m": 20.0,
+				"mean_distance_m": 7.6380337079366,
+				"openness": 0.166666666666667,
+				"predelay_msec": 22.2683198482117,
+				"room_size": 0.702082418692739,
+				"wet": 0.521677720089963
+			},
+			"sample_method": "accepted_footprint_area_centroid",
+			"sample_point_m": [
+				3.0,
+				-0.170990496873856,
+				6.89999961853027
+			]
+		},
+		"godot_early_pocket_single_west_v1@1": {
+			"ceiling_hint_m": 2.4,
+			"floor_y_m": -1.27099049,
+			"metrics": {
+				"ceiling_height_m": 2.4,
+				"damping": 0.538099302191483,
+				"max_distance_m": 20.0,
+				"mean_distance_m": 6.22136704126994,
+				"openness": 0.0833333333333333,
+				"predelay_msec": 18.1380963302331,
+				"room_size": 0.591582418692739,
+				"wet": 0.471819212895109
+			},
+			"sample_method": "accepted_footprint_area_centroid",
+			"sample_point_m": [
+				3.0,
+				-0.170990496873856,
+				6.89999961853027
+			]
+		},
+		"godot_early_pocket_three_way_v1@1": {
+			"ceiling_hint_m": 2.4,
+			"floor_y_m": -1.27099049,
+			"metrics": {
+				"ceiling_height_m": 2.4,
+				"damping": 0.678499303717362,
+				"max_distance_m": 20.0,
+				"mean_distance_m": 8.72970040639242,
+				"openness": 0.25,
+				"predelay_msec": 25.4510215929808,
+				"room_size": 0.787232421172293,
+				"wet": 0.553334562010514
+			},
+			"sample_method": "accepted_footprint_area_centroid",
+			"sample_point_m": [
+				3.0,
+				-0.170990496873856,
+				6.89999961853027
+			]
+		},
+		"godot_gopro_industrial_hall_frame1097_v1@1": {
+			"ceiling_hint_m": 4.78,
+			"floor_y_m": 0.0,
+			"metrics": {
+				"ceiling_height_m": 4.78,
+				"damping": 0.688416204301934,
+				"max_distance_m": 9.23760414123535,
+				"mean_distance_m": 7.21261829137802,
+				"openness": 0.0,
+				"predelay_msec": 21.0280416658251,
+				"room_size": 0.744057910938012,
+				"wet": 0.621258309565092
+			},
+			"sample_method": "accepted_footprint_area_centroid",
+			"sample_point_m": [
+				0.0,
+				1.10000002384186,
+				0.0
+			]
+		},
+		"godot_gopro_industrial_hall_south_socket_v1@1": {
+			"ceiling_hint_m": 4.78,
+			"floor_y_m": 0.0,
+			"metrics": {
+				"ceiling_height_m": 4.78,
+				"damping": 0.688416204301934,
+				"max_distance_m": 9.23760414123535,
+				"mean_distance_m": 7.21261829137802,
+				"openness": 0.0,
+				"predelay_msec": 21.0280416658251,
+				"room_size": 0.744057910938012,
+				"wet": 0.621258309565092
+			},
+			"sample_method": "accepted_footprint_area_centroid",
+			"sample_point_m": [
+				0.0,
+				1.10000002384186,
+				0.0
+			]
+		},
+		"godot_later_bay_column_bounded_v1@1": {
+			"ceiling_hint_m": 2.4,
+			"floor_y_m": -1.27099049,
+			"metrics": {
+				"ceiling_height_m": 2.39999982714653,
+				"damping": 0.459962902840815,
+				"max_distance_m": 20.0,
+				"mean_distance_m": 4.5935255587101,
+				"openness": 0.0833333333333333,
+				"predelay_msec": 13.3922027950732,
+				"room_size": 0.464610777594541,
+				"wet": 0.395961793625276
+			},
+			"sample_method": "accepted_footprint_area_centroid",
+			"sample_point_m": [
+				-0.407189100980759,
+				-0.170990496873856,
+				2.19179081916809
+			]
+		},
+		"godot_source_textured_large_room_hall_end_v1@1": {
+			"ceiling_hint_m": 4.47099,
+			"floor_y_m": -1.27099049,
+			"metrics": {
+				"ceiling_height_m": 4.47099,
+				"damping": 0.671719315338938,
+				"max_distance_m": 20.0,
+				"mean_distance_m": 6.96137718359629,
+				"openness": 0.0833333333333333,
+				"predelay_msec": 20.29556030203,
+				"room_size": 0.714702894004721,
+				"wet": 0.580377911185412
+			},
+			"sample_method": "accepted_footprint_area_centroid",
+			"sample_point_m": [
+				1.42970263957977,
+				-0.170990496873856,
+				0.0
+			]
+		},
+		"godot_source_textured_large_room_v1@1": {
+			"ceiling_hint_m": 3.2,
+			"floor_y_m": 0.0,
+			"metrics": {
+				"ceiling_height_m": 3.2,
+				"damping": 0.567795721505818,
+				"max_distance_m": 11.5851058959961,
+				"mean_distance_m": 6.25890209277471,
+				"openness": 0.0,
+				"predelay_msec": 18.2475279672732,
+				"room_size": 0.619773310604848,
+				"wet": 0.517269405716344
+			},
+			"sample_method": "accepted_footprint_area_centroid",
+			"sample_point_m": [
+				1.41489362716675,
+				1.10000002384186,
+				0.0
+			]
+		},
+		"video_b9161c467ed2d30a_bill_viola_single_room_v1@1": {
+			"ceiling_hint_m": 2.8,
+			"floor_y_m": 0.0,
+			"metrics": {
+				"ceiling_height_m": 2.8,
+				"damping": 0.449728291687212,
+				"max_distance_m": 4.61880207061768,
+				"mean_distance_m": 4.19390081365903,
+				"openness": 0.0,
+				"predelay_msec": 12.2271160748077,
+				"room_size": 0.446071631886457,
+				"wet": 0.403412502213528
+			},
+			"sample_method": "accepted_footprint_area_centroid",
+			"sample_point_m": [
+				0.0,
+				1.10000002384186,
+				0.0
+			]
+		},
+		"video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1@1": {
+			"ceiling_hint_m": 3.92,
+			"floor_y_m": 0.0,
+			"metrics": {
+				"ceiling_height_m": 3.92,
+				"damping": 0.581933736700761,
+				"max_distance_m": 6.92820310592651,
+				"mean_distance_m": 5.84291776021322,
+				"openness": 0.0,
+				"predelay_msec": 17.0347456565983,
+				"room_size": 0.610063374770315,
+				"wet": 0.523828473542866
+			},
+			"sample_method": "accepted_footprint_area_centroid",
+			"sample_point_m": [
+				0.0,
+				1.10000002384186,
+				0.0
+			]
+		},
+		"video_ccf9722164a0bdc8_debris_window_rock_room_v1@1": {
+			"ceiling_hint_m": 3.92,
+			"floor_y_m": 0.0,
+			"metrics": {
+				"ceiling_height_m": 3.92,
+				"damping": 0.581933736700761,
+				"max_distance_m": 6.92820310592651,
+				"mean_distance_m": 5.84291776021322,
+				"openness": 0.0,
+				"predelay_msec": 17.0347456565983,
+				"room_size": 0.610063374770315,
+				"wet": 0.523828473542866
+			},
+			"sample_method": "accepted_footprint_area_centroid",
+			"sample_point_m": [
+				0.0,
+				1.10000002384186,
+				0.0
+			]
+		}
+	},
+	"probe_version": "room-acoustic-probe-#205",
+	"runner_version": "module-acoustics-probe-0.1.0",
+	"schema_version": 1,
+	"settings": {
+		"ceiling_hint_source": "module_profile_v1.shape.ceiling_height_m",
+		"collision_mask": 1,
+		"floor_y_source": "scene_meta.walk_floor_y_or_named_floor_collider",
+		"head_offset_m": 1.1,
+		"physics_settle_frames": 3,
+		"ray_count": 12,
+		"ray_length_m": 20.0,
+		"sample_method": "accepted_footprint_area_centroid"
+	}
+}
