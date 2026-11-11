@@ -1,0 +1,80 @@
+{
+  "base_record": {
+    "path": "godot_walk/source_library/sources/picture-set-d160eaa3cc847d5c/source_manifest-v3.json",
+    "sha256": "6123576ee0bc0bfb31026c9c2bf49d80a73435978b1e915216db06a4a1f994c5"
+  },
+  "lighting": {
+    "colour_temperature_k": {
+      "evidence": [
+        {
+          "path": "godot_walk/source_library/sources/picture-set-d160eaa3cc847d5c/source_manifest-v3.json",
+          "sha256": "6123576ee0bc0bfb31026c9c2bf49d80a73435978b1e915216db06a4a1f994c5"
+        }
+      ],
+      "provenance": "Agent-proposed illustrative estimate using a neutral-white fluorescent enclosed-interior prior; not a source-specific observation. No photometric measurement or vision-model review exists.",
+      "review_status": "pending_operator_review",
+      "value": 4000,
+      "review_evidence": []
+    },
+    "fixture_layout": [
+      {
+        "arrangement": "parallel ceiling runs; estimated from the enclosed institutional-room framing",
+        "count": 2,
+        "evidence": [
+          {
+            "path": "godot_walk/source_library/sources/picture-set-d160eaa3cc847d5c/source_manifest-v3.json",
+            "sha256": "6123576ee0bc0bfb31026c9c2bf49d80a73435978b1e915216db06a4a1f994c5"
+          }
+        ],
+        "kind": "fluorescent_ceiling_strip",
+        "provenance": "Agent-proposed generic fluorescent ceiling layout for an enclosed interior, not observed in the source; pending operator inspection.",
+        "review_status": "pending_operator_review",
+        "review_evidence": []
+      }
+    ],
+    "illuminance_lux": {
+      "evidence": [
+        {
+          "path": "godot_walk/source_library/sources/picture-set-d160eaa3cc847d5c/source_manifest-v3.json",
+          "sha256": "6123576ee0bc0bfb31026c9c2bf49d80a73435978b1e915216db06a4a1f994c5"
+        }
+      ],
+      "provenance": "Agent-proposed illustrative estimate using a neutral-white fluorescent enclosed-interior prior; not a source-specific observation. No photometric measurement or vision-model review exists.",
+      "review_status": "pending_operator_review",
+      "value": 150,
+      "review_evidence": []
+    },
+    "review_status": "pending_operator_review",
+    "status": "estimated_pending_review",
+    "review_evidence": []
+  },
+  "profile_version": "lighting-scale-overlay-0.1.0",
+  "record_id": "picture-set-d160eaa3cc847d5c",
+  "record_kind": "source",
+  "scale": {
+    "anchor": {
+      "evidence": [
+        {
+          "path": "godot_walk/source_library/sources/picture-set-d160eaa3cc847d5c/source_manifest-v3.json",
+          "sha256": "6123576ee0bc0bfb31026c9c2bf49d80a73435978b1e915216db06a4a1f994c5"
+        }
+      ],
+      "kind": "interior_doorway_clear_height",
+      "measurement": null,
+      "provenance": "Agent-proposed conventional doorway-height estimate; no measured dimension is present in the source manifest.",
+      "review_status": "pending_operator_review",
+      "status": "estimated",
+      "value_m": 2.0,
+      "review_evidence": []
+    },
+    "review_status": "pending_operator_review",
+    "status": "uncalibrated",
+    "review_evidence": []
+  },
+  "schema_version": 1,
+  "template_ref": {
+    "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+    "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+    "version": "generation-template-0.1.0"
+  }
+}

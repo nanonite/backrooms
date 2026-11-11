@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/lighting_scale_overlay.schema.json",
+  "title": "Source or module lighting and scale overlay (schema v1)",
+  "description": "Editable T5 overlay referencing an immutable source manifest or module profile.",
+  "type": "object",
+  "required": ["schema_version", "profile_version", "record_kind", "record_id", "base_record", "template_ref", "lighting", "scale"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "profile_version": {"const": "lighting-scale-overlay-0.1.0"},
+    "record_kind": {"enum": ["source", "module"]},
+    "record_id": {"type": "string", "minLength": 1},
+    "base_record": {"$ref": "#/$defs/reference"},
+    "template_ref": {"$ref": "#/$defs/template_ref"},
+    "lighting": {
+      "type": "object",
+      "required": ["status", "colour_temperature_k", "illuminance_lux", "fixture_layout", "review_status", "review_evidence"],
+      "properties": {
+        "status": {"enum": ["uncalibrated_not_reviewed", "estimated_pending_review", "reviewed"]},
+        "colour_temperature_k": {"$ref": "#/$defs/value_field"},
+        "illuminance_lux": {"$ref": "#/$defs/value_field"},
+        "fixture_layout": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/fixture"}
+        },
+        "review_status": {"enum": ["not_reviewed", "pending_operator_review", "pending_vision_model_review", "operator_reviewed", "vision_model_reviewed"]},
+        "review_evidence": {"type": "array", "items": {"$ref": "#/$defs/review_evidence"}}
+      },
+      "additionalProperties": false
+    },
+    "scale": {
+      "type": "object",
+      "required": ["status", "anchor", "review_status", "review_evidence"],
+      "properties": {
+        "status": {"enum": ["uncalibrated", "calibrated"]},
+        "anchor": {"oneOf": [{"$ref": "#/$defs/anchor"}, {"type": "null"}]},
+        "review_status": {"enum": ["not_reviewed", "pending_operator_review", "pending_vision_model_review", "operator_reviewed", "vision_model_reviewed"]},
+        "review_evidence": {"type": "array", "items": {"$ref": "#/$defs/review_evidence"}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "reference": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}},
+      "additionalProperties": false
+    },
+    "template_ref": {
+      "type": "object",
+      "required": ["version", "path", "sha256"],
+      "properties": {"version": {"const": "generation-template-0.1.0"}, "path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}},
+      "additionalProperties": false
+    },
+    "value_field": {
+      "type": "object",
+      "required": ["value", "provenance", "evidence", "review_status", "review_evidence"],
+      "properties": {
+        "value": {"type": ["number", "null"], "minimum": 0},
+        "provenance": {"type": "string", "minLength": 1},
+        "evidence": {"type": "array", "items": {"$ref": "#/$defs/reference"}},
+        "review_status": {"enum": ["not_reviewed", "pending_operator_review", "pending_vision_model_review", "operator_reviewed", "vision_model_reviewed"]},
+        "review_evidence": {"type": "array", "items": {"$ref": "#/$defs/review_evidence"}}
+      },
+      "additionalProperties": false
+    },
+    "fixture": {
+      "type": "object",
+      "required": ["kind", "count", "arrangement", "provenance", "evidence", "review_status", "review_evidence"],
+      "properties": {
+        "kind": {"type": "string", "minLength": 1},
+        "count": {"type": "integer", "minimum": 1},
+        "arrangement": {"type": "string", "minLength": 1},
+        "provenance": {"type": "string", "minLength": 1},
+        "evidence": {"type": "array", "items": {"$ref": "#/$defs/reference"}},
+        "review_status": {"enum": ["not_reviewed", "pending_operator_review", "pending_vision_model_review", "operator_reviewed", "vision_model_reviewed"]},
+        "review_evidence": {"type": "array", "items": {"$ref": "#/$defs/review_evidence"}}
+      },
+      "additionalProperties": false
+    },
+    "anchor": {
+      "type": "object",
+      "required": ["kind", "value_m", "status", "provenance", "evidence", "review_status", "review_evidence", "measurement"],
+      "properties": {
+        "kind": {"type": "string", "minLength": 1},
+        "value_m": {"type": "number", "exclusiveMinimum": 0},
+        "frame_id": {"type": ["string", "null"]},
+        "status": {"enum": ["none", "estimated", "measured"]},
+        "provenance": {"type": "string", "minLength": 1},
+        "evidence": {"type": "array", "items": {"$ref": "#/$defs/reference"}},
+        "review_status": {"enum": ["not_reviewed", "pending_operator_review", "pending_vision_model_review", "operator_reviewed", "vision_model_reviewed"]},
+        "review_evidence": {"type": "array", "items": {"$ref": "#/$defs/review_evidence"}},
+        "measurement": {"oneOf": [{"$ref": "#/$defs/measurement"}, {"type": "null"}]}
+      },
+      "additionalProperties": false
+    },
+    "measurement": {
+      "type": "object",
+      "required": ["path", "sha256", "json_pointer"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "json_pointer": {"type": "string", "pattern": "^/"},
+        "tolerance_m": {"type": "number", "minimum": 0, "maximum": 0.1}
+      },
+      "additionalProperties": false
+    },
+    "review_evidence": {
+      "type": "object",
+      "required": ["reviewer_kind", "reviewer", "reviewed_at", "what_was_reviewed", "evidence"],
+      "properties": {
+        "reviewer_kind": {"enum": ["operator", "vision_model"]},
+        "reviewer": {"type": "string", "minLength": 1},
+        "reviewed_at": {"type": "string", "format": "date-time"},
+        "what_was_reviewed": {"type": "string", "minLength": 1},
+        "evidence": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/reference"}}
+      },
+      "additionalProperties": false
+    }
+  }
+}
