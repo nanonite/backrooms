@@ -55,3 +55,26 @@ python3 godot_walk/scripts/template_validate.py
 
 `build` refuses to overwrite an existing profile whose content differs, so an
 operator-edited profile is never silently regenerated.
+
+## T6 descriptors (issue #219)
+
+`module_profile_t6.schema.json` and `module_profile_t6.py` define a separate
+editable overlay for each admitted module. The overlay references its v1 base
+profile by path and hash, records per-field ceiling/volume provenance, and copies
+only socket openings already present in the base profile. No map or placement
+consumer reads the overlay.
+
+`ceiling_height_m` cites the committed #216 probe result. That probe caps its
+up-ray estimate at the authored profile ceiling hint, so the source note keeps
+that limitation explicit. Nominal volume is marked `derived` and measured
+volume is marked `unmeasured`. The mood and role blocks are
+`agent_proposed_draft_pending_operator_review`; their values remain editable and
+do not claim operator review.
+
+```bash
+python3 godot_walk/scripts/module_profile_t6.py check
+python3 godot_walk/scripts/module_profile_t6.py build
+```
+
+`build` creates missing overlays and refuses to replace edited files. The
+operator's taste review is pending.

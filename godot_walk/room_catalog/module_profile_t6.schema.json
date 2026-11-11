@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/module_profile_t6.schema.json",
+  "title": "Module profile T6 sidecar (schema v1)",
+  "description": "Additive, editable T6 descriptors. It references the frozen v1 profile and does not affect map generation.",
+  "type": "object",
+  "required": ["schema_version", "profile_version", "module_id", "base_profile", "template_ref", "ceiling_volume", "exits", "roles", "mood"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "profile_version": {"const": "module-profile-t6-0.1.0"},
+    "module_id": {"type": "string", "minLength": 1},
+    "base_profile": {"$ref": "#/$defs/reference"},
+    "template_ref": {"$ref": "#/$defs/template_ref"},
+    "ceiling_volume": {
+      "type": "object",
+      "required": ["ceiling_min_m", "ceiling_max_m", "ceiling_height_m", "ceiling_kind", "volume_nominal_m3", "volume_measured_m3"],
+      "properties": {
+        "ceiling_min_m": {"$ref": "#/$defs/number_metric"},
+        "ceiling_max_m": {"$ref": "#/$defs/number_metric"},
+        "ceiling_height_m": {"$ref": "#/$defs/number_metric"},
+        "ceiling_kind": {"$ref": "#/$defs/ceiling_kind_metric"},
+        "volume_nominal_m3": {"$ref": "#/$defs/number_metric"},
+        "volume_measured_m3": {"$ref": "#/$defs/number_metric"}
+      },
+      "additionalProperties": false
+    },
+    "exits": {"type": "array", "items": {"$ref": "#/$defs/exit"}},
+    "roles": {
+      "type": "object",
+      "required": ["review_status", "map_role", "form_role", "semantic_tags", "circulation_role", "sightline_tags"],
+      "properties": {
+        "review_status": {"const": "agent_proposed_draft_pending_operator_review"},
+        "map_role": {"enum": ["ground", "figure", "threshold", "void"]},
+        "form_role": {"enum": ["ground", "figure"]},
+        "semantic_tags": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "circulation_role": {"enum": ["through", "terminal", "branch", "hub"]},
+        "sightline_tags": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "mood": {
+      "type": "object",
+      "required": ["review_status", "tension", "dread", "curiosity", "safety", "anomaly", "tags", "evidence"],
+      "properties": {
+        "review_status": {"const": "agent_proposed_draft_pending_operator_review"},
+        "tension": {"$ref": "#/$defs/score"},
+        "dread": {"$ref": "#/$defs/score"},
+        "curiosity": {"$ref": "#/$defs/score"},
+        "safety": {"$ref": "#/$defs/score"},
+        "anomaly": {"$ref": "#/$defs/score"},
+        "tags": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "evidence": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/reference"}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "reference": {"type": "object", "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}, "additionalProperties": false},
+    "template_ref": {"type": "object", "required": ["version", "path", "sha256"], "properties": {"version": {"const": "generation-template-0.1.0"}, "path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}, "additionalProperties": false},
+    "number_metric": {"type": "object", "required": ["value", "status", "basis_status", "source"], "properties": {"value": {"type": ["number", "null"], "minimum": 0}, "status": {"enum": ["measured", "authored", "derived", "unmeasured"]}, "basis_status": {"enum": ["measured", "authored", "unmeasured"]}, "derivation": {"type": "string", "minLength": 1}, "tolerance": {"type": "number", "minimum": 0, "maximum": 0.000001}, "source": {"type": "string", "minLength": 1}}, "allOf": [{"if": {"properties": {"status": {"const": "measured"}}, "required": ["status"]}, "then": {"required": ["tolerance"]}}], "additionalProperties": false},
+    "ceiling_kind_metric": {"type": "object", "required": ["value", "status", "basis_status", "source"], "properties": {"value": {"enum": ["flat", "beam_grid", "coffered", "open_to_above", "unknown"]}, "status": {"enum": ["measured", "authored", "derived", "unmeasured"]}, "basis_status": {"enum": ["measured", "authored", "unmeasured"]}, "source": {"type": "string", "minLength": 1}}, "additionalProperties": false},
+    "score": {"type": "number", "minimum": 0, "maximum": 1},
+    "exit": {"type": "object", "required": ["socket_id", "kind", "compatibility_type", "width_m", "elevation_m", "circulation_role", "tested_pair_ids", "provenance"], "properties": {"socket_id": {"type": "string", "minLength": 1}, "kind": {"enum": ["tested", "untested", "adapter", "void"]}, "compatibility_type": {"type": ["string", "null"]}, "width_m": {"type": ["number", "null"]}, "elevation_m": {"type": ["number", "null"]}, "circulation_role": {"enum": ["entrance", "exit", "connector", "service", "terminal"]}, "tested_pair_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}, "provenance": {"type": "string", "minLength": 1}}, "additionalProperties": false}
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "base_profile": {
+    "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json",
+    "sha256": "91b783da70476684b36212b03edaab89e28113d9bd09ee9bb9aabd714bad9619"
+  },
+  "ceiling_volume": {
+    "ceiling_height_m": {
+      "basis_status": "measured",
+      "source": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json#/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/metrics/ceiling_height_m; Issue 216 headless probe; up-ray result is capped by the profile ceiling hint",
+      "status": "measured",
+      "tolerance": 1e-06,
+      "value": 2.8
+    },
+    "ceiling_kind": {
+      "basis_status": "authored",
+      "source": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json#/poetics/style_tags; ceiling-kind interpretation is a draft",
+      "status": "authored",
+      "value": "unknown"
+    },
+    "ceiling_max_m": {
+      "basis_status": "authored",
+      "source": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json#/shape/ceiling_max_m",
+      "status": "authored",
+      "value": 2.8
+    },
+    "ceiling_min_m": {
+      "basis_status": "authored",
+      "source": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json#/shape/ceiling_min_m",
+      "status": "authored",
+      "value": 2.8
+    },
+    "volume_measured_m3": {
+      "basis_status": "unmeasured",
+      "source": "No committed per-module volume measurement exists",
+      "status": "unmeasured",
+      "value": null
+    },
+    "volume_nominal_m3": {
+      "basis_status": "authored",
+      "derivation": "footprint area x authored maximum ceiling; nominal envelope heuristic",
+      "source": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json#/shape/area_m2; godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json#/shape/ceiling_max_m; authored inputs",
+      "status": "derived",
+      "value": 179.2
+    }
+  },
+  "exits": [],
+  "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+  "mood": {
+    "anomaly": 0.75,
+    "curiosity": 0.65,
+    "dread": 0.6,
+    "evidence": [
+      {
+        "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json",
+        "sha256": "eb36d037057b9ab223d3ca8ce6ece93191da591a9850fe158875367a6edf711d"
+      }
+    ],
+    "review_status": "agent_proposed_draft_pending_operator_review",
+    "safety": 0.35,
+    "tags": [
+      "intimate",
+      "uncanny"
+    ],
+    "tension": 0.45
+  },
+  "profile_version": "module-profile-t6-0.1.0",
+  "roles": {
+    "circulation_role": "terminal",
+    "form_role": "figure",
+    "map_role": "figure",
+    "review_status": "agent_proposed_draft_pending_operator_review",
+    "semantic_tags": [
+      "domestic",
+      "lit_vignette",
+      "standalone"
+    ],
+    "sightline_tags": [
+      "focused_view"
+    ]
+  },
+  "schema_version": 1,
+  "template_ref": {
+    "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+    "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+    "version": "generation-template-0.1.0"
+  }
+}

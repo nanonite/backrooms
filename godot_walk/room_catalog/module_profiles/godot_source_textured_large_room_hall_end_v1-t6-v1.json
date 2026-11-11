@@ -1,0 +1,98 @@
+{
+  "base_profile": {
+    "path": "godot_walk/room_catalog/module_profiles/godot_source_textured_large_room_hall_end_v1-v1.json",
+    "sha256": "0386602e065306e8aa1b68cfed442284cd5e9302100c264093ec7e704159abb5"
+  },
+  "ceiling_volume": {
+    "ceiling_height_m": {
+      "basis_status": "measured",
+      "source": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json#/modules/godot_source_textured_large_room_hall_end_v1@1/metrics/ceiling_height_m; Issue 216 headless probe; up-ray result is capped by the profile ceiling hint",
+      "status": "measured",
+      "tolerance": 1e-06,
+      "value": 4.47099
+    },
+    "ceiling_kind": {
+      "basis_status": "authored",
+      "source": "godot_walk/room_catalog/module_poetics/godot_source_textured_large_room_hall_end_v1-v1.accepted.json#/poetics/style_tags; ceiling-kind interpretation is a draft",
+      "status": "authored",
+      "value": "beam_grid"
+    },
+    "ceiling_max_m": {
+      "basis_status": "authored",
+      "source": "godot_walk/room_catalog/module_profiles/godot_source_textured_large_room_hall_end_v1-v1.json#/shape/ceiling_max_m",
+      "status": "authored",
+      "value": 4.47099
+    },
+    "ceiling_min_m": {
+      "basis_status": "authored",
+      "source": "godot_walk/room_catalog/module_profiles/godot_source_textured_large_room_hall_end_v1-v1.json#/shape/ceiling_min_m",
+      "status": "authored",
+      "value": 4.47099
+    },
+    "volume_measured_m3": {
+      "basis_status": "unmeasured",
+      "source": "No committed per-module volume measurement exists",
+      "status": "unmeasured",
+      "value": null
+    },
+    "volume_nominal_m3": {
+      "basis_status": "authored",
+      "derivation": "footprint area x authored maximum ceiling; nominal envelope heuristic",
+      "source": "godot_walk/room_catalog/module_profiles/godot_source_textured_large_room_hall_end_v1-v1.json#/shape/area_m2; godot_walk/room_catalog/module_profiles/godot_source_textured_large_room_hall_end_v1-v1.json#/shape/ceiling_max_m; authored inputs",
+      "status": "derived",
+      "value": 631.214368
+    }
+  },
+  "exits": [
+    {
+      "circulation_role": "connector",
+      "compatibility_type": "level_doorway_2m_v1",
+      "elevation_m": -1.27099049,
+      "kind": "untested",
+      "provenance": "godot_walk/room_catalog/module_poetics/godot_source_textured_large_room_hall_end_v1-v1.accepted.json; accepted ports and library index socket data",
+      "socket_id": "hall_end",
+      "tested_pair_ids": [],
+      "width_m": 2.0
+    }
+  ],
+  "module_id": "godot_source_textured_large_room_hall_end_v1",
+  "mood": {
+    "anomaly": 0.25,
+    "curiosity": 0.55,
+    "dread": 0.25,
+    "evidence": [
+      {
+        "path": "godot_walk/room_catalog/module_poetics/godot_source_textured_large_room_hall_end_v1-v1.accepted.json",
+        "sha256": "0299e703889bd4969060899d32b142a4864fea98cbd88e3eb6ef5f4c1d70e1ce"
+      }
+    ],
+    "review_status": "agent_proposed_draft_pending_operator_review",
+    "safety": 0.45,
+    "tags": [
+      "spacious",
+      "anticipatory"
+    ],
+    "tension": 0.4
+  },
+  "profile_version": "module-profile-t6-0.1.0",
+  "roles": {
+    "circulation_role": "terminal",
+    "form_role": "ground",
+    "map_role": "ground",
+    "review_status": "agent_proposed_draft_pending_operator_review",
+    "semantic_tags": [
+      "large_room",
+      "hall_opening",
+      "columns"
+    ],
+    "sightline_tags": [
+      "threshold_glimpse"
+    ]
+  },
+  "schema_version": 1,
+  "template_ref": {
+    "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+    "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+    "version": "generation-template-0.1.0"
+  }
+}

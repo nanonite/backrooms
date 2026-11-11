@@ -27,6 +27,7 @@ def profile_paths(root: Path = ROOT) -> list[Path]:
         path
         for path in (root / PROFILE_DIRECTORY).glob("*.json")
         if not path.name.endswith("_surface_palette_v1.json")
+        and not path.name.endswith("-t6-v1.json")
     }
     paths.update(root.glob(SOURCE_PROFILE_GLOB))
     return sorted(paths)

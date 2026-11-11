@@ -4,6 +4,7 @@ The template schemas are frozen by version:
 
 * source manifests: v1, v2 and v3 keep their own schema files;
 * module profiles: schema v1 in ``module_profile.schema.json``;
+* module profile T6 overlays: schema v1 in ``module_profile_t6.schema.json``;
 * generative maps: schema v1 and the optional additions in schema v2.
 
 Nothing here derives, writes or rewrites a record. Existing source manifests and
@@ -34,6 +35,13 @@ SOURCE_MANIFEST_SCHEMAS = {
 MODULE_PROFILE_SCHEMA = Path(
     "godot_walk/room_catalog/module_profile.schema.json"
 )
+MODULE_PROFILE_T6_SCHEMA = Path(
+    "godot_walk/room_catalog/module_profile_t6.schema.json"
+)
+T6_PROBE_RESULTS = Path(
+    "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json"
+)
+MAX_MEASURED_METRIC_TOLERANCE = 0.000001
 GENERATIVE_MAP_SCHEMAS = {
     1: Path("godot_walk/room_catalog/generative_map.schema.json"),
     2: Path("godot_walk/room_catalog/generative_map_v2.schema.json"),
@@ -41,6 +49,10 @@ GENERATIVE_MAP_SCHEMAS = {
 MODULE_PROFILE_DIR = Path("godot_walk/room_catalog/module_profiles")
 SOURCE_PROFILE_GLOB = (
     "godot_walk/source_library/sources/*/rooms/*/module_profile_v1.json"
+)
+T6_PROFILE_DIR = Path("godot_walk/room_catalog/module_profiles")
+T6_SOURCE_PROFILE_GLOB = (
+    "godot_walk/source_library/sources/*/rooms/*/module_profile_t6_v1.json"
 )
 CATALOG_SNAPSHOT_DIR = Path("godot_walk/room_catalog/catalog_snapshots")
 
@@ -76,7 +88,7 @@ def load_schema(relative_path: Path, root: Path = ROOT) -> dict[str, Any]:
     path = root / relative_path
     try:
         schema = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as error:
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
         raise TemplateValidationError(
             f"Cannot read schema {relative_path}: {error}"
         ) from error
@@ -215,6 +227,297 @@ def module_profile_errors(record: dict[str, Any], root: Path = ROOT) -> list[str
     return errors
 
 
+def module_profile_t6_errors(
+    record: dict[str, Any], root: Path = ROOT
+) -> list[str]:
+    """Validate an editable T6 overlay and its frozen base/evidence references."""
+    errors = schema_errors(record, load_schema(MODULE_PROFILE_T6_SCHEMA, root))
+    if errors:
+        return errors
+    errors += _reference_errors(record["base_profile"], root, "base_profile")
+    errors += _reference_errors(record["template_ref"], root, "template_ref")
+    for index, evidence in enumerate(record["mood"]["evidence"]):
+        errors += _reference_errors(evidence, root, f"mood.evidence[{index}]")
+    if errors:
+        return errors
+    base_path = (root / record["base_profile"]["path"]).resolve()
+    try:
+        base = json.loads(base_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        return [f"base_profile: cannot read referenced profile: {error}"]
+    if not isinstance(base, dict):
+        return ["base_profile: referenced profile must be a JSON object"]
+    if record.get("module_id") != base.get("module_id"):
+        errors.append("module_id does not match base profile")
+    expected_exits = [
+        {
+            **exit_record,
+            "provenance": f"{base['poetics_ref']['path']}; accepted ports and library index socket data",
+        }
+        for exit_record in base.get("exits", [])
+    ]
+    if record.get("exits") != expected_exits:
+        errors.append("exits differ from the authored/recorded base profile sockets")
+    if len(record["exits"]) != len(base.get("exits", [])):
+        errors.append("exits must describe exactly the recorded base profile sockets")
+    for index, (exit_record, base_exit) in enumerate(
+        zip(record["exits"], base.get("exits", []))
+    ):
+        for field in (
+            "socket_id",
+            "kind",
+            "compatibility_type",
+            "width_m",
+            "elevation_m",
+            "tested_pair_ids",
+        ):
+            if exit_record[field] != base_exit[field]:
+                errors.append(f"exits[{index}].{field} differs from recorded socket")
+    errors += _t6_metric_provenance_errors(
+        record["ceiling_volume"],
+        root,
+        record["module_id"],
+        record["base_profile"]["path"],
+        base.get("version"),
+        base.get("poetics_ref", {}).get("path"),
+    )
+    return errors
+
+
+def _t6_metric_provenance_errors(
+    metrics: dict[str, Any],
+    root: Path,
+    module_id: str,
+    base_path: str,
+    profile_version: Any,
+    poetics_path: str | None,
+) -> list[str]:
+    errors: list[str] = []
+    for name, metric in metrics.items():
+        label = f"ceiling_volume.{name}"
+        source = metric.get("source", "")
+        citations = _metric_citations(source)
+        errors += _metric_source_syntax_errors(name, source)
+        errors += _metric_status_errors(
+            name, metric, citations, root, module_id, base_path,
+            profile_version, poetics_path,
+        )
+        errors += _metric_citation_errors(name, citations, root)
+    return errors
+
+
+def _metric_status_errors(
+    name: str,
+    metric: dict[str, Any],
+    citations: list[tuple[str, str]],
+    root: Path,
+    module_id: str,
+    base_path: str,
+    profile_version: Any,
+    poetics_path: str | None,
+) -> list[str]:
+    label = f"ceiling_volume.{name}"
+    value, status, basis = metric.get("value"), metric.get("status"), metric.get("basis_status")
+    if value is None:
+        return [] if status == basis == "unmeasured" else [f"{label}: null values must be unmeasured"]
+    if status == "measured":
+        return _measured_metric_errors(
+            label, metric, citations, root, module_id, profile_version,
+            base_path, poetics_path,
+        )
+    if status == "authored":
+        return _authored_metric_errors(
+            label, basis, citations, module_id, profile_version,
+            base_path, poetics_path,
+        )
+    if status == "derived":
+        return _derived_metric_errors(
+            label, metric, basis, citations, module_id, profile_version,
+            base_path, poetics_path,
+        )
+    return [f"{label}: unmeasured values must be null"]
+
+
+def _measured_metric_errors(
+    label: str,
+    metric: dict[str, Any],
+    citations: list[tuple[str, str]],
+    root: Path,
+    module_id: str,
+    profile_version: Any,
+    base_path: str,
+    poetics_path: str | None,
+) -> list[str]:
+    errors = []
+    if metric.get("basis_status") != "measured":
+        errors.append(f"{label}: measured values require measured basis")
+    if not citations:
+        errors.append(f"{label}: measured value must cite a committed measurement")
+    if any(
+        _citation_basis(
+            path_text, pointer, module_id, profile_version, base_path, poetics_path
+        ) != "measured"
+        for path_text, pointer in citations
+    ):
+        errors.append(f"{label}: measured value must cite its measured probe field")
+    tolerance = metric.get("tolerance")
+    valid_tolerance = (
+        isinstance(tolerance, (int, float))
+        and 0 <= tolerance <= MAX_MEASURED_METRIC_TOLERANCE
+    )
+    if not valid_tolerance:
+        errors.append(f"{label}: measured value requires a non-negative tolerance")
+    errors += _measurement_match_errors(
+        label, metric.get("value"), citations, tolerance, valid_tolerance, root
+    )
+    return errors
+
+
+def _measurement_match_errors(
+    label: str, value: Any, references: list[tuple[str, str]], tolerance: Any,
+    valid_tolerance: bool, root: Path,
+) -> list[str]:
+    errors = []
+    for path_text, pointer in references:
+        cited, error = _resolve_json_pointer(path_text, pointer, root)
+        if error:
+            errors.append(f"{label}: {error}")
+        elif not isinstance(cited, (int, float)) or not isinstance(value, (int, float)):
+            errors.append(f"{label}: cited measurement is not numeric")
+        elif valid_tolerance and abs(cited - value) > tolerance:
+            errors.append(f"{label}: value differs from cited measurement beyond tolerance")
+    return errors
+
+
+def _authored_metric_errors(
+    label: str,
+    basis: Any,
+    citations: list[tuple[str, str]],
+    module_id: str,
+    profile_version: Any,
+    base_path: str,
+    poetics_path: str | None,
+) -> list[str]:
+    errors = []
+    if basis != "authored":
+        errors.append(f"{label}: authored values require authored basis")
+    if not citations:
+        errors.append(f"{label}: authored values must cite their source")
+    if any(
+        _citation_basis(
+            path_text, pointer, module_id, profile_version, base_path, poetics_path
+        ) != "authored"
+        for path_text, pointer in citations
+    ):
+        errors.append(f"{label}: authored values must cite authored inputs")
+    return errors
+
+
+def _derived_metric_errors(
+    label: str,
+    metric: dict[str, Any],
+    basis: Any,
+    citations: list[tuple[str, str]],
+    module_id: str,
+    profile_version: Any,
+    base_path: str,
+    poetics_path: str | None,
+) -> list[str]:
+    errors = []
+    if basis not in {"measured", "authored"}:
+        errors.append(f"{label}: derived values require measured or authored basis")
+    derivation = metric.get("derivation")
+    if not isinstance(derivation, str) or not derivation.strip():
+        errors.append(f"{label}: derived values require a derivation")
+    if not citations:
+        errors.append(f"{label}: derived values must cite their inputs")
+    elif any(
+        _citation_basis(
+            path_text, pointer, module_id, profile_version, base_path, poetics_path
+        ) != basis
+        for path_text, pointer in citations
+    ):
+        errors.append(f"{label}: derived basis_status does not match its cited inputs")
+    return errors
+
+
+def _metric_citation_errors(
+    name: str, citations: list[tuple[str, str]], root: Path
+) -> list[str]:
+    errors = []
+    for path_text, pointer in citations:
+        _, error = _resolve_json_pointer(path_text, pointer, root)
+        if error:
+            errors.append(f"ceiling_volume.{name}: {error}")
+    return errors
+
+
+def _metric_citations(source: Any) -> list[tuple[str, str]]:
+    if not isinstance(source, str):
+        return []
+    citations = []
+    for part in source.split(";"):
+        if "#" not in part:
+            continue
+        path_text, pointer = part.strip().split("#", 1)
+        if path_text and pointer.startswith("/"):
+            citations.append((path_text, pointer))
+    return citations
+
+
+def _metric_source_syntax_errors(name: str, source: Any) -> list[str]:
+    if not isinstance(source, str):
+        return [f"ceiling_volume.{name}: source must be text"]
+    if any("#" in part and "#/" not in part for part in source.split(";")):
+        return [f"ceiling_volume.{name}: citations must use path#/field syntax"]
+    return []
+
+
+def _citation_basis(
+    path_text: str,
+    pointer: str,
+    module_id: str,
+    profile_version: Any,
+    base_path: str,
+    poetics_path: str | None,
+) -> str | None:
+    probe_path = T6_PROBE_RESULTS.as_posix()
+    probe_key = f"/modules/{module_id}@{profile_version}"
+    if path_text == probe_path and pointer == f"{probe_key}/metrics/ceiling_height_m":
+        return "measured"
+    if path_text == probe_path and pointer == f"{probe_key}/ceiling_hint_m":
+        return "authored"
+    if path_text == base_path and pointer.startswith("/shape/"):
+        return "authored"
+    if path_text == poetics_path and pointer.startswith("/poetics/"):
+        return "authored"
+    return None
+
+
+def _resolve_json_pointer(
+    path_text: str, pointer: str, root: Path
+) -> tuple[Any, str | None]:
+    candidate = (root / path_text).resolve()
+    if not candidate.is_relative_to(root.resolve()):
+        return None, f"citation {path_text} escapes the repository"
+    try:
+        value: Any = json.loads(candidate.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        return None, f"cannot read cited reference {path_text}: {error}"
+    for raw_part in pointer.lstrip("/").split("/"):
+        part = raw_part.replace("~1", "/").replace("~0", "~")
+        if isinstance(value, list) and part.isdigit():
+            index = int(part)
+            if index < len(value):
+                value = value[index]
+                continue
+        elif isinstance(value, dict) and part in value:
+            value = value[part]
+            continue
+        return None, f"citation field does not exist: {path_text}#{pointer}"
+    return value, None
+
+
 def generative_map_schema_errors(
     record: dict[str, Any], root: Path = ROOT
 ) -> list[str]:
@@ -254,7 +557,11 @@ def _reference_errors(
         return [f"{label}: {path_text} escapes the repository"]
     if not candidate.is_file():
         return [f"{label}: {path_text} is missing"]
-    if sha256_file(candidate) != digest:
+    try:
+        actual_digest = sha256_file(candidate)
+    except OSError as error:
+        return [f"{label}: cannot read {path_text}: {error}"]
+    if actual_digest != digest:
         return [f"{label}: {path_text} no longer matches its sha256"]
     return []
 
@@ -289,8 +596,18 @@ def source_manifest_paths(root: Path = ROOT) -> list[Path]:
 
 
 def module_profile_paths(root: Path = ROOT) -> list[Path]:
-    paths = set((root / MODULE_PROFILE_DIR).glob("*.json"))
+    paths = {
+        path
+        for path in (root / MODULE_PROFILE_DIR).glob("*.json")
+        if not path.name.endswith("-t6-v1.json")
+    }
     paths.update(root.glob(SOURCE_PROFILE_GLOB))
+    return sorted(paths)
+
+
+def module_profile_t6_paths(root: Path = ROOT) -> list[Path]:
+    paths = set((root / T6_PROFILE_DIR).glob("*-t6-v1.json"))
+    paths.update(root.glob(T6_SOURCE_PROFILE_GLOB))
     return sorted(paths)
 
 
@@ -307,6 +624,9 @@ def validate_repository(root: Path = ROOT) -> ValidationReport:
         path for path in source_manifest_paths(root) if path.is_file()
     ]
     profile_paths = [path for path in module_profile_paths(root) if path.is_file()]
+    t6_profile_paths = [
+        path for path in module_profile_t6_paths(root) if path.is_file()
+    ]
     map_paths = [path for path in generative_map_paths(root) if path.is_file()]
     errors: list[str] = []
     errors += _validate_files(
@@ -315,10 +635,13 @@ def validate_repository(root: Path = ROOT) -> ValidationReport:
     errors += _validate_files(
         profile_paths, module_profile_errors, root, "module profile"
     )
+    errors += _validate_files(
+        t6_profile_paths, module_profile_t6_errors, root, "module profile T6"
+    )
     errors += _validate_files(map_paths, generative_map_errors, root, "generative map")
     return ValidationReport(
         source_manifests=len(manifest_paths),
-        module_profiles=len(profile_paths),
+        module_profiles=len(profile_paths) + len(t6_profile_paths),
         generative_maps=len(map_paths),
         errors=tuple(errors),
     )

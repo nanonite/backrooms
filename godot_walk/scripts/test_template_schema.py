@@ -142,6 +142,7 @@ MODULE_PROFILE_REQUIRED_PATHS = required_field_paths(
     [
         Path("godot_walk/source_library/source_manifest_v3.schema.json"),
         Path("godot_walk/room_catalog/module_profile.schema.json"),
+        Path("godot_walk/room_catalog/module_profile_t6.schema.json"),
         Path("godot_walk/room_catalog/generative_map_v2.schema.json"),
     ],
 )
