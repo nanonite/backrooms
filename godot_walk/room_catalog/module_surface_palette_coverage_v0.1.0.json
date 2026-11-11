@@ -1,0 +1,245 @@
+{
+  "counts": {
+    "bespoke": 1,
+    "null": 3,
+    "resolved": 40,
+    "unresolved": 0
+  },
+  "module_count": 11,
+  "modules": [
+    {
+      "module_id": "godot_early_pocket_pass_through_v1",
+      "surfaces": {
+        "ceiling": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "floor": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "trim": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "wall": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        }
+      }
+    },
+    {
+      "module_id": "godot_early_pocket_single_west_v1",
+      "surfaces": {
+        "ceiling": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "floor": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "trim": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "wall": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        }
+      }
+    },
+    {
+      "module_id": "godot_early_pocket_three_way_v1",
+      "surfaces": {
+        "ceiling": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "floor": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "trim": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "wall": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        }
+      }
+    },
+    {
+      "module_id": "godot_later_bay_column_bounded_v1",
+      "surfaces": {
+        "ceiling": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "floor": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "trim": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "wall": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        }
+      }
+    },
+    {
+      "module_id": "godot_source_textured_large_room_hall_end_v1",
+      "surfaces": {
+        "ceiling": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "floor": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "trim": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "wall": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        }
+      }
+    },
+    {
+      "module_id": "godot_source_textured_large_room_v1",
+      "surfaces": {
+        "ceiling": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "floor": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "trim": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        },
+        "wall": {
+          "palette_id": "backrooms_yellow",
+          "status": "resolved"
+        }
+      }
+    },
+    {
+      "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+      "surfaces": {
+        "ceiling": {
+          "palette_id": null,
+          "status": "null"
+        },
+        "floor": {
+          "palette_id": null,
+          "status": "bespoke"
+        },
+        "trim": {
+          "palette_id": null,
+          "status": "null"
+        },
+        "wall": {
+          "palette_id": null,
+          "status": "null"
+        }
+      }
+    },
+    {
+      "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+      "surfaces": {
+        "ceiling": {
+          "palette_id": "plaster_debris",
+          "status": "resolved"
+        },
+        "floor": {
+          "palette_id": "plaster_debris",
+          "status": "resolved"
+        },
+        "trim": {
+          "palette_id": "plaster_debris",
+          "status": "resolved"
+        },
+        "wall": {
+          "palette_id": "plaster_debris",
+          "status": "resolved"
+        }
+      }
+    },
+    {
+      "module_id": "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+      "surfaces": {
+        "ceiling": {
+          "palette_id": "plaster_debris",
+          "status": "resolved"
+        },
+        "floor": {
+          "palette_id": "plaster_debris",
+          "status": "resolved"
+        },
+        "trim": {
+          "palette_id": "plaster_debris",
+          "status": "resolved"
+        },
+        "wall": {
+          "palette_id": "plaster_debris",
+          "status": "resolved"
+        }
+      }
+    },
+    {
+      "module_id": "godot_gopro_industrial_hall_frame1097_v1",
+      "surfaces": {
+        "ceiling": {
+          "palette_id": "industrial_concrete",
+          "status": "resolved"
+        },
+        "floor": {
+          "palette_id": "industrial_concrete",
+          "status": "resolved"
+        },
+        "trim": {
+          "palette_id": "industrial_concrete",
+          "status": "resolved"
+        },
+        "wall": {
+          "palette_id": "industrial_concrete",
+          "status": "resolved"
+        }
+      }
+    },
+    {
+      "module_id": "godot_gopro_industrial_hall_south_socket_v1",
+      "surfaces": {
+        "ceiling": {
+          "palette_id": "industrial_concrete",
+          "status": "resolved"
+        },
+        "floor": {
+          "palette_id": "industrial_concrete",
+          "status": "resolved"
+        },
+        "trim": {
+          "palette_id": "industrial_concrete",
+          "status": "resolved"
+        },
+        "wall": {
+          "palette_id": "industrial_concrete",
+          "status": "resolved"
+        }
+      }
+    }
+  ],
+  "operator_review": "pending",
+  "report_version": "module-surface-palette-coverage-0.1.0",
+  "surface_count": 44
+}

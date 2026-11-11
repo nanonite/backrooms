@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.invalid/schemas/module_surface_palette.schema.json",
+  "title": "Module surface and palette descriptor",
+  "type": "object",
+  "required": ["schema_version", "descriptor_version", "module_id", "profile_ref", "surfaces", "review"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "descriptor_version": {"const": "module-surface-palette-0.1.0"},
+    "module_id": {"type": "string", "minLength": 1},
+    "profile_ref": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "surfaces": {"$ref": "#/$defs/profile_surfaces"},
+    "review": {"$ref": "#/$defs/review"}
+  },
+  "$defs": {
+    "profile_surfaces": {
+      "type": "object",
+      "required": ["wall", "floor", "ceiling", "trim"],
+      "properties": {
+        "wall": {"$ref": "#/$defs/profile_surface"},
+        "floor": {"$ref": "#/$defs/profile_surface"},
+        "ceiling": {"$ref": "#/$defs/profile_surface"},
+        "trim": {"$ref": "#/$defs/profile_surface"}
+      },
+      "additionalProperties": false
+    },
+    "profile_surface": {
+      "type": "object",
+      "required": ["material_id", "palette_id", "acoustic", "texture_refs", "provenance", "sign"],
+      "properties": {
+        "material_id": {"type": "string", "minLength": 1},
+        "palette_id": {"type": ["string", "null"]},
+        "acoustic": {"type": "string", "minLength": 1},
+        "texture_refs": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "provenance": {"type": ["string", "null"]},
+        "sign": {"enum": ["index", "icon", "symbol"]}
+      },
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "required": ["operator_review", "surfaces"],
+      "properties": {
+        "operator_review": {"enum": ["pending", "accepted", "rejected"]},
+        "surfaces": {
+          "type": "object",
+          "required": ["wall", "floor", "ceiling", "trim"],
+          "properties": {
+            "wall": {"$ref": "#/$defs/review_surface"},
+            "floor": {"$ref": "#/$defs/review_surface"},
+            "ceiling": {"$ref": "#/$defs/review_surface"},
+            "trim": {"$ref": "#/$defs/review_surface"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "review_surface": {
+      "type": "object",
+      "required": ["basis", "status", "evidence_status", "bespoke_reason"],
+      "properties": {
+        "basis": {"type": "string", "minLength": 1},
+        "status": {"enum": ["resolved", "null", "bespoke"]},
+        "evidence_status": {"enum": ["observed", "proposed"]},
+        "bespoke_reason": {"type": ["string", "null"]}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"enum": ["null", "bespoke"]}}},
+          "then": {"properties": {"bespoke_reason": {"type": "string", "minLength": 1}}}
+        },
+        {
+          "if": {"properties": {"status": {"const": "resolved"}}},
+          "then": {"properties": {"bespoke_reason": {"const": null}}}
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

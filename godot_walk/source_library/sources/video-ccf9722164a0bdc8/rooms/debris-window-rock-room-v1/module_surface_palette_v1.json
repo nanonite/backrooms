@@ -1,0 +1,74 @@
+{
+  "descriptor_version": "module-surface-palette-0.1.0",
+  "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+  "profile_ref": {
+    "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json",
+    "sha256": "baa076497d02b6e8e66420e14551e4509c321ec28119b34d3ece02c5c99dd036"
+  },
+  "review": {
+    "operator_review": "pending",
+    "surfaces": {
+      "ceiling": {
+        "basis": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.ceiling via palette registry entry; per-surface assignment is a proposal",
+        "bespoke_reason": null,
+        "evidence_status": "proposed",
+        "status": "resolved"
+      },
+      "floor": {
+        "basis": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.floor via palette registry entry; per-surface assignment is a proposal",
+        "bespoke_reason": null,
+        "evidence_status": "proposed",
+        "status": "resolved"
+      },
+      "trim": {
+        "basis": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.trim via palette registry entry; per-surface assignment is a proposal",
+        "bespoke_reason": null,
+        "evidence_status": "proposed",
+        "status": "resolved"
+      },
+      "wall": {
+        "basis": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.wall via registry module match and direct wall provenance (res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.gd::WALL_TEXTURE_PATH)",
+        "bespoke_reason": null,
+        "evidence_status": "observed",
+        "status": "resolved"
+      }
+    }
+  },
+  "schema_version": 1,
+  "surfaces": {
+    "ceiling": {
+      "acoustic": "plaster",
+      "material_id": "plaster_debris.ceiling",
+      "palette_id": "plaster_debris",
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.ceiling via palette registry entry; per-surface assignment is a proposal",
+      "sign": "symbol",
+      "texture_refs": []
+    },
+    "floor": {
+      "acoustic": "debris",
+      "material_id": "plaster_debris.floor",
+      "palette_id": "plaster_debris",
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.floor via palette registry entry; per-surface assignment is a proposal",
+      "sign": "symbol",
+      "texture_refs": []
+    },
+    "trim": {
+      "acoustic": "wood",
+      "material_id": "plaster_debris.trim",
+      "palette_id": "plaster_debris",
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.trim via palette registry entry; per-surface assignment is a proposal",
+      "sign": "symbol",
+      "texture_refs": []
+    },
+    "wall": {
+      "acoustic": "plaster",
+      "material_id": "plaster_debris.wall",
+      "palette_id": "plaster_debris",
+      "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.wall via registry module match and direct wall provenance (res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.gd::WALL_TEXTURE_PATH)",
+      "sign": "icon",
+      "texture_refs": [
+        "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png"
+      ]
+    }
+  }
+}

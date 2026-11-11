@@ -1,0 +1,72 @@
+{
+  "descriptor_version": "module-surface-palette-0.1.0",
+  "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+  "profile_ref": {
+    "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json",
+    "sha256": "91b783da70476684b36212b03edaab89e28113d9bd09ee9bb9aabd714bad9619"
+  },
+  "review": {
+    "operator_review": "pending",
+    "surfaces": {
+      "ceiling": {
+        "basis": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for ceiling",
+        "bespoke_reason": "No supported palettes-0.3.0 mapping for this module's ceiling; retain an explicit unknown slot pending operator review.",
+        "evidence_status": "proposed",
+        "status": "null"
+      },
+      "floor": {
+        "basis": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for floor",
+        "bespoke_reason": "No supported palettes-0.3.0 mapping for this module's floor; retain an explicit dark_carpet slot pending operator review.",
+        "evidence_status": "observed",
+        "status": "bespoke"
+      },
+      "trim": {
+        "basis": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for trim",
+        "bespoke_reason": "No supported palettes-0.3.0 mapping for this module's trim; retain an explicit unknown slot pending operator review.",
+        "evidence_status": "proposed",
+        "status": "null"
+      },
+      "wall": {
+        "basis": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for wall",
+        "bespoke_reason": "No supported palettes-0.3.0 mapping for this module's wall; retain an explicit unknown slot pending operator review.",
+        "evidence_status": "proposed",
+        "status": "null"
+      }
+    }
+  },
+  "schema_version": 1,
+  "surfaces": {
+    "ceiling": {
+      "acoustic": "unknown",
+      "material_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1.unknown_ceiling",
+      "palette_id": null,
+      "provenance": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for ceiling",
+      "sign": "symbol",
+      "texture_refs": []
+    },
+    "floor": {
+      "acoustic": "carpet",
+      "material_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1.dark_carpet_floor",
+      "palette_id": null,
+      "provenance": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for floor",
+      "sign": "symbol",
+      "texture_refs": []
+    },
+    "trim": {
+      "acoustic": "unknown",
+      "material_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1.unknown_trim",
+      "palette_id": null,
+      "provenance": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for trim",
+      "sign": "symbol",
+      "texture_refs": []
+    },
+    "wall": {
+      "acoustic": "unknown",
+      "material_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1.unknown_wall",
+      "palette_id": null,
+      "provenance": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for wall",
+      "sign": "symbol",
+      "texture_refs": []
+    }
+  }
+}
