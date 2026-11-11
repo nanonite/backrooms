@@ -1,0 +1,57 @@
+{
+  "descriptor_version": "module-surface-palette-0.1.0",
+  "module_id": "godot_gopro_industrial_hall_south_socket_v1",
+  "profile_ref": {
+    "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_profile_v1.json",
+    "sha256": "850198d537d61e26464046312e4b3e2d18338ecedc403f5150614b626fea03ea"
+  },
+  "schema_version": 1,
+  "surfaces": {
+    "ceiling": {
+      "acoustic": "metal",
+      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.ceiling via registry source_module_ids",
+      "bespoke_reason": null,
+      "evidence_status": "observed",
+      "material_id": "industrial_concrete.ceiling",
+      "palette_id": "industrial_concrete",
+      "sign": "symbol",
+      "status": "resolved",
+      "texture_refs": []
+    },
+    "floor": {
+      "acoustic": "concrete",
+      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.floor via registry source_module_ids",
+      "bespoke_reason": null,
+      "evidence_status": "observed",
+      "material_id": "industrial_concrete.floor",
+      "palette_id": "industrial_concrete",
+      "sign": "icon",
+      "status": "resolved",
+      "texture_refs": [
+        "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png"
+      ]
+    },
+    "trim": {
+      "acoustic": "metal",
+      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.trim via registry source_module_ids",
+      "bespoke_reason": null,
+      "evidence_status": "observed",
+      "material_id": "industrial_concrete.trim",
+      "palette_id": "industrial_concrete",
+      "sign": "symbol",
+      "status": "resolved",
+      "texture_refs": []
+    },
+    "wall": {
+      "acoustic": "concrete",
+      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['concrete_grey']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json industrial_concrete.wall via registry source_module_ids",
+      "bespoke_reason": null,
+      "evidence_status": "observed",
+      "material_id": "industrial_concrete.wall",
+      "palette_id": "industrial_concrete",
+      "sign": "symbol",
+      "status": "resolved",
+      "texture_refs": []
+    }
+  }
+}

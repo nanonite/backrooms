@@ -1,0 +1,61 @@
+{
+  "descriptor_version": "module-surface-palette-0.1.0",
+  "module_id": "godot_early_pocket_pass_through_v1",
+  "profile_ref": {
+    "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json",
+    "sha256": "3dafea55f1db6da5f2d8f956615bc360eccaefd6d85b73d3512ac2403e829c37"
+  },
+  "schema_version": 1,
+  "surfaces": {
+    "ceiling": {
+      "acoustic": "tile",
+      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['carpet_floor']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json backrooms_yellow.ceiling via matching module acoustic evidence; palette choice is a proposal",
+      "bespoke_reason": null,
+      "evidence_status": "proposed",
+      "material_id": "backrooms_yellow.ceiling",
+      "palette_id": "backrooms_yellow",
+      "sign": "icon",
+      "status": "resolved",
+      "texture_refs": [
+        "res://assets/psx_extension/textures/ceiling_source_video.png"
+      ]
+    },
+    "floor": {
+      "acoustic": "carpet",
+      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['carpet_floor']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json backrooms_yellow.floor via matching module acoustic evidence; palette choice is a proposal",
+      "bespoke_reason": null,
+      "evidence_status": "proposed",
+      "material_id": "backrooms_yellow.floor",
+      "palette_id": "backrooms_yellow",
+      "sign": "icon",
+      "status": "resolved",
+      "texture_refs": [
+        "res://assets/psx_extension/textures/floor_source_video.png"
+      ]
+    },
+    "trim": {
+      "acoustic": "metal",
+      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['carpet_floor']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json backrooms_yellow.trim via matching module acoustic evidence; palette choice is a proposal",
+      "bespoke_reason": null,
+      "evidence_status": "proposed",
+      "material_id": "backrooms_yellow.trim",
+      "palette_id": "backrooms_yellow",
+      "sign": "symbol",
+      "status": "resolved",
+      "texture_refs": []
+    },
+    "wall": {
+      "acoustic": "plaster",
+      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['carpet_floor']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json backrooms_yellow.wall via matching module acoustic evidence; palette choice is a proposal",
+      "bespoke_reason": null,
+      "evidence_status": "proposed",
+      "material_id": "backrooms_yellow.wall",
+      "palette_id": "backrooms_yellow",
+      "sign": "icon",
+      "status": "resolved",
+      "texture_refs": [
+        "res://assets/psx_extension/textures/wallpaper_source_video.png"
+      ]
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "descriptor_version": "module-surface-palette-0.1.0",
+  "module_id": "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+  "profile_ref": {
+    "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_profile_v1.json",
+    "sha256": "d55ab61137560f216bcd538671392b8986985c726b0178bcfff5dc8628d470f7"
+  },
+  "schema_version": 1,
+  "surfaces": {
+    "ceiling": {
+      "acoustic": "plaster",
+      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.ceiling via registry source_module_ids",
+      "bespoke_reason": null,
+      "evidence_status": "observed",
+      "material_id": "plaster_debris.ceiling",
+      "palette_id": "plaster_debris",
+      "sign": "symbol",
+      "status": "resolved",
+      "texture_refs": []
+    },
+    "floor": {
+      "acoustic": "debris",
+      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.floor via registry source_module_ids",
+      "bespoke_reason": null,
+      "evidence_status": "observed",
+      "material_id": "plaster_debris.floor",
+      "palette_id": "plaster_debris",
+      "sign": "symbol",
+      "status": "resolved",
+      "texture_refs": []
+    },
+    "trim": {
+      "acoustic": "wood",
+      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.trim via registry source_module_ids",
+      "bespoke_reason": null,
+      "evidence_status": "observed",
+      "material_id": "plaster_debris.trim",
+      "palette_id": "plaster_debris",
+      "sign": "symbol",
+      "status": "resolved",
+      "texture_refs": []
+    },
+    "wall": {
+      "acoustic": "plaster",
+      "basis": "/mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.wall via registry source_module_ids",
+      "bespoke_reason": null,
+      "evidence_status": "observed",
+      "material_id": "plaster_debris.wall",
+      "palette_id": "plaster_debris",
+      "sign": "icon",
+      "status": "resolved",
+      "texture_refs": [
+        "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png"
+      ]
+    }
+  }
+}

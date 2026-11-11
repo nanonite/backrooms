@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.invalid/schemas/module_surface_palette.schema.json",
+  "title": "Module surface and palette descriptor",
+  "type": "object",
+  "required": ["schema_version", "descriptor_version", "module_id", "profile_ref", "surfaces"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "descriptor_version": {"const": "module-surface-palette-0.1.0"},
+    "module_id": {"type": "string", "minLength": 1},
+    "profile_ref": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "surfaces": {"$ref": "#/$defs/surfaces"}
+  },
+  "$defs": {
+    "surfaces": {
+      "type": "object",
+      "required": ["wall", "floor", "ceiling", "trim"],
+      "properties": {
+        "wall": {"$ref": "#/$defs/surface"},
+        "floor": {"$ref": "#/$defs/surface"},
+        "ceiling": {"$ref": "#/$defs/surface"},
+        "trim": {"$ref": "#/$defs/surface"}
+      },
+      "additionalProperties": false
+    },
+    "surface": {
+      "type": "object",
+      "required": ["material_id", "palette_id", "acoustic", "texture_refs", "basis", "status", "evidence_status", "bespoke_reason", "sign"],
+      "properties": {
+        "material_id": {"type": "string", "minLength": 1},
+        "palette_id": {"type": ["string", "null"]},
+        "acoustic": {"type": "string", "minLength": 1},
+        "texture_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "basis": {"type": "string", "minLength": 1},
+        "status": {"enum": ["resolved", "null", "bespoke"]},
+        "evidence_status": {"enum": ["observed", "proposed"]},
+        "bespoke_reason": {"type": ["string", "null"]},
+        "sign": {"enum": ["index", "icon", "symbol"]}
+      },
+      "allOf": [
+        {"if": {"properties": {"status": {"enum": ["null", "bespoke"]}}}, "then": {"properties": {"palette_id": {"const": null}, "bespoke_reason": {"type": "string", "minLength": 1}}}},
+        {"if": {"properties": {"status": {"const": "resolved"}}}, "then": {"properties": {"palette_id": {"type": "string"}, "bespoke_reason": {"const": null}}}}
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
