@@ -13,7 +13,8 @@
       ],
       "provenance": "Agent-proposed illustrative estimate using a neutral-white fluorescent enclosed-interior prior; not a source-specific observation. No photometric measurement or vision-model review exists.",
       "review_status": "pending_operator_review",
-      "value": 4000
+      "value": 4000,
+      "review_evidence": []
     },
     "fixture_layout": [
       {
@@ -27,7 +28,8 @@
         ],
         "kind": "fluorescent_ceiling_strip",
         "provenance": "Agent-proposed generic fluorescent ceiling layout for an enclosed interior, not observed in the source; pending operator inspection.",
-        "review_status": "pending_operator_review"
+        "review_status": "pending_operator_review",
+        "review_evidence": []
       }
     ],
     "illuminance_lux": {
@@ -39,10 +41,12 @@
       ],
       "provenance": "Agent-proposed illustrative estimate using a neutral-white fluorescent enclosed-interior prior; not a source-specific observation. No photometric measurement or vision-model review exists.",
       "review_status": "pending_operator_review",
-      "value": 150
+      "value": 150,
+      "review_evidence": []
     },
     "review_status": "pending_operator_review",
-    "status": "estimated_pending_review"
+    "status": "estimated_pending_review",
+    "review_evidence": []
   },
   "profile_version": "lighting-scale-overlay-0.1.0",
   "record_id": "picture-set-d160eaa3cc847d5c",
@@ -60,10 +64,12 @@
       "provenance": "Agent-proposed conventional doorway-height estimate; no measured dimension is present in the source manifest.",
       "review_status": "pending_operator_review",
       "status": "estimated",
-      "value_m": 2.0
+      "value_m": 2.0,
+      "review_evidence": []
     },
     "review_status": "pending_operator_review",
-    "status": "uncalibrated"
+    "status": "uncalibrated",
+    "review_evidence": []
   },
   "schema_version": 1,
   "template_ref": {

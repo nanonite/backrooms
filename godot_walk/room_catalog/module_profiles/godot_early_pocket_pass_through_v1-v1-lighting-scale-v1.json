@@ -13,7 +13,8 @@
       ],
       "provenance": "Agent-proposed estimate for an authored enclosed kit module; basis is the existing 2.4 m ceiling and authored 2.0 m socket width, not a light or scale measurement.",
       "review_status": "pending_operator_review",
-      "value": 4000
+      "value": 4000,
+      "review_evidence": []
     },
     "fixture_layout": [
       {
@@ -27,7 +28,8 @@
         ],
         "kind": "recessed_fluorescent_panel",
         "provenance": "Agent-proposed estimate for an authored enclosed kit module; basis is the existing 2.4 m ceiling and authored 2.0 m socket width, not a light or scale measurement.",
-        "review_status": "pending_operator_review"
+        "review_status": "pending_operator_review",
+        "review_evidence": []
       }
     ],
     "illuminance_lux": {
@@ -39,10 +41,12 @@
       ],
       "provenance": "Agent-proposed estimate for an authored enclosed kit module; basis is the existing 2.4 m ceiling and authored 2.0 m socket width, not a light or scale measurement.",
       "review_status": "pending_operator_review",
-      "value": 120
+      "value": 120,
+      "review_evidence": []
     },
     "review_status": "pending_operator_review",
-    "status": "estimated_pending_review"
+    "status": "estimated_pending_review",
+    "review_evidence": []
   },
   "profile_version": "lighting-scale-overlay-0.1.0",
   "record_id": "godot_early_pocket_pass_through_v1",
@@ -60,10 +64,12 @@
       "provenance": "Agent-proposed estimate copied as a candidate from the base profile socket width; the authored width is not an accepted real-world measurement.",
       "review_status": "pending_operator_review",
       "status": "estimated",
-      "value_m": 2.0
+      "value_m": 2.0,
+      "review_evidence": []
     },
     "review_status": "pending_operator_review",
-    "status": "uncalibrated"
+    "status": "uncalibrated",
+    "review_evidence": []
   },
   "schema_version": 1,
   "template_ref": {

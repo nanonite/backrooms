@@ -4,16 +4,20 @@ from __future__ import annotations
 
 import json
 import hashlib
+import math
 import subprocess
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from deterministic_json import ROOT
 
 SCHEMA_PATH = Path("godot_walk/room_catalog/lighting_scale_overlay.schema.json")
-def lighting_scale_state(overlay: dict[str, Any] | None) -> dict[str, Any]:
-    """Return overlay fields or the explicit uncalibrated/unreviewed default."""
-    if overlay is not None:
+def lighting_scale_state(
+    overlay: dict[str, Any] | None, root: Path = ROOT
+) -> dict[str, Any]:
+    """Return validated overlay state or a conservative uncalibrated default."""
+    if overlay is not None and not validate_overlay(overlay, root):
         return {"lighting": overlay["lighting"], "scale": overlay["scale"]}
     return {
         "lighting": {
@@ -63,6 +67,7 @@ def validate_overlay(record: dict[str, Any], root: Path = ROOT) -> list[str]:
     errors += tv._reference_errors(record["template_ref"], root, "template_ref")
     errors += _field_evidence_errors(record, root)
     errors += _review_evidence_errors(record)
+    errors += _aggregate_status_errors(record)
     if errors:
         return errors
     base, read_errors = _json_object(root / reference["path"], "base_record")
@@ -88,15 +93,33 @@ def _field_evidence_errors(record: dict[str, Any], root: Path) -> list[str]:
 
     errors = []
     for name in ("colour_temperature_k", "illuminance_lux"):
-        for index, evidence in enumerate(record["lighting"][name]["evidence"]):
+        field = record["lighting"][name]
+        for index, evidence in enumerate(field["evidence"]):
             errors += tv._reference_errors(evidence, root, f"lighting.{name}.evidence[{index}]")
+        errors += _review_references(field, root, f"lighting.{name}")
     for index, fixture in enumerate(record["lighting"]["fixture_layout"]):
         for evidence_index, evidence in enumerate(fixture["evidence"]):
             errors += tv._reference_errors(evidence, root, f"lighting.fixture_layout[{index}].evidence[{evidence_index}]")
+        errors += _review_references(fixture, root, f"lighting.fixture_layout[{index}]")
     anchor = record["scale"].get("anchor")
     if isinstance(anchor, dict):
         for index, evidence in enumerate(anchor["evidence"]):
             errors += tv._reference_errors(evidence, root, f"scale.anchor.evidence[{index}]")
+        errors += _review_references(anchor, root, "scale.anchor")
+    errors += _review_references(record["lighting"], root, "lighting")
+    errors += _review_references(record["scale"], root, "scale")
+    return errors
+
+
+def _review_references(field: dict[str, Any], root: Path, label: str) -> list[str]:
+    import template_validate as tv
+
+    errors = []
+    for index, review in enumerate(field["review_evidence"]):
+        for evidence_index, reference in enumerate(review["evidence"]):
+            errors += tv._reference_errors(
+                reference, root, f"{label}.review_evidence[{index}].evidence[{evidence_index}]"
+            )
     return errors
 
 
@@ -113,6 +136,70 @@ def _review_evidence_errors(record: dict[str, Any]) -> list[str]:
     anchor = record["scale"].get("anchor")
     if isinstance(anchor, dict) and anchor["review_status"] in reviewed and not anchor["evidence"]:
         errors.append("scale.anchor: reviewed values require cited evidence")
+    for label, field in _reviewable_fields(record):
+        if field["review_status"] in reviewed and not field["review_evidence"]:
+            errors.append(f"{label}: reviewed status requires who/when/what review evidence")
+        if field["review_status"] not in reviewed and field["review_evidence"]:
+            errors.append(f"{label}: pending or not-reviewed status cannot carry review evidence")
+        for index, evidence in enumerate(field["review_evidence"]):
+            expected = "operator" if field["review_status"] == "operator_reviewed" else "vision_model"
+            if field["review_status"] in reviewed and evidence["reviewer_kind"] != expected:
+                errors.append(f"{label}: review evidence reviewer kind conflicts with status")
+            try:
+                reviewed_at = datetime.fromisoformat(
+                    evidence["reviewed_at"].replace("Z", "+00:00")
+                )
+                if reviewed_at.utcoffset() is None:
+                    raise ValueError("timezone required")
+            except ValueError:
+                errors.append(
+                    f"{label}: review evidence date must be a timezone-aware ISO date-time"
+                )
+    return errors
+
+
+def _reviewable_fields(record: dict[str, Any]) -> list[tuple[str, dict[str, Any]]]:
+    lighting = record["lighting"]
+    fields = [
+        (f"lighting.{name}", lighting[name])
+        for name in ("colour_temperature_k", "illuminance_lux")
+    ]
+    fields += [
+        (f"lighting.fixture_layout[{index}]", fixture)
+        for index, fixture in enumerate(lighting["fixture_layout"])
+    ]
+    anchor = record["scale"].get("anchor")
+    if isinstance(anchor, dict):
+        fields.append(("scale.anchor", anchor))
+    fields += [("lighting", lighting), ("scale", record["scale"])]
+    return fields
+
+
+def _aggregate_status_errors(record: dict[str, Any]) -> list[str]:
+    lighting = record["lighting"]
+    lighting_fields = _reviewable_fields(record)[: 2 + len(lighting["fixture_layout"])]
+    lighting_statuses = {field["review_status"] for _, field in lighting_fields}
+    errors = []
+    if len(lighting_statuses) != 1:
+        errors.append("lighting fields have mixed review statuses")
+    else:
+        field_status = next(iter(lighting_statuses))
+        if lighting["review_status"] != field_status:
+            errors.append("lighting aggregate review status conflicts with its fields")
+        expected_status = {
+            "not_reviewed": "uncalibrated_not_reviewed",
+            "pending_operator_review": "estimated_pending_review",
+            "pending_vision_model_review": "estimated_pending_review",
+            "operator_reviewed": "reviewed",
+            "vision_model_reviewed": "reviewed",
+        }[field_status]
+        if lighting["status"] != expected_status:
+            errors.append("lighting aggregate status is unsupported by its fields")
+    scale = record["scale"]
+    anchor = scale.get("anchor")
+    anchor_status = anchor["review_status"] if isinstance(anchor, dict) else "not_reviewed"
+    if scale["review_status"] != anchor_status:
+        errors.append("scale aggregate review status conflicts with its anchor")
     return errors
 
 
@@ -145,13 +232,28 @@ def _check_base_scale(record: dict[str, Any], base: dict[str, Any]) -> list[str]
 def _check_calibration(record: dict[str, Any], root: Path) -> list[str]:
     scale = record["scale"]
     anchor = scale.get("anchor")
+    if not isinstance(anchor, dict) or anchor.get("status") != "measured":
+        if scale["status"] == "calibrated":
+            return ["calibrated scale requires an anchor marked measured"]
+        return []
+    errors = _measured_anchor_errors(anchor, root)
+    if errors:
+        return errors
     if scale["status"] != "calibrated":
         return []
-    if not isinstance(anchor, dict) or anchor.get("status") != "measured":
-        return ["calibrated scale requires an anchor marked measured"]
+    if record["record_kind"] == "source":
+        base, read_errors = _json_object(root / record["base_record"]["path"], "base_record")
+        if read_errors:
+            return read_errors
+        if base.get("scale_calibrated") is not True:
+            return ["source manifest has not accepted scale calibration"]
+    return []
+
+
+def _measured_anchor_errors(anchor: dict[str, Any], root: Path) -> list[str]:
     measurement = anchor.get("measurement")
     if not isinstance(measurement, dict):
-        return ["calibrated scale requires a cited committed measurement"]
+        return ["measured scale anchor requires a cited committed measurement"]
     import template_validate as tv
 
     errors = tv._reference_errors(measurement, root, "scale.anchor.measurement")
@@ -167,14 +269,14 @@ def _check_calibration(record: dict[str, Any], root: Path) -> list[str]:
         measured_value = _pointer_value(source, measurement["json_pointer"])
     except KeyError:
         return ["scale.anchor.measurement json_pointer does not resolve"]
+    if (
+        isinstance(measured_value, bool)
+        or not isinstance(measured_value, (int, float))
+        or not math.isfinite(measured_value)
+    ):
+        return ["scale.anchor.measurement must resolve to a finite numeric value"]
     if measured_value != anchor["value_m"]:
         return ["scale.anchor value does not match cited committed measurement"]
-    if record["record_kind"] == "source":
-        base, read_errors = _json_object(root / record["base_record"]["path"], "base_record")
-        if read_errors:
-            return read_errors
-        if base.get("scale_calibrated") is not True:
-            return ["source manifest has not accepted scale calibration"]
     return []
 
 

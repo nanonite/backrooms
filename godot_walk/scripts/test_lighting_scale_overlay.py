@@ -115,6 +115,57 @@ def test_legacy_source_manifests_without_scale_block_accept_uncalibrated_overlay
     assert ls.validate_overlay(record, tmp_path) == []
 
 
+def test_legacy_source_rejects_measured_anchor_without_measurement(tmp_path) -> None:
+    record = next(item for item in records() if item["record_kind"] == "source")
+    record = copy.deepcopy(record)
+    _copy_overlay_dependencies(record, tmp_path)
+    base = {"schema_version": 1, "source_id": record["record_id"]}
+    base_path = tmp_path / "legacy-source.json"
+    base_path.write_text(json.dumps(base), encoding="utf-8")
+    reference = {
+        "path": "legacy-source.json",
+        "sha256": hashlib.sha256(base_path.read_bytes()).hexdigest(),
+    }
+    record["base_record"] = reference
+    _replace_field_evidence(record, reference)
+    record["scale"]["anchor"]["status"] = "measured"
+    record["scale"]["anchor"]["measurement"] = None
+
+    errors = ls.validate_overlay(record, tmp_path)
+    assert any("cited committed measurement" in error for error in errors)
+    assert ls.lighting_scale_state(record, tmp_path)["scale"]["anchor"] is None
+
+
+def test_measured_anchor_rejects_boolean_measurement(tmp_path, monkeypatch) -> None:
+    record = next(item for item in records() if item["record_kind"] == "source")
+    record = copy.deepcopy(record)
+    _copy_overlay_dependencies(record, tmp_path)
+    base = {"schema_version": 1, "source_id": record["record_id"]}
+    base_path = tmp_path / "legacy-source.json"
+    base_path.write_text(json.dumps(base), encoding="utf-8")
+    reference = {
+        "path": "legacy-source.json",
+        "sha256": hashlib.sha256(base_path.read_bytes()).hexdigest(),
+    }
+    record["base_record"] = reference
+    _replace_field_evidence(record, reference)
+    anchor = record["scale"]["anchor"]
+    anchor["status"] = "measured"
+    anchor["value_m"] = 1
+    measurement_path = tmp_path / "measurement.json"
+    measurement_path.write_text(json.dumps({"value_m": True}), encoding="utf-8")
+    anchor["measurement"] = {
+        "path": "measurement.json",
+        "sha256": hashlib.sha256(measurement_path.read_bytes()).hexdigest(),
+        "json_pointer": "/value_m",
+    }
+    monkeypatch.setattr(ls, "_committed_measurement_error", lambda reference, root: None)
+
+    errors = ls.validate_overlay(record, tmp_path)
+
+    assert any("finite numeric value" in error for error in errors)
+
+
 def test_base_anchor_agreement_checks_kind_as_well_as_measurement(tmp_path) -> None:
     record = next(item for item in records() if item["record_kind"] == "module")
     record = copy.deepcopy(record)
@@ -222,6 +273,85 @@ def test_reviewed_values_require_cited_evidence() -> None:
         "reviewed values require cited evidence" in error
         for error in ls.validate_overlay(record)
     )
+
+
+def test_aggregate_reviewed_status_with_pending_fields_is_rejected() -> None:
+    record = copy.deepcopy(records()[0])
+    record["lighting"]["status"] = "reviewed"
+    record["lighting"]["review_status"] = "operator_reviewed"
+    assert any(
+        "aggregate review status conflicts" in error
+        or "aggregate status is unsupported" in error
+        for error in ls.validate_overlay(record)
+    )
+
+
+def test_operator_reviewed_fields_without_review_evidence_are_rejected() -> None:
+    record = copy.deepcopy(records()[0])
+    fields = [record["lighting"][name] for name in ("colour_temperature_k", "illuminance_lux")]
+    fields += record["lighting"]["fixture_layout"]
+    for field in fields:
+        field["review_status"] = "operator_reviewed"
+    record["lighting"]["status"] = "reviewed"
+    record["lighting"]["review_status"] = "operator_reviewed"
+    assert any(
+        "who/when/what review evidence" in error for error in ls.validate_overlay(record)
+    )
+
+
+def test_mixed_field_review_statuses_are_rejected() -> None:
+    record = copy.deepcopy(records()[0])
+    record["lighting"]["illuminance_lux"]["review_status"] = "pending_vision_model_review"
+    assert any("mixed review statuses" in error for error in ls.validate_overlay(record))
+
+
+def test_scale_aggregate_review_status_must_match_anchor() -> None:
+    record = copy.deepcopy(records()[0])
+    record["scale"]["review_status"] = "operator_reviewed"
+    assert any(
+        "scale aggregate review status conflicts" in error
+        for error in ls.validate_overlay(record)
+    )
+
+
+def test_review_evidence_reviewer_kind_must_match_field_status() -> None:
+    record = copy.deepcopy(records()[0])
+    field = record["lighting"]["illuminance_lux"]
+    field["review_status"] = "operator_reviewed"
+    field["review_evidence"] = [{
+        "reviewer_kind": "vision_model",
+        "reviewer": "vision-reviewer",
+        "reviewed_at": "2026-11-11T00:00:00Z",
+        "what_was_reviewed": "Illuminance estimate",
+        "evidence": [record["base_record"]],
+    }]
+    assert any(
+        "reviewer kind conflicts" in error for error in ls.validate_overlay(record)
+    )
+
+
+def test_review_evidence_requires_iso_date_time() -> None:
+    record = copy.deepcopy(records()[0])
+    field = record["lighting"]["colour_temperature_k"]
+    field["review_status"] = "operator_reviewed"
+    field["review_evidence"] = [{
+        "reviewer_kind": "operator",
+        "reviewer": "operator-1",
+        "reviewed_at": "yesterday",
+        "what_was_reviewed": "Colour temperature estimate",
+        "evidence": [record["base_record"]],
+    }]
+    assert any(
+        "ISO date-time" in error for error in ls.validate_overlay(record)
+    )
+
+
+def test_state_helper_does_not_expose_invalid_aggregate_claims() -> None:
+    record = copy.deepcopy(records()[0])
+    record["lighting"]["status"] = "reviewed"
+    state = ls.lighting_scale_state(record)
+    assert state["lighting"]["review_status"] == "not_reviewed"
+    assert state["scale"]["status"] == "uncalibrated"
 
 
 def test_validator_reports_missing_or_unreadable_base_without_raising(tmp_path) -> None:
