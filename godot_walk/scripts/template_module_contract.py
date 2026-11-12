@@ -9,6 +9,7 @@ because it is the single module record introduced by #229.
 from __future__ import annotations
 
 import json
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -59,6 +60,21 @@ def _reference(path: Path, root: Path) -> dict[str, str]:
     }
 
 
+@lru_cache(maxsize=8)
+def _acoustics_document(path_text: str, mtime_ns: int, size: int) -> dict[str, Any]:
+    del mtime_ns, size
+    return _load(Path(path_text))
+
+
+@lru_cache(maxsize=8)
+def _metadata_validator(
+    path_text: str, mtime_ns: int, size: int
+) -> Draft202012Validator:
+    del mtime_ns, size
+    schema = json.loads(Path(path_text).read_text(encoding="utf-8"))
+    return Draft202012Validator(schema)
+
+
 def _module_key(entry: dict[str, Any]) -> str:
     module_id, version = entry.get("module_id"), entry.get("version")
     if not isinstance(module_id, str) or not isinstance(version, int):
@@ -99,9 +115,13 @@ def _acoustics_errors(
     root: Path,
 ) -> list[str]:
     label = repo_relative(root / MODULE_ACOUSTICS, root)
+    path = root / MODULE_ACOUSTICS
     try:
-        modules = _load(root / MODULE_ACOUSTICS).get("modules", {})
-    except ModuleContractError as error:
+        stat = path.stat()
+        modules = _acoustics_document(
+            str(path.resolve()), stat.st_mtime_ns, stat.st_size
+        ).get("modules", {})
+    except (ModuleContractError, OSError) as error:
         return [str(error)]
     record = modules.get(_module_key(entry))
     if not isinstance(record, dict):
@@ -157,15 +177,18 @@ def _metadata_errors(
         ]
     if not profile_exists:
         return []
+    schema_path = root / MODULE_METADATA_SCHEMA
     try:
         record = _load(metadata)
-        schema = json.loads((root / MODULE_METADATA_SCHEMA).read_text(encoding="utf-8"))
+        schema_stat = schema_path.stat()
+        validator = _metadata_validator(
+            str(schema_path.resolve()), schema_stat.st_mtime_ns, schema_stat.st_size
+        )
     except (ModuleContractError, OSError, json.JSONDecodeError) as error:
         return [str(error)]
     label = repo_relative(metadata, root)
     errors = [
-        f"{label}: schema: {error.message}"
-        for error in Draft202012Validator(schema).iter_errors(record)
+        f"{label}: schema: {error.message}" for error in validator.iter_errors(record)
     ]
     errors.extend(
         f"{label}: {error}"

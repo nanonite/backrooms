@@ -18,6 +18,7 @@ import json
 import sys
 from collections.abc import Callable
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -25,19 +26,15 @@ from jsonschema import Draft202012Validator
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from deterministic_json import ROOT, sha256_file
+from deterministic_json import ROOT, repository_state, sha256_file
 
 SOURCE_MANIFEST_SCHEMAS = {
     1: Path("godot_walk/source_library/source_manifest.schema.json"),
     2: Path("godot_walk/source_library/source_manifest_v2.schema.json"),
     3: Path("godot_walk/source_library/source_manifest_v3.schema.json"),
 }
-MODULE_PROFILE_SCHEMA = Path(
-    "godot_walk/room_catalog/module_profile.schema.json"
-)
-MODULE_PROFILE_T6_SCHEMA = Path(
-    "godot_walk/room_catalog/module_profile_t6.schema.json"
-)
+MODULE_PROFILE_SCHEMA = Path("godot_walk/room_catalog/module_profile.schema.json")
+MODULE_PROFILE_T6_SCHEMA = Path("godot_walk/room_catalog/module_profile_t6.schema.json")
 T6_PROBE_RESULTS = Path(
     "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json"
 )
@@ -87,13 +84,24 @@ class ValidationReport:
 def load_schema(relative_path: Path, root: Path = ROOT) -> dict[str, Any]:
     path = root / relative_path
     try:
-        schema = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        stat = path.stat()
+    except OSError as error:
         raise TemplateValidationError(
             f"Cannot read schema {relative_path}: {error}"
         ) from error
+    return _load_schema_cached(str(path.resolve()), stat.st_mtime_ns, stat.st_size)
+
+
+@lru_cache(maxsize=32)
+def _load_schema_cached(path_text: str, mtime_ns: int, size: int) -> dict[str, Any]:
+    del mtime_ns, size
+    path = Path(path_text)
+    try:
+        schema = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise TemplateValidationError(f"Cannot read schema {path}: {error}") from error
     if not isinstance(schema, dict):
-        raise TemplateValidationError(f"Schema is not a JSON object: {relative_path}")
+        raise TemplateValidationError(f"Schema is not a JSON object: {path}")
     Draft202012Validator.check_schema(schema)
     return schema
 
@@ -134,10 +142,15 @@ def source_manifest_errors(record: dict[str, Any], root: Path = ROOT) -> list[st
     errors = source_manifest_schema_errors(record, root)
     if errors or record.get("schema_version") != 3:
         return errors
-    return errors + _source_content_errors(record, root) + _evidence_errors(
-        record.get("scale", {}).get("evidence", []), root, "scale.evidence"
-    ) + _evidence_errors(
-        record.get("lighting", {}).get("evidence", []), root, "lighting.evidence"
+    return (
+        errors
+        + _source_content_errors(record, root)
+        + _evidence_errors(
+            record.get("scale", {}).get("evidence", []), root, "scale.evidence"
+        )
+        + _evidence_errors(
+            record.get("lighting", {}).get("evidence", []), root, "lighting.evidence"
+        )
     )
 
 
@@ -177,9 +190,7 @@ def _source_content_errors(record: dict[str, Any], root: Path) -> list[str]:
     return errors
 
 
-def _room_reference_errors(
-    room: dict[str, Any], root: Path, label: str
-) -> list[str]:
+def _room_reference_errors(room: dict[str, Any], root: Path, label: str) -> list[str]:
     errors = _reference_errors(
         {"path": room["adaptation_path"], "sha256": room["adaptation_sha256"]},
         root,
@@ -227,9 +238,7 @@ def module_profile_errors(record: dict[str, Any], root: Path = ROOT) -> list[str
     return errors
 
 
-def module_profile_t6_errors(
-    record: dict[str, Any], root: Path = ROOT
-) -> list[str]:
+def module_profile_t6_errors(record: dict[str, Any], root: Path = ROOT) -> list[str]:
     """Validate an editable T6 overlay and its frozen base/evidence references."""
     errors = schema_errors(record, load_schema(MODULE_PROFILE_T6_SCHEMA, root))
     if errors:
@@ -299,8 +308,14 @@ def _t6_metric_provenance_errors(
         citations = _metric_citations(source)
         errors += _metric_source_syntax_errors(name, source)
         errors += _metric_status_errors(
-            name, metric, citations, root, module_id, base_path,
-            profile_version, poetics_path,
+            name,
+            metric,
+            citations,
+            root,
+            module_id,
+            base_path,
+            profile_version,
+            poetics_path,
         )
         errors += _metric_citation_errors(name, citations, root)
     return errors
@@ -317,23 +332,48 @@ def _metric_status_errors(
     poetics_path: str | None,
 ) -> list[str]:
     label = f"ceiling_volume.{name}"
-    value, status, basis = metric.get("value"), metric.get("status"), metric.get("basis_status")
+    value, status, basis = (
+        metric.get("value"),
+        metric.get("status"),
+        metric.get("basis_status"),
+    )
     if value is None:
-        return [] if status == basis == "unmeasured" else [f"{label}: null values must be unmeasured"]
+        return (
+            []
+            if status == basis == "unmeasured"
+            else [f"{label}: null values must be unmeasured"]
+        )
     if status == "measured":
         return _measured_metric_errors(
-            label, metric, citations, root, module_id, profile_version,
-            base_path, poetics_path,
+            label,
+            metric,
+            citations,
+            root,
+            module_id,
+            profile_version,
+            base_path,
+            poetics_path,
         )
     if status == "authored":
         return _authored_metric_errors(
-            label, basis, citations, module_id, profile_version,
-            base_path, poetics_path,
+            label,
+            basis,
+            citations,
+            module_id,
+            profile_version,
+            base_path,
+            poetics_path,
         )
     if status == "derived":
         return _derived_metric_errors(
-            label, metric, basis, citations, module_id, profile_version,
-            base_path, poetics_path,
+            label,
+            metric,
+            basis,
+            citations,
+            module_id,
+            profile_version,
+            base_path,
+            poetics_path,
         )
     return [f"{label}: unmeasured values must be null"]
 
@@ -356,7 +396,8 @@ def _measured_metric_errors(
     if any(
         _citation_basis(
             path_text, pointer, module_id, profile_version, base_path, poetics_path
-        ) != "measured"
+        )
+        != "measured"
         for path_text, pointer in citations
     ):
         errors.append(f"{label}: measured value must cite its measured probe field")
@@ -374,8 +415,12 @@ def _measured_metric_errors(
 
 
 def _measurement_match_errors(
-    label: str, value: Any, references: list[tuple[str, str]], tolerance: Any,
-    valid_tolerance: bool, root: Path,
+    label: str,
+    value: Any,
+    references: list[tuple[str, str]],
+    tolerance: Any,
+    valid_tolerance: bool,
+    root: Path,
 ) -> list[str]:
     errors = []
     for path_text, pointer in references:
@@ -385,7 +430,9 @@ def _measurement_match_errors(
         elif not isinstance(cited, (int, float)) or not isinstance(value, (int, float)):
             errors.append(f"{label}: cited measurement is not numeric")
         elif valid_tolerance and abs(cited - value) > tolerance:
-            errors.append(f"{label}: value differs from cited measurement beyond tolerance")
+            errors.append(
+                f"{label}: value differs from cited measurement beyond tolerance"
+            )
     return errors
 
 
@@ -406,7 +453,8 @@ def _authored_metric_errors(
     if any(
         _citation_basis(
             path_text, pointer, module_id, profile_version, base_path, poetics_path
-        ) != "authored"
+        )
+        != "authored"
         for path_text, pointer in citations
     ):
         errors.append(f"{label}: authored values must cite authored inputs")
@@ -434,7 +482,8 @@ def _derived_metric_errors(
     elif any(
         _citation_basis(
             path_text, pointer, module_id, profile_version, base_path, poetics_path
-        ) != basis
+        )
+        != basis
         for path_text, pointer in citations
     ):
         errors.append(f"{label}: derived basis_status does not match its cited inputs")
@@ -546,9 +595,7 @@ def generative_map_errors(record: dict[str, Any], root: Path = ROOT) -> list[str
     return errors
 
 
-def _reference_errors(
-    reference: dict[str, Any], root: Path, label: str
-) -> list[str]:
+def _reference_errors(reference: dict[str, Any], root: Path, label: str) -> list[str]:
     path_text, digest = reference.get("path"), reference.get("sha256")
     if not isinstance(path_text, str) or not isinstance(digest, str):
         return [f"{label}: reference lacks a path or sha256"]
@@ -566,9 +613,7 @@ def _reference_errors(
     return []
 
 
-def _evidence_errors(
-    evidence: Any, root: Path, label: str
-) -> list[str]:
+def _evidence_errors(evidence: Any, root: Path, label: str) -> list[str]:
     if not isinstance(evidence, list):
         return [f"{label}: evidence must be an array"]
     errors: list[str] = []
@@ -614,16 +659,21 @@ def module_profile_t6_paths(root: Path = ROOT) -> list[Path]:
 
 def generative_map_paths(root: Path = ROOT) -> list[Path]:
     maps = root / "godot_walk/room_catalog/generative_maps"
-    return sorted(
-        path for path in maps.glob("*.json") if ".fill." not in path.name
-    )
+    return sorted(path for path in maps.glob("*.json") if ".fill." not in path.name)
 
 
 def validate_repository(root: Path = ROOT) -> ValidationReport:
     """Schema-check every committed source manifest, profile and map."""
-    manifest_paths = [
-        path for path in source_manifest_paths(root) if path.is_file()
-    ]
+    return _validate_repository_cached(repository_state(root), str(root.resolve()))
+
+
+@lru_cache(maxsize=8)
+def _validate_repository_cached(
+    state: tuple[tuple[str, int, int], ...], root_text: str
+) -> ValidationReport:
+    del state
+    root = Path(root_text)
+    manifest_paths = [path for path in source_manifest_paths(root) if path.is_file()]
     profile_paths = [path for path in module_profile_paths(root) if path.is_file()]
     t6_profile_paths = [
         path for path in module_profile_t6_paths(root) if path.is_file()

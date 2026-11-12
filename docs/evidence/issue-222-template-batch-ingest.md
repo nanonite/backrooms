@@ -89,7 +89,11 @@ godot4 --headless --path godot_walk --script res://scripts/test_library_rooms.gd
 - `python3 godot_walk/scripts/template_validate.py` — valid; 30 source
   manifests, 22 module profiles, 68 generative maps, 0 errors.
 - Full Python suite: `python3 -m pytest -q godot_walk/scripts` — 1,291 passed,
-  5 skipped, 58 subtests passed in 965.20 seconds (exit 0).
+  5 skipped, 58 subtests passed in 410.49 seconds (exit 0). The first harness
+  verification attempt timed out at 600 seconds, so the read-only validators
+  now memoize by repository-state fingerprint, receipt and schema caches are
+  reused, module metadata generation no longer rewrites unchanged records, and
+  the palette-only lock test no longer mutates the real repository.
 - Godot headless walkthrough for `gmap-0.13.0` seeds 1, 2, 3, 32 and 279 on
   Godot 4.6.3.stable.official: exit 0, `ISSUE183_SHAPE_ROOMS: PASS` for every
   seed.

@@ -19,6 +19,7 @@ from fractions import Fraction
 from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Any
 
+from deterministic_json import sha256_file
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -45,14 +46,6 @@ PICTURE_SET_IDENTITY_FIELDS = (
 
 class SourceLibraryError(ValueError):
     """An intake source or library record violates the source contract."""
-
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        for block in iter(lambda: source.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def source_kind_for_id(source_id: str) -> str:
@@ -133,7 +126,9 @@ def picture_set_images(directory: Path) -> list[Path]:
     images = [
         path
         for path in directory.iterdir()
-        if path.is_file() and not path.is_symlink() and path.suffix.lower() in PICTURE_SUFFIXES
+        if path.is_file()
+        and not path.is_symlink()
+        and path.suffix.lower() in PICTURE_SUFFIXES
     ]
     return sorted(images, key=lambda item: (item.name.casefold(), item.name))
 
@@ -155,7 +150,9 @@ def probe_picture_set(picture_dir: Path, root: Path = ROOT) -> list[dict[str, An
     directory, relative = canonical_picture_set_path(picture_dir, root)
     files = picture_set_images(directory)
     if not files:
-        raise SourceLibraryError(f"Picture set contains no supported images: {relative}")
+        raise SourceLibraryError(
+            f"Picture set contains no supported images: {relative}"
+        )
     images = []
     for capture_index, path in enumerate(files, start=1):
         dimensions = probe_picture(path)
@@ -253,9 +250,11 @@ def validate_index(root: Path = ROOT) -> list[dict[str, Any]]:
     if version not in (1, 2) or not isinstance(index.get("sources"), list):
         raise SourceLibraryError("Unsupported source-library index")
     for entry in index["sources"]:
-        if version == 1 and isinstance(entry, dict) and str(
-            entry.get("source_id", "")
-        ).startswith("picture-set-"):
+        if (
+            version == 1
+            and isinstance(entry, dict)
+            and str(entry.get("source_id", "")).startswith("picture-set-")
+        ):
             raise SourceLibraryError("Picture-set sources require index schema 2")
     seen_paths: set[str] = set()
     seen_hashes: set[str] = set()
@@ -313,10 +312,9 @@ def _valid_source_path(source_path: Any, source_kind: str) -> bool:
     if not isinstance(source_path, str):
         return False
     if source_kind == VIDEO_SOURCE_KIND:
-        return (
-            source_path.startswith("data/videos/")
-            and Path(source_path).name == source_path.removeprefix("data/videos/")
-        )
+        return source_path.startswith("data/videos/") and Path(
+            source_path
+        ).name == source_path.removeprefix("data/videos/")
     relative = PurePosixPath(source_path)
     return (
         source_path.startswith("data/pictures/")
@@ -349,7 +347,9 @@ def _validate_manifest_source(
         return
     if content_digest != source_digest:
         raise SourceLibraryError(f"Manifest source hash mismatch: {source_id}")
-    _validate_picture_set_content(pictures or [], source_path, source_digest, source_id, root)
+    _validate_picture_set_content(
+        pictures or [], source_path, source_digest, source_id, root
+    )
 
 
 def manifest_video_content(manifest: dict[str, Any]) -> dict[str, Any]:
@@ -437,7 +437,9 @@ def _validate_picture_set_content(
             or capture_index < 1
             or capture_index in seen_indexes
         ):
-            raise SourceLibraryError(f"Picture capture indexes are invalid: {source_id}")
+            raise SourceLibraryError(
+                f"Picture capture indexes are invalid: {source_id}"
+            )
         seen_indexes.add(capture_index)
         path = root.joinpath(*relative.parts)
         _reject_symlink_path(path, root)

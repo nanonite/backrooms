@@ -5,10 +5,17 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from deterministic_json import ROOT, canonical_bytes, sha256_file
+from deterministic_json import (
+    ROOT,
+    canonical_bytes,
+    repository_state,
+    sha256_bytes,
+    sha256_file,
+)
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import operator_approval_receipts as receipts
@@ -18,8 +25,14 @@ OUTPUT = CATALOG / "module_metadata"
 SCHEMA = CATALOG / "module_metadata.schema.json"
 ACOUSTICS = CATALOG / "module_acoustics_v0.2.0.json"
 ACOUSTIC_FIELDS = (
-    "mean_distance_m", "max_distance_m", "ceiling_height_m", "openness",
-    "room_size", "damping", "wet", "predelay_msec",
+    "mean_distance_m",
+    "max_distance_m",
+    "ceiling_height_m",
+    "openness",
+    "room_size",
+    "damping",
+    "wet",
+    "predelay_msec",
 )
 MEASURED_FIELDS = frozenset(ACOUSTIC_FIELDS[:4])
 CEILING_LIMITATION = "The up-ray ceiling estimate is capped by the profile ceiling hint; it is not an uncapped ceiling measurement."
@@ -40,7 +53,11 @@ def _reference(path: Path, root: Path) -> dict[str, str]:
 def _is_authored(item: dict[str, Any], root: Path) -> bool:
     if "origin" in item:
         return item["origin"] == "authored_kit"
-    return item["profile"].resolve().is_relative_to((root / CATALOG / "module_profiles").resolve())
+    return (
+        item["profile"]
+        .resolve()
+        .is_relative_to((root / CATALOG / "module_profiles").resolve())
+    )
 
 
 def _output_path(item: dict[str, Any], root: Path) -> Path:
@@ -55,11 +72,15 @@ def _output_path(item: dict[str, Any], root: Path) -> Path:
 
 def record_paths(root: Path = ROOT) -> list[Path]:
     authored = (root / OUTPUT).glob("*-v1.json")
-    sources = root.glob("godot_walk/source_library/sources/*/rooms/*/module_metadata.json")
+    sources = root.glob(
+        "godot_walk/source_library/sources/*/rooms/*/module_metadata.json"
+    )
     return sorted([*authored, *sources])
 
 
-def _record_coverage_errors(paths: list[Path], expected: dict[str, Path], root: Path) -> list[str]:
+def _record_coverage_errors(
+    paths: list[Path], expected: dict[str, Path], root: Path
+) -> list[str]:
     errors: list[str] = []
     seen: dict[str, Path] = {}
     for path in paths:
@@ -73,27 +94,45 @@ def _record_coverage_errors(paths: list[Path], expected: dict[str, Path], root: 
             errors.append(f"{path}: module_id must be a string")
             continue
         if module_id in seen:
-            errors.append(f"{path}: duplicate module record for {module_id}; also at {seen[module_id]}")
+            errors.append(
+                f"{path}: duplicate module record for {module_id}; also at {seen[module_id]}"
+            )
         seen[module_id] = path
         expected_path = expected.get(module_id)
         if expected_path is None:
             errors.append(f"{path}: module_id {module_id} is not admitted")
         elif path.resolve() != expected_path.resolve():
-            errors.append(f"{path}: record for {module_id} must be at {expected_path.relative_to(root)}")
+            errors.append(
+                f"{path}: record for {module_id} must be at {expected_path.relative_to(root)}"
+            )
     for module_id, expected_path in expected.items():
         if module_id not in seen:
-            errors.append(f"{expected_path.relative_to(root)}: missing record for admitted module {module_id}")
+            errors.append(
+                f"{expected_path.relative_to(root)}: missing record for admitted module {module_id}"
+            )
     return errors
 
 
 def _module_inputs(root: Path) -> list[dict[str, Any]]:
     profiles = list((root / CATALOG / "module_profiles").glob("*.json"))
-    profiles = [p for p in profiles if "-t6-" not in p.name and "-lighting-scale-" not in p.name]
-    profiles.extend(root.glob("godot_walk/source_library/sources/*/rooms/*/module_profile_v1.json"))
+    profiles = [
+        p for p in profiles if "-t6-" not in p.name and "-lighting-scale-" not in p.name
+    ]
+    profiles.extend(
+        root.glob("godot_walk/source_library/sources/*/rooms/*/module_profile_v1.json")
+    )
     descriptors = list((root / CATALOG / "module_surface_palettes").glob("*.json"))
-    descriptors.extend(root.glob("godot_walk/source_library/sources/*/rooms/*/module_surface_palette_v1.json"))
+    descriptors.extend(
+        root.glob(
+            "godot_walk/source_library/sources/*/rooms/*/module_surface_palette_v1.json"
+        )
+    )
     t6_files = list((root / CATALOG / "module_profiles").glob("*-t6-v1.json"))
-    t6_files.extend(root.glob("godot_walk/source_library/sources/*/rooms/*/module_profile_t6_v1.json"))
+    t6_files.extend(
+        root.glob(
+            "godot_walk/source_library/sources/*/rooms/*/module_profile_t6_v1.json"
+        )
+    )
     by_id = lambda paths: {_load(path)["module_id"]: path for path in paths}
     descriptor_by_id, t6_by_id = by_id(descriptors), by_id(t6_files)
     acoustic_index = _load(root / ACOUSTICS)["modules"]
@@ -115,10 +154,20 @@ def _module_inputs(root: Path) -> list[dict[str, Any]]:
             overlay = source_root / "source_lighting_scale_v1.json"
         if not overlay.exists():
             overlay = None
-        result.append({"module_id": module_id, "profile": profile_path, "descriptor": descriptor_path,
-                       "t6": t6_by_id[module_id], "poetics": root / poetics, "overlay": overlay,
-                       "acoustic_key": acoustic_key,
-                       "origin": "authored_kit" if profile_path.parent == root / CATALOG / "module_profiles" else "source_room"})
+        result.append(
+            {
+                "module_id": module_id,
+                "profile": profile_path,
+                "descriptor": descriptor_path,
+                "t6": t6_by_id[module_id],
+                "poetics": root / poetics,
+                "overlay": overlay,
+                "acoustic_key": acoustic_key,
+                "origin": "authored_kit"
+                if profile_path.parent == root / CATALOG / "module_profiles"
+                else "source_room",
+            }
+        )
     return result
 
 
@@ -133,18 +182,29 @@ def _pointer(document: Any, pointer: str) -> Any:
     return value
 
 
-def _approval(path: str, field: str, root: Path) -> dict[str, Any] | None:
-    return receipts.operator_approval_for_field(path, field, root)
+def _approval(
+    path: str,
+    field: str,
+    root: Path,
+    receipt_cache: tuple[dict[str, Any], ...] | None = None,
+) -> dict[str, Any] | None:
+    return receipts.operator_approval_for_field(path, field, root, receipt_cache)
 
 
 def _leaf_paths(document: Any, prefix: str = "") -> list[str]:
     """Return concrete JSON pointers for every scalar leaf in a layer."""
     if isinstance(document, dict):
-        return [leaf for key, value in document.items()
-                for leaf in _leaf_paths(value, f"{prefix}/{key}")]
+        return [
+            leaf
+            for key, value in document.items()
+            for leaf in _leaf_paths(value, f"{prefix}/{key}")
+        ]
     if isinstance(document, list):
-        return [leaf for index, value in enumerate(document)
-                for leaf in _leaf_paths(value, f"{prefix}/{index}")]
+        return [
+            leaf
+            for index, value in enumerate(document)
+            for leaf in _leaf_paths(value, f"{prefix}/{index}")
+        ]
     return [prefix or "/"]
 
 
@@ -179,15 +239,22 @@ def _record_paths_for_source(layer: str, source_field: str) -> list[str]:
     return [primary, f"acoustics.committed_block.probe.{field}"]
 
 
-def _derive_layer_locks(locks: dict[str, Any], layer: str, path: str,
-                        document: Any, root: Path, source_prefix: str = "") -> None:
+def _derive_layer_locks(
+    locks: dict[str, Any],
+    layer: str,
+    path: str,
+    document: Any,
+    root: Path,
+    source_prefix: str = "",
+    receipt_cache: tuple[dict[str, Any], ...] | None = None,
+) -> None:
     source_document = document
     source = _load(root / path)
     for leaf in _leaf_paths(document):
         source_field = f"{source_prefix}{leaf}"
         if layer == "descriptor" and source_field.endswith("/palette_id"):
             continue
-        approval = _approval(path, source_field, root)
+        approval = _approval(path, source_field, root, receipt_cache)
         if approval is None:
             continue
         record_path = _record_path_for_source(layer, source_field)
@@ -199,15 +266,31 @@ def _derive_layer_locks(locks: dict[str, Any], layer: str, path: str,
             value = _reference(root / path, root)["sha256"]
         else:
             value = _pointer(source_document, leaf)
-        receipt_path = root / receipts.RECEIPT_DIR / f"issue-{approval['issue_id']}.json"
-        record_paths = ([record_path] if layer == "poetics"
-                        or (layer == "lighting_scale" and path.endswith("source_lighting_scale_v1.json"))
-                        else _record_paths_for_source(layer, source_field))
-        locks[lock_name] = {"receipt": _reference(receipt_path, root), "source_path": path,
-                            "source_field": source_field, "record_value_path": record_path,
-                            "record_value_paths": record_paths, "value": value,
-                            **({"source_value": _pointer(source, source_field)}
-                               if value != _pointer(source, source_field) else {})}
+        receipt_path = (
+            root / receipts.RECEIPT_DIR / f"issue-{approval['issue_id']}.json"
+        )
+        record_paths = (
+            [record_path]
+            if layer == "poetics"
+            or (
+                layer == "lighting_scale"
+                and path.endswith("source_lighting_scale_v1.json")
+            )
+            else _record_paths_for_source(layer, source_field)
+        )
+        locks[lock_name] = {
+            "receipt": _reference(receipt_path, root),
+            "source_path": path,
+            "source_field": source_field,
+            "record_value_path": record_path,
+            "record_value_paths": record_paths,
+            "value": value,
+            **(
+                {"source_value": _pointer(source, source_field)}
+                if value != _pointer(source, source_field)
+                else {}
+            ),
+        }
 
 
 def _build(item: dict[str, Any], root: Path) -> dict[str, Any]:
@@ -216,43 +299,82 @@ def _build(item: dict[str, Any], root: Path) -> dict[str, Any]:
     if item["overlay"] is not None:
         paths["lighting_scale"] = item["overlay"]
     source_layers = {key: _reference(path, root) for key, path in paths.items()}
-    profile, surfaces, t6 = (_load(item[key]) for key in ("profile", "descriptor", "t6"))
+    profile, surfaces, t6 = (
+        _load(item[key]) for key in ("profile", "descriptor", "t6")
+    )
     acoustic_record = _load(root / ACOUSTICS)["modules"][item["acoustic_key"]]
     probe = acoustic_record["probe"]
     poetics_ref = _reference(item["poetics"], root)
     approval_refs: dict[str, Any] = {}
     locks: dict[str, Any] = {}
+    receipt_cache = receipts.valid_receipts(root)
     for layer, document in (("profile", profile), ("descriptor", surfaces), ("t6", t6)):
-        _derive_layer_locks(locks, layer, source_layers[layer]["path"], document, root)
-    _derive_layer_locks(locks, "poetics", source_layers["poetics"]["path"],
-                        _load(item["poetics"]), root)
-    _derive_layer_locks(locks, "acoustics", source_layers["acoustics"]["path"],
-                        acoustic_record, root, f"/modules/{item['acoustic_key']}")
+        _derive_layer_locks(
+            locks,
+            layer,
+            source_layers[layer]["path"],
+            document,
+            root,
+            receipt_cache=receipt_cache,
+        )
+    _derive_layer_locks(
+        locks,
+        "poetics",
+        source_layers["poetics"]["path"],
+        _load(item["poetics"]),
+        root,
+        receipt_cache=receipt_cache,
+    )
+    _derive_layer_locks(
+        locks,
+        "acoustics",
+        source_layers["acoustics"]["path"],
+        acoustic_record,
+        root,
+        f"/modules/{item['acoustic_key']}",
+        receipt_cache=receipt_cache,
+    )
     if item["overlay"] is not None:
         overlay = _load(item["overlay"])
         overlay_path = source_layers["lighting_scale"]["path"]
         source_level_overlay = item["overlay"].name == "source_lighting_scale_v1.json"
         _derive_layer_locks(locks, "lighting_scale", overlay_path, overlay, root)
-        lighting_scale = ({"state": "source_overlay", "overlay_ref": source_layers["lighting_scale"]}
-                          if source_level_overlay else {"state": "overlay", "overlay": overlay})
+        lighting_scale = (
+            {"state": "source_overlay", "overlay_ref": source_layers["lighting_scale"]}
+            if source_level_overlay
+            else {"state": "overlay", "overlay": overlay}
+        )
     else:
-        lighting_scale = {"state": "not_reviewed_uncalibrated", "overlay": None,
-                          "registration_accepted": False, "scale_calibrated": False}
+        lighting_scale = {
+            "state": "not_reviewed_uncalibrated",
+            "overlay": None,
+            "registration_accepted": False,
+            "scale_calibrated": False,
+        }
     for name, lock in locks.items():
         approval_refs[name] = lock["receipt"]
     inputs = {**source_layers, "approval_refs": approval_refs}
-    if any(lock["receipt"]["path"].endswith("issue-217.json") for lock in locks.values()):
+    if any(
+        lock["receipt"]["path"].endswith("issue-217.json") for lock in locks.values()
+    ):
         inputs["mapping_table"] = _mapping_table_ref(root)
     fields = {}
     for name in ACOUSTIC_FIELDS:
         state = "measured" if name in MEASURED_FIELDS else "derived"
-        provenance = {"kind": state, "source": f"{source_layers['acoustics']['path']}#/modules/{item['acoustic_key']}/probe/{name}"}
+        provenance = {
+            "kind": state,
+            "source": f"{source_layers['acoustics']['path']}#/modules/{item['acoustic_key']}/probe/{name}",
+        }
         if name == "ceiling_height_m":
             provenance["limitation"] = CEILING_LIMITATION
         if state == "derived":
-            provenance["basis"] = (["mean_distance_m"] if name == "predelay_msec" else
-                                    ["mean_distance_m", "ceiling_height_m"] if name == "room_size" else
-                                    ["mean_distance_m", "ceiling_height_m", "openness"])
+            provenance["basis"] = (
+                ["mean_distance_m"]
+                if name == "predelay_msec"
+                else ["mean_distance_m", "ceiling_height_m"]
+                if name == "room_size"
+                else ["mean_distance_m", "ceiling_height_m", "openness"]
+            )
             provenance["method"] = {
                 "room_size": "clamp(0.10 + 0.78 * clamp(mean_distance_m / 10.0, 0, 1) + 0.12 * clamp((ceiling_height_m - 2.2) / (6.0 - 2.2), 0, 1), 0, 1)",
                 "damping": "clamp(0.22 + 0.48 * wall_size + 0.18 * height_size + 0.12 * openness, 0, 1)",
@@ -264,16 +386,36 @@ def _build(item: dict[str, Any], root: Path) -> dict[str, Any]:
                     "wall_size": "clamp(mean_distance_m / 10.0, 0, 1)",
                     "height_size": "clamp((ceiling_height_m - 2.2) / (6.0 - 2.2), 0, 1)",
                 }
-            provenance["mapping_source"] = "godot_walk/scripts/room_acoustic_probe.gd#map_metrics"
-        fields[name] = {"value": probe[name], "provenance": provenance,
-                        "committed_block_label": probe["provenance"]}
-    return {"metadata_version": "module-metadata-1.0.0", "module_id": item["module_id"],
-            "origin": item["origin"] if "origin" in item else "authored_kit" if _is_authored(item, root) else "source_room",
-            "space_kind": "enclosed", "registration_accepted": False, "scale_calibrated": False,
-            "poetics_ref": poetics_ref, "source_layers": source_layers,
-            "inputs": inputs, "approval_refs": approval_refs, "locks": locks,
-            "profile": profile, "surfaces": surfaces, "lighting_scale": lighting_scale,
-            "t6": t6, "acoustics": {"committed_block": acoustic_record, "fields": fields}}
+            provenance["mapping_source"] = (
+                "godot_walk/scripts/room_acoustic_probe.gd#map_metrics"
+            )
+        fields[name] = {
+            "value": probe[name],
+            "provenance": provenance,
+            "committed_block_label": probe["provenance"],
+        }
+    return {
+        "metadata_version": "module-metadata-1.0.0",
+        "module_id": item["module_id"],
+        "origin": item["origin"]
+        if "origin" in item
+        else "authored_kit"
+        if _is_authored(item, root)
+        else "source_room",
+        "space_kind": "enclosed",
+        "registration_accepted": False,
+        "scale_calibrated": False,
+        "poetics_ref": poetics_ref,
+        "source_layers": source_layers,
+        "inputs": inputs,
+        "approval_refs": approval_refs,
+        "locks": locks,
+        "profile": profile,
+        "surfaces": surfaces,
+        "lighting_scale": lighting_scale,
+        "t6": t6,
+        "acoustics": {"committed_block": acoustic_record, "fields": fields},
+    }
 
 
 def _record_path_for_lock(name: str, lock: dict[str, Any]) -> str:
@@ -295,58 +437,99 @@ def _dotted_value(document: Any, path: str) -> Any:
     for segment in segments:
         if isinstance(value, dict) and segment in value:
             value = value[segment]
-        elif isinstance(value, list) and segment.isdigit() and int(segment) < len(value):
+        elif (
+            isinstance(value, list) and segment.isdigit() and int(segment) < len(value)
+        ):
             value = value[int(segment)]
         else:
             return missing
     return value
 
 
-def _locked_value_errors(existing: dict[str, Any], current: dict[str, Any], target: Path,
-                         root: Path = ROOT) -> list[str]:
+def _locked_value_errors(
+    existing: dict[str, Any], current: dict[str, Any], target: Path, root: Path = ROOT
+) -> list[str]:
     errors = []
+    receipt_cache = receipts.valid_receipts(root)
     saved_locks = existing.get("locks", {})
     current_locks = current.get("locks", {})
     for name, current_lock in current_locks.items():
         if name in saved_locks:
             continue
-        legacy = next((lock for lock in saved_locks.values()
-                       if lock.get("source_path") == current_lock.get("source_path")
-                       and lock.get("source_field") == current_lock.get("source_field")), None)
+        legacy = next(
+            (
+                lock
+                for lock in saved_locks.values()
+                if lock.get("source_path") == current_lock.get("source_path")
+                and lock.get("source_field") == current_lock.get("source_field")
+            ),
+            None,
+        )
         if legacy is None:
             errors.append(f"{target}: saved record is missing approved lock {name}")
-            for path in current_lock.get("record_value_paths", [current_lock.get("record_value_path", name)]):
+            for path in current_lock.get(
+                "record_value_paths", [current_lock.get("record_value_path", name)]
+            ):
                 if _dotted_value(existing, path) != current_lock.get("value"):
-                    errors.append(f"{target}: saved record value differs from approved input for {name}")
+                    errors.append(
+                        f"{target}: saved record value differs from approved input for {name}"
+                    )
     for name, saved_lock in saved_locks.items():
         current_lock = current_locks.get(name)
         if current_lock is None:
-            current_lock = next((candidate for candidate in current.get("locks", {}).values()
-                                 if candidate.get("source_path") == saved_lock.get("source_path")
-                                 and candidate.get("source_field", "").startswith(
-                                     saved_lock.get("source_field", "") + "/")), None)
+            current_lock = next(
+                (
+                    candidate
+                    for candidate in current.get("locks", {}).values()
+                    if candidate.get("source_path") == saved_lock.get("source_path")
+                    and candidate.get("source_field", "").startswith(
+                        saved_lock.get("source_field", "") + "/"
+                    )
+                ),
+                None,
+            )
             try:
-                source_value = _pointer(_load(root / saved_lock["source_path"]), saved_lock["source_field"])
+                source_value = _pointer(
+                    _load(root / saved_lock["source_path"]), saved_lock["source_field"]
+                )
             except (OSError, KeyError, TypeError, ValueError):
                 source_value = saved_lock.get("value")
-            if current_lock is None and _approval(saved_lock.get("source_path", ""),
-                                                  saved_lock.get("source_field", ""), root) is None:
-                errors.append(f"{target}: locked input changed or lost approval for {name}")
+            if (
+                current_lock is None
+                and _approval(
+                    saved_lock.get("source_path", ""),
+                    saved_lock.get("source_field", ""),
+                    root,
+                    receipt_cache,
+                )
+                is None
+            ):
+                errors.append(
+                    f"{target}: locked input changed or lost approval for {name}"
+                )
             elif source_value != saved_lock.get("value"):
                 errors.append(f"{target}: locked input changed underneath {name}")
-            if _dotted_value(existing, saved_lock.get("record_value_path", name)) != saved_lock.get("value"):
-                errors.append(f"{target}: saved locked record value was edited for {name}")
+            if _dotted_value(
+                existing, saved_lock.get("record_value_path", name)
+            ) != saved_lock.get("value"):
+                errors.append(
+                    f"{target}: saved locked record value was edited for {name}"
+                )
             continue
         saved_path = _record_path_for_lock(name, saved_lock)
         record_paths = saved_lock.get("record_value_paths", [saved_path])
         for record_path in record_paths:
             if _dotted_value(existing, record_path) != saved_lock.get("value"):
-                errors.append(f"{target}: saved locked record value was edited for {name} at {record_path}")
+                errors.append(
+                    f"{target}: saved locked record value was edited for {name} at {record_path}"
+                )
         if current_lock.get("record_value_path", saved_path) != saved_path:
             errors.append(f"{target}: locked record field changed for {name}")
         for record_path in current_lock.get("record_value_paths", [saved_path]):
             if _dotted_value(existing, record_path) != saved_lock.get("value"):
-                errors.append(f"{target}: saved locked record value was edited for {name} at {record_path}")
+                errors.append(
+                    f"{target}: saved locked record value was edited for {name} at {record_path}"
+                )
         for field in ("receipt", "source_path", "source_field", "value"):
             if saved_lock.get(field) != current_lock.get(field):
                 errors.append(f"{target}: locked input changed underneath {name}")
@@ -362,7 +545,9 @@ def generate(root: Path = ROOT) -> list[str]:
     except Exception as error:
         return [f"cannot determine admitted module set: {error}"]
     if len(module_inputs) != 11:
-        return [f"module_metadata generation requires 11 admitted modules, found {len(module_inputs)}"]
+        return [
+            f"module_metadata generation requires 11 admitted modules, found {len(module_inputs)}"
+        ]
     module_ids = [item["module_id"] for item in module_inputs]
     if len(set(module_ids)) != len(module_ids):
         return ["module_metadata generation found duplicate admitted module IDs"]
@@ -379,14 +564,24 @@ def generate(root: Path = ROOT) -> list[str]:
     if errors:
         return errors
     for target, data in candidates:
+        pin = target.with_suffix(target.suffix + ".sha256")
+        expected_pin = sha256_bytes(data) + "\n"
+        if (
+            target.is_file()
+            and target.read_bytes() == data
+            and pin.is_file()
+            and pin.read_text(encoding="ascii") == expected_pin
+        ):
+            continue
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(data)
-        (target.with_suffix(target.suffix + ".sha256")).write_text(
-            __import__("hashlib").sha256(data).hexdigest() + "\n", encoding="ascii")
+        pin.write_text(expected_pin, encoding="ascii")
     return []
 
 
-def validate_record(record: dict[str, Any], root: Path = ROOT, path: Path | None = None) -> list[str]:
+def validate_record(
+    record: dict[str, Any], root: Path = ROOT, path: Path | None = None
+) -> list[str]:
     try:
         return _validate_record(record, root, path)
     except Exception as error:
@@ -417,8 +612,11 @@ def _validate_record(record: Any, root: Path, path: Path | None) -> list[str]:
     if inputs.get("approval_refs") != approvals:
         errors.append("inputs omits or differs from approval_refs")
     references = [value for key, value in inputs.items() if key != "approval_refs"]
-    references.extend(inputs.get("approval_refs", {}).values()
-                      if isinstance(inputs.get("approval_refs"), dict) else [])
+    references.extend(
+        inputs.get("approval_refs", {}).values()
+        if isinstance(inputs.get("approval_refs"), dict)
+        else []
+    )
     for reference in references:
         if not isinstance(reference, dict):
             errors.append("input reference must be an object")
@@ -455,8 +653,12 @@ def _palette_errors(record: dict[str, Any], root: Path) -> list[str]:
         if not isinstance(entry, dict):
             continue
         palette_id = entry.get("palette_id")
-        if palette_id is not None and (not isinstance(palette_id, str) or palette_id not in known):
-            errors.append(f"surfaces.surfaces.{surface}.palette_id is not in palettes-0.3.0.json: {palette_id}")
+        if palette_id is not None and (
+            not isinstance(palette_id, str) or palette_id not in known
+        ):
+            errors.append(
+                f"surfaces.surfaces.{surface}.palette_id is not in palettes-0.3.0.json: {palette_id}"
+            )
     return errors
 
 
@@ -464,8 +666,9 @@ def _section_source_errors(record: dict[str, Any], root: Path) -> list[str]:
     errors: list[str] = []
     layers = record.get("source_layers", {})
     try:
-        documents = {name: _load(root / reference["path"])
-                     for name, reference in layers.items()}
+        documents = {
+            name: _load(root / reference["path"]) for name, reference in layers.items()
+        }
         acoustic_root = documents["acoustics"]
         module_key = f"{record['module_id']}@1"
         acoustic = acoustic_root["modules"][module_key]
@@ -484,21 +687,38 @@ def _section_source_errors(record: dict[str, Any], root: Path) -> list[str]:
         if record.get("poetics_ref") != acoustic.get("poetics"):
             errors.append("poetics_ref differs from the acoustics layer reference")
         if record.get("acoustics", {}).get("committed_block") != acoustic:
-            errors.append("acoustics.committed_block differs from the committed acoustics layer")
+            errors.append(
+                "acoustics.committed_block differs from the committed acoustics layer"
+            )
         errors.extend(_acoustic_field_errors(record, acoustic))
         errors.extend(_lighting_source_errors(record, layers, documents, root))
         errors.extend(_locked_source_errors(record, root))
         errors.extend(_expected_lock_errors(record, root))
-        if any(lock.get("receipt", {}).get("path", "").endswith("issue-217.json")
-               for lock in record.get("locks", {}).values()):
-            if record.get("inputs", {}).get("mapping_table") != _mapping_table_ref(root):
-                errors.append("inputs omits or has a stale issue-217 material mapping table reference")
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError, KeyError, TypeError, ValueError) as error:
+        if any(
+            lock.get("receipt", {}).get("path", "").endswith("issue-217.json")
+            for lock in record.get("locks", {}).values()
+        ):
+            if record.get("inputs", {}).get("mapping_table") != _mapping_table_ref(
+                root
+            ):
+                errors.append(
+                    "inputs omits or has a stale issue-217 material mapping table reference"
+                )
+    except (
+        OSError,
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+        KeyError,
+        TypeError,
+        ValueError,
+    ) as error:
         errors.append(f"cannot compare metadata sections with source layers: {error}")
     return errors
 
 
-def _acoustic_field_errors(record: dict[str, Any], acoustic: dict[str, Any]) -> list[str]:
+def _acoustic_field_errors(
+    record: dict[str, Any], acoustic: dict[str, Any]
+) -> list[str]:
     errors = []
     probe = acoustic.get("probe", {})
     fields = record.get("acoustics", {}).get("fields", {})
@@ -508,29 +728,47 @@ def _acoustic_field_errors(record: dict[str, Any], acoustic: dict[str, Any]) -> 
         field = fields.get(name)
         expected_kind = "measured" if name in MEASURED_FIELDS else "derived"
         if not isinstance(field, dict) or field.get("value") != probe.get(name):
-            errors.append(f"acoustics.fields.{name}.value differs from the committed probe value")
+            errors.append(
+                f"acoustics.fields.{name}.value differs from the committed probe value"
+            )
             continue
         provenance = field.get("provenance")
         if not isinstance(provenance, dict) or provenance.get("kind") != expected_kind:
-            errors.append(f"acoustics.fields.{name}.provenance.kind must be {expected_kind}")
+            errors.append(
+                f"acoustics.fields.{name}.provenance.kind must be {expected_kind}"
+            )
         expected_source = (
             f"{record.get('source_layers', {}).get('acoustics', {}).get('path')}"
             f"#/modules/{record.get('module_id')}@1/probe/{name}"
         )
-        if not isinstance(provenance, dict) or provenance.get("source") != expected_source:
+        if (
+            not isinstance(provenance, dict)
+            or provenance.get("source") != expected_source
+        ):
             errors.append(f"acoustics.fields.{name}.provenance.source is incorrect")
         if expected_kind == "derived":
             expected_basis = {
                 "room_size": ["mean_distance_m", "ceiling_height_m"],
                 "predelay_msec": ["mean_distance_m"],
             }.get(name, ["mean_distance_m", "ceiling_height_m", "openness"])
-            if (not provenance.get("method") or not provenance.get("mapping_source")
-                    or provenance.get("basis") != expected_basis):
-                errors.append(f"acoustics.fields.{name} is missing its basis or derivation method")
-        if name == "ceiling_height_m" and "capped" not in provenance.get("limitation", ""):
-            errors.append("acoustics.fields.ceiling_height_m is missing the capped up-ray limitation")
+            if (
+                not provenance.get("method")
+                or not provenance.get("mapping_source")
+                or provenance.get("basis") != expected_basis
+            ):
+                errors.append(
+                    f"acoustics.fields.{name} is missing its basis or derivation method"
+                )
+        if name == "ceiling_height_m" and "capped" not in provenance.get(
+            "limitation", ""
+        ):
+            errors.append(
+                "acoustics.fields.ceiling_height_m is missing the capped up-ray limitation"
+            )
         if field.get("committed_block_label") != probe.get("provenance"):
-            errors.append(f"acoustics.fields.{name} lost the literal committed block label")
+            errors.append(
+                f"acoustics.fields.{name} lost the literal committed block label"
+            )
     return errors
 
 
@@ -549,27 +787,45 @@ def _source_layer_schema_errors(documents: dict[str, Any], root: Path) -> list[s
             schema = _load(root / schema_path)
             validator = Draft202012Validator(schema)
             for error in validator.iter_errors(documents[section]):
-                pointer = "/".join(str(part) for part in error.absolute_path) or "<root>"
+                pointer = (
+                    "/".join(str(part) for part in error.absolute_path) or "<root>"
+                )
                 errors.append(f"source {section} schema {pointer}: {error.message}")
         except (OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError) as error:
             errors.append(f"cannot validate source {section} schema: {error}")
     return errors
 
 
-def _lighting_source_errors(record: dict[str, Any], layers: dict[str, Any],
-                            documents: dict[str, Any], root: Path) -> list[str]:
+def _lighting_source_errors(
+    record: dict[str, Any],
+    layers: dict[str, Any],
+    documents: dict[str, Any],
+    root: Path,
+) -> list[str]:
     section = record.get("lighting_scale")
     if not isinstance(section, dict):
         return ["lighting_scale must be an object"]
     reference = layers.get("lighting_scale")
     if reference is None:
-        expected = {"state": "not_reviewed_uncalibrated", "overlay": None,
-                    "registration_accepted": False, "scale_calibrated": False}
-        return [] if section == expected else ["lighting_scale default differs from the unreviewed default"]
+        expected = {
+            "state": "not_reviewed_uncalibrated",
+            "overlay": None,
+            "registration_accepted": False,
+            "scale_calibrated": False,
+        }
+        return (
+            []
+            if section == expected
+            else ["lighting_scale default differs from the unreviewed default"]
+        )
     path = reference["path"]
     if Path(path).name == "source_lighting_scale_v1.json":
         expected = {"state": "source_overlay", "overlay_ref": reference}
-        return [] if section == expected else ["source-level lighting/scale overlay must remain a hash reference"]
+        return (
+            []
+            if section == expected
+            else ["source-level lighting/scale overlay must remain a hash reference"]
+        )
     if section != {"state": "overlay", "overlay": documents["lighting_scale"]}:
         return ["lighting_scale overlay differs from its source overlay"]
     return []
@@ -578,34 +834,55 @@ def _lighting_source_errors(record: dict[str, Any], layers: dict[str, Any],
 def _locked_source_errors(record: dict[str, Any], root: Path) -> list[str]:
     errors = []
     inputs = record.get("inputs", {})
-    approved_receipts = inputs.get("approval_refs", {}) if isinstance(inputs, dict) else {}
+    approved_receipts = (
+        inputs.get("approval_refs", {}) if isinstance(inputs, dict) else {}
+    )
     for name, lock in record.get("locks", {}).items():
         if not isinstance(lock, dict):
             errors.append(f"locks.{name} must be an object")
             continue
         receipt = lock.get("receipt")
         if not isinstance(receipt, dict) or receipt not in approved_receipts.values():
-            errors.append(f"locks.{name} receipt is not listed in approval_refs input hashes")
+            errors.append(
+                f"locks.{name} receipt is not listed in approval_refs input hashes"
+            )
         try:
             source_path = lock["source_path"]
             source = _load(root / source_path)
             source_value = _pointer(source, lock["source_field"])
             expected_source = lock.get("source_value", lock.get("value"))
             if source_value != expected_source:
-                errors.append(f"locks.{name} approved source value differs from its input")
+                errors.append(
+                    f"locks.{name} approved source value differs from its input"
+                )
             record_paths = lock.get("record_value_paths", [lock["record_value_path"]])
             for record_path in record_paths:
                 actual_value = _dotted_value(record, record_path)
                 if actual_value != lock.get("value"):
-                    errors.append(f"locks.{name} record value differs from its approved value at {record_path}")
-        except (OSError, UnicodeDecodeError, json.JSONDecodeError, KeyError, TypeError, ValueError) as error:
+                    errors.append(
+                        f"locks.{name} record value differs from its approved value at {record_path}"
+                    )
+        except (
+            OSError,
+            UnicodeDecodeError,
+            json.JSONDecodeError,
+            KeyError,
+            TypeError,
+            ValueError,
+        ) as error:
             errors.append(f"locks.{name} cannot be checked against its source: {error}")
     return errors
 
 
 def _expected_lock_errors(record: dict[str, Any], root: Path) -> list[str]:
-    module = next((item for item in _module_inputs(root)
-                   if item["module_id"] == record.get("module_id")), None)
+    module = next(
+        (
+            item
+            for item in _module_inputs(root)
+            if item["module_id"] == record.get("module_id")
+        ),
+        None,
+    )
     if module is None:
         return [f"no admitted source layers for module {record.get('module_id')}"]
     try:
@@ -618,16 +895,28 @@ def _expected_lock_errors(record: dict[str, Any], root: Path) -> list[str]:
     errors = []
     for name, expected in expected_locks.items():
         if actual_locks.get(name) != expected:
-            errors.append(f"locks.{name} is missing or differs from its current approval")
+            errors.append(
+                f"locks.{name} is missing or differs from its current approval"
+            )
     for name in actual_locks.keys() - expected_locks.keys():
         errors.append(f"locks.{name} has no current operator approval")
     return errors
 
 
 def validate_repository(root: Path = ROOT) -> list[str]:
+    return _validate_repository_cached(repository_state(root), str(root.resolve()))
+
+
+@lru_cache(maxsize=8)
+def _validate_repository_cached(
+    state: tuple[tuple[str, int, int], ...], root_text: str
+) -> list[str]:
+    del state
+    root = Path(root_text)
     try:
         schema = _load(root / SCHEMA)
         from jsonschema import Draft202012Validator
+
         Draft202012Validator.check_schema(schema)
     except Exception as error:
         return [f"module_metadata schema cannot be loaded: {error}"]
@@ -654,10 +943,18 @@ def validate_repository(root: Path = ROOT) -> list[str]:
     for path in paths:
         try:
             record = _load(path)
-            errors.extend(f"{path.relative_to(root)}: {error}" for error in
-                          Draft202012Validator(schema).iter_errors(record))
-            errors.extend(f"{path.relative_to(root)}: {error}" for error in validate_record(record, root, path))
-            errors.extend(f"{path.relative_to(root)}: {error}" for error in _palette_errors(record, root))
+            errors.extend(
+                f"{path.relative_to(root)}: {error}"
+                for error in Draft202012Validator(schema).iter_errors(record)
+            )
+            errors.extend(
+                f"{path.relative_to(root)}: {error}"
+                for error in validate_record(record, root, path)
+            )
+            errors.extend(
+                f"{path.relative_to(root)}: {error}"
+                for error in _palette_errors(record, root)
+            )
         except Exception as error:
             errors.append(f"{path}: cannot read module metadata: {error}")
     return errors
@@ -668,7 +965,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
-    errors = validate_repository(args.root.resolve()) if args.check else generate(args.root.resolve())
+    errors = (
+        validate_repository(args.root.resolve())
+        if args.check
+        else generate(args.root.resolve())
+    )
     for error in errors:
         print(error, file=sys.stderr)
     return 1 if errors else 0

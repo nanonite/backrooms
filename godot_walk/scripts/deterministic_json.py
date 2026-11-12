@@ -5,10 +5,45 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
+VALIDATION_STATE_ROOTS = (
+    "data/pictures",
+    "data/videos",
+    "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+    "godot_walk/evidence/2026-11-11-issue-216",
+    "godot_walk/room_catalog",
+    "godot_walk/source_library",
+)
+
+
+def repository_state(root: Path = ROOT) -> tuple[tuple[str, int, int], ...]:
+    """Stat identity of every input the read-only validators consume.
+
+    The tuple changes when a file is added, removed, resized, or touched, so a
+    memoized validation result is reused only for an unchanged repository.
+    """
+    entries: list[tuple[str, int, int]] = []
+    for relative in VALIDATION_STATE_ROOTS:
+        path = root / relative
+        if path.is_file():
+            stat = path.stat()
+            entries.append((relative, stat.st_mtime_ns, stat.st_size))
+        elif path.is_dir():
+            for item in sorted(path.rglob("*")):
+                if item.is_file() and not item.is_symlink():
+                    stat = item.stat()
+                    entries.append(
+                        (
+                            item.relative_to(root).as_posix(),
+                            stat.st_mtime_ns,
+                            stat.st_size,
+                        )
+                    )
+    return tuple(entries)
 
 
 class DeterministicWriteError(ValueError):
@@ -24,8 +59,20 @@ def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+@lru_cache(maxsize=8192)
+def _sha256_unchanged(path: str, mtime_ns: int, size: int) -> str:
+    del mtime_ns, size
+    digest = hashlib.sha256()
+    with open(path, "rb") as source:
+        for block in iter(lambda: source.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
 def sha256_file(path: Path) -> str:
-    return sha256_bytes(path.read_bytes())
+    """Hash a file, reusing the digest only while its stat identity is unchanged."""
+    stat = path.stat()
+    return _sha256_unchanged(str(path.resolve()), stat.st_mtime_ns, stat.st_size)
 
 
 def repo_relative(path: Path, root: Path = ROOT) -> str:
