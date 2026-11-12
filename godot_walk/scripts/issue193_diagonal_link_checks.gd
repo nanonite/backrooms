@@ -15,7 +15,7 @@ const TRIM_DEPTH := 0.2
 static func check(assembly: Node3D) -> Dictionary:
 	var result := {"links": 0, "diagonal_edges": 0, "lane_sweeps": 0, "lane_sweeps_passed": 0,
 		"passage_wall_colliders": 0, "frames_checked": 0, "failures": [] as Array[String]}
-	if not (String(assembly.map.get("generator_version", "")) in ["gmap-0.6.0", "gmap-0.6.1", "gmap-0.7.0", "gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0", "gmap-0.11.0", "gmap-0.12.0"]):
+	if not (String(assembly.map.get("generator_version", "")) in ["gmap-0.6.0", "gmap-0.6.1", "gmap-0.7.0", "gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0", "gmap-0.11.0", "gmap-0.12.0", "gmap-0.13.0"]):
 		return result
 	for cell: Dictionary in assembly.map.cells:
 		if not cell.has("diagonal_passage"):
@@ -61,7 +61,9 @@ static func _check_edge(assembly: Node3D, edge: Dictionary, result: Dictionary) 
 		var finish: Vector2 = to_end.pos - to_end.normal * INSIDE_M + tangent * offset
 		for pair in [[start, finish], [finish, start]]:
 			result.lane_sweeps += 1
-			var travel := PROBE.sweep(assembly.get_world_3d().direct_space_state, pair[0], pair[1])
+			var from_floor := float(from_end.floor_y) if pair[0] == start else float(to_end.floor_y)
+			var to_floor := float(to_end.floor_y) if pair[1] == finish else float(from_end.floor_y)
+			var travel := PROBE.sweep(assembly.get_world_3d().direct_space_state, pair[0], pair[1], from_floor, to_floor)
 			if travel.passable:
 				result.lane_sweeps_passed += 1
 			else:
@@ -89,7 +91,9 @@ static func _check_frames(assembly: Node3D, result: Dictionary) -> void:
 			var door_height := float(doorway.height_m)
 			var ceiling := float(spec.ceiling_height_m)
 			var width := float(doorway.width_m)
-			_check_box(visuals, "Header_" + port + "Visual", door, normal, Vector2(door_height, ceiling), HEADER_DEPTH, width, result)
+			var floor_y := PROBE.cell_floor_y(assembly.map, cell_id)
+			_check_box(visuals, "Header_" + port + "Visual", door, normal,
+				Vector2(floor_y + door_height, floor_y + ceiling), HEADER_DEPTH, width, result)
 			for label: String in ["TrimJambLow_", "TrimJambHigh_", "TrimLintel_"]:
 				_check_box(visuals, label + port, door, normal, Vector2.ZERO, TRIM_DEPTH, 0.0, result)
 

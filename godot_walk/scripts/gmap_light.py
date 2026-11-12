@@ -9,6 +9,7 @@ from copy import deepcopy
 from typing import Any
 
 from gmap_library import Library
+from gmap_keyed import keyed_rank, rng_for_cell
 
 RULE = "light_layer"
 STREAM = "light:gmap-0.8.0"
@@ -82,6 +83,41 @@ def _draw_dark_wing(document: dict[str, Any], rng: random.Random) -> dict[str, A
     return {"status": "placed", "cell_ids": sorted(chosen)}
 
 
+def _draw_dark_wing_keyed(document: dict[str, Any]) -> dict[str, Any]:
+    eligible, graph = _eligible_cells(document), _graph(document)
+    seed, attempt = int(document["seed"]), int(document.get("attempt", 0))
+    stream = "light-dark-wing:gmap-0.13.0"
+    candidates = [
+        cell_id
+        for cell_id in eligible
+        if rng_for_cell(seed, attempt, stream, cell_id, "eligibility").random()
+        < DARK_WING_PROBABILITY
+    ]
+    for start in sorted(
+        candidates, key=lambda item: keyed_rank(seed, attempt, stream, item)
+    ):
+        target = rng_for_cell(seed, attempt, stream, start, "size").choice((2, 3))
+        chosen = [start]
+        while len(chosen) < target:
+            frontier = sorted(
+                (set().union(*(graph[cell] for cell in chosen)) & set(candidates))
+                - set(chosen)
+            )
+            if not frontier:
+                break
+            chosen.append(
+                min(
+                    frontier,
+                    key=lambda item: keyed_rank(
+                        seed, attempt, stream, f"{start}:{item}"
+                    ),
+                )
+            )
+        if len(chosen) == target:
+            return {"status": "placed", "cell_ids": sorted(chosen)}
+    return {"status": "not_selected", "cell_ids": []}
+
+
 def _library_joint_cells(document: dict[str, Any], library: Library) -> set[str]:
     roles = _module_roles(library)
     figures = {
@@ -152,7 +188,10 @@ def _cell_light(
 def assign_light(document: dict[str, Any], library: Library) -> None:
     """Attach the v0.8 light layer without consuming any geometry/layout RNG stream."""
     rng = rng_for(document["seed"], document.get("attempt", 0))
-    dark_wing = _draw_dark_wing(document, rng)
+    keyed = document.get("generator_version") == "gmap-0.13.0"
+    dark_wing = (
+        _draw_dark_wing_keyed(document) if keyed else _draw_dark_wing(document, rng)
+    )
     wing = set(dark_wing["cell_ids"])
     near_library = _library_joint_cells(document, library)
     counts = _lamp_counts(document)
@@ -161,7 +200,29 @@ def assign_light(document: dict[str, Any], library: Library) -> None:
             continue
         landmark = bool(cell.get("landmark"))
         is_spawn = cell["cell_id"] == document["cells"][0]["cell_id"]
-        tier = _draw_weighted(rng, TIER_WEIGHTS)
+        tier_rng = (
+            rng_for_cell(
+                document["seed"],
+                document.get("attempt", 0),
+                "light:gmap-0.13.0",
+                cell["cell_id"],
+                "tier",
+            )
+            if keyed
+            else rng
+        )
+        cell_rng = (
+            rng_for_cell(
+                document["seed"],
+                document.get("attempt", 0),
+                "light:gmap-0.13.0",
+                cell["cell_id"],
+                "fixtures",
+            )
+            if keyed
+            else rng
+        )
+        tier = _draw_weighted(tier_rng, TIER_WEIGHTS)
         if landmark or cell["cell_id"] in near_library:
             tier = "bright"
         if is_spawn and tier == "dim":
@@ -169,7 +230,11 @@ def assign_light(document: dict[str, Any], library: Library) -> None:
         if cell["cell_id"] in wing:
             tier = "dim"
         cell["light"] = _cell_light(
-            rng, counts.get(cell["cell_id"], 0), tier, landmark, cell["cell_id"] in wing
+            cell_rng,
+            counts.get(cell["cell_id"], 0),
+            tier,
+            landmark,
+            cell["cell_id"] in wing,
         )
     document["dark_wing"] = dark_wing
 

@@ -32,13 +32,14 @@ from gmap_palette_registry import (
     select_palette,
 )
 from gmap_rules import Errors, edge_cells, err
+from gmap_keyed import rng_for_cell
 
 RULE = "palette_assignment"
 FLOOR_REGION_RULE = "floor_region_layer"
 FULL_DISTANCE = 1
 COIN_DISTANCE = 2
 COIN_PROBABILITY = 0.5
-REGION_VERSION = "gmap-0.12.0"
+REGION_VERSIONS = ("gmap-0.12.0", "gmap-0.13.0")
 REGISTRY_VERSION_V3 = "0.3.0"
 
 
@@ -127,7 +128,7 @@ def record(
         "anchor_module_id": anchor,
         "distance": distance,
     }
-    if version == REGION_VERSION:
+    if version in REGION_VERSIONS:
         result["registry_version"] = REGISTRY_VERSION_V3
     return result
 
@@ -154,7 +155,17 @@ def palette_assignment(
         if passage and passage.get("palette_source_cell_id") in records:
             records[cell["cell_id"]] = dict(records[passage["palette_source_cell_id"]])
             continue
-        coin = rng.random()
+        coin = (
+            rng_for_cell(
+                document["seed"],
+                document["attempt"],
+                "palette-anchor:gmap-0.13.0",
+                cell["cell_id"],
+                "anchor-choice",
+            ).random()
+            if version == "gmap-0.13.0"
+            else rng.random()
+        )
         near = [
             (d[cell["cell_id"]], -a["tier"], a["module_id"], a)
             for a, d in reach
@@ -171,7 +182,7 @@ def palette_assignment(
             else record(base, version=version)
         )
     regions = None
-    if version == REGION_VERSION:
+    if version in REGION_VERSIONS:
         from gmap_floor_regions import apply_floor_regions
 
         records, regions = apply_floor_regions(document, records)
@@ -223,7 +234,7 @@ def palette_errors(
         ]
     errors: Errors = []
     version = document["generator_version"]
-    if version == REGION_VERSION:
+    if version in REGION_VERSIONS:
         if ref != registry_ref_v3(root):
             errors.append(
                 err(
@@ -277,7 +288,7 @@ def palette_errors(
                     f"{cell['cell_id']}: has {got}, rules give {want}",
                 )
             )
-    if version == REGION_VERSION and document.get("floor_regions") != regions:
+    if version in REGION_VERSIONS and document.get("floor_regions") != regions:
         errors.append(
             err(
                 FLOOR_REGION_RULE,

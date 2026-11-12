@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import sys
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
@@ -20,6 +21,7 @@ from gmap_build import (
     GENERATOR_VERSION_V10,
     GENERATOR_VERSION_V11,
     GENERATOR_VERSION_V12,
+    GENERATOR_VERSION_V13,
     GENERATOR_VERSION_V61,
     MARGIN_VERSIONS,
     MODULE_VERSIONS,
@@ -85,6 +87,141 @@ def check_hashes(document: dict[str, Any], root: Path) -> Errors:
             errors.append(
                 err(key, code, f"{ref['path']} no longer matches its recorded hash")
             )
+    if document.get("generator_version") == GENERATOR_VERSION_V13:
+        from gmap_template import consolidated_records
+
+        references = [("template", document["template"])]
+        references.extend(
+            (f"module_metadata:{entry['module_id']}", entry)
+            for entry in document["module_metadata"]
+        )
+        for label, reference in references:
+            if not isinstance(reference, dict) or not isinstance(
+                reference.get("path"), str
+            ):
+                errors.append(err("template", "metadata_reference_invalid", label))
+                continue
+            path = root / reference["path"]
+            if not path.is_file() or sha256_file(path) != reference.get("sha256"):
+                errors.append(err("template", "stale_metadata_reference", label))
+        try:
+            authoritative = consolidated_records(root)
+        except (OSError, ValueError, TypeError) as error:
+            errors.append(
+                err(
+                    "module_metadata_pins",
+                    "module_metadata_catalog_invalid",
+                    str(error),
+                )
+            )
+            authoritative = {}
+        placed = {
+            cell["module"]["module_id"]: cell
+            for cell in document["cells"]
+            if cell.get("module")
+        }
+        pinned = {entry["module_id"]: entry for entry in document["module_metadata"]}
+        if len(pinned) != len(document["module_metadata"]):
+            errors.append(
+                err(
+                    "module_metadata_pins",
+                    "duplicate_module_metadata_pin",
+                    "module ids must be unique",
+                )
+            )
+        if set(pinned) != set(placed):
+            errors.append(
+                err(
+                    "module_metadata_pins",
+                    "module_metadata_coverage_mismatch",
+                    "pins must match modules placed in cells",
+                )
+            )
+        for module_id, cell in placed.items():
+            expected = authoritative.get(module_id)
+            if expected is None:
+                errors.append(
+                    err("module_metadata_pins", "module_metadata_missing", module_id)
+                )
+                continue
+            wanted = {"module_id": module_id, **expected["reference"]}
+            if pinned.get(module_id) != wanted:
+                errors.append(
+                    err(
+                        "module_metadata_pins",
+                        "module_metadata_pin_mismatch",
+                        module_id,
+                    )
+                )
+            if cell.get("module_profile") != expected["reference"]:
+                errors.append(
+                    err(
+                        "module_metadata_pins",
+                        "module_profile_reference_mismatch",
+                        module_id,
+                    )
+                )
+        door_ids = {
+            door["port_id"] for cell in document["cells"] for door in cell["doors"]
+        }
+        for edge in document["edges"]:
+            if edge.get("door_id") not in door_ids or edge.get("door_id") not in (
+                edge["from"],
+                edge["to"],
+            ):
+                errors.append(err("door_policy", "edge_door_id_mismatch", edge["from"]))
+        errors += check_template_values(document, root)
+    return errors
+
+
+def check_template_values(document: dict[str, Any], root: Path = ROOT) -> Errors:
+    """Re-derive and compare every field projected from pinned template metadata."""
+    from gmap_template import add_template_fields
+
+    expected = deepcopy(document)
+    for field in ("template", "module_metadata"):
+        expected.pop(field, None)
+    derived_fields = (
+        "module_profile",
+        "mood",
+        "absorption",
+        "volume",
+        "doors",
+        "mutation",
+    )
+    for cell in expected["cells"]:
+        for field in derived_fields:
+            cell.pop(field, None)
+    for edge in expected["edges"]:
+        edge.pop("door_id", None)
+    try:
+        add_template_fields(expected, root)
+    except (OSError, ValueError, KeyError, TypeError, IndexError, AttributeError) as error:
+        return [err("template", "template_values_unavailable", str(error))]
+
+    errors: Errors = []
+    for field in ("template", "module_metadata"):
+        if document.get(field) != expected.get(field):
+            errors.append(err("template", "template_value_mismatch", field))
+    fields_by_cell = {
+        cell["cell_id"]: cell for cell in expected["cells"]
+    }
+    for cell in document["cells"]:
+        generated = fields_by_cell[cell["cell_id"]]
+        for field in derived_fields:
+            if cell.get(field) != generated.get(field):
+                errors.append(
+                    err(
+                        "template",
+                        "template_cell_value_mismatch",
+                        f"{cell['cell_id']}.{field}",
+                    )
+                )
+    for edge, generated in zip(document["edges"], expected["edges"], strict=True):
+        if edge.get("door_id") != generated.get("door_id"):
+            errors.append(
+                err("template", "template_edge_value_mismatch", edge["from"])
+            )
     return errors
 
 
@@ -140,16 +277,19 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         GENERATOR_VERSION_V10,
         GENERATOR_VERSION_V11,
         GENERATOR_VERSION_V12,
+        GENERATOR_VERSION_V13,
     ):
         light_library, library_errors = _load_library_for_validation(document, root)
         errors += library_errors
     library_unavailable = (
-        document["generator_version"] in (
+        document["generator_version"]
+        in (
             GENERATOR_VERSION_V8,
             GENERATOR_VERSION_V9,
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
             GENERATOR_VERSION_V12,
+            GENERATOR_VERSION_V13,
         )
         and light_library is None
     )
@@ -178,6 +318,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
             GENERATOR_VERSION_V12,
+            GENERATOR_VERSION_V13,
         ):
             margin_cells = [
                 {
@@ -207,11 +348,16 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
             GENERATOR_VERSION_V12,
+            GENERATOR_VERSION_V13,
         ):
             base = {
                 **document,
                 "cells": map_cells,
-                "edges": [e for e in edges if e.get("kind") not in ("diagonal", "elevation_loop")],
+                "edges": [
+                    e
+                    for e in edges
+                    if e.get("kind") not in ("diagonal", "elevation_loop")
+                ],
             }
             errors += module_errors(base, map_rects, root, light_library)
         else:
@@ -225,6 +371,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         GENERATOR_VERSION_V10,
         GENERATOR_VERSION_V11,
         GENERATOR_VERSION_V12,
+        GENERATOR_VERSION_V13,
     ):
         errors += landmark_errors(document)
     palette_issues: Errors = []
@@ -240,6 +387,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
             GENERATOR_VERSION_V12,
+            GENERATOR_VERSION_V13,
         )
         and not library_unavailable
     ):
@@ -248,6 +396,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
             GENERATOR_VERSION_V12,
+            GENERATOR_VERSION_V13,
         ):
             from gmap_elevation import strip_elevation
 
@@ -271,6 +420,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
             GENERATOR_VERSION_V12,
+            GENERATOR_VERSION_V13,
         )
         and not library_unavailable
         and not palette_registry_blocked
@@ -299,13 +449,16 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         GENERATOR_VERSION_V10,
         GENERATOR_VERSION_V11,
         GENERATOR_VERSION_V12,
+        GENERATOR_VERSION_V13,
     ):
         tree_walkable = [
             c
             for c in walkable
             if not next(x for x in cells if x["cell_id"] == c).get("diagonal_passage")
         ]
-        tree_edges = [e for e in edges if e.get("kind") not in ("diagonal", "elevation_loop")]
+        tree_edges = [
+            e for e in edges if e.get("kind") not in ("diagonal", "elevation_loop")
+        ]
         errors += check_tree(tree_walkable, tree_edges)
         errors += diagonal_errors(document)
         if document["generator_version"] in (
@@ -316,6 +469,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
             GENERATOR_VERSION_V12,
+            GENERATOR_VERSION_V13,
         ):
             errors += reservation_errors(document)
     else:
@@ -332,6 +486,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
             GENERATOR_VERSION_V10,
             GENERATOR_VERSION_V11,
             GENERATOR_VERSION_V12,
+            GENERATOR_VERSION_V13,
         )
         and light_library is not None
     ):
@@ -340,6 +495,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
         GENERATOR_VERSION_V10,
         GENERATOR_VERSION_V11,
         GENERATOR_VERSION_V12,
+        GENERATOR_VERSION_V13,
     ):
         from gmap_elevation import elevation_errors
 
@@ -347,6 +503,7 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
     if document["generator_version"] in (
         GENERATOR_VERSION_V11,
         GENERATOR_VERSION_V12,
+        GENERATOR_VERSION_V13,
     ):
         errors += reverb_errors(document)
     return errors
@@ -354,7 +511,12 @@ def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
 
 def validate_document(document: dict[str, Any], root: Path = ROOT) -> Errors:
     """All errors for a map: schema first (rules need a well-formed document)."""
-    errors = schema_errors(document, load_json(root / SCHEMA_PATH))
+    schema_path = (
+        Path("godot_walk/room_catalog/generative_map_v2.schema.json")
+        if document.get("schema_version") == 2
+        else SCHEMA_PATH
+    )
+    errors = schema_errors(document, load_json(root / schema_path))
     if errors:
         return errors
     return (

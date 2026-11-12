@@ -1,0 +1,2842 @@
+{
+  "attempt": 0,
+  "catalog_snapshot": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.5.0.json",
+    "sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30"
+  },
+  "cells": [
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c00",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c00:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c00:p1",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c00:p2",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          0,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          0,
+          6
+        ]
+      ],
+      "floor_y": 0.0,
+      "light": {
+        "color_temp_k": 4558,
+        "lamps": [
+          {
+            "flicker_seed": 795624291,
+            "lamp_index": 0,
+            "state": "on"
+          }
+        ],
+        "tier": "normal"
+      },
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow",
+        "registry_version": "0.3.0"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c00:p0",
+          "pos_xz": [
+            1.5,
+            6
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c00:p1",
+          "pos_xz": [
+            1.5,
+            0
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c00:p2",
+          "pos_xz": [
+            3,
+            2.5
+          ]
+        }
+      ],
+      "reverb": false,
+      "role": "ground",
+      "shape_stage_target": 1,
+      "surface_variants": {
+        "ceiling": "clean",
+        "floor": "clean",
+        "trim": "clean",
+        "wall": "clean"
+      },
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 86.4,
+        "source": "cell_envelope"
+      },
+      "wear": 0
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c01",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c01:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c01:p1",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c01:p2",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          -7,
+          6
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          -7,
+          9
+        ]
+      ],
+      "floor_y": 0.0,
+      "light": {
+        "color_temp_k": 4569,
+        "lamps": [
+          {
+            "flicker_seed": 1251725026,
+            "lamp_index": 0,
+            "state": "on"
+          },
+          {
+            "flicker_seed": 1745620115,
+            "lamp_index": 1,
+            "state": "on"
+          }
+        ],
+        "tier": "dim"
+      },
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow",
+        "registry_version": "0.3.0"
+      },
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c01:p0",
+          "pos_xz": [
+            1.5,
+            6
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c01:p1",
+          "pos_xz": [
+            3,
+            7.5
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c01:p2",
+          "pos_xz": [
+            -5.5,
+            6
+          ]
+        }
+      ],
+      "reverb": false,
+      "role": "ground",
+      "shape_stage_target": 1,
+      "surface_variants": {
+        "ceiling": "damaged",
+        "floor": "worn",
+        "trim": "worn",
+        "wall": "worn"
+      },
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 144.0,
+        "source": "cell_envelope"
+      },
+      "wear": 1
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c02",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c02:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          3,
+          6
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          9,
+          9
+        ],
+        [
+          3,
+          9
+        ]
+      ],
+      "floor_y": 0.0,
+      "light": {
+        "color_temp_k": 3996,
+        "lamps": [
+          {
+            "flicker_seed": 1184741486,
+            "lamp_index": 0,
+            "state": "flicker"
+          }
+        ],
+        "tier": "bright"
+      },
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "wood_parquet",
+        "region_distance": 0,
+        "region_seed_cell_id": "c02",
+        "registry_version": "0.3.0"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c02:p0",
+          "pos_xz": [
+            3,
+            7.5
+          ]
+        }
+      ],
+      "reverb": true,
+      "role": "ground",
+      "shape_stage_target": 1,
+      "surface_variants": {
+        "ceiling": "clean",
+        "floor": "clean",
+        "trim": "clean",
+        "wall": "clean"
+      },
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 86.4,
+        "source": "cell_envelope"
+      },
+      "wear": 0
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box",
+        "chamfered_polyomino"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c03",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c03:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c03:p1",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c03:p2",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          -2,
+          -6
+        ],
+        [
+          4,
+          -6
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          -2,
+          0
+        ]
+      ],
+      "floor_y": 0.0,
+      "light": {
+        "color_temp_k": 5178,
+        "lamps": [
+          {
+            "flicker_seed": 680018541,
+            "lamp_index": 0,
+            "state": "dead"
+          }
+        ],
+        "tier": "dim"
+      },
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow",
+        "registry_version": "0.3.0"
+      },
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c03:p0",
+          "pos_xz": [
+            1.5,
+            0
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c03:p1",
+          "pos_xz": [
+            4,
+            -3
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c03:p2",
+          "pos_xz": [
+            0,
+            -6
+          ]
+        }
+      ],
+      "reverb": false,
+      "role": "ground",
+      "shape_class_target": "chamfered_polyomino",
+      "shape_stage_target": 2,
+      "surface_variants": {
+        "ceiling": "worn",
+        "floor": "clean",
+        "trim": "worn",
+        "wall": "clean"
+      },
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 172.8,
+        "source": "cell_envelope"
+      },
+      "wear": 1
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box",
+        "octagon",
+        "wedge"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c04",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c04:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          4,
+          -7
+        ],
+        [
+          12,
+          -7
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "floor_y": 0.0,
+      "light": {
+        "color_temp_k": 5093,
+        "lamps": [
+          {
+            "flicker_seed": 840418788,
+            "lamp_index": 0,
+            "state": "dead"
+          },
+          {
+            "flicker_seed": 99561174,
+            "lamp_index": 1,
+            "state": "dead"
+          },
+          {
+            "flicker_seed": 1250982091,
+            "lamp_index": 2,
+            "state": "flicker"
+          },
+          {
+            "flicker_seed": 763987020,
+            "lamp_index": 3,
+            "state": "on"
+          }
+        ],
+        "tier": "normal"
+      },
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow",
+        "registry_version": "0.3.0"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c04:p0",
+          "pos_xz": [
+            4,
+            -3
+          ]
+        }
+      ],
+      "reverb": false,
+      "role": "ground",
+      "shape_stage_target": 1,
+      "surface_variants": {
+        "ceiling": "clean",
+        "floor": "clean",
+        "trim": "clean",
+        "wall": "clean"
+      },
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 307.2,
+        "source": "cell_envelope"
+      },
+      "wear": 0
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c05",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c05:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c05:p1",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c05:p2",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          -10,
+          3
+        ],
+        [
+          -4,
+          3
+        ],
+        [
+          -4,
+          6
+        ],
+        [
+          -10,
+          6
+        ]
+      ],
+      "floor_y": 0.0,
+      "light": {
+        "color_temp_k": 5044,
+        "lamps": [
+          {
+            "flicker_seed": 276003050,
+            "lamp_index": 0,
+            "state": "flicker"
+          }
+        ],
+        "tier": "normal"
+      },
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "metal_service",
+        "region_distance": 1,
+        "region_seed_cell_id": "c11",
+        "registry_version": "0.3.0"
+      },
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c05:p0",
+          "pos_xz": [
+            -5.5,
+            6
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c05:p1",
+          "pos_xz": [
+            -8.5,
+            6
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c05:p2",
+          "pos_xz": [
+            -8.5,
+            3
+          ]
+        }
+      ],
+      "reverb": true,
+      "role": "ground",
+      "shape_stage_target": 1,
+      "surface_variants": {
+        "ceiling": "clean",
+        "floor": "clean",
+        "trim": "clean",
+        "wall": "clean"
+      },
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 86.4,
+        "source": "cell_envelope"
+      },
+      "wear": 0
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c06",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c06:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c06:p1",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c06:p2",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          3,
+          1
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          13,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "floor_y": 0.0,
+      "light": {
+        "color_temp_k": 4193,
+        "lamps": [
+          {
+            "flicker_seed": 355309962,
+            "lamp_index": 0,
+            "state": "on"
+          },
+          {
+            "flicker_seed": 1396508189,
+            "lamp_index": 1,
+            "state": "on"
+          }
+        ],
+        "tier": "normal"
+      },
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow",
+        "registry_version": "0.3.0"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c06:p0",
+          "pos_xz": [
+            3,
+            2.5
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c06:p1",
+          "pos_xz": [
+            13,
+            2.5
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c06:p2",
+          "pos_xz": [
+            11.5,
+            4
+          ]
+        }
+      ],
+      "reverb": true,
+      "role": "threshold",
+      "shape_stage_target": 1,
+      "surface_variants": {
+        "ceiling": "damaged",
+        "floor": "damaged",
+        "trim": "damaged",
+        "wall": "worn"
+      },
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 144.0,
+        "source": "cell_envelope"
+      },
+      "wear": 2
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c07",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c07:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          13,
+          1
+        ],
+        [
+          19,
+          1
+        ],
+        [
+          19,
+          4
+        ],
+        [
+          13,
+          4
+        ]
+      ],
+      "floor_y": 0.0,
+      "light": {
+        "color_temp_k": 4248,
+        "lamps": [
+          {
+            "flicker_seed": 2045219962,
+            "lamp_index": 0,
+            "state": "on"
+          }
+        ],
+        "tier": "normal"
+      },
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "tiled_institutional",
+        "region_distance": 0,
+        "region_seed_cell_id": "c07",
+        "registry_version": "0.3.0"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c07:p0",
+          "pos_xz": [
+            13,
+            2.5
+          ]
+        }
+      ],
+      "reverb": false,
+      "role": "ground",
+      "shape_stage_target": 1,
+      "surface_variants": {
+        "ceiling": "worn",
+        "floor": "worn",
+        "trim": "worn",
+        "wall": "clean"
+      },
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 86.4,
+        "source": "cell_envelope"
+      },
+      "wear": 1
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box",
+        "chamfered_polyomino"
+      ],
+      "ceiling_range_m": [
+        4.1,
+        4.8
+      ],
+      "cell_id": "c08",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c08:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c08:p1",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          -4,
+          -12
+        ],
+        [
+          2,
+          -12
+        ],
+        [
+          2,
+          -6
+        ],
+        [
+          -4,
+          -6
+        ]
+      ],
+      "floor_y": -1.5,
+      "light": {
+        "color_temp_k": 5124,
+        "lamps": [
+          {
+            "flicker_seed": 1197098494,
+            "lamp_index": 0,
+            "state": "dead"
+          }
+        ],
+        "tier": "dim"
+      },
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow",
+        "registry_version": "0.3.0"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c08:p0",
+          "pos_xz": [
+            0,
+            -6
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c08:p1",
+          "pos_xz": [
+            2,
+            -10.5
+          ]
+        }
+      ],
+      "reverb": true,
+      "role": "ground",
+      "shape_stage_target": 1,
+      "surface_variants": {
+        "ceiling": "clean",
+        "floor": "damaged",
+        "trim": "worn",
+        "wall": "clean"
+      },
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 172.8,
+        "source": "cell_envelope"
+      },
+      "wear": 1
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box",
+        "chamfered_polyomino"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c09",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c09:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c09:p1",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          2,
+          -17
+        ],
+        [
+          14,
+          -17
+        ],
+        [
+          14,
+          -9
+        ],
+        [
+          2,
+          -9
+        ]
+      ],
+      "floor_y": -1.5,
+      "light": {
+        "color_temp_k": 5194,
+        "lamps": [
+          {
+            "flicker_seed": 631250567,
+            "lamp_index": 0,
+            "state": "on"
+          },
+          {
+            "flicker_seed": 1348659440,
+            "lamp_index": 1,
+            "state": "on"
+          },
+          {
+            "flicker_seed": 1195858953,
+            "lamp_index": 2,
+            "state": "dead"
+          },
+          {
+            "flicker_seed": 1997495911,
+            "lamp_index": 3,
+            "state": "on"
+          }
+        ],
+        "tier": "normal"
+      },
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow",
+        "registry_version": "0.3.0"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c09:p0",
+          "pos_xz": [
+            2,
+            -10.5
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c09:p1",
+          "pos_xz": [
+            6.5,
+            -17
+          ]
+        }
+      ],
+      "reverb": false,
+      "role": "ground",
+      "shape_class_target": "chamfered_box",
+      "shape_stage_target": 2,
+      "surface_variants": {
+        "ceiling": "clean",
+        "floor": "clean",
+        "trim": "clean",
+        "wall": "clean"
+      },
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 460.8,
+        "source": "cell_envelope"
+      },
+      "wear": 0
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box",
+        "chamfered_polyomino"
+      ],
+      "ceiling_range_m": [
+        3.0,
+        6.0
+      ],
+      "cell_id": "c10",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c10:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c10:p1",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        },
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c10:p2",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          -19,
+          6
+        ],
+        [
+          -7,
+          6
+        ],
+        [
+          -7,
+          16
+        ],
+        [
+          -19,
+          16
+        ]
+      ],
+      "floor_y": 0.0,
+      "light": {
+        "color_temp_k": 3853,
+        "lamps": [
+          {
+            "flicker_seed": 1968462958,
+            "lamp_index": 0,
+            "state": "on"
+          },
+          {
+            "flicker_seed": 2127479215,
+            "lamp_index": 1,
+            "state": "on"
+          },
+          {
+            "flicker_seed": 1624260375,
+            "lamp_index": 2,
+            "state": "flicker"
+          },
+          {
+            "flicker_seed": 1967802377,
+            "lamp_index": 3,
+            "state": "dead"
+          }
+        ],
+        "tier": "bright"
+      },
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "backrooms_yellow",
+        "registry_version": "0.3.0"
+      },
+      "rarity_tier": 2,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c10:p0",
+          "pos_xz": [
+            -8.5,
+            6
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            -1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c10:p1",
+          "pos_xz": [
+            -19,
+            12
+          ]
+        },
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c10:p2",
+          "pos_xz": [
+            -17.5,
+            16
+          ]
+        }
+      ],
+      "reverb": true,
+      "role": "figure",
+      "shape_class_target": "chamfered_polyomino",
+      "shape_stage_target": 2,
+      "surface_variants": {
+        "ceiling": "clean",
+        "floor": "clean",
+        "trim": "clean",
+        "wall": "clean"
+      },
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 720.0,
+        "source": "cell_envelope"
+      },
+      "wear": 0
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon",
+        "chamfered_box"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c11",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c11:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          -13,
+          0
+        ],
+        [
+          -7,
+          0
+        ],
+        [
+          -7,
+          3
+        ],
+        [
+          -13,
+          3
+        ]
+      ],
+      "floor_y": 0.0,
+      "light": {
+        "color_temp_k": 3864,
+        "lamps": [
+          {
+            "flicker_seed": 513541500,
+            "lamp_index": 0,
+            "state": "on"
+          }
+        ],
+        "tier": "normal"
+      },
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "palette": {
+        "anchor_module_id": null,
+        "distance": null,
+        "palette_id": "metal_service",
+        "region_distance": 0,
+        "region_seed_cell_id": "c11",
+        "registry_version": "0.3.0"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c11:p0",
+          "pos_xz": [
+            -8.5,
+            3
+          ]
+        }
+      ],
+      "reverb": true,
+      "role": "ground",
+      "shape_stage_target": 1,
+      "surface_variants": {
+        "ceiling": "clean",
+        "floor": "clean",
+        "trim": "clean",
+        "wall": "clean"
+      },
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 86.4,
+        "source": "cell_envelope"
+      },
+      "wear": 0
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.4,
+        2.4
+      ],
+      "cell_id": "c12",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c12:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          -25,
+          5
+        ],
+        [
+          -19,
+          5
+        ],
+        [
+          -19,
+          19
+        ],
+        [
+          -25,
+          19
+        ]
+      ],
+      "floor_y": 0.0,
+      "light": {
+        "color_temp_k": 4442,
+        "lamps": [],
+        "tier": "dim"
+      },
+      "mode": "standard",
+      "module": {
+        "metadata_record": {
+          "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_single_west_v1-v1.accepted.json",
+          "sha256": "1d2642ffc9ec0cdcdebd736755a34193787c891e627c4fadf5ee150b55815b76"
+        },
+        "module_id": "godot_early_pocket_single_west_v1",
+        "rotation_deg": 180,
+        "socket_id": "west",
+        "translation_xz": [
+          -19.02,
+          18.9
+        ],
+        "version": 1
+      },
+      "module_profile": {
+        "path": "godot_walk/room_catalog/module_metadata/godot_early_pocket_single_west_v1-v1.json",
+        "sha256": "95cf39b61ed529cbd5d23aee8d6208ec5a64088e562ff11091194c3988500f2f"
+      },
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            1,
+            0
+          ],
+          "placement": "standard",
+          "port_id": "c12:p0",
+          "pos_xz": [
+            -19,
+            12
+          ]
+        }
+      ],
+      "reverb": false,
+      "role": "ground",
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 198.72,
+        "source": "module_profile"
+      }
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.4,
+        2.4
+      ],
+      "cell_id": "c13",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c13:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          4,
+          -25
+        ],
+        [
+          11,
+          -25
+        ],
+        [
+          11,
+          -17
+        ],
+        [
+          4,
+          -17
+        ]
+      ],
+      "floor_y": -1.5,
+      "light": {
+        "color_temp_k": 4044,
+        "lamps": [],
+        "tier": "bright"
+      },
+      "mode": "standard",
+      "module": {
+        "metadata_record": {
+          "path": "godot_walk/room_catalog/module_poetics/godot_later_bay_column_bounded_v1-v1.accepted.json",
+          "sha256": "e6db1b50f9604998cc98f18b4f4cdf40caaaf6675cfab33402fd9b4feb0dbaf9"
+        },
+        "module_id": "godot_later_bay_column_bounded_v1",
+        "rotation_deg": 90,
+        "socket_id": "east",
+        "translation_xz": [
+          9.6,
+          -20.52
+        ],
+        "version": 1
+      },
+      "module_profile": {
+        "path": "godot_walk/room_catalog/module_metadata/godot_later_bay_column_bounded_v1-v1.json",
+        "sha256": "2b44099fa43e71144bef919965601aad5fe0b82901c9ab53ea1456b96a7b50c6"
+      },
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "rarity_tier": 1,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            1
+          ],
+          "placement": "standard",
+          "port_id": "c13:p0",
+          "pos_xz": [
+            6.5,
+            -17
+          ]
+        }
+      ],
+      "reverb": true,
+      "role": "ground",
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 107.052,
+        "source": "module_profile"
+      }
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c14",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c14:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          10,
+          4
+        ],
+        [
+          13,
+          4
+        ],
+        [
+          13,
+          7
+        ],
+        [
+          10,
+          7
+        ]
+      ],
+      "floor_y": 0.0,
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c14:p0",
+          "pos_xz": [
+            11.5,
+            4
+          ]
+        }
+      ],
+      "role": "void",
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 43.2,
+        "source": "cell_envelope"
+      }
+    },
+    {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "allowed_primitives": [
+        "box",
+        "l_shape",
+        "rectilinear_polygon"
+      ],
+      "ceiling_range_m": [
+        2.6,
+        4.8
+      ],
+      "cell_id": "c15",
+      "doors": [
+        {
+          "breadcrumb": {
+            "kind": null,
+            "marker_id": null,
+            "persistent": false
+          },
+          "follower_visibility": "untouched",
+          "lock": {
+            "lock_id": null,
+            "locked_by": null,
+            "unlock_condition": null
+          },
+          "port_id": "c15:p0",
+          "reroll": {
+            "draw_index": null,
+            "eligible": false,
+            "last_reroll_id": null,
+            "max_rerolls": 0,
+            "stream": "door-reroll:gmap-0.13.0"
+          },
+          "state": "open"
+        }
+      ],
+      "envelope_xz": [
+        [
+          -19,
+          16
+        ],
+        [
+          -16,
+          16
+        ],
+        [
+          -16,
+          19
+        ],
+        [
+          -19,
+          19
+        ]
+      ],
+      "floor_y": 0.0,
+      "mode": "standard",
+      "mood": {
+        "tags": [],
+        "tension": null
+      },
+      "mutation": {
+        "classes": [],
+        "eligible": false,
+        "follower_visibility": "untouched",
+        "last_change_id": null,
+        "policy": "none"
+      },
+      "rarity_tier": 0,
+      "required_ports": [
+        {
+          "compatibility_type": "level_doorway_2m_v1",
+          "normal": [
+            0,
+            -1
+          ],
+          "placement": "standard",
+          "port_id": "c15:p0",
+          "pos_xz": [
+            -17.5,
+            16
+          ]
+        }
+      ],
+      "role": "void",
+      "volume": {
+        "measured_m3": null,
+        "nominal_m3": 43.2,
+        "source": "cell_envelope"
+      }
+    }
+  ],
+  "dark_wing": {
+    "cell_ids": [
+      "c03",
+      "c08"
+    ],
+    "status": "placed"
+  },
+  "degenerate_budget": {
+    "max": 1,
+    "used": 0
+  },
+  "diagonal_links": {
+    "budget": 0,
+    "nudged_cells": [],
+    "reserved_diagonal_zones": [],
+    "selection_rule": "seeded weighted draw 0:3, 1:5, 2:2; growth reservations first; remaining eligible pairs sorted then seeded shuffle",
+    "used": 0
+  },
+  "distribution": {
+    "repetition_budget": {
+      "max_same_module_adjacent": 0,
+      "max_same_primitive_run": 3
+    },
+    "tier_curve": "2d6"
+  },
+  "edges": [
+    {
+      "connector": "direct",
+      "door_id": "c00:p0",
+      "from": "c00:p0",
+      "to": "c01:p0",
+      "vertical": "level"
+    },
+    {
+      "connector": "direct",
+      "door_id": "c00:p1",
+      "from": "c00:p1",
+      "to": "c03:p0",
+      "vertical": "level"
+    },
+    {
+      "connector": "direct",
+      "door_id": "c00:p2",
+      "from": "c00:p2",
+      "to": "c06:p0",
+      "vertical": "level"
+    },
+    {
+      "connector": "direct",
+      "door_id": "c01:p1",
+      "from": "c01:p1",
+      "to": "c02:p0",
+      "vertical": "level"
+    },
+    {
+      "connector": "direct",
+      "door_id": "c01:p2",
+      "from": "c01:p2",
+      "to": "c05:p0",
+      "vertical": "level"
+    },
+    {
+      "connector": "direct",
+      "door_id": "c03:p1",
+      "from": "c03:p1",
+      "to": "c04:p0",
+      "vertical": "level"
+    },
+    {
+      "connector": "direct",
+      "door_id": "c03:p2",
+      "from": "c03:p2",
+      "ramp": {
+        "angle_deg": 24.775141,
+        "lower_cell_id": "c08",
+        "rise_m": 1.5,
+        "run_m": 3.25,
+        "upper_cell_id": "c03",
+        "width_m": 2.2
+      },
+      "to": "c08:p0",
+      "vertical": "ramp"
+    },
+    {
+      "connector": "direct",
+      "door_id": "c05:p1",
+      "from": "c05:p1",
+      "to": "c10:p0",
+      "vertical": "level"
+    },
+    {
+      "connector": "direct",
+      "door_id": "c05:p2",
+      "from": "c05:p2",
+      "to": "c11:p0",
+      "vertical": "level"
+    },
+    {
+      "connector": "direct",
+      "door_id": "c06:p1",
+      "from": "c06:p1",
+      "to": "c07:p0",
+      "vertical": "level"
+    },
+    {
+      "connector": "closed_visible",
+      "door_id": "c06:p2",
+      "from": "c06:p2",
+      "to": "c14:p0",
+      "vertical": "level"
+    },
+    {
+      "connector": "direct",
+      "door_id": "c08:p1",
+      "from": "c08:p1",
+      "to": "c09:p0",
+      "vertical": "level"
+    },
+    {
+      "connection_status": "proposed_untested",
+      "connector": "direct",
+      "door_id": "c09:p1",
+      "from": "c09:p1",
+      "to": "c13:p0",
+      "vertical": "level"
+    },
+    {
+      "connection_status": "proposed_untested",
+      "connector": "direct",
+      "door_id": "c10:p1",
+      "from": "c10:p1",
+      "to": "c12:p0",
+      "vertical": "level"
+    },
+    {
+      "connector": "closed_visible",
+      "door_id": "c10:p2",
+      "from": "c10:p2",
+      "to": "c15:p0",
+      "vertical": "level"
+    }
+  ],
+  "elevation": {
+    "change_probability": 0.3,
+    "clearance_m": 2.6,
+    "drop_probability": 0.2,
+    "levels_m": [
+      -3.0,
+      -1.5,
+      0.0,
+      1.5,
+      3.0
+    ],
+    "ramp_min_run_m": 3.2,
+    "ramp_rise_m": 1.5,
+    "stream": "elevation:gmap-0.13.0"
+  },
+  "elevation_loops": {
+    "budget": 3,
+    "pairs": [],
+    "used": 0
+  },
+  "floor_regions": {
+    "base_area_m2": 502.0,
+    "max_region_area_share": 0.15,
+    "max_seeds": 3,
+    "min_default_area_share": 0.55,
+    "min_default_envelope_share": 0.6,
+    "radius": 1,
+    "region_area_m2": 72.0,
+    "seed_cells": [
+      {
+        "cell_id": "c11",
+        "palette_id": "metal_service"
+      },
+      {
+        "cell_id": "c07",
+        "palette_id": "tiled_institutional"
+      },
+      {
+        "cell_id": "c02",
+        "palette_id": "wood_parquet"
+      }
+    ],
+    "selection": "per-cell keyed seed and palette draws after library anchors; anchors win, spawn and direct neighbours excluded",
+    "stream": "floor_regions:gmap-0.12.0"
+  },
+  "generator_version": "gmap-0.13.0",
+  "growth_cell_target": 12,
+  "lattice": {
+    "kind": "square",
+    "port_step_m": 0.5,
+    "port_unit": "level_doorway_2m_v1",
+    "unit_m": 1.0
+  },
+  "layout_variant": 0,
+  "library_index": {
+    "metadata_records": [
+      {
+        "module_id": "godot_early_pocket_pass_through_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json",
+        "sha256": "7e8c4148ab2aaa45af7102719a7f820893b9368480757d6652f1f971774d1b3d"
+      },
+      {
+        "module_id": "godot_early_pocket_single_west_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_single_west_v1-v1.accepted.json",
+        "sha256": "1d2642ffc9ec0cdcdebd736755a34193787c891e627c4fadf5ee150b55815b76"
+      },
+      {
+        "module_id": "godot_early_pocket_three_way_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_three_way_v1-v1.accepted.json",
+        "sha256": "f03cff792927988fc13e6ad5512c78b09ae95d481baaded5e127c5bd44696ec6"
+      },
+      {
+        "module_id": "godot_gopro_industrial_hall_frame1097_v1",
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_poetics_v2.json",
+        "sha256": "0f8029fc7d2cf54db2bd73d6d7cf0b65e423826ba3082cfaa6cd77d35dca09ac"
+      },
+      {
+        "module_id": "godot_gopro_industrial_hall_south_socket_v1",
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_poetics_v2.json",
+        "sha256": "0dcc9e45c524d9daba2cb88d3e956e6d22eb04d03cff6d36e1ab025654c2a25e"
+      },
+      {
+        "module_id": "godot_later_bay_column_bounded_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_later_bay_column_bounded_v1-v1.accepted.json",
+        "sha256": "e6db1b50f9604998cc98f18b4f4cdf40caaaf6675cfab33402fd9b4feb0dbaf9"
+      },
+      {
+        "module_id": "godot_source_textured_large_room_hall_end_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_source_textured_large_room_hall_end_v1-v1.accepted.json",
+        "sha256": "0299e703889bd4969060899d32b142a4864fea98cbd88e3eb6ef5f4c1d70e1ce"
+      },
+      {
+        "module_id": "godot_source_textured_large_room_v1",
+        "path": "godot_walk/room_catalog/module_poetics/godot_source_textured_large_room_v1-v1.accepted.json",
+        "sha256": "ce3ab0c71f30e7f4ccd074db4836e35d5a28f9243506952d69718c972b635dac"
+      },
+      {
+        "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+        "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json",
+        "sha256": "eb36d037057b9ab223d3ca8ce6ece93191da591a9850fe158875367a6edf711d"
+      },
+      {
+        "module_id": "video_ccf9722164a0bdc8_debris_window_rock_north_socket_v1",
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_poetics_v2.json",
+        "sha256": "2eb7508f68a994e5d1159269b32522c4780434198e2adfbd648ee59a0b389df4"
+      },
+      {
+        "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json",
+        "sha256": "83a2a1c10e8d06b00ea995586e8c891b0b8e5f1116eea3cad4af457516725f78"
+      }
+    ],
+    "path": "godot_walk/room_catalog/library_index/godot_psx_room_kit-0.5.0.json",
+    "sha256": "147b1cb9daaa96601bcab84bf355929134f2ddbd6b6f279bc255f7ddd849f49f"
+  },
+  "map_id": "gmap-32-gmap-0.13.0",
+  "module_budget": {
+    "max": 2,
+    "min": 1,
+    "used": 2
+  },
+  "module_metadata": [
+    {
+      "module_id": "godot_early_pocket_single_west_v1",
+      "path": "godot_walk/room_catalog/module_metadata/godot_early_pocket_single_west_v1-v1.json",
+      "sha256": "95cf39b61ed529cbd5d23aee8d6208ec5a64088e562ff11091194c3988500f2f"
+    },
+    {
+      "module_id": "godot_later_bay_column_bounded_v1",
+      "path": "godot_walk/room_catalog/module_metadata/godot_later_bay_column_bounded_v1-v1.json",
+      "sha256": "2b44099fa43e71144bef919965601aad5fe0b82901c9ab53ea1456b96a7b50c6"
+    }
+  ],
+  "palette_registry": {
+    "path": "godot_walk/room_catalog/material_palettes/palettes-0.3.0.json",
+    "sha256": "56072eb92bd709e3a36d96a095908d9d08963dd6a3e9015bb2d0ae0215509c4e"
+  },
+  "registration_accepted": false,
+  "reverb_layer": {
+    "base_probability": 0.35,
+    "double_height_bonus": 0.1,
+    "double_height_m": 3.6,
+    "max_probability": 0.7,
+    "max_volume_bonus": 0.2,
+    "selection": "per-cell keyed draw; spawn always dry",
+    "stream": "reverb:gmap-0.11.0",
+    "volume_full_bonus_m3": 600.0,
+    "volume_reference_m3": 200.0
+  },
+  "rules": [
+    "branch_required",
+    "degenerate_only_in_degenerate_cells",
+    "diagonal_links",
+    "diagonal_site_reservations",
+    "elevation_layer",
+    "figure_not_adjacent",
+    "floor_region_layer",
+    "generation_template",
+    "landmark_contract",
+    "light_layer",
+    "module_budget",
+    "module_leaf_proposed_untested",
+    "module_metadata_pins",
+    "module_socket_landing",
+    "module_usable_once",
+    "no_envelope_overlap",
+    "palette_assignment",
+    "ports_on_lattice",
+    "ports_on_shared_edge",
+    "reverb_layer",
+    "runtime_policy_placeholders",
+    "shape_stage2_eligibility",
+    "standard_doorway_margin",
+    "surface_layer",
+    "tree_no_loops",
+    "void_visible_from_walkable",
+    "voids_never_traversable"
+  ],
+  "scale_calibrated": false,
+  "schema_version": 2,
+  "seed": 32,
+  "shape_stage_max": 3,
+  "template": {
+    "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+    "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+    "version": "generation-template-0.1.0"
+  },
+  "void_budget": {
+    "max": 3,
+    "min": 1
+  }
+}

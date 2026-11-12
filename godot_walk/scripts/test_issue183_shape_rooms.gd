@@ -546,7 +546,8 @@ func _check_spawn(scene: Node3D, player: CharacterBody3D) -> Dictionary:
 	var polygon: PackedVector2Array = origin_room.get_meta("walkable_polygon_xz")
 	var spawn := Vector2(player.global_position.x, player.global_position.z)
 	var inside := Geometry2D.is_point_in_polygon(spawn, polygon)
-	var clear := PROBE.floor_supported(space, spawn.x, spawn.y)
+	var clear := PROBE.floor_supported(space, spawn.x, spawn.y,
+		PROBE.cell_floor_y(scene.map, scene.origin_cell))
 	_expect(inside and clear, "Player spawn is not on supported floor inside the origin cell")
 	player.global_position = Vector3(1000.0, 1000.0, 1000.0)
 	player.velocity = Vector3(3.0, 4.0, -2.0)

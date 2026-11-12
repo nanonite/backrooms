@@ -35,6 +35,19 @@
     "template": {
       "$ref": "#/$defs/template_ref"
     },
+    "module_metadata": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["module_id", "path", "sha256"],
+        "properties": {
+          "module_id": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"$ref": "#/$defs/sha256"}
+        },
+        "additionalProperties": false
+      }
+    },
     "seed": {
       "type": "integer",
       "minimum": 0,
@@ -472,6 +485,9 @@
           },
           "mutation": {
             "$ref": "#/$defs/mutation"
+          },
+          "absorption": {
+            "$ref": "#/$defs/absorption"
           }
         },
         "additionalProperties": false
@@ -504,6 +520,10 @@
             "enum": [
               "proposed_untested"
             ]
+          },
+          "door_id": {
+            "type": "string",
+            "minLength": 1
           },
           "kind": {
             "enum": [
@@ -1523,6 +1543,31 @@
           }
         }
       }
+    },
+    {
+      "if": {
+        "properties": {"generator_version": {"const": "gmap-0.13.0"}},
+        "required": ["generator_version"]
+      },
+      "then": {
+        "required": ["template", "module_metadata"],
+        "properties": {
+          "cells": {
+            "items": {
+              "required": ["volume", "mood", "doors", "mutation", "absorption"],
+              "allOf": [
+                {
+                  "if": {"required": ["module"]},
+                  "then": {"required": ["module_profile"]}
+                }
+              ]
+            }
+          },
+          "edges": {
+            "items": {"required": ["door_id"]}
+          }
+        }
+      }
     }
   ],
   "$defs": {
@@ -2203,6 +2248,20 @@
             "null"
           ]
         }
+      },
+      "additionalProperties": false
+    },
+    "absorption": {
+      "type": "object",
+      "required": ["status", "wall", "floor", "ceiling", "trim", "source", "confidence"],
+      "properties": {
+        "status": {"enum": ["unknown", "estimated", "measured"]},
+        "wall": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "floor": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "ceiling": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "trim": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "source": {"type": "string", "minLength": 1},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1}
       },
       "additionalProperties": false
     }

@@ -1,0 +1,353 @@
+{
+  "area_m2": 115.754053,
+  "arm_width_m": null,
+  "arms_xz": [],
+  "ceiling_height_m": 4.8,
+  "cell_id": "c02",
+  "construction": "regular_polygon",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        -1
+      ],
+      "port_id": "c02:p0",
+      "pos_xz": [
+        2.0,
+        9.0
+      ],
+      "sill_height_m": 0.0,
+      "to_cell_id": "c01",
+      "to_port_id": "c01:p1",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        1
+      ],
+      "port_id": "c02:p1",
+      "pos_xz": [
+        2.0,
+        21.0
+      ],
+      "sill_height_m": 0.0,
+      "to_cell_id": "c04",
+      "to_port_id": "c04:p0",
+      "width_m": 2.0
+    },
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        -1,
+        0
+      ],
+      "port_id": "c02:p2",
+      "pos_xz": [
+        -4.0,
+        15.0
+      ],
+      "sill_height_m": 0.0,
+      "to_cell_id": "c08",
+      "to_port_id": "c08:p0",
+      "width_m": 2.0
+    }
+  ],
+  "envelope_xz": [
+    [
+      -4.0,
+      9.0
+    ],
+    [
+      8.0,
+      9.0
+    ],
+    [
+      8.0,
+      21.0
+    ],
+    [
+      -4.0,
+      21.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_ring",
+      "kind": "ceiling_lamp_ring",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c02:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c02:p1",
+      "kind": "doorway",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c02:p2",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "floor_y": 0.0,
+  "generator_version": "shape-room-0.10.0",
+  "lamps_xz": [
+    [
+      2.0,
+      15.0
+    ]
+  ],
+  "landmark": {
+    "circumradius_m": 6.211657,
+    "class": "dodecagon",
+    "inradius_m": 6.0,
+    "port_facet_indices": [
+      2,
+      5,
+      8,
+      11
+    ],
+    "rotation_deg": 0.0,
+    "status": "placed"
+  },
+  "light": {
+    "color_temp_k": 4009,
+    "lamps": [
+      {
+        "flicker_seed": 1941752188,
+        "lamp_index": 0,
+        "state": "on"
+      }
+    ],
+    "tier": "bright"
+  },
+  "map_id": "gmap-2-gmap-0.13.0",
+  "map_sha256": "07c1cbb219004d1533021ff5d7c5fe18b41d28ed8b01f4ce69535e1c0db8c465",
+  "material_source": "palette_registry",
+  "materials": {
+    "acoustic": {
+      "ceiling": "tile",
+      "floor": "carpet",
+      "trim": "metal",
+      "wall": "plaster"
+    },
+    "ceiling": {
+      "acoustic": "tile",
+      "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+      "tile_m": 4.0,
+      "variant": "clean"
+    },
+    "floor": {
+      "acoustic": "carpet",
+      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
+      "tile_m": 4.0,
+      "variant": "clean"
+    },
+    "lamp_color": [
+      1.0,
+      0.97,
+      0.76
+    ],
+    "palette_id": "backrooms_yellow",
+    "registry_version": "0.3.0",
+    "trim_color": [
+      0.37,
+      0.34,
+      0.23
+    ],
+    "variants": {
+      "ceiling": "clean",
+      "floor": "clean",
+      "trim": "clean",
+      "wall": "clean"
+    },
+    "wall": {
+      "acoustic": "plaster",
+      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+      "tile_m": 1.5,
+      "variant": "clean"
+    },
+    "wear": 0
+  },
+  "mode": "standard",
+  "original_cell_status": "shape_room_pending",
+  "outline_xz": [
+    [
+      8.0,
+      16.607695
+    ],
+    [
+      6.392305,
+      19.392305
+    ],
+    [
+      3.607695,
+      21.0
+    ],
+    [
+      0.392305,
+      21.0
+    ],
+    [
+      -2.392305,
+      19.392305
+    ],
+    [
+      -4.0,
+      16.607695
+    ],
+    [
+      -4.0,
+      13.392305
+    ],
+    [
+      -2.392305,
+      10.607695
+    ],
+    [
+      0.392305,
+      9.0
+    ],
+    [
+      3.607695,
+      9.0
+    ],
+    [
+      6.392305,
+      10.607695
+    ],
+    [
+      8.0,
+      13.392305
+    ]
+  ],
+  "primitive": "t_shape",
+  "primitive_class": "dodecagon",
+  "rarity_tier": 1,
+  "rects": [
+    [
+      0.5,
+      9.0,
+      3.5,
+      9.5
+    ],
+    [
+      0.0,
+      9.5,
+      4.0,
+      10.0
+    ],
+    [
+      -1.0,
+      10.0,
+      5.0,
+      10.5
+    ],
+    [
+      -2.0,
+      10.5,
+      6.0,
+      11.0
+    ],
+    [
+      -2.5,
+      11.0,
+      6.5,
+      12.0
+    ],
+    [
+      -3.0,
+      12.0,
+      7.0,
+      13.0
+    ],
+    [
+      -3.5,
+      13.0,
+      7.5,
+      13.5
+    ],
+    [
+      -4.0,
+      13.5,
+      8.0,
+      16.5
+    ],
+    [
+      -3.5,
+      16.5,
+      7.5,
+      17.0
+    ],
+    [
+      -3.0,
+      17.0,
+      7.0,
+      18.0
+    ],
+    [
+      -2.5,
+      18.0,
+      6.5,
+      19.0
+    ],
+    [
+      -2.0,
+      19.0,
+      6.0,
+      19.5
+    ],
+    [
+      -1.0,
+      19.5,
+      5.0,
+      20.0
+    ],
+    [
+      0.0,
+      20.0,
+      4.0,
+      20.5
+    ],
+    [
+      0.5,
+      20.5,
+      3.5,
+      21.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "ground",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 3
+}

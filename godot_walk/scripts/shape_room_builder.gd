@@ -165,11 +165,11 @@ static func _add_lamps(visuals: Node3D, context: Dictionary) -> void:
 		var position := Vector3(float(point[0]), context.height - LAMP_SIZE.y / 2.0, float(point[1]))
 		var material: Material = context.materials.lamp
 		var state: Dictionary = {}
-		if context.spec.has("light"):
+		if context.spec.has("light") and index < context.spec.light.lamps.size():
 			state = context.spec.light.lamps[index]
 			material = LIGHTING.material_for_state(material, String(state.state), int(context.spec.light.color_temp_k))
 		_add_box(lamps, "CeilingLight_%02d" % index, position, LAMP_SIZE, material)
-		if context.spec.has("light"):
+		if context.spec.has("light") and index < context.spec.light.lamps.size():
 			LIGHTING.add_lamp_light(lamps, point, state,
 				_light_config(context, position.y), material as StandardMaterial3D, int(context.light_layer))
 		index += 1
@@ -289,8 +289,8 @@ static func _add_doorway(visuals: Node3D, boundaries: Node3D, context: Dictionar
 	var door_height: float = gap.height
 	var sill: float = float(gap.get("sill", 0.0))
 	var opening_top := sill + door_height
-	if sill > EPSILON:
-		# The riser below a raised opening: a ramp's threshold or the solid drop face.
+	if sill > EPSILON and String(doorway.get("vertical", "")) != "ramp":
+		# A drop keeps its raised lower-side opening blocked from below; a ramp stays traversable.
 		var sill_wall := _edge_box(frame, gap["from"], gap["to"], 0.0, WALL_THICKNESS, 0.0, sill)
 		var sill_material := MATERIALS.scaled(context.materials, "wallpaper", sill_wall.size_along, sill)
 		_add_box(visuals, "WallSill_" + port + "Visual", sill_wall.center, sill_wall.size, sill_material, sill_wall.yaw)
@@ -358,7 +358,6 @@ static func _add_ramp(visuals: Node3D, boundaries: Node3D, context: Dictionary, 
 	var port := String(ramp.port_id)
 	var start := Vector2(float(ramp.start_xz[0]), float(ramp.start_xz[1]))
 	var direction := Vector2(float(ramp.direction_xz[0]), float(ramp.direction_xz[1])).normalized()
-	start += direction * WALL_THICKNESS
 	var lateral := Vector2(-direction.y, direction.x)
 	var run := float(ramp.run_m)
 	var rise := float(ramp.rise_m)

@@ -26,6 +26,7 @@ GENERATOR_VERSION_V9 = "gmap-0.9.0"
 GENERATOR_VERSION_V10 = "gmap-0.10.0"
 GENERATOR_VERSION_V11 = "gmap-0.11.0"
 GENERATOR_VERSION_V12 = "gmap-0.12.0"
+GENERATOR_VERSION_V13 = "gmap-0.13.0"
 VERSIONS = (
     GENERATOR_VERSION,
     GENERATOR_VERSION_V2,
@@ -40,6 +41,7 @@ VERSIONS = (
     GENERATOR_VERSION_V10,
     GENERATOR_VERSION_V11,
     GENERATOR_VERSION_V12,
+    GENERATOR_VERSION_V13,
 )
 MARGIN_VERSIONS = (
     GENERATOR_VERSION_V2,
@@ -52,6 +54,7 @@ MARGIN_VERSIONS = (
     GENERATOR_VERSION_V8,
     GENERATOR_VERSION_V9,
     GENERATOR_VERSION_V10,
+    GENERATOR_VERSION_V13,
 )  # standard margins + degenerate cells
 MODULE_VERSIONS = (
     GENERATOR_VERSION_V3,
@@ -63,6 +66,7 @@ MODULE_VERSIONS = (
     GENERATOR_VERSION_V8,
     GENERATOR_VERSION_V9,
     GENERATOR_VERSION_V10,
+    GENERATOR_VERSION_V13,
 )  # library modules as leaf cells
 STAGE2_VERSIONS = (
     GENERATOR_VERSION_V4,
@@ -73,6 +77,7 @@ STAGE2_VERSIONS = (
     GENERATOR_VERSION_V8,
     GENERATOR_VERSION_V9,
     GENERATOR_VERSION_V10,
+    GENERATOR_VERSION_V13,
 )  # 45-degree classes, library-room overhang margin
 DEFAULT_DEGENERATE_MAX = 1
 MAX_ATTEMPTS = 50
@@ -109,6 +114,14 @@ RULE_IDS_V9 = sorted([*RULE_IDS_V8, "surface_layer"])
 RULE_IDS_V10 = sorted([*RULE_IDS_V9, "elevation_layer"])
 RULE_IDS_V11 = sorted([*RULE_IDS_V10, "reverb_layer"])
 RULE_IDS_V12 = sorted([*RULE_IDS_V11, "floor_region_layer"])
+RULE_IDS_V13 = sorted(
+    [
+        *RULE_IDS_V12,
+        "generation_template",
+        "module_metadata_pins",
+        "runtime_policy_placeholders",
+    ]
+)
 CEILING = {
     "figure": [3.0, 6.0],
     "ground": [2.6, 4.8],
@@ -137,6 +150,8 @@ def layout_version(version: str) -> str:
 
 
 def rule_ids(version: str) -> list[str]:
+    if version == GENERATOR_VERSION_V13:
+        return RULE_IDS_V13
     if version == GENERATOR_VERSION_V12:
         return RULE_IDS_V12
     if version == GENERATOR_VERSION_V11:
@@ -219,6 +234,16 @@ def build_map(
 ) -> dict[str, Any]:
     if version not in VERSIONS:
         raise GenerationError(f"generator version must be one of {', '.join(VERSIONS)}")
+    if version == GENERATOR_VERSION_V13:
+        if stage_max not in (None, 3):
+            raise GenerationError("gmap-0.13.0 requires --stage-max=3")
+        document = build_map(seed, library, cells, 3, GENERATOR_VERSION_V7, degenerate_max)
+        _build_v13_layers(document, library)
+        from gmap_template import add_template_fields
+
+        add_template_fields(document)
+        document["schema_version"] = 2
+        return document
     if version == GENERATOR_VERSION_V12:
         if stage_max not in (None, 3):
             raise GenerationError("gmap-0.12.0 requires --stage-max=3")
@@ -423,6 +448,61 @@ def build_map(
                     if source_palette:
                         record["palette"] = dict(source_palette)
     return document
+
+
+def _build_v13_layers(document: dict[str, Any], library: Library) -> None:
+    """Derive every post-layout layer with its gmap-0.13.0 stream."""
+    from gmap_elevation import assign_elevation
+    from gmap_light import assign_light
+    from gmap_palette import palette_assignment
+    from gmap_palette_registry import (
+        load_registry_v3,
+        registry_ref_v3,
+    )
+    from gmap_reverb import assign_reverb
+    from gmap_surface import assign_surface
+
+    document["generator_version"] = GENERATOR_VERSION_V13
+    document["map_id"] = map_id_for(document["seed"], GENERATOR_VERSION_V13)
+    document["rules"] = list(rule_ids(GENERATOR_VERSION_V13))
+    document["schema_version"] = 2
+    document["palette_registry"] = registry_ref_v3()
+    for cell in document["cells"]:
+        for field in ("palette", "wear", "surface_variants", "light", "reverb"):
+            cell.pop(field, None)
+    for field in ("dark_wing", "floor_regions", "reverb_layer", "elevation"):
+        document.pop(field, None)
+
+    registry = load_registry_v3()
+    palettes, regions = palette_assignment(document, library, registry)
+    for cell in document["cells"]:
+        if cell["cell_id"] in palettes:
+            cell["palette"] = palettes[cell["cell_id"]]
+            cell["surface_variants"] = {
+                "floor": "clean",
+                "wall": "clean",
+                "ceiling": "clean",
+                "trim": "clean",
+            }
+    document["floor_regions"] = regions
+    # Shape-room lamp layout reads material variants, while variants use light tier.
+    # Alternate those layers and finish with a redraw against the final surface set.
+    assign_light(document, library)
+    for cell in document["cells"]:
+        cell.pop("surface_variants", None)
+    assign_surface(document, registry)
+    for cell in document["cells"]:
+        cell.pop("light", None)
+    document.pop("dark_wing", None)
+    assign_light(document, library)
+    assign_surface(document, registry)
+    assign_elevation(document)
+    assign_reverb(document)
+    for cell in document["cells"]:
+        cell.pop("light", None)
+    document.pop("dark_wing", None)
+    assign_light(document, library)
+    assign_surface(document, registry)
 
 
 def _assign_landmark_target(

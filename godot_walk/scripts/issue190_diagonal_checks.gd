@@ -38,7 +38,7 @@ static func check(assembly: Node3D, with_floor: bool = true) -> Dictionary:
 		_push(assembly, cell_id, ring, result)
 		if with_floor:
 			_floor(assembly, cell_id, ring, spec, result)
-		_joints(assembly.rooms[cell_id], cell_id, ring, spec, result)
+		_joints(assembly.rooms[cell_id], cell_id, ring, spec, PROBE.cell_floor_y(assembly.map, cell_id), result)
 	for conflict: String in coplanar(assembly):
 		result.coplanar_faces += 1
 		result.failures.append("Diagonal wall face is coplanar: " + conflict)
@@ -47,6 +47,7 @@ static func check(assembly: Node3D, with_floor: bool = true) -> Dictionary:
 
 static func _floor(assembly: Node3D, cell_id: String, ring: Array[Vector2], spec: Dictionary, result: Dictionary) -> void:
 	var space := assembly.get_world_3d().direct_space_state
+	var floor_y := PROBE.cell_floor_y(assembly.map, cell_id)
 	var low := Vector2(float(spec.envelope_xz[0][0]), float(spec.envelope_xz[0][1]))
 	var high := Vector2(float(spec.envelope_xz[2][0]), float(spec.envelope_xz[2][1]))
 	for i in range(int(round((high.x - low.x) / FLOOR_STEP_M)) + 1):
@@ -55,8 +56,8 @@ static func _floor(assembly: Node3D, cell_id: String, ring: Array[Vector2], spec
 			if not PROBE.inside_polygon(point, ring) or _wall_distance(point, ring) < FLOOR_EDGE_SKIP_M:
 				continue
 			result.floor_samples += 1
-			if not PROBE.floor_supported(space, point.x, point.y):
-				if _under_module_wall(assembly, space, point):
+			if not PROBE.floor_supported(space, point.x, point.y, floor_y):
+				if _under_module_wall(assembly, space, point, floor_y):
 					result.module_overhang_samples += 1  # a library wall overhangs this room by up to 0.3 m (#188)
 					continue
 				result.floor_missing += 1
@@ -65,8 +66,8 @@ static func _floor(assembly: Node3D, cell_id: String, ring: Array[Vector2], spec
 
 
 ## The ray down at `point` is stopped by a box of a placed library room, not by a gap in the floor.
-static func _under_module_wall(assembly: Node3D, space: PhysicsDirectSpaceState3D, point: Vector2) -> bool:
-	var query := PhysicsRayQueryParameters3D.create(Vector3(point.x, 0.45, point.y), Vector3(point.x, -0.12, point.y))
+static func _under_module_wall(assembly: Node3D, space: PhysicsDirectSpaceState3D, point: Vector2, floor_y: float) -> bool:
+	var query := PhysicsRayQueryParameters3D.create(Vector3(point.x, floor_y + 0.45, point.y), Vector3(point.x, floor_y - 0.12, point.y))
 	var hit := space.intersect_ray(query)
 	if hit.is_empty():
 		return false
@@ -86,6 +87,7 @@ static func _wall_distance(point: Vector2, ring: Array[Vector2]) -> float:
 
 static func _push(assembly: Node3D, cell_id: String, ring: Array[Vector2], result: Dictionary) -> void:
 	var space := assembly.get_world_3d().direct_space_state
+	var floor_y := PROBE.cell_floor_y(assembly.map, cell_id)
 	for index in ring.size():
 		var start := ring[index]
 		var direction := (ring[(index + 1) % ring.size()] - start).normalized()
@@ -101,10 +103,10 @@ static func _push(assembly: Node3D, cell_id: String, ring: Array[Vector2], resul
 				continue  # an opening is not a solid wall to push against.
 			var from := on_wall + inward * PUSH_START_M
 			result.push_samples += 1
-			if not PROBE.blockers(space, from.x, from.y).is_empty() or not PROBE.floor_supported(space, from.x, from.y):
+			if not PROBE.blockers(space, from.x, from.y, floor_y).is_empty() or not PROBE.floor_supported(space, from.x, from.y, floor_y):
 				result.failures.append("%s edge %d: push start %s is not clear floor" % [cell_id, index, from])
 				continue
-			var depth := _pushed_depth(assembly, from, -inward, on_wall, inward)
+			var depth := _pushed_depth(assembly, from, -inward, on_wall, inward, floor_y)
 			if depth >= STOPPED_DEPTH_M:
 				result.push_stopped += 1
 			else:
@@ -129,7 +131,7 @@ static func _has_diagonal_doorway(spec: Dictionary) -> bool:
 
 
 ## How far inside the wall line the capsule centre ends after being pushed `PUSH_TRAVEL_M` toward it.
-static func _pushed_depth(assembly: Node3D, from: Vector2, toward: Vector2, on_wall: Vector2, inward: Vector2) -> float:
+static func _pushed_depth(assembly: Node3D, from: Vector2, toward: Vector2, on_wall: Vector2, inward: Vector2, floor_y: float) -> float:
 	var body := CharacterBody3D.new()
 	var shape := CollisionShape3D.new()
 	var capsule := CapsuleShape3D.new()
@@ -138,7 +140,7 @@ static func _pushed_depth(assembly: Node3D, from: Vector2, toward: Vector2, on_w
 	shape.shape = capsule
 	body.add_child(shape)
 	assembly.add_child(body)
-	body.global_position = Vector3(from.x, PROBE.CENTER_Y, from.y)
+	body.global_position = Vector3(from.x, floor_y + PROBE.CENTER_Y, from.y)
 	body.move_and_collide(Vector3(toward.x, 0.0, toward.y) * PUSH_TRAVEL_M)
 	var at := Vector2(body.global_position.x, body.global_position.z)
 	assembly.remove_child(body)
@@ -148,7 +150,7 @@ static func _pushed_depth(assembly: Node3D, from: Vector2, toward: Vector2, on_w
 
 ## Samples of the wall band (inside the outline, closer than the wall thickness to it) around each
 ## vertex that touches a diagonal edge must lie inside at least one wall collision box.
-static func _joints(room: Node3D, cell_id: String, ring: Array[Vector2], spec: Dictionary, result: Dictionary) -> void:
+static func _joints(room: Node3D, cell_id: String, ring: Array[Vector2], spec: Dictionary, floor_y: float, result: Dictionary) -> void:
 	var boxes := _wall_shapes(room)
 	for index in ring.size():
 		var touches: bool = DIAGONAL.is_diagonal((ring[(index + 1) % ring.size()] - ring[index]).normalized()) \
@@ -166,7 +168,7 @@ static func _joints(room: Node3D, cell_id: String, ring: Array[Vector2], spec: D
 						z += SAMPLE_STEP_M
 						continue
 					result.joint_samples += 1
-					if not _covered(point, boxes):
+					if not _covered(point, boxes, floor_y):
 						result.joint_uncovered += 1
 						if result.joint_uncovered <= 3:
 							result.failures.append("%s: wall band at %s near vertex %d is not covered by a wall box" % [cell_id, point, index])
@@ -206,9 +208,9 @@ static func _wall_shapes(room: Node3D) -> Array[Dictionary]:
 	return boxes
 
 
-static func _covered(point: Vector2, boxes: Array[Dictionary]) -> bool:
+static func _covered(point: Vector2, boxes: Array[Dictionary], floor_y: float) -> bool:
 	for box: Dictionary in boxes:
-		var local: Vector3 = box.inverse * Vector3(point.x, 1.0, point.y)
+		var local: Vector3 = box.inverse * Vector3(point.x, floor_y + 1.0, point.y)
 		if absf(local.x) <= box.half.x + 0.0001 and absf(local.y) <= box.half.y and absf(local.z) <= box.half.z + 0.0001:
 			return true
 	return false

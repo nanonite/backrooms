@@ -33,8 +33,10 @@ static func _end(assembly: Node3D, port_id: String) -> Dictionary:
 		return _module_end(assembly, port_id)
 	for doorway: Dictionary in spec.doorways:
 		if String(doorway.port_id) == port_id:
-			return {"pos": Vector2(float(doorway.pos_xz[0]), float(doorway.pos_xz[1])),
-				"normal": Vector2(float(doorway.normal[0]), float(doorway.normal[1]))}
+			return {"cell_id": port_id.get_slice(":", 0),
+				"pos": Vector2(float(doorway.pos_xz[0]), float(doorway.pos_xz[1])),
+				"normal": Vector2(float(doorway.normal[0]), float(doorway.normal[1])),
+				"floor_y": PROBE.cell_floor_y(assembly.map, port_id.get_slice(":", 0))}
 	return {}
 
 
@@ -45,8 +47,10 @@ static func _module_end(assembly: Node3D, port_id: String) -> Dictionary:
 	for cell: Dictionary in assembly.map.cells:
 		for port: Dictionary in cell.required_ports:
 			if String(port.port_id) == port_id:
-				return {"pos": Vector2(float(port.pos_xz[0]), float(port.pos_xz[1])),
-					"normal": Vector2(float(port.normal[0]), float(port.normal[1]))}
+				return {"cell_id": port_id.get_slice(":", 0),
+					"pos": Vector2(float(port.pos_xz[0]), float(port.pos_xz[1])),
+					"normal": Vector2(float(port.normal[0]), float(port.normal[1])),
+					"floor_y": PROBE.cell_floor_y(assembly.map, port_id.get_slice(":", 0))}
 	return {}
 
 
@@ -61,11 +65,15 @@ static func _check_direct(space: PhysicsDirectSpaceState3D, result: Dictionary, 
 		result.failures.append("%s: doorway positions or normals do not mirror" % label)
 		return
 	if from_end.is_empty():
-		from_end = {"pos": to_end.pos, "normal": -to_end.normal}
+		from_end = {"cell_id": String(edge.from).get_slice(":", 0), "pos": to_end.pos,
+			"normal": -to_end.normal, "floor_y": to_end.floor_y}
 	var inside_from: Vector2 = from_end.pos - from_end.normal * INSIDE_M
 	var inside_to: Vector2 = from_end.pos + from_end.normal * INSIDE_M
-	var forward := PROBE.sweep(space, inside_from, inside_to)
-	var reverse := PROBE.sweep(space, inside_to, inside_from)
+	if String(edge.get("vertical", "level")) == "drop":
+		_check_drop(space, result, edge, from_end, to_end, inside_from, inside_to)
+		return
+	var forward := _edge_sweep(space, edge, from_end, to_end, inside_from, inside_to)
+	var reverse := _edge_sweep(space, edge, to_end, from_end, inside_to, inside_from)
 	result.passed_forward += 1 if forward.passable else 0
 	result.passed_reverse += 1 if reverse.passable else 0
 	if not forward.passable:
@@ -74,12 +82,40 @@ static func _check_direct(space: PhysicsDirectSpaceState3D, result: Dictionary, 
 		result.failures.append("%s reverse: %s at %s" % [label, reverse.reason, reverse.at])
 
 
+static func _edge_sweep(space: PhysicsDirectSpaceState3D, edge: Dictionary, from_end: Dictionary,
+		to_end: Dictionary, start: Vector2, finish: Vector2) -> Dictionary:
+	var ramp: Dictionary = edge.get("ramp", {})
+	if ramp.is_empty():
+		return PROBE.sweep(space, start, finish, float(from_end.floor_y), float(to_end.floor_y))
+	var lower_id := String(ramp.lower_cell_id)
+	var lower_end: Dictionary = from_end if String(from_end.cell_id) == lower_id else to_end
+	var upper_end: Dictionary = to_end if String(from_end.cell_id) == lower_id else from_end
+	return PROBE.sweep_ramp(space, start, finish, lower_end.pos, -lower_end.normal,
+		float(lower_end.floor_y), float(upper_end.floor_y), float(ramp.run_m), float(ramp.rise_m))
+
+
+static func _check_drop(space: PhysicsDirectSpaceState3D, result: Dictionary, edge: Dictionary,
+		from_end: Dictionary, to_end: Dictionary, inside_from: Vector2, inside_to: Vector2) -> void:
+	var upper_id := String(edge.drop.upper_cell_id)
+	var starts_upper: bool = String(from_end.cell_id) == upper_id
+	var upper_end: Dictionary = from_end if starts_upper else to_end
+	var lower_end: Dictionary = to_end if starts_upper else from_end
+	var start: Vector2 = inside_from if starts_upper else inside_to
+	var finish: Vector2 = inside_to if starts_upper else inside_from
+	var travel := PROBE.sweep_drop(space, start, finish, float(upper_end.floor_y), float(lower_end.floor_y))
+	if travel.passable:
+		result.passed_forward += 1
+	else:
+		result.failures.append("%s upper-to-lower: %s at %s" % [edge.from, travel.reason, travel.at])
+
+
 static func _check_closed(space: PhysicsDirectSpaceState3D, result: Dictionary, edge: Dictionary, ends: Array) -> void:
 	for end: Dictionary in ends:
 		if end.is_empty():
 			continue
 		result.closed_edges += 1
-		var through := PROBE.sweep(space, end.pos - end.normal * INSIDE_M, end.pos + end.normal * OUTSIDE_PROBE_M)
+		var through := PROBE.sweep(space, end.pos - end.normal * INSIDE_M, end.pos + end.normal * OUTSIDE_PROBE_M,
+			float(end.get("floor_y", 0.0)), float(end.get("floor_y", 0.0)))
 		result.closed_blocked += 0 if through.passable else 1
 		if through.passable:
 			result.failures.append("%s -> %s: closed edge is passable" % [edge.from, edge.to])
@@ -91,7 +127,7 @@ static func check_flood(space: PhysicsDirectSpaceState3D, assembly: Node3D) -> D
 	for cell: Dictionary in assembly.map.cells:
 		_sample_cell(space, cell, clear, owners)
 	var diagonal_pairs := {}
-	if String(assembly.map.get("generator_version", "")) in ["gmap-0.6.0", "gmap-0.6.1", "gmap-0.7.0", "gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0", "gmap-0.11.0", "gmap-0.12.0"]:
+	if String(assembly.map.get("generator_version", "")) in ["gmap-0.6.0", "gmap-0.6.1", "gmap-0.7.0", "gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0", "gmap-0.11.0", "gmap-0.12.0", "gmap-0.13.0"]:
 		for edge: Dictionary in assembly.map.edges:
 			if String(edge.get("kind", "")) == "diagonal":
 				var cells := [String(edge.from).get_slice(":", 0), String(edge.to).get_slice(":", 0)]
@@ -112,7 +148,7 @@ static func _sample_cell(space: PhysicsDirectSpaceState3D, cell: Dictionary, cle
 	while x < high.x:
 		var z := low.y + FLOOD_STEP / 2.0
 		while z < high.y:
-			if PROBE.clear_and_supported(space, x, z):
+			if PROBE.clear_and_supported(space, x, z, float(cell.get("floor_y", 0.0))):
 				var key := _key_of(x, z)
 				clear[key] = true
 				owners[key] = String(cell.cell_id)

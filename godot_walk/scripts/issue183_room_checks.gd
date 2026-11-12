@@ -33,10 +33,11 @@ static func check_all(space: PhysicsDirectSpaceState3D, assembly: Node3D) -> Dic
 
 static func check_room(space: PhysicsDirectSpaceState3D, assembly: Node3D, spec: Dictionary) -> Dictionary:
 	var ring: Array[Vector2] = BUILDER.ring_of(spec)
+	var floor_y := PROBE.cell_floor_y(assembly.map, String(spec.cell_id))
 	var result := {"cell_id": String(spec.cell_id), "failures": [] as Array[String]}
-	result.merge(_floor_counts(space, spec, ring, assembly))
-	result.merge(_wall_counts(space, assembly, spec, ring))
-	result.merge(_doorway_counts(space, spec, _expected_kinds(assembly, spec)))
+	result.merge(_floor_counts(space, spec, ring, assembly, floor_y))
+	result.merge(_wall_counts(space, assembly, spec, ring, floor_y))
+	result.merge(_doorway_counts(space, assembly, spec, _expected_kinds(assembly, spec), floor_y))
 	_collect_failures(result)
 	return result
 
@@ -49,7 +50,7 @@ static func _expected_kinds(assembly: Node3D, spec: Dictionary) -> Dictionary:
 	return kinds
 
 
-static func _floor_counts(space: PhysicsDirectSpaceState3D, spec: Dictionary, ring: Array[Vector2], assembly: Node3D) -> Dictionary:
+static func _floor_counts(space: PhysicsDirectSpaceState3D, spec: Dictionary, ring: Array[Vector2], assembly: Node3D, floor_y: float) -> Dictionary:
 	var low := Vector2(float(spec.envelope_xz[0][0]), float(spec.envelope_xz[0][1]))
 	var high := Vector2(float(spec.envelope_xz[2][0]), float(spec.envelope_xz[2][1]))
 	var counts := {"floor_inside": 0, "floor_inside_supported": 0, "floor_outside": 0, "floor_outside_supported": 0,
@@ -61,7 +62,7 @@ static func _floor_counts(space: PhysicsDirectSpaceState3D, spec: Dictionary, ri
 			if _boundary_distance(Vector2(x, z), ring) < BOUNDARY_SKIP:
 				z += RASTER_STEP
 				continue
-			var supported := PROBE.floor_supported(space, x, z)
+			var supported := PROBE.floor_supported(space, x, z, floor_y)
 			var key := "floor_inside" if PROBE.inside_polygon(Vector2(x, z), ring) else "floor_outside"
 			counts[key] += 1
 			counts[key + "_supported"] += 1 if supported else 0
@@ -95,7 +96,7 @@ static func _boundary_distance(point: Vector2, ring: Array[Vector2]) -> float:
 
 
 static func _wall_counts(space: PhysicsDirectSpaceState3D, assembly: Node3D, spec: Dictionary,
-		ring: Array[Vector2]) -> Dictionary:
+		ring: Array[Vector2], floor_y: float) -> Dictionary:
 	var counts := {"wall_samples": 0, "wall_blocked": 0, "approach_samples": 0, "approach_clear": 0}
 	var chamfered: bool = spec.has("chamfers") or spec.has("diagonal_passage")
 	var current: bool = ["shape-room-0.4.0", "shape-room-0.5.0", "shape-room-0.6.0", "shape-room-0.7.0", "shape-room-0.8.0", "shape-room-0.9.0", "shape-room-0.10.0"].has(String(spec.generator_version))
@@ -110,7 +111,7 @@ static func _wall_counts(space: PhysicsDirectSpaceState3D, assembly: Node3D, spe
 		while distance < length:
 			if not _near_doorway(start, direction, distance, spec):
 				var crowded: bool = chamfered and _near_other_edge(start + direction * distance + inward * APPROACH_DEPTH, ring, index)
-				_sample_wall(space, counts, start + direction * distance, inward, distance, length, module_edge or crowded)
+				_sample_wall(space, counts, start + direction * distance, inward, distance, length, floor_y, module_edge or crowded)
 			distance += RASTER_STEP
 	return counts
 
@@ -133,15 +134,15 @@ static func _edge_has_module_joint(assembly: Node3D, spec: Dictionary, start: Ve
 
 
 static func _sample_wall(space: PhysicsDirectSpaceState3D, counts: Dictionary, point: Vector2,
-		inward: Vector2, distance: float, length: float, module_edge: bool = false) -> void:
+		inward: Vector2, distance: float, length: float, floor_y: float, module_edge: bool = false) -> void:
 	var wall_point := point + inward * WALL_INSET
 	counts.wall_samples += 1
-	counts.wall_blocked += 0 if PROBE.blockers(space, wall_point.x, wall_point.y).is_empty() else 1
+	counts.wall_blocked += 0 if PROBE.blockers(space, wall_point.x, wall_point.y, floor_y).is_empty() else 1
 	if module_edge or distance < VERTEX_MARGIN or distance > length - VERTEX_MARGIN:
 		return
 	var approach := point + inward * APPROACH_DEPTH
 	counts.approach_samples += 1
-	counts.approach_clear += 1 if PROBE.clear_and_supported(space, approach.x, approach.y) else 0
+	counts.approach_clear += 1 if PROBE.clear_and_supported(space, approach.x, approach.y, floor_y) else 0
 
 
 static func _near_other_edge(point: Vector2, ring: Array[Vector2], own: int) -> bool:
@@ -164,19 +165,67 @@ static func _near_doorway(start: Vector2, direction: Vector2, distance: float, s
 	return false
 
 
-static func _doorway_counts(space: PhysicsDirectSpaceState3D, spec: Dictionary, kinds: Dictionary) -> Dictionary:
-	var counts := {"open_doorways": 0, "open_clear": 0, "closed_doorways": 0, "closed_blocked": 0}
+static func _doorway_counts(space: PhysicsDirectSpaceState3D, assembly: Node3D, spec: Dictionary, kinds: Dictionary, floor_y: float) -> Dictionary:
+	var counts := {"open_doorways": 0, "open_clear": 0, "open_failures": [] as Array[String], "closed_doorways": 0, "closed_blocked": 0}
 	for doorway: Dictionary in spec.doorways:
 		var normal := Vector2(float(doorway.normal[0]), float(doorway.normal[1]))
 		var centre := Vector2(float(doorway.pos_xz[0]), float(doorway.pos_xz[1]))
+		var drop := _drop_for_port(assembly.map, String(doorway.port_id))
+		if not drop.is_empty() and String(spec.cell_id) == String(drop.lower_cell_id):
+			counts.closed_doorways += 1
+			counts.closed_blocked += 0 if PROBE.blockers(space, centre.x, centre.y, floor_y).is_empty() else 1
+			continue
 		if kinds[String(doorway.port_id)] == "open":
-			var through := PROBE.sweep(space, centre - normal * APPROACH_DEPTH, centre + normal * APPROACH_DEPTH)
+			var destination_y := PROBE.cell_floor_y(assembly.map, String(doorway.to_cell_id))
+			var start := centre - normal * APPROACH_DEPTH
+			var finish := centre + normal * APPROACH_DEPTH
+			var ramp := _ramp_for_port(assembly.map, String(doorway.port_id))
+			var through := PROBE.sweep(space, start, finish, floor_y, destination_y)
+			if not drop.is_empty():
+				through = PROBE.sweep_drop(space, start, finish, floor_y, destination_y)
+			elif not ramp.is_empty():
+				var lower := _port_record(assembly.map, String(ramp.lower_port_id))
+				through = PROBE.sweep_ramp(space, start, finish, lower.pos, -lower.normal,
+					float(lower.floor_y), float(ramp.upper_floor_y), float(ramp.run_m), float(ramp.rise_m))
 			counts.open_doorways += 1
 			counts.open_clear += 1 if through.passable else 0
+			if not through.passable:
+				counts.open_failures.append("%s: %s at %s" % [doorway.port_id, through.reason, through.at])
 		else:
 			counts.closed_doorways += 1
-			counts.closed_blocked += 0 if PROBE.blockers(space, centre.x, centre.y).is_empty() else 1
+			counts.closed_blocked += 0 if PROBE.blockers(space, centre.x, centre.y, floor_y).is_empty() else 1
 	return counts
+
+
+static func _ramp_for_port(map_data: Dictionary, port_id: String) -> Dictionary:
+	for edge: Dictionary in map_data.edges:
+		if port_id not in [String(edge.from), String(edge.to)] or not edge.has("ramp"):
+			continue
+		var lower_id := String(edge.ramp.lower_cell_id)
+		var lower_port := String(edge.from) if String(edge.from).get_slice(":", 0) == lower_id else String(edge.to)
+		return {"lower_port_id": lower_port, "upper_floor_y": PROBE.cell_floor_y(map_data, String(edge.ramp.upper_cell_id)),
+			"run_m": float(edge.ramp.run_m), "rise_m": float(edge.ramp.rise_m)}
+	return {}
+
+
+static func _drop_for_port(map_data: Dictionary, port_id: String) -> Dictionary:
+	for edge: Dictionary in map_data.edges:
+		if port_id in [String(edge.from), String(edge.to)] and edge.has("drop"):
+			return edge.drop
+	return {}
+
+
+static func _port_record(map_data: Dictionary, port_id: String) -> Dictionary:
+	var cell_id := port_id.get_slice(":", 0)
+	for cell: Dictionary in map_data.cells:
+		if String(cell.cell_id) != cell_id:
+			continue
+		for port: Dictionary in cell.required_ports:
+			if String(port.port_id) == port_id:
+				return {"pos": Vector2(float(port.pos_xz[0]), float(port.pos_xz[1])),
+					"normal": Vector2(float(port.normal[0]), float(port.normal[1])),
+					"floor_y": float(cell.get("floor_y", 0.0))}
+	return {}
 
 
 static func _collect_failures(result: Dictionary) -> void:
@@ -192,6 +241,6 @@ static func _collect_failures(result: Dictionary) -> void:
 	if result.approach_clear != result.approach_samples:
 		failures.append("%s: %d wall approach samples are not clear and supported" % [cell, result.approach_samples - result.approach_clear])
 	if result.open_clear != result.open_doorways:
-		failures.append("%s: an open doorway is not clear" % cell)
+		failures.append_array(result.open_failures)
 	if result.closed_blocked != result.closed_doorways:
 		failures.append("%s: a closed doorway does not block the capsule" % cell)

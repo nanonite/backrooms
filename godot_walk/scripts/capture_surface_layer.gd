@@ -75,12 +75,14 @@ func _run() -> void:
 func _capture(scene: Node3D, player: CharacterBody3D, head: Node3D, camera: Camera3D,
 		out: String, filename: String, cell_id: String) -> void:
 	var spec: Dictionary = scene.specs[cell_id]
+	var floor_y := float(spec.get("floor_y", 0.0))
 	var rect := _largest_rect(spec)
 	var x0 := float(rect[0]); var z0 := float(rect[1])
 	var x1 := float(rect[2]); var z1 := float(rect[3])
 	var inset := minf(0.9, minf(x1 - x0, z1 - z0) * 0.28)
 	_set_view(player, head, camera, Vector2(x0 + inset, z0 + inset),
 		Vector2(x1 - inset, z1 - inset))
+	player.global_position.y = floor_y + EYE_HEIGHT_M
 	for _frame in SETTLE_FRAMES:
 		await process_frame
 	var image := root.get_viewport().get_texture().get_image()
