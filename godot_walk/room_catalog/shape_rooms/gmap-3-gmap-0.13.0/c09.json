@@ -1,0 +1,216 @@
+{
+  "area_m2": 16.875,
+  "arm_width_m": null,
+  "arms_xz": [
+    [
+      20.0,
+      -13.0,
+      23.0,
+      -7.0
+    ]
+  ],
+  "ceiling_height_m": 4.5,
+  "cell_id": "c09",
+  "chamfers": [
+    {
+      "corner": [
+        23.0,
+        -13.0
+      ],
+      "length_m": 1.5
+    }
+  ],
+  "construction": "box",
+  "degenerate_features": [],
+  "degenerate_port_ids": [],
+  "doorways": [
+    {
+      "compatibility_type": "level_doorway_2m_v1",
+      "height_m": 2.1,
+      "kind": "open",
+      "normal": [
+        0,
+        1
+      ],
+      "port_id": "c09:p0",
+      "pos_xz": [
+        21.5,
+        -7.0
+      ],
+      "sill_height_m": 0.0,
+      "to_cell_id": "c08",
+      "to_port_id": "c08:p1",
+      "width_m": 2.0
+    }
+  ],
+  "envelope_xz": [
+    [
+      20.0,
+      -13.0
+    ],
+    [
+      23.0,
+      -13.0
+    ],
+    [
+      23.0,
+      -7.0
+    ],
+    [
+      20.0,
+      -7.0
+    ]
+  ],
+  "features": [
+    {
+      "feature_id": "floor",
+      "kind": "floor",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "walls",
+      "kind": "walls",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling",
+      "kind": "ceiling",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "ceiling_lamp_grid",
+      "kind": "ceiling_lamp_grid",
+      "sign": "symbol"
+    },
+    {
+      "feature_id": "doorway:c09:p0",
+      "kind": "doorway",
+      "sign": "symbol"
+    }
+  ],
+  "floor_y": 0.0,
+  "generator_version": "shape-room-0.10.0",
+  "lamps_xz": [
+    [
+      21.5,
+      -11.5
+    ]
+  ],
+  "light": {
+    "color_temp_k": 3846,
+    "lamps": [
+      {
+        "flicker_seed": 1669438876,
+        "lamp_index": 0,
+        "state": "on"
+      }
+    ],
+    "tier": "normal"
+  },
+  "map_id": "gmap-3-gmap-0.13.0",
+  "map_sha256": "3e97919ed19e466a9f7d8ae64517451bb8dfc82253ae12e09369ac19d3c88961",
+  "material_source": "palette_registry",
+  "materials": {
+    "acoustic": {
+      "ceiling": "tile",
+      "floor": "tile",
+      "trim": "metal",
+      "wall": "tile"
+    },
+    "ceiling": {
+      "acoustic": "tile",
+      "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_ceiling_clean.png",
+      "tile_m": 2.0,
+      "variant": "clean"
+    },
+    "floor": {
+      "acoustic": "tile",
+      "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_floor_clean.png",
+      "tile_m": 3.0,
+      "variant": "clean"
+    },
+    "lamp_color": [
+      0.92,
+      0.94,
+      0.9
+    ],
+    "palette_id": "tiled_institutional",
+    "registry_version": "0.3.0",
+    "trim_color": [
+      0.3,
+      0.32,
+      0.31
+    ],
+    "variants": {
+      "ceiling": "clean",
+      "floor": "clean",
+      "trim": "clean",
+      "wall": "clean"
+    },
+    "wall": {
+      "acoustic": "tile",
+      "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_wall_clean.png",
+      "tile_m": 2.0,
+      "variant": "clean"
+    },
+    "wear": 0
+  },
+  "mode": "standard",
+  "original_cell_status": "shape_room_pending",
+  "outline_xz": [
+    [
+      20.0,
+      -13.0
+    ],
+    [
+      21.5,
+      -13.0
+    ],
+    [
+      23.0,
+      -11.5
+    ],
+    [
+      23.0,
+      -7.0
+    ],
+    [
+      20.0,
+      -7.0
+    ]
+  ],
+  "primitive": "dead_end",
+  "primitive_class": "chamfered_box",
+  "rarity_tier": 1,
+  "rects": [
+    [
+      20.0,
+      -13.0,
+      21.5,
+      -12.5
+    ],
+    [
+      20.0,
+      -12.5,
+      22.0,
+      -12.0
+    ],
+    [
+      20.0,
+      -12.0,
+      22.5,
+      -11.5
+    ],
+    [
+      20.0,
+      -11.5,
+      23.0,
+      -7.0
+    ]
+  ],
+  "registration_accepted": false,
+  "role": "ground",
+  "scale_calibrated": false,
+  "schema_version": 1,
+  "shape_stage": 2
+}

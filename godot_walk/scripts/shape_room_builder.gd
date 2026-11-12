@@ -165,11 +165,11 @@ static func _add_lamps(visuals: Node3D, context: Dictionary) -> void:
 		var position := Vector3(float(point[0]), context.height - LAMP_SIZE.y / 2.0, float(point[1]))
 		var material: Material = context.materials.lamp
 		var state: Dictionary = {}
-		if context.spec.has("light"):
+		if context.spec.has("light") and index < context.spec.light.lamps.size():
 			state = context.spec.light.lamps[index]
 			material = LIGHTING.material_for_state(material, String(state.state), int(context.spec.light.color_temp_k))
 		_add_box(lamps, "CeilingLight_%02d" % index, position, LAMP_SIZE, material)
-		if context.spec.has("light"):
+		if context.spec.has("light") and index < context.spec.light.lamps.size():
 			LIGHTING.add_lamp_light(lamps, point, state,
 				_light_config(context, position.y), material as StandardMaterial3D, int(context.light_layer))
 		index += 1

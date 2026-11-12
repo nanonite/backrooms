@@ -21,6 +21,7 @@ from collections import deque
 from collections.abc import Iterable
 from copy import deepcopy
 from typing import Any
+from gmap_keyed import keyed_rank, rng_for_cell
 
 RULE = "elevation_layer"
 STREAM = "elevation:gmap-0.10.0"
@@ -321,14 +322,21 @@ def assign_elevation(document: dict[str, Any]) -> None:
     floors: dict[str, float] = {root: 0.0}
     changes: dict[tuple[str, str], float] = {}
     planned_footprints: dict[str, list[tuple[float, float, float, float]]] = {}
-    rng = rng_for(int(document["seed"]), int(document.get("attempt", 0)))
+    seed, attempt = int(document["seed"]), int(document.get("attempt", 0))
+    keyed = document.get("generator_version") == "gmap-0.13.0"
+    rng = rng_for(seed, attempt)
 
     for parent, child in order:
         key = tuple(sorted((parent, child)))
         if key in locked:
             floors[child] = floors[parent]
             continue
-        change = rng.random() < CHANGE_PROBABILITY
+        cell_rng = (
+            rng_for_cell(seed, attempt, "elevation:gmap-0.13.0", child, "level-change")
+            if keyed
+            else rng
+        )
+        change = cell_rng.random() < CHANGE_PROBABILITY
         if not change:
             floors[child] = floors[parent]
             continue
@@ -340,7 +348,7 @@ def assign_elevation(document: dict[str, Any]) -> None:
         if not options:
             floors[child] = floors[parent]
             continue
-        target = rng.choice(options)
+        target = cell_rng.choice(options)
         lower = parent if floors[parent] < target else child
         edge = _edge_for(document, key)
         if edge and ramp_fits(document, edge, lower):
@@ -443,7 +451,7 @@ def assign_elevation(document: dict[str, Any]) -> None:
         lower["ceiling_range_m"][1] = max(float(lower["ceiling_range_m"][1]), required)
 
     document["elevation"] = {
-        "stream": STREAM,
+        "stream": "elevation:gmap-0.13.0" if keyed else STREAM,
         "levels_m": list(LEVELS),
         "change_probability": CHANGE_PROBABILITY,
         "drop_probability": DROP_PROBABILITY,
@@ -650,7 +658,15 @@ def add_loop_edges(
     """
     candidates = _loop_candidates(document, floors)
     planned = _planned_ramp_footprints(document, changes)
-    rng.shuffle(candidates)
+    if document.get("generator_version") == "gmap-0.13.0":
+        seed, attempt = int(document["seed"]), int(document.get("attempt", 0))
+        candidates.sort(
+            key=lambda edge: keyed_rank(
+                seed, attempt, "elevation-loop:gmap-0.13.0", ":".join(map(str, edge))
+            )
+        )
+    else:
+        rng.shuffle(candidates)
     changed = set(changes)
     ranked: list[tuple[int, str, str, int]] = []
     for left, right, length in candidates:

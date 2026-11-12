@@ -11,6 +11,7 @@ import hashlib
 import random
 from copy import deepcopy
 from typing import Any
+from gmap_keyed import rng_for_cell
 
 RULE = "surface_layer"
 STREAM = "surface:gmap-0.9.0"
@@ -79,6 +80,7 @@ def _variants(palette: dict[str, Any], wear: int, rng: random.Random) -> dict[st
 def assign_surface(document: dict[str, Any], registry: dict[str, Any]) -> None:
     """Attach wear and surface variants without consuming any geometry/light/palette stream."""
     rng = rng_for(document["seed"], document.get("attempt", 0))
+    keyed = document.get("generator_version") == "gmap-0.13.0"
     default_id = next(
         palette["palette_id"]
         for palette in registry["palettes"]
@@ -90,9 +92,31 @@ def assign_surface(document: dict[str, Any], registry: dict[str, Any]) -> None:
         if cell["role"] == "void" or cell.get("module"):
             continue
         palette = _palette(registry, cell, default_id)
-        wear = _wear(cell, spawn_id, wing, rng)
+        wear_rng = (
+            rng_for_cell(
+                document["seed"],
+                document.get("attempt", 0),
+                "surface:gmap-0.13.0",
+                cell["cell_id"],
+                "wear",
+            )
+            if keyed
+            else rng
+        )
+        variant_rng = (
+            rng_for_cell(
+                document["seed"],
+                document.get("attempt", 0),
+                "surface:gmap-0.13.0",
+                cell["cell_id"],
+                "variants",
+            )
+            if keyed
+            else rng
+        )
+        wear = _wear(cell, spawn_id, wing, wear_rng)
         cell["wear"] = wear
-        cell["surface_variants"] = _variants(palette, wear, rng)
+        cell["surface_variants"] = _variants(palette, wear, variant_rng)
 
 
 def _variant_in_palette(palette: dict[str, Any], surface: str, variant: str) -> bool:

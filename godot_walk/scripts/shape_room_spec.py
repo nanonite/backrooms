@@ -43,6 +43,9 @@ from shape_room_rng import (
     GENERATOR_VERSION_V8,
     GENERATOR_VERSION_V9,
     GENERATOR_VERSION_V10,
+    GENERATOR_VERSION_V11,
+    GENERATOR_VERSION_V12,
+    GENERATOR_VERSION_V13,
     V4_PLUS,
     cell_rng,
     version_for_map,
@@ -146,7 +149,11 @@ def ramp_records(
         if not ramp or str(ramp.get("lower_cell_id", "")) != cell["cell_id"]:
             continue
         upper = str(ramp.get("upper_cell_id", ""))
-        port_id = edge["from"] if edge["from"].split(":")[0] == cell["cell_id"] else edge["to"]
+        port_id = (
+            edge["from"]
+            if edge["from"].split(":")[0] == cell["cell_id"]
+            else edge["to"]
+        )
         port = next(
             (item for item in cell["required_ports"] if item["port_id"] == port_id),
             None,
@@ -212,7 +219,11 @@ def doorway_records(
             edge = edges.get(port["port_id"], {})
             vertical = str(edge.get("vertical", "level"))
             other_floor = floors.get(record["to_cell_id"], own_floor)
-            sill = max(0.0, other_floor - own_floor) if vertical in ("ramp", "drop") else 0.0
+            sill = (
+                max(0.0, other_floor - own_floor)
+                if vertical in ("ramp", "drop")
+                else 0.0
+            )
             record["sill_height_m"] = num(sill)
             if vertical != "level":
                 record["vertical"] = vertical
@@ -439,6 +450,9 @@ def build_spec(
             GENERATOR_VERSION_V8,
             GENERATOR_VERSION_V9,
             GENERATOR_VERSION_V10,
+            GENERATOR_VERSION_V11,
+            GENERATOR_VERSION_V12,
+            GENERATOR_VERSION_V13,
         )
         else "kit_default",
         "materials": palette_materials(cell)
@@ -450,6 +464,9 @@ def build_spec(
             GENERATOR_VERSION_V8,
             GENERATOR_VERSION_V9,
             GENERATOR_VERSION_V10,
+            GENERATOR_VERSION_V11,
+            GENERATOR_VERSION_V12,
+            GENERATOR_VERSION_V13,
         )
         else MATERIALS,
         "features": feature_records(doorways),

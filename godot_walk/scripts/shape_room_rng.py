@@ -15,6 +15,9 @@ GENERATOR_VERSION_V7 = "shape-room-0.7.0"
 GENERATOR_VERSION_V8 = "shape-room-0.8.0"
 GENERATOR_VERSION_V9 = "shape-room-0.9.0"
 GENERATOR_VERSION_V10 = "shape-room-0.10.0"
+GENERATOR_VERSION_V11 = GENERATOR_VERSION_V10
+GENERATOR_VERSION_V12 = GENERATOR_VERSION_V10
+GENERATOR_VERSION_V13 = GENERATOR_VERSION_V10
 VERSIONS = (
     GENERATOR_VERSION,
     GENERATOR_VERSION_V2,
@@ -48,6 +51,7 @@ MAP_VERSION_V9 = "gmap-0.9.0"
 MAP_VERSION_V10 = "gmap-0.10.0"
 MAP_VERSION_V11 = "gmap-0.11.0"
 MAP_VERSION_V12 = "gmap-0.12.0"
+MAP_VERSION_V13 = "gmap-0.13.0"
 
 
 def version_for_map(document: dict) -> str:
@@ -57,7 +61,7 @@ def version_for_map(document: dict) -> str:
     gmap-0.3.0 (per-port doorway sizes), shape-room-0.2.0 for gmap-0.2.0
     (strict doorway margins), else shape-room-0.1.0."""
     version = document.get("generator_version")
-    if version in (MAP_VERSION_V10, MAP_VERSION_V11, MAP_VERSION_V12):
+    if version in (MAP_VERSION_V10, MAP_VERSION_V11, MAP_VERSION_V12, MAP_VERSION_V13):
         return GENERATOR_VERSION_V10
     if version == MAP_VERSION_V7:
         return GENERATOR_VERSION_V7

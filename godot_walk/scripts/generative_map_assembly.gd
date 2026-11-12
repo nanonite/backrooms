@@ -33,8 +33,8 @@ const SAFETY_MARGIN := 10.0
 const GENERATED_LIGHT_LAYER_COUNT := 19
 const MODULE_RENDER_LAYER := 20
 const LIGHT_CULL_DISTANCE_M := 6.2
-const LIT_VERSIONS := ["gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0", "gmap-0.11.0", "gmap-0.12.0"]
-const ELEVATED_VERSIONS := ["gmap-0.10.0", "gmap-0.11.0", "gmap-0.12.0"]
+const LIT_VERSIONS := ["gmap-0.8.0", "gmap-0.9.0", "gmap-0.10.0", "gmap-0.11.0", "gmap-0.12.0", "gmap-0.13.0"]
+const ELEVATED_VERSIONS := ["gmap-0.10.0", "gmap-0.11.0", "gmap-0.12.0", "gmap-0.13.0"]
 const MODULE_ACOUSTICS_PATH := "res://room_catalog/module_acoustics.json"
 const MODULE_FLOOR_FALLBACKS := ["WalkableFloor", "AuthoredFloor", "AuthoredPlanarRouteFloor", "ConnectorThreshold"]
 ## Fallback map/rooms pair when no user args are given (godot-mcp run_project, #197). Gitignored.

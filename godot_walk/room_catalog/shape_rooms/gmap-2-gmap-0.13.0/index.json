@@ -1,0 +1,164 @@
+{
+  "generator_version": "shape-room-0.10.0",
+  "map_file": {
+    "name": "gmap-2-gmap-0.13.0.json",
+    "sha256": "6d87e43a14034084598ff52bf924be8af8a1f883b5c09049e4f82d8c22ab6226"
+  },
+  "map_id": "gmap-2-gmap-0.13.0",
+  "mode": "all_walkable",
+  "rooms": [
+    {
+      "cell_id": "c00",
+      "construction": "box",
+      "file": "c00.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "backrooms_yellow",
+      "primitive": "t_shape",
+      "primitive_class": "box",
+      "sha256": "5e694950a68eb0715f980cae924856774a60e077acdd3b68866f73fc7b2c68d2"
+    },
+    {
+      "cell_id": "c01",
+      "construction": "box",
+      "file": "c01.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "backrooms_yellow",
+      "primitive": "t_shape",
+      "primitive_class": "chamfered_box",
+      "sha256": "b527197ad5b336173a21511edaed73c9d88ca040bff247c8db42a05c995665d0"
+    },
+    {
+      "cell_id": "c02",
+      "construction": "regular_polygon",
+      "file": "c02.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "backrooms_yellow",
+      "primitive": "t_shape",
+      "primitive_class": "dodecagon",
+      "sha256": "7cf8cdd8531fc36aa9ef06f1b0451c35119fa8759cf40d2aa5afff0a738666b2"
+    },
+    {
+      "cell_id": "c03",
+      "construction": "box",
+      "file": "c03.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "palette_id": "backrooms_yellow",
+      "primitive": "straight",
+      "primitive_class": "chamfered_box",
+      "sha256": "dfea270582e860aa72fb395867ec6fdace1cd8f25e278ac72ad3bedc5642bc0e"
+    },
+    {
+      "cell_id": "c04",
+      "construction": "box",
+      "file": "c04.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "palette_id": "backrooms_yellow",
+      "primitive": "dead_end",
+      "primitive_class": "chamfered_box",
+      "sha256": "c4057030f4d2002c4c63d41a2ff2de411e773b415e34f91d799b71d3b82777d6"
+    },
+    {
+      "cell_id": "c05",
+      "construction": "box",
+      "file": "c05.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "palette_id": "backrooms_yellow",
+      "primitive": "u_shape",
+      "primitive_class": "chamfered_box",
+      "sha256": "4d4a1612f56087d0e9875c0de7d4ad956e48d47cb3defcce9d21b252c045fd30"
+    },
+    {
+      "cell_id": "c06",
+      "construction": "box",
+      "file": "c06.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "tiled_institutional",
+      "primitive": "dead_end",
+      "primitive_class": "chamfered_box",
+      "sha256": "bd2edda554dc2fe2428337add61976520c1de82704ccddf0968a2df095a1edad"
+    },
+    {
+      "cell_id": "c07",
+      "construction": "box",
+      "file": "c07.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "wood_parquet",
+      "primitive": "t_shape",
+      "primitive_class": "chamfered_box",
+      "sha256": "ee0923bacafa9b82abf02e59fc37085a245a8fc6962f96ec89ae205b4c48d5db"
+    },
+    {
+      "cell_id": "c08",
+      "construction": "box",
+      "file": "c08.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "palette_id": "backrooms_yellow",
+      "primitive": "u_shape",
+      "primitive_class": "box",
+      "sha256": "6f41a54b5853e6fa9e96cbcb162161f72afb89b872f2c853ecb1f6c6deedfd46"
+    },
+    {
+      "cell_id": "c09",
+      "construction": "box",
+      "file": "c09.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "backrooms_yellow",
+      "primitive": "dead_end",
+      "primitive_class": "chamfered_box",
+      "sha256": "ba1cc6022612446006f9ccb309b069033332d5f2a1556c47dc58a1bffdf80c10"
+    },
+    {
+      "cell_id": "c10",
+      "construction": "arms",
+      "file": "c10.json",
+      "mode": "standard",
+      "original_cell_status": "module_candidates",
+      "palette_id": "backrooms_yellow",
+      "primitive": "l_shape",
+      "primitive_class": "box",
+      "sha256": "920997e4405d0140ba799566551f8afc87cb1d98fcaaa9d9ea09eeed1e5bd9ea"
+    },
+    {
+      "cell_id": "c11",
+      "construction": "arms",
+      "file": "c11.json",
+      "mode": "standard",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "wood_parquet",
+      "primitive": "dead_end",
+      "primitive_class": "box",
+      "sha256": "951880d5a542b0d71ee86fbc90fcf706575a84b28be6cea30bb2e84bffc0a283"
+    },
+    {
+      "cell_id": "dp00",
+      "construction": "box",
+      "file": "dp00.json",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "backrooms_yellow",
+      "primitive": "straight",
+      "primitive_class": "diagonal_passage",
+      "sha256": "c9b0f7ba2b1525856bc59e96f26f2ebb118d9dd77aa89a3c4b9c0bab51bdbf6b"
+    },
+    {
+      "cell_id": "dp01",
+      "construction": "box",
+      "file": "dp01.json",
+      "original_cell_status": "shape_room_pending",
+      "palette_id": "backrooms_yellow",
+      "primitive": "straight",
+      "primitive_class": "diagonal_passage",
+      "sha256": "c21e19c5f25b51a58b77152e5df0aaa0e446d539c21dd10500834ba066c8d27d"
+    }
+  ],
+  "schema_version": 1
+}
