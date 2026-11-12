@@ -1,0 +1,1156 @@
+{
+  "acoustics": {
+    "committed_block": {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "acoustic": "carpet",
+      "evidence": [
+        "carpet_floor"
+      ],
+      "poetics": {
+        "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json",
+        "sha256": "7e8c4148ab2aaa45af7102719a7f820893b9368480757d6652f1f971774d1b3d"
+      },
+      "probe": {
+        "ceiling_height_m": 2.4,
+        "damping": 0.616099302191483,
+        "evidence": [
+          {
+            "path": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json",
+            "sha256": "3fbdd8ea4ffb7ce69402bc3a5825dbdbef065d26d1ac36586dd629d02b91b6c2"
+          }
+        ],
+        "max_distance_m": 20.0,
+        "mean_distance_m": 7.6380337079366,
+        "openness": 0.166666666666667,
+        "predelay_msec": 22.2683198482117,
+        "probe_version": "room-acoustic-probe-#205",
+        "provenance": "measured",
+        "room_size": 0.702082418692739,
+        "sample_points": [
+          {
+            "ceiling_hint_m": 2.4,
+            "floor_y_m": -1.27099049,
+            "method": "accepted_footprint_area_centroid",
+            "position_m": [
+              3.0,
+              -0.170990496873856,
+              6.89999961853027
+            ]
+          }
+        ],
+        "wet": 0.521677720089963
+      },
+      "profile": {
+        "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json",
+        "sha256": "3dafea55f1db6da5f2d8f956615bc360eccaefd6d85b73d3512ac2403e829c37"
+      }
+    },
+    "fields": {
+      "ceiling_height_m": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "kind": "measured",
+          "limitation": "The up-ray ceiling estimate is capped by the profile ceiling hint; it is not an uncapped ceiling measurement.",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/ceiling_height_m"
+        },
+        "value": 2.4
+      },
+      "damping": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "basis": [
+            "mean_distance_m",
+            "ceiling_height_m",
+            "openness"
+          ],
+          "intermediate_definitions": {
+            "height_size": "clamp((ceiling_height_m - 2.2) / (6.0 - 2.2), 0, 1)",
+            "wall_size": "clamp(mean_distance_m / 10.0, 0, 1)"
+          },
+          "kind": "derived",
+          "mapping_source": "godot_walk/scripts/room_acoustic_probe.gd#map_metrics",
+          "method": "clamp(0.22 + 0.48 * wall_size + 0.18 * height_size + 0.12 * openness, 0, 1)",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/damping"
+        },
+        "value": 0.616099302191483
+      },
+      "max_distance_m": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "kind": "measured",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/max_distance_m"
+        },
+        "value": 20.0
+      },
+      "mean_distance_m": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "kind": "measured",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/mean_distance_m"
+        },
+        "value": 7.6380337079366
+      },
+      "openness": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "kind": "measured",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/openness"
+        },
+        "value": 0.166666666666667
+      },
+      "predelay_msec": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "basis": [
+            "mean_distance_m"
+          ],
+          "kind": "derived",
+          "mapping_source": "godot_walk/scripts/room_acoustic_probe.gd#map_metrics",
+          "method": "clamp(mean_distance_m / 343.0 * 1000.0, 1.0, 50.0)",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/predelay_msec"
+        },
+        "value": 22.2683198482117
+      },
+      "room_size": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "basis": [
+            "mean_distance_m",
+            "ceiling_height_m"
+          ],
+          "kind": "derived",
+          "mapping_source": "godot_walk/scripts/room_acoustic_probe.gd#map_metrics",
+          "method": "clamp(0.10 + 0.78 * clamp(mean_distance_m / 10.0, 0, 1) + 0.12 * clamp((ceiling_height_m - 2.2) / (6.0 - 2.2), 0, 1), 0, 1)",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/room_size"
+        },
+        "value": 0.702082418692739
+      },
+      "wet": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "basis": [
+            "mean_distance_m",
+            "ceiling_height_m",
+            "openness"
+          ],
+          "intermediate_definitions": {
+            "height_size": "clamp((ceiling_height_m - 2.2) / (6.0 - 2.2), 0, 1)",
+            "wall_size": "clamp(mean_distance_m / 10.0, 0, 1)"
+          },
+          "kind": "derived",
+          "mapping_source": "godot_walk/scripts/room_acoustic_probe.gd#map_metrics",
+          "method": "clamp((0.18 + 0.48 * wall_size + 0.14 * height_size) * (1.0 - 0.35 * openness), 0, 0.75)",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/godot_early_pocket_pass_through_v1@1/probe/wet"
+        },
+        "value": 0.521677720089963
+      }
+    }
+  },
+  "approval_refs": {
+    "acoustics.acoustic": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics.fields.ceiling_height_m": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics.fields.damping": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics.fields.max_distance_m": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics.fields.mean_distance_m": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics.fields.openness": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics.fields.predelay_msec": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics.fields.room_size": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics.fields.wet": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "lighting_scale.lighting.fixture_layout": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-218.json",
+      "sha256": "566eceeef01b9457ca713fc047bdf583bf694cb539a16a55f186b11538fce528"
+    },
+    "surfaces.surfaces.ceiling.material_id": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+      "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+    },
+    "surfaces.surfaces.floor.material_id": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+      "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+    },
+    "surfaces.surfaces.trim.material_id": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+      "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+    },
+    "surfaces.surfaces.wall.material_id": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+      "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+    },
+    "t6.mood.anomaly": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6.mood.curiosity": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6.mood.dread": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6.mood.safety": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6.mood.tags": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6.mood.tension": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6.roles.circulation_role": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6.roles.form_role": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6.roles.map_role": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6.roles.semantic_tags": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6.roles.sightline_tags": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    }
+  },
+  "inputs": {
+    "acoustics": {
+      "path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "sha256": "df3da6150273f9164b6671194da378514f4dba772211ce3782c8cbfc956a8462"
+    },
+    "approval_refs": {
+      "acoustics.acoustic": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics.fields.ceiling_height_m": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics.fields.damping": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics.fields.max_distance_m": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics.fields.mean_distance_m": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics.fields.openness": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics.fields.predelay_msec": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics.fields.room_size": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics.fields.wet": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "lighting_scale.lighting.fixture_layout": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-218.json",
+        "sha256": "566eceeef01b9457ca713fc047bdf583bf694cb539a16a55f186b11538fce528"
+      },
+      "surfaces.surfaces.ceiling.material_id": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "surfaces.surfaces.floor.material_id": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "surfaces.surfaces.trim.material_id": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "surfaces.surfaces.wall.material_id": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "t6.mood.anomaly": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6.mood.curiosity": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6.mood.dread": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6.mood.safety": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6.mood.tags": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6.mood.tension": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6.roles.circulation_role": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6.roles.form_role": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6.roles.map_role": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6.roles.semantic_tags": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6.roles.sightline_tags": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      }
+    },
+    "descriptor": {
+      "path": "godot_walk/room_catalog/module_surface_palettes/godot_early_pocket_pass_through_v1-v1_surface_palette_v1.json",
+      "sha256": "f92faf87752a610b36682ef4c481a9384e7fb6b2052f5cb3409c5573b723254e"
+    },
+    "lighting_scale": {
+      "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1-lighting-scale-v1.json",
+      "sha256": "c5afa39d44b997cd0a4eba3f6181be5c13e9e17471104c0c9113f370ac9f7f36"
+    },
+    "mapping_table": {
+      "path": "godot_walk/room_catalog/module_surface_palette_mapping_v0.1.0.md",
+      "sha256": "64de64929ff08101cf2f335192496081e2b01daaf04fcb8e0b0d355d579763d5"
+    },
+    "poetics": {
+      "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json",
+      "sha256": "7e8c4148ab2aaa45af7102719a7f820893b9368480757d6652f1f971774d1b3d"
+    },
+    "profile": {
+      "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json",
+      "sha256": "3dafea55f1db6da5f2d8f956615bc360eccaefd6d85b73d3512ac2403e829c37"
+    },
+    "t6": {
+      "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "sha256": "a6a5a4c123c7e3db4a14b699cdc7d22ee209e422d1daad3440d693734b6fe96f"
+    }
+  },
+  "lighting_scale": {
+    "overlay": {
+      "base_record": {
+        "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json",
+        "sha256": "3dafea55f1db6da5f2d8f956615bc360eccaefd6d85b73d3512ac2403e829c37"
+      },
+      "lighting": {
+        "colour_temperature_k": {
+          "evidence": [
+            {
+              "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json",
+              "sha256": "3dafea55f1db6da5f2d8f956615bc360eccaefd6d85b73d3512ac2403e829c37"
+            }
+          ],
+          "provenance": "Agent-proposed estimate for an authored enclosed kit module; basis is the existing 2.4 m ceiling and authored 2.0 m socket width, not a light or scale measurement.",
+          "review_evidence": [],
+          "review_status": "pending_operator_review",
+          "value": 4000
+        },
+        "fixture_layout": [
+          {
+            "arrangement": "evenly spaced in a 2 by 2 ceiling grid; illustrative estimate",
+            "count": 4,
+            "evidence": [
+              {
+                "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json",
+                "sha256": "3dafea55f1db6da5f2d8f956615bc360eccaefd6d85b73d3512ac2403e829c37"
+              }
+            ],
+            "kind": "recessed_fluorescent_panel",
+            "provenance": "Agent-proposed estimate for an authored enclosed kit module; basis is the existing 2.4 m ceiling and authored 2.0 m socket width, not a light or scale measurement.",
+            "review_evidence": [],
+            "review_status": "pending_operator_review"
+          }
+        ],
+        "illuminance_lux": {
+          "evidence": [
+            {
+              "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json",
+              "sha256": "3dafea55f1db6da5f2d8f956615bc360eccaefd6d85b73d3512ac2403e829c37"
+            }
+          ],
+          "provenance": "Agent-proposed estimate for an authored enclosed kit module; basis is the existing 2.4 m ceiling and authored 2.0 m socket width, not a light or scale measurement.",
+          "review_evidence": [],
+          "review_status": "pending_operator_review",
+          "value": 120
+        },
+        "review_evidence": [],
+        "review_status": "pending_operator_review",
+        "status": "estimated_pending_review"
+      },
+      "profile_version": "lighting-scale-overlay-0.1.0",
+      "record_id": "godot_early_pocket_pass_through_v1",
+      "record_kind": "module",
+      "scale": {
+        "anchor": {
+          "evidence": [
+            {
+              "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json",
+              "sha256": "3dafea55f1db6da5f2d8f956615bc360eccaefd6d85b73d3512ac2403e829c37"
+            }
+          ],
+          "kind": "socket_clear_width",
+          "measurement": null,
+          "provenance": "Agent-proposed estimate copied as a candidate from the base profile socket width; the authored width is not an accepted real-world measurement.",
+          "review_evidence": [],
+          "review_status": "pending_operator_review",
+          "status": "estimated",
+          "value_m": 2.0
+        },
+        "review_evidence": [],
+        "review_status": "pending_operator_review",
+        "status": "uncalibrated"
+      },
+      "schema_version": 1,
+      "template_ref": {
+        "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+        "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+        "version": "generation-template-0.1.0"
+      }
+    },
+    "state": "overlay"
+  },
+  "locks": {
+    "acoustics.acoustic": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.committed_block.acoustic",
+      "source_field": "/modules/godot_early_pocket_pass_through_v1@1/acoustic",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": "carpet"
+    },
+    "acoustics.fields.ceiling_height_m": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.ceiling_height_m.value",
+      "source_field": "/modules/godot_early_pocket_pass_through_v1@1/probe/ceiling_height_m",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 2.4
+    },
+    "acoustics.fields.damping": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.damping.value",
+      "source_field": "/modules/godot_early_pocket_pass_through_v1@1/probe/damping",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 0.616099302191483
+    },
+    "acoustics.fields.max_distance_m": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.max_distance_m.value",
+      "source_field": "/modules/godot_early_pocket_pass_through_v1@1/probe/max_distance_m",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 20.0
+    },
+    "acoustics.fields.mean_distance_m": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.mean_distance_m.value",
+      "source_field": "/modules/godot_early_pocket_pass_through_v1@1/probe/mean_distance_m",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 7.6380337079366
+    },
+    "acoustics.fields.openness": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.openness.value",
+      "source_field": "/modules/godot_early_pocket_pass_through_v1@1/probe/openness",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 0.166666666666667
+    },
+    "acoustics.fields.predelay_msec": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.predelay_msec.value",
+      "source_field": "/modules/godot_early_pocket_pass_through_v1@1/probe/predelay_msec",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 22.2683198482117
+    },
+    "acoustics.fields.room_size": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.room_size.value",
+      "source_field": "/modules/godot_early_pocket_pass_through_v1@1/probe/room_size",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 0.702082418692739
+    },
+    "acoustics.fields.wet": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.wet.value",
+      "source_field": "/modules/godot_early_pocket_pass_through_v1@1/probe/wet",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 0.521677720089963
+    },
+    "lighting_scale.lighting.fixture_layout": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-218.json",
+        "sha256": "566eceeef01b9457ca713fc047bdf583bf694cb539a16a55f186b11538fce528"
+      },
+      "record_value_path": "lighting_scale.overlay.lighting.fixture_layout",
+      "source_field": "/lighting/fixture_layout",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1-lighting-scale-v1.json",
+      "value": [
+        {
+          "arrangement": "evenly spaced in a 2 by 2 ceiling grid; illustrative estimate",
+          "count": 4,
+          "evidence": [
+            {
+              "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json",
+              "sha256": "3dafea55f1db6da5f2d8f956615bc360eccaefd6d85b73d3512ac2403e829c37"
+            }
+          ],
+          "kind": "recessed_fluorescent_panel",
+          "provenance": "Agent-proposed estimate for an authored enclosed kit module; basis is the existing 2.4 m ceiling and authored 2.0 m socket width, not a light or scale measurement.",
+          "review_evidence": [],
+          "review_status": "pending_operator_review"
+        }
+      ]
+    },
+    "surfaces.surfaces.ceiling.material_id": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "record_value_path": "surfaces.surfaces.ceiling.material_id",
+      "source_field": "/surfaces/ceiling/material_id",
+      "source_path": "godot_walk/room_catalog/module_surface_palettes/godot_early_pocket_pass_through_v1-v1_surface_palette_v1.json",
+      "value": "backrooms_yellow.ceiling"
+    },
+    "surfaces.surfaces.floor.material_id": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "record_value_path": "surfaces.surfaces.floor.material_id",
+      "source_field": "/surfaces/floor/material_id",
+      "source_path": "godot_walk/room_catalog/module_surface_palettes/godot_early_pocket_pass_through_v1-v1_surface_palette_v1.json",
+      "value": "backrooms_yellow.floor"
+    },
+    "surfaces.surfaces.trim.material_id": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "record_value_path": "surfaces.surfaces.trim.material_id",
+      "source_field": "/surfaces/trim/material_id",
+      "source_path": "godot_walk/room_catalog/module_surface_palettes/godot_early_pocket_pass_through_v1-v1_surface_palette_v1.json",
+      "value": "backrooms_yellow.trim"
+    },
+    "surfaces.surfaces.wall.material_id": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "record_value_path": "surfaces.surfaces.wall.material_id",
+      "source_field": "/surfaces/wall/material_id",
+      "source_path": "godot_walk/room_catalog/module_surface_palettes/godot_early_pocket_pass_through_v1-v1_surface_palette_v1.json",
+      "value": "backrooms_yellow.wall"
+    },
+    "t6.mood.anomaly": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6.mood.anomaly",
+      "source_field": "/mood/anomaly",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "value": 0.1
+    },
+    "t6.mood.curiosity": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6.mood.curiosity",
+      "source_field": "/mood/curiosity",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "value": 0.25
+    },
+    "t6.mood.dread": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6.mood.dread",
+      "source_field": "/mood/dread",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "value": 0.1
+    },
+    "t6.mood.safety": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6.mood.safety",
+      "source_field": "/mood/safety",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "value": 0.75
+    },
+    "t6.mood.tags": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6.mood.tags",
+      "source_field": "/mood/tags",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "value": [
+        "quiet",
+        "familiar"
+      ]
+    },
+    "t6.mood.tension": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6.mood.tension",
+      "source_field": "/mood/tension",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "value": 0.2
+    },
+    "t6.roles.circulation_role": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6.roles.circulation_role",
+      "source_field": "/roles/circulation_role",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "value": "through"
+    },
+    "t6.roles.form_role": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6.roles.form_role",
+      "source_field": "/roles/form_role",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "value": "ground"
+    },
+    "t6.roles.map_role": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6.roles.map_role",
+      "source_field": "/roles/map_role",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "value": "ground"
+    },
+    "t6.roles.semantic_tags": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6.roles.semantic_tags",
+      "source_field": "/roles/semantic_tags",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "value": [
+        "carpeted",
+        "repetitive"
+      ]
+    },
+    "t6.roles.sightline_tags": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6.roles.sightline_tags",
+      "source_field": "/roles/sightline_tags",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "value": [
+        "occluded"
+      ]
+    }
+  },
+  "metadata_version": "module-metadata-1.0.0",
+  "module_id": "godot_early_pocket_pass_through_v1",
+  "origin": "authored_kit",
+  "poetics_ref": {
+    "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json",
+    "sha256": "7e8c4148ab2aaa45af7102719a7f820893b9368480757d6652f1f971774d1b3d"
+  },
+  "profile": {
+    "acoustics": {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "probe": {
+        "ceiling_height_m": null,
+        "damping": null,
+        "evidence": [],
+        "max_distance_m": null,
+        "mean_distance_m": null,
+        "openness": null,
+        "predelay_msec": null,
+        "probe_version": null,
+        "room_size": null,
+        "sample_points": [],
+        "wet": null
+      },
+      "status": "tag_only",
+      "tag": "carpet"
+    },
+    "catalog_snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30",
+    "eligibility": {
+      "catalog_layout_eligible": null,
+      "layout_eligible_derived": false
+    },
+    "exits": [
+      {
+        "circulation_role": "connector",
+        "compatibility_type": "level_doorway_2m_v1",
+        "elevation_m": -1.27099049,
+        "kind": "untested",
+        "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; socket data from the library index; circulation_role is an unreviewed placeholder (#219)",
+        "socket_id": "east",
+        "tested_pair_ids": [],
+        "width_m": 2.0
+      },
+      {
+        "circulation_role": "connector",
+        "compatibility_type": "level_doorway_2m_v1",
+        "elevation_m": -1.27099049,
+        "kind": "untested",
+        "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; socket data from the library index; circulation_role is an unreviewed placeholder (#219)",
+        "socket_id": "west",
+        "tested_pair_ids": [],
+        "width_m": 2.0
+      }
+    ],
+    "lighting": {
+      "color_temp_k": null,
+      "evidence": [],
+      "fixtures": [],
+      "illuminance_lux": null,
+      "status": "unknown",
+      "tier": null
+    },
+    "module_id": "godot_early_pocket_pass_through_v1",
+    "mood": {
+      "anomaly": null,
+      "curiosity": null,
+      "dread": null,
+      "evidence": [],
+      "safety": null,
+      "tags": [],
+      "tension": null
+    },
+    "origin": "authored_kit",
+    "poetics_ref": {
+      "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json",
+      "sha256": "7e8c4148ab2aaa45af7102719a7f820893b9368480757d6652f1f971774d1b3d"
+    },
+    "profile_version": "module-profile-0.1.0",
+    "roles": {
+      "circulation_role": "branch",
+      "form_role": "ground",
+      "map_role": "ground",
+      "semantic_tags": [],
+      "sightline_tags": []
+    },
+    "runtime": {
+      "breadcrumb_policy": "none",
+      "follower_visibility": "visible",
+      "mutation_classes": [],
+      "mutation_eligible": false
+    },
+    "scale": {
+      "anchor": null,
+      "confidence": 0.0,
+      "evidence": [],
+      "status": "uncalibrated"
+    },
+    "schema_version": 1,
+    "shape": {
+      "area_m2": 82.8,
+      "aspect": 2.3,
+      "bbox_xz": {
+        "max": [
+          6.0,
+          13.8
+        ],
+        "min": [
+          0.0,
+          0.0
+        ]
+      },
+      "ceiling_height_m": 2.4,
+      "ceiling_kind": "unknown",
+      "ceiling_max_m": 2.4,
+      "ceiling_min_m": 2.4,
+      "convexity": 1.0,
+      "footprint_xz": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          0.0
+        ],
+        [
+          6.0,
+          13.8
+        ],
+        [
+          0.0,
+          13.8
+        ]
+      ],
+      "primitive": "box",
+      "rectilinear": true,
+      "shape_stage": 0,
+      "symmetry": "D2",
+      "vertex_count": 4,
+      "volume_measured_m3": null,
+      "volume_nominal_m3": 198.72,
+      "volume_source": "envelope_area_x_max_ceiling"
+    },
+    "source_id": null,
+    "surfaces": {
+      "ceiling": {
+        "acoustic": "carpet",
+        "material_id": "carpet_ceiling_material",
+        "palette_id": null,
+        "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "floor": {
+        "acoustic": "carpet",
+        "material_id": "carpet_floor_material",
+        "palette_id": null,
+        "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+        "sign": "icon",
+        "texture_refs": []
+      },
+      "trim": {
+        "acoustic": "carpet",
+        "material_id": "carpet_trim_material",
+        "palette_id": null,
+        "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "wall": {
+        "acoustic": "carpet",
+        "material_id": "carpet_wall_material",
+        "palette_id": null,
+        "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+        "sign": "icon",
+        "texture_refs": []
+      }
+    },
+    "template_ref": {
+      "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+      "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+      "version": "generation-template-0.1.0"
+    },
+    "translation_chain": [],
+    "version": 1
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_layers": {
+    "acoustics": {
+      "path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "sha256": "df3da6150273f9164b6671194da378514f4dba772211ce3782c8cbfc956a8462"
+    },
+    "descriptor": {
+      "path": "godot_walk/room_catalog/module_surface_palettes/godot_early_pocket_pass_through_v1-v1_surface_palette_v1.json",
+      "sha256": "f92faf87752a610b36682ef4c481a9384e7fb6b2052f5cb3409c5573b723254e"
+    },
+    "lighting_scale": {
+      "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1-lighting-scale-v1.json",
+      "sha256": "c5afa39d44b997cd0a4eba3f6181be5c13e9e17471104c0c9113f370ac9f7f36"
+    },
+    "poetics": {
+      "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json",
+      "sha256": "7e8c4148ab2aaa45af7102719a7f820893b9368480757d6652f1f971774d1b3d"
+    },
+    "profile": {
+      "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json",
+      "sha256": "3dafea55f1db6da5f2d8f956615bc360eccaefd6d85b73d3512ac2403e829c37"
+    },
+    "t6": {
+      "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-t6-v1.json",
+      "sha256": "a6a5a4c123c7e3db4a14b699cdc7d22ee209e422d1daad3440d693734b6fe96f"
+    }
+  },
+  "space_kind": "enclosed",
+  "surfaces": {
+    "descriptor_version": "module-surface-palette-0.1.0",
+    "module_id": "godot_early_pocket_pass_through_v1",
+    "profile_ref": {
+      "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json",
+      "sha256": "3dafea55f1db6da5f2d8f956615bc360eccaefd6d85b73d3512ac2403e829c37"
+    },
+    "review": {
+      "operator_review": "pending",
+      "surfaces": {
+        "ceiling": {
+          "basis": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['carpet_floor']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json backrooms_yellow.ceiling via palette registry entry; per-surface assignment is a proposal",
+          "bespoke_reason": null,
+          "evidence_status": "proposed",
+          "status": "resolved"
+        },
+        "floor": {
+          "basis": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['carpet_floor']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json backrooms_yellow.floor via palette registry entry; per-surface assignment is a proposal",
+          "bespoke_reason": null,
+          "evidence_status": "proposed",
+          "status": "resolved"
+        },
+        "trim": {
+          "basis": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['carpet_floor']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json backrooms_yellow.trim via palette registry entry; per-surface assignment is a proposal",
+          "bespoke_reason": null,
+          "evidence_status": "proposed",
+          "status": "resolved"
+        },
+        "wall": {
+          "basis": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['carpet_floor']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json backrooms_yellow.wall via palette registry entry; per-surface assignment is a proposal",
+          "bespoke_reason": null,
+          "evidence_status": "proposed",
+          "status": "resolved"
+        }
+      }
+    },
+    "schema_version": 1,
+    "surfaces": {
+      "ceiling": {
+        "acoustic": "tile",
+        "material_id": "backrooms_yellow.ceiling",
+        "palette_id": "backrooms_yellow",
+        "provenance": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['carpet_floor']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json backrooms_yellow.ceiling via palette registry entry; per-surface assignment is a proposal",
+        "sign": "icon",
+        "texture_refs": [
+          "res://assets/psx_extension/textures/ceiling_source_video.png"
+        ]
+      },
+      "floor": {
+        "acoustic": "carpet",
+        "material_id": "backrooms_yellow.floor",
+        "palette_id": "backrooms_yellow",
+        "provenance": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['carpet_floor']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json backrooms_yellow.floor via palette registry entry; per-surface assignment is a proposal",
+        "sign": "icon",
+        "texture_refs": [
+          "res://assets/psx_extension/textures/floor_source_video.png"
+        ]
+      },
+      "trim": {
+        "acoustic": "metal",
+        "material_id": "backrooms_yellow.trim",
+        "palette_id": "backrooms_yellow",
+        "provenance": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['carpet_floor']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json backrooms_yellow.trim via palette registry entry; per-surface assignment is a proposal",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "wall": {
+        "acoustic": "plaster",
+        "material_id": "backrooms_yellow.wall",
+        "palette_id": "backrooms_yellow",
+        "provenance": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['carpet_floor']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json backrooms_yellow.wall via palette registry entry; per-surface assignment is a proposal",
+        "sign": "icon",
+        "texture_refs": [
+          "res://assets/psx_extension/textures/wallpaper_source_video.png"
+        ]
+      }
+    }
+  },
+  "t6": {
+    "base_profile": {
+      "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json",
+      "sha256": "3dafea55f1db6da5f2d8f956615bc360eccaefd6d85b73d3512ac2403e829c37"
+    },
+    "ceiling_volume": {
+      "ceiling_height_m": {
+        "basis_status": "measured",
+        "source": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json#/modules/godot_early_pocket_pass_through_v1@1/metrics/ceiling_height_m; Issue 216 headless probe; up-ray result is capped by the profile ceiling hint",
+        "status": "measured",
+        "tolerance": 1e-06,
+        "value": 2.4
+      },
+      "ceiling_kind": {
+        "basis_status": "authored",
+        "source": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json#/poetics/style_tags; ceiling-kind interpretation is a draft",
+        "status": "authored",
+        "value": "beam_grid"
+      },
+      "ceiling_max_m": {
+        "basis_status": "authored",
+        "source": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json#/shape/ceiling_max_m",
+        "status": "authored",
+        "value": 2.4
+      },
+      "ceiling_min_m": {
+        "basis_status": "authored",
+        "source": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json#/shape/ceiling_min_m",
+        "status": "authored",
+        "value": 2.4
+      },
+      "volume_measured_m3": {
+        "basis_status": "unmeasured",
+        "source": "No committed per-module volume measurement exists",
+        "status": "unmeasured",
+        "value": null
+      },
+      "volume_nominal_m3": {
+        "basis_status": "authored",
+        "derivation": "footprint area x authored maximum ceiling; nominal envelope heuristic",
+        "source": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json#/shape/area_m2; godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1.json#/shape/ceiling_max_m; authored inputs",
+        "status": "derived",
+        "value": 198.72
+      }
+    },
+    "exits": [
+      {
+        "circulation_role": "connector",
+        "compatibility_type": "level_doorway_2m_v1",
+        "elevation_m": -1.27099049,
+        "kind": "untested",
+        "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; accepted ports and library index socket data",
+        "socket_id": "east",
+        "tested_pair_ids": [],
+        "width_m": 2.0
+      },
+      {
+        "circulation_role": "connector",
+        "compatibility_type": "level_doorway_2m_v1",
+        "elevation_m": -1.27099049,
+        "kind": "untested",
+        "provenance": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json; accepted ports and library index socket data",
+        "socket_id": "west",
+        "tested_pair_ids": [],
+        "width_m": 2.0
+      }
+    ],
+    "module_id": "godot_early_pocket_pass_through_v1",
+    "mood": {
+      "anomaly": 0.1,
+      "curiosity": 0.25,
+      "dread": 0.1,
+      "evidence": [
+        {
+          "path": "godot_walk/room_catalog/module_poetics/godot_early_pocket_pass_through_v1-v1.accepted.json",
+          "sha256": "7e8c4148ab2aaa45af7102719a7f820893b9368480757d6652f1f971774d1b3d"
+        }
+      ],
+      "review_status": "agent_proposed_draft_pending_operator_review",
+      "safety": 0.75,
+      "tags": [
+        "quiet",
+        "familiar"
+      ],
+      "tension": 0.2
+    },
+    "profile_version": "module-profile-t6-0.1.0",
+    "roles": {
+      "circulation_role": "through",
+      "form_role": "ground",
+      "map_role": "ground",
+      "review_status": "agent_proposed_draft_pending_operator_review",
+      "semantic_tags": [
+        "carpeted",
+        "repetitive"
+      ],
+      "sightline_tags": [
+        "occluded"
+      ]
+    },
+    "schema_version": 1,
+    "template_ref": {
+      "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+      "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+      "version": "generation-template-0.1.0"
+    }
+  }
+}
