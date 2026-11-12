@@ -165,6 +165,32 @@ an `integration_proposals/**/*.json` file has no citing event with its exact
 hash. `status` lists these stages in `next_worker_actions` once their
 preconditions hold.
 
+## Template batch ingestion (#195 / #222)
+
+`batches/issue-195.json` names the seven videos from issues #174–#180. The
+batch command writes a versioned schema-v3 source manifest for each one without
+touching the original v1 record:
+
+```bash
+B=godot_walk/scripts/template_batch_ingest.py
+python3 $B status   # gate state and the module contract for the batch
+python3 $B upgrade  # write the v2 bridge, then the v3 template snapshot
+python3 $B check    # validate the batch contract
+```
+
+A source that only has `source_manifest.json` first receives a
+`source_manifest-v2.json` bridge, then `source_manifest-v3.json`. The index
+moves to the v3 record and one `source_manifest_v3_recorded` event records the
+change. The v3 snapshot carries `source_kind`, `content` (video or picture
+set), `capture`, `scale`, `lighting`, the pending `source_review`, and false
+`registration_accepted` / `scale_calibrated` flags. Old manifests and their
+events stay valid through the append-only chain.
+
+`check` requires every batch source to have a v3 snapshot and, once a module is
+admitted, a module profile, a `module_acoustics` v0.2.0 record and a
+surface/palette descriptor. It does not approve a source, select a seed, run
+Hunyuan or admit a catalog module; those remain operator gates.
+
 ## Picture-set sources
 
 `data/pictures/<set>/` is the local drop folder for a direct picture set. Each

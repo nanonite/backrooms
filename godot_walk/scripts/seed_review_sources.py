@@ -15,6 +15,7 @@ from seed_review_paths import (
     resolve_repo_path,
     sha256_file,
 )
+from video_source_library import SourceLibraryError, manifest_video_content
 
 SOURCE_ID_PATTERN = re.compile(r"^video-[0-9a-f]{16}$")
 SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
@@ -80,7 +81,7 @@ def load_source_record(source_id: str, root: Path = ROOT) -> SourceRecord:
             "source_video_changed",
             f"Source video bytes changed since registration: {source_id}",
         )
-    metadata = manifest["canonical_video"]["metadata"]
+    metadata = _video_content(manifest)["metadata"]
     return SourceRecord(
         source_id=source_id,
         video_path=entry["source_path"],
@@ -139,17 +140,22 @@ def _verify_manifest(entry: dict[str, Any], root: Path) -> Path:
     return manifest_path
 
 
+def _video_content(manifest: dict[str, Any]) -> dict[str, Any]:
+    try:
+        return manifest_video_content(manifest)
+    except SourceLibraryError as error:
+        raise SeedReviewError(
+            "source_manifest_invalid", "Manifest lacks canonical video identity"
+        ) from error
+
+
 def _canonical_video(
     entry: dict[str, Any],
     manifest: dict[str, Any],
     source_id: str,
     root: Path,
 ) -> tuple[Path, str]:
-    canonical = manifest.get("canonical_video")
-    if not isinstance(canonical, dict):
-        raise SeedReviewError(
-            "source_manifest_invalid", "Manifest lacks canonical video identity"
-        )
+    canonical = _video_content(manifest)
     path_text = canonical.get("path")
     digest = canonical.get("sha256")
     metadata = canonical.get("metadata")

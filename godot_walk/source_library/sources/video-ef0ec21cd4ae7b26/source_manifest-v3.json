@@ -1,0 +1,217 @@
+{
+  "capture": {
+    "camera_model": null,
+    "capture_height_m": null,
+    "distortion": null,
+    "intrinsics": {
+      "cx": null,
+      "cy": null,
+      "fx": null,
+      "fy": null
+    },
+    "lens": null,
+    "orientation": null
+  },
+  "content": {
+    "audio": {
+      "path": null,
+      "present": false,
+      "sha256": null
+    },
+    "picture_set": null,
+    "video": {
+      "metadata": {
+        "duration_seconds": 4.0,
+        "fps": 24.0,
+        "frame_count": 96,
+        "height": 1080,
+        "width": 1920
+      },
+      "path": "data/videos/room_large.mp4",
+      "sha256": "ef0ec21cd4ae7b2699d5d9ec08467eddb6d62582d659c4035dc995e78df4b418"
+    }
+  },
+  "created_at_utc": "2026-10-26T21:23:23.196841+00:00",
+  "frame_references": [
+    {
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+      "frame_id": "frame_0013",
+      "historical_record_path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+      "index_zero_based": 12,
+      "path": "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0013.png",
+      "sha256": "b75558f58ac9ccd169e444c9978b961179ca5bc2b0d77db97acd81aa65e842ae",
+      "timestamp_seconds": 0.5
+    },
+    {
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+      "frame_id": "frame_0049",
+      "historical_record_path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+      "index_zero_based": 48,
+      "path": "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0049.png",
+      "sha256": "b330de31186a515823bb9013fd0740b7d617d40dc26a959b8bfee6498604cb66",
+      "timestamp_seconds": 2
+    },
+    {
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+      "frame_id": "frame_0085",
+      "historical_record_path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+      "index_zero_based": 84,
+      "path": "godot_walk/evidence/2026-10-24-issue-163/room_large_frame_0085.png",
+      "sha256": "3a240ddda431dd47c3128bf4d6f0add8c7c9f1fd7cba37d6e9e9485490f73e8b",
+      "timestamp_seconds": 3.5
+    }
+  ],
+  "historical_artifacts": [
+    {
+      "path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+      "role": "adaptation",
+      "sha256": "3e8310f3012ed63d588e496e1b7bfbe5f4377638a6129a2e8b38fa510c52d286"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/operator_review.json",
+      "role": "decision",
+      "sha256": "ad2c6e98ebe9581179e8c453666acfe4ec0b516b99d3cf35ae366257354b96d0"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/source_manifest.json",
+      "role": "evidence_manifest",
+      "sha256": "e8d7d51aec2432316e167a18871af18601a456e629c40609c42546ce72440152"
+    },
+    {
+      "path": "godot_walk/evidence/2026-10-24-issue-163/REPORT.md",
+      "role": "report",
+      "sha256": "7fda54eb93d8f40dacdfa8d0422f16da960d2301285c7b0229ab542cf7ea3e9b"
+    }
+  ],
+  "hunyuan": {
+    "attempts": [],
+    "historical_attempts": [
+      {
+        "attempt_id": "historical-panogen-1024",
+        "elapsed_seconds": 85.7,
+        "evidence": [
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen-1024_status.json",
+            "sha256": "1dbc1bb6b6936508ef49e20021758cceeda0176f60299f5a9ad749d75d761f21"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen-1024.log",
+            "sha256": "00aef504ebb4c8b783fe74928661a5ed81b815d6f430c8ae5c288ca426b73171"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen-1024_resources.jsonl",
+            "sha256": "d1357ba3ec50a9bac7ba044643451fd16b7d9adc6f67cb117a90d0e3e3b77d5a"
+          }
+        ],
+        "status": "stopped_by_guard",
+        "stop_reason": "free VRAM fell below 3072 MiB"
+      },
+      {
+        "attempt_id": "historical-panogen-768-final",
+        "elapsed_seconds": 78.54,
+        "evidence": [
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen-768-final_status.json",
+            "sha256": "8844e326e90b64513920c3fe46fe57c9d5f08c2838ed02d421443227ffc15605"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen-768-final.log",
+            "sha256": "21d1be68531b180b16a80945331ec9eb8b117a63bffa517cc7a3274b95a3ce10"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen-768-final_resources.jsonl",
+            "sha256": "2ed85916ffeabb60adae36fb4463dc0a7c08b25e53dabba3f3262cc2d74bdb7e"
+          }
+        ],
+        "status": "stopped_by_guard",
+        "stop_reason": "free VRAM fell below 2048 MiB"
+      },
+      {
+        "attempt_id": "historical-panogen-768",
+        "elapsed_seconds": 79.5,
+        "evidence": [
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen-768_status.json",
+            "sha256": "a65d5ea6bd886c2cde61e737ab0e7b682517c4341d04e3188a57d26cd68dab6f"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen-768.log",
+            "sha256": "b089296bd702db26231833c1553737c00bf901d10ba5e2753272b34b1ebc1caf"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen-768_resources.jsonl",
+            "sha256": "84eabbfd1b5a1d0d5c48c07036ead79cc2dc8b0905fa3c9fd34be00afac0b203"
+          }
+        ],
+        "status": "stopped_by_guard",
+        "stop_reason": "free VRAM fell below 3072 MiB"
+      },
+      {
+        "attempt_id": "historical-panogen",
+        "elapsed_seconds": 91.6,
+        "evidence": [
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen_status.json",
+            "sha256": "4ec50e11b4e3bcc8dae670091ebb23643ac7137de3361dce3b0d4818dea5f6ca"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen.log",
+            "sha256": "29f6c80961d19f731d2ec2f1192fcdfcda776324c4b2aeed7369e3e21ec1fb25"
+          },
+          {
+            "path": "godot_walk/evidence/2026-10-24-issue-163/worldgen/panogen_resources.jsonl",
+            "sha256": "d0c2f5124df18656def0293ceae6bfb559fd460a57b7c5b3f8ce6fed4897882c"
+          }
+        ],
+        "status": "stopped_by_guard",
+        "stop_reason": "free VRAM fell below 2048 MiB"
+      }
+    ],
+    "historical_invocations": 4,
+    "policy_invocation_limit": 3,
+    "policy_note": "Historical invocations are preserved separately and do not authorize a new run.",
+    "status": "historical_over_cap_no_panorama"
+  },
+  "lighting": {
+    "color_temp_k": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "fixtures": [],
+    "illuminance_lux": null,
+    "status": "unknown"
+  },
+  "manifest_version": 3,
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity.",
+  "recorded_at_utc": "2026-11-12T21:01:37.530383+00:00",
+  "registration_accepted": false,
+  "room_adaptations": [
+    {
+      "adaptation_id": "room-large-source-textured-v1",
+      "adaptation_path": "godot_walk/room_catalog/adaptations/room-large-v1.json",
+      "adaptation_sha256": "3e8310f3012ed63d588e496e1b7bfbe5f4377638a6129a2e8b38fa510c52d286",
+      "decision_path": "godot_walk/evidence/2026-10-24-issue-163/operator_review.json",
+      "decision_sha256": "ad2c6e98ebe9581179e8c453666acfe4ec0b516b99d3cf35ae366257354b96d0",
+      "decision_status": "accepted",
+      "issue": 163
+    }
+  ],
+  "scale": {
+    "anchor": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "method": null,
+    "status": "uncalibrated"
+  },
+  "scale_calibrated": false,
+  "schema_version": 3,
+  "source_id": "video-ef0ec21cd4ae7b26",
+  "source_kind": "video",
+  "source_review": {
+    "decision": null,
+    "status": "pending_operator_review"
+  },
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-ef0ec21cd4ae7b26/source_manifest-v2.json",
+    "sha256": "b1f8ca4759f6d8ab0217a75bc0b29c9ce205f7dc1fb13938b23d8a089540254d"
+  }
+}

@@ -11,7 +11,14 @@ from pathlib import Path
 from typing import Any
 
 from PIL import Image, ImageDraw, ImageFont
-from video_source_library import INDEX_PATH, ROOT, SourceLibraryError, sha256_file
+from video_source_library import (
+    INDEX_PATH,
+    ROOT,
+    VIDEO_SOURCE_KIND,
+    SourceLibraryError,
+    manifest_video_content,
+    sha256_file,
+)
 
 THUMBNAIL_SIZE = (480, 270)
 ROW_HEADER = 44
@@ -29,10 +36,13 @@ def _read_sources(root: Path) -> list[dict[str, Any]]:
         if sha256_file(manifest_path) != entry["manifest_sha256"]:
             raise SourceLibraryError(f"Source manifest changed: {entry['source_id']}")
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        video_path = root / manifest["canonical_video"]["path"]
-        if sha256_file(video_path) != manifest["canonical_video"]["sha256"]:
+        if manifest.get("source_kind", VIDEO_SOURCE_KIND) != VIDEO_SOURCE_KIND:
+            continue
+        video = manifest_video_content(manifest)
+        video_path = root / video["path"]
+        if sha256_file(video_path) != video["sha256"]:
             raise SourceLibraryError(f"Source video changed: {entry['source_id']}")
-        result.append({**entry, "metadata": manifest["canonical_video"]["metadata"]})
+        result.append({**entry, "metadata": video["metadata"]})
     return sorted(result, key=lambda item: item["source_path"].casefold())
 
 

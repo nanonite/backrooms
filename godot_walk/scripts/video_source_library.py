@@ -352,6 +352,23 @@ def _validate_manifest_source(
     _validate_picture_set_content(pictures or [], source_path, source_digest, source_id, root)
 
 
+def manifest_video_content(manifest: dict[str, Any]) -> dict[str, Any]:
+    """Return the canonical video block from a v1/v2 or v3 manifest.
+
+    v1/v2 records store it as ``canonical_video``; schema v3 stores it as
+    ``content.video``. Both shapes stay valid, so every consumer reads the
+    identity through this one accessor.
+    """
+    if manifest.get("schema_version") == 3:
+        content = manifest.get("content")
+        video = content.get("video") if isinstance(content, dict) else None
+    else:
+        video = manifest.get("canonical_video")
+    if not isinstance(video, dict):
+        raise SourceLibraryError("Source manifest has no canonical video")
+    return video
+
+
 def _manifest_identity(
     manifest: dict[str, Any],
 ) -> tuple[str, str | None, str | None, list[dict[str, Any]] | None]:

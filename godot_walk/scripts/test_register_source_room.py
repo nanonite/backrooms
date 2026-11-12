@@ -12,9 +12,17 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from register_source_room import register_room
-from register_video_sources import register_video
+from register_video_sources import register_video, write_index_snapshot
 from source_ingestion_runner import load_source
+from template_batch_ingest import upgrade_source
 from video_source_library import SourceLibraryError, sha256_file, validate_index
+
+SOURCE_LIBRARY = Path(__file__).resolve().parents[1] / "source_library"
+SOURCE_SCHEMAS = (
+    "source_manifest.schema.json",
+    "source_manifest_v2.schema.json",
+    "source_manifest_v3.schema.json",
+)
 
 
 def fake_probe(_path: Path) -> dict[str, object]:
@@ -176,6 +184,36 @@ class RegisterSourceRoomTests(unittest.TestCase):
 
         with self.assertRaisesRegex(SourceLibraryError, "predecessor changed"):
             validate_index(self.root)
+
+    def test_admission_after_v3_upgrade_preserves_template_blocks(self) -> None:
+        target = self.root / "godot_walk/source_library"
+        target.mkdir(parents=True, exist_ok=True)
+        for name in SOURCE_SCHEMAS:
+            (target / name).write_bytes((SOURCE_LIBRARY / name).read_bytes())
+        upgrade = upgrade_source(self.source_id, self.root)
+        index = json.loads(
+            (self.root / "godot_walk/source_library/index.json").read_text()
+        )
+        write_index_snapshot(
+            self.root, [upgrade.entry], int(index["index_version"]) + 1
+        )
+
+        manifest_path, _ = register_room(
+            self.source_id, self.adaptation_path, self.decision_path, self.root
+        )
+
+        self.assertEqual("source_manifest-v4.json", Path(manifest_path).name)
+        manifest, _, _ = load_source(self.source_id, self.root)
+        self.assertEqual(3, manifest["schema_version"])
+        self.assertEqual("video", manifest["source_kind"])
+        self.assertEqual(upgrade.manifest["content"], manifest["content"])
+        self.assertEqual(upgrade.manifest["scale"], manifest["scale"])
+        self.assertEqual(upgrade.manifest["lighting"], manifest["lighting"])
+        self.assertEqual(
+            upgrade.entry["manifest_path"], manifest["supersedes"]["path"]
+        )
+        self.assertFalse(manifest["registration_accepted"])
+        self.assertFalse(manifest["scale_calibrated"])
 
 
 if __name__ == "__main__":

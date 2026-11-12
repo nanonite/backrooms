@@ -1,0 +1,37 @@
+{
+  "canonical_video": {
+    "metadata": {
+      "duration_seconds": 4.0,
+      "fps": 24.0,
+      "frame_count": 96,
+      "height": 1080,
+      "width": 1920
+    },
+    "path": "data/videos/dead_end.mp4",
+    "sha256": "f657e9bc27813df8759acf720d7dd57060320d18270acf80c15c42c7cc7f3770"
+  },
+  "created_at_utc": "2026-10-26T21:23:22.904549+00:00",
+  "frame_references": [],
+  "historical_artifacts": [],
+  "hunyuan": {
+    "attempts": [],
+    "historical_invocations": 0,
+    "status": "not_attempted"
+  },
+  "manifest_version": 2,
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity.",
+  "recorded_at_utc": "2026-11-12T21:01:37.503283+00:00",
+  "registration_accepted": false,
+  "room_adaptations": [],
+  "scale_calibrated": false,
+  "schema_version": 2,
+  "source_id": "video-f657e9bc27813df8",
+  "source_review": {
+    "decision": null,
+    "status": "pending_operator_review"
+  },
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-f657e9bc27813df8/source_manifest.json",
+    "sha256": "51f757c1ab233e57c720fce18474f8c6ee05ad823148cdece9ace8c38cc379a4"
+  }
+}

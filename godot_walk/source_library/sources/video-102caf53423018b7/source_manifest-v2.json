@@ -1,0 +1,37 @@
+{
+  "canonical_video": {
+    "metadata": {
+      "duration_seconds": 4.0,
+      "fps": 24.0,
+      "frame_count": 96,
+      "height": 1080,
+      "width": 1920
+    },
+    "path": "data/videos/corridor_straight.mp4",
+    "sha256": "102caf53423018b75dfd1976b5a2346b0576bdd316429f246aee87a884ba3d4b"
+  },
+  "created_at_utc": "2026-10-26T21:23:22.638248+00:00",
+  "frame_references": [],
+  "historical_artifacts": [],
+  "hunyuan": {
+    "attempts": [],
+    "historical_invocations": 0,
+    "status": "not_attempted"
+  },
+  "manifest_version": 2,
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity.",
+  "recorded_at_utc": "2026-11-12T21:01:37.424761+00:00",
+  "registration_accepted": false,
+  "room_adaptations": [],
+  "scale_calibrated": false,
+  "schema_version": 2,
+  "source_id": "video-102caf53423018b7",
+  "source_review": {
+    "decision": null,
+    "status": "pending_operator_review"
+  },
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-102caf53423018b7/source_manifest.json",
+    "sha256": "db8a6c6a396767939c806af7462cd02f3fd533a43401ea7245bc6971dcb8d3fe"
+  }
+}

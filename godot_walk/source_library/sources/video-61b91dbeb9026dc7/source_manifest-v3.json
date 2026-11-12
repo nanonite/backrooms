@@ -1,0 +1,74 @@
+{
+  "capture": {
+    "camera_model": null,
+    "capture_height_m": null,
+    "distortion": null,
+    "intrinsics": {
+      "cx": null,
+      "cy": null,
+      "fx": null,
+      "fy": null
+    },
+    "lens": null,
+    "orientation": null
+  },
+  "content": {
+    "audio": {
+      "path": null,
+      "present": false,
+      "sha256": null
+    },
+    "picture_set": null,
+    "video": {
+      "metadata": {
+        "duration_seconds": 4.0,
+        "fps": 24.0,
+        "frame_count": 96,
+        "height": 1080,
+        "width": 1920
+      },
+      "path": "data/videos/corridor_x.mp4",
+      "sha256": "61b91dbeb9026dc7b404657f7ba7e081b5588a7e7a4a2abfa553be765d1a7f04"
+    }
+  },
+  "created_at_utc": "2026-10-26T21:23:22.817186+00:00",
+  "frame_references": [],
+  "historical_artifacts": [],
+  "hunyuan": {
+    "attempts": [],
+    "historical_invocations": 0,
+    "status": "not_attempted"
+  },
+  "lighting": {
+    "color_temp_k": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "fixtures": [],
+    "illuminance_lux": null,
+    "status": "unknown"
+  },
+  "manifest_version": 3,
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity.",
+  "recorded_at_utc": "2026-11-12T21:01:37.479034+00:00",
+  "registration_accepted": false,
+  "room_adaptations": [],
+  "scale": {
+    "anchor": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "method": null,
+    "status": "uncalibrated"
+  },
+  "scale_calibrated": false,
+  "schema_version": 3,
+  "source_id": "video-61b91dbeb9026dc7",
+  "source_kind": "video",
+  "source_review": {
+    "decision": null,
+    "status": "pending_operator_review"
+  },
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/source_manifest-v2.json",
+    "sha256": "fbce940688a1e3398a6de2023689c56a715143a3c9b019b016f41555167ec538"
+  }
+}

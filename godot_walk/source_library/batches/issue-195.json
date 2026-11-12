@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "batch_id": "issue-195",
+  "issue": 195,
+  "title": "Grow the placeable library: ingest remaining videos #171-#180",
+  "template_version": "generation-template-0.1.0",
+  "sources": [
+    {
+      "issue": 174,
+      "source_id": "video-d92fc1fa764aa3a2"
+    },
+    {
+      "issue": 175,
+      "source_id": "video-102caf53423018b7"
+    },
+    {
+      "issue": 176,
+      "source_id": "video-2671b32f256a4ee7"
+    },
+    {
+      "issue": 177,
+      "source_id": "video-61b91dbeb9026dc7"
+    },
+    {
+      "issue": 178,
+      "source_id": "video-f657e9bc27813df8"
+    },
+    {
+      "issue": 179,
+      "source_id": "video-ef0ec21cd4ae7b26"
+    },
+    {
+      "issue": 180,
+      "source_id": "video-51abd379f94b8f84"
+    }
+  ]
+}

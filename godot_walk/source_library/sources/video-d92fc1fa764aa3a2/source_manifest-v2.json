@@ -1,0 +1,37 @@
+{
+  "canonical_video": {
+    "metadata": {
+      "duration_seconds": 226.348118,
+      "fps": 29.97003,
+      "frame_count": 6782,
+      "height": 480,
+      "width": 636
+    },
+    "path": "data/videos/Angel (Joseph Cornell, 1957).mp4",
+    "sha256": "d92fc1fa764aa3a25a40910f01858def4b72dd3b51ca4af8d5d012d788567428"
+  },
+  "created_at_utc": "2026-10-26T21:23:22.111832+00:00",
+  "frame_references": [],
+  "historical_artifacts": [],
+  "hunyuan": {
+    "attempts": [],
+    "historical_invocations": 0,
+    "status": "not_attempted"
+  },
+  "manifest_version": 2,
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity.",
+  "recorded_at_utc": "2026-11-12T21:01:37.392706+00:00",
+  "registration_accepted": false,
+  "room_adaptations": [],
+  "scale_calibrated": false,
+  "schema_version": 2,
+  "source_id": "video-d92fc1fa764aa3a2",
+  "source_review": {
+    "decision": null,
+    "status": "pending_operator_review"
+  },
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/source_manifest.json",
+    "sha256": "7f1f72e275b0a53942f710489af9818c1f7f5aedaea35c274b0ead6275bb53e7"
+  }
+}

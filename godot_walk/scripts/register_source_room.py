@@ -16,6 +16,7 @@ from video_source_library import (
     SourceLibraryError,
     lock_file,
     manifest_lineage_hashes,
+    manifest_video_content,
     sha256_file,
     utc_now,
     validate_index,
@@ -324,7 +325,7 @@ def _verify_source_identity(
     ):
         raise SourceLibraryError("Adaptation ID is not a safe stable room ID")
     source = adaptation.get("source_observations", {}).get("video", {})
-    registered = manifest.get("canonical_video", {})
+    registered = manifest_video_content(manifest)
     if (
         manifest.get("source_id") != source_id
         or source.get("path") != registered.get("path")
@@ -380,7 +381,7 @@ def _write_successor(
     successor = dict(manifest)
     successor.update(
         {
-            "schema_version": 2,
+            "schema_version": 3 if manifest.get("schema_version") == 3 else 2,
             "manifest_version": version,
             "supersedes": {"path": prior_path, "sha256": entry["manifest_sha256"]},
             "recorded_at_utc": utc_now(),

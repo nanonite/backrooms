@@ -50,6 +50,7 @@ from video_source_library import (
     VIDEO_SOURCE_KIND,
     SourceLibraryError,
     manifest_lineage_hashes,
+    manifest_video_content,
     picture_set_sha256,
     probe_picture_set,
     sha256_file,
@@ -532,7 +533,7 @@ def _direct_frame_record(
                         "Selected frame is not a direct source-video decode"
                     )
                 with Image.open(frame) as image:
-                    expected = source_manifest["canonical_video"]["metadata"]
+                    expected = manifest_video_content(source_manifest)["metadata"]
                     if image.size != (expected["width"], expected["height"]):
                         raise SourceLibraryError("Selected seed frame was resized")
                 item["extraction_manifest"] = manifest_relative
@@ -555,7 +556,7 @@ def _has_extraction_event(events: list[dict[str, Any]], path: str, digest: str) 
 def _verify_extraction_identity(
     extraction: dict[str, Any], source_manifest: dict[str, Any]
 ) -> None:
-    source = source_manifest["canonical_video"]
+    source = manifest_video_content(source_manifest)
     if (
         extraction.get("source_video") != source["path"]
         or extraction.get("source_video_sha256") != source["sha256"]
@@ -594,7 +595,7 @@ def select_seed(
         )
         frame["source_video_sha256"] = entry["source_sha256"]
         frame["presentation_timestamp_seconds"] = _presentation_timestamp_seconds(
-            root / manifest["canonical_video"]["path"],
+            root / manifest_video_content(manifest)["path"],
             frame["index_zero_based"],
         )
         frame["presentation_timestamp_source"] = (

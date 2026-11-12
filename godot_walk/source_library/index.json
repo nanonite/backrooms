@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "index_version": 22,
+  "index_version": 23,
   "sources": [
     {
       "source_id": "picture-set-d160eaa3cc847d5c",
@@ -13,8 +13,8 @@
       "source_id": "video-102caf53423018b7",
       "source_path": "data/videos/corridor_straight.mp4",
       "source_sha256": "102caf53423018b75dfd1976b5a2346b0576bdd316429f246aee87a884ba3d4b",
-      "manifest_path": "godot_walk/source_library/sources/video-102caf53423018b7/source_manifest.json",
-      "manifest_sha256": "db8a6c6a396767939c806af7462cd02f3fd533a43401ea7245bc6971dcb8d3fe"
+      "manifest_path": "godot_walk/source_library/sources/video-102caf53423018b7/source_manifest-v3.json",
+      "manifest_sha256": "6c4863b240d035cdc52b78fc6a33b79dc07b610df5d6663d19cc8f6f7364d626"
     },
     {
       "source_id": "video-22909eb734e4d8e2",
@@ -27,22 +27,22 @@
       "source_id": "video-2671b32f256a4ee7",
       "source_path": "data/videos/corridor_t.mp4",
       "source_sha256": "2671b32f256a4ee7f326fae67290bcec2143efabb4f1000fc4bcfa9507260409",
-      "manifest_path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/source_manifest.json",
-      "manifest_sha256": "daa604de8e9851b684e48a11a72a53928f0ddc6b52dfa68387ff8563b7c23ced"
+      "manifest_path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/source_manifest-v3.json",
+      "manifest_sha256": "101159bf8200611ef994a1f5b8ba5f4eaa86ff839972128150eb15e1a16245ae"
     },
     {
       "source_id": "video-51abd379f94b8f84",
       "source_path": "data/videos/corridor_corner.mp4",
       "source_sha256": "51abd379f94b8f84799c79927113f37c03014b41b0d5f0d4c23095d3d67587e0",
-      "manifest_path": "godot_walk/source_library/sources/video-51abd379f94b8f84/source_manifest.json",
-      "manifest_sha256": "22fd03975b4dfe6da4b92448e0b0b98ddc490baafadd3b815499ac2160bb8de5"
+      "manifest_path": "godot_walk/source_library/sources/video-51abd379f94b8f84/source_manifest-v3.json",
+      "manifest_sha256": "6265f71ae8285d767b04f626277c2c3a1a58136d86e4188bf9ef49a86b583e6e"
     },
     {
       "source_id": "video-61b91dbeb9026dc7",
       "source_path": "data/videos/corridor_x.mp4",
       "source_sha256": "61b91dbeb9026dc7b404657f7ba7e081b5588a7e7a4a2abfa553be765d1a7f04",
-      "manifest_path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/source_manifest.json",
-      "manifest_sha256": "e1bfbe88ed5d35fe309144a9d85775191e39a6ce300cf124e1b25de9ee6bf93a"
+      "manifest_path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/source_manifest-v3.json",
+      "manifest_sha256": "af41b7ed362728d9956d5cfb5eb3d0dc71b7f251febfff02f25b2be9dcf6259f"
     },
     {
       "source_id": "video-b9161c467ed2d30a",
@@ -76,22 +76,22 @@
       "source_id": "video-d92fc1fa764aa3a2",
       "source_path": "data/videos/Angel (Joseph Cornell, 1957).mp4",
       "source_sha256": "d92fc1fa764aa3a25a40910f01858def4b72dd3b51ca4af8d5d012d788567428",
-      "manifest_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/source_manifest.json",
-      "manifest_sha256": "7f1f72e275b0a53942f710489af9818c1f7f5aedaea35c274b0ead6275bb53e7"
+      "manifest_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/source_manifest-v3.json",
+      "manifest_sha256": "28c01ed69ccbe6acc9854b659cbfb3a8b902903a6257542bb289f9a042b8f77f"
     },
     {
       "source_id": "video-ef0ec21cd4ae7b26",
       "source_path": "data/videos/room_large.mp4",
       "source_sha256": "ef0ec21cd4ae7b2699d5d9ec08467eddb6d62582d659c4035dc995e78df4b418",
-      "manifest_path": "godot_walk/source_library/sources/video-ef0ec21cd4ae7b26/source_manifest.json",
-      "manifest_sha256": "dfff426bee07b93b9ae7d637fcc598524e1bf4eb69e0e19e8be10ff0cc322124"
+      "manifest_path": "godot_walk/source_library/sources/video-ef0ec21cd4ae7b26/source_manifest-v3.json",
+      "manifest_sha256": "307be211f804d25d96e7d86aa818a7310e813c7714a525a7c0176d85d1f8afe2"
     },
     {
       "source_id": "video-f657e9bc27813df8",
       "source_path": "data/videos/dead_end.mp4",
       "source_sha256": "f657e9bc27813df8759acf720d7dd57060320d18270acf80c15c42c7cc7f3770",
-      "manifest_path": "godot_walk/source_library/sources/video-f657e9bc27813df8/source_manifest.json",
-      "manifest_sha256": "51f757c1ab233e57c720fce18474f8c6ee05ad823148cdece9ace8c38cc379a4"
+      "manifest_path": "godot_walk/source_library/sources/video-f657e9bc27813df8/source_manifest-v3.json",
+      "manifest_sha256": "ce413b916cca14a1c00bc898275e23e97a20c26be70890a9b2de0e3039fd7c7d"
     }
   ]
 }
