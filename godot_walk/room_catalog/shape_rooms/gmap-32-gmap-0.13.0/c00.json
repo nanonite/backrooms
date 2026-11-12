@@ -45,7 +45,7 @@
       4.0
     ]
   ],
-  "ceiling_height_m": 4.3,
+  "ceiling_height_m": 3.0,
   "cell_id": "c00",
   "construction": "arms",
   "degenerate_features": [],
@@ -82,10 +82,9 @@
         1.5,
         0.0
       ],
-      "sill_height_m": 1.5,
+      "sill_height_m": 0.0,
       "to_cell_id": "c03",
       "to_port_id": "c03:p0",
-      "vertical": "ramp",
       "width_m": 2.0
     },
     {
@@ -171,10 +170,10 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4058,
+    "color_temp_k": 4558,
     "lamps": [
       {
-        "flicker_seed": 1324235437,
+        "flicker_seed": 795624291,
         "lamp_index": 0,
         "state": "on"
       }
@@ -182,7 +181,7 @@
     "tier": "normal"
   },
   "map_id": "gmap-32-gmap-0.13.0",
-  "map_sha256": "35ae6662a48aa4f8b3ad04cd9c171001337279100eee5c324f41a8e121b7a49d",
+  "map_sha256": "087d24978dc4b7e5986dd881d491d43bc2dc4f49652f6e4f25e848e6abbdd7d1",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
@@ -251,24 +250,6 @@
   ],
   "primitive": "t_shape",
   "primitive_class": "box",
-  "ramps": [
-    {
-      "angle_deg": 24.775141,
-      "direction_xz": [
-        0.0,
-        1.0
-      ],
-      "port_id": "c00:p1",
-      "rise_m": 1.5,
-      "run_m": 3.25,
-      "start_xz": [
-        1.5,
-        0.0
-      ],
-      "upper_cell_id": "c03",
-      "width_m": 2.2
-    }
-  ],
   "rarity_tier": 0,
   "rects": [
     [

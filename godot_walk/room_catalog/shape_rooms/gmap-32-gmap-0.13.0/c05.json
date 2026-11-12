@@ -170,18 +170,18 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4090,
+    "color_temp_k": 5044,
     "lamps": [
       {
-        "flicker_seed": 1038941696,
+        "flicker_seed": 276003050,
         "lamp_index": 0,
-        "state": "on"
+        "state": "flicker"
       }
     ],
-    "tier": "dim"
+    "tier": "normal"
   },
   "map_id": "gmap-32-gmap-0.13.0",
-  "map_sha256": "35ae6662a48aa4f8b3ad04cd9c171001337279100eee5c324f41a8e121b7a49d",
+  "map_sha256": "087d24978dc4b7e5986dd881d491d43bc2dc4f49652f6e4f25e848e6abbdd7d1",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
@@ -192,9 +192,9 @@
     },
     "ceiling": {
       "acoustic": "metal",
-      "texture": "res://assets/psx_extension/textures/surfaces/metal_service_ceiling_worn.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/metal_service_ceiling_clean.png",
       "tile_m": 2.0,
-      "variant": "worn"
+      "variant": "clean"
     },
     "floor": {
       "acoustic": "metal",
@@ -210,14 +210,14 @@
     "palette_id": "metal_service",
     "registry_version": "0.3.0",
     "trim_color": [
-      0.21,
-      0.23,
-      0.24
+      0.25,
+      0.27,
+      0.28
     ],
     "variants": {
-      "ceiling": "worn",
+      "ceiling": "clean",
       "floor": "clean",
-      "trim": "worn",
+      "trim": "clean",
       "wall": "clean"
     },
     "wall": {
@@ -226,7 +226,7 @@
       "tile_m": 4.0,
       "variant": "clean"
     },
-    "wear": 1
+    "wear": 0
   },
   "mode": "standard",
   "original_cell_status": "shape_room_pending",

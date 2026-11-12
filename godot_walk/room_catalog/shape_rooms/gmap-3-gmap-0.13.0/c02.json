@@ -86,6 +86,7 @@
       "sill_height_m": 0.0,
       "to_cell_id": "c03",
       "to_port_id": "c03:p0",
+      "vertical": "ramp",
       "width_m": 2.0
     },
     {
@@ -175,23 +176,23 @@
     ]
   ],
   "light": {
-    "color_temp_k": 5181,
+    "color_temp_k": 4784,
     "lamps": [
       {
-        "flicker_seed": 1359756571,
+        "flicker_seed": 1634197030,
         "lamp_index": 0,
         "state": "on"
       },
       {
-        "flicker_seed": 144805697,
+        "flicker_seed": 200777698,
         "lamp_index": 1,
         "state": "on"
       }
     ],
-    "tier": "normal"
+    "tier": "dim"
   },
   "map_id": "gmap-3-gmap-0.13.0",
-  "map_sha256": "3e97919ed19e466a9f7d8ae64517451bb8dfc82253ae12e09369ac19d3c88961",
+  "map_sha256": "307c8ab769ecf0ed7d13b44176e3607e28816daa2a7489e070b1b0aa4ab70591",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {

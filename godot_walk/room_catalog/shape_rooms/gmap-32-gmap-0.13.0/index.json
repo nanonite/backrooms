@@ -2,7 +2,7 @@
   "generator_version": "shape-room-0.10.0",
   "map_file": {
     "name": "gmap-32-gmap-0.13.0.json",
-    "sha256": "35ae6662a48aa4f8b3ad04cd9c171001337279100eee5c324f41a8e121b7a49d"
+    "sha256": "087d24978dc4b7e5986dd881d491d43bc2dc4f49652f6e4f25e848e6abbdd7d1"
   },
   "map_id": "gmap-32-gmap-0.13.0",
   "mode": "all_walkable",
@@ -16,7 +16,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "t_shape",
       "primitive_class": "box",
-      "sha256": "3c2d32d3baf26094810c0c44d362728c8c35b92e8ac3d460f99705629b4ab8ec"
+      "sha256": "b69e64ce8938f12f6167ecdaed8862ffb94d1dd25da87253c6ee4338da20f208"
     },
     {
       "cell_id": "c01",
@@ -27,7 +27,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "u_shape",
       "primitive_class": "box",
-      "sha256": "ae5aa06cd8c3789a0447e6d84c47fc51b70697e6b9588b95afd6f53612900d7f"
+      "sha256": "289f09486817c5797e1f52c674657bec6e02ac9b7ce1a141f0f5f1ace96d75a4"
     },
     {
       "cell_id": "c02",
@@ -38,7 +38,7 @@
       "palette_id": "wood_parquet",
       "primitive": "dead_end",
       "primitive_class": "box",
-      "sha256": "331bf6ce2b35f8eec23322ffa59f6b560f91ba781b3f8601691ef40745a32fb3"
+      "sha256": "47a74ad6804d975f5b630083507617bc9a9b773bbb50f536cc89aa74ceb66dd5"
     },
     {
       "cell_id": "c03",
@@ -49,7 +49,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "t_shape",
       "primitive_class": "rectilinear_polygon",
-      "sha256": "0faa7c4ca279092686dcba1b7fff777a97d1f3b805b919e9600573653356a455"
+      "sha256": "ca4184d119a2f480a8b700eff1dd0bcb2c8b5ee47a8faca5153184aefcbfefd3"
     },
     {
       "cell_id": "c04",
@@ -60,7 +60,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "dead_end",
       "primitive_class": "box",
-      "sha256": "94da4cf46130a9ae8a7ff23082ee3120af56d5b4014a14a5d1a59df3e7898f83"
+      "sha256": "3fc9f2daf2f6477d104891961a4f4476cbd8b1765ff7fdde159127cfde87538e"
     },
     {
       "cell_id": "c05",
@@ -71,7 +71,7 @@
       "palette_id": "metal_service",
       "primitive": "u_shape",
       "primitive_class": "box",
-      "sha256": "201f577910b66fb921fdd0c2571957712827d129b02cfeae0a6ea96545b43a39"
+      "sha256": "98b68e20c2c1c2ba6ee24a3df65a1d0d234cb2a1fa4f4b0e9e23472fa8d387af"
     },
     {
       "cell_id": "c06",
@@ -82,7 +82,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "t_shape",
       "primitive_class": "box",
-      "sha256": "91f213d59f99b9c477fed8bddf9a5a9daebdfa3f4ae6caa6084a5f331602d06b"
+      "sha256": "8ffffff2ec5cc214fab8dffd266526b9614eca8a15f6b69fefcccb0d7268387d"
     },
     {
       "cell_id": "c07",
@@ -93,7 +93,7 @@
       "palette_id": "tiled_institutional",
       "primitive": "dead_end",
       "primitive_class": "box",
-      "sha256": "2a27e25014bf0c62cb6243c28dbbd1a525bc4381e1153bfd33aadeb99acee994"
+      "sha256": "e6341db9f5de69c049942631c73ed86be05bfbe1f0151ed712d131a59f41b5ff"
     },
     {
       "cell_id": "c08",
@@ -104,7 +104,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "l_shape",
       "primitive_class": "box",
-      "sha256": "cffd83e13ded424cc41887c168da25735630551bc595220d6aff58d56a8ce14c"
+      "sha256": "68f0128632443c6002c769bd4a615d3b33ed44a752b1578c1b2edab26667c7b8"
     },
     {
       "cell_id": "c09",
@@ -115,7 +115,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "l_shape",
       "primitive_class": "chamfered_box",
-      "sha256": "10942a1567ea4b1510ddefefccee778e6127ef732a5c4ac49dad2650acb02f92"
+      "sha256": "c341bf7d4522fe2e6307126aa015005af95a3cd5253db72023a55fcdd43d5464"
     },
     {
       "cell_id": "c10",
@@ -126,7 +126,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "t_shape",
       "primitive_class": "chamfered_polyomino",
-      "sha256": "5aebc828e6b3e97189fdc96eda85ac95a6ef636e2d6610679bb0c316ab6e6ad9"
+      "sha256": "0fbeb2aee0f8262bee265b215960d44240a368284f080ae5f614f8a8f4c175a6"
     },
     {
       "cell_id": "c11",
@@ -137,7 +137,7 @@
       "palette_id": "metal_service",
       "primitive": "dead_end",
       "primitive_class": "box",
-      "sha256": "1c8caf0231a33a3887674fa39a84c51a8deee6f36c938f36e8293941d8733675"
+      "sha256": "33d0c8fb1cabe8777a25be80d186c91345b7d9e1542ccd8799f643512dc83de3"
     }
   ],
   "schema_version": 1

@@ -2,7 +2,7 @@
   "generator_version": "shape-room-0.10.0",
   "map_file": {
     "name": "gmap-3-gmap-0.13.0.json",
-    "sha256": "3e97919ed19e466a9f7d8ae64517451bb8dfc82253ae12e09369ac19d3c88961"
+    "sha256": "307c8ab769ecf0ed7d13b44176e3607e28816daa2a7489e070b1b0aa4ab70591"
   },
   "map_id": "gmap-3-gmap-0.13.0",
   "mode": "all_walkable",
@@ -16,7 +16,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "l_shape",
       "primitive_class": "chamfered_polyomino",
-      "sha256": "4db78523db6756a6cb1e3dfab6d59d8acd1180b6337914745b7ae747db8071c2"
+      "sha256": "e8a00211b71b53024f011cee812e665bc6c2f992e7dce66a4bda367f867511b2"
     },
     {
       "cell_id": "c01",
@@ -27,7 +27,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "u_shape",
       "primitive_class": "chamfered_box",
-      "sha256": "d31987379ae2a5e1ede6a04561bfd243965d1570a5525c37a8a518cb60158d77"
+      "sha256": "18c5d9a4c97db0f71ea51d8f0eff28a9918d549a78ac878ac0d54ce88d948750"
     },
     {
       "cell_id": "c02",
@@ -38,7 +38,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "t_shape",
       "primitive_class": "rectilinear_polygon",
-      "sha256": "ae6d4864674da7d84fef85829850b63650435d55d2ed8d4b29efb30a4bded5f1"
+      "sha256": "ae8dabd478c1906b0d63018a07b2363ded79ed828c9d6fadf256aa85a3026331"
     },
     {
       "cell_id": "c03",
@@ -49,7 +49,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "dead_end",
       "primitive_class": "chamfered_box",
-      "sha256": "ff004a8daef512d5e737067d4b0495aea8bd5017aa26f73943b0c9b4d123810d"
+      "sha256": "ceaed75387ad872e7eff42b61a655bfbc30bd12aed01215e0ee59da35931f7c0"
     },
     {
       "cell_id": "c04",
@@ -60,7 +60,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "t_shape",
       "primitive_class": "rectilinear_polygon",
-      "sha256": "2fa2190c8edb9f133bfc64f749c0fdebbc57c1ce414e7a4df3839839ce096b43"
+      "sha256": "7ac5544f81a53510b4f0ae4686f36e6abe4af14fd52c1efeed3e51016e025439"
     },
     {
       "cell_id": "c05",
@@ -71,7 +71,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "u_shape",
       "primitive_class": "chamfered_box",
-      "sha256": "5cefdce363239d31a6f398d71586dd539824b16340aa15b1cb1f1b715dafe91e"
+      "sha256": "96cb580c25375466636b318c2ba5ddddca81ec5a6e13e820a90baadbb03ac171"
     },
     {
       "cell_id": "c06",
@@ -82,7 +82,7 @@
       "palette_id": "industrial_concrete",
       "primitive": "t_shape",
       "primitive_class": "l_shape",
-      "sha256": "2b02a0349a5d1c796f343cc196ad5dd36f0d795fa4fd12f0a1f53992f1b86921"
+      "sha256": "897ec166a2156acc1695f85c4aca4a5c35625a4674a6c9d5eb817a9c52278f6f"
     },
     {
       "cell_id": "c07",
@@ -93,7 +93,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "t_shape",
       "primitive_class": "box",
-      "sha256": "59494f878dfa15ccd988535bd11b284046c2ccd2069f27e2dd927f92153364b1"
+      "sha256": "7d9e91806fea872efb47303ede39f85390e944e046fb0d4072ac8c0c1e291deb"
     },
     {
       "cell_id": "c08",
@@ -104,7 +104,7 @@
       "palette_id": "tiled_institutional",
       "primitive": "l_shape",
       "primitive_class": "chamfered_box",
-      "sha256": "a20a19dd0f004c095fa18d81718bb1413abdd77bcb9c309bb77d3dd316ddad1c"
+      "sha256": "a5162da265b4f12d07768cbed1fb499f39c56b7967082fcfdc18e64817b768eb"
     },
     {
       "cell_id": "c09",
@@ -115,7 +115,7 @@
       "palette_id": "tiled_institutional",
       "primitive": "dead_end",
       "primitive_class": "chamfered_box",
-      "sha256": "ea68809bd7dcd591a17b6de17b7f79d4e5c7d8be1bd4a05b158588a041f97fba"
+      "sha256": "54b488938e9400117227f41a2d0265e2e2371d9d9106ae27e674791cbe7e2856"
     },
     {
       "cell_id": "c10",
@@ -126,7 +126,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "dead_end",
       "primitive_class": "box",
-      "sha256": "854c6bfce603d4adb450251b397e532536dd788f1bf4c8f2e38f351f78819e80"
+      "sha256": "5a7031c1bc00124bec0ef887cb5c66bcc02c099bc61d5526ed3ddd81ae773221"
     },
     {
       "cell_id": "c11",
@@ -137,7 +137,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "l_shape",
       "primitive_class": "chamfered_box",
-      "sha256": "3a45c9d1ae58ab0be2f5bad7e1817d1a12b188d146e2f3af47daa7912b523a4b"
+      "sha256": "65b2dc0e04dd35c5b50ed11520e9b57db1895b0bbc5042ffb2a32029eb036078"
     },
     {
       "cell_id": "dp00",
@@ -147,7 +147,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "straight",
       "primitive_class": "diagonal_passage",
-      "sha256": "2ee9d618e9981d685ca41607c8670ceb2b49bc4eba8138216b35ba73438b0a57"
+      "sha256": "44f69a13594dc4673d1935bc734e8d522b3b4f57287df8cef3d50f2644e9b458"
     }
   ],
   "schema_version": 1

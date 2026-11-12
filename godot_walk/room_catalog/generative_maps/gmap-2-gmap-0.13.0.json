@@ -115,10 +115,10 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 5155,
+        "color_temp_k": 4908,
         "lamps": [
           {
-            "flicker_seed": 961595746,
+            "flicker_seed": 685018509,
             "lamp_index": 0,
             "state": "on"
           }
@@ -310,15 +310,15 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 4083,
+        "color_temp_k": 5087,
         "lamps": [
           {
-            "flicker_seed": 155735923,
+            "flicker_seed": 1587215943,
             "lamp_index": 0,
             "state": "on"
           },
           {
-            "flicker_seed": 800766521,
+            "flicker_seed": 426296085,
             "lamp_index": 1,
             "state": "on"
           }
@@ -527,10 +527,10 @@
         "status": "placed"
       },
       "light": {
-        "color_temp_k": 4782,
+        "color_temp_k": 4009,
         "lamps": [
           {
-            "flicker_seed": 1619789148,
+            "flicker_seed": 1941752188,
             "lamp_index": 0,
             "state": "on"
           }
@@ -630,7 +630,7 @@
         "rectilinear_polygon"
       ],
       "ceiling_range_m": [
-        4.1,
+        2.6,
         4.8
       ],
       "cell_id": "c03",
@@ -730,35 +730,35 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 4340,
+        "color_temp_k": 4339,
         "lamps": [
           {
-            "flicker_seed": 378880485,
+            "flicker_seed": 1982559392,
             "lamp_index": 0,
             "state": "on"
           },
           {
-            "flicker_seed": 700124545,
+            "flicker_seed": 215351261,
             "lamp_index": 1,
-            "state": "on"
+            "state": "dead"
           },
           {
-            "flicker_seed": 507156907,
+            "flicker_seed": 2097540346,
             "lamp_index": 2,
-            "state": "on"
+            "state": "flicker"
           },
           {
-            "flicker_seed": 1603378177,
+            "flicker_seed": 222140936,
             "lamp_index": 3,
             "state": "on"
           },
           {
-            "flicker_seed": 15412624,
+            "flicker_seed": 841550213,
             "lamp_index": 4,
             "state": "on"
           }
         ],
-        "tier": "bright"
+        "tier": "dim"
       },
       "mode": "standard",
       "mood": {
@@ -825,17 +825,17 @@
       "shape_class_target": "chamfered_box",
       "shape_stage_target": 2,
       "surface_variants": {
-        "ceiling": "clean",
-        "floor": "clean",
-        "trim": "clean",
-        "wall": "clean"
+        "ceiling": "worn",
+        "floor": "worn",
+        "trim": "worn",
+        "wall": "damaged"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 460.8,
         "source": "cell_envelope"
       },
-      "wear": 0
+      "wear": 2
     },
     {
       "absorption": {
@@ -903,40 +903,40 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 4817,
+        "color_temp_k": 4010,
         "lamps": [
           {
-            "flicker_seed": 556326981,
+            "flicker_seed": 22492826,
             "lamp_index": 0,
-            "state": "on"
+            "state": "flicker"
           },
           {
-            "flicker_seed": 491662721,
+            "flicker_seed": 1195871895,
             "lamp_index": 1,
             "state": "on"
           },
           {
-            "flicker_seed": 978470025,
+            "flicker_seed": 1921357016,
             "lamp_index": 2,
-            "state": "on"
+            "state": "flicker"
           },
           {
-            "flicker_seed": 1307565970,
+            "flicker_seed": 1603123486,
             "lamp_index": 3,
             "state": "on"
           },
           {
-            "flicker_seed": 1801053606,
+            "flicker_seed": 218757810,
             "lamp_index": 4,
             "state": "on"
           },
           {
-            "flicker_seed": 2056218227,
+            "flicker_seed": 799386376,
             "lamp_index": 5,
             "state": "on"
           }
         ],
-        "tier": "normal"
+        "tier": "bright"
       },
       "mode": "standard",
       "mood": {
@@ -977,17 +977,17 @@
       "shape_class_target": "chamfered_box",
       "shape_stage_target": 2,
       "surface_variants": {
-        "ceiling": "worn",
+        "ceiling": "clean",
         "floor": "clean",
-        "trim": "worn",
-        "wall": "worn"
+        "trim": "clean",
+        "wall": "clean"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 720.0,
         "source": "cell_envelope"
       },
-      "wear": 1
+      "wear": 0
     },
     {
       "absorption": {
@@ -1107,35 +1107,35 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 4554,
+        "color_temp_k": 3873,
         "lamps": [
           {
-            "flicker_seed": 2078864855,
+            "flicker_seed": 2020387874,
             "lamp_index": 0,
             "state": "on"
           },
           {
-            "flicker_seed": 351032497,
+            "flicker_seed": 731820440,
             "lamp_index": 1,
-            "state": "on"
+            "state": "dead"
           },
           {
-            "flicker_seed": 2079902851,
+            "flicker_seed": 91858433,
             "lamp_index": 2,
-            "state": "on"
+            "state": "dead"
           },
           {
-            "flicker_seed": 300324569,
+            "flicker_seed": 1258031545,
             "lamp_index": 3,
             "state": "on"
           },
           {
-            "flicker_seed": 1552247269,
+            "flicker_seed": 1090120883,
             "lamp_index": 4,
             "state": "on"
           },
           {
-            "flicker_seed": 1011974864,
+            "flicker_seed": 491493213,
             "lamp_index": 5,
             "state": "on"
           }
@@ -1315,15 +1315,15 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 4722,
+        "color_temp_k": 3851,
         "lamps": [
           {
-            "flicker_seed": 282485921,
+            "flicker_seed": 668813996,
             "lamp_index": 0,
             "state": "on"
           }
         ],
-        "tier": "normal"
+        "tier": "bright"
       },
       "mode": "standard",
       "mood": {
@@ -1382,14 +1382,14 @@
         "ceiling": "clean",
         "floor": "clean",
         "trim": "clean",
-        "wall": "clean"
+        "wall": "worn"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 172.8,
         "source": "cell_envelope"
       },
-      "wear": 0
+      "wear": 1
     },
     {
       "absorption": {
@@ -1408,7 +1408,7 @@
         "chamfered_box"
       ],
       "ceiling_range_m": [
-        2.6,
+        4.1,
         4.8
       ],
       "cell_id": "c07",
@@ -1498,22 +1498,22 @@
           2
         ]
       ],
-      "floor_y": 1.5,
+      "floor_y": -1.5,
       "light": {
-        "color_temp_k": 4158,
+        "color_temp_k": 4199,
         "lamps": [
           {
-            "flicker_seed": 161135423,
+            "flicker_seed": 452765351,
             "lamp_index": 0,
-            "state": "on"
+            "state": "dead"
           },
           {
-            "flicker_seed": 362365284,
+            "flicker_seed": 1999704682,
             "lamp_index": 1,
-            "state": "on"
+            "state": "dead"
           }
         ],
-        "tier": "normal"
+        "tier": "dim"
       },
       "mode": "standard",
       "mood": {
@@ -1582,17 +1582,17 @@
       "shape_class_target": "chamfered_box",
       "shape_stage_target": 2,
       "surface_variants": {
-        "ceiling": "clean",
-        "floor": "clean",
-        "trim": "clean",
-        "wall": "clean"
+        "ceiling": "damaged",
+        "floor": "damaged",
+        "trim": "damaged",
+        "wall": "damaged"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 144.0,
         "source": "cell_envelope"
       },
-      "wear": 0
+      "wear": 2
     },
     {
       "absorption": {
@@ -1726,25 +1726,25 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 4373,
+        "color_temp_k": 3991,
         "lamps": [
           {
-            "flicker_seed": 1117562305,
+            "flicker_seed": 522659271,
             "lamp_index": 0,
-            "state": "flicker"
+            "state": "on"
           },
           {
-            "flicker_seed": 2079858394,
+            "flicker_seed": 1634968320,
             "lamp_index": 1,
             "state": "on"
           },
           {
-            "flicker_seed": 531473724,
+            "flicker_seed": 122559194,
             "lamp_index": 2,
             "state": "on"
           },
           {
-            "flicker_seed": 1008885244,
+            "flicker_seed": 601955871,
             "lamp_index": 3,
             "state": "on"
           }
@@ -1828,17 +1828,17 @@
       "role": "ground",
       "shape_stage_target": 1,
       "surface_variants": {
-        "ceiling": "worn",
-        "floor": "worn",
-        "trim": "worn",
-        "wall": "damaged"
+        "ceiling": "clean",
+        "floor": "clean",
+        "trim": "clean",
+        "wall": "clean"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 307.2,
         "source": "cell_envelope"
       },
-      "wear": 1
+      "wear": 0
     },
     {
       "absorption": {
@@ -1936,15 +1936,15 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 3856,
+        "color_temp_k": 4839,
         "lamps": [
           {
-            "flicker_seed": 1415971454,
+            "flicker_seed": 1117945246,
             "lamp_index": 0,
-            "state": "on"
+            "state": "flicker"
           }
         ],
-        "tier": "bright"
+        "tier": "normal"
       },
       "mode": "standard",
       "mood": {
@@ -1999,9 +1999,9 @@
       "shape_stage_target": 2,
       "surface_variants": {
         "ceiling": "worn",
-        "floor": "worn",
+        "floor": "clean",
         "trim": "worn",
-        "wall": "clean"
+        "wall": "worn"
       },
       "volume": {
         "measured_m3": null,
@@ -2096,17 +2096,17 @@
           10
         ]
       ],
-      "floor_y": 1.5,
+      "floor_y": -1.5,
       "light": {
-        "color_temp_k": 3902,
+        "color_temp_k": 4756,
         "lamps": [
           {
-            "flicker_seed": 1881994245,
+            "flicker_seed": 42352813,
             "lamp_index": 0,
             "state": "flicker"
           },
           {
-            "flicker_seed": 1838677961,
+            "flicker_seed": 1191306982,
             "lamp_index": 1,
             "state": "flicker"
           }
@@ -2239,17 +2239,17 @@
           -1
         ]
       ],
-      "floor_y": 1.5,
+      "floor_y": -1.5,
       "light": {
-        "color_temp_k": 4020,
+        "color_temp_k": 4959,
         "lamps": [
           {
-            "flicker_seed": 83618662,
+            "flicker_seed": 132898633,
             "lamp_index": 0,
-            "state": "on"
+            "state": "dead"
           }
         ],
-        "tier": "normal"
+        "tier": "dim"
       },
       "mode": "standard",
       "mood": {
@@ -2291,17 +2291,17 @@
       "role": "ground",
       "shape_stage_target": 1,
       "surface_variants": {
-        "ceiling": "damaged",
-        "floor": "damaged",
-        "trim": "damaged",
-        "wall": "damaged"
+        "ceiling": "worn",
+        "floor": "clean",
+        "trim": "worn",
+        "wall": "clean"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 144.0,
         "source": "cell_envelope"
       },
-      "wear": 2
+      "wear": 1
     },
     {
       "absorption": {
@@ -2365,11 +2365,11 @@
           11
         ]
       ],
-      "floor_y": 1.5,
+      "floor_y": -1.5,
       "light": {
-        "color_temp_k": 4811,
+        "color_temp_k": 4782,
         "lamps": [],
-        "tier": "bright"
+        "tier": "normal"
       },
       "mode": "standard",
       "module": {
@@ -2832,12 +2832,12 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 4855,
+        "color_temp_k": 4271,
         "lamps": [
           {
-            "flicker_seed": 1460280703,
+            "flicker_seed": 267194129,
             "lamp_index": 0,
-            "state": "flicker"
+            "state": "on"
           }
         ],
         "tier": "normal"
@@ -2894,17 +2894,17 @@
       "shape_class_target": "diagonal_passage",
       "shape_stage_target": 2,
       "surface_variants": {
-        "ceiling": "clean",
+        "ceiling": "worn",
         "floor": "clean",
-        "trim": "clean",
-        "wall": "clean"
+        "trim": "worn",
+        "wall": "worn"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 126.838148,
         "source": "cell_envelope"
       },
-      "wear": 0
+      "wear": 1
     },
     {
       "absorption": {
@@ -3019,12 +3019,12 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 4796,
+        "color_temp_k": 4683,
         "lamps": [
           {
-            "flicker_seed": 1094033483,
+            "flicker_seed": 993758142,
             "lamp_index": 0,
-            "state": "on"
+            "state": "dead"
           }
         ],
         "tier": "normal"
@@ -3095,8 +3095,11 @@
     }
   ],
   "dark_wing": {
-    "cell_ids": [],
-    "status": "not_selected"
+    "cell_ids": [
+      "c07",
+      "c11"
+    ],
+    "status": "placed"
   },
   "degenerate_budget": {
     "max": 1,
@@ -3280,10 +3283,10 @@
       "from": "c03:p1",
       "ramp": {
         "angle_deg": 24.775141,
-        "lower_cell_id": "c03",
+        "lower_cell_id": "c07",
         "rise_m": 1.5,
         "run_m": 3.25,
-        "upper_cell_id": "c07",
+        "upper_cell_id": "c03",
         "width_m": 2.2
       },
       "to": "c07:p0",
@@ -3380,7 +3383,7 @@
     ],
     "ramp_min_run_m": 3.2,
     "ramp_rise_m": 1.5,
-    "stream": "elevation:gmap-0.10.0"
+    "stream": "elevation:gmap-0.13.0"
   },
   "elevation_loops": {
     "budget": 3,

@@ -116,25 +116,25 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 4098,
+        "color_temp_k": 3946,
         "lamps": [
           {
-            "flicker_seed": 1169888900,
+            "flicker_seed": 942773518,
             "lamp_index": 0,
             "state": "on"
           },
           {
-            "flicker_seed": 419821608,
+            "flicker_seed": 2142013608,
             "lamp_index": 1,
-            "state": "flicker"
+            "state": "on"
           },
           {
-            "flicker_seed": 1421221117,
+            "flicker_seed": 1353256014,
             "lamp_index": 2,
             "state": "on"
           },
           {
-            "flicker_seed": 98500163,
+            "flicker_seed": 163701750,
             "lamp_index": 3,
             "state": "on"
           }
@@ -280,22 +280,22 @@
           0
         ]
       ],
-      "floor_y": 0.0,
+      "floor_y": 1.5,
       "light": {
-        "color_temp_k": 3881,
+        "color_temp_k": 4473,
         "lamps": [
           {
-            "flicker_seed": 119851620,
+            "flicker_seed": 652272068,
             "lamp_index": 0,
             "state": "on"
           },
           {
-            "flicker_seed": 1893490247,
+            "flicker_seed": 1567433366,
             "lamp_index": 1,
             "state": "on"
           }
         ],
-        "tier": "dim"
+        "tier": "normal"
       },
       "mode": "standard",
       "mood": {
@@ -337,16 +337,16 @@
       "shape_stage_target": 2,
       "surface_variants": {
         "ceiling": "clean",
-        "floor": "worn",
+        "floor": "clean",
         "trim": "clean",
-        "wall": "worn"
+        "wall": "clean"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 144.0,
         "source": "cell_envelope"
       },
-      "wear": 1
+      "wear": 0
     },
     {
       "absorption": {
@@ -488,37 +488,37 @@
       ],
       "floor_y": 1.5,
       "light": {
-        "color_temp_k": 4357,
+        "color_temp_k": 4804,
         "lamps": [
           {
-            "flicker_seed": 1653643962,
+            "flicker_seed": 870408093,
             "lamp_index": 0,
             "state": "flicker"
           },
           {
-            "flicker_seed": 1723396116,
+            "flicker_seed": 354512803,
             "lamp_index": 1,
-            "state": "dead"
+            "state": "on"
           },
           {
-            "flicker_seed": 171891101,
+            "flicker_seed": 1100776634,
             "lamp_index": 2,
             "state": "on"
           },
           {
-            "flicker_seed": 1305120849,
+            "flicker_seed": 1960102997,
             "lamp_index": 3,
-            "state": "dead"
+            "state": "on"
           },
           {
-            "flicker_seed": 1409954722,
+            "flicker_seed": 154488702,
             "lamp_index": 4,
             "state": "on"
           },
           {
-            "flicker_seed": 1829915831,
+            "flicker_seed": 1716644787,
             "lamp_index": 5,
-            "state": "flicker"
+            "state": "on"
           }
         ],
         "tier": "normal"
@@ -602,16 +602,16 @@
       "shape_stage_target": 2,
       "surface_variants": {
         "ceiling": "worn",
-        "floor": "clean",
-        "trim": "worn",
-        "wall": "clean"
+        "floor": "damaged",
+        "trim": "damaged",
+        "wall": "damaged"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 460.8,
         "source": "cell_envelope"
       },
-      "wear": 1
+      "wear": 2
     },
     {
       "absorption": {
@@ -721,20 +721,20 @@
       ],
       "floor_y": 1.5,
       "light": {
-        "color_temp_k": 4138,
+        "color_temp_k": 4503,
         "lamps": [
           {
-            "flicker_seed": 610511407,
+            "flicker_seed": 1385348545,
             "lamp_index": 0,
             "state": "on"
           },
           {
-            "flicker_seed": 668441975,
+            "flicker_seed": 1207127689,
             "lamp_index": 1,
             "state": "on"
           }
         ],
-        "tier": "dim"
+        "tier": "normal"
       },
       "mode": "standard",
       "mood": {
@@ -749,11 +749,9 @@
         "policy": "none"
       },
       "palette": {
-        "anchor_module_id": null,
-        "distance": null,
-        "palette_id": "wood_parquet",
-        "region_distance": 0,
-        "region_seed_cell_id": "c03",
+        "anchor_module_id": "godot_gopro_industrial_hall_south_socket_v1",
+        "distance": 2,
+        "palette_id": "industrial_concrete",
         "registry_version": "0.3.0"
       },
       "rarity_tier": 0,
@@ -802,17 +800,17 @@
       "role": "ground",
       "shape_stage_target": 1,
       "surface_variants": {
-        "ceiling": "damaged",
-        "floor": "worn",
+        "ceiling": "worn",
+        "floor": "damaged",
         "trim": "worn",
-        "wall": "damaged"
+        "wall": "worn"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 144.0,
         "source": "cell_envelope"
       },
-      "wear": 2
+      "wear": 1
     },
     {
       "absorption": {
@@ -832,7 +830,7 @@
         "chamfered_polyomino"
       ],
       "ceiling_range_m": [
-        4.1,
+        2.6,
         4.8
       ],
       "cell_id": "c04",
@@ -924,40 +922,40 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 3986,
+        "color_temp_k": 4064,
         "lamps": [
           {
-            "flicker_seed": 1399978245,
+            "flicker_seed": 124812002,
             "lamp_index": 0,
-            "state": "on"
+            "state": "flicker"
           },
           {
-            "flicker_seed": 540415805,
+            "flicker_seed": 149125047,
             "lamp_index": 1,
-            "state": "on"
+            "state": "dead"
           },
           {
-            "flicker_seed": 1340682010,
+            "flicker_seed": 968154701,
             "lamp_index": 2,
             "state": "on"
           },
           {
-            "flicker_seed": 1815571960,
+            "flicker_seed": 1270586550,
             "lamp_index": 3,
             "state": "on"
           },
           {
-            "flicker_seed": 267007664,
+            "flicker_seed": 990157114,
             "lamp_index": 4,
             "state": "on"
           },
           {
-            "flicker_seed": 450369780,
+            "flicker_seed": 1528119549,
             "lamp_index": 5,
             "state": "on"
           }
         ],
-        "tier": "normal"
+        "tier": "dim"
       },
       "mode": "standard",
       "mood": {
@@ -1023,9 +1021,9 @@
       "role": "ground",
       "shape_stage_target": 1,
       "surface_variants": {
-        "ceiling": "damaged",
+        "ceiling": "worn",
         "floor": "worn",
-        "trim": "damaged",
+        "trim": "worn",
         "wall": "damaged"
       },
       "volume": {
@@ -1100,17 +1098,17 @@
           13
         ]
       ],
-      "floor_y": 1.5,
+      "floor_y": 0.0,
       "light": {
-        "color_temp_k": 4704,
+        "color_temp_k": 4301,
         "lamps": [
           {
-            "flicker_seed": 1616992465,
+            "flicker_seed": 1738779872,
             "lamp_index": 0,
-            "state": "on"
+            "state": "flicker"
           },
           {
-            "flicker_seed": 12783636,
+            "flicker_seed": 822238179,
             "lamp_index": 1,
             "state": "on"
           }
@@ -1155,9 +1153,9 @@
       "role": "ground",
       "shape_stage_target": 1,
       "surface_variants": {
-        "ceiling": "worn",
-        "floor": "worn",
-        "trim": "damaged",
+        "ceiling": "clean",
+        "floor": "clean",
+        "trim": "clean",
         "wall": "clean"
       },
       "volume": {
@@ -1165,7 +1163,7 @@
         "nominal_m3": 307.2,
         "source": "cell_envelope"
       },
-      "wear": 1
+      "wear": 0
     },
     {
       "absorption": {
@@ -1277,10 +1275,10 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 3856,
+        "color_temp_k": 4532,
         "lamps": [
           {
-            "flicker_seed": 75393204,
+            "flicker_seed": 649950860,
             "lamp_index": 0,
             "state": "on"
           }
@@ -1302,7 +1300,9 @@
       "palette": {
         "anchor_module_id": null,
         "distance": null,
-        "palette_id": "backrooms_yellow",
+        "palette_id": "wood_parquet",
+        "region_distance": 0,
+        "region_seed_cell_id": "c06",
         "registry_version": "0.3.0"
       },
       "rarity_tier": 0,
@@ -1381,7 +1381,7 @@
         "chamfered_polyomino"
       ],
       "ceiling_range_m": [
-        4.1,
+        2.6,
         4.8
       ],
       "cell_id": "c07",
@@ -1515,32 +1515,32 @@
           15
         ]
       ],
-      "floor_y": 0.0,
+      "floor_y": 1.5,
       "light": {
-        "color_temp_k": 4025,
+        "color_temp_k": 4545,
         "lamps": [
           {
-            "flicker_seed": 886843726,
+            "flicker_seed": 52373097,
             "lamp_index": 0,
-            "state": "dead"
+            "state": "on"
           },
           {
-            "flicker_seed": 2003817864,
+            "flicker_seed": 548991810,
             "lamp_index": 1,
-            "state": "dead"
+            "state": "on"
           },
           {
-            "flicker_seed": 1984518637,
+            "flicker_seed": 406950100,
             "lamp_index": 2,
-            "state": "dead"
+            "state": "on"
           },
           {
-            "flicker_seed": 827054128,
+            "flicker_seed": 1913215778,
             "lamp_index": 3,
-            "state": "dead"
+            "state": "on"
           }
         ],
-        "tier": "dim"
+        "tier": "bright"
       },
       "mode": "standard",
       "mood": {
@@ -1633,17 +1633,17 @@
       "shape_class_target": "chamfered_box",
       "shape_stage_target": 2,
       "surface_variants": {
-        "ceiling": "worn",
+        "ceiling": "clean",
         "floor": "clean",
         "trim": "clean",
-        "wall": "worn"
+        "wall": "clean"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 307.2,
         "source": "cell_envelope"
       },
-      "wear": 1
+      "wear": 0
     },
     {
       "absorption": {
@@ -1755,20 +1755,20 @@
       ],
       "floor_y": 1.5,
       "light": {
-        "color_temp_k": 4751,
+        "color_temp_k": 4310,
         "lamps": [
           {
-            "flicker_seed": 1295461944,
+            "flicker_seed": 1776142396,
             "lamp_index": 0,
-            "state": "dead"
+            "state": "on"
           },
           {
-            "flicker_seed": 1729910404,
+            "flicker_seed": 1872369724,
             "lamp_index": 1,
-            "state": "dead"
+            "state": "on"
           }
         ],
-        "tier": "dim"
+        "tier": "normal"
       },
       "mode": "standard",
       "mood": {
@@ -1785,9 +1785,7 @@
       "palette": {
         "anchor_module_id": null,
         "distance": null,
-        "palette_id": "wood_parquet",
-        "region_distance": 1,
-        "region_seed_cell_id": "c03",
+        "palette_id": "backrooms_yellow",
         "registry_version": "0.3.0"
       },
       "rarity_tier": 0,
@@ -1836,17 +1834,17 @@
       "role": "ground",
       "shape_stage_target": 1,
       "surface_variants": {
-        "ceiling": "damaged",
-        "floor": "damaged",
-        "trim": "damaged",
-        "wall": "damaged"
+        "ceiling": "clean",
+        "floor": "clean",
+        "trim": "clean",
+        "wall": "clean"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 307.2,
         "source": "cell_envelope"
       },
-      "wear": 2
+      "wear": 0
     },
     {
       "absorption": {
@@ -1865,7 +1863,7 @@
         "chamfered_box"
       ],
       "ceiling_range_m": [
-        2.6,
+        4.1,
         4.8
       ],
       "cell_id": "c09",
@@ -1935,12 +1933,12 @@
       ],
       "floor_y": 0.0,
       "light": {
-        "color_temp_k": 4068,
+        "color_temp_k": 5142,
         "lamps": [
           {
-            "flicker_seed": 1467910255,
+            "flicker_seed": 1131393859,
             "lamp_index": 0,
-            "state": "flicker"
+            "state": "on"
           }
         ],
         "tier": "normal"
@@ -1960,7 +1958,9 @@
       "palette": {
         "anchor_module_id": null,
         "distance": null,
-        "palette_id": "backrooms_yellow",
+        "palette_id": "metal_service",
+        "region_distance": 0,
+        "region_seed_cell_id": "c09",
         "registry_version": "0.3.0"
       },
       "rarity_tier": 1,
@@ -2104,35 +2104,35 @@
       ],
       "floor_y": 1.5,
       "light": {
-        "color_temp_k": 3905,
+        "color_temp_k": 4530,
         "lamps": [
           {
-            "flicker_seed": 1284278291,
+            "flicker_seed": 1895385824,
             "lamp_index": 0,
             "state": "on"
           },
           {
-            "flicker_seed": 808672300,
+            "flicker_seed": 1557959278,
             "lamp_index": 1,
             "state": "on"
           },
           {
-            "flicker_seed": 216764980,
+            "flicker_seed": 706574395,
             "lamp_index": 2,
-            "state": "dead"
+            "state": "flicker"
           },
           {
-            "flicker_seed": 630153511,
+            "flicker_seed": 1629924275,
             "lamp_index": 3,
-            "state": "dead"
+            "state": "on"
           },
           {
-            "flicker_seed": 797373857,
+            "flicker_seed": 1162412546,
             "lamp_index": 4,
-            "state": "dead"
+            "state": "on"
           }
         ],
-        "tier": "dim"
+        "tier": "normal"
       },
       "mode": "standard",
       "mood": {
@@ -2186,9 +2186,9 @@
       "shape_class_target": "chamfered_box",
       "shape_stage_target": 2,
       "surface_variants": {
-        "ceiling": "worn",
+        "ceiling": "clean",
         "floor": "clean",
-        "trim": "worn",
+        "trim": "clean",
         "wall": "clean"
       },
       "volume": {
@@ -2196,7 +2196,7 @@
         "nominal_m3": 460.8,
         "source": "cell_envelope"
       },
-      "wear": 1
+      "wear": 0
     },
     {
       "absorption": {
@@ -2285,15 +2285,15 @@
       ],
       "floor_y": 1.5,
       "light": {
-        "color_temp_k": 3984,
+        "color_temp_k": 3994,
         "lamps": [
           {
-            "flicker_seed": 1827783060,
+            "flicker_seed": 551610010,
             "lamp_index": 0,
             "state": "on"
           },
           {
-            "flicker_seed": 895983877,
+            "flicker_seed": 1856621963,
             "lamp_index": 1,
             "state": "on"
           }
@@ -2315,7 +2315,9 @@
       "palette": {
         "anchor_module_id": null,
         "distance": null,
-        "palette_id": "backrooms_yellow",
+        "palette_id": "wood_parquet",
+        "region_distance": 0,
+        "region_seed_cell_id": "c11",
         "registry_version": "0.3.0"
       },
       "rarity_tier": 0,
@@ -2352,10 +2354,10 @@
       "shape_class_target": "chamfered_box",
       "shape_stage_target": 2,
       "surface_variants": {
-        "ceiling": "clean",
+        "ceiling": "worn",
         "floor": "worn",
         "trim": "worn",
-        "wall": "damaged"
+        "wall": "worn"
       },
       "volume": {
         "measured_m3": null,
@@ -2426,9 +2428,9 @@
           7
         ]
       ],
-      "floor_y": 0.0,
+      "floor_y": 1.5,
       "light": {
-        "color_temp_k": 4333,
+        "color_temp_k": 4446,
         "lamps": [],
         "tier": "normal"
       },
@@ -2744,7 +2746,7 @@
           15
         ]
       ],
-      "floor_y": 0.0,
+      "floor_y": 1.5,
       "mode": "standard",
       "mood": {
         "tags": [],
@@ -2893,15 +2895,15 @@
       ],
       "floor_y": 1.5,
       "light": {
-        "color_temp_k": 4554,
+        "color_temp_k": 5107,
         "lamps": [
           {
-            "flicker_seed": 797622354,
+            "flicker_seed": 909642077,
             "lamp_index": 0,
             "state": "on"
           }
         ],
-        "tier": "normal"
+        "tier": "dim"
       },
       "mode": "standard",
       "mood": {
@@ -2955,26 +2957,22 @@
       "shape_class_target": "diagonal_passage",
       "shape_stage_target": 2,
       "surface_variants": {
-        "ceiling": "clean",
-        "floor": "clean",
-        "trim": "clean",
-        "wall": "clean"
+        "ceiling": "worn",
+        "floor": "worn",
+        "trim": "worn",
+        "wall": "worn"
       },
       "volume": {
         "measured_m3": null,
         "nominal_m3": 126.838148,
         "source": "cell_envelope"
       },
-      "wear": 0
+      "wear": 2
     }
   ],
   "dark_wing": {
-    "cell_ids": [
-      "c07",
-      "c08",
-      "c10"
-    ],
-    "status": "placed"
+    "cell_ids": [],
+    "status": "not_selected"
   },
   "degenerate_budget": {
     "max": 1,
@@ -3049,8 +3047,16 @@
       "connector": "direct",
       "door_id": "c00:p0",
       "from": "c00:p0",
+      "ramp": {
+        "angle_deg": 24.775141,
+        "lower_cell_id": "c00",
+        "rise_m": 1.5,
+        "run_m": 3.25,
+        "upper_cell_id": "c01",
+        "width_m": 2.2
+      },
       "to": "c01:p0",
-      "vertical": "level"
+      "vertical": "ramp"
     },
     {
       "connector": "direct",
@@ -3097,14 +3103,9 @@
     {
       "connector": "direct",
       "door_id": "c03:p1",
-      "drop": {
-        "drop_m": 1.5,
-        "lower_cell_id": "c07",
-        "upper_cell_id": "c03"
-      },
       "from": "c03:p1",
       "to": "c07:p0",
-      "vertical": "drop"
+      "vertical": "level"
     },
     {
       "connector": "direct",
@@ -3117,16 +3118,8 @@
       "connector": "direct",
       "door_id": "c04:p1",
       "from": "c04:p1",
-      "ramp": {
-        "angle_deg": 24.775141,
-        "lower_cell_id": "c04",
-        "rise_m": 1.5,
-        "run_m": 3.25,
-        "upper_cell_id": "c05",
-        "width_m": 2.2
-      },
       "to": "c05:p0",
-      "vertical": "ramp"
+      "vertical": "level"
     },
     {
       "connector": "direct",
@@ -3163,23 +3156,23 @@
       "door_id": "c07:e1",
       "from": "c07:e1",
       "kind": "elevation_loop",
-      "ramp": {
-        "angle_deg": 24.775141,
-        "lower_cell_id": "c07",
-        "rise_m": 1.5,
-        "run_m": 3.25,
-        "upper_cell_id": "c08",
-        "width_m": 2.2
-      },
       "to": "c08:e1",
-      "vertical": "ramp"
+      "vertical": "level"
     },
     {
       "connector": "direct",
       "door_id": "c07:p1",
       "from": "c07:p1",
+      "ramp": {
+        "angle_deg": 24.775141,
+        "lower_cell_id": "c09",
+        "rise_m": 1.5,
+        "run_m": 3.25,
+        "upper_cell_id": "c07",
+        "width_m": 2.2
+      },
       "to": "c09:p0",
-      "vertical": "level"
+      "vertical": "ramp"
     },
     {
       "connection_status": "proposed_untested",
@@ -3233,7 +3226,7 @@
     ],
     "ramp_min_run_m": 3.2,
     "ramp_rise_m": 1.5,
-    "stream": "elevation:gmap-0.10.0"
+    "stream": "elevation:gmap-0.13.0"
   },
   "elevation_loops": {
     "budget": 3,
@@ -3252,16 +3245,24 @@
     "used": 2
   },
   "floor_regions": {
-    "base_area_m2": 686.425,
+    "base_area_m2": 656.425,
     "max_region_area_share": 0.15,
     "max_seeds": 3,
     "min_default_area_share": 0.55,
     "min_default_envelope_share": 0.6,
     "radius": 1,
-    "region_area_m2": 94.0,
+    "region_area_m2": 84.0,
     "seed_cells": [
       {
-        "cell_id": "c03",
+        "cell_id": "c11",
+        "palette_id": "wood_parquet"
+      },
+      {
+        "cell_id": "c09",
+        "palette_id": "metal_service"
+      },
+      {
+        "cell_id": "c06",
         "palette_id": "wood_parquet"
       }
     ],

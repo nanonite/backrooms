@@ -289,8 +289,8 @@ static func _add_doorway(visuals: Node3D, boundaries: Node3D, context: Dictionar
 	var door_height: float = gap.height
 	var sill: float = float(gap.get("sill", 0.0))
 	var opening_top := sill + door_height
-	if sill > EPSILON:
-		# The riser below a raised opening: a ramp's threshold or the solid drop face.
+	if sill > EPSILON and String(doorway.get("vertical", "")) != "ramp":
+		# A drop keeps its raised lower-side opening blocked from below; a ramp stays traversable.
 		var sill_wall := _edge_box(frame, gap["from"], gap["to"], 0.0, WALL_THICKNESS, 0.0, sill)
 		var sill_material := MATERIALS.scaled(context.materials, "wallpaper", sill_wall.size_along, sill)
 		_add_box(visuals, "WallSill_" + port + "Visual", sill_wall.center, sill_wall.size, sill_material, sill_wall.yaw)
@@ -358,7 +358,6 @@ static func _add_ramp(visuals: Node3D, boundaries: Node3D, context: Dictionary, 
 	var port := String(ramp.port_id)
 	var start := Vector2(float(ramp.start_xz[0]), float(ramp.start_xz[1]))
 	var direction := Vector2(float(ramp.direction_xz[0]), float(ramp.direction_xz[1])).normalized()
-	start += direction * WALL_THICKNESS
 	var lateral := Vector2(-direction.y, direction.x)
 	var run := float(ramp.run_m)
 	var rise := float(ramp.rise_m)

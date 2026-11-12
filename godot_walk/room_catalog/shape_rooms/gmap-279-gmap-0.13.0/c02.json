@@ -187,43 +187,43 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4357,
+    "color_temp_k": 4804,
     "lamps": [
       {
-        "flicker_seed": 1653643962,
+        "flicker_seed": 870408093,
         "lamp_index": 0,
         "state": "flicker"
       },
       {
-        "flicker_seed": 1723396116,
+        "flicker_seed": 354512803,
         "lamp_index": 1,
-        "state": "dead"
+        "state": "on"
       },
       {
-        "flicker_seed": 171891101,
+        "flicker_seed": 1100776634,
         "lamp_index": 2,
         "state": "on"
       },
       {
-        "flicker_seed": 1305120849,
+        "flicker_seed": 1960102997,
         "lamp_index": 3,
-        "state": "dead"
+        "state": "on"
       },
       {
-        "flicker_seed": 1409954722,
+        "flicker_seed": 154488702,
         "lamp_index": 4,
         "state": "on"
       },
       {
-        "flicker_seed": 1829915831,
+        "flicker_seed": 1716644787,
         "lamp_index": 5,
-        "state": "flicker"
+        "state": "on"
       }
     ],
     "tier": "normal"
   },
   "map_id": "gmap-279-gmap-0.13.0",
-  "map_sha256": "a55ab2072fb873f8ac04ee3213f5ebe351c1430a4fc8cd34c4413e7790748012",
+  "map_sha256": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
@@ -240,9 +240,9 @@
     },
     "floor": {
       "acoustic": "carpet",
-      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_floor_damaged.png",
       "tile_m": 4.0,
-      "variant": "clean"
+      "variant": "damaged"
     },
     "lamp_color": [
       1.0,
@@ -252,23 +252,23 @@
     "palette_id": "backrooms_yellow",
     "registry_version": "0.3.0",
     "trim_color": [
-      0.32,
-      0.29,
-      0.19
+      0.26,
+      0.23,
+      0.15
     ],
     "variants": {
       "ceiling": "worn",
-      "floor": "clean",
-      "trim": "worn",
-      "wall": "clean"
+      "floor": "damaged",
+      "trim": "damaged",
+      "wall": "damaged"
     },
     "wall": {
       "acoustic": "plaster",
-      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_wall_damaged.png",
       "tile_m": 1.5,
-      "variant": "clean"
+      "variant": "damaged"
     },
-    "wear": 1
+    "wear": 2
   },
   "mode": "standard",
   "original_cell_status": "module_candidates",

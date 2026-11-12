@@ -79,18 +79,26 @@ def wet_probability(cell: dict[str, Any], spawn_id: str) -> float:
     return min(probability, MAX_PROBABILITY)
 
 
-def keyed_draw(seed: int, attempt: int, cell_id: str) -> float:
+def keyed_draw(seed: int, attempt: int, cell_id: str, stream: str = STREAM) -> float:
     """Stable [0, 1) draw for one cell, independent of cell order or neighbours."""
-    text = f"{seed}:{attempt}:{STREAM}:{cell_id}"
+    text = f"{seed}:{attempt}:{stream}:{cell_id}"
     digest = hashlib.sha256(text.encode("utf-8")).digest()
     return int.from_bytes(digest[:8], "big") / float(1 << 64)
 
 
-def reverb_for(seed: int, attempt: int, cell: dict[str, Any], spawn_id: str) -> bool:
+def reverb_for(
+    seed: int, attempt: int, cell: dict[str, Any], spawn_id: str, stream: str = STREAM
+) -> bool:
     """The wet/dry flag for one cell; the spawn cell never draws."""
     if cell["cell_id"] == spawn_id:
         return False
-    return keyed_draw(seed, attempt, cell["cell_id"]) < wet_probability(cell, spawn_id)
+    return keyed_draw(seed, attempt, cell["cell_id"], stream) < wet_probability(cell, spawn_id)
+
+
+def _stream(document: dict[str, Any]) -> str:
+    # This layer was already independently keyed in 0.11.0. Later map versions
+    # keep that stream so unrelated generator upgrades do not reroll room reverb.
+    return STREAM
 
 
 def assign_reverb(document: dict[str, Any]) -> None:
@@ -101,13 +109,13 @@ def assign_reverb(document: dict[str, Any]) -> None:
     for cell in sorted(document["cells"], key=lambda item: item["cell_id"]):
         if cell["role"] == "void":
             continue
-        cell["reverb"] = reverb_for(seed, attempt, cell, spawn_id)
-    document["reverb_layer"] = metadata()
+        cell["reverb"] = reverb_for(seed, attempt, cell, spawn_id, _stream(document))
+    document["reverb_layer"] = metadata(_stream(document))
 
 
-def metadata() -> dict[str, Any]:
+def metadata(stream: str = STREAM) -> dict[str, Any]:
     return {
-        "stream": STREAM,
+        "stream": stream,
         "base_probability": BASE_PROBABILITY,
         "volume_reference_m3": VOLUME_REFERENCE_M3,
         "volume_full_bonus_m3": VOLUME_FULL_BONUS_M3,
@@ -142,7 +150,7 @@ def reverb_summary(document: dict[str, Any]) -> dict[str, Any]:
     ratio = round(wet / len(walkable), 6) if walkable else 0.0
     return {
         "layer": "present" if present else "absent",
-        "stream": STREAM if present else None,
+        "stream": document.get("reverb_layer", {}).get("stream", STREAM) if present else None,
         "wet": wet,
         "dry": dry,
         "wet_ratio": ratio,

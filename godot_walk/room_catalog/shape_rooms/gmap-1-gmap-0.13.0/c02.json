@@ -59,14 +59,15 @@
         -1.0,
         0.0
       ],
-      "port_id": "c02:e0",
+      "port_id": "c02:e1",
       "pos_xz": [
         6.0,
         -4.0
       ],
       "sill_height_m": 0.0,
       "to_cell_id": "c03",
-      "to_port_id": "c03:e0",
+      "to_port_id": "c03:e1",
+      "vertical": "ramp",
       "width_m": 2.0
     },
     {
@@ -85,6 +86,7 @@
       "sill_height_m": 0.0,
       "to_cell_id": "c01",
       "to_port_id": "c01:p1",
+      "vertical": "drop",
       "width_m": 2.0
     },
     {
@@ -103,6 +105,7 @@
       "sill_height_m": 0.0,
       "to_cell_id": "c04",
       "to_port_id": "c04:p0",
+      "vertical": "drop",
       "width_m": 2.0
     }
   ],
@@ -146,7 +149,7 @@
       "sign": "symbol"
     },
     {
-      "feature_id": "doorway:c02:e0",
+      "feature_id": "doorway:c02:e1",
       "kind": "doorway",
       "sign": "symbol"
     },
@@ -161,7 +164,7 @@
       "sign": "symbol"
     }
   ],
-  "floor_y": 0.0,
+  "floor_y": 1.5,
   "generator_version": "shape-room-0.10.0",
   "lamps_xz": [
     [
@@ -174,15 +177,15 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4547,
+    "color_temp_k": 3836,
     "lamps": [
       {
-        "flicker_seed": 544216,
+        "flicker_seed": 728401200,
         "lamp_index": 0,
         "state": "on"
       },
       {
-        "flicker_seed": 1986304977,
+        "flicker_seed": 1438081299,
         "lamp_index": 1,
         "state": "on"
       }
@@ -190,7 +193,7 @@
     "tier": "bright"
   },
   "map_id": "gmap-1-gmap-0.13.0",
-  "map_sha256": "d0f4461014694be14ba1a5389d3d240ee35cf8f8b6e63f0ab4c692657440d879",
+  "map_sha256": "dacd388ef9780bf1d843f9078b7b8679e476be28df0e0464bb7778218ce2c7f3",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {

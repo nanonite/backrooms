@@ -85,7 +85,6 @@
       "sill_height_m": 0.0,
       "to_cell_id": "c07",
       "to_port_id": "c07:p0",
-      "vertical": "drop",
       "width_m": 2.0
     },
     {
@@ -175,68 +174,74 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4138,
+    "color_temp_k": 4503,
     "lamps": [
       {
-        "flicker_seed": 610511407,
+        "flicker_seed": 1385348545,
         "lamp_index": 0,
         "state": "on"
       },
       {
-        "flicker_seed": 668441975,
+        "flicker_seed": 1207127689,
         "lamp_index": 1,
         "state": "on"
       }
     ],
-    "tier": "dim"
+    "tier": "normal"
   },
   "map_id": "gmap-279-gmap-0.13.0",
-  "map_sha256": "a55ab2072fb873f8ac04ee3213f5ebe351c1430a4fc8cd34c4413e7790748012",
+  "map_sha256": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
-      "ceiling": "tile",
-      "floor": "wood",
-      "trim": "wood",
-      "wall": "plaster"
+      "ceiling": "metal",
+      "floor": "concrete",
+      "trim": "metal",
+      "wall": "concrete"
     },
     "ceiling": {
-      "acoustic": "tile",
-      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_damaged.png",
-      "tile_m": 4.0,
-      "variant": "damaged"
-    },
-    "floor": {
-      "acoustic": "wood",
-      "texture": "res://assets/psx_extension/textures/surfaces/wood_parquet_floor_worn.png",
-      "tile_m": 3.0,
+      "acoustic": "metal",
+      "color": [
+        0.29,
+        0.3,
+        0.28
+      ],
       "variant": "worn"
     },
-    "lamp_color": [
-      0.95,
-      0.92,
-      0.84
-    ],
-    "palette_id": "wood_parquet",
-    "registry_version": "0.3.0",
-    "trim_color": [
-      0.31,
-      0.21,
-      0.12
-    ],
-    "variants": {
-      "ceiling": "damaged",
-      "floor": "worn",
-      "trim": "worn",
-      "wall": "damaged"
-    },
-    "wall": {
-      "acoustic": "plaster",
-      "texture": "res://assets/psx_extension/textures/surfaces/plaster_debris_wall_damaged.png",
+    "floor": {
+      "acoustic": "concrete",
+      "texture": "res://assets/psx_extension/textures/surfaces/industrial_concrete_floor_damaged.png",
       "tile_m": 4.0,
       "variant": "damaged"
     },
-    "wear": 2
+    "lamp_color": [
+      0.86,
+      0.88,
+      0.86
+    ],
+    "palette_id": "industrial_concrete",
+    "registry_version": "0.3.0",
+    "trim_color": [
+      0.24,
+      0.25,
+      0.24
+    ],
+    "variants": {
+      "ceiling": "worn",
+      "floor": "damaged",
+      "trim": "worn",
+      "wall": "worn"
+    },
+    "wall": {
+      "acoustic": "concrete",
+      "color": [
+        0.37,
+        0.37,
+        0.34
+      ],
+      "variant": "worn"
+    },
+    "wear": 1
   },
   "mode": "standard",
   "original_cell_status": "shape_room_pending",

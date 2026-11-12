@@ -174,23 +174,23 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4519,
+    "color_temp_k": 4193,
     "lamps": [
       {
-        "flicker_seed": 1429077546,
+        "flicker_seed": 355309962,
         "lamp_index": 0,
         "state": "on"
       },
       {
-        "flicker_seed": 1124350762,
+        "flicker_seed": 1396508189,
         "lamp_index": 1,
-        "state": "flicker"
+        "state": "on"
       }
     ],
     "tier": "normal"
   },
   "map_id": "gmap-32-gmap-0.13.0",
-  "map_sha256": "35ae6662a48aa4f8b3ad04cd9c171001337279100eee5c324f41a8e121b7a49d",
+  "map_sha256": "087d24978dc4b7e5986dd881d491d43bc2dc4f49652f6e4f25e848e6abbdd7d1",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
@@ -207,9 +207,9 @@
     },
     "floor": {
       "acoustic": "carpet",
-      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_floor_worn.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_floor_damaged.png",
       "tile_m": 4.0,
-      "variant": "worn"
+      "variant": "damaged"
     },
     "lamp_color": [
       1.0,
@@ -219,23 +219,23 @@
     "palette_id": "backrooms_yellow",
     "registry_version": "0.3.0",
     "trim_color": [
-      0.32,
-      0.29,
-      0.19
+      0.26,
+      0.23,
+      0.15
     ],
     "variants": {
       "ceiling": "damaged",
-      "floor": "worn",
-      "trim": "worn",
-      "wall": "clean"
+      "floor": "damaged",
+      "trim": "damaged",
+      "wall": "worn"
     },
     "wall": {
       "acoustic": "plaster",
-      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_wall_worn.png",
       "tile_m": 1.5,
-      "variant": "clean"
+      "variant": "worn"
     },
-    "wear": 1
+    "wear": 2
   },
   "mode": "standard",
   "original_cell_status": "shape_room_pending",

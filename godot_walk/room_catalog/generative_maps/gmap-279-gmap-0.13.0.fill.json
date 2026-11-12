@@ -732,7 +732,7 @@
   },
   "map_file": {
     "name": "gmap-279-gmap-0.13.0.json",
-    "sha256": "a55ab2072fb873f8ac04ee3213f5ebe351c1430a4fc8cd34c4413e7790748012"
+    "sha256": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c"
   },
   "map_id": "gmap-279-gmap-0.13.0",
   "note": "Structural map only; not playable until cells are filled and module metadata is operator-accepted.",

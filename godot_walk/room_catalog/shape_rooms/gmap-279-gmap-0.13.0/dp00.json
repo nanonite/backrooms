@@ -119,18 +119,18 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4554,
+    "color_temp_k": 5107,
     "lamps": [
       {
-        "flicker_seed": 797622354,
+        "flicker_seed": 909642077,
         "lamp_index": 0,
         "state": "on"
       }
     ],
-    "tier": "normal"
+    "tier": "dim"
   },
   "map_id": "gmap-279-gmap-0.13.0",
-  "map_sha256": "a55ab2072fb873f8ac04ee3213f5ebe351c1430a4fc8cd34c4413e7790748012",
+  "map_sha256": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
@@ -141,15 +141,15 @@
     },
     "ceiling": {
       "acoustic": "tile",
-      "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_worn.png",
       "tile_m": 4.0,
-      "variant": "clean"
+      "variant": "worn"
     },
     "floor": {
       "acoustic": "carpet",
-      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_floor_worn.png",
       "tile_m": 4.0,
-      "variant": "clean"
+      "variant": "worn"
     },
     "lamp_color": [
       1.0,
@@ -159,23 +159,23 @@
     "palette_id": "backrooms_yellow",
     "registry_version": "0.3.0",
     "trim_color": [
-      0.37,
-      0.34,
-      0.23
+      0.32,
+      0.29,
+      0.19
     ],
     "variants": {
-      "ceiling": "clean",
-      "floor": "clean",
-      "trim": "clean",
-      "wall": "clean"
+      "ceiling": "worn",
+      "floor": "worn",
+      "trim": "worn",
+      "wall": "worn"
     },
     "wall": {
       "acoustic": "plaster",
-      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_wall_worn.png",
       "tile_m": 1.5,
-      "variant": "clean"
+      "variant": "worn"
     },
-    "wear": 0
+    "wear": 2
   },
   "original_cell_status": "shape_room_pending",
   "outline_xz": [

@@ -140,10 +140,10 @@
     "status": "placed"
   },
   "light": {
-    "color_temp_k": 4782,
+    "color_temp_k": 4009,
     "lamps": [
       {
-        "flicker_seed": 1619789148,
+        "flicker_seed": 1941752188,
         "lamp_index": 0,
         "state": "on"
       }
@@ -151,7 +151,7 @@
     "tier": "bright"
   },
   "map_id": "gmap-2-gmap-0.13.0",
-  "map_sha256": "6d87e43a14034084598ff52bf924be8af8a1f883b5c09049e4f82d8c22ab6226",
+  "map_sha256": "07c1cbb219004d1533021ff5d7c5fe18b41d28ed8b01f4ce69535e1c0db8c465",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {

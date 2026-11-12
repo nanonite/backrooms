@@ -615,7 +615,7 @@
   },
   "map_file": {
     "name": "gmap-2-gmap-0.13.0.json",
-    "sha256": "6d87e43a14034084598ff52bf924be8af8a1f883b5c09049e4f82d8c22ab6226"
+    "sha256": "07c1cbb219004d1533021ff5d7c5fe18b41d28ed8b01f4ce69535e1c0db8c465"
   },
   "map_id": "gmap-2-gmap-0.13.0",
   "note": "Structural map only; not playable until cells are filled and module metadata is operator-accepted.",

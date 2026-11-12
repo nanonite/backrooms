@@ -126,7 +126,7 @@
       "sign": "symbol"
     }
   ],
-  "floor_y": 1.5,
+  "floor_y": -1.5,
   "generator_version": "shape-room-0.10.0",
   "lamps_xz": [
     [
@@ -139,15 +139,15 @@
     ]
   ],
   "light": {
-    "color_temp_k": 3902,
+    "color_temp_k": 4756,
     "lamps": [
       {
-        "flicker_seed": 1881994245,
+        "flicker_seed": 42352813,
         "lamp_index": 0,
         "state": "flicker"
       },
       {
-        "flicker_seed": 1838677961,
+        "flicker_seed": 1191306982,
         "lamp_index": 1,
         "state": "flicker"
       }
@@ -155,7 +155,7 @@
     "tier": "normal"
   },
   "map_id": "gmap-2-gmap-0.13.0",
-  "map_sha256": "6d87e43a14034084598ff52bf924be8af8a1f883b5c09049e4f82d8c22ab6226",
+  "map_sha256": "07c1cbb219004d1533021ff5d7c5fe18b41d28ed8b01f4ce69535e1c0db8c465",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {

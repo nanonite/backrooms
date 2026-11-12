@@ -88,10 +88,10 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4490,
+    "color_temp_k": 4248,
     "lamps": [
       {
-        "flicker_seed": 1960443446,
+        "flicker_seed": 2045219962,
         "lamp_index": 0,
         "state": "on"
       }
@@ -99,7 +99,7 @@
     "tier": "normal"
   },
   "map_id": "gmap-32-gmap-0.13.0",
-  "map_sha256": "35ae6662a48aa4f8b3ad04cd9c171001337279100eee5c324f41a8e121b7a49d",
+  "map_sha256": "087d24978dc4b7e5986dd881d491d43bc2dc4f49652f6e4f25e848e6abbdd7d1",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
@@ -110,15 +110,15 @@
     },
     "ceiling": {
       "acoustic": "tile",
-      "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_ceiling_clean.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_ceiling_worn.png",
       "tile_m": 2.0,
-      "variant": "clean"
+      "variant": "worn"
     },
     "floor": {
       "acoustic": "tile",
-      "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_floor_clean.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/tiled_institutional_floor_worn.png",
       "tile_m": 3.0,
-      "variant": "clean"
+      "variant": "worn"
     },
     "lamp_color": [
       0.92,
@@ -128,14 +128,14 @@
     "palette_id": "tiled_institutional",
     "registry_version": "0.3.0",
     "trim_color": [
-      0.3,
-      0.32,
-      0.31
+      0.26,
+      0.28,
+      0.27
     ],
     "variants": {
-      "ceiling": "clean",
-      "floor": "clean",
-      "trim": "clean",
+      "ceiling": "worn",
+      "floor": "worn",
+      "trim": "worn",
       "wall": "clean"
     },
     "wall": {
@@ -144,7 +144,7 @@
       "tile_m": 2.0,
       "variant": "clean"
     },
-    "wear": 0
+    "wear": 1
   },
   "mode": "standard",
   "original_cell_status": "shape_room_pending",

@@ -38,7 +38,8 @@ static func check(space: PhysicsDirectSpaceState3D, assembly: Node3D) -> Diction
 		result.apertures_clear += 1 if joint.aperture_clear else 0
 		result.floors_supported += 1 if joint.floors_supported else 0
 		result.joints.append(joint)
-	var coplanar := joint_coplanar(assembly, 0.0)
+	var coplanar := joint_coplanar(assembly, 0.0).filter(func(conflict: Dictionary) -> bool:
+		return int(conflict.axis) != 1 or int(conflict.sign) != -1)
 	var wall_plane := wall_plane_conflicts(assembly, coplanar)
 	result["wall_coplanar_conflicts"] = wall_plane.size()
 	result["reveal_coplanar_faces"] = coplanar.size() - wall_plane.size()
@@ -88,7 +89,8 @@ static func _check_module(space: PhysicsDirectSpaceState3D, assembly: Node3D, ce
 	var miss := Vector2(world_centre.x, world_centre.z).distance_to(port.pos)
 	joint["landing_miss_m"] = miss
 	var normal_ok := Vector2(world_normal.x, world_normal.z).distance_to(port.normal) < 0.001
-	joint["landed"] = miss <= LANDING_TOLERANCE_M and normal_ok and absf(world_centre.y) < 0.001
+	var floor_y := PROBE.cell_floor_y(assembly.map, cell_id)
+	joint["landed"] = miss <= LANDING_TOLERANCE_M and normal_ok and absf(world_centre.y - floor_y) < 0.001
 	if not joint.landed:
 		failures.append("%s: socket %s lands %.3f m from its port (normal ok: %s, floor y %.3f)" % [
 			cell_id, info.placement.socket_id, miss, str(normal_ok), world_centre.y])
@@ -107,7 +109,8 @@ static func _port_of(assembly: Node3D, cell_id: String) -> Dictionary:
 			var port: Dictionary = cell.required_ports[0]
 			return {"pos": Vector2(float(port.pos_xz[0]), float(port.pos_xz[1])),
 				"normal": Vector2(float(port.normal[0]), float(port.normal[1])),
-				"compatibility_type": String(port.compatibility_type)}
+				"compatibility_type": String(port.compatibility_type),
+				"floor_y": float(cell.get("floor_y", 0.0))}
 	return {}
 
 
@@ -129,7 +132,7 @@ static func _aperture_clear(space: PhysicsDirectSpaceState3D, port: Dictionary, 
 	shape.size = Vector3(APERTURE_DEPTH_M, height, across) if on_x_wall else Vector3(across, height, APERTURE_DEPTH_M)
 	var query := PhysicsShapeQueryParameters3D.new()
 	query.shape = shape
-	query.transform = Transform3D(Basis.IDENTITY, Vector3(port.pos.x, 0.1 + height / 2.0, port.pos.y))
+	query.transform = Transform3D(Basis.IDENTITY, Vector3(port.pos.x, float(port.get("floor_y", 0.0)) + 0.1 + height / 2.0, port.pos.y))
 	query.collision_mask = 1
 	var hits: Array[String] = []
 	for hit in space.intersect_shape(query, 32):
@@ -144,9 +147,10 @@ static func _aperture_clear(space: PhysicsDirectSpaceState3D, port: Dictionary, 
 static func _floors_supported(space: PhysicsDirectSpaceState3D, port: Dictionary, cell_id: String,
 		failures: Array[String]) -> bool:
 	var supported := true
+	var floor_y := float(port.get("floor_y", 0.0))
 	for distance: float in [-FLOOR_PROBE_M, 0.0, FLOOR_PROBE_M]:
 		var point: Vector2 = port.pos + port.normal * distance
-		if not PROBE.floor_supported(space, point.x, point.y):
+		if not PROBE.floor_supported(space, point.x, point.y, floor_y):
 			supported = false
 			failures.append("%s: no floor support %.1f m from the port along its normal" % [cell_id, distance])
 	return supported

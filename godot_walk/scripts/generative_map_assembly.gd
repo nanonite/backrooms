@@ -427,6 +427,8 @@ func _add_riser(host: Node3D, left: Dictionary, right: Dictionary) -> void:
 	var shared := _shared_envelope_boundary(left, right)
 	if shared.is_empty():
 		return
+	if _has_direct_connection(String(left.cell_id), String(right.cell_id)):
+		return
 	var left_floor := float(left.get("floor_y", 0.0))
 	var right_floor := float(right.get("floor_y", 0.0))
 	if absf(left_floor - right_floor) <= 0.0001:
@@ -477,6 +479,17 @@ func _add_riser(host: Node3D, left: Dictionary, right: Dictionary) -> void:
 	shape.size = size
 	collision.shape = shape
 	body.add_child(collision)
+
+
+func _has_direct_connection(left_id: String, right_id: String) -> bool:
+	for edge: Dictionary in map.get("edges", []):
+		if String(edge.get("connector", "")) != "direct":
+			continue
+		var from_id := String(edge.from).get_slice(":", 0)
+		var to_id := String(edge.to).get_slice(":", 0)
+		if (from_id == left_id and to_id == right_id) or (from_id == right_id and to_id == left_id):
+			return true
+	return false
 
 
 ## Shared axis-aligned envelope boundary, with the side into the higher cell.

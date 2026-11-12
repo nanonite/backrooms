@@ -9,7 +9,7 @@
       15.0
     ]
   ],
-  "ceiling_height_m": 4.7,
+  "ceiling_height_m": 4.1,
   "cell_id": "c09",
   "construction": "box",
   "degenerate_features": [],
@@ -28,9 +28,10 @@
         13.0,
         13.5
       ],
-      "sill_height_m": 0.0,
+      "sill_height_m": 1.5,
       "to_cell_id": "c07",
       "to_port_id": "c07:p1",
+      "vertical": "ramp",
       "width_m": 2.0
     },
     {
@@ -111,49 +112,49 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4068,
+    "color_temp_k": 5142,
     "lamps": [
       {
-        "flicker_seed": 1467910255,
+        "flicker_seed": 1131393859,
         "lamp_index": 0,
-        "state": "flicker"
+        "state": "on"
       }
     ],
     "tier": "normal"
   },
   "map_id": "gmap-279-gmap-0.13.0",
-  "map_sha256": "a55ab2072fb873f8ac04ee3213f5ebe351c1430a4fc8cd34c4413e7790748012",
+  "map_sha256": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
-      "ceiling": "tile",
-      "floor": "carpet",
+      "ceiling": "metal",
+      "floor": "metal",
       "trim": "metal",
-      "wall": "plaster"
+      "wall": "concrete"
     },
     "ceiling": {
-      "acoustic": "tile",
-      "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
-      "tile_m": 4.0,
+      "acoustic": "metal",
+      "texture": "res://assets/psx_extension/textures/surfaces/metal_service_ceiling_clean.png",
+      "tile_m": 2.0,
       "variant": "clean"
     },
     "floor": {
-      "acoustic": "carpet",
-      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
-      "tile_m": 4.0,
+      "acoustic": "metal",
+      "texture": "res://assets/psx_extension/textures/surfaces/metal_service_floor_clean.png",
+      "tile_m": 2.0,
       "variant": "clean"
     },
     "lamp_color": [
-      1.0,
-      0.97,
-      0.76
+      0.86,
+      0.89,
+      0.92
     ],
-    "palette_id": "backrooms_yellow",
+    "palette_id": "metal_service",
     "registry_version": "0.3.0",
     "trim_color": [
-      0.37,
-      0.34,
-      0.23
+      0.25,
+      0.27,
+      0.28
     ],
     "variants": {
       "ceiling": "clean",
@@ -162,9 +163,9 @@
       "wall": "clean"
     },
     "wall": {
-      "acoustic": "plaster",
-      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
-      "tile_m": 1.5,
+      "acoustic": "concrete",
+      "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/textures/concrete_floor.png",
+      "tile_m": 4.0,
       "variant": "clean"
     },
     "wear": 0
@@ -191,6 +192,24 @@
   ],
   "primitive": "l_shape",
   "primitive_class": "box",
+  "ramps": [
+    {
+      "angle_deg": 24.775141,
+      "direction_xz": [
+        -1.0,
+        0.0
+      ],
+      "port_id": "c09:p0",
+      "rise_m": 1.5,
+      "run_m": 3.25,
+      "start_xz": [
+        13.0,
+        13.5
+      ],
+      "upper_cell_id": "c07",
+      "width_m": 2.2
+    }
+  ],
   "rarity_tier": 1,
   "rects": [
     [

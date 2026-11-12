@@ -79,7 +79,7 @@
       "sign": "symbol"
     }
   ],
-  "floor_y": 1.5,
+  "floor_y": -1.5,
   "generator_version": "shape-room-0.10.0",
   "lamps_xz": [
     [
@@ -88,18 +88,18 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4020,
+    "color_temp_k": 4959,
     "lamps": [
       {
-        "flicker_seed": 83618662,
+        "flicker_seed": 132898633,
         "lamp_index": 0,
-        "state": "on"
+        "state": "dead"
       }
     ],
-    "tier": "normal"
+    "tier": "dim"
   },
   "map_id": "gmap-2-gmap-0.13.0",
-  "map_sha256": "6d87e43a14034084598ff52bf924be8af8a1f883b5c09049e4f82d8c22ab6226",
+  "map_sha256": "07c1cbb219004d1533021ff5d7c5fe18b41d28ed8b01f4ce69535e1c0db8c465",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
@@ -110,15 +110,15 @@
     },
     "ceiling": {
       "acoustic": "tile",
-      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_damaged.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_worn.png",
       "tile_m": 4.0,
-      "variant": "damaged"
+      "variant": "worn"
     },
     "floor": {
       "acoustic": "wood",
-      "texture": "res://assets/psx_extension/textures/surfaces/wood_parquet_floor_damaged.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/wood_parquet_floor_clean.png",
       "tile_m": 3.0,
-      "variant": "damaged"
+      "variant": "clean"
     },
     "lamp_color": [
       0.95,
@@ -128,23 +128,23 @@
     "palette_id": "wood_parquet",
     "registry_version": "0.3.0",
     "trim_color": [
-      0.25,
-      0.17,
-      0.1
+      0.31,
+      0.21,
+      0.12
     ],
     "variants": {
-      "ceiling": "damaged",
-      "floor": "damaged",
-      "trim": "damaged",
-      "wall": "damaged"
+      "ceiling": "worn",
+      "floor": "clean",
+      "trim": "worn",
+      "wall": "clean"
     },
     "wall": {
       "acoustic": "plaster",
-      "texture": "res://assets/psx_extension/textures/surfaces/plaster_debris_wall_damaged.png",
+      "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png",
       "tile_m": 4.0,
-      "variant": "damaged"
+      "variant": "clean"
     },
-    "wear": 2
+    "wear": 1
   },
   "mode": "standard",
   "original_cell_status": "shape_room_pending",

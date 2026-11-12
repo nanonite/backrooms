@@ -88,18 +88,18 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4167,
+    "color_temp_k": 3864,
     "lamps": [
       {
-        "flicker_seed": 1862863084,
+        "flicker_seed": 513541500,
         "lamp_index": 0,
-        "state": "dead"
+        "state": "on"
       }
     ],
     "tier": "normal"
   },
   "map_id": "gmap-32-gmap-0.13.0",
-  "map_sha256": "35ae6662a48aa4f8b3ad04cd9c171001337279100eee5c324f41a8e121b7a49d",
+  "map_sha256": "087d24978dc4b7e5986dd881d491d43bc2dc4f49652f6e4f25e848e6abbdd7d1",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {

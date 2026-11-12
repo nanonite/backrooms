@@ -40,6 +40,7 @@
       "sill_height_m": 0.0,
       "to_cell_id": "c00",
       "to_port_id": "c00:p0",
+      "vertical": "ramp",
       "width_m": 2.0
     }
   ],
@@ -88,7 +89,7 @@
       "sign": "symbol"
     }
   ],
-  "floor_y": 0.0,
+  "floor_y": 1.5,
   "generator_version": "shape-room-0.10.0",
   "lamps_xz": [
     [
@@ -101,23 +102,23 @@
     ]
   ],
   "light": {
-    "color_temp_k": 3881,
+    "color_temp_k": 4473,
     "lamps": [
       {
-        "flicker_seed": 119851620,
+        "flicker_seed": 652272068,
         "lamp_index": 0,
         "state": "on"
       },
       {
-        "flicker_seed": 1893490247,
+        "flicker_seed": 1567433366,
         "lamp_index": 1,
         "state": "on"
       }
     ],
-    "tier": "dim"
+    "tier": "normal"
   },
   "map_id": "gmap-279-gmap-0.13.0",
-  "map_sha256": "a55ab2072fb873f8ac04ee3213f5ebe351c1430a4fc8cd34c4413e7790748012",
+  "map_sha256": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
@@ -134,9 +135,9 @@
     },
     "floor": {
       "acoustic": "carpet",
-      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_floor_worn.png",
+      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
       "tile_m": 4.0,
-      "variant": "worn"
+      "variant": "clean"
     },
     "lamp_color": [
       1.0,
@@ -152,17 +153,17 @@
     ],
     "variants": {
       "ceiling": "clean",
-      "floor": "worn",
+      "floor": "clean",
       "trim": "clean",
-      "wall": "worn"
+      "wall": "clean"
     },
     "wall": {
       "acoustic": "plaster",
-      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_wall_worn.png",
+      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
       "tile_m": 1.5,
-      "variant": "worn"
+      "variant": "clean"
     },
-    "wear": 1
+    "wear": 0
   },
   "mode": "standard",
   "original_cell_status": "shape_room_pending",

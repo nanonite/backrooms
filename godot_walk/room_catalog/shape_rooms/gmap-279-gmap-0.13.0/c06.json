@@ -171,10 +171,10 @@
     ]
   ],
   "light": {
-    "color_temp_k": 3856,
+    "color_temp_k": 4532,
     "lamps": [
       {
-        "flicker_seed": 75393204,
+        "flicker_seed": 649950860,
         "lamp_index": 0,
         "state": "on"
       }
@@ -182,13 +182,13 @@
     "tier": "normal"
   },
   "map_id": "gmap-279-gmap-0.13.0",
-  "map_sha256": "a55ab2072fb873f8ac04ee3213f5ebe351c1430a4fc8cd34c4413e7790748012",
+  "map_sha256": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
       "ceiling": "tile",
-      "floor": "carpet",
-      "trim": "metal",
+      "floor": "wood",
+      "trim": "wood",
       "wall": "plaster"
     },
     "ceiling": {
@@ -198,22 +198,22 @@
       "variant": "clean"
     },
     "floor": {
-      "acoustic": "carpet",
-      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
-      "tile_m": 4.0,
+      "acoustic": "wood",
+      "texture": "res://assets/psx_extension/textures/surfaces/wood_parquet_floor_clean.png",
+      "tile_m": 3.0,
       "variant": "clean"
     },
     "lamp_color": [
-      1.0,
-      0.97,
-      0.76
+      0.95,
+      0.92,
+      0.84
     ],
-    "palette_id": "backrooms_yellow",
+    "palette_id": "wood_parquet",
     "registry_version": "0.3.0",
     "trim_color": [
-      0.37,
-      0.34,
-      0.23
+      0.36,
+      0.25,
+      0.15
     ],
     "variants": {
       "ceiling": "clean",
@@ -223,8 +223,8 @@
     },
     "wall": {
       "acoustic": "plaster",
-      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
-      "tile_m": 1.5,
+      "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png",
+      "tile_m": 4.0,
       "variant": "clean"
     },
     "wear": 0

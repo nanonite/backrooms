@@ -174,23 +174,23 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4532,
+    "color_temp_k": 4569,
     "lamps": [
       {
-        "flicker_seed": 992473610,
+        "flicker_seed": 1251725026,
         "lamp_index": 0,
         "state": "on"
       },
       {
-        "flicker_seed": 311306715,
+        "flicker_seed": 1745620115,
         "lamp_index": 1,
         "state": "on"
       }
     ],
-    "tier": "normal"
+    "tier": "dim"
   },
   "map_id": "gmap-32-gmap-0.13.0",
-  "map_sha256": "35ae6662a48aa4f8b3ad04cd9c171001337279100eee5c324f41a8e121b7a49d",
+  "map_sha256": "087d24978dc4b7e5986dd881d491d43bc2dc4f49652f6e4f25e848e6abbdd7d1",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
@@ -201,15 +201,15 @@
     },
     "ceiling": {
       "acoustic": "tile",
-      "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_damaged.png",
       "tile_m": 4.0,
-      "variant": "clean"
+      "variant": "damaged"
     },
     "floor": {
       "acoustic": "carpet",
-      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_floor_worn.png",
       "tile_m": 4.0,
-      "variant": "clean"
+      "variant": "worn"
     },
     "lamp_color": [
       1.0,
@@ -219,23 +219,23 @@
     "palette_id": "backrooms_yellow",
     "registry_version": "0.3.0",
     "trim_color": [
-      0.37,
-      0.34,
-      0.23
+      0.32,
+      0.29,
+      0.19
     ],
     "variants": {
-      "ceiling": "clean",
-      "floor": "clean",
-      "trim": "clean",
-      "wall": "clean"
+      "ceiling": "damaged",
+      "floor": "worn",
+      "trim": "worn",
+      "wall": "worn"
     },
     "wall": {
       "acoustic": "plaster",
-      "texture": "res://assets/psx_extension/textures/wallpaper_source_video.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_wall_worn.png",
       "tile_m": 1.5,
-      "variant": "clean"
+      "variant": "worn"
     },
-    "wear": 0
+    "wear": 1
   },
   "mode": "standard",
   "original_cell_status": "shape_room_pending",

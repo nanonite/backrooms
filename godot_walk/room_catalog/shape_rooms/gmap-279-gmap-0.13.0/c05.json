@@ -31,7 +31,6 @@
       "sill_height_m": 0.0,
       "to_cell_id": "c04",
       "to_port_id": "c04:p1",
-      "vertical": "ramp",
       "width_m": 2.0
     }
   ],
@@ -80,7 +79,7 @@
       "sign": "symbol"
     }
   ],
-  "floor_y": 1.5,
+  "floor_y": 0.0,
   "generator_version": "shape-room-0.10.0",
   "lamps_xz": [
     [
@@ -93,15 +92,15 @@
     ]
   ],
   "light": {
-    "color_temp_k": 4704,
+    "color_temp_k": 4301,
     "lamps": [
       {
-        "flicker_seed": 1616992465,
+        "flicker_seed": 1738779872,
         "lamp_index": 0,
-        "state": "on"
+        "state": "flicker"
       },
       {
-        "flicker_seed": 12783636,
+        "flicker_seed": 822238179,
         "lamp_index": 1,
         "state": "on"
       }
@@ -109,7 +108,7 @@
     "tier": "normal"
   },
   "map_id": "gmap-279-gmap-0.13.0",
-  "map_sha256": "a55ab2072fb873f8ac04ee3213f5ebe351c1430a4fc8cd34c4413e7790748012",
+  "map_sha256": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
@@ -120,15 +119,15 @@
     },
     "ceiling": {
       "acoustic": "tile",
-      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_worn.png",
+      "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
       "tile_m": 4.0,
-      "variant": "worn"
+      "variant": "clean"
     },
     "floor": {
       "acoustic": "carpet",
-      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_floor_worn.png",
+      "texture": "res://assets/psx_extension/textures/floor_source_video.png",
       "tile_m": 4.0,
-      "variant": "worn"
+      "variant": "clean"
     },
     "lamp_color": [
       1.0,
@@ -138,14 +137,14 @@
     "palette_id": "backrooms_yellow",
     "registry_version": "0.3.0",
     "trim_color": [
-      0.26,
-      0.23,
-      0.15
+      0.37,
+      0.34,
+      0.23
     ],
     "variants": {
-      "ceiling": "worn",
-      "floor": "worn",
-      "trim": "damaged",
+      "ceiling": "clean",
+      "floor": "clean",
+      "trim": "clean",
       "wall": "clean"
     },
     "wall": {
@@ -154,7 +153,7 @@
       "tile_m": 1.5,
       "variant": "clean"
     },
-    "wear": 1
+    "wear": 0
   },
   "mode": "standard",
   "original_cell_status": "module_candidates",

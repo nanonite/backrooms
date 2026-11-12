@@ -92,23 +92,23 @@
     ]
   ],
   "light": {
-    "color_temp_k": 3974,
+    "color_temp_k": 4415,
     "lamps": [
       {
-        "flicker_seed": 1424446305,
+        "flicker_seed": 1616689255,
         "lamp_index": 0,
         "state": "on"
       },
       {
-        "flicker_seed": 912785312,
+        "flicker_seed": 73599120,
         "lamp_index": 1,
-        "state": "on"
+        "state": "flicker"
       }
     ],
     "tier": "dim"
   },
   "map_id": "gmap-1-gmap-0.13.0",
-  "map_sha256": "d0f4461014694be14ba1a5389d3d240ee35cf8f8b6e63f0ab4c692657440d879",
+  "map_sha256": "dacd388ef9780bf1d843f9078b7b8679e476be28df0e0464bb7778218ce2c7f3",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
@@ -125,9 +125,9 @@
     },
     "floor": {
       "acoustic": "wood",
-      "texture": "res://assets/psx_extension/textures/surfaces/wood_parquet_floor_clean.png",
+      "texture": "res://assets/psx_extension/textures/surfaces/wood_parquet_floor_worn.png",
       "tile_m": 3.0,
-      "variant": "clean"
+      "variant": "worn"
     },
     "lamp_color": [
       0.95,
@@ -137,21 +137,21 @@
     "palette_id": "wood_parquet",
     "registry_version": "0.3.0",
     "trim_color": [
-      0.36,
-      0.25,
-      0.15
+      0.31,
+      0.21,
+      0.12
     ],
     "variants": {
       "ceiling": "worn",
-      "floor": "clean",
-      "trim": "clean",
-      "wall": "worn"
+      "floor": "worn",
+      "trim": "worn",
+      "wall": "clean"
     },
     "wall": {
       "acoustic": "plaster",
-      "texture": "res://assets/psx_extension/textures/surfaces/plaster_debris_wall_worn.png",
+      "texture": "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png",
       "tile_m": 4.0,
-      "variant": "worn"
+      "variant": "clean"
     },
     "wear": 1
   },

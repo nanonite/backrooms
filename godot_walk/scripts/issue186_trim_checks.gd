@@ -8,9 +8,9 @@ extends RefCounted
 ## covers the walls of the adjacent cell at a shared doorway and the perpendicular wall
 ## at a corner doorway. Opposite-facing coplanar contacts (a jamb pressed against a wall
 ## end, the lintel under a header) are back to back: one face is always inside solid
-## geometry, so they cannot flicker and are only counted. Likewise a face on the floor plane
-## (y = 0) that faces down is the underside of a box standing on the floor: no camera sees
-## it, so a library room's wall (#188) standing next to a jamb there is only counted.
+## geometry, so they cannot flicker and are only counted. Likewise any horizontal face
+## that faces down is the underside of a box standing on the floor: no camera sees it,
+## so a library room's wall standing next to a jamb there is only counted.
 ## A diagonal wall (#190) is a box turned about Y: it is entered as its world bounding box and flagged
 ## `rotated`; only its horizontal (y) faces are compared here, because its vertical faces lie on no axis.
 ## issue190_diagonal_checks.gd compares those faces plane by plane.
@@ -113,7 +113,7 @@ static func conflicts(trim: Array[Dictionary], solid: Array[Dictionary]) -> Dict
 					for w_sign in [-1, 1]:
 						if absf(_plane(t, axis, t_sign) - _plane(w, axis, w_sign)) > EPS or not _overlap(t, w, axis):
 							continue
-						if t_sign == w_sign and axis == 1 and t_sign == -1 and absf(_plane(t, axis, t_sign)) <= EPS:
+						if t_sign == w_sign and axis == 1 and t_sign == -1:
 							floor_undersides += 1
 						elif t_sign == w_sign:
 							same_facing.append({"trim": t.name, "other": w.name, "axis": axis, "sign": t_sign,

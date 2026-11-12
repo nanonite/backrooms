@@ -2,7 +2,7 @@
   "generator_version": "shape-room-0.10.0",
   "map_file": {
     "name": "gmap-1-gmap-0.13.0.json",
-    "sha256": "d0f4461014694be14ba1a5389d3d240ee35cf8f8b6e63f0ab4c692657440d879"
+    "sha256": "dacd388ef9780bf1d843f9078b7b8679e476be28df0e0464bb7778218ce2c7f3"
   },
   "map_id": "gmap-1-gmap-0.13.0",
   "mode": "all_walkable",
@@ -16,7 +16,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "l_shape",
       "primitive_class": "box",
-      "sha256": "bb3bd863d17c22f6286100a83899ef066b5d844c722e17f65618b5c965e35cf2"
+      "sha256": "94f6f7aa2cff04d5dafcfac5462107de619c3ce7222ad89d23ca67755dd763f6"
     },
     {
       "cell_id": "c01",
@@ -27,7 +27,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "l_shape",
       "primitive_class": "chamfered_box",
-      "sha256": "dccd0cdf44057173258c516c16373c661c8badb10b1ddb4cc94cab58effa875e"
+      "sha256": "1f50e5a7720b2c595df0aa77074a64fa3ca70b30c631e0acde09b9193cb481d0"
     },
     {
       "cell_id": "c02",
@@ -38,7 +38,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "t_shape",
       "primitive_class": "box",
-      "sha256": "27b9c337b3420b4a36f13b3e15ffeba4ccd77ef8f210f5947f7561b58511f2a2"
+      "sha256": "1ced054e878ead61bdb3155c635c3466850df17e4a4fa126c6fdeff43081773e"
     },
     {
       "cell_id": "c03",
@@ -49,7 +49,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "u_shape",
       "primitive_class": "rectilinear_polygon",
-      "sha256": "61449ab237a6dceabfd2b6ba38938dd8b655ce58c43bf94c10cb4854d79f0d4e"
+      "sha256": "799ca653021e6401c6aaf7a2f763f431c1250e850fe4a1d1b90e88cd0f0f6573"
     },
     {
       "cell_id": "c04",
@@ -60,7 +60,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "u_shape",
       "primitive_class": "chamfered_polyomino",
-      "sha256": "c1b9256427b0d642b7d9536ca1556a67e05347f008eaa28408db0e39945a3535"
+      "sha256": "92a83675c175ae532e91807e3da295a5669792a7c715517aae7600cbac4c853d"
     },
     {
       "cell_id": "c05",
@@ -71,7 +71,7 @@
       "palette_id": "wood_parquet",
       "primitive": "u_shape",
       "primitive_class": "box",
-      "sha256": "cfc5cac9974123b71128038fa9339652effb73010104ba22e1eaafd9bffeb617"
+      "sha256": "a8528fe9f5606ed91044036085ac46b9d1db3e2b6105d6dec01766e0d5de78c0"
     },
     {
       "cell_id": "c06",
@@ -82,7 +82,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "l_shape",
       "primitive_class": "chamfered_box",
-      "sha256": "99255c30fe1316c2fde0ea7f4e07b8981a9775eaae05d58a3a58c7fa3c531ef1"
+      "sha256": "93a62688d7c46b867cc57c17f4d9c687391146a635c763345abddf84da60b9a2"
     },
     {
       "cell_id": "c07",
@@ -93,7 +93,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "t_shape",
       "primitive_class": "chamfered_box",
-      "sha256": "54abb36cf4915c80af26236861a71cc24270aaaa341e944622990b6e823307c1"
+      "sha256": "fec31bd967e6d9bd259fb9a584cb8aadd14d8f4350fc16b2708d7d765ba0cdbd"
     },
     {
       "cell_id": "c08",
@@ -104,7 +104,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "dead_end",
       "primitive_class": "chamfered_box",
-      "sha256": "8818479db65298d5b40c6085d355d12eb06a0dd670ee9c6cf0c41485e0672ba5"
+      "sha256": "62476170fb1be4f49072859ce62b6431527fd5de4738d65ee00aa20b96e5d580"
     },
     {
       "cell_id": "c09",
@@ -115,7 +115,7 @@
       "palette_id": "wood_parquet",
       "primitive": "dead_end",
       "primitive_class": "box",
-      "sha256": "6ff6d7e70ffaf690fd1408348f374823d0d9a712fe0468bca08f50435f35800f"
+      "sha256": "cf58f9e86a131d365a52b162450b52878de750cff61aff49bb384c412e79578c"
     },
     {
       "cell_id": "c10",
@@ -126,7 +126,7 @@
       "palette_id": "backrooms_yellow",
       "primitive": "t_shape",
       "primitive_class": "rectilinear_polygon",
-      "sha256": "69de82adc8725c437dcc86e9c8b696f4300e590fd6cbc4ac8f17f1e8a89556b2"
+      "sha256": "3c29787a277b60855e38696455b3fd70af80529a4aa3e708e4546c9c00acdb28"
     },
     {
       "cell_id": "c11",
@@ -137,7 +137,7 @@
       "palette_id": "tiled_institutional",
       "primitive": "dead_end",
       "primitive_class": "chamfered_box",
-      "sha256": "3e42affb90980526ed64a9b9ae23dfbd75ce1859f7012908385a72a7dbc20272"
+      "sha256": "f7a2b54be6b899d314198eb105d251248f5f05dee6b494783e3bd7c731a0e369"
     }
   ],
   "schema_version": 1

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import sys
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
@@ -169,6 +170,58 @@ def check_hashes(document: dict[str, Any], root: Path) -> Errors:
                 edge["to"],
             ):
                 errors.append(err("door_policy", "edge_door_id_mismatch", edge["from"]))
+        errors += check_template_values(document, root)
+    return errors
+
+
+def check_template_values(document: dict[str, Any], root: Path = ROOT) -> Errors:
+    """Re-derive and compare every field projected from pinned template metadata."""
+    from gmap_template import add_template_fields
+
+    expected = deepcopy(document)
+    for field in ("template", "module_metadata"):
+        expected.pop(field, None)
+    derived_fields = (
+        "module_profile",
+        "mood",
+        "absorption",
+        "volume",
+        "doors",
+        "mutation",
+    )
+    for cell in expected["cells"]:
+        for field in derived_fields:
+            cell.pop(field, None)
+    for edge in expected["edges"]:
+        edge.pop("door_id", None)
+    try:
+        add_template_fields(expected, root)
+    except (OSError, ValueError, KeyError, TypeError, IndexError, AttributeError) as error:
+        return [err("template", "template_values_unavailable", str(error))]
+
+    errors: Errors = []
+    for field in ("template", "module_metadata"):
+        if document.get(field) != expected.get(field):
+            errors.append(err("template", "template_value_mismatch", field))
+    fields_by_cell = {
+        cell["cell_id"]: cell for cell in expected["cells"]
+    }
+    for cell in document["cells"]:
+        generated = fields_by_cell[cell["cell_id"]]
+        for field in derived_fields:
+            if cell.get(field) != generated.get(field):
+                errors.append(
+                    err(
+                        "template",
+                        "template_cell_value_mismatch",
+                        f"{cell['cell_id']}.{field}",
+                    )
+                )
+    for edge, generated in zip(document["edges"], expected["edges"], strict=True):
+        if edge.get("door_id") != generated.get("door_id"):
+            errors.append(
+                err("template", "template_edge_value_mismatch", edge["from"])
+            )
     return errors
 
 
@@ -215,12 +268,6 @@ def _load_library_for_validation(
 
 
 def rule_errors(document: dict[str, Any], root: Path = ROOT) -> Errors:
-    if document["generator_version"] == GENERATOR_VERSION_V13:
-        from copy import deepcopy
-
-        stable_layers = deepcopy(document)
-        stable_layers["generator_version"] = GENERATOR_VERSION_V12
-        return rule_errors(stable_layers, root)
     cells, edges = document["cells"], document["edges"]
     rects, errors = parse_rects(cells)
     light_library = None

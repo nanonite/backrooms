@@ -136,38 +136,38 @@
     ]
   ],
   "light": {
-    "color_temp_k": 3905,
+    "color_temp_k": 4530,
     "lamps": [
       {
-        "flicker_seed": 1284278291,
+        "flicker_seed": 1895385824,
         "lamp_index": 0,
         "state": "on"
       },
       {
-        "flicker_seed": 808672300,
+        "flicker_seed": 1557959278,
         "lamp_index": 1,
         "state": "on"
       },
       {
-        "flicker_seed": 216764980,
+        "flicker_seed": 706574395,
         "lamp_index": 2,
-        "state": "dead"
+        "state": "flicker"
       },
       {
-        "flicker_seed": 630153511,
+        "flicker_seed": 1629924275,
         "lamp_index": 3,
-        "state": "dead"
+        "state": "on"
       },
       {
-        "flicker_seed": 797373857,
+        "flicker_seed": 1162412546,
         "lamp_index": 4,
-        "state": "dead"
+        "state": "on"
       }
     ],
-    "tier": "dim"
+    "tier": "normal"
   },
   "map_id": "gmap-279-gmap-0.13.0",
-  "map_sha256": "a55ab2072fb873f8ac04ee3213f5ebe351c1430a4fc8cd34c4413e7790748012",
+  "map_sha256": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c",
   "material_source": "palette_registry",
   "materials": {
     "acoustic": {
@@ -178,9 +178,9 @@
     },
     "ceiling": {
       "acoustic": "tile",
-      "texture": "res://assets/psx_extension/textures/surfaces/backrooms_yellow_ceiling_worn.png",
+      "texture": "res://assets/psx_extension/textures/ceiling_source_video.png",
       "tile_m": 4.0,
-      "variant": "worn"
+      "variant": "clean"
     },
     "floor": {
       "acoustic": "carpet",
@@ -196,14 +196,14 @@
     "palette_id": "backrooms_yellow",
     "registry_version": "0.3.0",
     "trim_color": [
-      0.32,
-      0.29,
-      0.19
+      0.37,
+      0.34,
+      0.23
     ],
     "variants": {
-      "ceiling": "worn",
+      "ceiling": "clean",
       "floor": "clean",
-      "trim": "worn",
+      "trim": "clean",
       "wall": "clean"
     },
     "wall": {
@@ -212,7 +212,7 @@
       "tile_m": 1.5,
       "variant": "clean"
     },
-    "wear": 1
+    "wear": 0
   },
   "mode": "standard",
   "original_cell_status": "module_candidates",
