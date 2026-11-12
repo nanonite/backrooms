@@ -1,0 +1,37 @@
+{
+  "schema_version": "operator-approval-receipt-1.0.0",
+  "issue_id": 218,
+  "approved_by": "operator",
+  "date": "2026-11-11",
+  "scope": [
+    {
+      "path": "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1-lighting-scale-v1.json",
+      "sha256": "c5afa39d44b997cd0a4eba3f6181be5c13e9e17471104c0c9113f370ac9f7f36",
+      "fields": [
+        "/lighting/colour_temperature_k/value",
+        "/lighting/illuminance_lux/value",
+        "/lighting/fixture_layout",
+        "/scale/anchor/kind",
+        "/scale/anchor/value_m"
+      ]
+    },
+    {
+      "path": "godot_walk/source_library/sources/picture-set-d160eaa3cc847d5c/source_lighting_scale_v1.json",
+      "sha256": "86f7eb28882eed094d2ceec89ee2f219bb961bf80bc1d9d05cec4e769c26b677",
+      "fields": [
+        "/lighting/colour_temperature_k/value",
+        "/lighting/illuminance_lux/value",
+        "/lighting/fixture_layout",
+        "/scale/anchor/kind",
+        "/scale/anchor/value_m"
+      ]
+    }
+  ],
+  "source": {
+    "kind": "chainlink_issue_comment",
+    "issue_id": 218,
+    "comment_date": "2026-11-11",
+    "comment_text": "2026-11-11: operator reviewed the two worked-example lighting/scale overlays (module godot_early_pocket_pass_through_v1 and source picture-set-d160eaa3cc847d5c) and approved them (reported to the tech lead in session). The values remain estimates and both records remain uncalibrated: no anchor is a measurement.",
+    "comment_id": 482
+  }
+}

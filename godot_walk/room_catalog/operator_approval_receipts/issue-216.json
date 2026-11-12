@@ -1,0 +1,31 @@
+{
+  "schema_version": "operator-approval-receipt-1.0.0",
+  "issue_id": 216,
+  "approved_by": "operator",
+  "date": "2026-11-11",
+  "scope": [
+    {
+      "path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "sha256": "df3da6150273f9164b6671194da378514f4dba772211ce3782c8cbfc956a8462",
+      "fields": [
+        "/modules/*/acoustic",
+        "/modules/*/probe/ceiling_height_m",
+        "/modules/*/probe/mean_distance_m",
+        "/modules/*/probe/max_distance_m",
+        "/modules/*/probe/openness",
+        "/modules/*/probe/room_size",
+        "/modules/*/probe/wet",
+        "/modules/*/probe/damping",
+        "/modules/*/probe/predelay_msec",
+        "/modules/*/probe/provenance"
+      ]
+    }
+  ],
+  "source": {
+    "kind": "chainlink_issue_comment",
+    "issue_id": 216,
+    "comment_date": "2026-11-11",
+    "comment_text": "2026-11-11: operator listened to the module acoustics and approved (reported to the tech lead in session). The pending listening step is done.",
+    "comment_id": 428
+  }
+}

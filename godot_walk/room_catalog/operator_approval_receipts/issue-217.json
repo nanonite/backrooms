@@ -1,0 +1,27 @@
+{
+  "schema_version": "operator-approval-receipt-1.0.0",
+  "issue_id": 217,
+  "approved_by": "operator",
+  "date": "2026-11-11",
+  "scope": [
+    {
+      "path": "godot_walk/room_catalog/module_surface_palette_mapping_v0.1.0.md",
+      "sha256": "64de64929ff08101cf2f335192496081e2b01daaf04fcb8e0b0d355d579763d5",
+      "fields": [
+        "/table/Module",
+        "/table/Surface",
+        "/table/Material ID",
+        "/table/Palette ID",
+        "/table/State",
+        "/table/Basis"
+      ]
+    }
+  ],
+  "source": {
+    "kind": "chainlink_issue_comment",
+    "issue_id": 217,
+    "comment_date": "2026-11-11",
+    "comment_text": "2026-11-11: operator reviewed the surface/palette mapping table and approved it (reported to the tech lead in session).",
+    "comment_id": 451
+  }
+}
