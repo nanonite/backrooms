@@ -1,0 +1,76 @@
+{
+  "schema_version": "operator-approval-receipt-1.0.0",
+  "issue_id": 217,
+  "approved_by": "operator",
+  "date": "2026-11-11",
+  "scope": [
+    {
+      "path": "godot_walk/room_catalog/module_surface_palette_mapping_v0.1.0.md",
+      "sha256": "64de64929ff08101cf2f335192496081e2b01daaf04fcb8e0b0d355d579763d5",
+      "fields": [
+        "/table/Module",
+        "/table/Surface",
+        "/table/Material ID",
+        "/table/Palette ID",
+        "/table/State",
+        "/table/Basis"
+      ],
+      "derived_from": {
+        "method": "module_surface_palette.mapping_table",
+        "files": [
+          {
+            "path": "godot_walk/room_catalog/module_surface_palettes/godot_early_pocket_pass_through_v1-v1_surface_palette_v1.json",
+            "sha256": "f92faf87752a610b36682ef4c481a9384e7fb6b2052f5cb3409c5573b723254e"
+          },
+          {
+            "path": "godot_walk/room_catalog/module_surface_palettes/godot_early_pocket_single_west_v1-v1_surface_palette_v1.json",
+            "sha256": "ee1b9bdcede251bcc766511ceceef9fc9207974934857fcb7bb7e56ce1cac40e"
+          },
+          {
+            "path": "godot_walk/room_catalog/module_surface_palettes/godot_early_pocket_three_way_v1-v1_surface_palette_v1.json",
+            "sha256": "90fb7acb64c3398bf9c6810deddda0fb33b87e1ab0894c63ac36f2c4ecd84947"
+          },
+          {
+            "path": "godot_walk/room_catalog/module_surface_palettes/godot_later_bay_column_bounded_v1-v1_surface_palette_v1.json",
+            "sha256": "fb92fe39ae549dcaebdc69a24f329a431c2dae245803f085fe60430d268594a2"
+          },
+          {
+            "path": "godot_walk/room_catalog/module_surface_palettes/godot_source_textured_large_room_hall_end_v1-v1_surface_palette_v1.json",
+            "sha256": "ab0018ef6e981ef17c1e649132d65393eda9d0e0967fe2101e96af11ca0bca7d"
+          },
+          {
+            "path": "godot_walk/room_catalog/module_surface_palettes/godot_source_textured_large_room_v1-v1_surface_palette_v1.json",
+            "sha256": "313587278e0aa01275ed5d1f09ed35755f0ce22d6a2774593619ee04ab298642"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_surface_palette_v1.json",
+            "sha256": "38753cec676bc7229e7d60ba1ee590d17796347b641f1c7908dca08e9d64ab0a"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_surface_palette_v1.json",
+            "sha256": "bb69f5be445b50c6faabe136705f8fa0476c4bf6820bc1ea54d73d9324abdcb7"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v2-north-socket/module_surface_palette_v1.json",
+            "sha256": "69657ca311172e61af835a33744dc2406a4238313ae3d3bda045b8f5ddfbf715"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v3/module_surface_palette_v1.json",
+            "sha256": "2a94415a076df1c1ab820edcf759a2de0867bb3d897e8ee737f569b91664966e"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/industrial-hall-panorama-v4-south-socket/module_surface_palette_v1.json",
+            "sha256": "1d96c9a7101a11171891390b4542e4ea43e73ddb29b4c0fd42aeba4c0e76bf55"
+          }
+        ]
+      }
+    }
+  ],
+  "source": {
+    "kind": "chainlink_issue_comment",
+    "issue_id": 217,
+    "comment_date": "2026-11-11",
+    "comment_text": "2026-11-11: operator reviewed the surface/palette mapping table and approved it (reported to the tech lead in session).",
+    "comment_id": 451
+  }
+}

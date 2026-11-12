@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/operator_approval_receipt.schema.json",
+  "title": "Operator approval receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "issue_id", "approved_by", "date", "scope", "source"],
+  "properties": {
+    "schema_version": {"const": "operator-approval-receipt-1.0.0"},
+    "issue_id": {"enum": [216, 217, 218, 219]},
+    "approved_by": {"const": "operator"},
+    "date": {"type": "string", "format": "date"},
+    "scope": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256", "fields"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "fields": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^/"}},
+          "derived_from": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["method", "files"],
+            "properties": {
+              "method": {"const": "module_surface_palette.mapping_table"},
+              "files": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["path", "sha256"],
+                  "properties": {
+                    "path": {"type": "string", "minLength": 1},
+                    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "issue_id", "comment_id", "comment_date", "comment_text"],
+      "properties": {
+        "kind": {"const": "chainlink_issue_comment"},
+        "issue_id": {"enum": [216, 217, 218, 219]},
+        "comment_id": {"type": "integer", "minimum": 1},
+        "comment_date": {"type": "string", "format": "date"},
+        "comment_text": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

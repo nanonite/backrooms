@@ -641,11 +641,13 @@ def validate_repository(root: Path = ROOT) -> ValidationReport:
     )
     errors += _validate_files(map_paths, generative_map_errors, root, "generative map")
     from lighting_scale_overlay import overlay_paths, validate_overlay
+    from operator_approval_receipts import validate_receipts
 
     overlay_records = [path for path in overlay_paths(root) if path.is_file()]
     errors += _validate_files(
         overlay_records, validate_overlay, root, "lighting/scale overlay"
     )
+    errors += validate_receipts(root)
     return ValidationReport(
         source_manifests=len(manifest_paths),
         module_profiles=len(profile_paths) + len(t6_profile_paths),
