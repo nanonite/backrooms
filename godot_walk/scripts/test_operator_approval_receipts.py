@@ -54,6 +54,11 @@ def _markdown_test_repository(tmp_path: Path) -> tuple[Path, Path]:
     receipt_path.parent.mkdir(parents=True)
     receipt = json.loads(MAPPING_RECEIPT_PATH.read_text(encoding="utf-8"))
     receipt["scope"] = [next(item for item in receipt["scope"] if item["path"].endswith(".md"))]
+    for record in receipt["scope"][0]["derived_from"]["files"]:
+        source = ROOT / record["path"]
+        target = tmp_path / record["path"]
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, target)
     receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
     return receipt_path, mapping_path
 
@@ -73,10 +78,33 @@ def test_issue_217_receipt_is_limited_to_approved_mapping_table() -> None:
     assert [item["path"] for item in receipt["scope"]] == [
         MAPPING_PATH.relative_to(ROOT).as_posix()
     ]
-    assert receipts.operator_approval_for_field(
+    approval = receipts.operator_approval_for_field(
         "godot_walk/room_catalog/module_surface_palettes/godot_early_pocket_pass_through_v1-v1_surface_palette_v1.json",
         "/surfaces/wall/material_id",
-    ) is None
+    )
+    assert approval is not None
+    assert approval["approval_via"] == "approved mapping table"
+
+
+def test_issue_217_derivation_approves_descriptor_material_and_palette_fields() -> None:
+    descriptor = next(
+        record["path"]
+        for record in json.loads(MAPPING_RECEIPT_PATH.read_text(encoding="utf-8"))["scope"][0]["derived_from"]["files"]
+        if "godot_early_pocket_pass_through" in record["path"]
+    )
+    for field in ("/surfaces/wall/material_id", "/surfaces/floor/palette_id"):
+        approval = receipts.operator_approval_for_field(descriptor, field)
+        assert approval is not None
+        assert approval["approval_via"] == "approved mapping table"
+
+
+def test_derived_mapping_rejects_descriptor_hash_drift(tmp_path: Path) -> None:
+    receipt_path, _ = _markdown_test_repository(tmp_path)
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    descriptor_path = tmp_path / receipt["scope"][0]["derived_from"]["files"][0]["path"]
+    descriptor_path.write_text(descriptor_path.read_text(encoding="utf-8") + " ", encoding="utf-8")
+    errors = receipts.validate_receipt(receipt_path, tmp_path)
+    assert any("derived file hash mismatch" in error for error in errors)
 
 
 def test_valid_receipt_resolves_file_hash_and_scoped_fields(tmp_path: Path) -> None:
@@ -134,6 +162,33 @@ def test_consumer_lookup_rejects_nonexistent_concrete_fields() -> None:
     assert receipts.operator_approval_for_field(
         file_path, "/modules/godot_early_pocket_pass_through_v1@1/nonexistent"
     ) is None
+
+
+def test_consumer_lookup_handles_descendants_ancestors_siblings_and_wildcards() -> None:
+    overlay_path = "godot_walk/room_catalog/module_profiles/godot_early_pocket_pass_through_v1-v1-lighting-scale-v1.json"
+    assert receipts.operator_approval_for_field(
+        overlay_path, "/lighting/fixture_layout/0/kind"
+    ) is not None
+    assert receipts.operator_approval_for_field(
+        overlay_path, "/lighting/fixture_layout/0/count"
+    ) is not None
+    assert receipts.operator_approval_for_field(overlay_path, "/lighting") is None
+    assert receipts.operator_approval_for_field(
+        overlay_path, "/lighting/colour_temperature_k"
+    ) is None
+    assert receipts.operator_approval_for_field(
+        overlay_path, "/lighting/colour_temperature_k/review_status"
+    ) is None
+    assert receipts.operator_approval_for_field(
+        overlay_path, "/lighting/fixture_layout/0/unsupported"
+    ) is None
+    assert receipts.operator_approval_for_field(
+        overlay_path, "/lighting/fixture_layout/*/kind"
+    ) is None
+    acoustics_path = LAYER_PATH.relative_to(ROOT).as_posix()
+    assert receipts.operator_approval_for_field(
+        acoustics_path, "/modules/godot_early_pocket_pass_through_v1@1/acoustic"
+    ) is not None
 
 
 def test_unknown_issue_is_rejected(tmp_path: Path) -> None:

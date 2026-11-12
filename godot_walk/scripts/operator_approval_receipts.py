@@ -14,14 +14,15 @@ from deterministic_json import ROOT
 RECEIPT_SCHEMA = Path("godot_walk/room_catalog/operator_approval_receipt.schema.json")
 RECEIPT_DIR = Path("godot_walk/room_catalog/operator_approval_receipts")
 APPROVED_ISSUE_IDS = frozenset({216, 217, 218, 219})
+MAPPING_TABLE_PATH = "godot_walk/room_catalog/module_surface_palette_mapping_v0.1.0.md"
 
 
 def _field_matches(pattern: str, actual: str) -> bool:
     expected_parts = pattern.strip("/").split("/")
     actual_parts = actual.strip("/").split("/")
-    return len(expected_parts) == len(actual_parts) and all(
+    return len(expected_parts) <= len(actual_parts) and all(
         expected == "*" or expected == found
-        for expected, found in zip(expected_parts, actual_parts)
+        for expected, found in zip(expected_parts, actual_parts[: len(expected_parts)])
     )
 
 
@@ -88,6 +89,10 @@ def _validate_receipt(receipt_path: Path, root: Path) -> list[str]:
     if receipt["source"]["issue_id"] != receipt["issue_id"]:
         return [f"{relative_receipt}: source issue does not match receipt issue"]
     for item in receipt["scope"]:
+        if "derived_from" in item and (
+            receipt["issue_id"] != 217 or item["path"] != MAPPING_TABLE_PATH
+        ):
+            errors.append(f"{relative_receipt}: derived approval is only valid for issue 217's mapping table")
         errors.extend(_validate_scope_item(relative_receipt, item, root))
     return errors
 
@@ -104,7 +109,10 @@ def _validate_scope_item(receipt_path: str, item: dict[str, Any], root: Path) ->
             else []
         )
         if path.suffix.lower() == ".md":
-            return hash_errors + _markdown_scope_errors(label, content, item["fields"])
+            errors = hash_errors + _markdown_scope_errors(label, content, item["fields"])
+            if "derived_from" in item:
+                errors.extend(_validate_derived_mapping(receipt_path, item, root))
+            return errors
         document = json.loads(content)
     except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
         return [f"{label}: cannot read referenced JSON file: {error}"]
@@ -112,7 +120,49 @@ def _validate_scope_item(receipt_path: str, item: dict[str, Any], root: Path) ->
     for field in item["fields"]:
         if not _field_exists(document, field):
             errors.append(f"{label}: scoped field does not exist: {field}")
+    if "derived_from" in item:
+        errors.extend(_validate_derived_mapping(receipt_path, item, root))
     return errors
+
+
+def _validate_derived_mapping(receipt_path: str, item: dict[str, Any], root: Path) -> list[str]:
+    if item["path"] != MAPPING_TABLE_PATH:
+        return [f"{receipt_path}: derived approval target is not the approved mapping table"]
+    derived = item["derived_from"]
+    descriptor_records = derived["files"]
+    errors: list[str] = []
+    descriptors: list[dict[str, Any]] = []
+    for record in descriptor_records:
+        descriptor_path = root / record["path"]
+        errors.extend(_validate_derived_file(receipt_path, record, root))
+        try:
+            descriptors.append(json.loads(descriptor_path.read_text(encoding="utf-8")))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+            errors.append(f"{receipt_path}: cannot read derived descriptor {record['path']}: {error}")
+    if errors:
+        return errors
+    try:
+        from module_surface_palette import mapping_table
+
+        generated = mapping_table(descriptors).encode("utf-8")
+        table_path = root / item["path"]
+        if generated != table_path.read_bytes():
+            errors.append(f"{receipt_path}: derived mapping table differs from regenerated descriptors")
+    except (OSError, ImportError, KeyError, TypeError, ValueError) as error:
+        errors.append(f"{receipt_path}: cannot regenerate derived mapping table: {error}")
+    return errors
+
+
+def _validate_derived_file(receipt_path: str, record: dict[str, str], root: Path) -> list[str]:
+    path = root / record["path"]
+    try:
+        path.resolve().relative_to(root.resolve())
+        matches = hashlib.sha256(path.read_bytes()).hexdigest() == record["sha256"]
+    except (OSError, ValueError):
+        matches = False
+    if not matches:
+        return [f"{receipt_path}: derived file hash mismatch or unreadable: {record['path']}"]
+    return []
 
 
 def _markdown_scope_errors(label: str, content: bytes, fields: list[str]) -> list[str]:
@@ -195,4 +245,21 @@ def operator_approval_for_field(
                 and any(_field_matches(field, field_path) for field in item["fields"])
             ):
                 return receipt
+            if item["path"] == file_path or "derived_from" not in item:
+                continue
+            if _approved_derived_descriptor(item, file_path, field_path, root):
+                return {**receipt, "approval_via": "approved mapping table"}
     return None
+
+
+def _approved_derived_descriptor(
+    item: dict[str, Any], file_path: str, field_path: str, root: Path
+) -> bool:
+    if item["path"] != MAPPING_TABLE_PATH:
+        return False
+    if field_path not in ("/surfaces/*/material_id", "/surfaces/*/palette_id"):
+        if not (field_path.endswith("/material_id") or field_path.endswith("/palette_id")):
+            return False
+    if not _concrete_field_exists(root / file_path, field_path):
+        return False
+    return any(record["path"] == file_path for record in item["derived_from"]["files"])
