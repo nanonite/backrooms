@@ -1,0 +1,1169 @@
+{
+  "acoustics": {
+    "committed_block": {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "acoustic": "debris",
+      "evidence": [
+        "plaster_walls",
+        "rock_field"
+      ],
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json",
+        "sha256": "83a2a1c10e8d06b00ea995586e8c891b0b8e5f1116eea3cad4af457516725f78"
+      },
+      "probe": {
+        "ceiling_height_m": 3.92,
+        "damping": 0.581933736700761,
+        "evidence": [
+          {
+            "path": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json",
+            "sha256": "3fbdd8ea4ffb7ce69402bc3a5825dbdbef065d26d1ac36586dd629d02b91b6c2"
+          }
+        ],
+        "max_distance_m": 6.92820310592651,
+        "mean_distance_m": 5.84291776021322,
+        "openness": 0.0,
+        "predelay_msec": 17.0347456565983,
+        "probe_version": "room-acoustic-probe-#205",
+        "provenance": "measured",
+        "room_size": 0.610063374770315,
+        "sample_points": [
+          {
+            "ceiling_hint_m": 3.92,
+            "floor_y_m": 0.0,
+            "method": "accepted_footprint_area_centroid",
+            "position_m": [
+              0.0,
+              1.10000002384186,
+              0.0
+            ]
+          }
+        ],
+        "wet": 0.523828473542866
+      },
+      "profile": {
+        "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json",
+        "sha256": "baa076497d02b6e8e66420e14551e4509c321ec28119b34d3ece02c5c99dd036"
+      }
+    },
+    "fields": {
+      "ceiling_height_m": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "kind": "measured",
+          "limitation": "The up-ray ceiling estimate is capped by the profile ceiling hint; it is not an uncapped ceiling measurement.",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/ceiling_height_m"
+        },
+        "value": 3.92
+      },
+      "damping": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "basis": [
+            "mean_distance_m",
+            "ceiling_height_m",
+            "openness"
+          ],
+          "intermediate_definitions": {
+            "height_size": "clamp((ceiling_height_m - 2.2) / (6.0 - 2.2), 0, 1)",
+            "wall_size": "clamp(mean_distance_m / 10.0, 0, 1)"
+          },
+          "kind": "derived",
+          "mapping_source": "godot_walk/scripts/room_acoustic_probe.gd#map_metrics",
+          "method": "clamp(0.22 + 0.48 * wall_size + 0.18 * height_size + 0.12 * openness, 0, 1)",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/damping"
+        },
+        "value": 0.581933736700761
+      },
+      "max_distance_m": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "kind": "measured",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/max_distance_m"
+        },
+        "value": 6.92820310592651
+      },
+      "mean_distance_m": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "kind": "measured",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/mean_distance_m"
+        },
+        "value": 5.84291776021322
+      },
+      "openness": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "kind": "measured",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/openness"
+        },
+        "value": 0.0
+      },
+      "predelay_msec": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "basis": [
+            "mean_distance_m"
+          ],
+          "kind": "derived",
+          "mapping_source": "godot_walk/scripts/room_acoustic_probe.gd#map_metrics",
+          "method": "clamp(mean_distance_m / 343.0 * 1000.0, 1.0, 50.0)",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/predelay_msec"
+        },
+        "value": 17.0347456565983
+      },
+      "room_size": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "basis": [
+            "mean_distance_m",
+            "ceiling_height_m"
+          ],
+          "kind": "derived",
+          "mapping_source": "godot_walk/scripts/room_acoustic_probe.gd#map_metrics",
+          "method": "clamp(0.10 + 0.78 * clamp(mean_distance_m / 10.0, 0, 1) + 0.12 * clamp((ceiling_height_m - 2.2) / (6.0 - 2.2), 0, 1), 0, 1)",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/room_size"
+        },
+        "value": 0.610063374770315
+      },
+      "wet": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "basis": [
+            "mean_distance_m",
+            "ceiling_height_m",
+            "openness"
+          ],
+          "intermediate_definitions": {
+            "height_size": "clamp((ceiling_height_m - 2.2) / (6.0 - 2.2), 0, 1)",
+            "wall_size": "clamp(mean_distance_m / 10.0, 0, 1)"
+          },
+          "kind": "derived",
+          "mapping_source": "godot_walk/scripts/room_acoustic_probe.gd#map_metrics",
+          "method": "clamp((0.18 + 0.48 * wall_size + 0.14 * height_size) * (1.0 - 0.35 * openness), 0, 0.75)",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/wet"
+        },
+        "value": 0.523828473542866
+      }
+    }
+  },
+  "approval_refs": {
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/acoustic": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/ceiling_height_m": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/damping": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/max_distance_m": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/mean_distance_m": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/openness": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/predelay_msec": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/provenance": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/room_size": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/wet": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "descriptor:/surfaces/ceiling/material_id": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+      "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+    },
+    "descriptor:/surfaces/floor/material_id": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+      "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+    },
+    "descriptor:/surfaces/trim/material_id": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+      "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+    },
+    "descriptor:/surfaces/wall/material_id": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+      "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+    },
+    "t6:/mood/anomaly": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/mood/curiosity": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/mood/dread": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/mood/safety": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/mood/tags/0": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/mood/tags/1": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/mood/tension": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/circulation_role": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/form_role": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/map_role": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/semantic_tags/0": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/semantic_tags/1": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/semantic_tags/2": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/sightline_tags/0": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    }
+  },
+  "inputs": {
+    "acoustics": {
+      "path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "sha256": "df3da6150273f9164b6671194da378514f4dba772211ce3782c8cbfc956a8462"
+    },
+    "approval_refs": {
+      "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/acoustic": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/ceiling_height_m": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/damping": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/max_distance_m": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/mean_distance_m": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/openness": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/predelay_msec": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/provenance": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/room_size": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/wet": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "descriptor:/surfaces/ceiling/material_id": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "descriptor:/surfaces/floor/material_id": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "descriptor:/surfaces/trim/material_id": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "descriptor:/surfaces/wall/material_id": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "t6:/mood/anomaly": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/mood/curiosity": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/mood/dread": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/mood/safety": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/mood/tags/0": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/mood/tags/1": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/mood/tension": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/circulation_role": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/form_role": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/map_role": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/semantic_tags/0": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/semantic_tags/1": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/semantic_tags/2": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/sightline_tags/0": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      }
+    },
+    "descriptor": {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_surface_palette_v1.json",
+      "sha256": "bb69f5be445b50c6faabe136705f8fa0476c4bf6820bc1ea54d73d9324abdcb7"
+    },
+    "mapping_table": {
+      "path": "godot_walk/room_catalog/module_surface_palette_mapping_v0.1.0.md",
+      "sha256": "64de64929ff08101cf2f335192496081e2b01daaf04fcb8e0b0d355d579763d5"
+    },
+    "poetics": {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json",
+      "sha256": "83a2a1c10e8d06b00ea995586e8c891b0b8e5f1116eea3cad4af457516725f78"
+    },
+    "profile": {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json",
+      "sha256": "baa076497d02b6e8e66420e14551e4509c321ec28119b34d3ece02c5c99dd036"
+    },
+    "t6": {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "sha256": "15d2f7ef1db962f406118dc701486c610461e2d8d74ab6d553417b99310abe3e"
+    }
+  },
+  "lighting_scale": {
+    "overlay": null,
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "state": "not_reviewed_uncalibrated"
+  },
+  "locks": {
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/acoustic": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.committed_block.acoustic",
+      "record_value_paths": [
+        "acoustics.committed_block.acoustic"
+      ],
+      "source_field": "/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/acoustic",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": "debris"
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/ceiling_height_m": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.ceiling_height_m.value",
+      "record_value_paths": [
+        "acoustics.fields.ceiling_height_m.value",
+        "acoustics.committed_block.probe.ceiling_height_m"
+      ],
+      "source_field": "/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/ceiling_height_m",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 3.92
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/damping": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.damping.value",
+      "record_value_paths": [
+        "acoustics.fields.damping.value",
+        "acoustics.committed_block.probe.damping"
+      ],
+      "source_field": "/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/damping",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 0.581933736700761
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/max_distance_m": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.max_distance_m.value",
+      "record_value_paths": [
+        "acoustics.fields.max_distance_m.value",
+        "acoustics.committed_block.probe.max_distance_m"
+      ],
+      "source_field": "/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/max_distance_m",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 6.92820310592651
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/mean_distance_m": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.mean_distance_m.value",
+      "record_value_paths": [
+        "acoustics.fields.mean_distance_m.value",
+        "acoustics.committed_block.probe.mean_distance_m"
+      ],
+      "source_field": "/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/mean_distance_m",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 5.84291776021322
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/openness": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.openness.value",
+      "record_value_paths": [
+        "acoustics.fields.openness.value",
+        "acoustics.committed_block.probe.openness"
+      ],
+      "source_field": "/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/openness",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 0.0
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/predelay_msec": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.predelay_msec.value",
+      "record_value_paths": [
+        "acoustics.fields.predelay_msec.value",
+        "acoustics.committed_block.probe.predelay_msec"
+      ],
+      "source_field": "/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/predelay_msec",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 17.0347456565983
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/provenance": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.committed_block.probe.provenance",
+      "record_value_paths": [
+        "acoustics.committed_block.probe.provenance"
+      ],
+      "source_field": "/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/provenance",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": "measured"
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/room_size": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.room_size.value",
+      "record_value_paths": [
+        "acoustics.fields.room_size.value",
+        "acoustics.committed_block.probe.room_size"
+      ],
+      "source_field": "/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/room_size",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 0.610063374770315
+    },
+    "acoustics:/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/wet": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.wet.value",
+      "record_value_paths": [
+        "acoustics.fields.wet.value",
+        "acoustics.committed_block.probe.wet"
+      ],
+      "source_field": "/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/probe/wet",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 0.523828473542866
+    },
+    "descriptor:/surfaces/ceiling/material_id": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "record_value_path": "surfaces/surfaces/ceiling/material_id",
+      "record_value_paths": [
+        "surfaces/surfaces/ceiling/material_id"
+      ],
+      "source_field": "/surfaces/ceiling/material_id",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_surface_palette_v1.json",
+      "value": "plaster_debris.ceiling"
+    },
+    "descriptor:/surfaces/floor/material_id": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "record_value_path": "surfaces/surfaces/floor/material_id",
+      "record_value_paths": [
+        "surfaces/surfaces/floor/material_id"
+      ],
+      "source_field": "/surfaces/floor/material_id",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_surface_palette_v1.json",
+      "value": "plaster_debris.floor"
+    },
+    "descriptor:/surfaces/trim/material_id": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "record_value_path": "surfaces/surfaces/trim/material_id",
+      "record_value_paths": [
+        "surfaces/surfaces/trim/material_id"
+      ],
+      "source_field": "/surfaces/trim/material_id",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_surface_palette_v1.json",
+      "value": "plaster_debris.trim"
+    },
+    "descriptor:/surfaces/wall/material_id": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "record_value_path": "surfaces/surfaces/wall/material_id",
+      "record_value_paths": [
+        "surfaces/surfaces/wall/material_id"
+      ],
+      "source_field": "/surfaces/wall/material_id",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_surface_palette_v1.json",
+      "value": "plaster_debris.wall"
+    },
+    "t6:/mood/anomaly": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/anomaly",
+      "record_value_paths": [
+        "t6/mood/anomaly"
+      ],
+      "source_field": "/mood/anomaly",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": 0.8
+    },
+    "t6:/mood/curiosity": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/curiosity",
+      "record_value_paths": [
+        "t6/mood/curiosity"
+      ],
+      "source_field": "/mood/curiosity",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": 0.6
+    },
+    "t6:/mood/dread": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/dread",
+      "record_value_paths": [
+        "t6/mood/dread"
+      ],
+      "source_field": "/mood/dread",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": 0.65
+    },
+    "t6:/mood/safety": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/safety",
+      "record_value_paths": [
+        "t6/mood/safety"
+      ],
+      "source_field": "/mood/safety",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": 0.15
+    },
+    "t6:/mood/tags/0": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/tags/0",
+      "record_value_paths": [
+        "t6/mood/tags/0"
+      ],
+      "source_field": "/mood/tags/0",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": "unstable"
+    },
+    "t6:/mood/tags/1": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/tags/1",
+      "record_value_paths": [
+        "t6/mood/tags/1"
+      ],
+      "source_field": "/mood/tags/1",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": "exposed"
+    },
+    "t6:/mood/tension": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/tension",
+      "record_value_paths": [
+        "t6/mood/tension"
+      ],
+      "source_field": "/mood/tension",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": 0.75
+    },
+    "t6:/roles/circulation_role": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/circulation_role",
+      "record_value_paths": [
+        "t6/roles/circulation_role"
+      ],
+      "source_field": "/roles/circulation_role",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": "terminal"
+    },
+    "t6:/roles/form_role": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/form_role",
+      "record_value_paths": [
+        "t6/roles/form_role"
+      ],
+      "source_field": "/roles/form_role",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": "figure"
+    },
+    "t6:/roles/map_role": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/map_role",
+      "record_value_paths": [
+        "t6/roles/map_role"
+      ],
+      "source_field": "/roles/map_role",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": "figure"
+    },
+    "t6:/roles/semantic_tags/0": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/semantic_tags/0",
+      "record_value_paths": [
+        "t6/roles/semantic_tags/0"
+      ],
+      "source_field": "/roles/semantic_tags/0",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": "debris"
+    },
+    "t6:/roles/semantic_tags/1": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/semantic_tags/1",
+      "record_value_paths": [
+        "t6/roles/semantic_tags/1"
+      ],
+      "source_field": "/roles/semantic_tags/1",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": "window_strip"
+    },
+    "t6:/roles/semantic_tags/2": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/semantic_tags/2",
+      "record_value_paths": [
+        "t6/roles/semantic_tags/2"
+      ],
+      "source_field": "/roles/semantic_tags/2",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": "standalone"
+    },
+    "t6:/roles/sightline_tags/0": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/sightline_tags/0",
+      "record_value_paths": [
+        "t6/roles/sightline_tags/0"
+      ],
+      "source_field": "/roles/sightline_tags/0",
+      "source_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "value": "threshold_glimpse"
+    }
+  },
+  "metadata_version": "module-metadata-1.0.0",
+  "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+  "origin": "source_room",
+  "poetics_ref": {
+    "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json",
+    "sha256": "83a2a1c10e8d06b00ea995586e8c891b0b8e5f1116eea3cad4af457516725f78"
+  },
+  "profile": {
+    "acoustics": {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "probe": {
+        "ceiling_height_m": null,
+        "damping": null,
+        "evidence": [],
+        "max_distance_m": null,
+        "mean_distance_m": null,
+        "openness": null,
+        "predelay_msec": null,
+        "probe_version": null,
+        "room_size": null,
+        "sample_points": [],
+        "wet": null
+      },
+      "status": "tag_only",
+      "tag": "debris"
+    },
+    "catalog_snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30",
+    "eligibility": {
+      "catalog_layout_eligible": false,
+      "layout_eligible_derived": false
+    },
+    "exits": [],
+    "lighting": {
+      "color_temp_k": null,
+      "evidence": [],
+      "fixtures": [],
+      "illuminance_lux": null,
+      "status": "unknown",
+      "tier": null
+    },
+    "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+    "mood": {
+      "anomaly": null,
+      "curiosity": null,
+      "dread": null,
+      "evidence": [],
+      "safety": null,
+      "tags": [],
+      "tension": null
+    },
+    "origin": "source_video",
+    "poetics_ref": {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json",
+      "sha256": "83a2a1c10e8d06b00ea995586e8c891b0b8e5f1116eea3cad4af457516725f78"
+    },
+    "profile_version": "module-profile-0.1.0",
+    "roles": {
+      "circulation_role": "branch",
+      "form_role": "figure",
+      "map_role": "figure",
+      "semantic_tags": [],
+      "sightline_tags": []
+    },
+    "runtime": {
+      "breadcrumb_policy": "none",
+      "follower_visibility": "visible",
+      "mutation_classes": [],
+      "mutation_eligible": false
+    },
+    "scale": {
+      "anchor": null,
+      "confidence": 0.0,
+      "evidence": [],
+      "status": "uncalibrated"
+    },
+    "schema_version": 1,
+    "shape": {
+      "area_m2": 120.0,
+      "aspect": 1.2,
+      "bbox_xz": {
+        "max": [
+          6.0,
+          5.0
+        ],
+        "min": [
+          -6.0,
+          -5.0
+        ]
+      },
+      "ceiling_height_m": 3.92,
+      "ceiling_kind": "unknown",
+      "ceiling_max_m": 3.92,
+      "ceiling_min_m": 3.92,
+      "convexity": 1.0,
+      "footprint_xz": [
+        [
+          -6.0,
+          -5.0
+        ],
+        [
+          6.0,
+          -5.0
+        ],
+        [
+          6.0,
+          5.0
+        ],
+        [
+          -6.0,
+          5.0
+        ]
+      ],
+      "primitive": "box",
+      "rectilinear": true,
+      "shape_stage": 0,
+      "symmetry": "D2",
+      "vertex_count": 4,
+      "volume_measured_m3": null,
+      "volume_nominal_m3": 470.4,
+      "volume_source": "envelope_area_x_max_ceiling"
+    },
+    "source_id": "video-ccf9722164a0bdc8",
+    "surfaces": {
+      "ceiling": {
+        "acoustic": "debris",
+        "material_id": "debris_ceiling_material",
+        "palette_id": null,
+        "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "floor": {
+        "acoustic": "debris",
+        "material_id": "debris_floor_material",
+        "palette_id": null,
+        "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+        "sign": "icon",
+        "texture_refs": []
+      },
+      "trim": {
+        "acoustic": "debris",
+        "material_id": "debris_trim_material",
+        "palette_id": null,
+        "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "wall": {
+        "acoustic": "debris",
+        "material_id": "debris_wall_material",
+        "palette_id": null,
+        "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+        "sign": "icon",
+        "texture_refs": []
+      }
+    },
+    "template_ref": {
+      "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+      "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+      "version": "generation-template-0.1.0"
+    },
+    "translation_chain": [
+      {
+        "evidence": [
+          "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png"
+        ],
+        "stage": "direct_frame"
+      },
+      {
+        "evidence": [
+          "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-006/panorama/panorama.png"
+        ],
+        "stage": "hunyuan_panorama"
+      },
+      {
+        "evidence": [
+          "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.tscn"
+        ],
+        "stage": "godot_room"
+      }
+    ],
+    "version": 1
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_layers": {
+    "acoustics": {
+      "path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "sha256": "df3da6150273f9164b6671194da378514f4dba772211ce3782c8cbfc956a8462"
+    },
+    "descriptor": {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_surface_palette_v1.json",
+      "sha256": "bb69f5be445b50c6faabe136705f8fa0476c4bf6820bc1ea54d73d9324abdcb7"
+    },
+    "poetics": {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json",
+      "sha256": "83a2a1c10e8d06b00ea995586e8c891b0b8e5f1116eea3cad4af457516725f78"
+    },
+    "profile": {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json",
+      "sha256": "baa076497d02b6e8e66420e14551e4509c321ec28119b34d3ece02c5c99dd036"
+    },
+    "t6": {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_t6_v1.json",
+      "sha256": "15d2f7ef1db962f406118dc701486c610461e2d8d74ab6d553417b99310abe3e"
+    }
+  },
+  "space_kind": "enclosed",
+  "surfaces": {
+    "descriptor_version": "module-surface-palette-0.1.0",
+    "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+    "profile_ref": {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json",
+      "sha256": "baa076497d02b6e8e66420e14551e4509c321ec28119b34d3ece02c5c99dd036"
+    },
+    "review": {
+      "operator_review": "pending",
+      "surfaces": {
+        "ceiling": {
+          "basis": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.ceiling via palette registry entry; per-surface assignment is a proposal",
+          "bespoke_reason": null,
+          "evidence_status": "proposed",
+          "status": "resolved"
+        },
+        "floor": {
+          "basis": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.floor via palette registry entry; per-surface assignment is a proposal",
+          "bespoke_reason": null,
+          "evidence_status": "proposed",
+          "status": "resolved"
+        },
+        "trim": {
+          "basis": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.trim via palette registry entry; per-surface assignment is a proposal",
+          "bespoke_reason": null,
+          "evidence_status": "proposed",
+          "status": "resolved"
+        },
+        "wall": {
+          "basis": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.wall via registry module match and direct wall provenance (res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.gd::WALL_TEXTURE_PATH)",
+          "bespoke_reason": null,
+          "evidence_status": "observed",
+          "status": "resolved"
+        }
+      }
+    },
+    "schema_version": 1,
+    "surfaces": {
+      "ceiling": {
+        "acoustic": "plaster",
+        "material_id": "plaster_debris.ceiling",
+        "palette_id": "plaster_debris",
+        "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.ceiling via palette registry entry; per-surface assignment is a proposal",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "floor": {
+        "acoustic": "debris",
+        "material_id": "plaster_debris.floor",
+        "palette_id": "plaster_debris",
+        "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.floor via palette registry entry; per-surface assignment is a proposal",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "trim": {
+        "acoustic": "wood",
+        "material_id": "plaster_debris.trim",
+        "palette_id": "plaster_debris",
+        "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.trim via palette registry entry; per-surface assignment is a proposal",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "wall": {
+        "acoustic": "plaster",
+        "material_id": "plaster_debris.wall",
+        "palette_id": "plaster_debris",
+        "provenance": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['plaster_walls', 'rock_field']; godot_walk/room_catalog/material_palettes/palettes-0.3.0.json plaster_debris.wall via registry module match and direct wall provenance (res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/room.gd::WALL_TEXTURE_PATH)",
+        "sign": "icon",
+        "texture_refs": [
+          "res://source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/textures/direct-source-crops-v1/painted_wall.png"
+        ]
+      }
+    }
+  },
+  "t6": {
+    "base_profile": {
+      "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json",
+      "sha256": "baa076497d02b6e8e66420e14551e4509c321ec28119b34d3ece02c5c99dd036"
+    },
+    "ceiling_volume": {
+      "ceiling_height_m": {
+        "basis_status": "measured",
+        "source": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json#/modules/video_ccf9722164a0bdc8_debris_window_rock_room_v1@1/metrics/ceiling_height_m; Issue 216 headless probe; up-ray result is capped by the profile ceiling hint",
+        "status": "measured",
+        "tolerance": 1e-06,
+        "value": 3.92
+      },
+      "ceiling_kind": {
+        "basis_status": "authored",
+        "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json#/poetics/style_tags; ceiling-kind interpretation is a draft",
+        "status": "authored",
+        "value": "beam_grid"
+      },
+      "ceiling_max_m": {
+        "basis_status": "authored",
+        "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json#/shape/ceiling_max_m",
+        "status": "authored",
+        "value": 3.92
+      },
+      "ceiling_min_m": {
+        "basis_status": "authored",
+        "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json#/shape/ceiling_min_m",
+        "status": "authored",
+        "value": 3.92
+      },
+      "volume_measured_m3": {
+        "basis_status": "unmeasured",
+        "source": "No committed per-module volume measurement exists",
+        "status": "unmeasured",
+        "value": null
+      },
+      "volume_nominal_m3": {
+        "basis_status": "authored",
+        "derivation": "footprint area x authored maximum ceiling; nominal envelope heuristic",
+        "source": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json#/shape/area_m2; godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_profile_v1.json#/shape/ceiling_max_m; authored inputs",
+        "status": "derived",
+        "value": 470.4
+      }
+    },
+    "exits": [],
+    "module_id": "video_ccf9722164a0bdc8_debris_window_rock_room_v1",
+    "mood": {
+      "anomaly": 0.8,
+      "curiosity": 0.6,
+      "dread": 0.65,
+      "evidence": [
+        {
+          "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/rooms/debris-window-rock-room-v1/module_poetics_v2.json",
+          "sha256": "83a2a1c10e8d06b00ea995586e8c891b0b8e5f1116eea3cad4af457516725f78"
+        }
+      ],
+      "review_status": "agent_proposed_draft_pending_operator_review",
+      "safety": 0.15,
+      "tags": [
+        "unstable",
+        "exposed"
+      ],
+      "tension": 0.75
+    },
+    "profile_version": "module-profile-t6-0.1.0",
+    "roles": {
+      "circulation_role": "terminal",
+      "form_role": "figure",
+      "map_role": "figure",
+      "review_status": "agent_proposed_draft_pending_operator_review",
+      "semantic_tags": [
+        "debris",
+        "window_strip",
+        "standalone"
+      ],
+      "sightline_tags": [
+        "threshold_glimpse"
+      ]
+    },
+    "schema_version": 1,
+    "template_ref": {
+      "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+      "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+      "version": "generation-template-0.1.0"
+    }
+  }
+}

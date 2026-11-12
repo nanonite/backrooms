@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/module_metadata.schema.json",
+  "title": "Module metadata v1 generated record",
+  "type": "object",
+  "required": ["metadata_version", "module_id", "origin", "space_kind", "registration_accepted", "scale_calibrated", "poetics_ref", "source_layers", "inputs", "approval_refs", "locks", "profile", "surfaces", "lighting_scale", "t6", "acoustics"],
+  "properties": {
+    "metadata_version": {"const": "module-metadata-1.0.0"},
+    "module_id": {"type": "string", "minLength": 1},
+    "origin": {"enum": ["authored_kit", "source_room"]},
+    "space_kind": {"enum": ["enclosed", "open"]},
+    "registration_accepted": {"const": false},
+    "scale_calibrated": {"const": false},
+    "poetics_ref": {"$ref": "#/$defs/reference"},
+    "source_layers": {
+      "type": "object",
+      "required": ["profile", "descriptor", "t6", "poetics", "acoustics"],
+      "properties": {
+        "profile": {"$ref": "#/$defs/reference"},
+        "descriptor": {"$ref": "#/$defs/reference"},
+        "t6": {"$ref": "#/$defs/reference"},
+        "poetics": {"$ref": "#/$defs/reference"},
+        "acoustics": {"$ref": "#/$defs/reference"},
+        "lighting_scale": {"$ref": "#/$defs/reference"}
+      },
+      "additionalProperties": false
+    },
+    "inputs": {
+      "type": "object",
+      "required": ["profile", "descriptor", "t6", "poetics", "acoustics", "approval_refs"],
+      "properties": {
+        "profile": {"$ref": "#/$defs/reference"},
+        "descriptor": {"$ref": "#/$defs/reference"},
+        "t6": {"$ref": "#/$defs/reference"},
+        "poetics": {"$ref": "#/$defs/reference"},
+        "acoustics": {"$ref": "#/$defs/reference"},
+        "lighting_scale": {"$ref": "#/$defs/reference"},
+        "mapping_table": {"$ref": "#/$defs/reference"},
+        "approval_refs": {"type": "object", "additionalProperties": {"$ref": "#/$defs/reference"}}
+      },
+      "additionalProperties": false
+    },
+    "approval_refs": {"type": "object", "additionalProperties": {"$ref": "#/$defs/reference"}},
+    "locks": {"type": "object", "additionalProperties": {"type": "object", "required": ["receipt", "source_path", "source_field", "record_value_path", "record_value_paths", "value"], "properties": {"receipt": {"$ref": "#/$defs/reference"}, "source_path": {"type": "string"}, "source_field": {"type": "string"}, "record_value_path": {"type": "string"}, "record_value_paths": {"type": "array", "minItems": 1, "items": {"type": "string"}}, "value": {}, "source_value": {}}, "additionalProperties": false}},
+    "profile": {
+      "type": "object",
+      "required": ["schema_version", "profile_version", "module_id", "version", "source_id", "origin", "poetics_ref", "catalog_snapshot_sha256", "template_ref", "shape", "exits", "roles", "surfaces", "acoustics", "lighting", "scale", "mood", "runtime", "translation_chain", "eligibility"],
+      "properties": {
+        "schema_version": {"const": 1},
+        "module_id": {"type": "string", "minLength": 1},
+        "shape": {"type": "object", "required": ["footprint_xz", "bbox_xz", "area_m2", "ceiling_min_m", "ceiling_max_m", "ceiling_height_m", "ceiling_kind", "volume_nominal_m3", "volume_measured_m3", "volume_source"]},
+        "exits": {"type": "array"},
+        "roles": {"type": "object", "required": ["map_role", "form_role", "semantic_tags", "circulation_role", "sightline_tags"]},
+        "surfaces": {"type": "object", "required": ["wall", "floor", "ceiling", "trim"]},
+        "acoustics": {"type": "object", "required": ["status", "tag", "probe", "absorption"]},
+        "lighting": {"type": "object", "required": ["status", "tier", "color_temp_k", "illuminance_lux", "fixtures", "evidence"]},
+        "scale": {"type": "object", "required": ["status", "anchor", "confidence", "evidence"]},
+        "mood": {"type": "object", "required": ["tension", "dread", "curiosity", "safety", "anomaly", "tags", "evidence"]},
+        "runtime": {"type": "object", "required": ["mutation_eligible", "mutation_classes", "follower_visibility", "breadcrumb_policy"]},
+        "translation_chain": {"type": "array"},
+        "eligibility": {"type": "object", "required": ["layout_eligible_derived", "catalog_layout_eligible"]}
+      },
+      "additionalProperties": true
+    },
+    "surfaces": {"$ref": "#/$defs/surface_descriptor"},
+    "lighting_scale": {
+      "oneOf": [
+        {"type": "object", "required": ["state", "overlay"], "properties": {"state": {"const": "overlay"}, "overlay": {"type": "object", "required": ["schema_version", "profile_version", "record_kind", "record_id", "base_record", "template_ref", "lighting", "scale"]}}, "additionalProperties": false},
+        {"type": "object", "required": ["state", "overlay_ref"], "properties": {"state": {"const": "source_overlay"}, "overlay_ref": {"$ref": "#/$defs/reference"}}, "additionalProperties": false},
+        {"type": "object", "required": ["state", "overlay", "registration_accepted", "scale_calibrated"], "properties": {"state": {"const": "not_reviewed_uncalibrated"}, "overlay": {"type": "null"}, "registration_accepted": {"const": false}, "scale_calibrated": {"const": false}}, "additionalProperties": false}
+      ]
+    },
+    "t6": {
+      "type": "object",
+      "required": ["schema_version", "profile_version", "module_id", "base_profile", "template_ref", "ceiling_volume", "exits", "roles", "mood"],
+      "properties": {
+        "schema_version": {"const": 1},
+        "module_id": {"type": "string", "minLength": 1},
+        "ceiling_volume": {"type": "object", "required": ["ceiling_min_m", "ceiling_max_m", "ceiling_height_m", "ceiling_kind", "volume_nominal_m3", "volume_measured_m3"]},
+        "exits": {"type": "array"},
+        "roles": {"type": "object", "required": ["review_status", "map_role", "form_role", "semantic_tags", "circulation_role", "sightline_tags"]},
+        "mood": {"type": "object", "required": ["review_status", "tension", "dread", "curiosity", "safety", "anomaly", "tags", "evidence"]}
+      },
+      "additionalProperties": true
+    },
+    "acoustics": {
+      "type": "object",
+      "required": ["committed_block", "fields"],
+      "properties": {
+        "committed_block": {"type": "object", "required": ["probe", "acoustic", "absorption"]},
+        "fields": {
+          "type": "object",
+          "required": ["mean_distance_m", "max_distance_m", "ceiling_height_m", "openness", "room_size", "damping", "wet", "predelay_msec"],
+          "properties": {
+            "mean_distance_m": {"$ref": "#/$defs/acoustic_field"},
+            "max_distance_m": {"$ref": "#/$defs/acoustic_field"},
+            "ceiling_height_m": {"$ref": "#/$defs/acoustic_field"},
+            "openness": {"$ref": "#/$defs/acoustic_field"},
+            "room_size": {"$ref": "#/$defs/acoustic_field"},
+            "damping": {"$ref": "#/$defs/acoustic_field"},
+            "wet": {"$ref": "#/$defs/acoustic_field"},
+            "predelay_msec": {"$ref": "#/$defs/acoustic_field"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "reference": {"type": "object", "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}, "additionalProperties": false},
+    "acoustic_field": {"type": "object", "required": ["value", "provenance", "committed_block_label"], "properties": {"value": {"type": "number"}, "committed_block_label": {"type": "string", "minLength": 1}, "provenance": {"type": "object", "required": ["kind", "source"], "properties": {"kind": {"enum": ["measured", "derived"]}, "source": {"type": "string", "minLength": 1}, "basis": {"type": "array", "items": {"type": "string"}}, "method": {"type": "string"}, "mapping_source": {"type": "string"}, "limitation": {"type": "string"}, "intermediate_definitions": {"type": "object"}}, "additionalProperties": true}}, "additionalProperties": false},
+    "surface_descriptor": {
+      "type": "object",
+      "required": ["schema_version", "descriptor_version", "module_id", "profile_ref", "surfaces", "review"],
+      "properties": {
+        "schema_version": {"const": 1},
+        "descriptor_version": {"const": "module-surface-palette-0.1.0"},
+        "module_id": {"type": "string", "minLength": 1},
+        "profile_ref": {"$ref": "#/$defs/reference"},
+        "surfaces": {"$ref": "#/$defs/surface_set"},
+        "review": {"type": "object", "required": ["operator_review", "surfaces"]}
+      },
+      "additionalProperties": true
+    },
+    "surface_set": {
+      "type": "object",
+      "required": ["wall", "floor", "ceiling", "trim"],
+      "properties": {
+        "wall": {"$ref": "#/$defs/surface_entry"},
+        "floor": {"$ref": "#/$defs/surface_entry"},
+        "ceiling": {"$ref": "#/$defs/surface_entry"},
+        "trim": {"$ref": "#/$defs/surface_entry"}
+      },
+      "additionalProperties": false
+    },
+    "surface_entry": {
+      "type": "object",
+      "required": ["material_id", "acoustic", "texture_refs", "provenance", "sign"],
+      "properties": {
+        "material_id": {"type": "string", "minLength": 1},
+        "acoustic": {"type": "string", "minLength": 1},
+        "palette_id": {"type": ["string", "null"]},
+        "texture_refs": {"type": "array", "items": {"type": "string"}},
+        "provenance": {"type": ["string", "null"]},
+        "sign": {"enum": ["index", "icon", "symbol"]}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

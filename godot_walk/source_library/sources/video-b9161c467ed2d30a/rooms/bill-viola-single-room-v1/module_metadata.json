@@ -1,0 +1,1164 @@
+{
+  "acoustics": {
+    "committed_block": {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "acoustic": "carpet",
+      "evidence": [
+        "dark_carpet"
+      ],
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json",
+        "sha256": "eb36d037057b9ab223d3ca8ce6ece93191da591a9850fe158875367a6edf711d"
+      },
+      "probe": {
+        "ceiling_height_m": 2.8,
+        "damping": 0.449728291687212,
+        "evidence": [
+          {
+            "path": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json",
+            "sha256": "3fbdd8ea4ffb7ce69402bc3a5825dbdbef065d26d1ac36586dd629d02b91b6c2"
+          }
+        ],
+        "max_distance_m": 4.61880207061768,
+        "mean_distance_m": 4.19390081365903,
+        "openness": 0.0,
+        "predelay_msec": 12.2271160748077,
+        "probe_version": "room-acoustic-probe-#205",
+        "provenance": "measured",
+        "room_size": 0.446071631886457,
+        "sample_points": [
+          {
+            "ceiling_hint_m": 2.8,
+            "floor_y_m": 0.0,
+            "method": "accepted_footprint_area_centroid",
+            "position_m": [
+              0.0,
+              1.10000002384186,
+              0.0
+            ]
+          }
+        ],
+        "wet": 0.403412502213528
+      },
+      "profile": {
+        "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json",
+        "sha256": "91b783da70476684b36212b03edaab89e28113d9bd09ee9bb9aabd714bad9619"
+      }
+    },
+    "fields": {
+      "ceiling_height_m": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "kind": "measured",
+          "limitation": "The up-ray ceiling estimate is capped by the profile ceiling hint; it is not an uncapped ceiling measurement.",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/ceiling_height_m"
+        },
+        "value": 2.8
+      },
+      "damping": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "basis": [
+            "mean_distance_m",
+            "ceiling_height_m",
+            "openness"
+          ],
+          "intermediate_definitions": {
+            "height_size": "clamp((ceiling_height_m - 2.2) / (6.0 - 2.2), 0, 1)",
+            "wall_size": "clamp(mean_distance_m / 10.0, 0, 1)"
+          },
+          "kind": "derived",
+          "mapping_source": "godot_walk/scripts/room_acoustic_probe.gd#map_metrics",
+          "method": "clamp(0.22 + 0.48 * wall_size + 0.18 * height_size + 0.12 * openness, 0, 1)",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/damping"
+        },
+        "value": 0.449728291687212
+      },
+      "max_distance_m": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "kind": "measured",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/max_distance_m"
+        },
+        "value": 4.61880207061768
+      },
+      "mean_distance_m": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "kind": "measured",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/mean_distance_m"
+        },
+        "value": 4.19390081365903
+      },
+      "openness": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "kind": "measured",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/openness"
+        },
+        "value": 0.0
+      },
+      "predelay_msec": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "basis": [
+            "mean_distance_m"
+          ],
+          "kind": "derived",
+          "mapping_source": "godot_walk/scripts/room_acoustic_probe.gd#map_metrics",
+          "method": "clamp(mean_distance_m / 343.0 * 1000.0, 1.0, 50.0)",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/predelay_msec"
+        },
+        "value": 12.2271160748077
+      },
+      "room_size": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "basis": [
+            "mean_distance_m",
+            "ceiling_height_m"
+          ],
+          "kind": "derived",
+          "mapping_source": "godot_walk/scripts/room_acoustic_probe.gd#map_metrics",
+          "method": "clamp(0.10 + 0.78 * clamp(mean_distance_m / 10.0, 0, 1) + 0.12 * clamp((ceiling_height_m - 2.2) / (6.0 - 2.2), 0, 1), 0, 1)",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/room_size"
+        },
+        "value": 0.446071631886457
+      },
+      "wet": {
+        "committed_block_label": "measured",
+        "provenance": {
+          "basis": [
+            "mean_distance_m",
+            "ceiling_height_m",
+            "openness"
+          ],
+          "intermediate_definitions": {
+            "height_size": "clamp((ceiling_height_m - 2.2) / (6.0 - 2.2), 0, 1)",
+            "wall_size": "clamp(mean_distance_m / 10.0, 0, 1)"
+          },
+          "kind": "derived",
+          "mapping_source": "godot_walk/scripts/room_acoustic_probe.gd#map_metrics",
+          "method": "clamp((0.18 + 0.48 * wall_size + 0.14 * height_size) * (1.0 - 0.35 * openness), 0, 0.75)",
+          "source": "godot_walk/room_catalog/module_acoustics_v0.2.0.json#/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/wet"
+        },
+        "value": 0.403412502213528
+      }
+    }
+  },
+  "approval_refs": {
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/acoustic": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/ceiling_height_m": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/damping": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/max_distance_m": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/mean_distance_m": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/openness": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/predelay_msec": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/provenance": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/room_size": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/wet": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "descriptor:/surfaces/ceiling/material_id": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+      "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+    },
+    "descriptor:/surfaces/floor/material_id": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+      "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+    },
+    "descriptor:/surfaces/trim/material_id": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+      "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+    },
+    "descriptor:/surfaces/wall/material_id": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+      "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+    },
+    "t6:/mood/anomaly": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/mood/curiosity": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/mood/dread": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/mood/safety": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/mood/tags/0": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/mood/tags/1": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/mood/tension": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/circulation_role": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/form_role": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/map_role": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/semantic_tags/0": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/semantic_tags/1": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/semantic_tags/2": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/sightline_tags/0": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    }
+  },
+  "inputs": {
+    "acoustics": {
+      "path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "sha256": "df3da6150273f9164b6671194da378514f4dba772211ce3782c8cbfc956a8462"
+    },
+    "approval_refs": {
+      "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/acoustic": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/ceiling_height_m": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/damping": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/max_distance_m": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/mean_distance_m": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/openness": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/predelay_msec": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/provenance": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/room_size": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/wet": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "descriptor:/surfaces/ceiling/material_id": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "descriptor:/surfaces/floor/material_id": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "descriptor:/surfaces/trim/material_id": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "descriptor:/surfaces/wall/material_id": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "t6:/mood/anomaly": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/mood/curiosity": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/mood/dread": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/mood/safety": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/mood/tags/0": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/mood/tags/1": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/mood/tension": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/circulation_role": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/form_role": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/map_role": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/semantic_tags/0": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/semantic_tags/1": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/semantic_tags/2": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/sightline_tags/0": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      }
+    },
+    "descriptor": {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_surface_palette_v1.json",
+      "sha256": "38753cec676bc7229e7d60ba1ee590d17796347b641f1c7908dca08e9d64ab0a"
+    },
+    "mapping_table": {
+      "path": "godot_walk/room_catalog/module_surface_palette_mapping_v0.1.0.md",
+      "sha256": "64de64929ff08101cf2f335192496081e2b01daaf04fcb8e0b0d355d579763d5"
+    },
+    "poetics": {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json",
+      "sha256": "eb36d037057b9ab223d3ca8ce6ece93191da591a9850fe158875367a6edf711d"
+    },
+    "profile": {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json",
+      "sha256": "91b783da70476684b36212b03edaab89e28113d9bd09ee9bb9aabd714bad9619"
+    },
+    "t6": {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "sha256": "b5a0f032e41ab51a8fd7db34b3904c6c505c24783a97c197fa4dd0d421c716dd"
+    }
+  },
+  "lighting_scale": {
+    "overlay": null,
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "state": "not_reviewed_uncalibrated"
+  },
+  "locks": {
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/acoustic": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.committed_block.acoustic",
+      "record_value_paths": [
+        "acoustics.committed_block.acoustic"
+      ],
+      "source_field": "/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/acoustic",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": "carpet"
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/ceiling_height_m": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.ceiling_height_m.value",
+      "record_value_paths": [
+        "acoustics.fields.ceiling_height_m.value",
+        "acoustics.committed_block.probe.ceiling_height_m"
+      ],
+      "source_field": "/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/ceiling_height_m",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 2.8
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/damping": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.damping.value",
+      "record_value_paths": [
+        "acoustics.fields.damping.value",
+        "acoustics.committed_block.probe.damping"
+      ],
+      "source_field": "/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/damping",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 0.449728291687212
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/max_distance_m": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.max_distance_m.value",
+      "record_value_paths": [
+        "acoustics.fields.max_distance_m.value",
+        "acoustics.committed_block.probe.max_distance_m"
+      ],
+      "source_field": "/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/max_distance_m",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 4.61880207061768
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/mean_distance_m": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.mean_distance_m.value",
+      "record_value_paths": [
+        "acoustics.fields.mean_distance_m.value",
+        "acoustics.committed_block.probe.mean_distance_m"
+      ],
+      "source_field": "/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/mean_distance_m",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 4.19390081365903
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/openness": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.openness.value",
+      "record_value_paths": [
+        "acoustics.fields.openness.value",
+        "acoustics.committed_block.probe.openness"
+      ],
+      "source_field": "/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/openness",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 0.0
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/predelay_msec": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.predelay_msec.value",
+      "record_value_paths": [
+        "acoustics.fields.predelay_msec.value",
+        "acoustics.committed_block.probe.predelay_msec"
+      ],
+      "source_field": "/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/predelay_msec",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 12.2271160748077
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/provenance": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.committed_block.probe.provenance",
+      "record_value_paths": [
+        "acoustics.committed_block.probe.provenance"
+      ],
+      "source_field": "/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/provenance",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": "measured"
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/room_size": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.room_size.value",
+      "record_value_paths": [
+        "acoustics.fields.room_size.value",
+        "acoustics.committed_block.probe.room_size"
+      ],
+      "source_field": "/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/room_size",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 0.446071631886457
+    },
+    "acoustics:/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/wet": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.fields.wet.value",
+      "record_value_paths": [
+        "acoustics.fields.wet.value",
+        "acoustics.committed_block.probe.wet"
+      ],
+      "source_field": "/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/probe/wet",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": 0.403412502213528
+    },
+    "descriptor:/surfaces/ceiling/material_id": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "record_value_path": "surfaces/surfaces/ceiling/material_id",
+      "record_value_paths": [
+        "surfaces/surfaces/ceiling/material_id"
+      ],
+      "source_field": "/surfaces/ceiling/material_id",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_surface_palette_v1.json",
+      "value": "video_b9161c467ed2d30a_bill_viola_single_room_v1.unknown_ceiling"
+    },
+    "descriptor:/surfaces/floor/material_id": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "record_value_path": "surfaces/surfaces/floor/material_id",
+      "record_value_paths": [
+        "surfaces/surfaces/floor/material_id"
+      ],
+      "source_field": "/surfaces/floor/material_id",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_surface_palette_v1.json",
+      "value": "video_b9161c467ed2d30a_bill_viola_single_room_v1.dark_carpet_floor"
+    },
+    "descriptor:/surfaces/trim/material_id": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "record_value_path": "surfaces/surfaces/trim/material_id",
+      "record_value_paths": [
+        "surfaces/surfaces/trim/material_id"
+      ],
+      "source_field": "/surfaces/trim/material_id",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_surface_palette_v1.json",
+      "value": "video_b9161c467ed2d30a_bill_viola_single_room_v1.unknown_trim"
+    },
+    "descriptor:/surfaces/wall/material_id": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
+        "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
+      },
+      "record_value_path": "surfaces/surfaces/wall/material_id",
+      "record_value_paths": [
+        "surfaces/surfaces/wall/material_id"
+      ],
+      "source_field": "/surfaces/wall/material_id",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_surface_palette_v1.json",
+      "value": "video_b9161c467ed2d30a_bill_viola_single_room_v1.unknown_wall"
+    },
+    "t6:/mood/anomaly": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/anomaly",
+      "record_value_paths": [
+        "t6/mood/anomaly"
+      ],
+      "source_field": "/mood/anomaly",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": 0.75
+    },
+    "t6:/mood/curiosity": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/curiosity",
+      "record_value_paths": [
+        "t6/mood/curiosity"
+      ],
+      "source_field": "/mood/curiosity",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": 0.65
+    },
+    "t6:/mood/dread": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/dread",
+      "record_value_paths": [
+        "t6/mood/dread"
+      ],
+      "source_field": "/mood/dread",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": 0.6
+    },
+    "t6:/mood/safety": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/safety",
+      "record_value_paths": [
+        "t6/mood/safety"
+      ],
+      "source_field": "/mood/safety",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": 0.35
+    },
+    "t6:/mood/tags/0": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/tags/0",
+      "record_value_paths": [
+        "t6/mood/tags/0"
+      ],
+      "source_field": "/mood/tags/0",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": "intimate"
+    },
+    "t6:/mood/tags/1": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/tags/1",
+      "record_value_paths": [
+        "t6/mood/tags/1"
+      ],
+      "source_field": "/mood/tags/1",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": "uncanny"
+    },
+    "t6:/mood/tension": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/tension",
+      "record_value_paths": [
+        "t6/mood/tension"
+      ],
+      "source_field": "/mood/tension",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": 0.45
+    },
+    "t6:/roles/circulation_role": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/circulation_role",
+      "record_value_paths": [
+        "t6/roles/circulation_role"
+      ],
+      "source_field": "/roles/circulation_role",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": "terminal"
+    },
+    "t6:/roles/form_role": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/form_role",
+      "record_value_paths": [
+        "t6/roles/form_role"
+      ],
+      "source_field": "/roles/form_role",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": "figure"
+    },
+    "t6:/roles/map_role": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/map_role",
+      "record_value_paths": [
+        "t6/roles/map_role"
+      ],
+      "source_field": "/roles/map_role",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": "figure"
+    },
+    "t6:/roles/semantic_tags/0": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/semantic_tags/0",
+      "record_value_paths": [
+        "t6/roles/semantic_tags/0"
+      ],
+      "source_field": "/roles/semantic_tags/0",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": "domestic"
+    },
+    "t6:/roles/semantic_tags/1": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/semantic_tags/1",
+      "record_value_paths": [
+        "t6/roles/semantic_tags/1"
+      ],
+      "source_field": "/roles/semantic_tags/1",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": "lit_vignette"
+    },
+    "t6:/roles/semantic_tags/2": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/semantic_tags/2",
+      "record_value_paths": [
+        "t6/roles/semantic_tags/2"
+      ],
+      "source_field": "/roles/semantic_tags/2",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": "standalone"
+    },
+    "t6:/roles/sightline_tags/0": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/sightline_tags/0",
+      "record_value_paths": [
+        "t6/roles/sightline_tags/0"
+      ],
+      "source_field": "/roles/sightline_tags/0",
+      "source_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "value": "focused_view"
+    }
+  },
+  "metadata_version": "module-metadata-1.0.0",
+  "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+  "origin": "source_room",
+  "poetics_ref": {
+    "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json",
+    "sha256": "eb36d037057b9ab223d3ca8ce6ece93191da591a9850fe158875367a6edf711d"
+  },
+  "profile": {
+    "acoustics": {
+      "absorption": {
+        "ceiling": null,
+        "confidence": 0.0,
+        "floor": null,
+        "source": "#213",
+        "status": "unknown",
+        "trim": null,
+        "wall": null
+      },
+      "probe": {
+        "ceiling_height_m": null,
+        "damping": null,
+        "evidence": [],
+        "max_distance_m": null,
+        "mean_distance_m": null,
+        "openness": null,
+        "predelay_msec": null,
+        "probe_version": null,
+        "room_size": null,
+        "sample_points": [],
+        "wet": null
+      },
+      "status": "tag_only",
+      "tag": "carpet"
+    },
+    "catalog_snapshot_sha256": "fc2a373e5c3ff71c01361f16fb80df7e80ee77b2beccde18c13bd6527df62e30",
+    "eligibility": {
+      "catalog_layout_eligible": false,
+      "layout_eligible_derived": false
+    },
+    "exits": [],
+    "lighting": {
+      "color_temp_k": null,
+      "evidence": [],
+      "fixtures": [],
+      "illuminance_lux": null,
+      "status": "unknown",
+      "tier": null
+    },
+    "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+    "mood": {
+      "anomaly": null,
+      "curiosity": null,
+      "dread": null,
+      "evidence": [],
+      "safety": null,
+      "tags": [],
+      "tension": null
+    },
+    "origin": "source_video",
+    "poetics_ref": {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json",
+      "sha256": "eb36d037057b9ab223d3ca8ce6ece93191da591a9850fe158875367a6edf711d"
+    },
+    "profile_version": "module-profile-0.1.0",
+    "roles": {
+      "circulation_role": "branch",
+      "form_role": "figure",
+      "map_role": "figure",
+      "semantic_tags": [],
+      "sightline_tags": []
+    },
+    "runtime": {
+      "breadcrumb_policy": "none",
+      "follower_visibility": "visible",
+      "mutation_classes": [],
+      "mutation_eligible": false
+    },
+    "scale": {
+      "anchor": null,
+      "confidence": 0.0,
+      "evidence": [],
+      "status": "uncalibrated"
+    },
+    "schema_version": 1,
+    "shape": {
+      "area_m2": 64.0,
+      "aspect": 1.0,
+      "bbox_xz": {
+        "max": [
+          4.0,
+          4.0
+        ],
+        "min": [
+          -4.0,
+          -4.0
+        ]
+      },
+      "ceiling_height_m": 2.8,
+      "ceiling_kind": "unknown",
+      "ceiling_max_m": 2.8,
+      "ceiling_min_m": 2.8,
+      "convexity": 1.0,
+      "footprint_xz": [
+        [
+          -4.0,
+          -4.0
+        ],
+        [
+          4.0,
+          -4.0
+        ],
+        [
+          4.0,
+          4.0
+        ],
+        [
+          -4.0,
+          4.0
+        ]
+      ],
+      "primitive": "box",
+      "rectilinear": true,
+      "shape_stage": 0,
+      "symmetry": "D4",
+      "vertex_count": 4,
+      "volume_measured_m3": null,
+      "volume_nominal_m3": 179.2,
+      "volume_source": "envelope_area_x_max_ceiling"
+    },
+    "source_id": "video-b9161c467ed2d30a",
+    "surfaces": {
+      "ceiling": {
+        "acoustic": "carpet",
+        "material_id": "carpet_ceiling_material",
+        "palette_id": null,
+        "provenance": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "floor": {
+        "acoustic": "carpet",
+        "material_id": "carpet_floor_material",
+        "palette_id": null,
+        "provenance": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+        "sign": "icon",
+        "texture_refs": []
+      },
+      "trim": {
+        "acoustic": "carpet",
+        "material_id": "carpet_trim_material",
+        "palette_id": null,
+        "provenance": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "wall": {
+        "acoustic": "carpet",
+        "material_id": "carpet_wall_material",
+        "palette_id": null,
+        "provenance": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json; acoustic tag derived from accepted style_tags; material_id and palette_id are unreviewed placeholders (#217)",
+        "sign": "icon",
+        "texture_refs": []
+      }
+    },
+    "template_ref": {
+      "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+      "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+      "version": "generation-template-0.1.0"
+    },
+    "translation_chain": [
+      {
+        "evidence": [
+          "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/frame_0820.png",
+          "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/frame_4642.png",
+          "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2730.png",
+          "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2731.png",
+          "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2732.png"
+        ],
+        "stage": "direct_frame"
+      },
+      {
+        "evidence": [
+          "res://source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/room.tscn"
+        ],
+        "stage": "godot_room"
+      }
+    ],
+    "version": 1
+  },
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_layers": {
+    "acoustics": {
+      "path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "sha256": "df3da6150273f9164b6671194da378514f4dba772211ce3782c8cbfc956a8462"
+    },
+    "descriptor": {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_surface_palette_v1.json",
+      "sha256": "38753cec676bc7229e7d60ba1ee590d17796347b641f1c7908dca08e9d64ab0a"
+    },
+    "poetics": {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json",
+      "sha256": "eb36d037057b9ab223d3ca8ce6ece93191da591a9850fe158875367a6edf711d"
+    },
+    "profile": {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json",
+      "sha256": "91b783da70476684b36212b03edaab89e28113d9bd09ee9bb9aabd714bad9619"
+    },
+    "t6": {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_t6_v1.json",
+      "sha256": "b5a0f032e41ab51a8fd7db34b3904c6c505c24783a97c197fa4dd0d421c716dd"
+    }
+  },
+  "space_kind": "enclosed",
+  "surfaces": {
+    "descriptor_version": "module-surface-palette-0.1.0",
+    "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+    "profile_ref": {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json",
+      "sha256": "91b783da70476684b36212b03edaab89e28113d9bd09ee9bb9aabd714bad9619"
+    },
+    "review": {
+      "operator_review": "pending",
+      "surfaces": {
+        "ceiling": {
+          "basis": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for ceiling",
+          "bespoke_reason": "No supported palettes-0.3.0 mapping for this module's ceiling; retain an explicit unknown slot pending operator review.",
+          "evidence_status": "proposed",
+          "status": "null"
+        },
+        "floor": {
+          "basis": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for floor",
+          "bespoke_reason": "No supported palettes-0.3.0 mapping for this module's floor; retain an explicit dark_carpet slot pending operator review.",
+          "evidence_status": "observed",
+          "status": "bespoke"
+        },
+        "trim": {
+          "basis": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for trim",
+          "bespoke_reason": "No supported palettes-0.3.0 mapping for this module's trim; retain an explicit unknown slot pending operator review.",
+          "evidence_status": "proposed",
+          "status": "null"
+        },
+        "wall": {
+          "basis": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for wall",
+          "bespoke_reason": "No supported palettes-0.3.0 mapping for this module's wall; retain an explicit unknown slot pending operator review.",
+          "evidence_status": "proposed",
+          "status": "null"
+        }
+      }
+    },
+    "schema_version": 1,
+    "surfaces": {
+      "ceiling": {
+        "acoustic": "unknown",
+        "material_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1.unknown_ceiling",
+        "palette_id": null,
+        "provenance": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for ceiling",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "floor": {
+        "acoustic": "carpet",
+        "material_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1.dark_carpet_floor",
+        "palette_id": null,
+        "provenance": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for floor",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "trim": {
+        "acoustic": "unknown",
+        "material_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1.unknown_trim",
+        "palette_id": null,
+        "provenance": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for trim",
+        "sign": "symbol",
+        "texture_refs": []
+      },
+      "wall": {
+        "acoustic": "unknown",
+        "material_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1.unknown_wall",
+        "palette_id": null,
+        "provenance": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json; godot_walk/room_catalog/module_acoustics_v0.2.0.json evidence ['dark_carpet']; no palettes-0.3.0 surface is evidenced for wall",
+        "sign": "symbol",
+        "texture_refs": []
+      }
+    }
+  },
+  "t6": {
+    "base_profile": {
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json",
+      "sha256": "91b783da70476684b36212b03edaab89e28113d9bd09ee9bb9aabd714bad9619"
+    },
+    "ceiling_volume": {
+      "ceiling_height_m": {
+        "basis_status": "measured",
+        "source": "godot_walk/evidence/2026-11-11-issue-216/module_acoustics_probe_results.json#/modules/video_b9161c467ed2d30a_bill_viola_single_room_v1@1/metrics/ceiling_height_m; Issue 216 headless probe; up-ray result is capped by the profile ceiling hint",
+        "status": "measured",
+        "tolerance": 1e-06,
+        "value": 2.8
+      },
+      "ceiling_kind": {
+        "basis_status": "authored",
+        "source": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json#/poetics/style_tags; ceiling-kind interpretation is a draft",
+        "status": "authored",
+        "value": "unknown"
+      },
+      "ceiling_max_m": {
+        "basis_status": "authored",
+        "source": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json#/shape/ceiling_max_m",
+        "status": "authored",
+        "value": 2.8
+      },
+      "ceiling_min_m": {
+        "basis_status": "authored",
+        "source": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json#/shape/ceiling_min_m",
+        "status": "authored",
+        "value": 2.8
+      },
+      "volume_measured_m3": {
+        "basis_status": "unmeasured",
+        "source": "No committed per-module volume measurement exists",
+        "status": "unmeasured",
+        "value": null
+      },
+      "volume_nominal_m3": {
+        "basis_status": "authored",
+        "derivation": "footprint area x authored maximum ceiling; nominal envelope heuristic",
+        "source": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json#/shape/area_m2; godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_profile_v1.json#/shape/ceiling_max_m; authored inputs",
+        "status": "derived",
+        "value": 179.2
+      }
+    },
+    "exits": [],
+    "module_id": "video_b9161c467ed2d30a_bill_viola_single_room_v1",
+    "mood": {
+      "anomaly": 0.75,
+      "curiosity": 0.65,
+      "dread": 0.6,
+      "evidence": [
+        {
+          "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/rooms/bill-viola-single-room-v1/module_poetics_v2.json",
+          "sha256": "eb36d037057b9ab223d3ca8ce6ece93191da591a9850fe158875367a6edf711d"
+        }
+      ],
+      "review_status": "agent_proposed_draft_pending_operator_review",
+      "safety": 0.35,
+      "tags": [
+        "intimate",
+        "uncanny"
+      ],
+      "tension": 0.45
+    },
+    "profile_version": "module-profile-t6-0.1.0",
+    "roles": {
+      "circulation_role": "terminal",
+      "form_role": "figure",
+      "map_role": "figure",
+      "review_status": "agent_proposed_draft_pending_operator_review",
+      "semantic_tags": [
+        "domestic",
+        "lit_vignette",
+        "standalone"
+      ],
+      "sightline_tags": [
+        "focused_view"
+      ]
+    },
+    "schema_version": 1,
+    "template_ref": {
+      "path": "docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md",
+      "sha256": "931d76540c8a989c0df474bc5fac6880ae730e2f504a88b0c7366d0fff8694e8",
+      "version": "generation-template-0.1.0"
+    }
+  }
+}

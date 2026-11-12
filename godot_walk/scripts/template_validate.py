@@ -648,6 +648,9 @@ def validate_repository(root: Path = ROOT) -> ValidationReport:
         overlay_records, validate_overlay, root, "lighting/scale overlay"
     )
     errors += validate_receipts(root)
+    from module_metadata import validate_repository as validate_module_metadata
+
+    errors += validate_module_metadata(root)
     return ValidationReport(
         source_manifests=len(manifest_paths),
         module_profiles=len(profile_paths) + len(t6_profile_paths),
