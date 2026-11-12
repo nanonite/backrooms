@@ -63,6 +63,21 @@ def _markdown_test_repository(tmp_path: Path) -> tuple[Path, Path]:
     return receipt_path, mapping_path
 
 
+def _copy_descriptor_rebuild_inputs(root: Path, descriptor_path: Path) -> dict[str, Any]:
+    descriptor = json.loads(descriptor_path.read_text(encoding="utf-8"))
+    inputs = [
+        Path(descriptor["profile_ref"]["path"]),
+        Path("godot_walk/room_catalog/module_acoustics_v0.2.0.json"),
+        Path("godot_walk/room_catalog/material_palettes/palettes-0.3.0.json"),
+    ]
+    for relative in inputs:
+        source = ROOT / relative
+        target = root / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, target)
+    return descriptor
+
+
 def test_committed_receipts_validate_and_are_wired_into_template_validation() -> None:
     assert receipts.validate_receipts() == []
     assert receipts.operator_approval_for_field(
@@ -105,6 +120,35 @@ def test_derived_mapping_rejects_descriptor_hash_drift(tmp_path: Path) -> None:
     descriptor_path.write_text(descriptor_path.read_text(encoding="utf-8") + " ", encoding="utf-8")
     errors = receipts.validate_receipt(receipt_path, tmp_path)
     assert any("derived file hash mismatch" in error for error in errors)
+
+
+def test_palette_only_descriptor_drift_keeps_material_approval(tmp_path: Path) -> None:
+    receipt_path, _ = _markdown_test_repository(tmp_path)
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    relative = receipt["scope"][0]["derived_from"]["files"][0]["path"]
+    descriptor_path = tmp_path / relative
+    descriptor = _copy_descriptor_rebuild_inputs(tmp_path, descriptor_path)
+    descriptor["surfaces"]["wall"]["palette_id"] = None
+    descriptor_path.write_text(json.dumps(descriptor), encoding="utf-8")
+
+    approval = receipts.operator_approval_for_field(
+        relative, "/surfaces/wall/material_id", root=tmp_path
+    )
+    assert approval is not None and approval["approval_via"] == "approved mapping table"
+
+
+def test_material_drift_still_invalidates_derived_approval(tmp_path: Path) -> None:
+    receipt_path, _ = _markdown_test_repository(tmp_path)
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    relative = receipt["scope"][0]["derived_from"]["files"][0]["path"]
+    descriptor_path = tmp_path / relative
+    descriptor = _copy_descriptor_rebuild_inputs(tmp_path, descriptor_path)
+    descriptor["surfaces"]["wall"]["material_id"] = "unapproved.material"
+    descriptor_path.write_text(json.dumps(descriptor), encoding="utf-8")
+
+    assert receipts.operator_approval_for_field(
+        relative, "/surfaces/wall/material_id", root=tmp_path
+    ) is None
 
 
 def test_valid_receipt_resolves_file_hash_and_scoped_fields(tmp_path: Path) -> None:

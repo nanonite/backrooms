@@ -134,11 +134,24 @@ def _validate_derived_mapping(receipt_path: str, item: dict[str, Any], root: Pat
     descriptors: list[dict[str, Any]] = []
     for record in descriptor_records:
         descriptor_path = root / record["path"]
-        errors.extend(_validate_derived_file(receipt_path, record, root))
         try:
-            descriptors.append(json.loads(descriptor_path.read_text(encoding="utf-8")))
+            descriptor_path.resolve().relative_to(root.resolve())
+        except (OSError, ValueError):
+            errors.append(f"{receipt_path}: derived descriptor escapes repository: {record['path']}")
+            continue
+        try:
+            descriptor = json.loads(descriptor_path.read_text(encoding="utf-8"))
         except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
             errors.append(f"{receipt_path}: cannot read derived descriptor {record['path']}: {error}")
+            continue
+        if _file_sha256(descriptor_path) == record["sha256"]:
+            descriptors.append(descriptor)
+            continue
+        expected = _rebuild_descriptor(descriptor, root)
+        if expected is None or not _palette_only_drift(descriptor, expected):
+            errors.append(f"{receipt_path}: derived file hash mismatch or non-palette drift: {record['path']}")
+            continue
+        descriptors.append(expected)
     if errors:
         return errors
     try:
@@ -153,16 +166,51 @@ def _validate_derived_mapping(receipt_path: str, item: dict[str, Any], root: Pat
     return errors
 
 
-def _validate_derived_file(receipt_path: str, record: dict[str, str], root: Path) -> list[str]:
-    path = root / record["path"]
+def _file_sha256(path: Path) -> str | None:
     try:
-        path.resolve().relative_to(root.resolve())
-        matches = hashlib.sha256(path.read_bytes()).hexdigest() == record["sha256"]
-    except (OSError, ValueError):
-        matches = False
-    if not matches:
-        return [f"{receipt_path}: derived file hash mismatch or unreadable: {record['path']}"]
-    return []
+        return hashlib.sha256(path.read_bytes()).hexdigest()
+    except OSError:
+        return None
+
+
+def _rebuild_descriptor(descriptor: dict[str, Any], root: Path) -> dict[str, Any] | None:
+    profile_reference = descriptor.get("profile_ref")
+    if not isinstance(profile_reference, dict) or not isinstance(profile_reference.get("path"), str):
+        return None
+    profile_path = root / profile_reference["path"]
+    try:
+        profile_path.resolve().relative_to(root.resolve())
+        if _file_sha256(profile_path) != profile_reference.get("sha256"):
+            return None
+        from module_surface_palette import build_descriptor
+
+        return build_descriptor(profile_path, root)
+    except (OSError, ImportError, KeyError, TypeError, ValueError):
+        return None
+
+
+def _palette_only_drift(actual: dict[str, Any], expected: dict[str, Any]) -> bool:
+    actual_without_palette = json.loads(json.dumps(actual))
+    expected_without_palette = json.loads(json.dumps(expected))
+    for descriptor in (actual_without_palette, expected_without_palette):
+        surfaces = descriptor.get("surfaces", {})
+        if not isinstance(surfaces, dict):
+            return False
+        for surface in surfaces.values():
+            if isinstance(surface, dict):
+                surface.pop("palette_id", None)
+    if actual_without_palette != expected_without_palette:
+        return False
+    return _palette_values(actual) != _palette_values(expected)
+
+
+def _palette_values(descriptor: dict[str, Any]) -> dict[str, Any] | None:
+    surfaces = descriptor.get("surfaces")
+    if not isinstance(surfaces, dict):
+        return None
+    if any(not isinstance(entry, dict) for entry in surfaces.values()):
+        return None
+    return {name: entry.get("palette_id") for name, entry in surfaces.items()}
 
 
 def _markdown_scope_errors(label: str, content: bytes, fields: list[str]) -> list[str]:

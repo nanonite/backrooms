@@ -155,99 +155,111 @@
     }
   },
   "approval_refs": {
-    "acoustics.acoustic": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/acoustic": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
       "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
     },
-    "acoustics.fields.ceiling_height_m": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/ceiling_height_m": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
       "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
     },
-    "acoustics.fields.damping": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/damping": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
       "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
     },
-    "acoustics.fields.max_distance_m": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/max_distance_m": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
       "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
     },
-    "acoustics.fields.mean_distance_m": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/mean_distance_m": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
       "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
     },
-    "acoustics.fields.openness": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/openness": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
       "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
     },
-    "acoustics.fields.predelay_msec": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/predelay_msec": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
       "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
     },
-    "acoustics.fields.room_size": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/provenance": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
       "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
     },
-    "acoustics.fields.wet": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/room_size": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
       "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
     },
-    "surfaces.surfaces.ceiling.material_id": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/wet": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+      "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+    },
+    "descriptor:/surfaces/ceiling/material_id": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
       "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
     },
-    "surfaces.surfaces.floor.material_id": {
+    "descriptor:/surfaces/floor/material_id": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
       "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
     },
-    "surfaces.surfaces.trim.material_id": {
+    "descriptor:/surfaces/trim/material_id": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
       "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
     },
-    "surfaces.surfaces.wall.material_id": {
+    "descriptor:/surfaces/wall/material_id": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
       "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
     },
-    "t6.mood.anomaly": {
+    "t6:/mood/anomaly": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
       "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
     },
-    "t6.mood.curiosity": {
+    "t6:/mood/curiosity": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
       "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
     },
-    "t6.mood.dread": {
+    "t6:/mood/dread": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
       "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
     },
-    "t6.mood.safety": {
+    "t6:/mood/safety": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
       "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
     },
-    "t6.mood.tags": {
+    "t6:/mood/tags/0": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
       "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
     },
-    "t6.mood.tension": {
+    "t6:/mood/tags/1": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
       "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
     },
-    "t6.roles.circulation_role": {
+    "t6:/mood/tension": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
       "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
     },
-    "t6.roles.form_role": {
+    "t6:/roles/circulation_role": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
       "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
     },
-    "t6.roles.map_role": {
+    "t6:/roles/form_role": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
       "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
     },
-    "t6.roles.semantic_tags": {
+    "t6:/roles/map_role": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
       "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
     },
-    "t6.roles.sightline_tags": {
+    "t6:/roles/semantic_tags/0": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/semantic_tags/1": {
+      "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+      "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+    },
+    "t6:/roles/sightline_tags/0": {
       "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
       "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
     }
@@ -258,99 +270,111 @@
       "sha256": "df3da6150273f9164b6671194da378514f4dba772211ce3782c8cbfc956a8462"
     },
     "approval_refs": {
-      "acoustics.acoustic": {
+      "acoustics:/modules/godot_later_bay_column_bounded_v1@1/acoustic": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
-      "acoustics.fields.ceiling_height_m": {
+      "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/ceiling_height_m": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
-      "acoustics.fields.damping": {
+      "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/damping": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
-      "acoustics.fields.max_distance_m": {
+      "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/max_distance_m": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
-      "acoustics.fields.mean_distance_m": {
+      "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/mean_distance_m": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
-      "acoustics.fields.openness": {
+      "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/openness": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
-      "acoustics.fields.predelay_msec": {
+      "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/predelay_msec": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
-      "acoustics.fields.room_size": {
+      "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/provenance": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
-      "acoustics.fields.wet": {
+      "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/room_size": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
-      "surfaces.surfaces.ceiling.material_id": {
+      "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/wet": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "descriptor:/surfaces/ceiling/material_id": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
         "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
       },
-      "surfaces.surfaces.floor.material_id": {
+      "descriptor:/surfaces/floor/material_id": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
         "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
       },
-      "surfaces.surfaces.trim.material_id": {
+      "descriptor:/surfaces/trim/material_id": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
         "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
       },
-      "surfaces.surfaces.wall.material_id": {
+      "descriptor:/surfaces/wall/material_id": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
         "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
       },
-      "t6.mood.anomaly": {
+      "t6:/mood/anomaly": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "t6.mood.curiosity": {
+      "t6:/mood/curiosity": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "t6.mood.dread": {
+      "t6:/mood/dread": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "t6.mood.safety": {
+      "t6:/mood/safety": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "t6.mood.tags": {
+      "t6:/mood/tags/0": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "t6.mood.tension": {
+      "t6:/mood/tags/1": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "t6.roles.circulation_role": {
+      "t6:/mood/tension": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "t6.roles.form_role": {
+      "t6:/roles/circulation_role": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "t6.roles.map_role": {
+      "t6:/roles/form_role": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "t6.roles.semantic_tags": {
+      "t6:/roles/map_role": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "t6.roles.sightline_tags": {
+      "t6:/roles/semantic_tags/0": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/semantic_tags/1": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "t6:/roles/sightline_tags/0": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       }
@@ -383,253 +407,364 @@
     "state": "not_reviewed_uncalibrated"
   },
   "locks": {
-    "acoustics.acoustic": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/acoustic": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
       "record_value_path": "acoustics.committed_block.acoustic",
+      "record_value_paths": [
+        "acoustics.committed_block.acoustic"
+      ],
       "source_field": "/modules/godot_later_bay_column_bounded_v1@1/acoustic",
       "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
       "value": "carpet"
     },
-    "acoustics.fields.ceiling_height_m": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/ceiling_height_m": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
       "record_value_path": "acoustics.fields.ceiling_height_m.value",
+      "record_value_paths": [
+        "acoustics.fields.ceiling_height_m.value",
+        "acoustics.committed_block.probe.ceiling_height_m"
+      ],
       "source_field": "/modules/godot_later_bay_column_bounded_v1@1/probe/ceiling_height_m",
       "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
       "value": 2.39999982714653
     },
-    "acoustics.fields.damping": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/damping": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
       "record_value_path": "acoustics.fields.damping.value",
+      "record_value_paths": [
+        "acoustics.fields.damping.value",
+        "acoustics.committed_block.probe.damping"
+      ],
       "source_field": "/modules/godot_later_bay_column_bounded_v1@1/probe/damping",
       "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
       "value": 0.459962902840815
     },
-    "acoustics.fields.max_distance_m": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/max_distance_m": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
       "record_value_path": "acoustics.fields.max_distance_m.value",
+      "record_value_paths": [
+        "acoustics.fields.max_distance_m.value",
+        "acoustics.committed_block.probe.max_distance_m"
+      ],
       "source_field": "/modules/godot_later_bay_column_bounded_v1@1/probe/max_distance_m",
       "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
       "value": 20.0
     },
-    "acoustics.fields.mean_distance_m": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/mean_distance_m": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
       "record_value_path": "acoustics.fields.mean_distance_m.value",
+      "record_value_paths": [
+        "acoustics.fields.mean_distance_m.value",
+        "acoustics.committed_block.probe.mean_distance_m"
+      ],
       "source_field": "/modules/godot_later_bay_column_bounded_v1@1/probe/mean_distance_m",
       "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
       "value": 4.5935255587101
     },
-    "acoustics.fields.openness": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/openness": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
       "record_value_path": "acoustics.fields.openness.value",
+      "record_value_paths": [
+        "acoustics.fields.openness.value",
+        "acoustics.committed_block.probe.openness"
+      ],
       "source_field": "/modules/godot_later_bay_column_bounded_v1@1/probe/openness",
       "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
       "value": 0.0833333333333333
     },
-    "acoustics.fields.predelay_msec": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/predelay_msec": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
       "record_value_path": "acoustics.fields.predelay_msec.value",
+      "record_value_paths": [
+        "acoustics.fields.predelay_msec.value",
+        "acoustics.committed_block.probe.predelay_msec"
+      ],
       "source_field": "/modules/godot_later_bay_column_bounded_v1@1/probe/predelay_msec",
       "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
       "value": 13.3922027950732
     },
-    "acoustics.fields.room_size": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/provenance": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
+        "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
+      },
+      "record_value_path": "acoustics.committed_block.probe.provenance",
+      "record_value_paths": [
+        "acoustics.committed_block.probe.provenance"
+      ],
+      "source_field": "/modules/godot_later_bay_column_bounded_v1@1/probe/provenance",
+      "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
+      "value": "measured"
+    },
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/room_size": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
       "record_value_path": "acoustics.fields.room_size.value",
+      "record_value_paths": [
+        "acoustics.fields.room_size.value",
+        "acoustics.committed_block.probe.room_size"
+      ],
       "source_field": "/modules/godot_later_bay_column_bounded_v1@1/probe/room_size",
       "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
       "value": 0.464610777594541
     },
-    "acoustics.fields.wet": {
+    "acoustics:/modules/godot_later_bay_column_bounded_v1@1/probe/wet": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-216.json",
         "sha256": "77e1ea48816b9ab17e2e6b04bce08f8715640a27752580ac4b469e77a0fe0e51"
       },
       "record_value_path": "acoustics.fields.wet.value",
+      "record_value_paths": [
+        "acoustics.fields.wet.value",
+        "acoustics.committed_block.probe.wet"
+      ],
       "source_field": "/modules/godot_later_bay_column_bounded_v1@1/probe/wet",
       "source_path": "godot_walk/room_catalog/module_acoustics_v0.2.0.json",
       "value": 0.395961793625276
     },
-    "surfaces.surfaces.ceiling.material_id": {
+    "descriptor:/surfaces/ceiling/material_id": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
         "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
       },
-      "record_value_path": "surfaces.surfaces.ceiling.material_id",
+      "record_value_path": "surfaces/surfaces/ceiling/material_id",
+      "record_value_paths": [
+        "surfaces/surfaces/ceiling/material_id"
+      ],
       "source_field": "/surfaces/ceiling/material_id",
       "source_path": "godot_walk/room_catalog/module_surface_palettes/godot_later_bay_column_bounded_v1-v1_surface_palette_v1.json",
       "value": "backrooms_yellow.ceiling"
     },
-    "surfaces.surfaces.floor.material_id": {
+    "descriptor:/surfaces/floor/material_id": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
         "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
       },
-      "record_value_path": "surfaces.surfaces.floor.material_id",
+      "record_value_path": "surfaces/surfaces/floor/material_id",
+      "record_value_paths": [
+        "surfaces/surfaces/floor/material_id"
+      ],
       "source_field": "/surfaces/floor/material_id",
       "source_path": "godot_walk/room_catalog/module_surface_palettes/godot_later_bay_column_bounded_v1-v1_surface_palette_v1.json",
       "value": "backrooms_yellow.floor"
     },
-    "surfaces.surfaces.trim.material_id": {
+    "descriptor:/surfaces/trim/material_id": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
         "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
       },
-      "record_value_path": "surfaces.surfaces.trim.material_id",
+      "record_value_path": "surfaces/surfaces/trim/material_id",
+      "record_value_paths": [
+        "surfaces/surfaces/trim/material_id"
+      ],
       "source_field": "/surfaces/trim/material_id",
       "source_path": "godot_walk/room_catalog/module_surface_palettes/godot_later_bay_column_bounded_v1-v1_surface_palette_v1.json",
       "value": "backrooms_yellow.trim"
     },
-    "surfaces.surfaces.wall.material_id": {
+    "descriptor:/surfaces/wall/material_id": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-217.json",
         "sha256": "cdf41de20748b6a416a8647e78f3a20a9ecaa70cadb814734fdc746999739258"
       },
-      "record_value_path": "surfaces.surfaces.wall.material_id",
+      "record_value_path": "surfaces/surfaces/wall/material_id",
+      "record_value_paths": [
+        "surfaces/surfaces/wall/material_id"
+      ],
       "source_field": "/surfaces/wall/material_id",
       "source_path": "godot_walk/room_catalog/module_surface_palettes/godot_later_bay_column_bounded_v1-v1_surface_palette_v1.json",
       "value": "backrooms_yellow.wall"
     },
-    "t6.mood.anomaly": {
+    "t6:/mood/anomaly": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "record_value_path": "t6.mood.anomaly",
+      "record_value_path": "t6/mood/anomaly",
+      "record_value_paths": [
+        "t6/mood/anomaly"
+      ],
       "source_field": "/mood/anomaly",
       "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
       "value": 0.2
     },
-    "t6.mood.curiosity": {
+    "t6:/mood/curiosity": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "record_value_path": "t6.mood.curiosity",
+      "record_value_path": "t6/mood/curiosity",
+      "record_value_paths": [
+        "t6/mood/curiosity"
+      ],
       "source_field": "/mood/curiosity",
       "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
       "value": 0.35
     },
-    "t6.mood.dread": {
+    "t6:/mood/dread": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "record_value_path": "t6.mood.dread",
+      "record_value_path": "t6/mood/dread",
+      "record_value_paths": [
+        "t6/mood/dread"
+      ],
       "source_field": "/mood/dread",
       "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
       "value": 0.2
     },
-    "t6.mood.safety": {
+    "t6:/mood/safety": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "record_value_path": "t6.mood.safety",
+      "record_value_path": "t6/mood/safety",
+      "record_value_paths": [
+        "t6/mood/safety"
+      ],
       "source_field": "/mood/safety",
       "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
       "value": 0.6
     },
-    "t6.mood.tags": {
+    "t6:/mood/tags/0": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "record_value_path": "t6.mood.tags",
-      "source_field": "/mood/tags",
+      "record_value_path": "t6/mood/tags/0",
+      "record_value_paths": [
+        "t6/mood/tags/0"
+      ],
+      "source_field": "/mood/tags/0",
       "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
-      "value": [
-        "ordered",
-        "interrupted_view"
-      ]
+      "value": "ordered"
     },
-    "t6.mood.tension": {
+    "t6:/mood/tags/1": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "record_value_path": "t6.mood.tension",
+      "record_value_path": "t6/mood/tags/1",
+      "record_value_paths": [
+        "t6/mood/tags/1"
+      ],
+      "source_field": "/mood/tags/1",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
+      "value": "interrupted_view"
+    },
+    "t6:/mood/tension": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/mood/tension",
+      "record_value_paths": [
+        "t6/mood/tension"
+      ],
       "source_field": "/mood/tension",
       "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
       "value": 0.35
     },
-    "t6.roles.circulation_role": {
+    "t6:/roles/circulation_role": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "record_value_path": "t6.roles.circulation_role",
+      "record_value_path": "t6/roles/circulation_role",
+      "record_value_paths": [
+        "t6/roles/circulation_role"
+      ],
       "source_field": "/roles/circulation_role",
       "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
       "value": "terminal"
     },
-    "t6.roles.form_role": {
+    "t6:/roles/form_role": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "record_value_path": "t6.roles.form_role",
+      "record_value_path": "t6/roles/form_role",
+      "record_value_paths": [
+        "t6/roles/form_role"
+      ],
       "source_field": "/roles/form_role",
       "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
       "value": "ground"
     },
-    "t6.roles.map_role": {
+    "t6:/roles/map_role": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "record_value_path": "t6.roles.map_role",
+      "record_value_path": "t6/roles/map_role",
+      "record_value_paths": [
+        "t6/roles/map_role"
+      ],
       "source_field": "/roles/map_role",
       "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
       "value": "ground"
     },
-    "t6.roles.semantic_tags": {
+    "t6:/roles/semantic_tags/0": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "record_value_path": "t6.roles.semantic_tags",
-      "source_field": "/roles/semantic_tags",
+      "record_value_path": "t6/roles/semantic_tags/0",
+      "record_value_paths": [
+        "t6/roles/semantic_tags/0"
+      ],
+      "source_field": "/roles/semantic_tags/0",
       "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
-      "value": [
-        "columns",
-        "bounded"
-      ]
+      "value": "columns"
     },
-    "t6.roles.sightline_tags": {
+    "t6:/roles/semantic_tags/1": {
       "receipt": {
         "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
         "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
       },
-      "record_value_path": "t6.roles.sightline_tags",
-      "source_field": "/roles/sightline_tags",
+      "record_value_path": "t6/roles/semantic_tags/1",
+      "record_value_paths": [
+        "t6/roles/semantic_tags/1"
+      ],
+      "source_field": "/roles/semantic_tags/1",
       "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
-      "value": [
-        "occluded"
-      ]
+      "value": "bounded"
+    },
+    "t6:/roles/sightline_tags/0": {
+      "receipt": {
+        "path": "godot_walk/room_catalog/operator_approval_receipts/issue-219.json",
+        "sha256": "76aafbb3a989600e355b3596dfdabc9c797f650140aca9c2d09baf831503586d"
+      },
+      "record_value_path": "t6/roles/sightline_tags/0",
+      "record_value_paths": [
+        "t6/roles/sightline_tags/0"
+      ],
+      "source_field": "/roles/sightline_tags/0",
+      "source_path": "godot_walk/room_catalog/module_profiles/godot_later_bay_column_bounded_v1-t6-v1.json",
+      "value": "occluded"
     }
   },
   "metadata_version": "module-metadata-1.0.0",

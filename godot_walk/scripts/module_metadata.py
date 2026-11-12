@@ -137,38 +137,77 @@ def _approval(path: str, field: str, root: Path) -> dict[str, Any] | None:
     return receipts.operator_approval_for_field(path, field, root)
 
 
-def _mapping_material_approval(path: str, root: Path) -> dict[str, Any] | None:
-    receipt_path = root / receipts.RECEIPT_DIR / "issue-217.json"
-    table_path = root / receipts.MAPPING_TABLE_PATH
-    try:
-        receipt = _load(receipt_path)
-        table = next((scope for scope in receipt["scope"]
-                      if scope["path"] == receipts.MAPPING_TABLE_PATH), None)
-        if (receipt.get("issue_id") != 217 or table is None
-                or "/table/Material ID" not in table["fields"]
-                or sha256_file(table_path) != table["sha256"]):
-            return None
-        derived = table.get("derived_from", {})
-        if any(item.get("path") == path for item in derived.get("files", [])):
-            return receipt
-    except (OSError, KeyError, TypeError, ValueError):
-        return None
-    return None
+def _leaf_paths(document: Any, prefix: str = "") -> list[str]:
+    """Return concrete JSON pointers for every scalar leaf in a layer."""
+    if isinstance(document, dict):
+        return [leaf for key, value in document.items()
+                for leaf in _leaf_paths(value, f"{prefix}/{key}")]
+    if isinstance(document, list):
+        return [leaf for index, value in enumerate(document)
+                for leaf in _leaf_paths(value, f"{prefix}/{index}")]
+    return [prefix or "/"]
 
 
-def _lock(locks: dict[str, Any], record_field: str, source_path: str,
-          source_field: str, source: Any, root: Path,
-          record_value_path: str | None = None) -> None:
-    approval = (_mapping_material_approval(source_path, root)
-                if source_field.endswith("/material_id")
-                else _approval(source_path, source_field, root))
-    if approval is None:
-        return
-    receipt_path = root / receipts.RECEIPT_DIR / f"issue-{approval['issue_id']}.json"
-    locks[record_field] = {"receipt": _reference(receipt_path, root), "source_path": source_path,
-                           "source_field": source_field,
-                           "record_value_path": record_value_path or record_field,
-                           "value": _pointer(source, source_field)}
+def _record_path_for_source(layer: str, source_field: str) -> str:
+    if layer == "profile":
+        return f"profile{source_field}"
+    if layer == "descriptor":
+        return f"surfaces{source_field}"
+    if layer == "t6":
+        return f"t6{source_field}"
+    if layer == "acoustics":
+        relative = source_field.split("/", 3)[-1]
+        if relative.startswith("probe/"):
+            field = relative.removeprefix("probe/")
+            if field == "provenance":
+                return "acoustics.committed_block.probe.provenance"
+            if field in ACOUSTIC_FIELDS:
+                return f"acoustics.fields.{field}.value"
+        return f"acoustics.committed_block.{relative}"
+    if layer == "lighting_scale":
+        return f"lighting_scale.overlay{source_field}"
+    return f"source_layers.{layer}.sha256"
+
+
+def _record_paths_for_source(layer: str, source_field: str) -> list[str]:
+    primary = _record_path_for_source(layer, source_field)
+    if layer != "acoustics" or "/probe/" not in source_field:
+        return [primary]
+    field = source_field.rsplit("/", 1)[-1]
+    if field not in ACOUSTIC_FIELDS:
+        return [primary]
+    return [primary, f"acoustics.committed_block.probe.{field}"]
+
+
+def _derive_layer_locks(locks: dict[str, Any], layer: str, path: str,
+                        document: Any, root: Path, source_prefix: str = "") -> None:
+    source_document = document
+    source = _load(root / path)
+    for leaf in _leaf_paths(document):
+        source_field = f"{source_prefix}{leaf}"
+        if layer == "descriptor" and source_field.endswith("/palette_id"):
+            continue
+        approval = _approval(path, source_field, root)
+        if approval is None:
+            continue
+        record_path = _record_path_for_source(layer, source_field)
+        lock_name = f"{layer}:{source_field}"
+        if layer == "lighting_scale" and path.endswith("source_lighting_scale_v1.json"):
+            record_path = "lighting_scale.overlay_ref.sha256"
+            value = _reference(root / path, root)["sha256"]
+        elif layer == "poetics":
+            value = _reference(root / path, root)["sha256"]
+        else:
+            value = _pointer(source_document, leaf)
+        receipt_path = root / receipts.RECEIPT_DIR / f"issue-{approval['issue_id']}.json"
+        record_paths = ([record_path] if layer == "poetics"
+                        or (layer == "lighting_scale" and path.endswith("source_lighting_scale_v1.json"))
+                        else _record_paths_for_source(layer, source_field))
+        locks[lock_name] = {"receipt": _reference(receipt_path, root), "source_path": path,
+                            "source_field": source_field, "record_value_path": record_path,
+                            "record_value_paths": record_paths, "value": value,
+                            **({"source_value": _pointer(source, source_field)}
+                               if value != _pointer(source, source_field) else {})}
 
 
 def _build(item: dict[str, Any], root: Path) -> dict[str, Any]:
@@ -183,62 +222,17 @@ def _build(item: dict[str, Any], root: Path) -> dict[str, Any]:
     poetics_ref = _reference(item["poetics"], root)
     approval_refs: dict[str, Any] = {}
     locks: dict[str, Any] = {}
-    for surface, fields in surfaces["surfaces"].items():
-        for field in ("material_id", "acoustic"):
-            source_field = f"/surfaces/{surface}/{field}"
-            lock_name = f"surfaces.surfaces.{surface}.{field}"
-            _lock(locks, lock_name, source_layers["descriptor"]["path"], source_field, surfaces, root)
-    for section, names in (("roles", tuple(t6["roles"])), ("mood", tuple(t6["mood"]))):
-        for name in names:
-            source_field = f"/{section}/{name}"
-            lock_name = f"t6.{section}.{name}"
-            _lock(locks, lock_name, source_layers["t6"]["path"], source_field, t6, root)
-    for name in ("acoustic", "absorption", "probe"):
-        values = acoustic_record[name]
-        if name == "probe":
-            for field in ACOUSTIC_FIELDS:
-                source_field = f"/modules/{item['acoustic_key']}/probe/{field}"
-                lock = _approval_lock(
-                    locks, source_layers["acoustics"]["path"], source_field,
-                    _load(root / ACOUSTICS), root,
-                    f"acoustics.fields.{field}.value")
-                if lock is not None:
-                    locks[f"acoustics.fields.{field}"] = lock
-        else:
-            source_field = f"/modules/{item['acoustic_key']}/{name}"
-            record_path = f"acoustics.committed_block.{name}"
-            _lock(locks, f"acoustics.{name}", source_layers["acoustics"]["path"],
-                  source_field, _load(root / ACOUSTICS), root, record_path)
+    for layer, document in (("profile", profile), ("descriptor", surfaces), ("t6", t6)):
+        _derive_layer_locks(locks, layer, source_layers[layer]["path"], document, root)
+    _derive_layer_locks(locks, "poetics", source_layers["poetics"]["path"],
+                        _load(item["poetics"]), root)
+    _derive_layer_locks(locks, "acoustics", source_layers["acoustics"]["path"],
+                        acoustic_record, root, f"/modules/{item['acoustic_key']}")
     if item["overlay"] is not None:
         overlay = _load(item["overlay"])
         overlay_path = source_layers["lighting_scale"]["path"]
         source_level_overlay = item["overlay"].name == "source_lighting_scale_v1.json"
-        if source_level_overlay:
-            approval = next(((field, candidate) for field in ("/scale/anchor/value_m", "/lighting/illuminance_lux/value")
-                             if (candidate := _approval(overlay_path, field, root)) is not None), None)
-            if approval is not None:
-                source_field, receipt = approval
-                receipt_path = root / receipts.RECEIPT_DIR / f"issue-{receipt['issue_id']}.json"
-                locks["lighting_scale.source_overlay"] = {
-                    "receipt": _reference(receipt_path, root),
-                    "source_path": overlay_path,
-                    "source_field": source_field,
-                    "record_value_path": "lighting_scale.overlay_ref.sha256",
-                    "value": source_layers["lighting_scale"]["sha256"],
-                    "source_value": _pointer(overlay, source_field),
-                }
-        else:
-            for section in ("lighting", "scale"):
-                for name in overlay.get(section, {}):
-                    source_field = f"/{section}/{name}"
-                    approval = _approval(overlay_path, source_field, root)
-                    if approval is not None:
-                        receipt_path = root / receipts.RECEIPT_DIR / f"issue-{approval['issue_id']}.json"
-                        approval_refs[f"lighting_scale.{section}.{name}"] = _reference(receipt_path, root)
-                        lock_name = f"lighting_scale.{section}.{name}"
-                        record_path = f"lighting_scale.overlay.{section}.{name}"
-                        _lock(locks, lock_name, overlay_path,
-                              source_field, overlay, root, record_path)
+        _derive_layer_locks(locks, "lighting_scale", overlay_path, overlay, root)
         lighting_scale = ({"state": "source_overlay", "overlay_ref": source_layers["lighting_scale"]}
                           if source_level_overlay else {"state": "overlay", "overlay": overlay})
     else:
@@ -282,18 +276,6 @@ def _build(item: dict[str, Any], root: Path) -> dict[str, Any]:
             "t6": t6, "acoustics": {"committed_block": acoustic_record, "fields": fields}}
 
 
-def _approval_lock(locks: dict[str, Any], path: str, field: str,
-                   source: Any, root: Path,
-                   record_value_path: str) -> dict[str, Any] | None:
-    approval = _approval(path, field, root)
-    if approval is None:
-        return None
-    receipt = root / receipts.RECEIPT_DIR / f"issue-{approval['issue_id']}.json"
-    return {"receipt": _reference(receipt, root), "source_path": path,
-            "source_field": field, "record_value_path": record_value_path,
-            "value": _pointer(source, field)}
-
-
 def _record_path_for_lock(name: str, lock: dict[str, Any]) -> str:
     if lock.get("record_value_path"):
         return lock["record_value_path"]
@@ -309,25 +291,62 @@ def _record_path_for_lock(name: str, lock: dict[str, Any]) -> str:
 def _dotted_value(document: Any, path: str) -> Any:
     missing = object()
     value = document
-    for segment in path.split("."):
-        if not isinstance(value, dict) or segment not in value:
+    segments = path.strip("/").replace("/", ".").split(".")
+    for segment in segments:
+        if isinstance(value, dict) and segment in value:
+            value = value[segment]
+        elif isinstance(value, list) and segment.isdigit() and int(segment) < len(value):
+            value = value[int(segment)]
+        else:
             return missing
-        value = value[segment]
     return value
 
 
-def _locked_value_errors(existing: dict[str, Any], current: dict[str, Any], target: Path) -> list[str]:
+def _locked_value_errors(existing: dict[str, Any], current: dict[str, Any], target: Path,
+                         root: Path = ROOT) -> list[str]:
     errors = []
-    for name, saved_lock in existing.get("locks", {}).items():
-        current_lock = current.get("locks", {}).get(name)
+    saved_locks = existing.get("locks", {})
+    current_locks = current.get("locks", {})
+    for name, current_lock in current_locks.items():
+        if name in saved_locks:
+            continue
+        legacy = next((lock for lock in saved_locks.values()
+                       if lock.get("source_path") == current_lock.get("source_path")
+                       and lock.get("source_field") == current_lock.get("source_field")), None)
+        if legacy is None:
+            errors.append(f"{target}: saved record is missing approved lock {name}")
+            for path in current_lock.get("record_value_paths", [current_lock.get("record_value_path", name)]):
+                if _dotted_value(existing, path) != current_lock.get("value"):
+                    errors.append(f"{target}: saved record value differs from approved input for {name}")
+    for name, saved_lock in saved_locks.items():
+        current_lock = current_locks.get(name)
         if current_lock is None:
-            errors.append(f"{target}: locked input changed or lost approval for {name}")
+            current_lock = next((candidate for candidate in current.get("locks", {}).values()
+                                 if candidate.get("source_path") == saved_lock.get("source_path")
+                                 and candidate.get("source_field", "").startswith(
+                                     saved_lock.get("source_field", "") + "/")), None)
+            try:
+                source_value = _pointer(_load(root / saved_lock["source_path"]), saved_lock["source_field"])
+            except (OSError, KeyError, TypeError, ValueError):
+                source_value = saved_lock.get("value")
+            if current_lock is None and _approval(saved_lock.get("source_path", ""),
+                                                  saved_lock.get("source_field", ""), root) is None:
+                errors.append(f"{target}: locked input changed or lost approval for {name}")
+            elif source_value != saved_lock.get("value"):
+                errors.append(f"{target}: locked input changed underneath {name}")
+            if _dotted_value(existing, saved_lock.get("record_value_path", name)) != saved_lock.get("value"):
+                errors.append(f"{target}: saved locked record value was edited for {name}")
             continue
         saved_path = _record_path_for_lock(name, saved_lock)
-        if _dotted_value(existing, saved_path) != saved_lock.get("value"):
-            errors.append(f"{target}: saved locked record value was edited for {name}")
+        record_paths = saved_lock.get("record_value_paths", [saved_path])
+        for record_path in record_paths:
+            if _dotted_value(existing, record_path) != saved_lock.get("value"):
+                errors.append(f"{target}: saved locked record value was edited for {name} at {record_path}")
         if current_lock.get("record_value_path", saved_path) != saved_path:
             errors.append(f"{target}: locked record field changed for {name}")
+        for record_path in current_lock.get("record_value_paths", [saved_path]):
+            if _dotted_value(existing, record_path) != saved_lock.get("value"):
+                errors.append(f"{target}: saved locked record value was edited for {name} at {record_path}")
         for field in ("receipt", "source_path", "source_field", "value"):
             if saved_lock.get(field) != current_lock.get(field):
                 errors.append(f"{target}: locked input changed underneath {name}")
@@ -353,7 +372,7 @@ def generate(root: Path = ROOT) -> list[str]:
         if target.exists():
             try:
                 existing = _load(target)
-                errors.extend(_locked_value_errors(existing, record, target))
+                errors.extend(_locked_value_errors(existing, record, target, root))
             except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
                 errors.append(f"{target}: cannot read existing record: {error}")
         candidates.append((target, canonical_bytes(record)))
@@ -574,9 +593,11 @@ def _locked_source_errors(record: dict[str, Any], root: Path) -> list[str]:
             expected_source = lock.get("source_value", lock.get("value"))
             if source_value != expected_source:
                 errors.append(f"locks.{name} approved source value differs from its input")
-            actual_value = _dotted_value(record, lock["record_value_path"])
-            if actual_value != lock.get("value"):
-                errors.append(f"locks.{name} record value differs from its approved value")
+            record_paths = lock.get("record_value_paths", [lock["record_value_path"]])
+            for record_path in record_paths:
+                actual_value = _dotted_value(record, record_path)
+                if actual_value != lock.get("value"):
+                    errors.append(f"locks.{name} record value differs from its approved value at {record_path}")
         except (OSError, UnicodeDecodeError, json.JSONDecodeError, KeyError, TypeError, ValueError) as error:
             errors.append(f"locks.{name} cannot be checked against its source: {error}")
     return errors
