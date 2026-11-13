@@ -1,0 +1,320 @@
+{
+	"failures": [],
+	"map_id": "gmap-1-gmap-0.13.0",
+	"map_sha256_after": "dacd388ef9780bf1d843f9078b7b8679e476be28df0e0464bb7778218ce2c7f3",
+	"map_sha256_before": "dacd388ef9780bf1d843f9078b7b8679e476be28df0e0464bb7778218ce2c7f3",
+	"pure": {
+		"checks": [
+			"volume_monotonic",
+			"cooldown_range"
+		],
+		"cooldowns": [
+			11,
+			9,
+			8
+		],
+		"volume_far": -45.0,
+		"volume_middle": -24.0,
+		"volume_near": -12.0
+	},
+	"runtime": {
+		"bus_ready": true,
+		"cooldown_ok": true,
+		"cue_count": 6,
+		"distances": [
+			11.4087686538696,
+			4.29068756103516,
+			4.29068756103516,
+			11.4087686538696,
+			13.8351001739502,
+			9.53205108642578
+		],
+		"door_pair_ok": true,
+		"events": [
+			{
+				"cue": {
+					"cooldown_s": 15,
+					"delay_s": 0.0,
+					"distance_m": 11.4087686538696,
+					"graph_distance": 2,
+					"kind": "follower_step",
+					"latch_sample": "res://audio/footsteps/default/transient_soft/default_transient_soft_01.wav",
+					"player_cell": "c05",
+					"position": [
+						-6.0,
+						1.0,
+						-9.0
+					],
+					"step_spacing_s": 0.35,
+					"steps": 2,
+					"tail_delay_s": 0.0,
+					"tail_sample": "res://audio/footsteps/default/body/default_body_01.wav",
+					"target": {
+						"cell_id": "c07"
+					},
+					"visible_nodes": 0,
+					"volume_db": -33.0724271107654
+				},
+				"event_index": 1,
+				"event_type": "follower_cue",
+				"record_kind": "mutation",
+				"source_event_index": 6,
+				"stream": "follower-cues:gmap-0.13.0",
+				"target": {
+					"cell_id": "c07"
+				},
+				"validation": {
+					"checks": [
+						"after_four_rooms",
+						"graph_distance_one_to_two",
+						"one_cue_per_edit",
+						"volume_by_distance",
+						"audio_only",
+						"inert_cue"
+					],
+					"outcome": "accepted"
+				}
+			},
+			{
+				"cue": {
+					"cooldown_s": 10,
+					"delay_s": 0.0,
+					"distance_m": 13.8351001739502,
+					"graph_distance": 2,
+					"kind": "follower_step",
+					"latch_sample": "res://audio/footsteps/default/transient_soft/default_transient_soft_01.wav",
+					"player_cell": "c05",
+					"position": [
+						14.0,
+						1.0,
+						-22.5
+					],
+					"step_spacing_s": 0.35,
+					"steps": 3,
+					"tail_delay_s": 0.0,
+					"tail_sample": "res://audio/footsteps/default/body/default_body_01.wav",
+					"target": {
+						"cell_id": "c08"
+					},
+					"visible_nodes": 0,
+					"volume_db": -34.7415671088067
+				},
+				"event_index": 2,
+				"event_type": "follower_cue",
+				"record_kind": "mutation",
+				"source_event_index": 1002,
+				"stream": "follower-cues:gmap-0.13.0",
+				"target": {
+					"cell_id": "c08"
+				},
+				"validation": {
+					"checks": [
+						"after_four_rooms",
+						"graph_distance_one_to_two",
+						"one_cue_per_edit",
+						"volume_by_distance",
+						"audio_only",
+						"inert_cue"
+					],
+					"outcome": "accepted"
+				}
+			},
+			{
+				"cue": {
+					"cooldown_s": 10,
+					"delay_s": 0.0,
+					"distance_m": 9.53205108642578,
+					"graph_distance": 2,
+					"kind": "follower_step",
+					"latch_sample": "res://audio/footsteps/default/transient_soft/default_transient_soft_01.wav",
+					"player_cell": "c05",
+					"position": [
+						7.5,
+						2.5,
+						-3.0
+					],
+					"step_spacing_s": 0.35,
+					"steps": 1,
+					"tail_delay_s": 0.0,
+					"tail_sample": "res://audio/footsteps/default/body/default_body_01.wav",
+					"target": {
+						"cell_id": "c02"
+					},
+					"visible_nodes": 0,
+					"volume_db": -31.5167201014912
+				},
+				"event_index": 3,
+				"event_type": "follower_cue",
+				"record_kind": "mutation",
+				"source_event_index": 1003,
+				"stream": "follower-cues:gmap-0.13.0",
+				"target": {
+					"cell_id": "c02"
+				},
+				"validation": {
+					"checks": [
+						"after_four_rooms",
+						"graph_distance_one_to_two",
+						"one_cue_per_edit",
+						"volume_by_distance",
+						"audio_only",
+						"inert_cue"
+					],
+					"outcome": "accepted"
+				}
+			},
+			{
+				"cue": {
+					"cooldown_s": 9,
+					"delay_s": 0.0,
+					"distance_m": 4.29068756103516,
+					"graph_distance": 0,
+					"kind": "door_close",
+					"latch_sample": "res://audio/footsteps/land/transient_hard/land_transient_hard_01.wav",
+					"player_cell": "c05",
+					"position": [
+						3.5,
+						1.0,
+						-8.0
+					],
+					"step_spacing_s": 0.0,
+					"steps": 0,
+					"tail_delay_s": 0.0,
+					"tail_sample": "",
+					"target": {
+						"threshold_id": "c03|c05"
+					},
+					"visible_nodes": 0,
+					"volume_db": -20.6072531051108
+				},
+				"event_index": 4,
+				"event_type": "follower_cue",
+				"record_kind": "mutation",
+				"source_event_index": 1,
+				"stream": "follower-cues:gmap-0.13.0",
+				"target": {
+					"threshold_id": "c03|c05"
+				},
+				"validation": {
+					"checks": [
+						"mandatory_door_contract",
+						"door_close_before_latch",
+						"volume_by_distance",
+						"audio_only",
+						"inert_cue"
+					],
+					"outcome": "accepted"
+				}
+			},
+			{
+				"cue": {
+					"cooldown_s": 9,
+					"delay_s": 0.12,
+					"distance_m": 4.29068756103516,
+					"graph_distance": 0,
+					"kind": "lock_click",
+					"latch_sample": "res://audio/footsteps/metal/transient_hard/metal_transient_hard_01.wav",
+					"player_cell": "c05",
+					"position": [
+						3.5,
+						1.0,
+						-8.0
+					],
+					"step_spacing_s": 0.0,
+					"steps": 0,
+					"tail_delay_s": 0.0,
+					"tail_sample": "",
+					"target": {
+						"threshold_id": "c03|c05"
+					},
+					"visible_nodes": 0,
+					"volume_db": -20.6072531051108
+				},
+				"event_index": 5,
+				"event_type": "follower_cue",
+				"record_kind": "mutation",
+				"source_event_index": 1,
+				"stream": "follower-cues:gmap-0.13.0",
+				"target": {
+					"threshold_id": "c03|c05"
+				},
+				"validation": {
+					"checks": [
+						"mandatory_door_contract",
+						"lock_click_after_close",
+						"volume_by_distance",
+						"audio_only",
+						"inert_cue"
+					],
+					"outcome": "accepted"
+				}
+			},
+			{
+				"cue": {
+					"cooldown_s": 9,
+					"delay_s": 0.0,
+					"distance_m": 4.29068756103516,
+					"graph_distance": 0,
+					"kind": "door_reopen",
+					"latch_sample": "res://audio/footsteps/metal/transient_hard/metal_transient_hard_01.wav",
+					"player_cell": "c03",
+					"position": [
+						3.5,
+						1.0,
+						-8.0
+					],
+					"step_spacing_s": 0.0,
+					"steps": 0,
+					"tail_delay_s": 0.28,
+					"tail_sample": "res://audio/footsteps/land/body/land_body_01.wav",
+					"target": {
+						"threshold_id": "c03|c05"
+					},
+					"visible_nodes": 0,
+					"volume_db": -20.6072531051108
+				},
+				"event_index": 6,
+				"event_type": "follower_cue",
+				"record_kind": "mutation",
+				"source_event_index": 1,
+				"stream": "follower-cues:gmap-0.13.0",
+				"target": {
+					"threshold_id": "c03|c05"
+				},
+				"validation": {
+					"checks": [
+						"mandatory_door_contract",
+						"same_latch_as_lock_click",
+						"room_tone_tail",
+						"volume_by_distance",
+						"audio_only",
+						"inert_cue"
+					],
+					"outcome": "accepted"
+				}
+			}
+		],
+		"failures": [],
+		"kind_counts": {
+			"door_close": 1,
+			"door_reopen": 1,
+			"follower_step": 3,
+			"lock_click": 1
+		},
+		"lowpass_hz": 1600.0,
+		"pool_size": 8,
+		"quiet_ok": true,
+		"reopen_mode": "direct",
+		"run_log_cues": 6,
+		"samples_present": true,
+		"visible_nodes": 0,
+		"volumes": [
+			-33.0724271107654,
+			-20.6072531051108,
+			-20.6072531051108,
+			-33.0724271107654,
+			-34.7415671088067,
+			-31.5167201014912
+		]
+	}
+}

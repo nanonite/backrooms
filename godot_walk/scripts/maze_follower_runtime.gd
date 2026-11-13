@@ -26,6 +26,9 @@ const REVERB_LAYER_VERSION := "maze-reverb-0.1.0"
 const SURFACE_LAYER_VERSION := "maze-surface-0.1.0"
 const MAX_WEAR := 2
 
+signal cell_entered(cell_id: String, visit_count: int, is_new: bool)
+signal edit_applied(event: Dictionary)
+
 var enabled := true
 var assembly: Node3D
 var player: CharacterBody3D
@@ -85,9 +88,11 @@ func _enter_cell(cell_id: String) -> void:
 	event_index += 1
 	if visited.has(cell_id):
 		assembly.set_meta("maze_last_entry_was_new", false)
+		cell_entered.emit(cell_id, visited.size(), false)
 		return
 	visited.append(cell_id)
 	assembly.set_meta("maze_last_entry_was_new", true)
+	cell_entered.emit(cell_id, visited.size(), true)
 	if not _is_beat(visited.size()):
 		return
 	var edit_index := event_index + 1
@@ -309,6 +314,7 @@ func _record_edit(target: String, player_cell: String, edit_index: int,
 	if not draw.is_empty():
 		event["draw"] = draw
 	edit_events.append(event)
+	edit_applied.emit(event)
 
 
 func _checks(change_class: String) -> Array:

@@ -26,6 +26,7 @@ const VISIBILITY_DEPTH := 2
 
 signal door_latched(threshold_id: String)
 signal door_opened(threshold_id: String)
+signal door_rerolled(threshold_id: String)
 
 var enabled := true
 var assembly: Node3D
@@ -201,6 +202,8 @@ func open_door(threshold: String, from_cell: String = "") -> bool:
 		var rewire_event: Dictionary = result.get("event", {})
 		if not rewire_event.is_empty():
 			_append_event(rewire_event)
+		if bool(result.get("ok", false)):
+			emit_signal("door_rerolled", threshold)
 	var event := DOORS.open_event(door, side, event_index + 1)
 	_append_event(event)
 	states[threshold] = "open"
