@@ -27,6 +27,7 @@ const MAZE_EXIT_THRESHOLD := preload("res://scripts/maze_exit_threshold.gd")
 const EXIT_RUNTIME := preload("res://scripts/maze_exit_runtime.gd")
 const MAZE_DOORS := preload("res://scripts/maze_doors.gd")
 const DOOR_RUNTIME := preload("res://scripts/maze_door_runtime.gd")
+const REWIRE_RUNTIME := preload("res://scripts/maze_rewire_runtime.gd")
 const PLAYER_SCENE := preload("res://scenes/player.tscn")
 const WALK_PLAYER := preload("res://scripts/walk_player.gd")
 const PSX_PRESET := preload("res://scripts/library_psx_preset.gd")
@@ -142,6 +143,11 @@ func _ready() -> void:
 	add_child(door_driver)
 	door_driver.setup(self, player)
 	set_meta("maze_door_runtime", door_driver)
+	var rewire_driver := REWIRE_RUNTIME.new()
+	rewire_driver.name = "MazeRewireRuntime"
+	add_child(rewire_driver)
+	rewire_driver.setup(self, door_driver)
+	set_meta("maze_rewire_runtime", rewire_driver)
 	_apply_psx_preset()
 	set_meta("walkthrough_ready", true)
 	set_meta("operator_approved", false)
@@ -180,6 +186,51 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 	_compute_spawn(specs[origin_cell])
 	set_meta("registration_accepted", false)
 	set_meta("scale_calibrated", false)
+
+
+## Build one room node from a committed or in-memory derived spec. The M6
+## re-roll uses this for changed cells only; the rest of the assembly is not
+## rebuilt.
+func build_room_from_spec(spec: Dictionary) -> Node3D:
+	var cell_id := String(spec.get("cell_id", ""))
+	var room_materials := materials_for(spec)
+	return BUILDER.build(self, spec, room_materials, _forced_closed(spec),
+		_module_joints(spec), {
+			"diagonal_collision": diagonal_collision,
+			"diagonal_pullback": diagonal_pullback,
+			"light_layer": _light_layer(cell_id),
+		})
+
+
+## Rebuild the derived door registry after a committed re-roll. The committed
+## map is still untouched; ``runtime_map`` is an in-memory copy with the
+## current passage set.
+func refresh_door_plan(runtime_map: Dictionary) -> Dictionary:
+	door_plan = MAZE_DOORS.plan(runtime_map, specs, exit_record)
+	set_meta("maze_doors", door_plan)
+	return door_plan
+
+
+## Replay one stored ``door_reroll`` event through the M6 runtime.
+func apply_stored_rewire(event: Dictionary, player_cell: String = "") -> Dictionary:
+	var runtime: Node = get_meta("maze_rewire_runtime") if has_meta("maze_rewire_runtime") else null
+	if runtime == null:
+		return {"ok": false, "reason": "no_rewire_runtime"}
+	return runtime.apply_stored_event(event, player_cell)
+
+
+func rewire_snapshot() -> Dictionary:
+	var runtime: Node = get_meta("maze_rewire_runtime") if has_meta("maze_rewire_runtime") else null
+	if runtime == null:
+		return {}
+	return runtime.snapshot()
+
+
+func passage_revision(cell_id: String) -> int:
+	var runtime: Node = get_meta("maze_rewire_runtime") if has_meta("maze_rewire_runtime") else null
+	if runtime == null:
+		return 0
+	return int(runtime.passage_revision(cell_id))
 
 
 ## One materials set per palette; a spec without `palette_id` (shape-room-0.1.0 to 0.4.0) keeps the shared one.

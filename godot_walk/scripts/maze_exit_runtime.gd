@@ -182,6 +182,10 @@ func _counters() -> Dictionary:
 		if kind == "follower_edit":
 			edits += 1
 		elif kind == "door_reroll":
+			var validation: Variant = record.get("validation")
+			if validation is Dictionary and String((validation as Dictionary).get(
+					"outcome", "")) == "rejected":
+				continue
 			rerolls += 1
 		elif kind == "run_end" and ended_at == 0:
 			ended_at = int(record.get("event_index", 0))

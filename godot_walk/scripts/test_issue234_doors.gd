@@ -280,6 +280,24 @@ func _check_runtime_positive(scene: Node3D, player: CharacterBody3D, doors: Node
 	_expect(not door.is_empty(), "the eligible crossing has no door")
 	if door.is_empty():
 		return
+	var prepared := _prepare_reroll(scene, door, from_cell, to_cell)
+	if not bool(prepared.get("ok", false)):
+		await _move_to_cell(scene, player, from_cell)
+		await _move_to_cell(scene, player, to_cell)
+		for _frame in 3:
+			await physics_frame
+		_expect(doors.state_of(threshold) == "open",
+			"a door without a re-roll candidate latched")
+		_expect(not doors.leaves.has(threshold),
+			"a door without a re-roll candidate got a leaf")
+		_expect(_count_door_events(doors.door_events, "door_lock", threshold) == 0,
+			"a door without a re-roll candidate logged a lock")
+		var rejected := _reroll_event(doors.door_events, threshold, "rejected")
+		_expect(not rejected.is_empty(),
+			"a door without a re-roll candidate did not log a rejected event")
+		result.ineligible_skipped = true
+		result["reroll_skip_reason"] = String(prepared.get("reason", ""))
+		return
 	await _move_to_cell(scene, player, from_cell)
 	await _move_to_cell(scene, player, to_cell)
 	for _frame in 3:
@@ -322,6 +340,11 @@ func _check_runtime_positive(scene: Node3D, player: CharacterBody3D, doors: Node
 	_expect(doors.state_of(threshold) == "latched", "the failed open changed the door")
 	var saved_hash: String = doors.state_hash()
 	var saved_log: Array = doors.export_log()
+	_expect(doors.restore_log(saved_log) == saved_hash, "the restored door hash differs")
+	_expect(doors.state_of(threshold) == "latched", "restore did not re-latch the door")
+	_expect(LEAF.is_closed(doors.leaf_node(threshold)), "restore did not close the leaf")
+	result.restored = true
+	result.restore_hash = saved_hash
 	_expect(doors.open_door(threshold, to_cell), "the manual open from the current side failed")
 	_expect(doors.state_of(threshold) == "open", "the manual open did not clear the latch")
 	_expect(not LEAF.is_closed(leaf), "the opened leaf is still closed")
@@ -333,17 +356,48 @@ func _check_runtime_positive(scene: Node3D, player: CharacterBody3D, doors: Node
 	_expect(_count_door_events(doors.door_events, "door_unlock", threshold) == 1,
 		"expected exactly one door_unlock event")
 	_expect(scene.door_state(threshold) == "open", "the assembly did not publish the open state")
-	_expect(doors.restore_log(saved_log) == saved_hash, "the restored door hash differs")
-	_expect(doors.state_of(threshold) == "latched", "restore did not re-latch the door")
-	_expect(LEAF.is_closed(doors.leaf_node(threshold)), "restore did not close the leaf")
-	result.restored = true
-	result.restore_hash = saved_hash
-	_expect(doors.open_door(threshold, to_cell), "the second manual open failed")
+	var reroll := _reroll_event(doors.door_events, threshold, "accepted")
+	_expect(not reroll.is_empty(), "the open did not log an accepted door_reroll")
 	result.latched = _count_door_events(doors.door_events, "door_lock", threshold)
 	result.opened = _count_door_events(doors.door_events, "door_unlock", threshold)
 	result.leaf_count = doors.leaves.size()
 	_expect(MAZE_DOORS.exit_reachable(map, String(plan.exit_cell), to_cell, []),
 		"the exit is not reachable after the open")
+
+
+func _prepare_reroll(scene: Node3D, door: Dictionary, from_cell: String,
+		to_cell: String) -> Dictionary:
+	var rewire: Node = scene.get_meta("maze_rewire_runtime", null)
+	if rewire == null:
+		return {"ok": false, "reason": "no_rewire_runtime"}
+	var door_states := {String(door.port_a): "latched", String(door.port_b): "latched"}
+	var visible := VISIBILITY.visible_cells(map, to_cell, VISIBILITY_DEPTH, door_states)
+	var prepared: Dictionary = rewire.prepare(door, from_cell, to_cell, _array_of(visible))
+	rewire.cancel_pending(String(door.threshold_id))
+	return prepared
+
+
+func _array_of(values: PackedStringArray) -> Array:
+	var result: Array = []
+	for value: String in values:
+		result.append(value)
+	return result
+
+
+func _reroll_event(events: Array, threshold: String, outcome: String) -> Dictionary:
+	for event: Dictionary in events:
+		if String(event.get("event_type", "")) != "door_reroll":
+			continue
+		var target: Variant = event.get("target")
+		if not (target is Dictionary):
+			continue
+		if String((target as Dictionary).get("door_threshold_id", "")) != threshold:
+			continue
+		var validation: Variant = event.get("validation")
+		if validation is Dictionary and String((validation as Dictionary).get(
+				"outcome", "")) == outcome:
+			return event
+	return {}
 
 
 func _check_leaf_visual(leaf: Node3D) -> void:
@@ -388,7 +442,8 @@ func _check_runtime_exit(scene: Node3D, player: CharacterBody3D, doors: Node,
 	_expect(result.map_seed == int(map.seed), "the end card shows another seed")
 	var door_events := 0
 	for record: Dictionary in exit_runtime.run_log:
-		if ["door_lock", "door_unlock"].has(String(record.get("event_type", ""))):
+		if ["door_lock", "door_unlock", "door_reroll"].has(
+				String(record.get("event_type", ""))):
 			door_events += 1
 	result.door_events_in_run_log = door_events
 	if int(map.seed) != 3:

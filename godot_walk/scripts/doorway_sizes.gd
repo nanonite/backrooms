@@ -8,6 +8,7 @@ const DEFAULT_TYPE := "level_doorway_2m_v1"
 const SIZES := {
 	"level_doorway_2m_v1": Vector2(2.0, 2.1),
 	"authored_direct_doorway_2.4x2.2_v1": Vector2(2.4, 2.2),
+	"maze_rewire_1_4m_v1": Vector2(1.4, 2.2),
 }
 
 

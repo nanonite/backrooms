@@ -63,6 +63,7 @@ OPEN_CHECKS = ("door_latched", "player_on_current_side")
 REASON_ORDER = (
     "library_doorway",
     "no_leaf",
+    "rewire_internal",
     "drop_door",
     "missing_doorway",
     "ramp_no_landing",
@@ -131,6 +132,8 @@ def leaf_fit(
         return False, "drop_door"
     if door_a is None or door_b is None:
         return False, "missing_doorway"
+    if door_a.get("rewire_internal") or door_b.get("rewire_internal"):
+        return False, "rewire_internal"
     width = min(float(door_a.get("width_m", 0.0)), float(door_b.get("width_m", 0.0)))
     height = min(
         float(door_a.get("height_m", 0.0)), float(door_b.get("height_m", 0.0))

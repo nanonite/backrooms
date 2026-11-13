@@ -95,8 +95,11 @@ func _run() -> void:
 	_set_view(point + view_normal * VIEW_DISTANCE_M, point, floor_y, 0.02, 70.0)
 	await process_frame
 	if not doors.force_latch(threshold, from_cell, to_cell):
-		push_error("The capture could not latch %s" % threshold)
-		quit(2)
+		manifest["note"] = "no runtime-latchable door on this seed"
+		_write_manifest(absolute_out, manifest)
+		print("ISSUE234_CAPTURE: map=%s eligible=%d views=0 note=no_latchable" % [
+			scene.map.map_id, eligible.size()])
+		quit(0)
 		return
 	manifest.state_closed = doors.state_of(threshold)
 	await _save(absolute_out, "door_closed_from_target.png")

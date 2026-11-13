@@ -32,6 +32,7 @@ const SILL_TOLERANCE_M := 0.001
 const REASON_ORDER := [
 	"library_doorway",
 	"no_leaf",
+	"rewire_internal",
 	"drop_door",
 	"missing_doorway",
 	"ramp_no_landing",
@@ -92,6 +93,8 @@ static func leaf_fit(vertical: String, spec_a: Dictionary, spec_b: Dictionary,
 		return [false, "drop_door"]
 	if door_a.is_empty() or door_b.is_empty():
 		return [false, "missing_doorway"]
+	if bool(door_a.get("rewire_internal", false)) or bool(door_b.get("rewire_internal", false)):
+		return [false, "rewire_internal"]
 	var width := minf(float(door_a.get("width_m", 0.0)),
 		float(door_b.get("width_m", 0.0)))
 	var height := minf(float(door_a.get("height_m", 0.0)),

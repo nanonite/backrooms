@@ -13,6 +13,7 @@ WIDE_TYPE = "authored_direct_doorway_2.4x2.2_v1"
 DOORWAY_SIZES: dict[str, tuple[float, float]] = {
     DEFAULT_TYPE: (2.0, 2.1),
     WIDE_TYPE: (2.4, 2.2),
+    "maze_rewire_1_4m_v1": (1.4, 2.2),
 }
 WALL_MARGIN_M = 0.5
 

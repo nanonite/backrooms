@@ -1,0 +1,28 @@
+{
+	"failures": [],
+	"fixture": {
+		"case": "gmap-1-gmap-0.13.0",
+		"checked": true,
+		"ok": false
+	},
+	"map_id": "gmap-1-gmap-0.13.0",
+	"map_sha256_after": "dacd388ef9780bf1d843f9078b7b8679e476be28df0e0464bb7778218ce2c7f3",
+	"map_sha256_before": "dacd388ef9780bf1d843f9078b7b8679e476be28df0e0464bb7778218ce2c7f3",
+	"negative": {
+		"checked": false
+	},
+	"runtime": {
+		"card_rerolls": 0,
+		"card_seed": 1,
+		"changed": 0,
+		"error": "",
+		"hidden": false,
+		"leaf_reparent": false,
+		"no_candidate": true,
+		"rebuilt": 0,
+		"replay": false,
+		"rerolled": false,
+		"state_hash": "1cbd728643240686086f056d66300f3ea88e3a55b09645cad62f260a2ee84338",
+		"visible_reject": false
+	}
+}

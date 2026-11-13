@@ -15,7 +15,11 @@ const EXIT := preload("res://scripts/maze_exit.gd")
 
 const ALGORITHM_VERSION := "rewire-1"
 const EVENT_STREAM := "door-reroll:gmap-0.13.0"
+const DOORWAY_STREAM := "doorway:rewire-1"
 
+const DOOR_WIDTH_M := 1.4
+const DOOR_HEIGHT_M := 2.2
+const DOORWAY_MARGIN_M := 0.2
 const MIN_REROLL_CELLS := 3
 const MAX_REROLL_CELLS := 8
 const MAX_DEGREE := 4
@@ -784,6 +788,101 @@ static func plan(document: Dictionary, from_cell: String, to_cell: String,
 	analysis["chosen"] = draw.get("chosen")
 	analysis["chosen_rank"] = int(draw.get("chosen_rank", 0))
 	return analysis
+
+
+## Keyed doorway placement (§4.5.7). The digest prefix and divisor match the
+## Python reference bit for bit.
+static func _keyed_uniform(seed: int, attempt: int, event_index: int,
+		threshold: String, cell_a: String, cell_b: String) -> float:
+	var key := "%d:%d:%d:%s:%s:%s:%s" % [seed, attempt, event_index,
+		DOORWAY_STREAM, threshold, cell_a, cell_b]
+	var digest := key.sha256_text()
+	return float(digest.substr(0, 13).hex_to_int()) / 4503599627370496.0
+
+
+## Pure doorway metadata for every changed shared wall; no runtime geometry.
+static func doorway_records(document: Dictionary, analysis: Dictionary,
+		event_index: int) -> Array:
+	var cells := cells_by_id(document)
+	var before: Dictionary = analysis.get("edges_before", {})
+	var chosen: Variant = analysis.get("chosen")
+	if not (chosen is Dictionary):
+		return []
+	var after: Dictionary = (chosen as Dictionary).get("passages", {})
+	var seed := int(document.get("seed", 0))
+	var attempt := int(document.get("attempt", 0))
+	var threshold := String(analysis.get("threshold_id", ""))
+	var records: Array = []
+	var changed: Array = []
+	for key: String in before:
+		if not after.has(key):
+			changed.append(key)
+	for key: String in after:
+		if not before.has(key):
+			changed.append(key)
+	changed.sort()
+	for key: String in changed:
+		var pair := pair_cells(key)
+		if pair.size() != 2:
+			continue
+		var cell_a := String(pair[0])
+		var cell_b := String(pair[1])
+		if before.has(key):
+			records.append({"cell_a": cell_a, "cell_b": cell_b, "action": "closed"})
+			continue
+		if not cells.has(cell_a) or not cells.has(cell_b):
+			continue
+		var wall := shared_wall(cells[cell_a], cells[cell_b])
+		if wall.is_empty() or float(wall.length_m) + 0.000000001 < MIN_SHARED_WALL_M:
+			continue
+		var low := float(wall.start) + DOORWAY_MARGIN_M + DOOR_WIDTH_M / 2.0
+		var high := float(wall.end) - DOORWAY_MARGIN_M - DOOR_WIDTH_M / 2.0
+		if low > high + 0.000000001:
+			continue
+		var along := _keyed_uniform(seed, attempt, event_index, threshold,
+			cell_a, cell_b)
+		var center := clampf(float(wall.start) + along * float(wall.length_m),
+			low, high)
+		var center_xz := [round(float(wall.line) * 1000000.0) / 1000000.0,
+			round(center * 1000000.0) / 1000000.0]
+		if String(wall.axis) == "z":
+			center_xz = [round(center * 1000000.0) / 1000000.0,
+				round(float(wall.line) * 1000000.0) / 1000000.0]
+		records.append({
+			"cell_a": cell_a,
+			"cell_b": cell_b,
+			"action": "opened",
+			"center_xz": center_xz,
+			"width_m": DOOR_WIDTH_M,
+			"height_m": DOOR_HEIGHT_M,
+		})
+	return records
+
+
+## The §4.5.8 event payload for one accepted re-roll.
+static func rewire_block(document: Dictionary, analysis: Dictionary,
+		event_index: int) -> Dictionary:
+	var chosen: Dictionary = analysis.get("chosen", {})
+	return {
+		"algorithm_version": ALGORITHM_VERSION,
+		"target_cells": (analysis.get("target_cells", []) as Array).duplicate(),
+		"root_cell_id": String(analysis.get("root_cell_id", "")),
+		"threshold_id": String(analysis.get("threshold_id", "")),
+		"passages_before": _pair_list(analysis.get("edges_before", {})),
+		"passages_after": _pair_list(chosen.get("passages", {})),
+		"pinned_passages": _pair_list(analysis.get("mandatory", {})),
+		"doorways": doorway_records(document, analysis, event_index),
+		"edit_distance": int(chosen.get("edit_distance", 0)),
+		"retained_fraction": float(chosen.get("retained_fraction", 0.0)),
+		"shape_before": _shape_projection(analysis.get("shape_before", {})),
+		"shape_after": _shape_projection(chosen.get("shape", {})),
+		"shape_score": float(chosen.get("shape_score", 0.0)),
+		"candidate_count": (analysis.get("candidates", []) as Array).size(),
+		"shortlist_size": (analysis.get("shortlist", []) as Array).size(),
+		"chosen_rank": int(analysis.get("chosen_rank", 0)),
+		"consistency_relaxed": bool(analysis.get("consistency_relaxed", false)),
+		"candidate_set_hash": String(analysis.get("candidate_set_hash", "")),
+	}
 
 
 static func _shape_projection(shape: Dictionary) -> Dictionary:

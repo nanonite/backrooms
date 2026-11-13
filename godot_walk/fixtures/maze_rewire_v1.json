@@ -1,0 +1,1368 @@
+{
+  "algorithm_version": "rewire-1",
+  "cases": {
+    "seed1_no_candidate": {
+      "event_index": 2,
+      "from_cell": "c05",
+      "map_id": "gmap-1-gmap-0.13.0",
+      "ok": false,
+      "reason": "no_candidate_in_tier",
+      "seed": 1,
+      "to_cell": "c03"
+    },
+    "seed279_c06_c11": {
+      "branch_epoch": 1,
+      "changed_cells": [
+        "c04",
+        "c05",
+        "c06"
+      ],
+      "checks": [
+        "R0_same_footprint",
+        "R1_connected",
+        "R2_strongly_connected",
+        "R3_degree_limit",
+        "R4_pins",
+        "R5_retained_fraction",
+        "R6_edit_bounds",
+        "R7_no_content_change",
+        "R8_geometry",
+        "R10_exit_reachable",
+        "R11_change_is_real",
+        "F0",
+        "F1",
+        "F2",
+        "geometry",
+        "cell_identity",
+        "not_visible"
+      ],
+      "derived_doorways": {
+        "c04": {
+          "cell_id": "c04",
+          "doorways": [
+            {
+              "height_m": 2.1,
+              "kind": "open",
+              "normal": [
+                1.0,
+                0.0
+              ],
+              "port_id": "c04:p0",
+              "pos_xz": [
+                0.0,
+                6.0
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c00",
+              "width_m": 2.0
+            },
+            {
+              "height_m": 2.1,
+              "kind": "open",
+              "normal": [
+                0.0,
+                1.0
+              ],
+              "port_id": "c04:p2",
+              "pos_xz": [
+                -9.0,
+                10.0
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c06",
+              "width_m": 2.0
+            }
+          ],
+          "passage_revision": 1
+        },
+        "c05": {
+          "cell_id": "c05",
+          "doorways": [
+            {
+              "height_m": 2.2,
+              "kind": "open",
+              "normal": [
+                1.0,
+                0.0
+              ],
+              "port_id": "c05:rw_c06",
+              "pos_xz": [
+                -12.0,
+                10.9
+              ],
+              "rewire_internal": true,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c06",
+              "width_m": 1.4
+            }
+          ],
+          "passage_revision": 1
+        },
+        "c06": {
+          "cell_id": "c06",
+          "doorways": [
+            {
+              "height_m": 2.1,
+              "kind": "open",
+              "normal": [
+                0.0,
+                1.0
+              ],
+              "port_id": "c06:e0",
+              "pos_xz": [
+                -9.0,
+                16.0
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 1.5,
+              "to_cell_id": "c11",
+              "width_m": 2.0
+            },
+            {
+              "height_m": 2.1,
+              "kind": "open",
+              "normal": [
+                0.0,
+                -1.0
+              ],
+              "port_id": "c06:p0",
+              "pos_xz": [
+                -9.0,
+                10.0
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c04",
+              "width_m": 2.0
+            },
+            {
+              "height_m": 2.1,
+              "kind": "closed_visible",
+              "normal": [
+                -1.0,
+                0.0
+              ],
+              "port_id": "c06:p1",
+              "pos_xz": [
+                -12.0,
+                14.5
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c14",
+              "width_m": 2.0
+            },
+            {
+              "height_m": 2.2,
+              "kind": "open",
+              "normal": [
+                -1.0,
+                0.0
+              ],
+              "port_id": "c06:rw_c05",
+              "pos_xz": [
+                -12.0,
+                10.9
+              ],
+              "rewire_internal": true,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c05",
+              "width_m": 1.4
+            }
+          ],
+          "passage_revision": 1
+        }
+      },
+      "door_threshold_id": "c06|c11",
+      "doorways": [
+        {
+          "action": "closed",
+          "cell_a": "c04",
+          "cell_b": "c05"
+        },
+        {
+          "action": "opened",
+          "cell_a": "c05",
+          "cell_b": "c06",
+          "center_xz": [
+            -12.0,
+            10.9
+          ],
+          "height_m": 2.2,
+          "width_m": 1.4
+        }
+      ],
+      "event": {
+        "draw": {
+          "branch_attempt": 2,
+          "index": 1,
+          "purpose": "rewire-1:choose",
+          "reroll_serial": 1
+        },
+        "event_index": 2,
+        "event_type": "door_reroll",
+        "record_kind": "mutation",
+        "rewire": {
+          "algorithm_version": "rewire-1",
+          "candidate_count": 3,
+          "candidate_set_hash": "a55b0932a7b0fbcb1dd0684f22a784e7ad5f452f5614020a0dc76ac5b5198ba1",
+          "chosen_rank": 2,
+          "consistency_relaxed": false,
+          "doorways": [
+            {
+              "action": "closed",
+              "cell_a": "c04",
+              "cell_b": "c05"
+            },
+            {
+              "action": "opened",
+              "cell_a": "c05",
+              "cell_b": "c06",
+              "center_xz": [
+                -12.0,
+                10.9
+              ],
+              "height_m": 2.2,
+              "width_m": 1.4
+            }
+          ],
+          "edit_distance": 2,
+          "passages_after": [
+            [
+              "c00",
+              "c01"
+            ],
+            [
+              "c00",
+              "c04"
+            ],
+            [
+              "c04",
+              "c06"
+            ],
+            [
+              "c05",
+              "c06"
+            ]
+          ],
+          "passages_before": [
+            [
+              "c00",
+              "c01"
+            ],
+            [
+              "c00",
+              "c04"
+            ],
+            [
+              "c04",
+              "c05"
+            ],
+            [
+              "c04",
+              "c06"
+            ]
+          ],
+          "pinned_passages": [
+            [
+              "c00",
+              "c01"
+            ]
+          ],
+          "retained_fraction": 0.75,
+          "root_cell_id": "c06",
+          "shape_after": {
+            "degree_histogram": {
+              "1": 2,
+              "2": 2,
+              "3": 1
+            },
+            "door_count": 5,
+            "leaves": 2,
+            "loops": 0,
+            "max_depth": 3,
+            "mean_depth": 1.4
+          },
+          "shape_before": {
+            "degree_histogram": {
+              "1": 2,
+              "2": 2,
+              "3": 1
+            },
+            "door_count": 5,
+            "leaves": 2,
+            "loops": 0,
+            "max_depth": 3,
+            "mean_depth": 1.6
+          },
+          "shape_score": 0.9,
+          "shortlist_size": 2,
+          "target_cells": [
+            "c00",
+            "c01",
+            "c04",
+            "c05",
+            "c06"
+          ],
+          "threshold_id": "c11:e0"
+        },
+        "schema_version": 1,
+        "stream": "door-reroll:gmap-0.13.0",
+        "target": {
+          "branch_root": "c06",
+          "cell_id": "c06",
+          "door_threshold_id": "c06|c11",
+          "from_cell": "c06",
+          "port_id": "c11:e0",
+          "threshold_id": "c11:e0",
+          "to_cell": "c11"
+        },
+        "validation": {
+          "checks": [
+            "R0_same_footprint",
+            "R1_connected",
+            "R2_strongly_connected",
+            "R3_degree_limit",
+            "R4_pins",
+            "R5_retained_fraction",
+            "R6_edit_bounds",
+            "R7_no_content_change",
+            "R8_geometry",
+            "R10_exit_reachable",
+            "R11_change_is_real",
+            "F0",
+            "F1",
+            "F2",
+            "geometry",
+            "cell_identity",
+            "not_visible"
+          ],
+          "outcome": "accepted"
+        }
+      },
+      "event_index": 2,
+      "exit_cell": "c09",
+      "f0_f1_f2": {
+        "F0": true,
+        "F1": true,
+        "F2": true,
+        "failures": [],
+        "reachable_from_player": [
+          "c00",
+          "c01",
+          "c02",
+          "c03",
+          "c04",
+          "c05",
+          "c06",
+          "c07",
+          "c08",
+          "c09",
+          "c10",
+          "c11",
+          "c12",
+          "dp00"
+        ]
+      },
+      "from_cell": "c06",
+      "geometry_issues": [],
+      "identity_issues": [],
+      "map_id": "gmap-279-gmap-0.13.0",
+      "ok": true,
+      "passage_revisions": {
+        "c04": 1,
+        "c05": 1,
+        "c06": 1
+      },
+      "passages_after": [
+        [
+          "c00",
+          "c01"
+        ],
+        [
+          "c00",
+          "c04"
+        ],
+        [
+          "c04",
+          "c06"
+        ],
+        [
+          "c05",
+          "c06"
+        ]
+      ],
+      "passages_before": [
+        [
+          "c00",
+          "c01"
+        ],
+        [
+          "c00",
+          "c04"
+        ],
+        [
+          "c04",
+          "c05"
+        ],
+        [
+          "c04",
+          "c06"
+        ]
+      ],
+      "reason": "",
+      "reroll_serial": 1,
+      "seed": 279,
+      "state_hash": "185b890038a0c4b56871f99a3707770592b30f30b354f252c1c7f6e58e36c412",
+      "target_cells": [
+        "c00",
+        "c01",
+        "c04",
+        "c05",
+        "c06"
+      ],
+      "threshold_id": "c11:e0",
+      "to_cell": "c11",
+      "visible_cells": null
+    },
+    "seed279_c11_c02": {
+      "branch_epoch": 1,
+      "changed_cells": [
+        "c05",
+        "c06"
+      ],
+      "checks": [
+        "R0_same_footprint",
+        "R1_connected",
+        "R2_strongly_connected",
+        "R3_degree_limit",
+        "R4_pins",
+        "R5_retained_fraction",
+        "R6_edit_bounds",
+        "R7_no_content_change",
+        "R8_geometry",
+        "R10_exit_reachable",
+        "R11_change_is_real",
+        "F0",
+        "F1",
+        "F2",
+        "geometry",
+        "cell_identity",
+        "not_visible"
+      ],
+      "derived_doorways": {
+        "c05": {
+          "cell_id": "c05",
+          "doorways": [
+            {
+              "height_m": 2.1,
+              "kind": "open",
+              "normal": [
+                1.0,
+                0.0
+              ],
+              "port_id": "c05:p0",
+              "pos_xz": [
+                -12.0,
+                7.5
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c04",
+              "width_m": 2.0
+            },
+            {
+              "height_m": 2.2,
+              "kind": "open",
+              "normal": [
+                1.0,
+                0.0
+              ],
+              "port_id": "c05:rw_c06",
+              "pos_xz": [
+                -12.0,
+                11.387652
+              ],
+              "rewire_internal": true,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c06",
+              "width_m": 1.4
+            }
+          ],
+          "passage_revision": 1
+        },
+        "c06": {
+          "cell_id": "c06",
+          "doorways": [
+            {
+              "height_m": 2.1,
+              "kind": "open",
+              "normal": [
+                0.0,
+                1.0
+              ],
+              "port_id": "c06:e0",
+              "pos_xz": [
+                -9.0,
+                16.0
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 1.5,
+              "to_cell_id": "c11",
+              "width_m": 2.0
+            },
+            {
+              "height_m": 2.1,
+              "kind": "open",
+              "normal": [
+                0.0,
+                -1.0
+              ],
+              "port_id": "c06:p0",
+              "pos_xz": [
+                -9.0,
+                10.0
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c04",
+              "width_m": 2.0
+            },
+            {
+              "height_m": 2.1,
+              "kind": "closed_visible",
+              "normal": [
+                -1.0,
+                0.0
+              ],
+              "port_id": "c06:p1",
+              "pos_xz": [
+                -12.0,
+                14.5
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c14",
+              "width_m": 2.0
+            },
+            {
+              "height_m": 2.2,
+              "kind": "open",
+              "normal": [
+                -1.0,
+                0.0
+              ],
+              "port_id": "c06:rw_c05",
+              "pos_xz": [
+                -12.0,
+                11.387652
+              ],
+              "rewire_internal": true,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c05",
+              "width_m": 1.4
+            }
+          ],
+          "passage_revision": 1
+        }
+      },
+      "door_threshold_id": "c02|c11",
+      "doorways": [
+        {
+          "action": "opened",
+          "cell_a": "c05",
+          "cell_b": "c06",
+          "center_xz": [
+            -12.0,
+            11.387652
+          ],
+          "height_m": 2.2,
+          "width_m": 1.4
+        }
+      ],
+      "event": {
+        "draw": {
+          "branch_attempt": 1,
+          "index": 0,
+          "purpose": "rewire-1:choose",
+          "reroll_serial": 1
+        },
+        "event_index": 2,
+        "event_type": "door_reroll",
+        "record_kind": "mutation",
+        "rewire": {
+          "algorithm_version": "rewire-1",
+          "candidate_count": 3,
+          "candidate_set_hash": "a103a6f8d2f7317bab829cf5d5010377253068cd534416719f15c399e66140bb",
+          "chosen_rank": 1,
+          "consistency_relaxed": false,
+          "doorways": [
+            {
+              "action": "opened",
+              "cell_a": "c05",
+              "cell_b": "c06",
+              "center_xz": [
+                -12.0,
+                11.387652
+              ],
+              "height_m": 2.2,
+              "width_m": 1.4
+            }
+          ],
+          "edit_distance": 1,
+          "passages_after": [
+            [
+              "c00",
+              "c01"
+            ],
+            [
+              "c00",
+              "c04"
+            ],
+            [
+              "c04",
+              "c05"
+            ],
+            [
+              "c04",
+              "c06"
+            ],
+            [
+              "c05",
+              "c06"
+            ],
+            [
+              "c06",
+              "c11"
+            ]
+          ],
+          "passages_before": [
+            [
+              "c00",
+              "c01"
+            ],
+            [
+              "c00",
+              "c04"
+            ],
+            [
+              "c04",
+              "c05"
+            ],
+            [
+              "c04",
+              "c06"
+            ],
+            [
+              "c06",
+              "c11"
+            ]
+          ],
+          "pinned_passages": [
+            [
+              "c00",
+              "c01"
+            ],
+            [
+              "c06",
+              "c11"
+            ]
+          ],
+          "retained_fraction": 1.0,
+          "root_cell_id": "c11",
+          "shape_after": {
+            "degree_histogram": {
+              "1": 1,
+              "2": 3,
+              "3": 2
+            },
+            "door_count": 7,
+            "leaves": 1,
+            "loops": 1,
+            "max_depth": 4,
+            "mean_depth": 2.0
+          },
+          "shape_before": {
+            "degree_histogram": {
+              "1": 2,
+              "2": 3,
+              "3": 1
+            },
+            "door_count": 6,
+            "leaves": 2,
+            "loops": 0,
+            "max_depth": 4,
+            "mean_depth": 2.1666666666666665
+          },
+          "shape_score": 10.333333,
+          "shortlist_size": 2,
+          "target_cells": [
+            "c00",
+            "c01",
+            "c04",
+            "c05",
+            "c06",
+            "c11"
+          ],
+          "threshold_id": "c02:p2"
+        },
+        "schema_version": 1,
+        "stream": "door-reroll:gmap-0.13.0",
+        "target": {
+          "branch_root": "c11",
+          "cell_id": "c11",
+          "door_threshold_id": "c02|c11",
+          "from_cell": "c11",
+          "port_id": "c02:p2",
+          "threshold_id": "c02:p2",
+          "to_cell": "c02"
+        },
+        "validation": {
+          "checks": [
+            "R0_same_footprint",
+            "R1_connected",
+            "R2_strongly_connected",
+            "R3_degree_limit",
+            "R4_pins",
+            "R5_retained_fraction",
+            "R6_edit_bounds",
+            "R7_no_content_change",
+            "R8_geometry",
+            "R10_exit_reachable",
+            "R11_change_is_real",
+            "F0",
+            "F1",
+            "F2",
+            "geometry",
+            "cell_identity",
+            "not_visible"
+          ],
+          "outcome": "accepted"
+        }
+      },
+      "event_index": 2,
+      "exit_cell": "c09",
+      "f0_f1_f2": {
+        "F0": true,
+        "F1": true,
+        "F2": true,
+        "failures": [],
+        "reachable_from_player": [
+          "c00",
+          "c01",
+          "c02",
+          "c03",
+          "c04",
+          "c05",
+          "c06",
+          "c07",
+          "c08",
+          "c09",
+          "c10",
+          "c11",
+          "c12",
+          "dp00"
+        ]
+      },
+      "from_cell": "c11",
+      "geometry_issues": [],
+      "identity_issues": [],
+      "map_id": "gmap-279-gmap-0.13.0",
+      "ok": true,
+      "passage_revisions": {
+        "c05": 1,
+        "c06": 1
+      },
+      "passages_after": [
+        [
+          "c00",
+          "c01"
+        ],
+        [
+          "c00",
+          "c04"
+        ],
+        [
+          "c04",
+          "c05"
+        ],
+        [
+          "c04",
+          "c06"
+        ],
+        [
+          "c05",
+          "c06"
+        ],
+        [
+          "c06",
+          "c11"
+        ]
+      ],
+      "passages_before": [
+        [
+          "c00",
+          "c01"
+        ],
+        [
+          "c00",
+          "c04"
+        ],
+        [
+          "c04",
+          "c05"
+        ],
+        [
+          "c04",
+          "c06"
+        ],
+        [
+          "c06",
+          "c11"
+        ]
+      ],
+      "reason": "",
+      "reroll_serial": 1,
+      "seed": 279,
+      "state_hash": "a323582dd1b1d1f4129e15368fdc0f5f722b79c8ae7467b2d4d41a75e28cb675",
+      "target_cells": [
+        "c00",
+        "c01",
+        "c04",
+        "c05",
+        "c06",
+        "c11"
+      ],
+      "threshold_id": "c02:p2",
+      "to_cell": "c02",
+      "visible_cells": null
+    },
+    "seed2_no_candidate": {
+      "event_index": 2,
+      "from_cell": "c07",
+      "map_id": "gmap-2-gmap-0.13.0",
+      "ok": false,
+      "reason": "no_candidate_in_tier",
+      "seed": 2,
+      "to_cell": "c03"
+    },
+    "seed32_runtime_c00_c01": {
+      "branch_epoch": 1,
+      "changed_cells": [
+        "c03",
+        "c04",
+        "c06"
+      ],
+      "checks": [
+        "R0_same_footprint",
+        "R1_connected",
+        "R2_strongly_connected",
+        "R3_degree_limit",
+        "R4_pins",
+        "R5_retained_fraction",
+        "R6_edit_bounds",
+        "R7_no_content_change",
+        "R8_geometry",
+        "R9_visibility",
+        "R10_exit_reachable",
+        "R11_change_is_real",
+        "F0",
+        "F1",
+        "F2",
+        "geometry",
+        "cell_identity",
+        "not_visible"
+      ],
+      "derived_doorways": {
+        "c03": {
+          "cell_id": "c03",
+          "doorways": [
+            {
+              "height_m": 2.1,
+              "kind": "open",
+              "normal": [
+                0.0,
+                1.0
+              ],
+              "port_id": "c03:p0",
+              "pos_xz": [
+                1.5,
+                0.0
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c00",
+              "width_m": 2.0
+            },
+            {
+              "height_m": 2.1,
+              "kind": "open",
+              "normal": [
+                0.0,
+                -1.0
+              ],
+              "port_id": "c03:p2",
+              "pos_xz": [
+                0.0,
+                -6.0
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c08",
+              "width_m": 2.0
+            }
+          ],
+          "passage_revision": 1
+        },
+        "c04": {
+          "cell_id": "c04",
+          "doorways": [
+            {
+              "height_m": 2.2,
+              "kind": "open",
+              "normal": [
+                0.0,
+                1.0
+              ],
+              "port_id": "c04:rw_c06",
+              "pos_xz": [
+                6.342763,
+                1.0
+              ],
+              "rewire_internal": true,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c06",
+              "width_m": 1.4
+            }
+          ],
+          "passage_revision": 1
+        },
+        "c06": {
+          "cell_id": "c06",
+          "doorways": [
+            {
+              "height_m": 2.1,
+              "kind": "open",
+              "normal": [
+                -1.0,
+                0.0
+              ],
+              "port_id": "c06:p0",
+              "pos_xz": [
+                3.0,
+                2.5
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c00",
+              "width_m": 2.0
+            },
+            {
+              "height_m": 2.1,
+              "kind": "open",
+              "normal": [
+                1.0,
+                0.0
+              ],
+              "port_id": "c06:p1",
+              "pos_xz": [
+                13.0,
+                2.5
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c07",
+              "width_m": 2.0
+            },
+            {
+              "height_m": 2.1,
+              "kind": "closed_visible",
+              "normal": [
+                0.0,
+                1.0
+              ],
+              "port_id": "c06:p2",
+              "pos_xz": [
+                11.5,
+                4.0
+              ],
+              "rewire_internal": false,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c14",
+              "width_m": 2.0
+            },
+            {
+              "height_m": 2.2,
+              "kind": "open",
+              "normal": [
+                0.0,
+                -1.0
+              ],
+              "port_id": "c06:rw_c04",
+              "pos_xz": [
+                6.342763,
+                1.0
+              ],
+              "rewire_internal": true,
+              "sill_height_m": 0.0,
+              "to_cell_id": "c04",
+              "width_m": 1.4
+            }
+          ],
+          "passage_revision": 1
+        }
+      },
+      "door_threshold_id": "c00|c01",
+      "doorways": [
+        {
+          "action": "closed",
+          "cell_a": "c03",
+          "cell_b": "c04"
+        },
+        {
+          "action": "opened",
+          "cell_a": "c04",
+          "cell_b": "c06",
+          "center_xz": [
+            6.342763,
+            1.0
+          ],
+          "height_m": 2.2,
+          "width_m": 1.4
+        }
+      ],
+      "event": {
+        "draw": {
+          "branch_attempt": 2,
+          "index": 1,
+          "purpose": "rewire-1:choose",
+          "reroll_serial": 1
+        },
+        "event_index": 2,
+        "event_type": "door_reroll",
+        "record_kind": "mutation",
+        "rewire": {
+          "algorithm_version": "rewire-1",
+          "candidate_count": 4,
+          "candidate_set_hash": "f16c41460fa7d7312e49cb7ea1e61e8066044be6d6736b0d93ca347f503e7eb5",
+          "chosen_rank": 2,
+          "consistency_relaxed": false,
+          "doorways": [
+            {
+              "action": "closed",
+              "cell_a": "c03",
+              "cell_b": "c04"
+            },
+            {
+              "action": "opened",
+              "cell_a": "c04",
+              "cell_b": "c06",
+              "center_xz": [
+                6.342763,
+                1.0
+              ],
+              "height_m": 2.2,
+              "width_m": 1.4
+            }
+          ],
+          "edit_distance": 2,
+          "passages_after": [
+            [
+              "c00",
+              "c03"
+            ],
+            [
+              "c00",
+              "c06"
+            ],
+            [
+              "c03",
+              "c08"
+            ],
+            [
+              "c04",
+              "c06"
+            ],
+            [
+              "c06",
+              "c07"
+            ],
+            [
+              "c08",
+              "c09"
+            ],
+            [
+              "c09",
+              "c13"
+            ]
+          ],
+          "passages_before": [
+            [
+              "c00",
+              "c03"
+            ],
+            [
+              "c00",
+              "c06"
+            ],
+            [
+              "c03",
+              "c04"
+            ],
+            [
+              "c03",
+              "c08"
+            ],
+            [
+              "c06",
+              "c07"
+            ],
+            [
+              "c08",
+              "c09"
+            ],
+            [
+              "c09",
+              "c13"
+            ]
+          ],
+          "pinned_passages": [
+            [
+              "c03",
+              "c08"
+            ],
+            [
+              "c09",
+              "c13"
+            ]
+          ],
+          "retained_fraction": 0.8571428571428571,
+          "root_cell_id": "c00",
+          "shape_after": {
+            "degree_histogram": {
+              "1": 3,
+              "2": 3,
+              "3": 2
+            },
+            "door_count": 8,
+            "leaves": 3,
+            "loops": 0,
+            "max_depth": 4,
+            "mean_depth": 1.875
+          },
+          "shape_before": {
+            "degree_histogram": {
+              "1": 3,
+              "2": 3,
+              "3": 2
+            },
+            "door_count": 8,
+            "leaves": 3,
+            "loops": 0,
+            "max_depth": 4,
+            "mean_depth": 1.875
+          },
+          "shape_score": 0.285714,
+          "shortlist_size": 2,
+          "target_cells": [
+            "c00",
+            "c03",
+            "c04",
+            "c06",
+            "c07",
+            "c08",
+            "c09",
+            "c13"
+          ],
+          "threshold_id": "c01:p0"
+        },
+        "schema_version": 1,
+        "stream": "door-reroll:gmap-0.13.0",
+        "target": {
+          "branch_root": "c00",
+          "cell_id": "c00",
+          "door_threshold_id": "c00|c01",
+          "from_cell": "c00",
+          "port_id": "c01:p0",
+          "threshold_id": "c01:p0",
+          "to_cell": "c01"
+        },
+        "validation": {
+          "checks": [
+            "R0_same_footprint",
+            "R1_connected",
+            "R2_strongly_connected",
+            "R3_degree_limit",
+            "R4_pins",
+            "R5_retained_fraction",
+            "R6_edit_bounds",
+            "R7_no_content_change",
+            "R8_geometry",
+            "R9_visibility",
+            "R10_exit_reachable",
+            "R11_change_is_real",
+            "F0",
+            "F1",
+            "F2",
+            "geometry",
+            "cell_identity",
+            "not_visible"
+          ],
+          "outcome": "accepted"
+        },
+        "visibility": {
+          "player_cell": "c01",
+          "target_hidden": true,
+          "visible_cells": [
+            "c01",
+            "c02",
+            "c05",
+            "c10",
+            "c11"
+          ]
+        }
+      },
+      "event_index": 2,
+      "exit_cell": "c02",
+      "f0_f1_f2": {
+        "F0": true,
+        "F1": true,
+        "F2": true,
+        "failures": [],
+        "reachable_from_player": [
+          "c00",
+          "c01",
+          "c02",
+          "c03",
+          "c04",
+          "c05",
+          "c06",
+          "c07",
+          "c08",
+          "c09",
+          "c10",
+          "c11",
+          "c12",
+          "c13"
+        ]
+      },
+      "from_cell": "c00",
+      "geometry_issues": [],
+      "identity_issues": [],
+      "map_id": "gmap-32-gmap-0.13.0",
+      "ok": true,
+      "passage_revisions": {
+        "c03": 1,
+        "c04": 1,
+        "c06": 1
+      },
+      "passages_after": [
+        [
+          "c00",
+          "c03"
+        ],
+        [
+          "c00",
+          "c06"
+        ],
+        [
+          "c03",
+          "c08"
+        ],
+        [
+          "c04",
+          "c06"
+        ],
+        [
+          "c06",
+          "c07"
+        ],
+        [
+          "c08",
+          "c09"
+        ],
+        [
+          "c09",
+          "c13"
+        ]
+      ],
+      "passages_before": [
+        [
+          "c00",
+          "c03"
+        ],
+        [
+          "c00",
+          "c06"
+        ],
+        [
+          "c03",
+          "c04"
+        ],
+        [
+          "c03",
+          "c08"
+        ],
+        [
+          "c06",
+          "c07"
+        ],
+        [
+          "c08",
+          "c09"
+        ],
+        [
+          "c09",
+          "c13"
+        ]
+      ],
+      "reason": "",
+      "reroll_serial": 1,
+      "seed": 32,
+      "state_hash": "ccd2de1afc771b346d5e853e04ea1b5858573caefa268649ce79b62eef2e8f51",
+      "target_cells": [
+        "c00",
+        "c03",
+        "c04",
+        "c06",
+        "c07",
+        "c08",
+        "c09",
+        "c13"
+      ],
+      "threshold_id": "c01:p0",
+      "to_cell": "c01",
+      "visible_cells": [
+        "c01",
+        "c02",
+        "c05",
+        "c10",
+        "c11"
+      ]
+    }
+  },
+  "description": "M6 derived-spec, doorway geometry and F0-F2 fixture.",
+  "layer_version": "maze-rewire-runtime-0.1.0",
+  "parameters": {
+    "compatibility_type": "maze_rewire_1_4m_v1",
+    "door_height_m": 2.2,
+    "door_width_m": 1.4,
+    "doorway_margin_m": 0.2,
+    "min_ceiling_clearance_m": 0.05,
+    "runtime_checks": [
+      "F0",
+      "F1",
+      "F2",
+      "geometry",
+      "cell_identity",
+      "not_visible"
+    ]
+  },
+  "summary": {
+    "cases": 5,
+    "changed_cells": 8,
+    "ok_cases": 3
+  }
+}

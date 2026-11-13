@@ -111,8 +111,20 @@ func _latch(door: Dictionary, from_cell: String, to_cell: String) -> Dictionary:
 		map, to_cell, VISIBILITY_DEPTH, door_states)
 	if visible.has(from_cell):
 		return _reject_lock(door, from_cell, to_cell, "visible_target")
+	var rewire := _rewire_runtime()
+	if rewire != null:
+		var prepared: Dictionary = rewire.prepare(door, from_cell, to_cell,
+			_array_of(visible))
+		if not bool(prepared.get("ok", false)):
+			var rejected: Dictionary = rewire.rejected_event(threshold,
+				from_cell, to_cell, event_index + 1,
+				String(prepared.get("reason", "no_candidate")),
+				prepared.get("analysis", {}))
+			return _append_event(rejected)
 	var leaf := _ensure_leaf(door)
 	if leaf == null:
+		if rewire != null:
+			rewire.cancel_pending(threshold)
 		return _reject_lock(door, from_cell, to_cell, "leaf_unavailable")
 	var event := DOORS.lock_event(door, from_cell, to_cell, event_index + 1, {
 		"player_cell": to_cell,
@@ -183,6 +195,12 @@ func open_door(threshold: String, from_cell: String = "") -> bool:
 	var leaf := _ensure_leaf(door)
 	if leaf == null:
 		return false
+	var rewire := _rewire_runtime()
+	if rewire != null and bool(rewire.has_pending(threshold)):
+		var result: Dictionary = rewire.commit(threshold, side, event_index + 1)
+		var rewire_event: Dictionary = result.get("event", {})
+		if not rewire_event.is_empty():
+			_append_event(rewire_event)
 	var event := DOORS.open_event(door, side, event_index + 1)
 	_append_event(event)
 	states[threshold] = "open"
@@ -228,7 +246,8 @@ func force_latch(threshold: String, from_cell: String, to_cell: String) -> bool:
 		return false
 	current_cell = to_cell
 	previous_cell = from_cell
-	return not _latch(door, from_cell, to_cell).is_empty()
+	var record := _latch(door, from_cell, to_cell)
+	return not record.is_empty() and String(states.get(threshold, "open")) == "latched"
 
 
 func restore_log(events: Array) -> String:
@@ -293,6 +312,45 @@ func snapshot() -> Dictionary:
 		"counters": DOORS.counters(door_events),
 		"leaf_count": leaves.size(),
 	}
+
+
+## Replace the live registry after a committed re-roll. Existing door states
+## survive by threshold; a removed threshold loses its leaf, and a new internal
+## doorway starts open.
+func apply_rewire_plan(runtime_map: Dictionary, new_plan: Dictionary) -> void:
+	map = runtime_map
+	plan = new_plan
+	var merged := {}
+	for door: Dictionary in new_plan.get("doors", []):
+		var threshold := String(door.get("threshold_id", ""))
+		merged[threshold] = String(states.get(threshold, "open"))
+	for threshold: String in leaves.keys().duplicate():
+		if merged.has(threshold):
+			continue
+		var leaf := leaves[threshold] as Node3D
+		if leaf != null:
+			leaf.queue_free()
+		leaves.erase(threshold)
+	states = merged
+	_publish_states()
+
+
+## Append one externally produced re-roll event to the live event log.
+func append_rewire_event(event: Dictionary) -> Dictionary:
+	return _append_event(event)
+
+
+func _rewire_runtime() -> Node:
+	if assembly == null:
+		return null
+	return assembly.get_meta("maze_rewire_runtime", null)
+
+
+static func _array_of(values: PackedStringArray) -> Array:
+	var result: Array = []
+	for value: String in values:
+		result.append(value)
+	return result
 
 
 func _publish_states() -> void:

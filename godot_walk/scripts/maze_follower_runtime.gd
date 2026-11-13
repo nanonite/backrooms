@@ -44,6 +44,12 @@ func setup(assembly_node: Node3D, player_node: CharacterBody3D) -> void:
 	exit_cell = String(assembly.get_meta("maze_exit_cell", ""))
 
 
+## The M6 re-roll changes the live passage graph; the follower visibility gate
+## must read the same graph. The committed map is not edited.
+func set_runtime_map(runtime_map: Dictionary) -> void:
+	map = runtime_map
+
+
 func _physics_process(_delta: float) -> void:
 	if not enabled or assembly == null or player == null:
 		return
