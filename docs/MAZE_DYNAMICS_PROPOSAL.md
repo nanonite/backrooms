@@ -1,6 +1,10 @@
 # Mutating-Maze Dynamics — Proposal
 
-Status: proposal for operator review (2026-11-12). Design issue #209, child of #169.
+Status: revised proposal for operator review (2026-11-12). Operator decisions on
+the eight questions are recorded in §10; this revision applies them. The second
+operator comment on 2026-11-12 supersedes the first on Q3 and confirms Q6-Q8
+after the operator read the wording. Design issue #209, child of #169.
+
 This document is design only: no code, schema, generator, map, shape-room or asset change.
 It builds on `docs/GENERATIVE_MAP_METADATA_PROPOSAL.md` (the agreed map-first
 direction) and `docs/GENERATIVE_MAP_TEMPLATE_PROPOSAL.md` (#212), and on the
@@ -26,8 +30,12 @@ mechanics were named:
 - **B. Follower edits:** something or someone changes rooms the player has
   already passed, so retracing steps is very hard.
 
-**Breadcrumb mode** is later work: a player aid for tracing steps, with the
-honesty question left open.
+**Breadcrumb mode** is later work: a player aid for tracing steps. The operator
+decided it is honest in v1, defaults off, and has a pause-menu toggle from the
+start (§10).
+
+The operator answered the eight questions in §10 on 2026-11-12. Those answers
+are decisions, not options, and the rest of this revision reflects them.
 
 The map-first rule from the metadata proposal still governs:
 
@@ -43,8 +51,9 @@ never edits either one.
 ### 1.1 Scope guard
 
 In scope for this proposal: the mutation model, door re-roll, follower edits,
-the fairness invariant, breadcrumb design, sound/feel, architecture constraints,
-and the ordered implementation issues to file after approval.
+the fairness invariant, the exit and run end card, breadcrumb design, sound/feel,
+architecture constraints, and the ordered implementation issues to file after
+approval.
 
 Out of scope: implementation, new assets, enemy/combat systems, scoring, new
 source ingestion, catalog admission, and any change to the generator's committed
@@ -62,6 +71,7 @@ output for existing seeds.
 | Per-cell re-draw of light/surface/elevation/palette for one cell | Partly implemented in gmap-0.13.0, but the layer functions still walk the whole document; a local redraw API is new work |
 | Branch re-growth that fits the vacated envelopes | Unproven; needs the headless slice in §11 |
 | Door leaf, lock click and follower cue mix | Not implemented; assets and mix are future work |
+| Static exit, bright threshold style and end card | Operator decision recorded in §10; not implemented; the visual style needs original assets and operator acceptance |
 | Cadence numbers, escalation curve, "unsettling but not random" | Design guess; requires operator walks and listening |
 | Visibility predicate cost and conservatism | Design guess; needs a headless test |
 
@@ -88,6 +98,12 @@ separate and versioned. This audit is the menu the mutation design draws from.
 | Mood / volume / absorption | cell `mood`, `volume`, `absorption` | Derived from module metadata (#219) | No | Cue selection and room character, not a mutation target yet |
 | Footsteps, probe, reverb bus | `walk_player.gd`, `room_acoustic_probe.gd`, `room_reverb_bus.gd` | Runtime | Yes, by design | Follower cues, reverb tell (#203, #205) |
 | Streaming | full map instanced at load; #156 finite streamer | `seed + catalog snapshot` | Not in the current walkthrough | Branch unload/reload; general streaming is #162 |
+
+The generated map has **no exit layer today**: #219 leaves the map-level exit
+open. The operator's static-exit decision (§10, Q1-Q2) needs one. §6.4 and M3
+propose a seed-keyed selection in a new layer version; maps generated before it
+can derive the same exit from the seed at load, so no existing map file is
+rewritten. Until that lands, fairness tests may use a synthetic exit cell.
 
 The important structural fact is that **the base map already carries the
 placeholders** for the runtime overlay. `gmap_template.py:67-93` writes each
@@ -167,7 +183,9 @@ they are what make replay and testing possible:
   "record_kind": "mutation",           // mutation | trigger
   "event_type": "follower_edit",       // follower_edit | door_lock | door_unlock
                                        // | door_reroll | breadcrumb | follower_cue
-                                       // | exit_move | repair
+                                       // | run_end | repair
+                                       // exit_move is reserved for a later version;
+                                       // v1 never emits it
   "occurred_at_utc": "2026-11-12T00:00:00Z", // bookkeeping only, never a draw input
   "base": {
     "map_id": "gmap-279-gmap-0.13.0",
@@ -179,7 +197,8 @@ they are what make replay and testing possible:
   },
   "trigger": {
     "kind": "room_entered",            // room_entered | player_opened_door
-                                       // | cell_unloaded | save_restore | debug
+                                       // | exit_entered | cell_unloaded
+                                       // | save_restore | debug
     "player_cell": "c07",
     "from_cell": "c06"
   },
@@ -227,13 +246,14 @@ not an error to hide.
 
 The log is JSONL, one record per line, append-only. It has two record kinds:
 **trigger** records (`room_entered`, `door_opened`, `door_closed`,
-`cell_unloaded`, `save_restore`) and **mutation** records (the event types in
-the example). A trigger record carries no `change` and does not alter the
-overlay; it is the input history that made a later mutation possible. It uses the
-same envelope but omits `target`, `stream`, `draw` and `change`; its `visibility`
-and `validation` fields are optional. Both kinds consume `event_index`, so the
-order is explicit and the cadence counter can be reconstructed by replaying the
-trigger sequence. This is what lets save/restore keep only the log. The overlay
+`exit_entered`, `cell_unloaded`, `save_restore`) and **mutation** records (the
+event types in the example). A trigger record carries no `change` and does not
+alter the overlay; it is the input history that made a later mutation possible.
+It uses the same envelope but omits `target`, `stream`, `draw` and `change`; its
+`visibility` and `validation` fields are optional. Both kinds consume
+`event_index`, so the order is explicit and the cadence counter can be
+reconstructed by replaying the trigger sequence. This is what lets save/restore
+keep only the log. The overlay
 is a function of the mutation subset; the scheduler is a function of the trigger
 subset. One ordered file keeps both replayable without a second sidecar.
 
@@ -355,10 +375,15 @@ overlay = {
   door_overrides:    port_id -> {state, lock, reroll, follower_visibility},
   branch_overrides:  branch_epoch -> {root_door_id, cells, edges, retired_cell_ids},
   breadcrumbs:       marker_id -> {cell_id, port_id, sequence, kind, state},
-  exited:            bool,
+  run:               {ended: bool, exit_cell: cell_id | null,
+                      ended_at_event: int | null},
   state_hash:        "<64 hex>"
 }
 ```
+
+`run.ended` is set by the `run_end` event; the end card derives its seed,
+rooms-visited, edit and re-roll counters from the log. It does not start a new
+level or seed.
 
 `geometry_revision` and `branch_epoch` matter for streaming: a retired cell ID
 must never be served from a cache as if it still existed. The base map's cell
@@ -370,7 +395,33 @@ and streaming caches lie about identity.
 
 ## 4. Door re-roll (A)
 
-### 4.1 The shape of the event
+### 4.1 In plain language
+
+A door re-roll does **not** change the door. The door keeps its frame, its leaf,
+its colour, its material and its position. It is not restyled, copied or
+swapped for a different door.
+
+What changes is the part of the maze **behind** the player. Once the player has
+passed through the door and it is closed, the rooms on the side they came from
+are replaced with a different layout. When the player opens that same door
+again, it leads somewhere new. The door is the fixed point; the maze behind it
+is the variable.
+
+A short worked example:
+
+1. The player walks out of a room, through door D, into a corridor. D closes
+   behind them.
+2. They continue into a side room, then decide to retrace their steps.
+3. They open D from the corridor side. The room they came from is gone; a
+   different set of rooms is there now.
+4. The corridor, the door, and everything ahead of the player are exactly as
+   they were. Only the route behind has changed.
+
+The rest of this section defines that change precisely. "Behind" means the
+connected component containing the player's previous cell after the door is
+removed; it is not "the door" and it is not "the room ahead".
+
+### 4.2 The shape of the event
 
 The operator's wording is "a door locks behind the player; when it is opened
 again it leads to an entirely different maze". The important word is **behind**.
@@ -388,7 +439,7 @@ later, from B:        A' ---[ D ]--->  B        player opens D; A has become A'
   the player has already walked through are exactly what changes.
 - `B` is the current cell. It is pinned.
 - `D` is the door port on the `B` side, its frame, and the shared boundary.
-  They are pinned.
+  They are pinned. The door is not restyled, copied or replaced.
 - `A'` is a newly generated branch of the same walkable-cell count, attached at
   the same port. It is not a re-skin of `A`; it is a new layout drawn from a
   branch-scoped stream. It stays on the map's lattice and inside the same cell
@@ -402,7 +453,7 @@ closed door, which is what makes it fair and technically safe. Re-rolling the
 side ahead would change geometry the player may be looking at through the open
 door, so it is not the v1 reading.
 
-### 4.2 What is pinned
+### 4.3 What is pinned
 
 | Pinned item | Why |
 |---|---|
@@ -428,7 +479,7 @@ The base `door_id` is a hint and can become a retired port after a re-roll; the
 overlay stores `threshold_id` and rebinds the edge. Do not use a base `door_id`
 that points into `A` as a lookup key after `A` is retired.
 
-### 4.3 Eligibility
+### 4.4 Eligibility
 
 A door is re-roll eligible only when all of these hold:
 
@@ -442,11 +493,11 @@ A door is re-roll eligible only when all of these hold:
    component from `B`. If a loop, diagonal link or elevation loop connects `A`
    to `B` by another route, cutting only `D` would not isolate `A`; the door is
    not eligible.
-3. **The departed component is the right size.** Recommend
-   `MIN_REROLL_CELLS = 3` and `MAX_REROLL_CELLS = 8` walkable cells. A one-cell
-   closet is a room swap, not "an entirely different maze"; a whole-map rewrite
-   is too large for the first runtime slice. Both constants are tuning, not
-   measured.
+3. **The departed component is the right size.** The operator-confirmed v1
+   range is `MIN_REROLL_CELLS = 3` to `MAX_REROLL_CELLS = 8` walkable cells. A
+   one-cell closet is a room swap, not "an entirely different maze"; a whole-map
+   rewrite is too large for the first runtime slice. Both constants are tuning,
+   not measured.
 4. **It contains no exit, spawn, module, landmark, diagonal link or
    elevation-loop edge.** These are the pinned identities above. A module inside
    `A` would be orphaned; an exit inside `A` would make the run unwinnable; a
@@ -459,14 +510,15 @@ A door is re-roll eligible only when all of these hold:
    have to reproduce the vertical contract at the pinned boundary. That is a
    later extension. A level doorway keeps the attachment exact.
 7. **It has re-roll budget.** `doors[].reroll.max_rerolls` (base policy) and a
-   run-level cap both allow another re-roll. Recommend `max_rerolls = 1` per
-   door and `MAX_REROLLS_PER_RUN = 3`. One re-roll per threshold is the v1
-   limit because the candidate pool is precomputed against the base departed
-   component; repeat re-rolls would need a deeper pool or a runtime generator.
-   These are pacing guesses, not measured.
-8. **The exit is still reachable from `B` without `A`.** With a fixed exit this
-   follows from condition 4, but the validator checks it anyway; if the exit
-   moves, this is the authoritative check.
+   run-level cap both allow another re-roll. The operator-confirmed caps are
+   `max_rerolls = 1` per door and `MAX_REROLLS_PER_RUN = 3`. One re-roll per
+   threshold is the v1 limit because the candidate pool is precomputed against
+   the base departed component; repeat re-rolls would need a deeper pool or a
+   runtime generator. The caps are pacing guesses, not measured.
+8. **The exit is still reachable from `B` without `A`.** The exit is static in
+   v1 (§6.4, Q2), so this follows from condition 4; the validator checks it
+   anyway, and that check becomes authoritative if a later version ever moves
+   the exit.
 
 If any condition fails, the door opens to the old `A` (or stays as it was) and
 the attempt is logged as `door_reroll` / `rejected` with the failing code. A
@@ -478,12 +530,14 @@ runtime half of 8 are checked at the open request. The pool is therefore a set
 of structurally valid candidates; the runtime still decides whether this is the
 moment to use one.
 
-### 4.4 How the new branch is drawn
+### 4.5 How the new branch is drawn
 
 **Where the generator runs.** `gmap_build.py` and the shape-room generator are
 offline Python. The walkthrough is GDScript and must not spawn Python in the
-frame loop. For v1, precompute a **branch candidate pool** at map build time:
-for each eligible door and departure direction, generate `CANDIDATES_PER_DOOR`
+frame loop. The operator-confirmed coverage is bridge doors whose departed
+component is 3-8 walkable cells, with the caps in §4.4 (Q7). For v1, precompute
+a **branch candidate pool** at map build time: for each eligible door and
+departure direction, generate `CANDIDATES_PER_DOOR`
 (recommend 3) replacement branches with `(seed, attempt, threshold_id,
 departed_root_cell_id, candidate_index)` (the event records `candidate_index` as
 `branch_attempt`), validate them headlessly, and store the candidates plus their
@@ -544,7 +598,7 @@ The new cells get fresh IDs continuing above the base map's highest ID, plus
 branch metadata (`root_door_id`, `reroll_serial`, `replaced_cell_ids`). Port IDs
 on the new cells are new as well. No retired ID is reused.
 
-### 4.5 When it fires
+### 4.6 When it fires
 
 The sequence is deliberately narrow:
 
@@ -570,7 +624,7 @@ The re-roll does not fire on the first crossing, on a timer, or while the player
 is inside `A`. It fires only on a later open from the `B` side. That is what
 makes "it leads to an entirely different maze" a reveal rather than a pop.
 
-### 4.6 Interaction with seeded room streaming (#162) and unloading
+### 4.7 Interaction with seeded room streaming (#162) and unloading
 
 #162 is deferred and blocked on the room-library and workflow gates. The current
 walkthrough instances every cell at load; the accepted #156 streamer is a
@@ -592,15 +646,15 @@ unloading:
 - The #156 finite streamed walkthrough remains a regression fixture with
   mutations off, so this work cannot silently change its behaviour.
 
-### 4.7 What the player experiences
+### 4.8 What the player experiences
 
 The intended beat is: step through, hear the leaf close and latch, walk on,
 decide to go back, open the door, and find a corridor that was not there. The
-old route is gone; the exit is still ahead somewhere. If the operator chooses a
-fixed exit and the player was walking toward it, the behind side is the spawn
-side and the re-roll is safe. If the player wanders into a dead end, the behind
-side contains the exit and the door is not eligible, so the mechanic never
-strands them.
+old route is gone; the exit is still ahead somewhere. Because the exit is fixed
+(§6.4), if the player was walking toward it, the behind side is the spawn side
+and the re-roll is safe. If the player wanders into a dead end, the behind side
+contains the exit and the door is not eligible, so the mechanic never strands
+them.
 
 That asymmetry is the design: **you can only lose the path you have already
 used, not the path you still need.**
@@ -613,8 +667,9 @@ used, not the path you still need.**
 
 For this proposal the follower is an off-screen process that edits the rooms the
 player has already visited. It does not chase, block, damage or appear. It has
-no combat stats, no pathfinding agent and no simulated body. Its "body" is the
-cue track (§8) and its "hand" is the edit event.
+no combat stats, no pathfinding agent and no simulated body. In v1 the player
+never sees it; it is present only as occasional audio (§5.6, §8). Its "body" is
+the cue track and its "hand" is the edit event.
 
 This keeps the work inside the existing map/runtime architecture and avoids the
 out-of-scope enemy/combat system. It also preserves the operator's ambiguity:
@@ -629,22 +684,23 @@ cost; fairness risk is the chance the edit affects traversal.
 |---|---|---|---|---|---|
 | `lamp_state` | One lamp `on`/`flicker`/`dead`, or a tier change | `light.lamps[i].state`, `light.tier` (#198) | Low | None | M2 |
 | `lamp_flicker` | Flicker seed or pattern only | `light.lamps[i].flicker_seed` (#198) | Low | None | M2 |
-| `reverb` | Wet/dry flag | `cell.reverb`; `set_room_reverb` (#204) | Low | None | M7 |
-| `wear` | Wear +1, capped at 2 | `cell.wear` (#199) | Low | None | M7 |
-| `surface_variant` | One surface clean/worn/damaged within the palette | `cell.surface_variants` (#199) | Low | None | M7 |
-| `palette` | Swap the cell's palette, including floor material | `cell.palette`; floor regions (#208) | Medium | None on graph; changes acoustic tag | M7 |
-| `door_lock` | Latch an open/closed door in a visited room | `doors[].state`, `lock` (#223) | Medium | Must not remove the exit route | M3 |
-| `dark_wing` | Add one contiguous cell to the dark wing | `dark_wing.cell_ids`; light/surface (#198) | Medium | None on graph | M10 |
-| `prop_moved` | Move or rotate a small prop inside a generated room | New prop overlay; no prop system today | Medium | None on graph | M12 |
-| `elevation` | Change a floor level, ramp or drop | `floor_y`, `vertical`, geometry/collision (#201) | High | Can break directed reachability; rebuild | M11 |
-| `door_reroll` | Replace the departed branch | §4 | High | Structural; §6 | M4/M5 |
-| `breadcrumb_tamper` | Move/remove a marker | `breadcrumbs`; §7 | Low | Fairness of the aid, not the exit | Later |
+| `reverb` | Wet/dry flag | `cell.reverb`; `set_room_reverb` (#204) | Low | None | M8 |
+| `wear` | Wear +1, capped at 2 | `cell.wear` (#199) | Low | None | M8 |
+| `surface_variant` | One surface clean/worn/damaged within the palette | `cell.surface_variants` (#199) | Low | None | M8 |
+| `palette` | Swap the cell's palette, including floor material | `cell.palette`; floor regions (#208) | Medium | None on graph; changes acoustic tag | M8 |
+| `door_lock` | Latch an open/closed door in a visited room | `doors[].state`, `lock` (#223) | Medium | Must not remove the exit route | M4 |
+| `dark_wing` | Add one contiguous cell to the dark wing | `dark_wing.cell_ids`; light/surface (#198) | Medium | None on graph | M11 |
+| `prop_moved` | Move or rotate a small prop inside a generated room | New prop overlay; no prop system today | Medium | None on graph | M13 |
+| `elevation` | Change a floor level, ramp or drop | `floor_y`, `vertical`, geometry/collision (#201) | High | Can break directed reachability; rebuild | M12 |
+| `door_reroll` | Replace the departed branch | §4 | High | Structural; §6 | M5/M6 |
+| `breadcrumb_tamper` | Move/remove a marker | `breadcrumbs`; §7 | Low | Fairness of the aid, not the exit | Later (not v1) |
 
 Explicitly **not** in the menu: changing a cell envelope or shape (that is a
 re-roll), moving a library module or the landmark (operator-approved, frozen),
-or changing the exit without the fairness check. The landmark is a map-level
-figure, not a prop; if a prop system arrives, it moves small objects inside a
-room, never the landmark cell.
+changing the static exit (v1; §6.4), or changing the exit without the fairness
+check. `breadcrumb_tamper` is listed only as later work; v1 breadcrumbs are
+honest (§7, Q5). The landmark is a map-level figure, not a prop; if a prop
+system arrives, it moves small objects inside a room, never the landmark cell.
 
 `door_lock` in v1 is a manual latch used for occlusion and dread; it does not
 remove the edge, because the player can always open it. A future keyed or
@@ -705,7 +761,7 @@ dread. The counter is monotonic: a re-roll may retire cells, but it does not
 reduce the escalation already earned. The trigger sequence is logged, so replay
 consumes it instead of re-simulating movement.
 
-Recommended curve (all numbers are guesses for the operator walk). `next_edit`
+Proposed curve (all numbers are guesses for the operator walk). `next_edit`
 is scheduled as `last_edit + interval(last_edit)`, where `interval` is read from
 the row that contains the `last_edit` count:
 
@@ -715,7 +771,7 @@ the row that contains the `last_edit` count:
 | 5-9 | One edit per 4 newly visited cells | `lamp_state`, `lamp_flicker`, `reverb` | Cheap, reversible, no graph effect |
 | 10-14 | One per 3 newly visited cells | Add `wear`, `surface_variant`, `door_lock` | The first "did that change?" beat |
 | 15-24 | One per 2 newly visited cells | Add `palette`, `dark_wing` | Visible wear and dark wings |
-| 25+ | One per 2 newly visited cells; at most one structural edit per 6 newly visited cells | Add `door_reroll`; `elevation` only if approved | Cap `MAX_REROLLS_PER_RUN = 3` |
+| 25+ | One per 2 newly visited cells; at most one structural edit per 6 newly visited cells | Add `door_reroll` within the operator-confirmed caps; `elevation` only if later approved | `MAX_REROLLS_PER_RUN = 3`; `max_rerolls = 1` per door |
 
 Additional rules:
 
@@ -759,15 +815,21 @@ keyed rank below.
 | Option | What the player perceives | Strength | Cost / risk |
 |---|---|---|---|
 | Unseen agent | Footsteps, doors and edits with a moving cause; may be avoided | Strongest causal dread | Needs a graph walker, distance rules and a "never catch" contract; can drift into enemy design |
-| Audible cues only | Distant steps, a door, a lock; no body | Cheap, ambiguous, works with current audio | The player may not connect cue to edit; needs careful mixing |
+| **Audible cues only (chosen for v1)** | Distant steps, a door, a lock; no body | Cheap, ambiguous, works with current audio | The player may not connect cue to edit; needs careful mixing |
 | Implied only | Rooms simply change | Strongest "the maze is unstable" | Can feel random or unfair; no presence to fear |
 | Visible entity | A body at the end of a corridor | Immediate | Out of scope: enemy/combat, animation, AI, new assets |
 
-Recommendation (not a decision): **audible cues plus an implied presence** for
-v1. The follower is never visible and never catches the player. If the operator
-later wants an unseen agent with a position, it can walk the graph at least two
-cells behind the player and still never enter the current cell; that remains a
-pacing feature, not combat.
+**Decision (Q4, Q8).** For v1 the follower is **audio-only and occasional**:
+distant steps, a door, a latch; no body. It is never seen. It never chases,
+blocks, damages or catches the player, and it has no visible model, animation,
+pathfinding agent or combat behaviour. This keeps the work inside the existing
+audio and map architecture and preserves the operator's "something or someone"
+ambiguity. The cue rules are in §8.
+
+The operator's long-term direction, recorded here as a note and **not designed
+in this proposal**, is an almost 4-dimensional entity that creeps in by
+distorting space and time. If that direction is ever pursued it needs its own
+design issue; it is not a v1 feature and must not drift into enemy/combat design.
 
 ---
 
@@ -819,7 +881,8 @@ drop has a return route, so the whole graph should stay strongly connected.
 The mutation validator therefore requires F0, not just F1. F1 and F2 remain the
 operator-facing statement and the checks that stay meaningful if a later keyed
 lock or moving exit makes the graph intentionally one-way; they are checked on
-every event as well.
+every event as well. The v1 exit is static (§6.4), so F1/F2 have a fixed target;
+a moving exit is later and out of scope for this proposal.
 
 ### 6.3 Reusing the #201 validator
 
@@ -849,26 +912,46 @@ authority for pool generation; the GDScript version is the runtime F0-F2 check.
 They must agree on a shared edge-list fixture, including a drop with and without
 a return route. This is a bounded port of one function, not a second generator.
 
-### 6.4 What the exit is, whether it moves, and the win condition
+### 6.4 The exit, its style, and the win condition (decided)
 
-These are operator decisions and are listed again in §10. The fairness design
-is independent of the answer:
+The operator decided Q1-Q3 on 2026-11-12 (§10). These are design inputs now,
+not options:
 
-- **Fixed exit.** Simplest: choose one exit cell at generation, exclude it from
-  every re-roll and follower edit, and require F0/F1/F2. The player can learn
-  the geography; breadcrumbs are meaningful; the re-roll can never strand them.
-- **Moving exit.** The exit may relocate on a re-roll or on a follower edit.
-  Then every move is itself a mutation event with its own draw, and F0/F1/F2 are
-  checked after the move. The exit may not move into a cell the player can see,
-  into a branch that is about to be re-rolled, or into a cell with no return
-  route. A cue is required, or the move is unfair.
-- **Exit appears after a condition.** The exit is latent until N rooms or a
-  key-like condition; the same checks apply once it is revealed. This adds a
-  quest layer and is out of scope unless the operator asks for it.
-
-Recommendation (not a decision): a fixed exit for v1, excluded from re-rolls and
-follower edits. It gives the maze a stable "out" to run toward while the path
-behind the player changes, and it makes the first playable slice testable.
+- **One static exit.** Exactly one exit threshold is chosen at seed generation.
+  It does not move during a run. Q2 records this as an initial-version choice,
+  not a permanent rule, but v1 must not implement a moving exit.
+- **A distinct bright door.** The exit is a threshold door, always a door that
+  reads as bright, inside a room that carries the clean, bright industrial
+  test-chamber style the operator described as the Portal 2 direction. The same
+  visual language must read consistently from seed to seed; room layout may
+  vary, but the threshold must stay unmistakable.
+- **Style, not asset copying.** This is a style and consistency target. The
+  game reference is a style comparison only; no third-party texture, model,
+  logo or other asset is copied, referenced or required. The implementation
+  builds original materials and geometry in the existing palette language; a
+  later asset issue may refine it, and the operator's visual acceptance is the
+  gate.
+- **Placement.** At a leaf/figure cell chosen deterministically from the seed.
+  The exit cell is pinned: it is excluded from every re-roll and follower edit,
+  never part of a departed component, and never the spawn cell. The threshold
+  door is not a re-roll door and is not eligible for lock-behind.
+- **Win condition.** Crossing the exit threshold ends the run. A short end card
+  follows, showing the seed, rooms visited, edit count and re-roll count (and
+  any other counters already in the log). The end card is the whole escape
+  loop; it is not a score.
+- **No progression.** The end card does not offer or start a next level or a new
+  seed. Level/seed chaining is outside this repository's scope for now: this
+  repo constructs levels, and something else would tie them together. Do not
+  design or implement next-seed progression in #209 or its implementation
+  issues.
+- **No moving exit in v1.** A moving exit stays out of scope. If a later version
+  reopens it, every move must be a logged mutation event with its own draw, a
+  cue, and F0/F1/F2 checks, and it must never move into a visible cell or a
+  branch about to be re-rolled.
+- **Fairness.** With a static exit, F0/F1/F2 still apply. A re-roll or edit that
+  would remove the exit route is rejected before commit (F1/F2); the exit cell
+  is never retired. The exit is the stable "out" the player runs toward while
+  the path behind them changes.
 
 ### 6.5 Repair rules
 
@@ -898,36 +981,44 @@ behind the player changes, and it makes the first playable slice testable.
 | Chalk/thread | Player draws a line or unspools thread | Strong, physical | Strong | Continuous geometry; can be cut or blocked |
 | Honest vs tampered | Any of the above, with the follower able or unable to change it | Varies | Strong if the rule is learnable | Tampering can feel unfair if silent |
 
-### 7.2 Recommended first version
+### 7.2 v1 design (honesty and toggle decided)
 
-Recommendation (not a decision): a limited, diegetic auto trail with one small
-marker per distinct visited cell, a hard cap (recommend 32), visible only at
-short range, toggled from the pause menu. The recommended version is honest. It
-helps the player notice that a room changed without turning the maze into a
-minimap.
+The v1 aid is the proposed limited, diegetic auto trail with one small marker
+per distinct visited cell, a proposed cap of 32 (not measured), visible only at
+short range, and **honest**: it always reflects the player's true path. The
+operator decided the honesty on 2026-11-12 (Q5), together with the toggle:
+default off, pause-menu toggle available from the start (Q6).
+
+Honest markers still help the player notice that a room changed without turning
+the maze into a minimap: a gap or an unreachable marker is evidence that the
+maze changed. Tampering is not part of v1.
 
 This is later work: it depends on the re-roll (markers in a retired branch must
 be retired) and on the follower edit visibility gate. It should not be in the
 first implementation slice.
 
-### 7.3 Honesty and tampering
+### 7.3 Honesty and tampering (decided for v1)
 
-This is an operator decision (§10). The design options:
+The operator decided that breadcrumbs are **honest in v1**. An unreliable or
+tampering mode is liked in principle but is too confusing for the initial
+version, so it stays later work and is not scheduled here.
 
-- **Honest.** The trail always reflects the player's true path. It reduces dread
-  but makes the re-roll legible: a gap in the trail is evidence that the maze
-  changed.
-- **Follower tampering.** The follower may move or remove a marker, at most one
-  per edit, never the marker in the player's current cell, never create a marker
-  in an unvisited cell, and never lead the player into a non-walkable cell. A
-  moved marker visibly changes (tilt, colour, a missing cap) so the player can
-  learn the rule. Silent tampering is unfair.
-- **Unreliable by design.** Markers sometimes lie; the player can never trust
-  them. This is the strongest dread but the weakest fairness; it needs an
+If a tamper mode is ever built, it must follow these rules and needs explicit
+operator approval:
+
+- **Honest (v1).** The trail always reflects the player's true path. It reduces
+  dread but makes the re-roll legible: a gap in the trail is evidence that the
+  maze changed.
+- **Follower tampering (later).** The follower may move or remove a marker, at
+  most one per edit, never the marker in the player's current cell, never
+  create a marker in an unvisited cell, and never lead the player into a
+  non-walkable cell. A moved marker visibly changes (tilt, colour, a missing
+  cap) so the player can learn the rule. Silent tampering is unfair.
+- **Unreliable by design (later).** Markers sometimes lie; the player can never
+  trust them. This is the strongest dread but the weakest fairness; it needs an
   explicit tell and the operator's approval.
 
-Recommendation (not a decision): honest in v1; tamper mode later only with a
-visible tell. F0-F2 never depend on breadcrumbs, so even a lying trail cannot
+F0-F2 never depend on breadcrumbs, so even a future lying trail cannot
 soft-lock the run.
 
 ### 7.4 Data model
@@ -946,12 +1037,12 @@ Events: `breadcrumb_drop`, `breadcrumb_move`, `breadcrumb_remove`,
 in a re-rolled branch is retired with the branch; a marker at the door on the
 `B` side stays.
 
-### 7.5 Toggle
+### 7.5 Toggle (decided)
 
-Recommendation (not a decision): default off, pause-menu toggle, available from
-the start, with no penalty for turning it on. It is a comfort/difficulty aid,
-not an accessibility requirement; the operator may prefer to unlock it after a
-first escape or make it a diegetic item.
+Default off, pause-menu toggle available from the start, with no penalty for
+turning it on and no first-escape unlock. The operator confirmed this after
+reading the wording (Q6). It is a comfort/difficulty aid, not an accessibility
+requirement.
 
 ---
 
@@ -1004,6 +1095,10 @@ sound the player should barely identify.
 
 ### 8.4 Pacing rules
 
+The follower is heard, never seen, and its cues are occasional. A run may go
+several rooms without one; silence is part of the effect. The rules below keep
+the cue rate low.
+
 - No cues in the first 4 rooms. The base maze must establish its own sound
   before the follower has a voice.
 - One cue per edit at most, and no more than one cue per 8-15 seconds. Silence
@@ -1014,8 +1109,8 @@ sound the player should barely identify.
   contract. The other cues are optional and should not be on every edit, or the
   player learns the pattern and stops being unsettled.
 - No non-diegetic music or stingers. The score is the room tone and the
-  player's own steps. This is a recommendation, not a decision, but it follows
-  from the "diegetic, ambiguous" direction.
+  player's own steps. This is a design preference, not an operator decision,
+  but it follows from the "diegetic, ambiguous" direction.
 - Reverb flips are never applied while the player is in the room. The change is
   heard on re-entry as a different tail, not as a live crossfade.
 
@@ -1024,7 +1119,8 @@ a real walk, not a headless assertion.
 
 ### 8.5 What the audio must not do
 
-- It must not imply a visible enemy that never appears.
+- It must not promise a visible enemy or a reveal the design will not deliver;
+  the follower is heard, not seen.
 - It must not mask the player's own footsteps so thoroughly that movement feels
   unresponsive.
 - It must not play a cue for every edit, or the follower becomes a metronome.
@@ -1058,6 +1154,12 @@ Implementation constraint: add **per-cell pure functions** (or an override
 layer) that compute one cell's value from frozen neighbours and a draw key, and
 make the whole-document pass use those functions. A branch re-roll may recompute
 the whole new branch, but never the surviving `B` side.
+
+Static exit selection (§6.4, Q1-Q2) must follow the same discipline: a
+seed-keyed draw over eligible cells, not a sequential pass. It must not consume
+draws from an existing layer stream or shift any existing cell's value. A map
+can carry the selected exit in a new layer version, or derive it from the seed
+at load for maps generated before that version.
 
 Branch candidates are the exception to "compute at runtime": they are generated
 offline because the branch geometry is Python. The pool is a versioned sidecar
@@ -1107,9 +1209,10 @@ and should be in every mutation issue.
 One `MazeMutationController` per walkthrough:
 
 - owns the event log, overlay, cadence counters and state hash;
-- receives `room_entered`, `door_opened`, `door_closed`, `cell_unloaded` and
-  `save_restore` triggers as signals; appends the trigger record before deciding
-  what, if anything, to mutate;
+- receives `room_entered`, `door_opened`, `door_closed`, `exit_entered`,
+  `cell_unloaded` and `save_restore` triggers as signals; appends the trigger
+  record before deciding what, if anything, to mutate; on `exit_entered` it
+  emits `run_end`, stops mutations and leaves the end card to the UI;
 - calls the graph/visibility/fairness helpers before committing;
 - asks the assembly to apply cell overrides or replace a branch;
 - never edits `godot_walk/scripts/player.gd` (frozen) and never writes into the
@@ -1139,6 +1242,10 @@ To support a lock/occlusion, add a **door leaf** as new geometry:
 
 A door without a leaf is not re-roll eligible. This is a hard constraint, not a
 polish item, because the leaf is what makes the swap invisible.
+
+The static exit threshold (§6.4) is a different door: it may use a distinct
+original bright material and room treatment in M3, but it still must not copy a
+third-party asset.
 
 ### 9.6 One fairness helper, one visibility helper
 
@@ -1181,6 +1288,9 @@ polish item, because the leaf is what makes the swap invisible.
   version, not in a silent enum extension.
 - A base-generator change is a new `gmap` version. A mutation never changes the
   generator version of an existing map.
+- The static exit is a new layer/field version, not a mutation and not an
+  overload of an existing schema. Existing maps keep their bytes; the runtime
+  derives the same exit from the seed until a map is regenerated with the layer.
 - The candidate-pool tool is a sidecar producer, not a change to the base map
   generator. Reusing the generator functions without changing their output keeps
   the base `gmap` version; changing a base draw would require a new version.
@@ -1201,81 +1311,95 @@ polish item, because the leaf is what makes the swap invisible.
 - No re-roll result in the committed map. The map is the base; the branch
   replacement is overlay state.
 - No mutation-driven change to a library module scene.
+- No exit movement or next-seed progression. V1's exit is static, and the run
+  ends at the end card; level/seed chaining belongs outside this repository.
 - No "random" runtime call without a `(seed, attempt, event_index, stream)`
   key.
 
 ---
 
-## 10. Open questions for the operator
+## 10. Operator decisions (2026-11-12)
 
-The following are not decided by this proposal. Each has options, a
-recommendation, and the reason it remains open. The first five are the questions
-named in #209 and should be answered before implementation issues are filed; the
-others affect pacing and can be settled during the same review.
+The operator answered the eight questions in two comments on issue #209
+(comments 509 and 510) on 2026-11-12. The second comment supersedes the first on
+Q3 and confirms Q6-Q8 after the operator read the wording. These are decisions,
+not recommendations; the rest of this revision reflects them.
 
-### Q1. What is the exit? (operator decision required)
+### Q1. What is the exit? — decided
 
-Options: a distinct door/threshold; a stairwell; a service elevator; a dark
-anomaly/void; an exit sign at the end of a recognizable corridor; no literal
-exit (endless). Recommendation: a distinct threshold door at a leaf/figure cell,
-reusing the existing doorway language with a distinct material or frame. It is
-readable, testable and does not need a new asset family. The operator's taste
-decides the fiction.
+A distinct threshold door: always a bright door inside a room styled in the
+clean, bright industrial test-chamber direction the operator described as the
+Portal 2 look. The threshold and its room should read consistently from seed to
+seed. This is a style and consistency target, not a request to copy any
+third-party asset; the implementation must use original materials and geometry.
+See §6.4.
 
-### Q2. Does the exit move? (operator decision required)
+### Q2. Does the exit move? — decided
 
-Options: fixed at generation; moves only on a door re-roll; moves on follower
-edits; appears after a condition. Recommendation: fixed in v1, excluded from
-every re-roll and edit. Fixed gives the player a stable goal and makes the
-changing path behind them the source of dread. If it moves later, every move is
-a logged event with F0-F2 checks and a cue; never move it into a visible cell or
-a branch about to be replaced.
+No, not in v1. The exit is static from seed generation. The operator noted that
+they had earlier said the exit could move; this is an initial-version choice,
+not a permanent rule. A moving exit is out of scope for this proposal and for
+the v1 issue list. See §6.4.
 
-### Q3. What is the win condition? (operator decision required)
+### Q3. What is the win condition? — decided
 
-Options: cross the exit threshold and end the run; collect N keys/rooms and then
-exit; survive for a duration; endless with no win. Recommendation: crossing the
-exit threshold ends the run with a short end card (seed, rooms visited, edits,
-re-rolls) and offers a new seed. It closes the escape loop and gives the operator
-a measurable run length. No scoring system is implied.
+Finding the exit and crossing its threshold ends the run with a short end card:
+seed, rooms visited, edits, re-rolls. This confirms the end-card part of the
+proposal's recommendation, but not the earlier next-seed sentence. Chaining
+levels or seeds is outside this repository's scope for now; do not design
+next-seed progression. The first operator comment's "continues to the next
+level / new seed" reading is superseded. See §6.4 and §11.
 
-### Q4. How does the follower exist? (operator decision required)
+### Q4. How does the follower exist? — decided
 
-Options: unseen agent; audible cues only; implied only; visible entity (out of
-scope enemy/combat). Recommendation: audible cues plus an implied presence, no
-body, no chase, no catch. It preserves "something or someone" and fits the
-existing audio work. If the operator wants a moving unseen agent later, it can
-walk the graph at least two cells behind and never enter the current cell.
+The follower is not a core dynamic now. It is an audible cue plus an implied
+presence, as recommended. It does not chase, block, damage or appear. See §5.6
+and §8.
 
-### Q5. Is breadcrumb mode honest? (operator decision required)
+### Q5. Is breadcrumb mode honest? — decided
 
-Options: honest; the follower can tamper; unreliable by design. Recommendation:
-honest in v1; tamper mode later only with a visible tell and the rules in §7.3.
-F0-F2 never depend on breadcrumbs, so the aid cannot soft-lock the run.
+Honest in v1. An unreliable or tampering breadcrumb mode is liked in principle
+but is too confusing for the initial version; it stays later work and is not
+scheduled. See §7.3.
 
-### Q6. Breadcrumb default and toggle (pacing decision)
+### Q6. Breadcrumb default and toggle — decided
 
-Options: default on; default off; unlock after a first escape; pause-menu
-accessibility toggle; diegetic item. Recommendation: default off, pause-menu
-toggle, available from the start. Breadcrumbs reduce dread; the player should
-opt in. This is not one of the five required questions, but it changes the first
-playable slice.
+Default off, with a pause-menu toggle available from the start. Confirmed after
+the operator read the wording. See §7.2 and §7.5.
 
-### Q7. Door re-roll coverage and caps (pacing decision)
+### Q7. Door re-roll coverage and caps — decided
 
-Options: every eligible door; only doors on the path toward the exit; only a
-seeded subset; cap per door and per run. Recommendation: eligible bridge doors
-whose departed component is 3-8 cells, `max_rerolls = 1` per door and
-`MAX_REROLLS_PER_RUN = 3`. One re-roll per threshold keeps the precomputed pool
-tractable; the global cap keeps the first walk from turning into constant
-replacement while still making the route behind the player unreliable.
+Eligible bridge doors whose departed component is 3-8 walkable cells. At most
+one re-roll per door (`max_rerolls = 1`) and at most three per run
+(`MAX_REROLLS_PER_RUN = 3`). The operator also clarified the term: a re-roll is
+not copying or restyling a door. The door stays the same; the part of the maze
+behind the player is regenerated into a different layout once the door is
+closed. See §4.1 and §4.4.
 
-### Q8. Does the player ever see the follower? (fiction decision)
+### Q8. Does the player ever see the follower? — decided
 
-Options: never; a glimpse at the end of a corridor; a full visible agent (out of
-scope). Recommendation: never in v1. A glimpse is a strong beat but needs an
-entity, animation and a rule for what happens when the player approaches; that
-is the enemy/combat boundary the issue excludes.
+Never in v1. Its presence is audio-only and occasional. The operator described
+the long-term direction as an almost 4-dimensional entity that creeps in by
+distorting space and time; that is a note for later, not a design for this
+proposal or its issue list. See §5.6.
+
+### Questions that remain open
+
+These are not decided by the operator and do not block the first issue:
+
+- The exact end-card wording and which counters it shows.
+- The exact original materials, geometry and lighting for the bright exit room.
+  The style direction is set; the asset work and the operator's visual
+  acceptance are later.
+- The pacing constants: edit cadence, cue interval and escalation curve need an
+  operator walk and listen.
+- Whether a dishonest breadcrumb mode is ever wanted. It is later work only and
+  is not scheduled.
+- Whether the long-term 4D follower direction is ever pursued. It is a note, not
+  a design.
+- The storage mechanism for the static exit: a new map layer or a seed-derived
+  value for existing maps. This is an implementation choice, not an operator
+  question.
 
 ---
 
@@ -1284,25 +1408,28 @@ is the enemy/combat boundary the issue excludes.
 These are proposals, not filed issues. Each is sized to one loop run. They are
 slices of #223, which is the umbrella runtime-overlay issue and must not start
 until #209 is closed. The first slice is deliberately headless: it proves the
-event log and replay before anything is visible. M1 and M2 can use a synthetic
-exit for tests; M3 onward need Q1-Q3 (exit form, movement, win condition)
-settled, because F1/F2 and the branch pool depend on the exit cell.
+event log and replay before anything is visible. The operator decisions in §10
+are fixed inputs: the exit is static, crossing it ends the run with an end card,
+and there is no next-seed or next-level progression. M1 and M2 can use a
+synthetic exit fixture; M3 adds the real static exit and end card, and every
+later issue uses it.
 
 | Order | Working title | Scope | Verification | Depends on |
 |---|---|---|---|---|
-| M1 | Mutation overlay core and replay | Event record, trigger and mutation records, keyed draw, fold, state hash, JSONL log, headless replay | Same base + log => same overlay; trigger-only cadence reconstructs; reorder/tamper/base-mismatch rejected; map hash unchanged; no runtime | Approved #209 |
+| M1 | Mutation overlay core and replay | Event record, trigger and mutation records, keyed draw, fold, state hash, JSONL log, headless replay; run counters derivable from the log | Same base + log => same overlay; trigger-only cadence reconstructs; reorder/tamper/base-mismatch rejected; map hash unchanged; no runtime | Approved #209 |
 | M2 | Follower edit: lamp state and flicker | Per-cell light override, visibility gate, cadence counter; first visible edit | Leave cell, edit applies, re-enter sees new lamp; no other cell shifts; map hash unchanged; capture | M1 |
-| M3 | Door state and lock-behind | Overlay `doors[]`, procedural leaf for generated rooms, close/latch on crossing, manual open; no re-roll | Headless cross/lock/open; exit reachable; library doorways skipped; save/restore; capture | M1 |
-| M4 | Door re-roll: offline branch pool and headless validation | Generate and validate a candidate pool per eligible door at map build time; sidecar with hashes; no runtime generation | Pool is deterministic; every candidate attaches and preserves F0; invalid candidates are omitted; no fit fails closed; `strongly_connected` negative case | M1, M3 |
-| M5 | Door re-roll: runtime swap from the pool | Select a candidate by `reroll_serial`/`branch_attempt`; swap while closed/hidden; despawn old branch; build new branch; GDScript F0-F2 check | Headless door-open reveal; no pop in captures; old IDs retired; GDScript and Python graph fixtures agree; map hash and pool hash unchanged; operator walk pending | M4 |
-| M6 | Door re-roll: save, restore and cache | Persist base hash + pool hash + event log; restore across reloads; overlay-aware cache key; #156 fixture unchanged | Save/reload at the door produces the same overlay; retired IDs miss the cache; #156 regression; map hash unchanged | M5 |
-| M7 | Follower edits: reverb, wear and variant | Reverb flip (existing setter), wear/variant overrides, palette-compatible validation | Per-cell isolation; map hash unchanged; old cells unchanged; capture; operator walk/listen | M1, M2 |
-| M8 | Follower presence cues | `Follower` bus, 3D cue pool, distant steps, door/lock sounds, cue events | Cue timing/distance/volume checks; no audio assertions; operator listen pending | M1, M2 |
-| M9 | Breadcrumb mode (later) | Markers, pause toggle, honest trail, retirement on re-roll | Drop/retire/replay; map hash unchanged; re-roll truncates trail; operator walk | M5, M8 |
-| M10 | Dark-wing growth (later) | Add one contiguous visited cell to the dark wing; update its light and surface | Light/surface consistency; no non-wing cell shifts; map hash unchanged; capture | M2, M7 |
-| M11 | Elevation edits (later) | Change one visited branch's floor/ramp/drop; rebuild geometry and collision | F0-F3 checks; return route for every drop; no visible pop; capture | M6, M7 |
-| M12 | Prop edits (later) | Move or rotate a small prop in a generated room; needs a prop system first | Prop overlay replay; no graph effect; no visible pop; capture | M7 |
-| M13 | Escalation tuning and evidence | Tune cadence constants, collect replay logs and captures, operator walk | A full run with A and B; metrics recorded; no new mechanics | M2-M12 |
+| M3 | Exit threshold and run end card | Static seed-keyed exit selection; bright threshold door and original test-chamber room treatment; crossing ends the run once; end card shows seed, rooms visited, edits and re-rolls; no next-seed or level progression | Same seed => same exit cell; exit excluded from re-roll/edit targets; one `run_end` event and one end card per run; counters match the log; no progression action exists; map bytes unchanged; capture for operator style review | M1 |
+| M4 | Door state and lock-behind | Overlay `doors[]`, procedural leaf for generated rooms, close/latch on crossing, manual open; no re-roll; exit threshold is not lock-behind eligible | Headless cross/lock/open; exit reachable; library doorways skipped; save/restore; capture | M1, M3 |
+| M5 | Door re-roll: offline branch pool and headless validation | Generate and validate a candidate pool per eligible door at map build time; operator-confirmed bridge doors with a 3-8 cell departed component; `max_rerolls = 1` per door and `MAX_REROLLS_PER_RUN = 3`; sidecar with hashes; no runtime generation | Pool deterministic; every candidate attaches and preserves F0/F1; invalid omitted; no fit fails closed; exit/spawn/module/landmark excluded; `strongly_connected` negative case | M1, M3, M4 |
+| M6 | Door re-roll: runtime swap from the pool | Select by `reroll_serial`/`branch_attempt`; enforce 1/door and 3/run; swap while closed/hidden; despawn old branch; build new branch; GDScript F0-F2 check | Headless door-open reveal; no pop in captures; old IDs retired; GDScript and Python graph fixtures agree; map hash and pool hash unchanged; operator walk pending | M5 |
+| M7 | Door re-roll: save, restore and cache | Persist base hash + pool hash + event log; restore across reloads; overlay-aware cache key; #156 fixture unchanged | Save/reload at the door produces the same overlay; retired IDs miss the cache; #156 regression; map hash unchanged | M6 |
+| M8 | Follower edits: reverb, wear and variant | Reverb flip (existing setter), wear/variant overrides, palette-compatible validation | Per-cell isolation; map hash unchanged; old cells unchanged; capture; operator walk/listen | M1, M2 |
+| M9 | Follower presence cues | `Follower` bus, 3D cue pool, distant steps, door/lock sounds, cue events; audio-only, occasional, never visible | Cue timing/distance/volume checks; no visible follower node; no audio assertions; operator listen pending | M1, M2 |
+| M10 | Breadcrumb mode (later) | Markers, pause toggle, honest trail, retirement on re-roll; default off; toggle available from the start; no tamper mode in v1 | Drop/retire/replay; map hash unchanged; re-roll truncates trail; toggle works from the start; markers are honest; operator walk | M6, M9 |
+| M11 | Dark-wing growth (later) | Add one contiguous visited cell to the dark wing; update its light and surface | Light/surface consistency; no non-wing cell shifts; map hash unchanged; capture | M2, M8 |
+| M12 | Elevation edits (later) | Change one visited branch's floor/ramp/drop; rebuild geometry and collision | F0-F3 checks; return route for every drop; no visible pop; capture | M7, M8 |
+| M13 | Prop edits (later) | Move or rotate a small prop in a generated room; needs a prop system first | Prop overlay replay; no graph effect; no visible pop; capture | M8 |
+| M14 | Escalation tuning and evidence | Tune cadence constants, collect replay logs and captures, operator walk; verify end-card counters and no progression | A full run with A and B; metrics recorded; no new mechanics | M2-M13 |
 
 Notes on sizing:
 
@@ -1310,19 +1437,24 @@ Notes on sizing:
   player. If M1 is not deterministic, nothing after it can be trusted.
 - M2 proves the out-of-sight rule and the per-cell override on the cheapest
   layer. It should not also add a door.
-- M3 adds the leaf and the lock but not the re-roll; this isolates the geometry
+- M3 adds the static exit and the end card before any door mutation. It gives
+  every later fairness check a real exit and closes the escape loop. It must not
+  add seed or level chaining. If the style pass is too large for one loop run,
+  split the material work into a follow-up without changing the functional
+  contract.
+- M4 adds the leaf and the lock but not the re-roll; this isolates the geometry
   and occlusion risk.
-- M4, M5 and M6 split the re-roll into the offline candidate pool, the runtime
+- M5, M6 and M7 split the re-roll into the offline candidate pool, the runtime
   swap, and the save/restore/cache contract. Each is a full loop run; combining
   them would be too large.
-- M7 adds the layers that are cheap metadata but have visual/audio tells.
-- M8 is audio; agents can verify event wiring, not the mix.
-- M9, M10, M11 and M12 are explicitly later; they should not block the first
+- M8 adds the layers that are cheap metadata but have visual/audio tells.
+- M9 is audio; agents can verify event wiring, not the mix.
+- M10, M11, M12 and M13 are explicitly later; they should not block the first
   A/B slice.
-- M13 is a tuning/evidence run, not a feature. It needs the operator's walk and
+- M14 is a tuning/evidence run, not a feature. It needs the operator's walk and
   listen.
 
-### 11.1 First three issues in detail
+### 11.1 First four issues in detail
 
 1. **M1 — Mutation overlay core and replay.** Add `maze_mutation` with trigger
    and mutation records, `draw_for_event`, `fold_events`, `state_hash`, JSONL
@@ -1337,7 +1469,17 @@ Notes on sizing:
    left. Check that the committed map hash is unchanged, the target cell's
    override is the only change, and re-entry shows the new state. Capture before
    and after; operator visual review is the human step.
-3. **M3 — Door state and lock-behind.** Add the leaf geometry as a new
+3. **M3 — Exit threshold and run end card.** Add deterministic static exit
+   selection from the seed (a new layer version, or a seed-derived value for
+   existing maps), a bright threshold door and an original clean test-chamber
+   room treatment in the operator's style direction, and the run-end trigger.
+   The end card shows seed, rooms visited, edits and re-rolls from the log; it
+   offers no next level or new seed. Check that the same seed selects the same
+   exit, the exit is excluded from re-rolls and edits, crossing fires `run_end`
+   once, the counters match the log, and no progression action exists. Capture
+   the threshold for operator visual review. Original materials only; do not
+   copy or reference a third-party asset.
+4. **M4 — Door state and lock-behind.** Add the leaf geometry as a new
    shape-room version (or a runtime prop for library ports), the overlay door
    state, close/latch on crossing, and manual open. No re-roll. Check that a
    generated door closes and latches, that the player can open it from the
@@ -1348,19 +1490,25 @@ Notes on sizing:
 ### 11.2 What is deliberately not in the first pass
 
 - No follower entity, pathfinding or chase.
-- No breadcrumbs.
+- No visible follower; presence is audio-only in v1.
+- No breadcrumb tamper mode; v1 breadcrumbs are honest, default off, with a
+  pause-menu toggle from the start.
 - No elevation/prop edits.
-- No moving exit.
+- No moving exit; the exit is static by decision.
+- No next-seed progression, level chaining or score.
+- No third-party assets; the exit style target is original work.
 - No new audio assets; cues reuse existing stems or wait for an asset issue.
-- No change to committed maps, library scenes or the generator's output for
-  existing seeds.
+- No change to committed maps or library scenes. The static exit is additive:
+  an existing seed keeps its existing layer values, and its exit is either
+  recorded in a new layer version or derived from the seed at load.
 
 ---
 
 ## 12. Scope guard
 
-- This is a proposal, not an approval. The operator reviews and amends it before
-  any implementation issue is filed.
+- This is a revised proposal, not an approval. The operator decisions in §10 are
+  recorded; the operator still reviews this revision before any implementation
+  issue is filed.
 - No code, schema, generator, map, shape-room or asset change is part of #209.
 - No hash-pinned file is edited: `godot_walk/scripts/player.gd`,
   `godot_walk/project.godot`, library room scenes,
@@ -1370,6 +1518,9 @@ Notes on sizing:
 - No catalog admission, source event, `registration_accepted` or
   `scale_calibrated` change.
 - No enemy/combat, scoring, new source ingestion or SkillOpt run.
+- No next-seed progression or level chaining; the run ends at the exit card.
+- No third-party asset files, textures, models, logos or other assets. The
+  bright exit style is an original-work target.
 - No push and no issue closure by the worker; the operator does both.
 
 ---
@@ -1392,7 +1543,7 @@ Notes on sizing:
 | #205 | Ray-cast room-acoustics probe and footstep reverb bus | Probe and `Footsteps` bus; cue mix |
 | #208 | Floor-material palettes: tile, metal and wood floors in generated rooms | Palette/floor-material edits and acoustic tags |
 | #212 | Proposal: complete metadata template for the generation scope | Template fields, §3.7, §3.10, §6.3 |
-| #219 | Template T6: ceiling/volume, exits/roles and mood descriptors | Module exits/roles and mood fields; a map-level exit is still open |
+| #219 | Template T6: ceiling/volume, exits/roles and mood descriptors | Module exits/roles and mood fields; the map-level exit decision is recorded in §10 |
 | #220 | Template T7: gmap-0.13.0 consuming the template | Per-cell keyed layer work |
 | #223 | Template T10: implement the #209 runtime overlay (door re-roll, follower, breadcrumb state) | The implementation umbrella; blocked by #209 |
 
@@ -1434,7 +1585,7 @@ Notes on sizing:
 | 1. Mutation model, seeded event log, `attempt` and streams | §3 |
 | 2. Door re-roll: part regenerated, pins, new attempt, firing, streaming | §4 |
 | 3. Follower edits: menu, out-of-sight rule, cadence, follower existence | §5 |
-| 4. Fairness invariant and directed validator; exit/win as open questions | §6, §10 |
+| 4. Fairness invariant and directed validator; exit and win decided | §6, §10 |
 | 5. Breadcrumb mode: what it is, honesty, toggle, later work | §7, §10 |
 | 6. Sound and feel; cues, reverb flips, pacing | §8 |
 | 7. Architecture constraints for the backlog | §9 |
