@@ -97,48 +97,91 @@ func _run_runtime() -> Dictionary:
 	var event: Dictionary = runtime.edit_events[0]
 	var target := String(event.target.cell_id)
 	var change: Dictionary = event.change
-	var before: Array = change.before
-	var after: Array = change.after
-	var field := "state" if String(change.class) == "lamp_state" else "flicker_seed"
-	var lamp_index := _changed_lamp_index(before, after, field)
+	var change_class := String(change.class)
 	result.edit_count = runtime.edit_events.size()
 	result.target_cell = target
-	result.change_class = String(change.class)
-	result.lamp_index = lamp_index
+	result.change_class = change_class
 	result.visit_count = int(event.get("visit_count", 0))
-	_expect(lamp_index >= 0, "live edit record has no changed lamp")
-	if String(change.class) == "lamp_state":
-		result.state_after = String(_record_value(after, lamp_index, "state"))
-		_expect(scene.cell_light_state(target, lamp_index) == result.state_after,
-			"live edit did not reach the assembly")
+	if ["lamp_state", "lamp_flicker"].has(change_class):
+		var before: Array = change.before
+		var after: Array = change.after
+		var field := "state" if change_class == "lamp_state" else "flicker_seed"
+		var lamp_index := _changed_lamp_index(before, after, field)
+		result.lamp_index = lamp_index
+		_expect(lamp_index >= 0, "live edit record has no changed lamp")
+		if change_class == "lamp_state":
+			result.state_after = String(_record_value(after, lamp_index, "state"))
+			_expect(scene.cell_light_state(target, lamp_index) == result.state_after,
+				"live edit did not reach the assembly")
+		else:
+			result.state_after = "flicker"
+			_expect(scene.cell_light_state(target, lamp_index) == "flicker",
+				"live flicker edit did not reach the assembly")
+	elif change_class == "reverb":
+		result.state_after = str(change.after)
+		_expect(scene.room_reverb_enabled(target) == bool(change.after),
+			"live reverb edit did not reach the assembly")
+	elif change_class == "wear":
+		result.state_after = str(change.after)
+		_expect(scene.cell_wear(target) == int(change.after),
+			"live wear edit did not reach the assembly")
+	elif change_class == "surface_variant":
+		var surface := _changed_surface(change.before, change.after)
+		_expect(not surface.is_empty(), "live variant edit changed no surface")
+		result.state_after = "%s=%s" % [surface, String(change.after[surface])]
+		_expect(String(scene.cell_surface_variants(target).get(surface, ""))
+			== String(change.after[surface]),
+			"live variant edit did not reach the assembly")
 	else:
-		result.state_after = "flicker"
-		_expect(scene.cell_light_state(target, lamp_index) == "flicker",
-			"live flicker edit did not reach the assembly")
+		_fail("live edit has an unknown class %s" % change_class)
 	_expect(runtime.cell_overrides.has(target), "live edit left no override record")
 	if String(map.map_id) == "gmap-279-gmap-0.13.0":
-		_expect(target == "c04" and String(change.class) == "lamp_state",
+		_expect(target == "c04" and change_class == "lamp_state",
 			"live first edit does not match the Python reference target/class")
-		_expect(lamp_index == 2 and result.state_after == "flicker",
+		_expect(result.lamp_index == 2 and result.state_after == "flicker",
 			"live first edit does not match the Python reference lamp/state")
 	await _move_player(scene, player, target)
 	for _frame in 2:
 		await physics_frame
 	result.reentry_checks += 1
-	_expect(scene.cell_light_state(target, lamp_index) == result.state_after,
-		"live re-entry lost the lamp state")
+	_expect(_live_state(scene, target, change) == result.state_after,
+		"live re-entry lost the edit")
 	_expect(runtime.edit_events.size() == 1, "re-entry re-fired the same beat")
 	await _move_player(scene, player, beat_cell)
 	await _move_player(scene, player, target)
 	for _frame in 2:
 		await physics_frame
 	result.reentry_checks += 1
-	_expect(scene.cell_light_state(target, lamp_index) == result.state_after,
-		"second live re-entry lost the lamp state")
+	_expect(_live_state(scene, target, change) == result.state_after,
+		"second live re-entry lost the edit")
 	_expect(runtime.edit_events.size() == 1, "second re-entry re-fired the same beat")
 	_fail_all(result.failures)
 	await _release(scene)
 	return result
+
+
+func _live_state(scene: Node3D, target: String, change: Dictionary) -> String:
+	var change_class := String(change.class)
+	if change_class == "lamp_state":
+		var lamp_index := _changed_lamp_index(
+			change.before, change.after, "state")
+		return String(scene.cell_light_state(target, lamp_index))
+	if change_class == "lamp_flicker":
+		return String(scene.cell_light_state(target, _changed_lamp_index(
+			change.before, change.after, "flicker_seed")))
+	if change_class == "reverb":
+		return str(scene.room_reverb_enabled(target))
+	if change_class == "wear":
+		return str(scene.cell_wear(target))
+	var surface := _changed_surface(change.before, change.after)
+	return "%s=%s" % [surface, String(scene.cell_surface_variants(target).get(surface, ""))]
+
+
+func _changed_surface(before: Dictionary, after: Dictionary) -> String:
+	for surface: String in ["floor", "wall", "ceiling", "trim"]:
+		if String(before.get(surface, "")) != String(after.get(surface, "")):
+			return surface
+	return ""
 
 
 func _changed_lamp_index(before: Array, after: Array, field: String) -> int:

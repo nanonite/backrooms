@@ -21,6 +21,7 @@ extends Node3D
 const BUILDER := preload("res://scripts/shape_room_builder.gd")
 const MATERIALS := preload("res://scripts/shape_room_materials.gd")
 const LIGHT_CONTROLLER := preload("res://scripts/maze_light_controller.gd")
+const SURFACE_CONTROLLER := preload("res://scripts/maze_surface_controller.gd")
 const FOLLOWER_RUNTIME := preload("res://scripts/maze_follower_runtime.gd")
 const MAZE_EXIT := preload("res://scripts/maze_exit.gd")
 const MAZE_EXIT_THRESHOLD := preload("res://scripts/maze_exit_threshold.gd")
@@ -179,6 +180,7 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 			(rooms[cell_id] as Node3D).position.y = float(cell.get("floor_y", 0.0))
 			_tag_reverb(rooms[cell_id], cell)
 			LIGHT_CONTROLLER.tag_room(rooms[cell_id], specs[cell_id], room_materials.get("lamp"))
+			SURFACE_CONTROLLER.tag_room(rooms[cell_id], specs[cell_id])
 	_select_and_decorate_exit()
 	door_plan = MAZE_DOORS.plan(map, specs, exit_record)
 	set_meta("maze_doors", door_plan)
@@ -453,6 +455,55 @@ func cell_lamp_flicker_seeds(cell_id: String) -> Array:
 	if room == null:
 		return []
 	return LIGHT_CONTROLLER.lamp_flicker_seeds(room)
+
+
+## M8 (#238): wear and surface variants are runtime metadata; a generated room
+## is rebuilt only when a later slice asks. Library modules and the landmark are
+## hash-pinned or frozen, so they refuse this edit.
+func _surface_mutable(cell_id: String) -> bool:
+	if cell_id == exit_cell_id():
+		return false
+	if module_rooms.has(cell_id) or not specs.has(cell_id):
+		return false
+	if LIGHT_CONTROLLER.is_landmark(specs[cell_id]):
+		return false
+	return true
+
+
+func set_room_wear(cell_id: String, wear: int) -> bool:
+	if not _surface_mutable(cell_id):
+		return false
+	var room := room_node(cell_id)
+	return SURFACE_CONTROLLER.apply_override(room, {"wear": wear})
+
+
+func set_cell_surface_variants(cell_id: String, variants: Dictionary) -> bool:
+	if not _surface_mutable(cell_id):
+		return false
+	var room := room_node(cell_id)
+	return SURFACE_CONTROLLER.apply_override(room, {"surface_variant": variants})
+
+
+## Apply one folded overlay record (`wear` and/or `surface_variant`) to a room.
+func apply_cell_surface_override(cell_id: String, override: Dictionary) -> bool:
+	if not _surface_mutable(cell_id):
+		return false
+	var room := room_node(cell_id)
+	return SURFACE_CONTROLLER.apply_override(room, override)
+
+
+func cell_wear(cell_id: String) -> int:
+	var room := room_node(cell_id)
+	if room == null or not SURFACE_CONTROLLER.tagged(room):
+		return -1
+	return SURFACE_CONTROLLER.wear(room)
+
+
+func cell_surface_variants(cell_id: String) -> Dictionary:
+	var room := room_node(cell_id)
+	if room == null or not SURFACE_CONTROLLER.tagged(room):
+		return {}
+	return SURFACE_CONTROLLER.variants(room)
 
 
 ## Walkable cell under a world-space point, or "" outside every room. The

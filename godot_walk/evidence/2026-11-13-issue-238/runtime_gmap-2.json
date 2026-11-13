@@ -1,0 +1,105 @@
+{
+	"direct": {
+		"classes": [
+			"reverb",
+			"wear",
+			"surface_variant"
+		],
+		"failures": [],
+		"isolated": true,
+		"module_reverb": true,
+		"negative_controls": {
+			"exit_refused": true,
+			"landmark_refused": true,
+			"module_refused": true,
+			"unknown_cell": true,
+			"unknown_surface": true,
+			"unknown_variant": true,
+			"wear_above_two": true,
+			"wear_negative": true
+		},
+		"reverb": true,
+		"target_cell": "c01",
+		"variant": true,
+		"wear": true
+	},
+	"failures": [],
+	"map_id": "gmap-2-gmap-0.13.0",
+	"map_sha256_after": "07c1cbb219004d1533021ff5d7c5fe18b41d28ed8b01f4ce69535e1c0db8c465",
+	"map_sha256_before": "07c1cbb219004d1533021ff5d7c5fe18b41d28ed8b01f4ce69535e1c0db8c465",
+	"palette": {
+		"checks": 4,
+		"failures": [],
+		"ok": true
+	},
+	"runtime": {
+		"edit_count": 3,
+		"edits": [
+			{
+				"cell": "c05",
+				"changed_cells": [
+					"c05"
+				],
+				"class": "lamp_state",
+				"event_index": 6,
+				"player_cell": "c03",
+				"visit_count": 5
+			},
+			{
+				"cell": "c06",
+				"changed_cells": [
+					"c06"
+				],
+				"class": "lamp_state",
+				"event_index": 11,
+				"player_cell": "c08",
+				"visit_count": 9
+			},
+			{
+				"cell": "dp00",
+				"changed_cells": [
+					"dp00"
+				],
+				"class": "surface_variant",
+				"event_index": 16,
+				"player_cell": "c10",
+				"visit_count": 13
+			}
+		],
+		"failures": [],
+		"isolated": true,
+		"route": [
+			"c00",
+			"c01",
+			"c05",
+			"c02",
+			"c03",
+			"c06",
+			"dp01",
+			"c04",
+			"c08",
+			"c07",
+			"dp00",
+			"c09",
+			"c10",
+			"c11",
+			"c12"
+		],
+		"route_cells": 13,
+		"visited": [
+			"c00",
+			"c01",
+			"c05",
+			"c02",
+			"c03",
+			"c06",
+			"dp01",
+			"c04",
+			"c08",
+			"c07",
+			"dp00",
+			"c09",
+			"c10"
+		]
+	}
+}
