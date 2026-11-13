@@ -3,12 +3,13 @@
 Status: second revision for operator review (2026-11-12/13). Operator decisions on
 the original eight questions are recorded in §10; this revision keeps them and
 rewrites the door re-roll around a concrete footprint-preserving bounded-rewire
-algorithm with a five-seed feasibility measurement (§4.5.9). The measurement is
-sparse: two v1 door directions with pools under the operator's pin list, five if the spawn
-cell is allowed as a content-pinned island. Q9-Q13 are the resulting open
-questions (target size, content-pinned spawn/exit, reserved void, first-tier edit
-character and latch policy) with recommendations. Design issue #209, child of
-#169.
+algorithm with a five-seed feasibility measurement (§4.5.9). Q10 is decided: the
+spawn cell may change as a content-pinned island (its room and marker stay; its
+incident passages may be rearranged), while the exit stays excluded from re-roll
+in v1. Under that rule five door directions have pools in the committed seeds,
+subject to the exit selection in §6.4. Q9, Q11, Q12 and Q13 are deferred to
+tuning on an operator walk; the proposal recommendations stand as provisional
+defaults and do not block M4/M5. Design issue #209, child of #169.
 
 This document is design only: no code, schema, generator, map, shape-room or asset change.
 It builds on `docs/GENERATIVE_MAP_METADATA_PROPOSAL.md` (the agreed map-first
@@ -543,8 +544,8 @@ reading.
 
 The rest of this section calls the target `A` when it is the whole departed
 component, and `T` when a later revision allows the target to be a bounded
-prefix of a larger `A`. In v1, `T = A` whenever `A` is eligible; the prefix is an
-open question in §10, not a silent behaviour.
+prefix of a larger `A`. In v1, `T = A` whenever `A` is eligible; the prefix is a
+deferred Q9 tuning option in §10, not a silent behaviour.
 
 ### 4.3 What is pinned
 
@@ -557,7 +558,7 @@ groups of pinned things.
 | Every cell on the `B` side | The re-roll is scoped to `A`; the rest of the map keeps its route, exit and identity |
 | `D`'s port on the `B` side, frame and leaf | `A'` attaches at the exact position, normal and compatibility type; the closed leaf is the occlusion that makes the swap invisible |
 | `D`'s vertical contract | A level or ramp door keeps its level/ramp; a drop is not re-roll eligible because it cannot be reopened from the lower side |
-| The exit cell and threshold | Fairness, and the operator's Q2 decision; v1 excludes it from `A` (see Q10 for the content-pinned exception) |
+| The exit cell and threshold | Fairness, and the operator's Q2 static-exit decision; v1 excludes the exit cell and its incident passages from `A` so the route to it never changes (Q10) |
 | Every cell visible from `B` at commit time | Nothing the player can still see may change in view |
 | The player's position and velocity | No teleport, no fall, no collision pop |
 | Every cell ID, envelope and role in `A` | The footprint is the identity: a re-roll changes passages, not cells |
@@ -565,7 +566,7 @@ groups of pinned things.
 | Module cells, their scenes and every passage incident to them | Library scenes are hash-pinned; a re-roll must not rebuild or re-door a module |
 | Landmark cells and the landmark figure | Operator-approved art; the cell and its content stay |
 | Diagonal-threshold cells and their passages | The diagonal passage is fixed geometry; the cell stays and its two openings stay |
-| The spawn cell and its marker | Reset identity; the cell, room, floor and marker stay. v1 keeps the operator's pin: a target containing the spawn cell is not eligible. Q10 asks whether to allow it as a content-pinned island; the cell and marker would still stay, and only its passages would change |
+| The spawn cell, its room and its marker | Reset identity; the cell, room, floor and marker stay. Q10 is decided: the spawn is a content-pinned island, so its incident passages may be rearranged and a reset puts the player in the same room with a different route |
 | Breadcrumb markers | The cells stay, so the markers stay; the route between them may change, which is honest evidence of the re-roll |
 | The base map bytes, seed, attempt and catalog snapshot | The committed map is never rewritten |
 
@@ -577,14 +578,15 @@ The only things a re-roll may change are:
 
 A cell with a module, landmark or diagonal is a **content-pinned island** inside
 `A`: the cell stays, its scene or geometry stays, and every base passage
-incident to it is pinned. The spawn and exit cells are content-pinned in the same
-sense for the cell, room, floor and marker, but Q10 decides whether their
-incident passages are pinned or variable. The rest of the branch rewires around
-the island. This is a deliberate refinement of the earlier proposal, which
-excluded those cells entirely because the old design retired the branch.
-Footprint-preserving rewire does not retire cells, so the old exclusion is no
-longer necessary. It is the main reason the measured feasibility in §4.5.9 is
-better than the strict reading.
+incident to it is pinned. The spawn cell is a content-pinned island of a
+different kind under the decided Q10 rule: the cell, room, floor and marker stay,
+while its incident passages may be rearranged. The exit cell is excluded from `A`
+in v1, so its threshold, room and incident passages are all pinned. The rest of
+the branch rewires around each island. This is a deliberate refinement of the
+earlier proposal, which excluded those cells entirely because the old design
+retired the branch. Footprint-preserving rewire does not retire cells, so the old
+exclusion is no longer necessary. It is the main reason the measured feasibility
+in §4.5.9 is better than the strict reading.
 
 "Pinned" is precise per kind of island:
 
@@ -594,14 +596,15 @@ better than the strict reading.
 - **Landmark and diagonal threshold:** the content and the diagonal geometry are
   pinned; their incident passages are pinned for conservatism, so the figure or
   the diagonal link cannot be orphaned.
-- **Spawn and exit (v1 pin; Q10 asks to relax it):** v1 follows the operator's
-  pinned list: a target containing the spawn or exit cell is not eligible. Q10
-  asks whether to allow either as a content-pinned island. If approved, the
-  cell, room, floor, marker or threshold stays exactly as it is; only the
-  passages incident to it may change, and F1/F2 keep the exit reachable. If not,
-  the cell and its passages are both excluded. The measured difference is
-  substantial: the v1 pin list gives two door directions with pools, the Q10
-  spawn relaxation gives five (§4.5.9).
+- **Spawn (decided Q10):** the spawn cell may lie inside the target as a
+  content-pinned island. The cell, room, floor and marker stay exactly as they
+  are; only the passages incident to the cell may change, so a reset returns the
+  player to the same room by a different route.
+- **Exit (decided Q10, Q2):** the exit cell and its threshold stay excluded from
+  every target in v1. The cell, room, threshold and all incident passages are
+  pinned, so the route to the exit never changes. The measured effect of the
+  spawn decision is substantial: the decided rule gives five door directions
+  with pools, against two if the spawn were still excluded (§4.5.9).
 
 The runtime threshold identity is `threshold_id`, the pinned `B`-side port, not
 the base edge's `door_id` when that ID happens to point into the departed branch.
@@ -634,16 +637,18 @@ behind the player is a door that has a re-roll ready.
    cells (operator Q7). A one-cell closet is a room swap, not "an entirely
    different maze"; a whole-map rewrite is too large for the first runtime
    slice. A target with fewer than two valid candidates is not eligible either
-   (condition 8). If Q9 option (b) is approved, a larger `A` may use a connected 3-8 cell
-   prefix as `T`; until then, a larger `A` is not eligible.
-4. **Pinned content is respected.** The exit and spawn cells are excluded from
-   the target in v1 (the operator's pinned list). Q10 asks whether to allow
-   either as a content-pinned island; if approved, the cell, room, floor, marker
-   or threshold stays exactly as it is and only its incident passages may change.
-   A module, landmark or diagonal cell may be inside the target only when every
-   base passage incident to it is pinned, so its scene and doorways stay exactly
-   as they were. If a module, landmark or diagonal cell cannot keep all of its
-   base passages and remain reachable, the door is not eligible.
+   (condition 8). Q9 (target size and the optional 3-8 prefix for a larger `A`)
+   is deferred to tuning and does not block M5; the provisional default for M5
+   is the full-`A` 3-8 rule, with the prefix as a tuning-stage option.
+4. **Pinned content is respected.** The spawn cell may be inside the target as a
+   content-pinned island (decided Q10): its cell, room, floor and marker stay
+   exactly as they are, while its incident passages may change. The exit cell is
+   excluded from the target entirely in v1 (decided Q10, Q2): its threshold,
+   room and incident passages are pinned. A module, landmark or diagonal cell may
+   be inside the target only when every base passage incident to it is pinned, so
+   its scene and doorways stay exactly as they were. If a module, landmark or
+   diagonal cell cannot keep all of its base passages and remain reachable, the
+   door is not eligible.
 5. **It contains no visible cell.** With the leaf closed, `A` must be disjoint
    from `visible_cells(B)` at commit time. The closed leaf is expected to make
    this true; the check is the backstop. A conservative false negative is
@@ -668,10 +673,9 @@ behind the player is a door that has a re-roll ready.
    mechanic, and pretending otherwise would create a locked door with nowhere
    to go.
 9. **The exit is still reachable from `B`.** In v1 the exit is outside `A`, so
-   this follows from condition 4. If Q10 allows the exit inside `A`, the
-   candidate must keep it reachable from `B` through the new passage graph. The
-   validator checks F1/F2 either way, and that check becomes authoritative if a
-   later version ever moves the exit.
+   this follows from condition 4. The validator still checks F1/F2 on every
+   candidate, and that check becomes authoritative if a later version ever
+   reopens the exit decision and lets the exit cell sit inside a target.
 10. **Geometry is valid.** Every new doorway fits its shared wall with the
     configured width and margins, does not overlap an existing opening or a
     corner, does not cut a pinned wall or a module scene, and does not open into
@@ -692,11 +696,10 @@ re-roll is never a locked door with nowhere to go. The rejection codes are:
 | `not_bridge` | Another route connects `A` to `B` |
 | `drop_door` | `D` is a one-way drop |
 | `target_too_small` | `A` has fewer than 3 cells |
-| `target_too_large` | `A` has more than 8 cells and Q9 option (b) is not enabled |
+| `target_too_large` | `A` has more than 8 cells and the deferred Q9 prefix option is not enabled |
 | `exit_inside` | The exit cell is in the target |
-| `spawn_inside` | The spawn cell is in the target and the Q10 spawn relaxation is not enabled |
 | `visible_target` | A target cell is visible from `B` |
-| `pinned_cell_conflict` | A content-pinned cell cannot keep its passages |
+| `pinned_cell_conflict` | A module, landmark, diagonal or exit cell cannot keep its passages |
 | `no_candidate` | The enumeration produced no hard-valid candidate |
 | `below_min_alternatives` | Fewer than `MIN_REROLL_ALTERNATIVES` candidates |
 | `no_candidate_in_tier` | No candidate fits the current escalation tier |
@@ -716,14 +719,14 @@ This section is the concrete algorithm. It follows the operator's recommended
 starting design, with four deliberate refinements justified below:
 
 1. **Content-pinned islands replace blanket exclusion.** A module, landmark or
-   diagonal cell can stay in `A` if every passage incident to it is pinned; the
-   spawn and exit cells stay excluded in v1, with Q10 asking whether to allow
-   them as content-pinned islands. The old exclusion existed because the old
-   design retired the branch; footprint-preserving rewire keeps the cells, so a
-   module/landmark/diagonal island can stay and the rest of the branch can rewire
-   around it without changing its content. This is the largest feasibility gain
-   that does not relax the operator's pinned list; the spawn/exit relaxation is
-   Q10 and is measured separately.
+   diagonal cell can stay in `A` if every passage incident to it is pinned. The
+   spawn cell is a content-pinned island with variable incident passages (decided
+   Q10), while the exit cell is excluded from `A` with its incident passages
+   pinned in v1. The old exclusion existed because the old design retired the
+   branch; footprint-preserving rewire keeps the cells, so an island can stay and
+   the rest of the branch can rewire around it without changing its content. The
+   spawn decision is the largest coverage gain; the exit exclusion remains a hard
+   v1 rule.
 2. **Runtime enumeration replaces the offline precomputed pool.** The geometry
    is the map's existing cells; no growth is needed. The candidate universe is
    at most a few thousand subsets, and the only new geometry is a doorway cut in
@@ -763,7 +766,7 @@ the names.
 | `MIN_EDIT` | 1 / 2 / 3 | Tuning | Tier 1 / 2 / 3 minimum passage changes |
 | `MAX_EDIT` | 2 / 4 / 6 | Tuning | Tier 1 / 2 / 3 maximum passage changes |
 | `CANDIDATE_SHORTLIST` | 8 | Tuning | Maximum candidates the draw ranges over |
-| `MIN_REROLL_ALTERNATIVES` | 2 | Tuning, measured | A door with fewer fails closed; 2 v1 doors meet it |
+| `MIN_REROLL_ALTERNATIVES` | 2 | Tuning, measured | A door with fewer fails closed; 5 decided-rule directions meet it (2 if the spawn were pinned) |
 | `POOL_TARGET` | 3 | Tuning, measured | Comfortable first-tier pool; only seed 279 A8 meets it |
 | Shape tolerances | see §4.5.5 | Tuning | Dead ends, loops, depth, degree mix, door count |
 
@@ -775,8 +778,8 @@ still need an operator walk before they are treated as settled.
 
 Let:
 
-- `A` be the departed component, or `T` the target when Q9 option (b) allows a prefix. In
-  v1, `T = A`.
+- `A` be the departed component, or `T` the target when the deferred Q9 prefix
+  option is enabled. In v1, `T = A`.
 - `R` be the **root** cell of `T`: the cell adjacent to `D` on the departed side.
   The player was in `R` immediately before crossing.
 - `E_T` be the **current passage set** of `T` before this event: every
@@ -789,11 +792,12 @@ Let:
   earlier re-roll closed a passage. A wall that used to be a doorway can be
   reopened.
 - `M_T` be the **mandatory passage set**: `D`, every vertical passage in `E_T`,
-  every base passage incident to a module, landmark or diagonal cell, and (in
-  prefix mode) every passage between `T` and `A \ T`. The spawn and exit cells
-  are excluded from `T` in v1; if Q10 allows them, their incident passages are
-  variable under the content-pinned reading and mandatory under the strict
-  reading.
+  every base passage incident to a module, landmark or diagonal cell, every base
+  passage incident to the exit cell, and (in prefix mode) every passage between
+  `T` and `A \ T`. The spawn cell is a content-pinned island (decided Q10), so
+  its cell, room and marker are fixed while its incident passages are variable;
+  the exit cell is excluded from `T` in v1, so its incident passages are
+  mandatory.
 - `P` be a **candidate passage set**: `M_T ⊆ P ⊆ H_T ∪ M_T`.
 - A **passage** is identified by the sorted pair `(cell_a, cell_b)`, not by a
   base `door_id`. A new passage gets an overlay ID
@@ -878,9 +882,11 @@ wrong, not that the enumerator needs to be cleverer.
 - Every ramp or drop in `E_T` is mandatory.
 - Every base passage incident to a module, landmark or diagonal cell is
   mandatory.
-- The exit and spawn cells are excluded from `T` in v1. If Q10 later allows
-  them, their incident passages follow the approved reading (variable under the
-  content-pinned reading, mandatory under the strict reading).
+- Every base passage incident to the exit cell is mandatory in v1 (the exit cell
+  is excluded from `T`).
+- The spawn cell is a content-pinned island (decided Q10). Its cell, room and
+  marker stay fixed, but its incident passages are **not** mandatory and may be
+  rearranged.
 - In prefix mode, every base passage between `T` and `A \ T` is mandatory.
 
 The mandatory set is the part of the previous generation that must survive
@@ -904,13 +910,13 @@ candidate is not considered further.
 | R1 | **Connected.** Every cell of `T` is reachable from `R` through `P`. | BFS/DFS on the undirected passage graph |
 | R2 | **Strongly connected.** Every cell of `T` reaches every other through the directed graph: level and ramp passages both ways, drops upper-to-lower only. | `strongly_connected(cells(T), directed(P))` |
 | R3 | **Degree limit.** `deg_P(c) + (1 if c == R else 0) <= MAX_DEGREE = 4`. The door counts at the root. | Degree count |
-| R4 | **Pins.** `M_T ⊆ P`; no passage through a pinned wall; every module, landmark or diagonal cell keeps its exact incident passage set. The spawn/exit cells follow the Q10 reading. | Set check |
+| R4 | **Pins.** `M_T ⊆ P`; no passage through a pinned wall; every module, landmark or diagonal cell keeps its exact incident passage set; the exit cell and its incident passages are pinned. The spawn cell is content-pinned: its cell, room and marker are unchanged, while its incident passages may vary (decided Q10). | Set check |
 | R5 | **Retained fraction.** `retained(P) >= MIN_RETAINED = 0.5`. | Set arithmetic |
 | R6 | **Edit bounds.** `MIN_EDIT[tier] <= edit_distance(P) <= MAX_EDIT[tier]`. | Set arithmetic |
 | R7 | **No content change.** No module scene, landmark, exit threshold, spawn marker, floor level, lamp, wear, palette or reverb value changes. | Layer hashes unchanged |
 | R8 | **Geometry.** Every new doorway fits its wall; no overlap with an existing opening or corner; no void, no different floor, no pinned wall, no module scene cut. | Doorway geometry check |
 | R9 | **Visibility.** With the leaf closed, `T` is disjoint from `visible_cells(B)` at commit. | Visibility helper |
-| R10 | **Exit reachable.** In v1 the exit is outside `T` and reachable from `B`; if Q10 allows it inside `T`, the candidate must keep it reachable from `R` and the global F1/F2 check must pass. | Graph helper |
+| R10 | **Exit reachable.** In v1 the exit is outside `T` and reachable from `B`; the global F1/F2 check must pass on every candidate. This becomes the authoritative in-target check only if a later version reopens the exit decision. | Graph helper |
 | R11 | **Change is real.** `P != E_T`; implied by R6 because `MIN_EDIT[tier] >= 1`. | Set arithmetic |
 
 The hard invariants are the F0-F5 fairness set and the F7-F9 re-roll contract
@@ -1151,7 +1157,7 @@ shape table in §4.5.5. It counts two pools:
   shortlist the first re-roll would actually draw from.
 
 The enumeration does not pin the spawn cell; the table's spawn column lets the
-v1 pin list and the Q10 spawn relaxation be read from the same data. The exit is not
+decided Q10 rule and the old pin list be read from the same data. The exit is not
 in the committed maps yet, so the exit exclusion is applied by the later
 selection order (§6.4), not by this analysis.
 
@@ -1160,20 +1166,23 @@ and the player can arrive from either. The five maps contain 74 undirected
 level/ramp traversable door pairs. Eleven directions have a departed component of
 3-8 cells. The table lists all eleven. A door that appears twice is the same
 physical threshold; its `max_rerolls = 1` cap is shared between the two
-directions. Under the v1 pin list, a `yes` in the spawn column makes the
-direction ineligible; the two `no` rows with a pool are the v1 doors. The other
-pooled rows are measured Q10 spawn options.
+directions. Under the decided Q10 rule, a `yes` in the spawn column no longer
+makes the direction ineligible: the spawn room and marker stay, and only its
+incident passages may change. The five rows with a pool are therefore the
+eligible directions, provided the exit selection keeps the static exit outside
+their targets. The two `no` rows with a pool would be the eligible set if the
+spawn were still pinned.
 
 | Seed | Door (cell pair) | `\|A\|` | Spawn in `A`? | Hard-valid | In-tolerance | Edit range | Read |
 |---|---:|---:|---:|---:|---:|---|---|
 | 1 | `c03`-`c05` | 5 | no | 0 | 0 | — | Tree footprint; no spare shared wall |
 | 2 | `c03`-`c07` | 4 | no | 0 | 0 | — | Ramp door; tree footprint; no spare wall |
-| 279 | `c02`-`c11` | 8 | no | 13 | 3 | 1-2 | The only v1 eligible rich pool |
-| 279 | `c02`-`c11` (other side) | 6 | yes | 3 | 2 | 1-2 | Q10 spawn only |
-| 279 | `c04`-`c06` | 4 | yes | 0 | 0 | — | Q10 spawn only; tree footprint |
-| 279 | `c06`-`c11` | 5 | yes | 3 | 2 | 1-2 | Q10 spawn only; ramp door |
-| 32 | `c00`-`c01` | 8 | yes | 4 | 2 | 1-2 | Q10 spawn only; module c13 |
-| 32 | `c00`-`c01` (other side) | 6 | no | 3 | 2 | 1-2 | The clean v1 worked example in §4.5.10 |
+| 279 | `c02`-`c11` | 8 | no | 13 | 3 | 1-2 | The richest full-A pool |
+| 279 | `c02`-`c11` (other side) | 6 | yes | 3 | 2 | 1-2 | Spawn content-pinned; eligible (Q10) |
+| 279 | `c04`-`c06` | 4 | yes | 0 | 0 | — | Spawn content-pinned; tree footprint |
+| 279 | `c06`-`c11` | 5 | yes | 3 | 2 | 1-2 | Spawn content-pinned; ramp door |
+| 32 | `c00`-`c01` | 8 | yes | 4 | 2 | 1-2 | Spawn content-pinned; module c13 |
+| 32 | `c00`-`c01` (other side) | 6 | no | 3 | 2 | 1-2 | The clean decided-rule worked example in §4.5.10 |
 | 32 | `c00`-`c03` | 5 | no | 0 | 0 | — | Tree footprint |
 | 32 | `c01`-`c05` | 4 | no | 0 | 0 | — | Tree footprint |
 | 32 | `c03`-`c08` | 3 | no | 0 | 0 | — | Ramp door; tree footprint |
@@ -1181,27 +1190,26 @@ pooled rows are measured Q10 spawn options.
 
 The headline is:
 
-- **Under the strict reading of the recommended design** (level door, all target
-  cells on one floor, no module, landmark, diagonal or spawn inside `A`), only
-  **one door** is eligible: seed 1, `c03`-`c05`, with a 5-cell tree footprint.
-  It has **zero** candidates, because its four internal passages are the only
-  shared walls of the right width. The recommended design as written cannot
-  re-roll any door in these five maps.
-- **Under the v1 pin list** (module, landmark and diagonal cells allowed as
+- **Under the strict pre-island reading** (level door, all target cells on one
+  floor, no module, landmark, diagonal or spawn inside `A`), only **one door** is
+  eligible: seed 1, `c03`-`c05`, with a 5-cell tree footprint. It has **zero**
+  candidates, because its four internal passages are the only shared walls of the
+  right width. The strict reading cannot re-roll any door in these five maps.
+- **Under the pre-Q10 pin list** (module, landmark and diagonal cells allowed as
   content-pinned islands with their incident passages pinned; ramp doors
   allowed; internal ramps/drops pinned; spawn and exit excluded), **two
   directions** have at least two in-tolerance candidates: seed 279's 8-cell
   direction (3 candidates) and seed 32's 6-cell direction (2). Both are
-  spawn-free, so both are eligible under the operator's pinned list. Seed 3 has
-  no 3-8 cell bridge at all, and seeds 1 and 2 have a bridge but no spare wall,
-  so no eligibility rule can give them a pool.
-- **Under the Q10 spawn relaxation** (the spawn cell allowed as a content-pinned
-  island, so its room and marker stay but its passages may change), **five
-  directions** have at least two in-tolerance candidates: the two above plus
-  seed 279's 6-cell and 5-cell directions and seed 32's 8-cell direction. All
-  three additions contain the spawn cell. This is the difference between a
-  sparse v1 and a mechanic that fires on more seeds; it is a relaxation of the
-  operator's pinned list and needs an explicit answer (Q10).
+  spawn-free. Seed 3 has no 3-8 cell bridge at all, and seeds 1 and 2 have a
+  bridge but no spare wall, so no eligibility rule can give them a pool.
+- **Under the decided Q10 rule** (the spawn cell allowed as a content-pinned
+  island, so its room and marker stay but its incident passages may change; the
+  exit still excluded), **five directions** have at least two in-tolerance
+  candidates: the two above plus seed 279's 6-cell and 5-cell directions and
+  seed 32's 8-cell direction. All three additions contain the spawn cell. This is
+  the v1 reading and the difference between a sparse mechanic and one that fires
+  on more seeds. The exit selection order in §6.4 remains mandatory because an
+  exit placed inside a target removes that direction.
 - **The 3-8 window is too small for these maps.** The generator grows mostly
   tree-shaped branches, and the cells are large rectangles that often share only
   one wall. A 5-cell tree has exactly one connected passage graph on its own
@@ -1214,43 +1222,44 @@ The headline is:
   pool. A tier-1 minimum edit of 2 would delete both loops and fail the
   consistency target, which is why §4.5 uses a minimum of 1 and relies on the
   shape tolerance as the guard.
-- **The exit interaction is a real risk.** The exit is not in the committed maps
-  yet. In seed 279 the only figure cell is `c12`, which is inside the only
-  8-cell pool; if the exit is chosen there and the v1 rule excludes the exit
-  cell, the best pool is lost. Seed 32's 6-cell pool contains the figure cell
-  `c10`; if the exit is there, that pool is lost, and the 8-cell direction is
-  spawn-ineligible under the v1 pin list, so seed 32 would have no re-roll door
-  unless Q10 allows the spawn or the exit selection chooses a cell outside both
-  targets. This is why the exit selection order in §6.4 is mandatory, not a
-  detail.
-- **The spawn pin is the coverage cliff.** The spawn cell is `c00` in every
-  committed map. v1 keeps the operator's pin, so a target containing spawn is
-  not eligible and the measured coverage is two directions, not five. The Q10
-  spawn relaxation would keep the spawn room and marker and let only its passages
-  change, which is the reading that makes the reset point stable while the route
-  out changes. The operator has to decide whether that counts as "the spawn stays
-  exactly as it was"; the proposal does not assume it.
+- **The exit interaction is still a real risk.** The exit is not in the
+  committed maps yet. In seed 279 the only figure cell is `c12`, which is inside
+  the only 8-cell pool; if the exit is chosen there, the best pool is lost under
+  the exit exclusion. Seed 32's 6-cell pool contains the figure cell `c10`; if
+  the exit is there, that pool is lost, but the 8-cell direction is now eligible
+  because the spawn cell is content-pinned, so seed 32 keeps a re-roll door only
+  if the exit selection also keeps the exit outside the 8-cell target. This is
+  why the exit selection order in §6.4 is mandatory, not a detail.
+- **The spawn exclusion was the coverage cliff; Q10 removes it.** The spawn cell
+  is `c00` in every committed map. Under the old pin list, a target containing
+  spawn was ineligible and the measured coverage was two directions. The decided
+  rule keeps the spawn room and marker fixed and lets only its passages change,
+  so the three spawn-containing directions with pools become eligible and the
+  measured coverage is five. The reset point stays stable while the route out
+  changes.
 
-**The smallest change that preserves every pin** is the module/landmark/diagonal
-content-pin island: those cells and their scenes stay exactly, and only their
-incident passages are pinned; the rest of the branch rewires around them. It
-requires no new geometry, no new map version and no generator change, and it
-raises the measured coverage from one strict door with zero alternatives to
-**two v1 doors with two or three in-tolerance alternatives each**. That is still
-sparse, but it is real and it respects the operator's list. The Q10 spawn
-relaxation is a separate decision that raises the count to five.
+**The smallest change that preserves the content pins** is the
+module/landmark/diagonal content-pin island: those cells and their scenes stay
+exactly, and only their incident passages are pinned; the rest of the branch
+rewires around them. It requires no new geometry, no new map version and no
+generator change, and it raises the measured coverage from one strict door with
+zero alternatives to **two spawn-free doors with two or three in-tolerance
+alternatives each**. Under the decided Q10 rule, adding the spawn island raises
+the count to five. That is still sparse, but it is real and it respects the
+operator's content pins. The exit stays excluded.
 
 **The smallest change that makes every seed playable** is not an eligibility
-tweak; it is a target-selection change. If Q9 option (b) is approved, a departed component
-larger than 8 cells may be re-rolled as a connected 3-8 cell prefix `T` grown
-from the root, with every passage from `T` to `A \ T` pinned. A preliminary
-existence check (not a full candidate count) found that 35 of the 51 door
-directions with `|A| >= 3` have a 3-8 cell prefix containing at least one spare
-shared wall, including seed 3. That is a necessary condition for a candidate,
-not a guarantee; the full `H_T` enumeration and shape filter still decide. The
-prefix is a design change because the player may have come from deeper in `A`;
-the near part of the route changes, the deep part stays. It is the recommended
-way to get coverage on the committed seeds if that coverage is required.
+tweak; it is a target-selection change. Q9 is deferred to tuning; its
+recommended option (b) is that a departed component larger than 8 cells may be
+re-rolled as a connected 3-8 cell prefix `T` grown from the root, with every
+passage from `T` to `A \ T` pinned. A preliminary existence check (not a full
+candidate count) found that 35 of the 51 door directions with `|A| >= 3` have a
+3-8 cell prefix containing at least one spare shared wall, including seed 3.
+That is a necessary condition for a candidate, not a guarantee; the full `H_T`
+enumeration and shape filter still decide. The prefix is a design change because
+the player may have come from deeper in `A`; the near part of the route changes,
+the deep part stays. It is the recommended way to get coverage on the committed
+seeds if that coverage is required, and it does not block M5.
 
 **The robust long-term fix** is a generator-side rewire reserve: for new seeds,
 designate one or more 3-8 cell bridge branches as "rewire-friendly" and grow
@@ -1261,10 +1270,10 @@ separate issue after v1; it is not part of this proposal's implementation list
 unless the operator wants to replace the prefix fallback with it.
 
 The analysis did not use an exit layer, did not build room specs, and did not
-test line of sight. Those steps can only remove candidates, so the two v1 and
-five Q10 spawn counts are upper bounds. The operator should read them as "at most
-two v1 door directions, or five if the spawn is allowed, in these five maps",
-not as a promise.
+test line of sight. Those steps can only remove candidates, so the five
+decided-rule counts are upper bounds. The operator should read them as "at most
+five eligible door directions in these five maps, and fewer wherever the exit
+selection lands inside a target", not as a promise.
 
 #### 4.5.10 Worked example
 
@@ -1322,8 +1331,9 @@ changes, and the log records which one happened.
 
 This example assumes the static exit is not `c10` or `c12`. If the exit selection
 puts the bright threshold in `c10` (the figure cell) or `c12` (the module), the
-v1 exit exclusion makes this door ineligible. That is the Q10 interaction, and it
-is why the exit selection order is an implementation constraint (§9.1, M3).
+v1 exit exclusion makes this door ineligible. That is the exit-exclusion rule
+(§6.4), and it is why the exit selection order is an implementation constraint
+(§9.1, M3).
 
 #### 4.5.11 Replay and the tests the implementation issue must contain
 
@@ -1334,7 +1344,7 @@ tests. The save/cache issue (M7) must contain the persistence tests.
 | # | Test | Owner | Assertion |
 |---|---|---|---|
 | T1 | Determinism | M5 | Same base map + same event log => same `P`, same `state_hash`, same `candidate_set_hash` |
-| T2 | Five-seed golden fixture | M5 | The eleven 3-8 cell directions, the spawn column and the v1/Q10 pool split in §4.5.9 are reproduced exactly (2 v1 directions with >=2 in-tolerance, 5 if the spawn is allowed); seed 3 has none; seed 1 and seed 2 have zero |
+| T2 | Five-seed golden fixture | M5 | The eleven 3-8 cell directions, the spawn column and the decided-rule pool split in §4.5.9 are reproduced exactly (5 directions with >=2 in-tolerance under the Q10 spawn island; 2 if the spawn were pinned); seed 3 has none; seed 1 and seed 2 have zero |
 | T3 | Hard invariants | M5 | For every hard-valid candidate: same cells, connected, strongly connected, degree ≤4, pins preserved, retained ≥0.5, edit in bounds, no content change |
 | T4 | Shape shortlist | M5 | Tier-1 shortlist is the in-tolerance set; a relaxed shortlist records `consistency_relaxed`; C3 in §4.5.10 is hard-valid but not in the tier-1 shortlist |
 | T5 | Seeded draw | M5 | The same `(seed, attempt, event_index, stream, threshold_id, algorithm_version)` picks the same shortlist entry; a changed `event_index` can pick a different one; the draw never picks outside the shortlist |
@@ -1345,7 +1355,7 @@ tests. The save/cache issue (M7) must contain the persistence tests.
 | T10 | Cell and layer identity | M6 | Cell IDs, envelopes, `floor_y`, light, wear, surface variants, palette, reverb, mood and module scenes are byte-identical for every target cell; only doorway records and `passage_revision` change |
 | T11 | Save/restore and cache | M7 | Base hash + log restores the same `P` and `state_hash`; a changed `passage_revision` is a cache miss; the #156 finite streamer fixture is unchanged |
 | T12 | Python/GDScript parity | M5/M6 | The Python reference enumerator and the GDScript runtime enumerator agree on `H_T`, the hard-valid count, the shortlist and the chosen `P` for the seed 32 and seed 279 fixtures |
-| T13 | Negative cases | M5/M6 | A straight 5-cell corridor has zero candidates; a 4-cell tree has zero; a 2-cell target is ineligible; a drop `D` is ineligible; a visible target is ineligible; a content-pinned cell with a removable pin is rejected; a no-candidate door does not latch |
+| T13 | Negative cases | M5/M6 | A straight 5-cell corridor has zero candidates; a 4-cell tree has zero; a 2-cell target is ineligible; a drop `D` is ineligible; a visible target is ineligible; a module cell with a removable pin is rejected; a spawn cell with variable incident passages is accepted; an exit cell inside the target is rejected; a no-candidate door does not latch |
 | T14 | Stacked re-rolls | M5/M7 | A second re-roll whose target overlaps an earlier one uses the current `E_T` from the folded log, not the base map; its `passages_before` matches the current state; the two events replay to the same final state hash; the base map is unchanged |
 
 The five-seed golden fixture is intentionally a golden test: if the generator or
@@ -1353,34 +1363,29 @@ the wall filter changes, the expected counts in §4.5.9 must be updated
 deliberately, not drift silently. The fixture can use the committed map files
 directly; it does not need a sidecar pool.
 
-#### 4.5.12 Open questions from the algorithm
+#### 4.5.12 Deferred tuning questions from the algorithm
 
-The full operator questions are in §10. The algorithm creates five:
+The full operator decisions are in §10. Q10 is decided. The algorithm leaves
+four tuning questions, all deferred to an operator walk and none blocking M4 or
+M5:
 
-- **Q9, coverage and target size.** Keep the full-`A` 3-8 rule and accept that
-  only seeds 279 and 32 can re-roll (and seed 3 cannot); or allow a 3-8 prefix of
-  a larger `A` (Q9 option (b), recommended if coverage on the committed seeds is
-  required); or raise the cap to the whole departed component (Q9 option (c), simplest
-  constants change but a near-whole-map re-roll). See §10 Q9.
-- **Q10, content-pinned cells inside the target.** v1 follows the operator's pin
-  list and excludes spawn and exit, which gives two doors with pools. The
-  question is whether to allow either as a content-pinned island: the cell, room
-  and marker/threshold stay, and only the incident passages may change. The
-  recommendation is to allow both, because the content stays and fairness keeps
-  the exit reachable; allowing spawn alone gives five directions but leaves the seed
-  279 exit risk. If the operator keeps the exclusion, the exit selection must
-  prefer cells outside every candidate target. See §10 Q10.
-- **Q11, reserved void envelope.** Allow one adjacent safe void cell to be
-  opened during a re-roll (adding one cell and one or two passages). The
+- **Q9, coverage and target size — deferred.** Keep the full-`A` 3-8 rule and
+  accept that seeds 1-3 cannot re-roll; or allow a 3-8 prefix of a larger `A`
+  (option (b), the provisional default if coverage on the committed seeds is
+  required); or raise the cap to the whole departed component (option (c),
+  simplest constants change but a near-whole-map re-roll). M5 ships the full-`A`
+  path; the prefix selector is a tuning-stage option. See §10 Q9.
+- **Q11, reserved void envelope — deferred.** Allow one adjacent safe void cell
+  to be opened during a re-roll (adding one cell and one or two passages). The
   preliminary hard-valid counts rise (for example the seed 279 8-cell pool from
   8 to 35 at edit ≥2 without the shape filter, and the seed 32 6-cell pool from
-  2 to 10), but it breaks the same-cell-count rule. It is a later extension, not
-  v1. See §10 Q11.
-- **Q12, first-tier edit character.** Allow a pure addition, require a removal,
-  or require a swap. The recommendation is to allow any edit ≥1 and judge the
-  feel on a walk. See §10 Q12.
-- **Q13, latch policy.** Latch only a re-roll-ready door (recommended) or latch
-  every door behind the player. See §10 Q13.
+  2 to 10), but it breaks the same-cell-count rule. Provisional default: a later
+  extension, not v1. See §10 Q11.
+- **Q12, first-tier edit character — deferred.** Allow a pure addition, require
+  a removal, or require a swap. Provisional default: allow any edit ≥1 and judge
+  the feel on a walk. See §10 Q12.
+- **Q13, latch policy — deferred.** Latch only a re-roll-ready door
+  (provisional default) or latch every door behind the player. See §10 Q13.
 
 ### 4.6 When it fires
 
@@ -1696,7 +1701,7 @@ Every accepted event must satisfy:
 | F5 | **Base identity unchanged.** The committed map hash, seed, attempt, catalog snapshot and pins are the same before and after. | SHA-256 verification |
 | F6 | **Replay agrees.** Re-applying the log produces the same state hash and the same F0-F5 outcomes. | Replay harness |
 | F7 | **Same footprint.** A re-roll keeps the exact cell set, IDs, envelopes, roles, `floor_y` and per-cell keyed layers; no cell is added, removed, moved or retired. | Set and layer hash comparison |
-| F8 | **Pins preserved.** `D`, every vertical passage, every passage incident to a module, landmark or diagonal cell, and every prefix boundary passage are unchanged. The spawn/exit cells follow the Q10 reading. | Passage-set comparison |
+| F8 | **Pins preserved.** `D`, every vertical passage, every passage incident to a module, landmark or diagonal cell, every passage incident to the exit cell, and every prefix boundary passage are unchanged. The spawn cell is content-pinned (cell, room and marker fixed; incident passages variable) under the decided Q10 rule. | Passage-set comparison |
 | F9 | **Change is real and consistent.** A re-roll changes at least one passage, retains at least half of the base passages, and its shortlisted candidates satisfy the tier's shape tolerance (or record an explicit relaxation). | Edit distance, retained fraction, shape metrics |
 
 F1 is the operator's stated rule. F2 is the stronger version that prevents the
@@ -1791,11 +1796,10 @@ not options:
   does not silently remove the only re-roll door. The exit cell is pinned in v1:
   it is excluded from every re-roll and follower edit, never part of a departed
   component, and never the spawn cell. The threshold door is not a re-roll door
-  and is not eligible for lock-behind. Q10 asks whether the exit may instead be a
-  content-pinned cell inside a target; if the operator allows it, the room,
-  threshold and marker stay exactly as they are and only the route to them may
-  change. Until that is decided, the conservative exclusion is the v1 rule and
-  the placement order is a hard implementation constraint (§9.1, M3).
+  and is not eligible for lock-behind. Q10 is decided: the spawn cell may sit
+  inside a target as a content-pinned island, but the exit cell stays excluded
+  from every re-roll in v1. The placement order remains a hard implementation
+  constraint (§9.1, M3).
 - **Win condition.** Crossing the exit threshold ends the run. A short end card
   follows, showing the seed, rooms visited, edit count and re-roll count (and
   any other counters already in the log). The end card is the whole escape
@@ -1812,11 +1816,10 @@ not options:
 - **Fairness.** With a static exit, F0/F1/F2 still apply. A re-roll or edit that
   would remove the exit route is rejected before commit (F1/F2); the exit
   threshold is never retired, rebuilt or replaced. Under v1 the exit cell is
-  excluded, so its room is not re-doored either. If Q10 allows the exit cell
-  inside the target, the threshold and room content stay exactly as they are, but
-  the passages around the cell may change; F1/F2 keep the exit reachable. The
-  exit is the stable "out" the player runs toward while the path behind them
-  changes.
+  excluded (Q10), so its room and its incident passages are not re-doored either.
+  The spawn cell may be a content-pinned island inside a target, but its cell,
+  room and marker still stay exactly; F1/F2 keep the exit reachable. The exit is
+  the stable "out" the player runs toward while the path behind them changes.
 
 ### 6.5 Repair rules
 
@@ -2240,12 +2243,15 @@ third-party asset.
 
 ---
 
-## 10. Operator decisions (2026-11-12)
+## 10. Operator decisions (2026-11-12/13)
 
-The operator answered the eight questions in two comments on issue #209
-(comments 509 and 510) on 2026-11-12. The second comment supersedes the first on
-Q3 and confirms Q6-Q8 after the operator read the wording. These are decisions,
-not recommendations; the rest of this revision reflects them.
+The operator answered the eight original questions in comments 509 and 510 on
+issue #209, then answered Q10 and the status of Q9-Q13 in comment 513. Comment
+510 supersedes 509 on Q3 and confirms Q6-Q8 after the operator read the wording.
+Q1-Q8 and Q10 are decisions, not recommendations. Q9, Q11, Q12 and Q13 are
+deferred to tuning on an operator walk; their proposal recommendations are kept
+as provisional defaults and none of them blocks M4 or M5. The rest of this
+revision reflects that split.
 
 ### Q1. What is the exit? — decided
 
@@ -2261,9 +2267,10 @@ See §6.4.
 No, not in v1. The exit is static from seed generation. The operator noted that
 they had earlier said the exit could move; this is an initial-version choice,
 not a permanent rule. A moving exit is out of scope for this proposal and for
-the v1 issue list. Q10 is a different question: whether the static exit cell may
-be content-pinned inside a re-roll target. The exit itself would still not move;
-only the route to it could change. See §6.4 and §10 Q10.
+the v1 issue list. Q10 is now decided: the spawn cell may be a content-pinned
+island inside a re-roll target, but the exit cell remains excluded in v1, so the
+exit itself does not move and the route to it does not change either. See §6.4
+and §10 Q10.
 
 ### Q3. What is the win condition? — decided
 
@@ -2303,10 +2310,11 @@ closed. See §4.1 and §4.4.
 This decision was confirmed before the feasibility measurement in §4.5.9. The
 measurement keeps the 3-8 window as the v1 rule but records that it is sparse:
 11 bridge directions across the five committed seeds, 1 strict eligible door with
-zero alternatives, **2 v1 door directions with pools** (seed 279's 8-cell direction with 3
-candidates and seed 32's 6-cell direction with 2), and **5 directions** if the spawn
-cell is allowed as a content-pinned island (the Q10 spawn option). The coverage question is Q9
-below; it does not change the cap without the operator's answer.
+zero alternatives, **2 spawn-free directions with pools** (seed 279's 8-cell
+direction with 3 candidates and seed 32's 6-cell direction with 2), and **5
+directions with pools under the decided Q10 rule** (the spawn cell allowed as a
+content-pinned island, the exit still excluded). The coverage and target-size
+question is Q9 below; it is deferred and does not change the cap or block M5.
 
 ### Q8. Does the player ever see the follower? — decided
 
@@ -2315,10 +2323,11 @@ the long-term direction as an almost 4-dimensional entity that creeps in by
 distorting space and time; that is a note for later, not a design for this
 proposal or its issue list. See §5.6.
 
-### Q9. Coverage and target size — open, needs an answer before M5
+### Q9. Coverage and target size — deferred to tuning; provisional default (b) for committed seeds
 
 The full-`A` 3-8 rule cannot re-roll seed 3 (no 3-8 bridge in either direction)
-and gives seeds 1 and 2 zero alternatives. The options are:
+and gives seeds 1 and 2 zero alternatives. The operator deferred this to tuning on
+a walk; it does not block M4 or M5. The options are:
 
 - **(a) Keep full-`A` 3-8.** Accept that only seeds 279 and 32 can re-roll, and
   file a generator-side rewire reserve for new seeds (compact 2x3-ish branches
@@ -2332,8 +2341,8 @@ and gives seeds 1 and 2 zero alternatives. The options are:
   departed component. A preliminary existence check found 35 of 51 door
   directions with `|A| >= 3` have a 3-8 prefix containing at least one spare
   shared wall, including seed 3; that is a necessary condition, not a full pool
-  count, and some of those prefixes contain the spawn cell, so under the v1 pin
-  list they would still be ineligible.
+  count, and some of those prefixes contain the spawn cell, which the decided
+  Q10 rule now allows as a content-pinned island.
 - **(c) Raise the cap to the whole departed component.** With the whole `A`
   (up to 13 cells) and the spawn allowed, every seed has a pool before the exit
   exclusion (seed 3's 12-cell component has 225 hard candidates at edit >=2
@@ -2343,60 +2352,56 @@ and gives seeds 1 and 2 zero alternatives. The options are:
   applies, so a seed whose only big A contains the exit can still lose the
   mechanic.
 
-**Recommendation:** (b) if the committed seeds must demonstrate the mechanic,
-because it preserves the 3-8 work bound and the consistency algorithm while
-fixing the coverage; otherwise (a) plus the generator reserve. Do not choose (c)
-for v1 unless the operator wants a near-whole-map re-roll. If (b) is approved,
-the prefix rule is: grow a connected set from the root, prefer frontier cells
-that add spare shared walls, cap at 8 cells, exclude the exit and (under the v1
-pin list) the spawn, pin the boundary, and enumerate the prefix's passage graphs
-with the same §4.5 algorithm. The exact prefix search is an implementation
-detail in M5, not a second design.
+**Provisional default:** (b) if the committed seeds must demonstrate the
+mechanic, because it preserves the 3-8 work bound and the consistency algorithm
+while fixing the coverage; otherwise (a) plus the generator reserve. Do not
+choose (c) for v1 unless the operator wants a near-whole-map re-roll. M5 ships
+the full-`A` 3-8 path; the prefix selector is a tuning-stage option and does not
+block the issue. If (b) is kept, the prefix rule is: grow a connected set from
+the root, prefer frontier cells that add spare shared walls, cap at 8 cells,
+exclude the exit (the spawn cell is allowed as a content-pinned island), pin the
+boundary, and enumerate the prefix's passage graphs with the same §4.5 algorithm.
+The exact prefix search is an implementation detail for tuning, not a second
+design.
 
-### Q10. May the spawn and exit cells be content-pinned inside the target? — open, needs an answer before M5
+### Q10. May the spawn and exit cells be content-pinned inside the target? — decided: spawn yes, exit no
 
-The old exclusion of spawn, exit, module and landmark cells was justified by the
-old design retiring the branch. Footprint-preserving rewire keeps every cell, so
-the rationale no longer applies. The module/landmark/diagonal refinement is
-already part of the v1 pin list: those cells and their scenes stay exactly, and
-only their incident passages are pinned. The remaining question is the spawn and
-exit cells:
+The operator decided Q10 on 2026-11-12: **the spawn cell may change as a
+content-pinned island, while the exit stays excluded from re-roll in v1.** This
+is the v1 rule, not an option.
 
-- **Allow both as content-pinned islands (recommended if coverage matters).**
-  The spawn point, exit room, threshold and marker stay exactly as they are; the
-  passages incident to them may change; the rest of the branch rewires. A reset
-  puts the player back in the same room with a different route. F1/F2 still
-  require the exit to be reachable; if it is inside the target, the candidate
-  must keep it reachable from the root. Measured: 5 directions, and the seed 279 exit
-  risk is removed because the exit can be inside the target as long as it stays
-  reachable. This is a revision of the Q2 "exit is excluded from every re-roll"
-  decision and needs explicit approval.
-- **Allow spawn only.** The exit stays hard-excluded. Measured: 5 directions, but seed
-  279's only rich pool can be lost if the exit is chosen at `c12`. The exit
-  selection must then prefer a cell outside every candidate target.
-- **Keep both excluded (v1 default).** Measured: 2 directions (seed 279's 8-cell
-  direction and seed 32's 6-cell direction); seed 279 still risks losing its rich
-  pool to the exit selection. This is the reading that treats "spawn" and "exit"
-  as pinned including their incident passages.
+- **Spawn cell — allowed as a content-pinned island.** The spawn room, floor and
+  marker stay exactly as they are; only the passages incident to the cell may be
+  rearranged. A reset puts the player back in the same room by a different route.
+  The cell is never moved, rebuilt or retired, and its keyed layers are
+  unchanged.
+- **Exit cell — still excluded.** The static exit (Q2) cell, its threshold, its
+  room content and its incident passages are never part of a target. Fairness
+  checks F1/F2 still run on every candidate, and the exit remains the stable
+  "out" while the route behind the player changes.
+- **Measured effect.** Under the decided rule **five directions** across the
+  committed seeds have at least two in-tolerance candidates: the two spawn-free
+  directions plus seed 279's 6-cell and 5-cell directions and seed 32's 8-cell
+  direction. The old "keep both excluded" default gives two; the old
+  "allow both" option is not adopted because the exit must stay static (Q2) and
+  excluded from re-roll in v1.
+- **Coverage caveat.** The exit is not in the committed maps yet, so the exit
+  selection order in §6.4 remains mandatory: an exit placed inside a candidate
+  target removes that direction. That is a coverage detail, not a reason to
+  move the exit or let it be re-rolled.
 
-**Recommendation:** allow both, because the cells and their content stay exactly
-as they were and fairness is checked; the only change is the route to them. If
-the operator reads "spawn" or "exit" as including the passages around the cell,
-keep both excluded and accept the two-door v1 coverage. Either way, the exit
-selection order in §6.4 is mandatory when the exit is excluded.
-
-### Q11. Is a reserved void envelope worth the extra cell? — open, later
+### Q11. Is a reserved void envelope worth the extra cell? — deferred to tuning; provisional default: not v1
 
 A re-roll could open one adjacent void cell whose walkable neighbours are all
 inside `A`, adding one room and one or two passages. The preliminary hard-valid
 counts rise (seed 279's 8-cell pool from 8 to 35 at edit >=2 without the shape
 filter; seed 32's 6-cell pool from 2 to 10), but it breaks the same-cell-count
 rule and needs the void's floor, layers and content to be generated on the fly.
-**Recommendation:** defer to a later extension; do not use it in v1. The
+**Provisional default:** do not use it in v1; keep it as a later extension. The
 generator-side rewire reserve is a cleaner way to get spare adjacency without
-adding a cell at runtime.
+adding a cell at runtime. This is deferred and does not block M4 or M5.
 
-### Q12. Should the first re-roll be allowed to add a shortcut, or must it remove a passage? — open, taste
+### Q12. Should the first re-roll be allowed to add a shortcut, or must it remove a passage? — deferred to tuning; provisional default: allow any edit ≥1
 
 A tier-1 candidate may be a pure addition (a new loop or shortcut), a pure
 removal (a loop closes), or a swap (one passage removed, one added). The shape
@@ -2415,11 +2420,12 @@ removals.
   most legible "the walls moved" reading, but it rejects the pure-removal seed
   279 candidates and may leave that door with no tier-1 candidate.
 
-**Recommendation:** allow any edit ≥1, and let the operator judge the feel on a
-walk. If the first re-roll must always feel like a loss, choose the removal
-requirement and accept a smaller pool.
+**Provisional default:** allow any edit ≥1, and let the operator judge the feel
+on a walk. If the first re-roll must always feel like a loss, choose the removal
+requirement and accept a smaller pool. This is deferred and does not block M4 or
+M5.
 
-### Q13. Does every door latch, or only a door with a re-roll ready? — open, taste/pacing
+### Q13. Does every door latch, or only a door with a re-roll ready? — deferred to tuning; provisional default: eligible-only latch
 
 The design latches only a door that has passed eligibility (§4.4, §4.6). That
 makes the latch a meaningful tell and guarantees the player is never locked out
@@ -2428,18 +2434,18 @@ the player, and only the eligible ones re-roll; the latch becomes ambient dread
 but loses its meaning, and the player may repeatedly open doors expecting a
 change that never comes.
 
-**Recommendation:** eligible-only. It is the cleaner contract and it keeps the
-"locked door with nowhere to go" failure out of the design. This is a
+**Provisional default:** eligible-only. It is the cleaner contract and it keeps
+the "locked door with nowhere to go" failure out of the design. This is a
 taste/pacing decision, not a technical one; if the operator wants every door to
 latch, the re-roll eligibility check moves to the open request and the lock state
-stays harmless.
+stays harmless. This is deferred and does not block M4 or M5.
 
 ### Questions that remain open
 
-These are not decided by the operator. Q9, Q10 and Q12 must be answered before
-M5; Q13 before M4. Q11 is later, and the rest do not block M1:
+No design question blocks M4 or M5. Q9, Q11, Q12 and Q13 are deferred to tuning
+on an operator walk; their provisional defaults above may be changed then without
+reworking the issue list. Q10 is decided. The remaining open items are:
 
-- Q9, Q10, Q11, Q12 and Q13 above.
 - The exact end-card wording and which counters it shows.
 - The exact original materials, geometry and lighting for the bright exit room.
   The style direction is set; the asset work and the operator's visual
@@ -2463,10 +2469,12 @@ These are proposals, not filed issues. Each is sized to one loop run. They are
 slices of #223, which is the umbrella runtime-overlay issue and must not start
 until #209 is closed. The first slice is deliberately headless: it proves the
 event log and replay before anything is visible. The operator decisions in §10
-are fixed inputs: the exit is static, crossing it ends the run with an end card,
-and there is no next-seed or next-level progression. M1 and M2 can use a
-synthetic exit fixture; M3 adds the real static exit and end card, and every
-later issue uses it.
+are fixed inputs: the exit is static and excluded from re-roll, the spawn cell is
+a content-pinned island, crossing the exit ends the run with an end card, and
+there is no next-seed or next-level progression. Q9, Q11, Q12 and Q13 are
+deferred tuning questions; their provisional defaults are used here and none of
+them blocks M4 or M5. M1 and M2 can use a synthetic exit fixture; M3 adds the
+real static exit and end card, and every later issue uses it.
 
 | Order | Working title | Scope | Verification | Depends on |
 |---|---|---|---|---|
@@ -2474,7 +2482,7 @@ later issue uses it.
 | M2 | Follower edit: lamp state and flicker | Per-cell light override, visibility gate, cadence counter; first visible edit | Leave cell, edit applies, re-enter sees new lamp; no other cell shifts; map hash unchanged; capture | M1 |
 | M3 | Exit threshold and run end card | Static seed-keyed exit selection, evaluated before the re-roll eligibility map and preferring a cell outside every 3-8 target; bright threshold door and original test-chamber room treatment; crossing ends the run once; end card shows seed, rooms visited, edits and re-rolls; no next-seed or level progression | Same seed => same exit cell; exit excluded from re-roll/edit targets; the selection runs before eligibility; one `run_end` event and one end card per run; counters match the log; no progression action exists; map bytes unchanged; capture for operator style review | M1 |
 | M4 | Door state and lock-behind | Overlay `doors[]`, procedural leaf for generated rooms, close/latch on crossing, manual open; ramp doors only when the leaf fits the port; no re-roll; exit threshold is not lock-behind eligible | Headless cross/lock/open; the closed leaf occludes the target; exit reachable; library doorways skipped; save/restore; capture | M1, M3 |
-| M5 | Door re-roll: passage-graph enumerator and headless validation | `rewire-1` enumerator: `H_T`, mandatory pins, hard invariants R0-R11, shape ranking, shortlist, seeded draw, event payload; full-A 3-8 in v1 (prefix fallback only if Q9 option (b) is approved); spawn/exit exclusion per Q10; no runtime geometry | T1-T5, T12-T14; the §4.5.9 golden fixture (11 directions, 2 v1 doors with >=2 in-tolerance, 5 if Q10 allows spawn, seed 3 none); seed 32 C1/C2/C3; seed 279 13/3; no-candidate fail closed; Python/GDScript parity | M1, M3, M4 |
+| M5 | Door re-roll: passage-graph enumerator and headless validation | `rewire-1` enumerator: `H_T`, mandatory pins, hard invariants R0-R11, shape ranking, shortlist, seeded draw, event payload; full-A 3-8 in v1; the Q9 3-8 prefix selector is a deferred tuning option, not a dependency; spawn allowed as a content-pinned island and exit excluded (decided Q10); no runtime geometry | T1-T5, T12-T14; the §4.5.9 golden fixture (11 directions, 5 decided-rule directions with >=2 in-tolerance, 2 if the spawn were pinned, seed 3 none); seed 32 C1/C2/C3; seed 279 13/3; no-candidate fail closed; Python/GDScript parity | M1, M3, M4 |
 | M6 | Door re-roll: runtime rebuild and reveal | Apply `P` on the same cells; place doorways; rebuild only changed room nodes from derived specs; atomic swap behind the closed leaf; GDScript F0-F2 check; no cell retirement | T6-T10, T13; headless door-open reveal; no pop in captures; cell IDs and per-cell layers unchanged; only doorway records and `passage_revision` change; map hash unchanged; operator walk pending | M5 |
 | M7 | Door re-roll: save, restore and cache | Persist base hash + event log (no pool hash); restore across reloads; cache key includes `branch_epoch`/`passage_revision`; pending re-roll re-enumerates from the `door_lock` trigger; #156 fixture unchanged | T6, T11, T14; save/reload at the door produces the same `P` and state hash; a changed `passage_revision` is a cache miss; #156 regression; map hash unchanged | M6 |
 | M8 | Follower edits: reverb, wear and variant | Reverb flip (existing setter), wear/variant overrides, palette-compatible validation | Per-cell isolation; map hash unchanged; old cells unchanged; capture; operator walk/listen | M1, M2 |
@@ -2483,7 +2491,7 @@ later issue uses it.
 | M11 | Dark-wing growth (later) | Add one contiguous visited cell to the dark wing; update its light and surface | Light/surface consistency; no non-wing cell shifts; map hash unchanged; capture | M2, M8 |
 | M12 | Elevation edits (later) | Change one visited branch's floor/ramp/drop; rebuild geometry and collision | F0-F3 checks; return route for every drop; no visible pop; capture | M7, M8 |
 | M13 | Prop edits (later) | Move or rotate a small prop in a generated room; needs a prop system first | Prop overlay replay; no graph effect; no visible pop; capture | M8 |
-| M14 | Escalation tuning and evidence | Tune cadence constants, collect replay logs and captures, operator walk; verify end-card counters and no progression; record the five-seed eligibility/re-roll counts from §4.5.9 | A full run with A and B; metrics recorded; no new mechanics | M2-M13 |
+| M14 | Escalation tuning and evidence | Tune cadence constants and the deferred Q9/Q11/Q12/Q13 defaults, collect replay logs and captures, operator walk; verify end-card counters and no progression; record the five-seed eligibility/re-roll counts from §4.5.9 under the decided Q10 rule | A full run with A and B; metrics recorded; no new mechanics | M2-M13 |
 
 Notes on sizing:
 
@@ -2502,9 +2510,11 @@ Notes on sizing:
   rebuild/reveal, and the save/restore/cache contract. Each is a full loop run;
   combining them would be too large. M5 is where the §4.5.9 golden fixture lives,
   so a thin pool or a generator drift is caught before any geometry moves.
-- Q9 (target size/prefix), Q10 (content-pinned spawn/exit) and Q12 (first-tier
-  edit character) must be answered before M5; Q13 (latch policy) before M4. Q11
-  is later. The rest of the issues do not depend on them.
+- Q10 is decided: the spawn cell is a content-pinned island and the exit stays
+  excluded. Q9 (target size/prefix), Q11 (reserved void), Q12 (first-tier edit
+  character) and Q13 (latch policy) are deferred to tuning and do not block M4 or
+  M5; the issues use the provisional defaults recorded in §10. Tuning may change
+  them at M14 without reworking the issue list.
 - M8 adds the layers that are cheap metadata but have visual/audio tells.
 - M9 is audio; agents can verify event wiring, not the mix.
 - M10, M11, M12 and M13 are explicitly later; they should not block the first
@@ -2565,7 +2575,9 @@ Notes on sizing:
 - No change to committed maps or library scenes. The static exit is additive:
   an existing seed keeps its existing layer values, and its exit is either
   recorded in a new layer version or derived from the seed at load.
-- No prefix fallback or reserved void envelope unless Q9 option (b) or Q11 is approved.
+- No prefix fallback or reserved void envelope in the first pass. Q9 and Q11
+  are deferred to tuning; if the prefix default or the void envelope is enabled
+  later, it needs its own verified slice.
 - No offline candidate pool, sidecar hash, new cell IDs or cell retirement.
   A re-roll is a passage-only change on the existing footprint.
 
@@ -2659,7 +2671,7 @@ inputs, constants and results so it can be reproduced without committing it.
 | #209 question | Where answered |
 |---|---|
 | 1. Mutation model, seeded event log, `attempt` and streams | §3 |
-| 2. Door re-roll: same-footprint passage rewire, pins, seeded draw, firing, streaming | §4; measurement in §4.5.9; Q9-Q13 in §10 |
+| 2. Door re-roll: same-footprint passage rewire, pins, seeded draw, firing, streaming | §4; measurement in §4.5.9; Q10 decided and Q9, Q11-Q13 deferred in §10 |
 | 3. Follower edits: menu, out-of-sight rule, cadence, follower existence | §5 |
 | 4. Fairness invariant and directed validator; exit and win decided | §6, §10 |
 | 5. Breadcrumb mode: what it is, honesty, toggle, later work | §7, §10 |
@@ -2669,5 +2681,6 @@ inputs, constants and results so it can be reproduced without committing it.
 
 The feasibility measurement is an addition to question 2, not a new question:
 it tests whether the door re-roll can actually fire on the committed maps. The
-answer is "not often enough yet", and Q9-Q13 are the resulting operator
-decisions. The rest of the eight-question structure is unchanged.
+answer is "not often enough yet"; Q10 is decided (spawn content-pinned, exit
+excluded), and Q9, Q11, Q12 and Q13 are deferred to tuning with provisional
+defaults. The rest of the eight-question structure is unchanged.
