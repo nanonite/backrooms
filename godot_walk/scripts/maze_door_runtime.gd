@@ -21,7 +21,10 @@ const LEAF := preload("res://scripts/maze_door_leaf.gd")
 const VISIBILITY := preload("res://scripts/maze_visibility.gd")
 
 const INTERACT_KEY := KEY_E
-const INTERACT_RANGE_M := 3.0
+## The player must already stand in a cell that is a side of the door, which carries the
+## locality. A distance cap made E silently do nothing from the middle of the arrival cell
+## (4.8 m from the leaf on seed 32), so the cap is gone.
+const INTERACT_RANGE_M := INF
 const VISIBILITY_DEPTH := 2
 
 signal door_latched(threshold_id: String)
@@ -213,7 +216,7 @@ func open_door(threshold: String, from_cell: String = "") -> bool:
 	return true
 
 
-## Open the nearest latched door within reach on the player's current side.
+## Open the nearest latched door on the player's current side.
 func request_open_nearest() -> bool:
 	if assembly == null or player == null or current_cell.is_empty():
 		return false
