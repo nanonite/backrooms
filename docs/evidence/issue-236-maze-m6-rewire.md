@@ -41,6 +41,8 @@ not approval.
     branch and marks the door blocked for the run;
   - `apply_stored_event` is the replay path: it reads the stored `P` and
     doorway records and never re-enumerates;
+  - the in-memory current map keeps every non-direct opening (`closed_visible`)
+    so the visibility proxy reads the same openings after a re-roll;
   - the leaf is reparented to the rebuilt host room, so the door that hid the
     swap is not lost.
 - `godot_walk/scripts/maze_reroll.gd` gains the GDScript `doorway_records` and
