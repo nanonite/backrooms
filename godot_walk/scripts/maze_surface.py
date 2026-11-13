@@ -195,7 +195,8 @@ def next_variant(surface: str, current: str, palette: dict[str, Any]) -> str | N
     """The next variant along clean -> worn -> damaged that the palette offers."""
     if current not in VARIANT_ORDER:
         raise SurfaceError("variant_invalid", f"{surface} variant {current!r}")
-    field = palette.get("surfaces", {}).get(surface)
+    surfaces = palette.get("surfaces")
+    field = surfaces.get(surface) if isinstance(surfaces, dict) else None
     available = field.get("variants") if isinstance(field, dict) else None
     if not isinstance(available, dict):
         raise SurfaceError(
