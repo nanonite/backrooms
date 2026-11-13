@@ -37,6 +37,10 @@ from deterministic_json import ROOT, canonical_bytes
 
 RUNTIME_LAYER_VERSION = "maze-rewire-runtime-0.1.0"
 STATE_HASH_PREFIX = "maze-rewire-state-0.1.0"
+# Replay applies a stored ``P`` by its recorded algorithm version.  A newer
+# enumerator must not reinterpret an older event, so this set is deliberately
+# independent of the current ``rewire-1`` enumerator contract.
+SUPPORTED_ALGORITHM_VERSIONS = frozenset({"rewire-1"})
 PORT_PREFIX = "rw_"
 DOOR_WIDTH_M = 1.4
 DOOR_HEIGHT_M = 2.2
@@ -457,7 +461,7 @@ def apply_event_to_state(
     rewire = event.get("rewire")
     if not isinstance(rewire, dict):
         return {"ok": False, "reason": "rewire_invalid", "state": state}
-    if str(rewire.get("algorithm_version", "")) != mr.ALGORITHM_VERSION:
+    if str(rewire.get("algorithm_version", "")) not in SUPPORTED_ALGORITHM_VERSIONS:
         return {"ok": False, "reason": "unsupported_algorithm", "state": state}
     target = {str(cell) for cell in rewire.get("target_cells", [])}
     before = {_pair(*pair) for pair in rewire.get("passages_before", [])}

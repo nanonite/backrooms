@@ -22,6 +22,9 @@ const REROLL := preload("res://scripts/maze_reroll.gd")
 const ALGORITHM_VERSION := "rewire-1"
 const RUNTIME_LAYER_VERSION := "maze-rewire-runtime-0.1.0"
 const STATE_HASH_PREFIX := "maze-rewire-state-0.1.0"
+## Replay applies a stored P by its recorded version; a newer enumerator must
+## not reinterpret an older event. Keep this set independent of ``rewire-1``.
+const SUPPORTED_ALGORITHM_VERSIONS := ["rewire-1"]
 const PORT_PREFIX := "rw_"
 const DOOR_WIDTH_M := 1.4
 const DOOR_HEIGHT_M := 2.2
@@ -466,7 +469,7 @@ static func apply_event_to_state(state: Dictionary, event: Dictionary) -> Dictio
 	if not (rewire is Dictionary):
 		return {"ok": false, "reason": "rewire_invalid", "state": state}
 	var block: Dictionary = rewire
-	if String(block.get("algorithm_version", "")) != ALGORITHM_VERSION:
+	if not SUPPORTED_ALGORITHM_VERSIONS.has(String(block.get("algorithm_version", ""))):
 		return {"ok": false, "reason": "unsupported_algorithm", "state": state}
 	var target := {}
 	for cell_id: String in block.get("target_cells", []):

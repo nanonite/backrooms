@@ -1,0 +1,14 @@
+{
+	"case": {
+		"cache_miss": true,
+		"committed_replay": true,
+		"pending": false,
+		"restored": true,
+		"same_hash": true,
+		"same_p": true
+	},
+	"failures": [],
+	"map_id": "gmap-2-gmap-0.13.0",
+	"map_sha256_after": "07c1cbb219004d1533021ff5d7c5fe18b41d28ed8b01f4ce69535e1c0db8c465",
+	"map_sha256_before": "07c1cbb219004d1533021ff5d7c5fe18b41d28ed8b01f4ce69535e1c0db8c465"
+}

@@ -1,7 +1,7 @@
 class_name MazeRewireRuntime
 extends Node
 
-## Live M6 re-roll rebuild and reveal driver (#236).
+## Live M6/M7 re-roll rebuild, reveal, save and restore driver (#236, #237).
 ##
 ## The M5 enumerator is cached when an eligible leaf latches. On the later open
 ## request from the B side, this driver chooses from the cached shortlist,
@@ -13,6 +13,12 @@ extends Node
 ## failed rebuild keeps the old nodes and opens the old branch; the door is
 ## blocked for the rest of the run. The event stores ``P`` and the doorway
 ## records, so replay never re-enumerates.
+##
+## M7 adds ``restore_events``: a save holds only the base identity and the
+## ordered log. Accepted re-rolls replay their stored ``P``; a door that was
+## only latched gets a fresh pending list from its ``door_lock`` record. The
+## revision-aware room cache keys every derived spec by
+## ``(base, branch_epoch, passage_revision, content_revision, cell_id)``.
 
 const REROLL := preload("res://scripts/maze_reroll.gd")
 const REWIRE := preload("res://scripts/maze_rewire.gd")
@@ -21,6 +27,7 @@ const DOORS := preload("res://scripts/maze_doors.gd")
 const LEAF := preload("res://scripts/maze_door_leaf.gd")
 const VISIBILITY := preload("res://scripts/maze_visibility.gd")
 const LIGHT := preload("res://scripts/maze_light_controller.gd")
+const ROOM_CACHE := preload("res://scripts/maze_room_cache.gd")
 
 const VISIBILITY_DEPTH := 2
 const RUNTIME_CHECKS := ["F0", "F1", "F2", "geometry", "cell_identity",
@@ -42,6 +49,8 @@ var pending: Dictionary = {}
 var accepted_thresholds: Dictionary = {}
 var blocked: Dictionary = {}
 var accepted_events: Array[Dictionary] = []
+var base_identity: Dictionary = {}
+var room_cache
 
 
 func setup(assembly_node: Node3D, door_node: Node) -> void:
@@ -53,6 +62,9 @@ func setup(assembly_node: Node3D, door_node: Node) -> void:
 	passage_state = REROLL.base_passage_state(map)
 	exit_record = assembly.exit_record_data()
 	exit_cell = String(exit_record.get("cell_id", ""))
+	room_cache = ROOM_CACHE.new()
+	if assembly.has_method("run_base_identity"):
+		base_identity = assembly.run_base_identity()
 
 
 ## Cache the ranked list when an eligible leaf latches (§4.6 step 1).
@@ -169,6 +181,7 @@ func apply_stored_event(event: Dictionary, player_cell: String = "",
 			"changed_cells": []}
 	var derived_specs: Dictionary = derived.get("specs", {})
 	var changed_cells: Array = derived.get("changed_cells", [])
+	_cache_specs(derived_specs, branch_epoch + 1)
 	var issues := REWIRE.geometry_issues(map, specs, derived_specs, event)
 	if not issues.is_empty():
 		return {"ok": false, "reason": String(issues[0]), "changed_cells": []}
@@ -291,6 +304,148 @@ func rejected_event(threshold: String, from_cell: String, to_cell: String,
 	}
 
 
+## Replay a saved door/re-roll event log.  Accepted ``door_reroll`` records apply
+## their stored ``P`` and never re-enumerate; a latched door with only a
+## ``door_lock`` record gets a fresh pending list from the current state.
+func restore_events(events: Array, player_cell: String = "") -> Dictionary:
+	if not enabled:
+		return {"ok": false, "reason": "disabled", "state_hash": state_hash()}
+	var reset := _reset_runtime()
+	if not bool(reset.get("ok", false)):
+		return reset
+	var errors: Array[String] = []
+	var locks: Array = []
+	var resolved := {}
+	var rejected := {}
+	for position in events.size():
+		var value: Variant = events[position]
+		if not (value is Dictionary):
+			errors.append("event_not_object:%d" % (position + 1))
+			continue
+		var event: Dictionary = value
+		if int(event.get("event_index", 0)) != position + 1:
+			errors.append("event_order:%d" % (position + 1))
+		if String(event.get("record_kind", "")) != "mutation":
+			continue
+		var event_type := String(event.get("event_type", ""))
+		var validation: Variant = event.get("validation")
+		var outcome := "accepted"
+		if validation is Dictionary:
+			outcome = String((validation as Dictionary).get("outcome", "accepted"))
+		var target: Dictionary = event.get("target") if event.get("target") is Dictionary else {}
+		var threshold := String(target.get("door_threshold_id",
+			target.get("threshold_id", "")))
+		match event_type:
+			"door_reroll":
+				if outcome == "rejected":
+					if not threshold.is_empty():
+						rejected[threshold] = true
+						blocked[threshold] = true
+					continue
+				var applied := apply_stored_event(event, player_cell, false)
+				if not bool(applied.get("ok", false)):
+					errors.append("event_%d:%s" % [position + 1,
+						String(applied.get("reason", ""))])
+				elif not threshold.is_empty():
+					resolved[threshold] = true
+			"door_lock":
+				if outcome == "accepted":
+					locks.append({
+						"threshold": threshold,
+						"from_cell": String(target.get("from_cell", "")),
+						"to_cell": String(target.get("to_cell", "")),
+					})
+			"door_unlock":
+				if outcome == "accepted" and not threshold.is_empty():
+					pending.erase(threshold)
+	var requeued := _requeue_pending(locks, resolved, rejected)
+	return {
+		"ok": errors.is_empty(),
+		"reason": errors[0] if not errors.is_empty() else "",
+		"errors": errors,
+		"state_hash": state_hash(),
+		"branch_epoch": branch_epoch,
+		"reroll_serial": reroll_serial,
+		"passage_revisions": passage_revisions.duplicate(true),
+		"pending": pending.keys(),
+		"requeued": requeued,
+	}
+
+
+func _reset_runtime() -> Dictionary:
+	var mutated: Array = []
+	for cell_id: String in specs:
+		var revision := int((specs[cell_id] as Dictionary).get("passage_revision", 0))
+		var base_revision := int((base_specs[cell_id] as Dictionary).get(
+			"passage_revision", 0))
+		if revision != base_revision:
+			mutated.append(cell_id)
+	if not mutated.is_empty() and assembly != null:
+		var built := _build_rooms(base_specs, mutated)
+		if not bool(built.get("ok", false)):
+			return {"ok": false, "reason": String(built.get("reason", "reset_failed")),
+				"state_hash": state_hash()}
+		_swap_rooms(built.get("rooms", {}))
+	# Keep the same dictionary the assembly and door runtime hold, so a restore
+	# updates every consumer's spec view rather than only this node's binding.
+	specs.clear()
+	for cell_id: String in base_specs:
+		specs[cell_id] = (base_specs[cell_id] as Dictionary).duplicate(true)
+	passage_state = REROLL.base_passage_state(map)
+	passage_revisions = {}
+	branch_epoch = 0
+	reroll_serial = 0
+	pending = {}
+	accepted_thresholds = {}
+	blocked = {}
+	accepted_events = []
+	if room_cache != null:
+		room_cache.clear()
+	_refresh_doors()
+	return {"ok": true, "reason": "", "state_hash": state_hash()}
+
+
+func _requeue_pending(locks: Array, resolved: Dictionary,
+		rejected: Dictionary) -> Array:
+	var requeued: Array = []
+	for lock: Dictionary in locks:
+		var threshold := String(lock.get("threshold", ""))
+		if threshold.is_empty() or resolved.has(threshold) or rejected.has(threshold):
+			continue
+		if door_runtime == null or door_runtime.state_of(threshold) != "latched":
+			continue
+		var door := DOORS.door_by_threshold(door_runtime.plan, threshold)
+		if door.is_empty():
+			continue
+		var from_cell := String(lock.get("from_cell", ""))
+		var to_cell := String(lock.get("to_cell", ""))
+		if from_cell.is_empty() or to_cell.is_empty():
+			from_cell = String(door.cell_a)
+			to_cell = String(door.cell_b)
+		var visible := _visible_from(to_cell, threshold)
+		var prepared := prepare(door, from_cell, to_cell, _array_of(visible))
+		requeued.append({
+			"threshold": threshold,
+			"ok": bool(prepared.get("ok", false)),
+			"reason": String(prepared.get("reason", "")),
+		})
+	return requeued
+
+
+func _cache_specs(derived_specs: Dictionary, next_epoch: int) -> void:
+	if room_cache == null:
+		return
+	for cell_id: String in derived_specs:
+		var spec: Dictionary = derived_specs[cell_id]
+		var key := ROOM_CACHE.key_for(base_identity, next_epoch,
+			int(spec.get("passage_revision", 0)), 0, cell_id)
+		var cached: Variant = room_cache.get_value(key)
+		if cached is Dictionary:
+			derived_specs[cell_id] = (cached as Dictionary).duplicate(true)
+		else:
+			room_cache.put(key, spec.duplicate(true))
+
+
 func current_map() -> Dictionary:
 	var result := map.duplicate(true)
 	var base_edges := {}
@@ -368,6 +523,7 @@ func snapshot() -> Dictionary:
 		"accepted": accepted_thresholds.keys(),
 		"blocked": blocked.keys(),
 		"accepted_events": accepted_events.size(),
+		"cache": room_cache.stats() if room_cache != null else {},
 		"state_hash": state_hash(),
 	}
 

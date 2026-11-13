@@ -28,6 +28,7 @@ const EXIT_RUNTIME := preload("res://scripts/maze_exit_runtime.gd")
 const MAZE_DOORS := preload("res://scripts/maze_doors.gd")
 const DOOR_RUNTIME := preload("res://scripts/maze_door_runtime.gd")
 const REWIRE_RUNTIME := preload("res://scripts/maze_rewire_runtime.gd")
+const RUN_SAVE := preload("res://scripts/maze_run_save.gd")
 const PLAYER_SCENE := preload("res://scenes/player.tscn")
 const WALK_PLAYER := preload("res://scripts/walk_player.gd")
 const PSX_PRESET := preload("res://scripts/library_psx_preset.gd")
@@ -51,6 +52,8 @@ const WALK_TARGET_PATH := "res://.walk_target.json"
 ## False when a test builds the rooms itself without the environment or the player.
 var auto_start := true
 var map: Dictionary = {}
+## The committed map path used for the save base hash; empty when assembled in memory.
+var source_map_path := ""
 var specs: Dictionary = {}
 var rooms: Dictionary = {}
 ## cell_id -> instanced library scene (module cells only; shape rooms stay in `rooms`).
@@ -120,6 +123,7 @@ func _ready() -> void:
 		if target is Dictionary:
 			map_path = String(target.get("map", ""))
 			rooms_path = String(target.get("rooms", ""))
+	source_map_path = map_path
 	var map_data: Variant = load_json(map_path)
 	var room_specs := load_specs(rooms_path)
 	if not map_data is Dictionary or room_specs.is_empty():
@@ -224,6 +228,53 @@ func rewire_snapshot() -> Dictionary:
 	if runtime == null:
 		return {}
 	return runtime.snapshot()
+
+
+## The save base identity: the raw committed map hash plus the map's own IDs.
+func run_base_identity() -> Dictionary:
+	var hash := ""
+	if not source_map_path.is_empty():
+		var absolute := ProjectSettings.globalize_path(source_map_path)
+		if FileAccess.file_exists(absolute):
+			hash = FileAccess.get_sha256(absolute)
+	return RUN_SAVE.base_identity(map, hash)
+
+
+## Persist the door/re-roll event stream with the base identity, never a pool.
+func run_save() -> Dictionary:
+	var runtime: Node = get_meta("maze_door_runtime") if has_meta("maze_door_runtime") else null
+	var events: Array = runtime.export_log() if runtime != null else []
+	return RUN_SAVE.build(run_base_identity(), events)
+
+
+## Restore a saved run into this freshly assembled scene.  Committed re-rolls
+## replay their stored P; a door that was merely latched is re-enumerated.
+func restore_run(save: Dictionary) -> Dictionary:
+	var checked := RUN_SAVE.validate(save, run_base_identity())
+	if not bool(checked.get("ok", false)):
+		return checked
+	var log: Array = (checked.get("save", {}) as Dictionary).get("event_log", [])
+	var doors: Node = get_meta("maze_door_runtime") if has_meta("maze_door_runtime") else null
+	if doors != null:
+		doors.restore_log(log)
+	var rewire: Node = get_meta("maze_rewire_runtime") if has_meta("maze_rewire_runtime") else null
+	if rewire == null:
+		return {"ok": false, "reason": "no_rewire_runtime"}
+	return rewire.restore_events(log)
+
+
+func write_run_save(path: String) -> Dictionary:
+	var save := run_save()
+	if not bool(save.get("ok", false)):
+		return save
+	return RUN_SAVE.write(path, run_base_identity(), save.get("save", {}))
+
+
+func load_run_save(path: String) -> Dictionary:
+	var loaded := RUN_SAVE.read(path, run_base_identity())
+	if not bool(loaded.get("ok", false)):
+		return loaded
+	return restore_run(loaded.get("save", {}))
 
 
 func passage_revision(cell_id: String) -> int:

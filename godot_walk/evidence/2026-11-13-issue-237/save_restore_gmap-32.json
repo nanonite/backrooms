@@ -1,0 +1,17 @@
+{
+	"case": {
+		"cache_miss": true,
+		"committed_hash": "ccd2de1afc771b346d5e853e04ea1b5858573caefa268649ce79b62eef2e8f51",
+		"committed_replay": true,
+		"pending": true,
+		"pending_hash": "c7825d5e7a6ed338089f7fa9def30c11b1458690bd6b3af5727b4913e937614f",
+		"restored": true,
+		"same_hash": true,
+		"same_p": true,
+		"save_sha256": "afdf213767007761e4fedb5ea5ffef45c05e3fe64062364c567f92708fd0151a"
+	},
+	"failures": [],
+	"map_id": "gmap-32-gmap-0.13.0",
+	"map_sha256_after": "087d24978dc4b7e5986dd881d491d43bc2dc4f49652f6e4f25e848e6abbdd7d1",
+	"map_sha256_before": "087d24978dc4b7e5986dd881d491d43bc2dc4f49652f6e4f25e848e6abbdd7d1"
+}
