@@ -1,0 +1,36 @@
+{
+	"failures": [],
+	"map_id": "gmap-32-gmap-0.13.0",
+	"map_sha256_after": "087d24978dc4b7e5986dd881d491d43bc2dc4f49652f6e4f25e848e6abbdd7d1",
+	"map_sha256_before": "087d24978dc4b7e5986dd881d491d43bc2dc4f49652f6e4f25e848e6abbdd7d1",
+	"plan": {
+		"doors": 13,
+		"drops": 0,
+		"eligible": 4,
+		"library": 2,
+		"ramp_leaves": 1,
+		"skipped": 2
+	},
+	"replay": {
+		"events": 3,
+		"state_hash": "06567ffcb1985a471356ba47a1950144a1f45412c10786face957c6456ebd497"
+	},
+	"runtime": {
+		"door_events_in_run_log": 2,
+		"error": "",
+		"exit_reachable": true,
+		"exit_threshold_open": true,
+		"ineligible_skipped": true,
+		"latched": 1,
+		"leaf_count": 1,
+		"library_skipped": true,
+		"map_seed": 32,
+		"occluded": true,
+		"opened": 1,
+		"ray_closed": true,
+		"ray_open": true,
+		"restore_hash": "06567ffcb1985a471356ba47a1950144a1f45412c10786face957c6456ebd497",
+		"restored": true,
+		"run_end_events": 1
+	}
+}

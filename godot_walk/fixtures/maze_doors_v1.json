@@ -1,0 +1,3341 @@
+{
+  "design": "docs/MAZE_DYNAMICS_PROPOSAL.md section 11.1 item 4",
+  "layer_version": "maze-door-0.1.0",
+  "maps": {
+    "1": {
+      "plan": {
+        "doors": [
+          {
+            "cell_a": "c00",
+            "cell_b": "c01",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c00",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "5021b78edc58aa98cfe545a4d2c371ad9e08fad3ce9d0455b2278700867ad0f6",
+                "target_size": 13,
+                "to_cell": "c01"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "121f8bd5661f979d7c7fabc99d501ef74e0c1304a0d9a911a36030b8d43957be",
+                "target_size": 1,
+                "to_cell": "c00"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c00:p0",
+            "leaf_reason": null,
+            "leaf_side": "c00",
+            "port_a": "c00:p0",
+            "port_b": "c01:p0",
+            "threshold_id": "c00|c01",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c00",
+            "cell_b": "c03",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c00",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "8f16efb505850551c316d78b65af9f9591d99adb3fa5e9d73693055d1883d9db",
+                "target_size": 2,
+                "to_cell": "c03"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "df7119fd9879e7382c4a20537dfbbbf1c50495d1805229491a2fd6bcfb414ac8",
+                "target_size": 12,
+                "to_cell": "c00"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c00:p1",
+            "leaf_reason": null,
+            "leaf_side": "c00",
+            "port_a": "c00:p1",
+            "port_b": "c03:p0",
+            "threshold_id": "c00|c03",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c01",
+            "cell_b": "c02",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "drop_door",
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c02"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "drop_door",
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c01"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": false,
+            "leaf_port": null,
+            "leaf_reason": "drop_door",
+            "leaf_side": null,
+            "port_a": "c01:p1",
+            "port_b": "c02:p0",
+            "threshold_id": "c01|c02",
+            "vertical": "drop"
+          },
+          {
+            "cell_a": "c02",
+            "cell_b": "c03",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "31b1608f191b90c385198e93cf4626aa916a6acd0849ea44e32205efe33d4967",
+                "target_size": 1,
+                "to_cell": "c03"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "56a644c98cff5b088157d730868cd4b3aeea8cadff9468f106ce2f8dfe8e3cbf",
+                "target_size": 13,
+                "to_cell": "c02"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c02:e1",
+            "leaf_reason": null,
+            "leaf_side": "c02",
+            "port_a": "c02:e1",
+            "port_b": "c03:e1",
+            "threshold_id": "c02|c03",
+            "vertical": "ramp"
+          },
+          {
+            "cell_a": "c02",
+            "cell_b": "c04",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "drop_door",
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c04"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c04",
+                "reasons": [
+                  "drop_door",
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c02"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": false,
+            "leaf_port": null,
+            "leaf_reason": "drop_door",
+            "leaf_side": null,
+            "port_a": "c02:p1",
+            "port_b": "c04:p0",
+            "threshold_id": "c02|c04",
+            "vertical": "drop"
+          },
+          {
+            "cell_a": "c03",
+            "cell_b": "c05",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "3d7c5c7dfb3e5e00e2c4aef925d56a43d040da2c3f72c7925bcac8cdf36ac08d",
+                "target_size": 9,
+                "to_cell": "c05"
+              },
+              {
+                "eligible": true,
+                "from_cell": "c05",
+                "reasons": [],
+                "target_hash": "3fbb99d53f58fa5d2c741ab4e2ef1e12073290c6fbc882113ae2c636891dec07",
+                "target_size": 5,
+                "to_cell": "c03"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c03:e0",
+            "leaf_reason": null,
+            "leaf_side": "c03",
+            "port_a": "c03:e0",
+            "port_b": "c05:e0",
+            "threshold_id": "c03|c05",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c03",
+            "cell_b": "c07",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c07"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c03"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c03:p1",
+            "leaf_reason": null,
+            "leaf_side": "c03",
+            "port_a": "c03:p1",
+            "port_b": "c07:p0",
+            "threshold_id": "c03|c07",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c03",
+            "cell_b": "c10",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c10"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c10",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c03"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c03:e2",
+            "leaf_reason": null,
+            "leaf_side": "c03",
+            "port_a": "c03:e2",
+            "port_b": "c10:e2",
+            "threshold_id": "c03|c10",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c03",
+            "cell_b": "c11",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "exit_threshold_door",
+                  "target_too_large"
+                ],
+                "target_hash": "d0783975d9621a0974e7a5aa8b241f5d56c4b4b87b8d4a0569d0035f120b35bc",
+                "target_size": 13,
+                "to_cell": "c11"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c11",
+                "reasons": [
+                  "exit_threshold_door",
+                  "target_too_small",
+                  "exit_inside"
+                ],
+                "target_hash": "f4baf901d1b9fcc11a9d3c714fda524455a9875aececc7a30b202a058bc696e6",
+                "target_size": 1,
+                "to_cell": "c03"
+              }
+            ],
+            "exit_threshold": true,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c03:p2",
+            "leaf_reason": null,
+            "leaf_side": "c03",
+            "port_a": "c03:p2",
+            "port_b": "c11:p0",
+            "threshold_id": "c03|c11",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c04",
+            "cell_b": "c05",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c04",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "ff62523e04ae48ba33a86ec74ed9bfbc3859a73bf2cf8bf68b233964c801f16d",
+                "target_size": 1,
+                "to_cell": "c05"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "8ef4d88b4bc65de3b654211fa0c65a9bdd23c18bdb6febf7301f9fcefec5decf",
+                "target_size": 13,
+                "to_cell": "c04"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c04:p1",
+            "leaf_reason": null,
+            "leaf_side": "c04",
+            "port_a": "c04:p1",
+            "port_b": "c05:p0",
+            "threshold_id": "c04|c05",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c05",
+            "cell_b": "c06",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "4a11e6097e24a7e92fada237ae645a6309173764a088e379b605191b8ae7b730",
+                "target_size": 12,
+                "to_cell": "c06"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c06",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "a3e95433211a21df339f9dc5b477017f27f30d5d7cedebe44c250c590b6ce259",
+                "target_size": 2,
+                "to_cell": "c05"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c05:p1",
+            "leaf_reason": null,
+            "leaf_side": "c05",
+            "port_a": "c05:p1",
+            "port_b": "c06:p0",
+            "threshold_id": "c05|c06",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c05",
+            "cell_b": "c09",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "cf780ef824343929af6ba350ece3b9161fd4e704d895a0287c20f4789fb755af",
+                "target_size": 13,
+                "to_cell": "c09"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c09",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "09995b500481bfe6e374a38c9f8c53167bef2dc89e0974a11d0d5c48595ec407",
+                "target_size": 1,
+                "to_cell": "c05"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c05:p2",
+            "leaf_reason": null,
+            "leaf_side": "c05",
+            "port_a": "c05:p2",
+            "port_b": "c09:p0",
+            "threshold_id": "c05|c09",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c06",
+            "cell_b": "c08",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c06",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "e8de8bf6d3d55c8c00f767968e48d21376798c6678f61bb788bfbfbe1cd309ca",
+                "target_size": 13,
+                "to_cell": "c08"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c08",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "0a8dc0ca56f8d345c3e6f83fb2a3a2ff5a134725f31ac1dc6153b3941604ef93",
+                "target_size": 1,
+                "to_cell": "c06"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c06:p1",
+            "leaf_reason": null,
+            "leaf_side": "c06",
+            "port_a": "c06:p1",
+            "port_b": "c08:p0",
+            "threshold_id": "c06|c08",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c07",
+            "cell_b": "c10",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c10"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c10",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c07"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c07:p1",
+            "leaf_reason": null,
+            "leaf_side": "c07",
+            "port_a": "c07:p1",
+            "port_b": "c10:p0",
+            "threshold_id": "c07|c10",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c07",
+            "cell_b": "c13",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "ff0df36e7d0057e0dfa3b01d0142992d18200b93426ce11b07d67ab53451e44d",
+                "target_size": 13,
+                "to_cell": "c13"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c13",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_small"
+                ],
+                "target_hash": "74dda5282c81de22f5c8cc9e637b115f3666eaf03e57ae606ed60bcf5e5e3e1c",
+                "target_size": 1,
+                "to_cell": "c07"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "library",
+            "leaf": false,
+            "leaf_port": null,
+            "leaf_reason": "library_doorway",
+            "leaf_side": null,
+            "port_a": "c07:p2",
+            "port_b": "c13:p0",
+            "threshold_id": "c07|c13",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c10",
+            "cell_b": "c12",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c10",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "4b9149c97ef8a19adc76a4f72015283ddf67e27d5012d00a5848928d9b77a36a",
+                "target_size": 13,
+                "to_cell": "c12"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c12",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_small"
+                ],
+                "target_hash": "ebbfb53547b778a125159d0de39c0be05b019fa447e6d358bf1aae65926aa553",
+                "target_size": 1,
+                "to_cell": "c10"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "library",
+            "leaf": false,
+            "leaf_port": null,
+            "leaf_reason": "library_doorway",
+            "leaf_side": null,
+            "port_a": "c10:p1",
+            "port_b": "c12:p0",
+            "threshold_id": "c10|c12",
+            "vertical": "level"
+          }
+        ],
+        "eligible_crossings": [
+          {
+            "from_cell": "c05",
+            "threshold_id": "c03|c05",
+            "to_cell": "c03"
+          }
+        ],
+        "exit_cell": "c11",
+        "exit_threshold_id": "c03|c11",
+        "layer_version": "maze-door-0.1.0",
+        "map_id": "gmap-1-gmap-0.13.0",
+        "schema_version": 1,
+        "seed": 1,
+        "skipped_doors": [
+          {
+            "reason": "drop_door",
+            "threshold_id": "c01|c02"
+          },
+          {
+            "reason": "drop_door",
+            "threshold_id": "c02|c04"
+          },
+          {
+            "reason": "library_doorway",
+            "threshold_id": "c07|c13"
+          },
+          {
+            "reason": "library_doorway",
+            "threshold_id": "c10|c12"
+          }
+        ],
+        "stats": {
+          "doors": 16,
+          "eligible_crossings": 1,
+          "generated": 14,
+          "leaf_capable": 12,
+          "library": 2
+        }
+      },
+      "replay": {
+        "events": [
+          {
+            "change": {
+              "after": "latched",
+              "before": "open",
+              "class": "state",
+              "layer_version": "maze-door-0.1.0"
+            },
+            "event_index": 1,
+            "event_type": "door_lock",
+            "record_kind": "mutation",
+            "stream": "door:gmap-0.13.0",
+            "target": {
+              "from_cell": "c05",
+              "threshold_id": "c03|c05",
+              "to_cell": "c03"
+            }
+          },
+          {
+            "change": {
+              "after": "open",
+              "before": "latched",
+              "class": "state",
+              "layer_version": "maze-door-0.1.0"
+            },
+            "event_index": 2,
+            "event_type": "door_unlock",
+            "record_kind": "mutation",
+            "stream": "door:gmap-0.13.0",
+            "target": {
+              "from_cell": "c03",
+              "threshold_id": "c03|c05"
+            }
+          },
+          {
+            "change": {
+              "after": "latched",
+              "before": "open",
+              "class": "state",
+              "layer_version": "maze-door-0.1.0"
+            },
+            "event_index": 3,
+            "event_type": "door_lock",
+            "record_kind": "mutation",
+            "stream": "door:gmap-0.13.0",
+            "target": {
+              "from_cell": "c05",
+              "threshold_id": "c03|c05",
+              "to_cell": "c03"
+            }
+          }
+        ],
+        "state_hash": "89ef7cb4177a50b3779c66ef03c8e63d83188064923f270534d196ad01146eea",
+        "states": {
+          "c00|c01": "open",
+          "c00|c03": "open",
+          "c01|c02": "open",
+          "c02|c03": "open",
+          "c02|c04": "open",
+          "c03|c05": "latched",
+          "c03|c07": "open",
+          "c03|c10": "open",
+          "c03|c11": "open",
+          "c04|c05": "open",
+          "c05|c06": "open",
+          "c05|c09": "open",
+          "c06|c08": "open",
+          "c07|c10": "open",
+          "c07|c13": "open",
+          "c10|c12": "open"
+        }
+      }
+    },
+    "2": {
+      "plan": {
+        "doors": [
+          {
+            "cell_a": "c00",
+            "cell_b": "c01",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c00",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c01"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c00"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c00:p0",
+            "leaf_reason": null,
+            "leaf_side": "c00",
+            "port_a": "c00:p0",
+            "port_b": "c01:p0",
+            "threshold_id": "c00|c01",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c00",
+            "cell_b": "c05",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c00",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c05"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c00"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c00:p1",
+            "leaf_reason": null,
+            "leaf_side": "c00",
+            "port_a": "c00:p1",
+            "port_b": "c05:p0",
+            "threshold_id": "c00|c05",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c01",
+            "cell_b": "c02",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c02"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c01"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c01:p1",
+            "leaf_reason": null,
+            "leaf_side": "c01",
+            "port_a": "c01:p1",
+            "port_b": "c02:p0",
+            "threshold_id": "c01|c02",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c01",
+            "cell_b": "c03",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c03"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c01"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c01:p2",
+            "leaf_reason": null,
+            "leaf_side": "c01",
+            "port_a": "c01:p2",
+            "port_b": "c03:p0",
+            "threshold_id": "c01|c03",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c02",
+            "cell_b": "c04",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "exit_threshold_door",
+                  "target_too_large"
+                ],
+                "target_hash": "b0406ce082702da8d3f9de5c66e4ffbb35eecc32237b72b382acfb17d7c9777c",
+                "target_size": 14,
+                "to_cell": "c04"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c04",
+                "reasons": [
+                  "exit_threshold_door",
+                  "target_too_small",
+                  "exit_inside"
+                ],
+                "target_hash": "ff62523e04ae48ba33a86ec74ed9bfbc3859a73bf2cf8bf68b233964c801f16d",
+                "target_size": 1,
+                "to_cell": "c02"
+              }
+            ],
+            "exit_threshold": true,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c02:p1",
+            "leaf_reason": null,
+            "leaf_side": "c02",
+            "port_a": "c02:p1",
+            "port_b": "c04:p0",
+            "threshold_id": "c02|c04",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c02",
+            "cell_b": "c08",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c08"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c08",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c02"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c02:p2",
+            "leaf_reason": null,
+            "leaf_side": "c02",
+            "port_a": "c02:p2",
+            "port_b": "c08:p0",
+            "threshold_id": "c02|c08",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c03",
+            "cell_b": "c07",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "c717d71054153e428a9c17d9c5d05a7d3ce675e7bdb0bb5b9a0fa4a6b8c48cbe",
+                "target_size": 11,
+                "to_cell": "c07"
+              },
+              {
+                "eligible": true,
+                "from_cell": "c07",
+                "reasons": [],
+                "target_hash": "075ad27afbe9665e01cfc1d6b787486230b6d76c71bc851ed8ef675e4b97b14a",
+                "target_size": 4,
+                "to_cell": "c03"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c03:p1",
+            "leaf_reason": null,
+            "leaf_side": "c03",
+            "port_a": "c03:p1",
+            "port_b": "c07:p0",
+            "threshold_id": "c03|c07",
+            "vertical": "ramp"
+          },
+          {
+            "cell_a": "c03",
+            "cell_b": "dp00",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "dp00"
+              },
+              {
+                "eligible": false,
+                "from_cell": "dp00",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c03"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c03:d0",
+            "leaf_reason": null,
+            "leaf_side": "c03",
+            "port_a": "c03:d0",
+            "port_b": "dp00:a",
+            "threshold_id": "c03|dp00",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c05",
+            "cell_b": "c06",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c06"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c06",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c05"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c05:p1",
+            "leaf_reason": null,
+            "leaf_side": "c05",
+            "port_a": "c05:p1",
+            "port_b": "c06:p0",
+            "threshold_id": "c05|c06",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c05",
+            "cell_b": "dp01",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "dp01"
+              },
+              {
+                "eligible": false,
+                "from_cell": "dp01",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c05"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c05:d1",
+            "leaf_reason": null,
+            "leaf_side": "c05",
+            "port_a": "c05:d1",
+            "port_b": "dp01:a",
+            "threshold_id": "c05|dp01",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c06",
+            "cell_b": "dp00",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c06",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "dp00"
+              },
+              {
+                "eligible": false,
+                "from_cell": "dp00",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c06"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c06:d0",
+            "leaf_reason": null,
+            "leaf_side": "c06",
+            "port_a": "c06:d0",
+            "port_b": "dp00:b",
+            "threshold_id": "c06|dp00",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c07",
+            "cell_b": "c10",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "178e0b9e8bb1592d15eab87776a9f3fe982786d9ab8e649ac31a56256a0552c2",
+                "target_size": 13,
+                "to_cell": "c10"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c10",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "77dd43a3fd7a02fff931cad18cd429ea9d8a7e6b30d256eaba7480f1b9ec825f",
+                "target_size": 2,
+                "to_cell": "c07"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c07:p1",
+            "leaf_reason": null,
+            "leaf_side": "c07",
+            "port_a": "c07:p1",
+            "port_b": "c10:p0",
+            "threshold_id": "c07|c10",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c07",
+            "cell_b": "c11",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "39d50bdacf270bb8019d51d787790da7aa4250ed49fb937528528066e43eb874",
+                "target_size": 14,
+                "to_cell": "c11"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c11",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "f4baf901d1b9fcc11a9d3c714fda524455a9875aececc7a30b202a058bc696e6",
+                "target_size": 1,
+                "to_cell": "c07"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c07:p2",
+            "leaf_reason": null,
+            "leaf_side": "c07",
+            "port_a": "c07:p2",
+            "port_b": "c11:p0",
+            "threshold_id": "c07|c11",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c08",
+            "cell_b": "c09",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c08",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c09"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c09",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c08"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c08:p1",
+            "leaf_reason": null,
+            "leaf_side": "c08",
+            "port_a": "c08:p1",
+            "port_b": "c09:p0",
+            "threshold_id": "c08|c09",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c09",
+            "cell_b": "dp01",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c09",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "dp01"
+              },
+              {
+                "eligible": false,
+                "from_cell": "dp01",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c09"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c09:d1",
+            "leaf_reason": null,
+            "leaf_side": "c09",
+            "port_a": "c09:d1",
+            "port_b": "dp01:b",
+            "threshold_id": "c09|dp01",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c10",
+            "cell_b": "c12",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c10",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "ad949c595e5e3d0fdf67b57dd6bd21fce1dc6e9a6a417ad46686a7ba3e42ae89",
+                "target_size": 14,
+                "to_cell": "c12"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c12",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_small"
+                ],
+                "target_hash": "ebbfb53547b778a125159d0de39c0be05b019fa447e6d358bf1aae65926aa553",
+                "target_size": 1,
+                "to_cell": "c10"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "library",
+            "leaf": false,
+            "leaf_port": null,
+            "leaf_reason": "library_doorway",
+            "leaf_side": null,
+            "port_a": "c10:p1",
+            "port_b": "c12:p0",
+            "threshold_id": "c10|c12",
+            "vertical": "level"
+          }
+        ],
+        "eligible_crossings": [
+          {
+            "from_cell": "c07",
+            "threshold_id": "c03|c07",
+            "to_cell": "c03"
+          }
+        ],
+        "exit_cell": "c04",
+        "exit_threshold_id": "c02|c04",
+        "layer_version": "maze-door-0.1.0",
+        "map_id": "gmap-2-gmap-0.13.0",
+        "schema_version": 1,
+        "seed": 2,
+        "skipped_doors": [
+          {
+            "reason": "library_doorway",
+            "threshold_id": "c10|c12"
+          }
+        ],
+        "stats": {
+          "doors": 16,
+          "eligible_crossings": 1,
+          "generated": 15,
+          "leaf_capable": 15,
+          "library": 1
+        }
+      },
+      "replay": {
+        "events": [
+          {
+            "change": {
+              "after": "latched",
+              "before": "open",
+              "class": "state",
+              "layer_version": "maze-door-0.1.0"
+            },
+            "event_index": 1,
+            "event_type": "door_lock",
+            "record_kind": "mutation",
+            "stream": "door:gmap-0.13.0",
+            "target": {
+              "from_cell": "c07",
+              "threshold_id": "c03|c07",
+              "to_cell": "c03"
+            }
+          },
+          {
+            "change": {
+              "after": "open",
+              "before": "latched",
+              "class": "state",
+              "layer_version": "maze-door-0.1.0"
+            },
+            "event_index": 2,
+            "event_type": "door_unlock",
+            "record_kind": "mutation",
+            "stream": "door:gmap-0.13.0",
+            "target": {
+              "from_cell": "c03",
+              "threshold_id": "c03|c07"
+            }
+          },
+          {
+            "change": {
+              "after": "latched",
+              "before": "open",
+              "class": "state",
+              "layer_version": "maze-door-0.1.0"
+            },
+            "event_index": 3,
+            "event_type": "door_lock",
+            "record_kind": "mutation",
+            "stream": "door:gmap-0.13.0",
+            "target": {
+              "from_cell": "c07",
+              "threshold_id": "c03|c07",
+              "to_cell": "c03"
+            }
+          }
+        ],
+        "state_hash": "daac626e76baf18dc381e3260b5b14d9f22b1dcd5a284b1e04bee5ed5003b596",
+        "states": {
+          "c00|c01": "open",
+          "c00|c05": "open",
+          "c01|c02": "open",
+          "c01|c03": "open",
+          "c02|c04": "open",
+          "c02|c08": "open",
+          "c03|c07": "latched",
+          "c03|dp00": "open",
+          "c05|c06": "open",
+          "c05|dp01": "open",
+          "c06|dp00": "open",
+          "c07|c10": "open",
+          "c07|c11": "open",
+          "c08|c09": "open",
+          "c09|dp01": "open",
+          "c10|c12": "open"
+        }
+      }
+    },
+    "279": {
+      "plan": {
+        "doors": [
+          {
+            "cell_a": "c00",
+            "cell_b": "c01",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c00",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "53c4e34c1d8d804f5a8dd155b5552f5beed476c263ee95df0c2a450bfa94cc9b",
+                "target_size": 13,
+                "to_cell": "c01"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "121f8bd5661f979d7c7fabc99d501ef74e0c1304a0d9a911a36030b8d43957be",
+                "target_size": 1,
+                "to_cell": "c00"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c00:p0",
+            "leaf_reason": null,
+            "leaf_side": "c00",
+            "port_a": "c00:p0",
+            "port_b": "c01:p0",
+            "threshold_id": "c00|c01",
+            "vertical": "ramp"
+          },
+          {
+            "cell_a": "c00",
+            "cell_b": "c02",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c00",
+                "reasons": [
+                  "drop_door",
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c02"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "drop_door",
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c00"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": false,
+            "leaf_port": null,
+            "leaf_reason": "drop_door",
+            "leaf_side": null,
+            "port_a": "c00:p1",
+            "port_b": "c02:p0",
+            "threshold_id": "c00|c02",
+            "vertical": "drop"
+          },
+          {
+            "cell_a": "c00",
+            "cell_b": "c04",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c00",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "8f16efb505850551c316d78b65af9f9591d99adb3fa5e9d73693055d1883d9db",
+                "target_size": 2,
+                "to_cell": "c04"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c04",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "23ca86e4abff1649e0e3313b9d44759a9fd9647c1de407dfc8851394fd44ce1a",
+                "target_size": 12,
+                "to_cell": "c00"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c00:p2",
+            "leaf_reason": null,
+            "leaf_side": "c00",
+            "port_a": "c00:p2",
+            "port_b": "c04:p0",
+            "threshold_id": "c00|c04",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c02",
+            "cell_b": "c03",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c03"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c02"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c02:p1",
+            "leaf_reason": null,
+            "leaf_side": "c02",
+            "port_a": "c02:p1",
+            "port_b": "c03:p0",
+            "threshold_id": "c02|c03",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c02",
+            "cell_b": "c11",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "exit_inside"
+                ],
+                "target_hash": "82ef6bcddfbd57da42559785501da25e504a2544255e11b6b9565bafb6ea174f",
+                "target_size": 8,
+                "to_cell": "c11"
+              },
+              {
+                "eligible": true,
+                "from_cell": "c11",
+                "reasons": [],
+                "target_hash": "e20c027cef87eb7f672907202c906b8f14aca88a33e80db25f35fd9ea3c45a4b",
+                "target_size": 6,
+                "to_cell": "c02"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c02:p2",
+            "leaf_reason": null,
+            "leaf_side": "c02",
+            "port_a": "c02:p2",
+            "port_b": "c11:p0",
+            "threshold_id": "c02|c11",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c02",
+            "cell_b": "dp00",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "dp00"
+              },
+              {
+                "eligible": false,
+                "from_cell": "dp00",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c02"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c02:d0",
+            "leaf_reason": null,
+            "leaf_side": "c02",
+            "port_a": "c02:d0",
+            "port_b": "dp00:a",
+            "threshold_id": "c02|dp00",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c03",
+            "cell_b": "c07",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c07"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c03"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c03:p1",
+            "leaf_reason": null,
+            "leaf_side": "c03",
+            "port_a": "c03:p1",
+            "port_b": "c07:p0",
+            "threshold_id": "c03|c07",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c03",
+            "cell_b": "c08",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c08"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c08",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c03"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c03:p2",
+            "leaf_reason": null,
+            "leaf_side": "c03",
+            "port_a": "c03:p2",
+            "port_b": "c08:p0",
+            "threshold_id": "c03|c08",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c04",
+            "cell_b": "c05",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c04",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "dd9d8f50645b9ad91856042f9965a4884bb94627e3daeaa8bc7207181421064d",
+                "target_size": 13,
+                "to_cell": "c05"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "e51c453a44dbc8ea41e9838e1b4c772226724f88620daeeaeb026ed5bc1faf64",
+                "target_size": 1,
+                "to_cell": "c04"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c04:p1",
+            "leaf_reason": null,
+            "leaf_side": "c04",
+            "port_a": "c04:p1",
+            "port_b": "c05:p0",
+            "threshold_id": "c04|c05",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c04",
+            "cell_b": "c06",
+            "crossings": [
+              {
+                "eligible": true,
+                "from_cell": "c04",
+                "reasons": [],
+                "target_hash": "04b0d603f2eefbcc0f2c4ad209621c587d57d6caee73e7a0bec24031f7c4a445",
+                "target_size": 4,
+                "to_cell": "c06"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c06",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "79b0da8c39f98daf513cec449ae7ebe422072dd93dc9a740e43ee477183ae48d",
+                "target_size": 10,
+                "to_cell": "c04"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c04:p2",
+            "leaf_reason": null,
+            "leaf_side": "c04",
+            "port_a": "c04:p2",
+            "port_b": "c06:p0",
+            "threshold_id": "c04|c06",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c06",
+            "cell_b": "c11",
+            "crossings": [
+              {
+                "eligible": true,
+                "from_cell": "c06",
+                "reasons": [],
+                "target_hash": "cb1c510739772e17fc42e732fa38465fc1422b5fd6033c6a4c0e203ce6201e3c",
+                "target_size": 5,
+                "to_cell": "c11"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c11",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "160ea1f8f784afc487bc2f36f32e313882dc5c50ff051fe75518f6df63b5ca7d",
+                "target_size": 9,
+                "to_cell": "c06"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c06:e0",
+            "leaf_reason": null,
+            "leaf_side": "c06",
+            "port_a": "c06:e0",
+            "port_b": "c11:e0",
+            "threshold_id": "c06|c11",
+            "vertical": "ramp"
+          },
+          {
+            "cell_a": "c07",
+            "cell_b": "c08",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c08"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c08",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c07"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c07:e1",
+            "leaf_reason": null,
+            "leaf_side": "c07",
+            "port_a": "c07:e1",
+            "port_b": "c08:e1",
+            "threshold_id": "c07|c08",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c07",
+            "cell_b": "c09",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "exit_threshold_door",
+                  "target_too_large"
+                ],
+                "target_hash": "7151f5601cb5de64742971a5fc76edce4c4aabe36dc71ee286a8866bf10a31d9",
+                "target_size": 13,
+                "to_cell": "c09"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c09",
+                "reasons": [
+                  "exit_threshold_door",
+                  "target_too_small",
+                  "exit_inside"
+                ],
+                "target_hash": "09995b500481bfe6e374a38c9f8c53167bef2dc89e0974a11d0d5c48595ec407",
+                "target_size": 1,
+                "to_cell": "c07"
+              }
+            ],
+            "exit_threshold": true,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c07:p1",
+            "leaf_reason": null,
+            "leaf_side": "c07",
+            "port_a": "c07:p1",
+            "port_b": "c09:p0",
+            "threshold_id": "c07|c09",
+            "vertical": "ramp"
+          },
+          {
+            "cell_a": "c07",
+            "cell_b": "c12",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "ceee0a69daf93abfa0a384ce815b4fb7993eb2528f91b0f89e7042cf5d783b2a",
+                "target_size": 13,
+                "to_cell": "c12"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c12",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_small"
+                ],
+                "target_hash": "ebbfb53547b778a125159d0de39c0be05b019fa447e6d358bf1aae65926aa553",
+                "target_size": 1,
+                "to_cell": "c07"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "library",
+            "leaf": false,
+            "leaf_port": null,
+            "leaf_reason": "library_doorway",
+            "leaf_side": null,
+            "port_a": "c07:p2",
+            "port_b": "c12:p0",
+            "threshold_id": "c07|c12",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c08",
+            "cell_b": "c10",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c08",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c10"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c10",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c08"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c08:p1",
+            "leaf_reason": null,
+            "leaf_side": "c08",
+            "port_a": "c08:p1",
+            "port_b": "c10:p0",
+            "threshold_id": "c08|c10",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c10",
+            "cell_b": "dp00",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c10",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "dp00"
+              },
+              {
+                "eligible": false,
+                "from_cell": "dp00",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c10"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c10:d0",
+            "leaf_reason": null,
+            "leaf_side": "c10",
+            "port_a": "c10:d0",
+            "port_b": "dp00:b",
+            "threshold_id": "c10|dp00",
+            "vertical": "level"
+          }
+        ],
+        "eligible_crossings": [
+          {
+            "from_cell": "c11",
+            "threshold_id": "c02|c11",
+            "to_cell": "c02"
+          },
+          {
+            "from_cell": "c04",
+            "threshold_id": "c04|c06",
+            "to_cell": "c06"
+          },
+          {
+            "from_cell": "c06",
+            "threshold_id": "c06|c11",
+            "to_cell": "c11"
+          }
+        ],
+        "exit_cell": "c09",
+        "exit_threshold_id": "c07|c09",
+        "layer_version": "maze-door-0.1.0",
+        "map_id": "gmap-279-gmap-0.13.0",
+        "schema_version": 1,
+        "seed": 279,
+        "skipped_doors": [
+          {
+            "reason": "drop_door",
+            "threshold_id": "c00|c02"
+          },
+          {
+            "reason": "library_doorway",
+            "threshold_id": "c07|c12"
+          }
+        ],
+        "stats": {
+          "doors": 16,
+          "eligible_crossings": 3,
+          "generated": 15,
+          "leaf_capable": 14,
+          "library": 1
+        }
+      },
+      "replay": {
+        "events": [
+          {
+            "change": {
+              "after": "latched",
+              "before": "open",
+              "class": "state",
+              "layer_version": "maze-door-0.1.0"
+            },
+            "event_index": 1,
+            "event_type": "door_lock",
+            "record_kind": "mutation",
+            "stream": "door:gmap-0.13.0",
+            "target": {
+              "from_cell": "c11",
+              "threshold_id": "c02|c11",
+              "to_cell": "c02"
+            }
+          },
+          {
+            "change": {
+              "after": "open",
+              "before": "latched",
+              "class": "state",
+              "layer_version": "maze-door-0.1.0"
+            },
+            "event_index": 2,
+            "event_type": "door_unlock",
+            "record_kind": "mutation",
+            "stream": "door:gmap-0.13.0",
+            "target": {
+              "from_cell": "c02",
+              "threshold_id": "c02|c11"
+            }
+          },
+          {
+            "change": {
+              "after": "latched",
+              "before": "open",
+              "class": "state",
+              "layer_version": "maze-door-0.1.0"
+            },
+            "event_index": 3,
+            "event_type": "door_lock",
+            "record_kind": "mutation",
+            "stream": "door:gmap-0.13.0",
+            "target": {
+              "from_cell": "c11",
+              "threshold_id": "c02|c11",
+              "to_cell": "c02"
+            }
+          }
+        ],
+        "state_hash": "053aecd384213b10196f52353c63376587eb2fdd684afd21a8d885e8fab8c5ca",
+        "states": {
+          "c00|c01": "open",
+          "c00|c02": "open",
+          "c00|c04": "open",
+          "c02|c03": "open",
+          "c02|c11": "latched",
+          "c02|dp00": "open",
+          "c03|c07": "open",
+          "c03|c08": "open",
+          "c04|c05": "open",
+          "c04|c06": "open",
+          "c06|c11": "open",
+          "c07|c08": "open",
+          "c07|c09": "open",
+          "c07|c12": "open",
+          "c08|c10": "open",
+          "c10|dp00": "open"
+        }
+      }
+    },
+    "3": {
+      "plan": {
+        "doors": [
+          {
+            "cell_a": "c00",
+            "cell_b": "c01",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c00",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c01"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c00"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c00:p0",
+            "leaf_reason": null,
+            "leaf_side": "c00",
+            "port_a": "c00:p0",
+            "port_b": "c01:p0",
+            "threshold_id": "c00|c01",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c00",
+            "cell_b": "c04",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c00",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c04"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c04",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c00"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c00:p1",
+            "leaf_reason": null,
+            "leaf_side": "c00",
+            "port_a": "c00:p1",
+            "port_b": "c04:p0",
+            "threshold_id": "c00|c04",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c01",
+            "cell_b": "c02",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "target_too_large"
+                ],
+                "target_hash": "053cfd0dac32938147c5da9db65dc2730dd2193260379b236020e3554a2cf7a7",
+                "target_size": 12,
+                "to_cell": "c02"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "target_too_small",
+                  "exit_inside"
+                ],
+                "target_hash": "65543ab26840db9a081c4778c18801ed4ce05b6d07c12c09ef19a0b94c7ea5fa",
+                "target_size": 2,
+                "to_cell": "c01"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c01:p1",
+            "leaf_reason": null,
+            "leaf_side": "c01",
+            "port_a": "c01:p1",
+            "port_b": "c02:p0",
+            "threshold_id": "c01|c02",
+            "vertical": "ramp"
+          },
+          {
+            "cell_a": "c01",
+            "cell_b": "c10",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "f7364ab1348b17037990e6de5848e85b76d3f7657e14dbaff059e79d3c1da83b",
+                "target_size": 13,
+                "to_cell": "c10"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c10",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "1f311134efe1f98d5a9e049b42d7c73c3f9d825abe3319e16e21cfa65fa368b7",
+                "target_size": 1,
+                "to_cell": "c01"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c01:p2",
+            "leaf_reason": null,
+            "leaf_side": "c01",
+            "port_a": "c01:p2",
+            "port_b": "c10:p0",
+            "threshold_id": "c01|c10",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c01",
+            "cell_b": "dp00",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "dp00"
+              },
+              {
+                "eligible": false,
+                "from_cell": "dp00",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c01"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c01:d0",
+            "leaf_reason": null,
+            "leaf_side": "c01",
+            "port_a": "c01:d0",
+            "port_b": "dp00:a",
+            "threshold_id": "c01|dp00",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c02",
+            "cell_b": "c03",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "exit_threshold_door",
+                  "target_too_large"
+                ],
+                "target_hash": "4b9a7c6264bdde6c2160c7721d05a31548909f4b4771922247cb24e5837a3c24",
+                "target_size": 13,
+                "to_cell": "c03"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "exit_threshold_door",
+                  "target_too_small",
+                  "exit_inside"
+                ],
+                "target_hash": "ba6fe79562bdf03f714bf6bd3890783670625918482cef77d604218714bf92c5",
+                "target_size": 1,
+                "to_cell": "c02"
+              }
+            ],
+            "exit_threshold": true,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c02:p1",
+            "leaf_reason": null,
+            "leaf_side": "c02",
+            "port_a": "c02:p1",
+            "port_b": "c03:p0",
+            "threshold_id": "c02|c03",
+            "vertical": "ramp"
+          },
+          {
+            "cell_a": "c04",
+            "cell_b": "c05",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c04",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c05"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c04"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c04:p1",
+            "leaf_reason": null,
+            "leaf_side": "c04",
+            "port_a": "c04:p1",
+            "port_b": "c05:p0",
+            "threshold_id": "c04|c05",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c04",
+            "cell_b": "c06",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c04",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c06"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c06",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c04"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c04:e0",
+            "leaf_reason": null,
+            "leaf_side": "c04",
+            "port_a": "c04:e0",
+            "port_b": "c06:e0",
+            "threshold_id": "c04|c06",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c05",
+            "cell_b": "c06",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c06"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c06",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c05"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c05:p1",
+            "leaf_reason": null,
+            "leaf_side": "c05",
+            "port_a": "c05:p1",
+            "port_b": "c06:p0",
+            "threshold_id": "c05|c06",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c05",
+            "cell_b": "c07",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c07"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c05"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c05:p2",
+            "leaf_reason": null,
+            "leaf_side": "c05",
+            "port_a": "c05:p2",
+            "port_b": "c07:p0",
+            "threshold_id": "c05|c07",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c05",
+            "cell_b": "c11",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c11"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c11",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c05"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c05:e1",
+            "leaf_reason": null,
+            "leaf_side": "c05",
+            "port_a": "c05:e1",
+            "port_b": "c11:e1",
+            "threshold_id": "c05|c11",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c06",
+            "cell_b": "c12",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c06",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "ceee0a69daf93abfa0a384ce815b4fb7993eb2528f91b0f89e7042cf5d783b2a",
+                "target_size": 13,
+                "to_cell": "c12"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c12",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_small"
+                ],
+                "target_hash": "ebbfb53547b778a125159d0de39c0be05b019fa447e6d358bf1aae65926aa553",
+                "target_size": 1,
+                "to_cell": "c06"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "library",
+            "leaf": false,
+            "leaf_port": null,
+            "leaf_reason": "library_doorway",
+            "leaf_side": null,
+            "port_a": "c06:p1",
+            "port_b": "c12:p0",
+            "threshold_id": "c06|c12",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c07",
+            "cell_b": "c08",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c08"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c08",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c07"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c07:p1",
+            "leaf_reason": null,
+            "leaf_side": "c07",
+            "port_a": "c07:p1",
+            "port_b": "c08:p0",
+            "threshold_id": "c07|c08",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c07",
+            "cell_b": "c11",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c11"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c11",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c07"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c07:p2",
+            "leaf_reason": null,
+            "leaf_side": "c07",
+            "port_a": "c07:p2",
+            "port_b": "c11:p0",
+            "threshold_id": "c07|c11",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c08",
+            "cell_b": "c09",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c08",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "7151f5601cb5de64742971a5fc76edce4c4aabe36dc71ee286a8866bf10a31d9",
+                "target_size": 13,
+                "to_cell": "c09"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c09",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "09995b500481bfe6e374a38c9f8c53167bef2dc89e0974a11d0d5c48595ec407",
+                "target_size": 1,
+                "to_cell": "c08"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c08:p1",
+            "leaf_reason": null,
+            "leaf_side": "c08",
+            "port_a": "c08:p1",
+            "port_b": "c09:p0",
+            "threshold_id": "c08|c09",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c08",
+            "cell_b": "dp00",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c08",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "dp00"
+              },
+              {
+                "eligible": false,
+                "from_cell": "dp00",
+                "reasons": [
+                  "not_bridge"
+                ],
+                "target_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "target_size": 0,
+                "to_cell": "c08"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c08:d0",
+            "leaf_reason": null,
+            "leaf_side": "c08",
+            "port_a": "c08:d0",
+            "port_b": "dp00:b",
+            "threshold_id": "c08|dp00",
+            "vertical": "level"
+          }
+        ],
+        "eligible_crossings": [],
+        "exit_cell": "c03",
+        "exit_threshold_id": "c02|c03",
+        "layer_version": "maze-door-0.1.0",
+        "map_id": "gmap-3-gmap-0.13.0",
+        "schema_version": 1,
+        "seed": 3,
+        "skipped_doors": [
+          {
+            "reason": "library_doorway",
+            "threshold_id": "c06|c12"
+          }
+        ],
+        "stats": {
+          "doors": 16,
+          "eligible_crossings": 0,
+          "generated": 15,
+          "leaf_capable": 15,
+          "library": 1
+        }
+      },
+      "replay": {
+        "events": [],
+        "state_hash": "c31f455950c3abbf69b5f30eeedd79f16bf1d28cb13ab7d35ff97d031d5bbb27",
+        "states": {
+          "c00|c01": "open",
+          "c00|c04": "open",
+          "c01|c02": "open",
+          "c01|c10": "open",
+          "c01|dp00": "open",
+          "c02|c03": "open",
+          "c04|c05": "open",
+          "c04|c06": "open",
+          "c05|c06": "open",
+          "c05|c07": "open",
+          "c05|c11": "open",
+          "c06|c12": "open",
+          "c07|c08": "open",
+          "c07|c11": "open",
+          "c08|c09": "open",
+          "c08|dp00": "open"
+        }
+      }
+    },
+    "32": {
+      "plan": {
+        "doors": [
+          {
+            "cell_a": "c00",
+            "cell_b": "c01",
+            "crossings": [
+              {
+                "eligible": true,
+                "from_cell": "c00",
+                "reasons": [],
+                "target_hash": "b70ce500db4924029011d3c83ae81bf12bb76c27fc83eb54a7e71cf14baae46d",
+                "target_size": 8,
+                "to_cell": "c01"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "exit_inside"
+                ],
+                "target_hash": "20c31c17dd5cdc7b425c408416d2f322255eafc03a9af144490df32e3b3c89fb",
+                "target_size": 6,
+                "to_cell": "c00"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c00:p0",
+            "leaf_reason": null,
+            "leaf_side": "c00",
+            "port_a": "c00:p0",
+            "port_b": "c01:p0",
+            "threshold_id": "c00|c01",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c00",
+            "cell_b": "c03",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c00",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "9c0831a07b4a83214514342e810b39acc877413140d2d9dd0cd72fb84866173a",
+                "target_size": 9,
+                "to_cell": "c03"
+              },
+              {
+                "eligible": true,
+                "from_cell": "c03",
+                "reasons": [],
+                "target_hash": "84afbb07cbddea5516bf258da7a1f16ac1ecf4c84070f83b23da8b4cad128bba",
+                "target_size": 5,
+                "to_cell": "c00"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c00:p1",
+            "leaf_reason": null,
+            "leaf_side": "c00",
+            "port_a": "c00:p1",
+            "port_b": "c03:p0",
+            "threshold_id": "c00|c03",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c00",
+            "cell_b": "c06",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c00",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "fab9f57b6e79840771d916690712d587337e47f4dc962e95dab9afdb0f77515c",
+                "target_size": 12,
+                "to_cell": "c06"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c06",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "8d6aa2c3596623cc9195859e228970455d94251af822b0b7216940f0346021ce",
+                "target_size": 2,
+                "to_cell": "c00"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c00:p2",
+            "leaf_reason": null,
+            "leaf_side": "c00",
+            "port_a": "c00:p2",
+            "port_b": "c06:p0",
+            "threshold_id": "c00|c06",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c01",
+            "cell_b": "c02",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "exit_threshold_door",
+                  "target_too_large"
+                ],
+                "target_hash": "56a644c98cff5b088157d730868cd4b3aeea8cadff9468f106ce2f8dfe8e3cbf",
+                "target_size": 13,
+                "to_cell": "c02"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c02",
+                "reasons": [
+                  "exit_threshold_door",
+                  "target_too_small",
+                  "exit_inside"
+                ],
+                "target_hash": "31b1608f191b90c385198e93cf4626aa916a6acd0849ea44e32205efe33d4967",
+                "target_size": 1,
+                "to_cell": "c01"
+              }
+            ],
+            "exit_threshold": true,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c01:p1",
+            "leaf_reason": null,
+            "leaf_side": "c01",
+            "port_a": "c01:p1",
+            "port_b": "c02:p0",
+            "threshold_id": "c01|c02",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c01",
+            "cell_b": "c05",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c01",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "6ad38aabf23b392a79565183cb50406138efafcb1968249377761fbb48ae17cc",
+                "target_size": 10,
+                "to_cell": "c05"
+              },
+              {
+                "eligible": true,
+                "from_cell": "c05",
+                "reasons": [],
+                "target_hash": "9457b70cb956953fb8f6795316a7763074df9eb9fcda57b0d9b2d801537fcce7",
+                "target_size": 4,
+                "to_cell": "c01"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c01:p2",
+            "leaf_reason": null,
+            "leaf_side": "c01",
+            "port_a": "c01:p2",
+            "port_b": "c05:p0",
+            "threshold_id": "c01|c05",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c03",
+            "cell_b": "c04",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "8ef4d88b4bc65de3b654211fa0c65a9bdd23c18bdb6febf7301f9fcefec5decf",
+                "target_size": 13,
+                "to_cell": "c04"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c04",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "ff62523e04ae48ba33a86ec74ed9bfbc3859a73bf2cf8bf68b233964c801f16d",
+                "target_size": 1,
+                "to_cell": "c03"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c03:p1",
+            "leaf_reason": null,
+            "leaf_side": "c03",
+            "port_a": "c03:p1",
+            "port_b": "c04:p0",
+            "threshold_id": "c03|c04",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c03",
+            "cell_b": "c08",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c03",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "e5dc38c7c22644d2504afe4efd54cac4783c90937586207d8765c0a219658647",
+                "target_size": 11,
+                "to_cell": "c08"
+              },
+              {
+                "eligible": true,
+                "from_cell": "c08",
+                "reasons": [],
+                "target_hash": "bde05e32d3c9d3821ad3eb6aad47c61ffea012cecb29c580790e029c94e0ff90",
+                "target_size": 3,
+                "to_cell": "c03"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c03:p2",
+            "leaf_reason": null,
+            "leaf_side": "c03",
+            "port_a": "c03:p2",
+            "port_b": "c08:p0",
+            "threshold_id": "c03|c08",
+            "vertical": "ramp"
+          },
+          {
+            "cell_a": "c05",
+            "cell_b": "c10",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "9e7f19f41df2456ba0ecb6c263b5a30277e4e87f2b4ccddf74967c786946b35f",
+                "target_size": 12,
+                "to_cell": "c10"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c10",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "77dd43a3fd7a02fff931cad18cd429ea9d8a7e6b30d256eaba7480f1b9ec825f",
+                "target_size": 2,
+                "to_cell": "c05"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c05:p1",
+            "leaf_reason": null,
+            "leaf_side": "c05",
+            "port_a": "c05:p1",
+            "port_b": "c10:p0",
+            "threshold_id": "c05|c10",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c05",
+            "cell_b": "c11",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c05",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "d0783975d9621a0974e7a5aa8b241f5d56c4b4b87b8d4a0569d0035f120b35bc",
+                "target_size": 13,
+                "to_cell": "c11"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c11",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "f4baf901d1b9fcc11a9d3c714fda524455a9875aececc7a30b202a058bc696e6",
+                "target_size": 1,
+                "to_cell": "c05"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c05:p2",
+            "leaf_reason": null,
+            "leaf_side": "c05",
+            "port_a": "c05:p2",
+            "port_b": "c11:p0",
+            "threshold_id": "c05|c11",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c06",
+            "cell_b": "c07",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c06",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "5ecaaeda038ae74613f98c9ee24e73144595d4c2d587709f911b08c5fdb90ec7",
+                "target_size": 13,
+                "to_cell": "c07"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c07",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "196564cb388197d41299eb99a670f5f937bb9693cadec0308803f8e6ed9366a4",
+                "target_size": 1,
+                "to_cell": "c06"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c06:p1",
+            "leaf_reason": null,
+            "leaf_side": "c06",
+            "port_a": "c06:p1",
+            "port_b": "c07:p0",
+            "threshold_id": "c06|c07",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c08",
+            "cell_b": "c09",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c08",
+                "reasons": [
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "e0bbddb38899aa9d48962aed2686993ace659b99d8200f722f78fe98224e7662",
+                "target_size": 12,
+                "to_cell": "c09"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c09",
+                "reasons": [
+                  "target_too_small"
+                ],
+                "target_hash": "5c47ff12a9f33b1a93a1d94125fabb87bad960f61f823fb7ab3e67d057a504c6",
+                "target_size": 2,
+                "to_cell": "c08"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "generated",
+            "leaf": true,
+            "leaf_port": "c08:p1",
+            "leaf_reason": null,
+            "leaf_side": "c08",
+            "port_a": "c08:p1",
+            "port_b": "c09:p0",
+            "threshold_id": "c08|c09",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c09",
+            "cell_b": "c13",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c09",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "ff0df36e7d0057e0dfa3b01d0142992d18200b93426ce11b07d67ab53451e44d",
+                "target_size": 13,
+                "to_cell": "c13"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c13",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_small"
+                ],
+                "target_hash": "74dda5282c81de22f5c8cc9e637b115f3666eaf03e57ae606ed60bcf5e5e3e1c",
+                "target_size": 1,
+                "to_cell": "c09"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "library",
+            "leaf": false,
+            "leaf_port": null,
+            "leaf_reason": "library_doorway",
+            "leaf_side": null,
+            "port_a": "c09:p1",
+            "port_b": "c13:p0",
+            "threshold_id": "c09|c13",
+            "vertical": "level"
+          },
+          {
+            "cell_a": "c10",
+            "cell_b": "c12",
+            "crossings": [
+              {
+                "eligible": false,
+                "from_cell": "c10",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_large",
+                  "exit_inside"
+                ],
+                "target_hash": "4b9149c97ef8a19adc76a4f72015283ddf67e27d5012d00a5848928d9b77a36a",
+                "target_size": 13,
+                "to_cell": "c12"
+              },
+              {
+                "eligible": false,
+                "from_cell": "c12",
+                "reasons": [
+                  "library_doorway",
+                  "target_too_small"
+                ],
+                "target_hash": "ebbfb53547b778a125159d0de39c0be05b019fa447e6d358bf1aae65926aa553",
+                "target_size": 1,
+                "to_cell": "c10"
+              }
+            ],
+            "exit_threshold": false,
+            "kind": "library",
+            "leaf": false,
+            "leaf_port": null,
+            "leaf_reason": "library_doorway",
+            "leaf_side": null,
+            "port_a": "c10:p1",
+            "port_b": "c12:p0",
+            "threshold_id": "c10|c12",
+            "vertical": "level"
+          }
+        ],
+        "eligible_crossings": [
+          {
+            "from_cell": "c00",
+            "threshold_id": "c00|c01",
+            "to_cell": "c01"
+          },
+          {
+            "from_cell": "c03",
+            "threshold_id": "c00|c03",
+            "to_cell": "c00"
+          },
+          {
+            "from_cell": "c05",
+            "threshold_id": "c01|c05",
+            "to_cell": "c01"
+          },
+          {
+            "from_cell": "c08",
+            "threshold_id": "c03|c08",
+            "to_cell": "c03"
+          }
+        ],
+        "exit_cell": "c02",
+        "exit_threshold_id": "c01|c02",
+        "layer_version": "maze-door-0.1.0",
+        "map_id": "gmap-32-gmap-0.13.0",
+        "schema_version": 1,
+        "seed": 32,
+        "skipped_doors": [
+          {
+            "reason": "library_doorway",
+            "threshold_id": "c09|c13"
+          },
+          {
+            "reason": "library_doorway",
+            "threshold_id": "c10|c12"
+          }
+        ],
+        "stats": {
+          "doors": 13,
+          "eligible_crossings": 4,
+          "generated": 11,
+          "leaf_capable": 11,
+          "library": 2
+        }
+      },
+      "replay": {
+        "events": [
+          {
+            "change": {
+              "after": "latched",
+              "before": "open",
+              "class": "state",
+              "layer_version": "maze-door-0.1.0"
+            },
+            "event_index": 1,
+            "event_type": "door_lock",
+            "record_kind": "mutation",
+            "stream": "door:gmap-0.13.0",
+            "target": {
+              "from_cell": "c00",
+              "threshold_id": "c00|c01",
+              "to_cell": "c01"
+            }
+          },
+          {
+            "change": {
+              "after": "open",
+              "before": "latched",
+              "class": "state",
+              "layer_version": "maze-door-0.1.0"
+            },
+            "event_index": 2,
+            "event_type": "door_unlock",
+            "record_kind": "mutation",
+            "stream": "door:gmap-0.13.0",
+            "target": {
+              "from_cell": "c01",
+              "threshold_id": "c00|c01"
+            }
+          },
+          {
+            "change": {
+              "after": "latched",
+              "before": "open",
+              "class": "state",
+              "layer_version": "maze-door-0.1.0"
+            },
+            "event_index": 3,
+            "event_type": "door_lock",
+            "record_kind": "mutation",
+            "stream": "door:gmap-0.13.0",
+            "target": {
+              "from_cell": "c00",
+              "threshold_id": "c00|c01",
+              "to_cell": "c01"
+            }
+          }
+        ],
+        "state_hash": "06567ffcb1985a471356ba47a1950144a1f45412c10786face957c6456ebd497",
+        "states": {
+          "c00|c01": "latched",
+          "c00|c03": "open",
+          "c00|c06": "open",
+          "c01|c02": "open",
+          "c01|c05": "open",
+          "c03|c04": "open",
+          "c03|c08": "open",
+          "c05|c10": "open",
+          "c05|c11": "open",
+          "c06|c07": "open",
+          "c08|c09": "open",
+          "c09|c13": "open",
+          "c10|c12": "open"
+        }
+      }
+    }
+  },
+  "schema_version": 1
+}

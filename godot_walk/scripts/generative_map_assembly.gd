@@ -25,6 +25,8 @@ const FOLLOWER_RUNTIME := preload("res://scripts/maze_follower_runtime.gd")
 const MAZE_EXIT := preload("res://scripts/maze_exit.gd")
 const MAZE_EXIT_THRESHOLD := preload("res://scripts/maze_exit_threshold.gd")
 const EXIT_RUNTIME := preload("res://scripts/maze_exit_runtime.gd")
+const MAZE_DOORS := preload("res://scripts/maze_doors.gd")
+const DOOR_RUNTIME := preload("res://scripts/maze_door_runtime.gd")
 const PLAYER_SCENE := preload("res://scenes/player.tscn")
 const WALK_PLAYER := preload("res://scripts/walk_player.gd")
 const PSX_PRESET := preload("res://scripts/library_psx_preset.gd")
@@ -58,6 +60,8 @@ var light_layers: Dictionary = {}
 var exit_record: Dictionary = {}
 ## What the additive threshold/room treatment built, for the headless checks.
 var exit_visual: Dictionary = {}
+## The derived M4 door registry (#234); the committed map is never edited.
+var door_plan: Dictionary = {}
 ## cell_id -> {placement, entry, socket, floor_offset} for each module cell.
 var module_info: Dictionary = {}
 ## False in the unopened-socket negative control.
@@ -133,6 +137,11 @@ func _ready() -> void:
 	add_child(exit_driver)
 	exit_driver.setup(self, player)
 	set_meta("maze_exit_runtime", exit_driver)
+	var door_driver := DOOR_RUNTIME.new()
+	door_driver.name = "MazeDoorRuntime"
+	add_child(door_driver)
+	door_driver.setup(self, player)
+	set_meta("maze_door_runtime", door_driver)
 	_apply_psx_preset()
 	set_meta("walkthrough_ready", true)
 	set_meta("operator_approved", false)
@@ -161,6 +170,8 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 			_tag_reverb(rooms[cell_id], cell)
 			LIGHT_CONTROLLER.tag_room(rooms[cell_id], specs[cell_id], room_materials.get("lamp"))
 	_select_and_decorate_exit()
+	door_plan = MAZE_DOORS.plan(map, specs, exit_record)
+	set_meta("maze_doors", door_plan)
 	_add_risers()
 	_add_safety_net()
 	origin_cell = String(map.cells[0].cell_id)
@@ -259,6 +270,35 @@ func exit_record_data() -> Dictionary:
 
 func exit_threshold_visual() -> Dictionary:
 	return exit_visual.duplicate(true)
+
+
+## Derived M4 door registry: base doors + procedural-leaf fit + eligible crossings.
+func door_plan_data() -> Dictionary:
+	return door_plan.duplicate(true)
+
+
+## Live door state from the M4 runtime, or "open" before the runtime starts.
+func door_state(threshold: String) -> String:
+	var runtime: Node = get_meta("maze_door_runtime") if has_meta("maze_door_runtime") else null
+	if runtime == null:
+		return "open"
+	return String((runtime.get("states") as Dictionary).get(threshold, "open"))
+
+
+func door_state_snapshot() -> Dictionary:
+	var runtime: Node = get_meta("maze_door_runtime") if has_meta("maze_door_runtime") else null
+	if runtime == null:
+		return {}
+	return (runtime.snapshot() as Dictionary).duplicate(true)
+
+
+## Manual open through the M4 runtime; false for a door that is not latched or
+## for a request from a cell that is not one of its two sides.
+func open_door(threshold: String, from_cell: String = "") -> bool:
+	var runtime: Node = get_meta("maze_door_runtime") if has_meta("maze_door_runtime") else null
+	if runtime == null:
+		return false
+	return bool(runtime.open_door(threshold, from_cell))
 
 
 ## Runtime mutation point for the M2 follower lamp edit (#232). Generated rooms

@@ -30,7 +30,9 @@ var counters: Dictionary = {}
 var run_log: Array[Dictionary] = []
 var end_card: Node
 var follower_runtime: Node
+var door_runtime: Node
 var _synced_edits := 0
+var _synced_doors := 0
 
 
 func setup(assembly_node: Node3D, player_node: CharacterBody3D) -> void:
@@ -42,7 +44,8 @@ func setup(assembly_node: Node3D, player_node: CharacterBody3D) -> void:
 	end_card.name = "MazeEndCard"
 	add_child(end_card)
 	follower_runtime = assembly.get_meta("maze_follower_runtime", null)
-
+	if assembly.has_meta("maze_door_runtime"):
+		door_runtime = assembly.get_meta("maze_door_runtime")
 
 func _physics_process(_delta: float) -> void:
 	if not enabled or ended or assembly == null or player == null:
@@ -88,6 +91,7 @@ func end_run(from_cell: String = "") -> Dictionary:
 		crossed_from = previous_cell
 	_append_trigger("exit_entered", exit_cell, crossed_from)
 	_sync_edits()
+	_sync_doors()
 	run_log.append({
 		"record_kind": "mutation",
 		"event_type": "run_end",
@@ -98,6 +102,10 @@ func end_run(from_cell: String = "") -> Dictionary:
 	ended = true
 	if follower_runtime != null and follower_runtime.get("enabled") != null:
 		follower_runtime.set("enabled", false)
+	if door_runtime == null and assembly != null and assembly.has_meta("maze_door_runtime"):
+		door_runtime = assembly.get_meta("maze_door_runtime")
+	if door_runtime != null and door_runtime.get("enabled") != null:
+		door_runtime.set("enabled", false)
 	counters = _counters()
 	var card_value := card()
 	if end_card != null:
@@ -140,6 +148,22 @@ func _sync_edits() -> void:
 		record["event_index"] = run_log.size() + 1
 		run_log.append(record)
 		_synced_edits += 1
+
+
+func _sync_doors() -> void:
+	if door_runtime == null and assembly != null and assembly.has_meta("maze_door_runtime"):
+		door_runtime = assembly.get_meta("maze_door_runtime")
+	if door_runtime == null:
+		return
+	var events: Array = door_runtime.door_events
+	while _synced_doors < events.size():
+		var source: Dictionary = events[_synced_doors]
+		var record: Dictionary = source.duplicate(true)
+		record["record_kind"] = "mutation"
+		record["door_event_index"] = int(source.get("event_index", 0))
+		record["event_index"] = run_log.size() + 1
+		run_log.append(record)
+		_synced_doors += 1
 
 
 func _counters() -> Dictionary:
