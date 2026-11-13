@@ -25,6 +25,7 @@ var map: Dictionary = {}
 var seed_value := 0
 var attempt := 0
 var spawn_cell := ""
+var exit_cell := ""
 var current_cell := ""
 var last_edited_cell := ""
 var event_index := 0
@@ -40,6 +41,7 @@ func setup(assembly_node: Node3D, player_node: CharacterBody3D) -> void:
 	seed_value = int(map.get("seed", 0))
 	attempt = int(map.get("attempt", 0))
 	spawn_cell = String(map.cells[0].cell_id)
+	exit_cell = String(assembly.get_meta("maze_exit_cell", ""))
 
 
 func _physics_process(_delta: float) -> void:
@@ -74,7 +76,12 @@ func _enter_cell(cell_id: String) -> void:
 func _select_target(player_cell: String, edit_index: int) -> String:
 	var candidates: Array[String] = []
 	for cell_id: String in visited:
-		if cell_id == player_cell or cell_id == spawn_cell or cell_id == last_edited_cell:
+		if (
+			cell_id == player_cell
+			or cell_id == spawn_cell
+			or cell_id == exit_cell
+			or cell_id == last_edited_cell
+		):
 			continue
 		var spec: Dictionary = assembly.specs.get(cell_id, {})
 		if spec.is_empty() or not spec.has("light") or spec.light.lamps.is_empty():

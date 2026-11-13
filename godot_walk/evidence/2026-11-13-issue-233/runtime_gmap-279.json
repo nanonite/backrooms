@@ -1,0 +1,28 @@
+{
+	"failures": [],
+	"map_id": "gmap-279-gmap-0.13.0",
+	"map_sha256_after": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c",
+	"map_sha256_before": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c",
+	"runtime": {
+		"card_actions": 0,
+		"card_shows": 1,
+		"edits": 2,
+		"exit_cell": "c09",
+		"exit_entered_events": 1,
+		"map_seed": 279,
+		"rooms_visited": 10,
+		"route_cells": 9,
+		"run_end_events": 1,
+		"surfaces_lifted": 21,
+		"visual_lights": 2,
+		"visual_meshes": 13
+	},
+	"selection": {
+		"eligible": 3,
+		"exit_cell": "c09",
+		"exit_port": "c09:p0",
+		"rejected": 1,
+		"targets": 4,
+		"threshold_id": "c07|c09"
+	}
+}

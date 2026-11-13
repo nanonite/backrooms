@@ -1,0 +1,317 @@
+{
+  "description": "M3 static exit selection and post-exit structural eligibility for the five committed gmap-0.13.0 maps. Shared by test_maze_exit.py and test_issue233_exit_threshold.gd.",
+  "layer_version": "exit:gmap-0.13.0",
+  "maps": {
+    "1": {
+      "attempt": 0,
+      "eligibility": [
+        {
+          "eligible": true,
+          "from_cell": "c03",
+          "reason": null,
+          "target_size": 5,
+          "to_cell": "c05"
+        }
+      ],
+      "exit": {
+        "cell_id": "c11",
+        "from_cell": "c03",
+        "leaf": true,
+        "outside_targets": true,
+        "port_id": "c11:p0",
+        "rank": "effa680f931a6d111d218070c91f32550160ec5b321cf3e16ddc32f95e6508a7",
+        "removed_cells": 0,
+        "threshold_id": "c03|c11",
+        "vertical": "level"
+      },
+      "map_id": "gmap-1-gmap-0.13.0",
+      "seed": 1,
+      "targets": [
+        {
+          "from_cell": "c03",
+          "target_cells": [
+            "c04",
+            "c05",
+            "c06",
+            "c08",
+            "c09"
+          ],
+          "target_size": 5,
+          "to_cell": "c05"
+        }
+      ]
+    },
+    "2": {
+      "attempt": 0,
+      "eligibility": [
+        {
+          "eligible": true,
+          "from_cell": "c03",
+          "reason": null,
+          "target_size": 4,
+          "to_cell": "c07"
+        }
+      ],
+      "exit": {
+        "cell_id": "c04",
+        "from_cell": "c02",
+        "leaf": true,
+        "outside_targets": true,
+        "port_id": "c04:p0",
+        "rank": "bffc7bed2b979277f50b350f1817ca47af94ca01bd6fc5bc313376e9333db007",
+        "removed_cells": 0,
+        "threshold_id": "c02|c04",
+        "vertical": "level"
+      },
+      "map_id": "gmap-2-gmap-0.13.0",
+      "seed": 2,
+      "targets": [
+        {
+          "from_cell": "c03",
+          "target_cells": [
+            "c07",
+            "c10",
+            "c11",
+            "c12"
+          ],
+          "target_size": 4,
+          "to_cell": "c07"
+        }
+      ]
+    },
+    "279": {
+      "attempt": 0,
+      "eligibility": [
+        {
+          "eligible": true,
+          "from_cell": "c02",
+          "reason": null,
+          "target_size": 6,
+          "to_cell": "c11"
+        },
+        {
+          "eligible": true,
+          "from_cell": "c06",
+          "reason": null,
+          "target_size": 4,
+          "to_cell": "c04"
+        },
+        {
+          "eligible": false,
+          "from_cell": "c11",
+          "reason": "exit_inside",
+          "target_size": 8,
+          "to_cell": "c02"
+        },
+        {
+          "eligible": true,
+          "from_cell": "c11",
+          "reason": null,
+          "target_size": 5,
+          "to_cell": "c06"
+        }
+      ],
+      "exit": {
+        "cell_id": "c09",
+        "from_cell": "c07",
+        "leaf": true,
+        "outside_targets": false,
+        "port_id": "c09:p0",
+        "rank": "aad6731782685fd7b0f57eedb1d22876ad83a8d8d376f899c78ac12c6d62ebd5",
+        "removed_cells": 8,
+        "threshold_id": "c07|c09",
+        "vertical": "ramp"
+      },
+      "map_id": "gmap-279-gmap-0.13.0",
+      "seed": 279,
+      "targets": [
+        {
+          "from_cell": "c02",
+          "target_cells": [
+            "c00",
+            "c01",
+            "c04",
+            "c05",
+            "c06",
+            "c11"
+          ],
+          "target_size": 6,
+          "to_cell": "c11"
+        },
+        {
+          "from_cell": "c06",
+          "target_cells": [
+            "c00",
+            "c01",
+            "c04",
+            "c05"
+          ],
+          "target_size": 4,
+          "to_cell": "c04"
+        },
+        {
+          "from_cell": "c11",
+          "target_cells": [
+            "c02",
+            "c03",
+            "c07",
+            "c08",
+            "c09",
+            "c10",
+            "c12",
+            "dp00"
+          ],
+          "target_size": 8,
+          "to_cell": "c02"
+        },
+        {
+          "from_cell": "c11",
+          "target_cells": [
+            "c00",
+            "c01",
+            "c04",
+            "c05",
+            "c06"
+          ],
+          "target_size": 5,
+          "to_cell": "c06"
+        }
+      ]
+    },
+    "3": {
+      "attempt": 0,
+      "eligibility": [],
+      "exit": {
+        "cell_id": "c03",
+        "from_cell": "c02",
+        "leaf": true,
+        "outside_targets": true,
+        "port_id": "c03:p0",
+        "rank": "a36f37708484b60c7ed1d296bd3f3edf4504e70a67c8851b7176d4aa927e24ea",
+        "removed_cells": 0,
+        "threshold_id": "c02|c03",
+        "vertical": "ramp"
+      },
+      "map_id": "gmap-3-gmap-0.13.0",
+      "seed": 3,
+      "targets": []
+    },
+    "32": {
+      "attempt": 0,
+      "eligibility": [
+        {
+          "eligible": false,
+          "from_cell": "c00",
+          "reason": "exit_inside",
+          "target_size": 6,
+          "to_cell": "c01"
+        },
+        {
+          "eligible": true,
+          "from_cell": "c00",
+          "reason": null,
+          "target_size": 5,
+          "to_cell": "c03"
+        },
+        {
+          "eligible": true,
+          "from_cell": "c01",
+          "reason": null,
+          "target_size": 8,
+          "to_cell": "c00"
+        },
+        {
+          "eligible": true,
+          "from_cell": "c01",
+          "reason": null,
+          "target_size": 4,
+          "to_cell": "c05"
+        },
+        {
+          "eligible": true,
+          "from_cell": "c03",
+          "reason": null,
+          "target_size": 3,
+          "to_cell": "c08"
+        }
+      ],
+      "exit": {
+        "cell_id": "c02",
+        "from_cell": "c01",
+        "leaf": true,
+        "outside_targets": false,
+        "port_id": "c02:p0",
+        "rank": "31c4ff632bde83be3d16c9afd5b129edeff1cec43ec93abbbefb975dc25f41df",
+        "removed_cells": 6,
+        "threshold_id": "c01|c02",
+        "vertical": "level"
+      },
+      "map_id": "gmap-32-gmap-0.13.0",
+      "seed": 32,
+      "targets": [
+        {
+          "from_cell": "c00",
+          "target_cells": [
+            "c01",
+            "c02",
+            "c05",
+            "c10",
+            "c11",
+            "c12"
+          ],
+          "target_size": 6,
+          "to_cell": "c01"
+        },
+        {
+          "from_cell": "c00",
+          "target_cells": [
+            "c03",
+            "c04",
+            "c08",
+            "c09",
+            "c13"
+          ],
+          "target_size": 5,
+          "to_cell": "c03"
+        },
+        {
+          "from_cell": "c01",
+          "target_cells": [
+            "c00",
+            "c03",
+            "c04",
+            "c06",
+            "c07",
+            "c08",
+            "c09",
+            "c13"
+          ],
+          "target_size": 8,
+          "to_cell": "c00"
+        },
+        {
+          "from_cell": "c01",
+          "target_cells": [
+            "c05",
+            "c10",
+            "c11",
+            "c12"
+          ],
+          "target_size": 4,
+          "to_cell": "c05"
+        },
+        {
+          "from_cell": "c03",
+          "target_cells": [
+            "c08",
+            "c09",
+            "c13"
+          ],
+          "target_size": 3,
+          "to_cell": "c08"
+        }
+      ]
+    }
+  },
+  "schema_version": 1
+}

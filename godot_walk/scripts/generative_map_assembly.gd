@@ -22,6 +22,9 @@ const BUILDER := preload("res://scripts/shape_room_builder.gd")
 const MATERIALS := preload("res://scripts/shape_room_materials.gd")
 const LIGHT_CONTROLLER := preload("res://scripts/maze_light_controller.gd")
 const FOLLOWER_RUNTIME := preload("res://scripts/maze_follower_runtime.gd")
+const MAZE_EXIT := preload("res://scripts/maze_exit.gd")
+const MAZE_EXIT_THRESHOLD := preload("res://scripts/maze_exit_threshold.gd")
+const EXIT_RUNTIME := preload("res://scripts/maze_exit_runtime.gd")
 const PLAYER_SCENE := preload("res://scenes/player.tscn")
 const WALK_PLAYER := preload("res://scripts/walk_player.gd")
 const PSX_PRESET := preload("res://scripts/library_psx_preset.gd")
@@ -51,6 +54,10 @@ var rooms: Dictionary = {}
 var module_rooms: Dictionary = {}
 ## Generated-room layers are greedily colored by light reach; layer 20 is reserved for modules.
 var light_layers: Dictionary = {}
+## The one static exit for this map (#233); empty for an older map with no candidate.
+var exit_record: Dictionary = {}
+## What the additive threshold/room treatment built, for the headless checks.
+var exit_visual: Dictionary = {}
 ## cell_id -> {placement, entry, socket, floor_offset} for each module cell.
 var module_info: Dictionary = {}
 ## False in the unopened-socket negative control.
@@ -121,6 +128,11 @@ func _ready() -> void:
 	add_child(follower)
 	follower.setup(self, player)
 	set_meta("maze_follower_runtime", follower)
+	var exit_driver := EXIT_RUNTIME.new()
+	exit_driver.name = "MazeExitRuntime"
+	add_child(exit_driver)
+	exit_driver.setup(self, player)
+	set_meta("maze_exit_runtime", exit_driver)
 	_apply_psx_preset()
 	set_meta("walkthrough_ready", true)
 	set_meta("operator_approved", false)
@@ -148,6 +160,7 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 			(rooms[cell_id] as Node3D).position.y = float(cell.get("floor_y", 0.0))
 			_tag_reverb(rooms[cell_id], cell)
 			LIGHT_CONTROLLER.tag_room(rooms[cell_id], specs[cell_id], room_materials.get("lamp"))
+	_select_and_decorate_exit()
 	_add_risers()
 	_add_safety_net()
 	origin_cell = String(map.cells[0].cell_id)
@@ -219,11 +232,42 @@ func set_room_reverb(cell_id: String, enabled: bool) -> bool:
 	return true
 
 
+## Static exit (#233): selected before any re-roll eligibility map, decorated
+## only on a generated room. A library module keeps its hash-pinned scene, so an
+## exit that lands there (a later-map fallback only) is functional but unstyled.
+func _select_and_decorate_exit() -> void:
+	exit_record = MAZE_EXIT.select_exit(map)
+	var exit_cell := String(exit_record.get("cell_id", ""))
+	set_meta("maze_exit", exit_record)
+	set_meta("maze_exit_cell", exit_cell)
+	if exit_cell.is_empty():
+		return
+	if not rooms.has(exit_cell):
+		push_warning("Static exit %s is not a generated room; no threshold treatment" % exit_cell)
+		return
+	exit_visual = MAZE_EXIT_THRESHOLD.decorate(rooms[exit_cell], specs[exit_cell], exit_record)
+	set_meta("maze_exit_visual", exit_visual)
+
+
+func exit_cell_id() -> String:
+	return String(exit_record.get("cell_id", ""))
+
+
+func exit_record_data() -> Dictionary:
+	return exit_record.duplicate(true)
+
+
+func exit_threshold_visual() -> Dictionary:
+	return exit_visual.duplicate(true)
+
+
 ## Runtime mutation point for the M2 follower lamp edit (#232). Generated rooms
 ## only: a library module's lamp is baked into its hash-pinned scene, and the
 ## landmark is operator-approved and frozen. The map document is never edited.
 func set_cell_light(cell_id: String, lamp_index: int, state: String,
 		flicker_seed: int = -1) -> bool:
+	if cell_id == exit_cell_id():
+		return false
 	if module_rooms.has(cell_id) or not specs.has(cell_id):
 		return false
 	if LIGHT_CONTROLLER.is_landmark(specs[cell_id]):
@@ -236,6 +280,8 @@ func set_cell_light(cell_id: String, lamp_index: int, state: String,
 
 ## Apply one folded overlay record (`lamp_state` and/or `lamp_flicker`) to a room.
 func apply_cell_light_override(cell_id: String, override: Dictionary) -> bool:
+	if cell_id == exit_cell_id():
+		return false
 	if module_rooms.has(cell_id) or not specs.has(cell_id):
 		return false
 	if LIGHT_CONTROLLER.is_landmark(specs[cell_id]):
