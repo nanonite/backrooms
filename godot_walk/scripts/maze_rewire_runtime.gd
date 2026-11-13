@@ -302,6 +302,9 @@ func current_map() -> Dictionary:
 		if not base_edges.has(pair):
 			base_edges[pair] = edge
 	var edges: Array = []
+	for edge: Dictionary in map.get("edges", []):
+		if String(edge.get("connector", "")) != "direct":
+			edges.append(edge.duplicate(true))
 	var keys: Array = passage_state.keys()
 	keys.sort()
 	for key: String in keys:
