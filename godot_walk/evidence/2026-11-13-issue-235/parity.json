@@ -1,0 +1,98 @@
+{
+	"algorithm_version": "rewire-1",
+	"directions": [
+		{
+			"directions": 1,
+			"directions_with_pool": 0,
+			"seed": 1,
+			"spawn_pinned_pool_directions": 0
+		},
+		{
+			"directions": 1,
+			"directions_with_pool": 0,
+			"seed": 2,
+			"spawn_pinned_pool_directions": 0
+		},
+		{
+			"directions": 4,
+			"directions_with_pool": 3,
+			"seed": 279,
+			"spawn_pinned_pool_directions": 1
+		},
+		{
+			"directions": 0,
+			"directions_with_pool": 0,
+			"seed": 3,
+			"spawn_pinned_pool_directions": 0
+		},
+		{
+			"directions": 5,
+			"directions_with_pool": 2,
+			"seed": 32,
+			"spawn_pinned_pool_directions": 1
+		}
+	],
+	"failures": [],
+	"parity": [
+		{
+			"candidate_count": 3,
+			"chosen_rank": 2,
+			"name": "seed32_worked_example",
+			"ok": true,
+			"shortlist_size": 2
+		},
+		{
+			"candidate_count": 4,
+			"chosen_rank": 2,
+			"name": "seed32_spawn_island",
+			"ok": true,
+			"shortlist_size": 2
+		},
+		{
+			"candidate_count": 13,
+			"chosen_rank": 2,
+			"name": "seed279_rich",
+			"ok": true,
+			"shortlist_size": 3
+		},
+		{
+			"candidate_count": 3,
+			"chosen_rank": 1,
+			"name": "seed279_spawn_island",
+			"ok": true,
+			"shortlist_size": 2
+		},
+		{
+			"candidate_count": 3,
+			"chosen_rank": 2,
+			"name": "seed279_ramp_door",
+			"ok": true,
+			"shortlist_size": 2
+		},
+		{
+			"candidate_count": 0,
+			"chosen_rank": 0,
+			"name": "seed1_no_candidate",
+			"ok": false,
+			"shortlist_size": 0
+		}
+	],
+	"summary": {
+		"directions": 11,
+		"directions_with_pool": 5,
+		"seed_279_rich_hard": 13,
+		"seed_279_rich_in_tolerance": 3,
+		"seed_32_chosen": "C2",
+		"seed_3_directions": 0,
+		"spawn_pinned_pool_directions": 2
+	},
+	"worked_example": {
+		"chosen": "C2",
+		"chosen_rank": 2,
+		"hard_valid": 3,
+		"shortlist": [
+			"C1",
+			"C2"
+		]
+	}
+}

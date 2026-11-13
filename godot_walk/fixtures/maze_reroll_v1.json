@@ -1,0 +1,3140 @@
+{
+  "algorithm_version": "rewire-1",
+  "description": "M5 rewire-1 five-seed golden fixture and Python/GDScript parity cases.",
+  "layer_version": "reroll:rewire-1",
+  "maps": {
+    "1": {
+      "attempt": 0,
+      "direction_count": 1,
+      "directions": [
+        {
+          "consistency_relaxed": false,
+          "door_threshold_id": "c03|c05",
+          "edit_range": [],
+          "from_cell": "c05",
+          "h_universe": [
+            [
+              "c04",
+              "c05"
+            ],
+            [
+              "c05",
+              "c06"
+            ],
+            [
+              "c05",
+              "c09"
+            ],
+            [
+              "c06",
+              "c08"
+            ]
+          ],
+          "hard_valid": 0,
+          "in_tolerance": 0,
+          "mandatory_passages": [],
+          "reason": "no_candidate_in_tier",
+          "shortlist_size": 0,
+          "spawn_in_target": false,
+          "target_cells": [
+            "c04",
+            "c05",
+            "c06",
+            "c08",
+            "c09"
+          ],
+          "target_size": 5,
+          "threshold_id": "c03:e0",
+          "to_cell": "c03",
+          "variable_count": 4
+        }
+      ],
+      "directions_with_pool": 0,
+      "map_id": "gmap-1-gmap-0.13.0",
+      "seed": 1,
+      "spawn_cell_id": "c00",
+      "spawn_pinned_pool_directions": 0
+    },
+    "2": {
+      "attempt": 0,
+      "direction_count": 1,
+      "directions": [
+        {
+          "consistency_relaxed": false,
+          "door_threshold_id": "c03|c07",
+          "edit_range": [],
+          "from_cell": "c07",
+          "h_universe": [
+            [
+              "c07",
+              "c10"
+            ],
+            [
+              "c07",
+              "c11"
+            ],
+            [
+              "c10",
+              "c12"
+            ]
+          ],
+          "hard_valid": 0,
+          "in_tolerance": 0,
+          "mandatory_passages": [
+            [
+              "c10",
+              "c12"
+            ]
+          ],
+          "reason": "no_candidate_in_tier",
+          "shortlist_size": 0,
+          "spawn_in_target": false,
+          "target_cells": [
+            "c07",
+            "c10",
+            "c11",
+            "c12"
+          ],
+          "target_size": 4,
+          "threshold_id": "c03:p1",
+          "to_cell": "c03",
+          "variable_count": 2
+        }
+      ],
+      "directions_with_pool": 0,
+      "map_id": "gmap-2-gmap-0.13.0",
+      "seed": 2,
+      "spawn_cell_id": "c00",
+      "spawn_pinned_pool_directions": 0
+    },
+    "279": {
+      "attempt": 0,
+      "direction_count": 4,
+      "directions": [
+        {
+          "consistency_relaxed": false,
+          "door_threshold_id": "c02|c11",
+          "edit_range": [
+            1,
+            2
+          ],
+          "from_cell": "c02",
+          "h_universe": [
+            [
+              "c02",
+              "c03"
+            ],
+            [
+              "c02",
+              "dp00"
+            ],
+            [
+              "c03",
+              "c07"
+            ],
+            [
+              "c03",
+              "c08"
+            ],
+            [
+              "c07",
+              "c08"
+            ],
+            [
+              "c07",
+              "c09"
+            ],
+            [
+              "c07",
+              "c12"
+            ],
+            [
+              "c08",
+              "c10"
+            ],
+            [
+              "c10",
+              "dp00"
+            ]
+          ],
+          "hard_valid": 13,
+          "in_tolerance": 3,
+          "mandatory_passages": [
+            [
+              "c02",
+              "dp00"
+            ],
+            [
+              "c07",
+              "c09"
+            ],
+            [
+              "c07",
+              "c12"
+            ],
+            [
+              "c10",
+              "dp00"
+            ]
+          ],
+          "reason": "",
+          "shortlist_size": 3,
+          "spawn_in_target": false,
+          "target_cells": [
+            "c02",
+            "c03",
+            "c07",
+            "c08",
+            "c09",
+            "c10",
+            "c12",
+            "dp00"
+          ],
+          "target_size": 8,
+          "threshold_id": "c11:p0",
+          "to_cell": "c11",
+          "variable_count": 5
+        },
+        {
+          "consistency_relaxed": false,
+          "door_threshold_id": "c04|c06",
+          "edit_range": [],
+          "from_cell": "c04",
+          "h_universe": [
+            [
+              "c00",
+              "c01"
+            ],
+            [
+              "c00",
+              "c04"
+            ],
+            [
+              "c04",
+              "c05"
+            ]
+          ],
+          "hard_valid": 0,
+          "in_tolerance": 0,
+          "mandatory_passages": [
+            [
+              "c00",
+              "c01"
+            ]
+          ],
+          "reason": "no_candidate_in_tier",
+          "shortlist_size": 0,
+          "spawn_in_target": true,
+          "target_cells": [
+            "c00",
+            "c01",
+            "c04",
+            "c05"
+          ],
+          "target_size": 4,
+          "threshold_id": "c06:p0",
+          "to_cell": "c06",
+          "variable_count": 2
+        },
+        {
+          "consistency_relaxed": false,
+          "door_threshold_id": "c06|c11",
+          "edit_range": [
+            1,
+            2
+          ],
+          "from_cell": "c06",
+          "h_universe": [
+            [
+              "c00",
+              "c01"
+            ],
+            [
+              "c00",
+              "c04"
+            ],
+            [
+              "c04",
+              "c05"
+            ],
+            [
+              "c04",
+              "c06"
+            ],
+            [
+              "c05",
+              "c06"
+            ]
+          ],
+          "hard_valid": 3,
+          "in_tolerance": 2,
+          "mandatory_passages": [
+            [
+              "c00",
+              "c01"
+            ]
+          ],
+          "reason": "",
+          "shortlist_size": 2,
+          "spawn_in_target": true,
+          "target_cells": [
+            "c00",
+            "c01",
+            "c04",
+            "c05",
+            "c06"
+          ],
+          "target_size": 5,
+          "threshold_id": "c11:e0",
+          "to_cell": "c11",
+          "variable_count": 4
+        },
+        {
+          "consistency_relaxed": false,
+          "door_threshold_id": "c02|c11",
+          "edit_range": [
+            1,
+            2
+          ],
+          "from_cell": "c11",
+          "h_universe": [
+            [
+              "c00",
+              "c01"
+            ],
+            [
+              "c00",
+              "c04"
+            ],
+            [
+              "c04",
+              "c05"
+            ],
+            [
+              "c04",
+              "c06"
+            ],
+            [
+              "c05",
+              "c06"
+            ],
+            [
+              "c06",
+              "c11"
+            ]
+          ],
+          "hard_valid": 3,
+          "in_tolerance": 2,
+          "mandatory_passages": [
+            [
+              "c00",
+              "c01"
+            ],
+            [
+              "c06",
+              "c11"
+            ]
+          ],
+          "reason": "",
+          "shortlist_size": 2,
+          "spawn_in_target": true,
+          "target_cells": [
+            "c00",
+            "c01",
+            "c04",
+            "c05",
+            "c06",
+            "c11"
+          ],
+          "target_size": 6,
+          "threshold_id": "c02:p2",
+          "to_cell": "c02",
+          "variable_count": 4
+        }
+      ],
+      "directions_with_pool": 3,
+      "map_id": "gmap-279-gmap-0.13.0",
+      "seed": 279,
+      "spawn_cell_id": "c00",
+      "spawn_pinned_pool_directions": 1
+    },
+    "3": {
+      "attempt": 0,
+      "direction_count": 0,
+      "directions": [],
+      "directions_with_pool": 0,
+      "map_id": "gmap-3-gmap-0.13.0",
+      "seed": 3,
+      "spawn_cell_id": "c00",
+      "spawn_pinned_pool_directions": 0
+    },
+    "32": {
+      "attempt": 0,
+      "direction_count": 5,
+      "directions": [
+        {
+          "consistency_relaxed": false,
+          "door_threshold_id": "c00|c01",
+          "edit_range": [
+            1,
+            2
+          ],
+          "from_cell": "c00",
+          "h_universe": [
+            [
+              "c00",
+              "c03"
+            ],
+            [
+              "c00",
+              "c06"
+            ],
+            [
+              "c03",
+              "c04"
+            ],
+            [
+              "c03",
+              "c08"
+            ],
+            [
+              "c04",
+              "c06"
+            ],
+            [
+              "c06",
+              "c07"
+            ],
+            [
+              "c08",
+              "c09"
+            ],
+            [
+              "c09",
+              "c13"
+            ]
+          ],
+          "hard_valid": 4,
+          "in_tolerance": 2,
+          "mandatory_passages": [
+            [
+              "c03",
+              "c08"
+            ],
+            [
+              "c09",
+              "c13"
+            ]
+          ],
+          "reason": "",
+          "shortlist_size": 2,
+          "spawn_in_target": true,
+          "target_cells": [
+            "c00",
+            "c03",
+            "c04",
+            "c06",
+            "c07",
+            "c08",
+            "c09",
+            "c13"
+          ],
+          "target_size": 8,
+          "threshold_id": "c01:p0",
+          "to_cell": "c01",
+          "variable_count": 6
+        },
+        {
+          "consistency_relaxed": false,
+          "door_threshold_id": "c00|c01",
+          "edit_range": [
+            1,
+            2
+          ],
+          "from_cell": "c01",
+          "h_universe": [
+            [
+              "c01",
+              "c02"
+            ],
+            [
+              "c01",
+              "c05"
+            ],
+            [
+              "c01",
+              "c10"
+            ],
+            [
+              "c05",
+              "c10"
+            ],
+            [
+              "c05",
+              "c11"
+            ],
+            [
+              "c10",
+              "c12"
+            ]
+          ],
+          "hard_valid": 3,
+          "in_tolerance": 2,
+          "mandatory_passages": [
+            [
+              "c10",
+              "c12"
+            ]
+          ],
+          "reason": "",
+          "shortlist_size": 2,
+          "spawn_in_target": false,
+          "target_cells": [
+            "c01",
+            "c02",
+            "c05",
+            "c10",
+            "c11",
+            "c12"
+          ],
+          "target_size": 6,
+          "threshold_id": "c00:p0",
+          "to_cell": "c00",
+          "variable_count": 5
+        },
+        {
+          "consistency_relaxed": false,
+          "door_threshold_id": "c00|c03",
+          "edit_range": [],
+          "from_cell": "c03",
+          "h_universe": [
+            [
+              "c03",
+              "c04"
+            ],
+            [
+              "c03",
+              "c08"
+            ],
+            [
+              "c08",
+              "c09"
+            ],
+            [
+              "c09",
+              "c13"
+            ]
+          ],
+          "hard_valid": 0,
+          "in_tolerance": 0,
+          "mandatory_passages": [
+            [
+              "c03",
+              "c08"
+            ],
+            [
+              "c09",
+              "c13"
+            ]
+          ],
+          "reason": "no_candidate_in_tier",
+          "shortlist_size": 0,
+          "spawn_in_target": false,
+          "target_cells": [
+            "c03",
+            "c04",
+            "c08",
+            "c09",
+            "c13"
+          ],
+          "target_size": 5,
+          "threshold_id": "c00:p1",
+          "to_cell": "c00",
+          "variable_count": 2
+        },
+        {
+          "consistency_relaxed": false,
+          "door_threshold_id": "c01|c05",
+          "edit_range": [],
+          "from_cell": "c05",
+          "h_universe": [
+            [
+              "c05",
+              "c10"
+            ],
+            [
+              "c05",
+              "c11"
+            ],
+            [
+              "c10",
+              "c12"
+            ]
+          ],
+          "hard_valid": 0,
+          "in_tolerance": 0,
+          "mandatory_passages": [
+            [
+              "c10",
+              "c12"
+            ]
+          ],
+          "reason": "no_candidate_in_tier",
+          "shortlist_size": 0,
+          "spawn_in_target": false,
+          "target_cells": [
+            "c05",
+            "c10",
+            "c11",
+            "c12"
+          ],
+          "target_size": 4,
+          "threshold_id": "c01:p2",
+          "to_cell": "c01",
+          "variable_count": 2
+        },
+        {
+          "consistency_relaxed": false,
+          "door_threshold_id": "c03|c08",
+          "edit_range": [],
+          "from_cell": "c08",
+          "h_universe": [
+            [
+              "c08",
+              "c09"
+            ],
+            [
+              "c09",
+              "c13"
+            ]
+          ],
+          "hard_valid": 0,
+          "in_tolerance": 0,
+          "mandatory_passages": [
+            [
+              "c09",
+              "c13"
+            ]
+          ],
+          "reason": "no_candidate_in_tier",
+          "shortlist_size": 0,
+          "spawn_in_target": false,
+          "target_cells": [
+            "c08",
+            "c09",
+            "c13"
+          ],
+          "target_size": 3,
+          "threshold_id": "c03:p2",
+          "to_cell": "c03",
+          "variable_count": 1
+        }
+      ],
+      "directions_with_pool": 2,
+      "map_id": "gmap-32-gmap-0.13.0",
+      "seed": 32,
+      "spawn_cell_id": "c00",
+      "spawn_pinned_pool_directions": 1
+    }
+  },
+  "parameters": {
+    "candidate_shortlist": 8,
+    "max_degree": 4,
+    "max_reroll_cells": 8,
+    "max_rerolls_per_door": 1,
+    "max_rerolls_per_run": 3,
+    "min_reroll_alternatives": 2,
+    "min_reroll_cells": 3,
+    "min_retained": 0.5,
+    "min_shared_wall_m": 1.8,
+    "shape_tolerances": {
+      "1": {
+        "degree_histogram": 2,
+        "door_count": 2,
+        "leaves": 1,
+        "loops": 1,
+        "max_depth": 1,
+        "mean_depth": 0.75
+      },
+      "2": {
+        "degree_histogram": 3,
+        "door_count": 3,
+        "leaves": 1,
+        "loops": 1,
+        "max_depth": 2,
+        "mean_depth": 1.0
+      },
+      "3": {
+        "degree_histogram": 4,
+        "door_count": 4,
+        "leaves": 2,
+        "loops": 2,
+        "max_depth": 3,
+        "mean_depth": 1.5
+      }
+    },
+    "tiers": {
+      "1": [
+        1,
+        2
+      ],
+      "2": [
+        2,
+        4
+      ],
+      "3": [
+        3,
+        6
+      ]
+    }
+  },
+  "parity_cases": [
+    {
+      "event_index": 1,
+      "expected": {
+        "candidate_count": 3,
+        "candidate_set_hash": "689a08e132574d71b9a6b1d46d7b5183b2623048534621fe3a710b3eb840ba59",
+        "chosen": {
+          "edit_distance": 2,
+          "passages_after": [
+            [
+              "c01",
+              "c02"
+            ],
+            [
+              "c01",
+              "c10"
+            ],
+            [
+              "c05",
+              "c10"
+            ],
+            [
+              "c05",
+              "c11"
+            ],
+            [
+              "c10",
+              "c12"
+            ]
+          ],
+          "retained_milli": 800,
+          "shape": {
+            "degree_histogram": [
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                2
+              ]
+            ],
+            "door_count": 6,
+            "leaves": 3,
+            "loops": 0,
+            "max_depth": 3,
+            "mean_depth_milli": 1500
+          },
+          "shape_score_micro": 400000,
+          "shape_violations": 0
+        },
+        "chosen_rank": 2,
+        "consistency_relaxed": false,
+        "door_threshold_id": "c00|c01",
+        "h_universe": [
+          [
+            "c01",
+            "c02"
+          ],
+          [
+            "c01",
+            "c05"
+          ],
+          [
+            "c01",
+            "c10"
+          ],
+          [
+            "c05",
+            "c10"
+          ],
+          [
+            "c05",
+            "c11"
+          ],
+          [
+            "c10",
+            "c12"
+          ]
+        ],
+        "in_tolerance_count": 2,
+        "mandatory_passages": [
+          [
+            "c10",
+            "c12"
+          ]
+        ],
+        "ok": true,
+        "passages_before": [
+          [
+            "c01",
+            "c02"
+          ],
+          [
+            "c01",
+            "c05"
+          ],
+          [
+            "c05",
+            "c10"
+          ],
+          [
+            "c05",
+            "c11"
+          ],
+          [
+            "c10",
+            "c12"
+          ]
+        ],
+        "pinned_passages": [
+          [
+            "c10",
+            "c12"
+          ]
+        ],
+        "reason": "",
+        "root_cell_id": "c01",
+        "shape_before": {
+          "degree_histogram": [
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          "door_count": 6,
+          "leaves": 3,
+          "loops": 0,
+          "max_depth": 3,
+          "mean_depth_milli": 1500
+        },
+        "shortlist": [
+          {
+            "edit_distance": 1,
+            "passages_after": [
+              [
+                "c01",
+                "c02"
+              ],
+              [
+                "c01",
+                "c05"
+              ],
+              [
+                "c01",
+                "c10"
+              ],
+              [
+                "c05",
+                "c10"
+              ],
+              [
+                "c05",
+                "c11"
+              ],
+              [
+                "c10",
+                "c12"
+              ]
+            ],
+            "retained_milli": 1000,
+            "shape": {
+              "degree_histogram": [
+                [
+                  1,
+                  3
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  1
+                ]
+              ],
+              "door_count": 7,
+              "leaves": 3,
+              "loops": 1,
+              "max_depth": 2,
+              "mean_depth_milli": 1167
+            },
+            "shape_score_micro": 9666667,
+            "shape_violations": 0
+          },
+          {
+            "edit_distance": 2,
+            "passages_after": [
+              [
+                "c01",
+                "c02"
+              ],
+              [
+                "c01",
+                "c10"
+              ],
+              [
+                "c05",
+                "c10"
+              ],
+              [
+                "c05",
+                "c11"
+              ],
+              [
+                "c10",
+                "c12"
+              ]
+            ],
+            "retained_milli": 800,
+            "shape": {
+              "degree_histogram": [
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  3,
+                  2
+                ]
+              ],
+              "door_count": 6,
+              "leaves": 3,
+              "loops": 0,
+              "max_depth": 3,
+              "mean_depth_milli": 1500
+            },
+            "shape_score_micro": 400000,
+            "shape_violations": 0
+          }
+        ],
+        "shortlist_size": 2,
+        "target_cells": [
+          "c01",
+          "c02",
+          "c05",
+          "c10",
+          "c11",
+          "c12"
+        ],
+        "threshold_id": "c00:p0",
+        "variable_count": 5
+      },
+      "from_cell": "c01",
+      "map_id": "gmap-32-gmap-0.13.0",
+      "name": "seed32_worked_example",
+      "to_cell": "c00"
+    },
+    {
+      "event_index": 1,
+      "expected": {
+        "candidate_count": 4,
+        "candidate_set_hash": "f16c41460fa7d7312e49cb7ea1e61e8066044be6d6736b0d93ca347f503e7eb5",
+        "chosen": {
+          "edit_distance": 2,
+          "passages_after": [
+            [
+              "c00",
+              "c03"
+            ],
+            [
+              "c00",
+              "c06"
+            ],
+            [
+              "c03",
+              "c08"
+            ],
+            [
+              "c04",
+              "c06"
+            ],
+            [
+              "c06",
+              "c07"
+            ],
+            [
+              "c08",
+              "c09"
+            ],
+            [
+              "c09",
+              "c13"
+            ]
+          ],
+          "retained_milli": 857,
+          "shape": {
+            "degree_histogram": [
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                3,
+                2
+              ]
+            ],
+            "door_count": 8,
+            "leaves": 3,
+            "loops": 0,
+            "max_depth": 4,
+            "mean_depth_milli": 1875
+          },
+          "shape_score_micro": 285714,
+          "shape_violations": 0
+        },
+        "chosen_rank": 2,
+        "consistency_relaxed": false,
+        "door_threshold_id": "c00|c01",
+        "h_universe": [
+          [
+            "c00",
+            "c03"
+          ],
+          [
+            "c00",
+            "c06"
+          ],
+          [
+            "c03",
+            "c04"
+          ],
+          [
+            "c03",
+            "c08"
+          ],
+          [
+            "c04",
+            "c06"
+          ],
+          [
+            "c06",
+            "c07"
+          ],
+          [
+            "c08",
+            "c09"
+          ],
+          [
+            "c09",
+            "c13"
+          ]
+        ],
+        "in_tolerance_count": 2,
+        "mandatory_passages": [
+          [
+            "c03",
+            "c08"
+          ],
+          [
+            "c09",
+            "c13"
+          ]
+        ],
+        "ok": true,
+        "passages_before": [
+          [
+            "c00",
+            "c03"
+          ],
+          [
+            "c00",
+            "c06"
+          ],
+          [
+            "c03",
+            "c04"
+          ],
+          [
+            "c03",
+            "c08"
+          ],
+          [
+            "c06",
+            "c07"
+          ],
+          [
+            "c08",
+            "c09"
+          ],
+          [
+            "c09",
+            "c13"
+          ]
+        ],
+        "pinned_passages": [
+          [
+            "c03",
+            "c08"
+          ],
+          [
+            "c09",
+            "c13"
+          ]
+        ],
+        "reason": "",
+        "root_cell_id": "c00",
+        "shape_before": {
+          "degree_histogram": [
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          "door_count": 8,
+          "leaves": 3,
+          "loops": 0,
+          "max_depth": 4,
+          "mean_depth_milli": 1875
+        },
+        "shortlist": [
+          {
+            "edit_distance": 1,
+            "passages_after": [
+              [
+                "c00",
+                "c03"
+              ],
+              [
+                "c00",
+                "c06"
+              ],
+              [
+                "c03",
+                "c04"
+              ],
+              [
+                "c03",
+                "c08"
+              ],
+              [
+                "c04",
+                "c06"
+              ],
+              [
+                "c06",
+                "c07"
+              ],
+              [
+                "c08",
+                "c09"
+              ],
+              [
+                "c09",
+                "c13"
+              ]
+            ],
+            "retained_milli": 1000,
+            "shape": {
+              "degree_histogram": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ]
+              ],
+              "door_count": 9,
+              "leaves": 2,
+              "loops": 1,
+              "max_depth": 4,
+              "mean_depth_milli": 1875
+            },
+            "shape_score_micro": 10000000,
+            "shape_violations": 0
+          },
+          {
+            "edit_distance": 2,
+            "passages_after": [
+              [
+                "c00",
+                "c03"
+              ],
+              [
+                "c00",
+                "c06"
+              ],
+              [
+                "c03",
+                "c08"
+              ],
+              [
+                "c04",
+                "c06"
+              ],
+              [
+                "c06",
+                "c07"
+              ],
+              [
+                "c08",
+                "c09"
+              ],
+              [
+                "c09",
+                "c13"
+              ]
+            ],
+            "retained_milli": 857,
+            "shape": {
+              "degree_histogram": [
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  2
+                ]
+              ],
+              "door_count": 8,
+              "leaves": 3,
+              "loops": 0,
+              "max_depth": 4,
+              "mean_depth_milli": 1875
+            },
+            "shape_score_micro": 285714,
+            "shape_violations": 0
+          }
+        ],
+        "shortlist_size": 2,
+        "target_cells": [
+          "c00",
+          "c03",
+          "c04",
+          "c06",
+          "c07",
+          "c08",
+          "c09",
+          "c13"
+        ],
+        "threshold_id": "c01:p0",
+        "variable_count": 6
+      },
+      "from_cell": "c00",
+      "map_id": "gmap-32-gmap-0.13.0",
+      "name": "seed32_spawn_island",
+      "to_cell": "c01"
+    },
+    {
+      "event_index": 1,
+      "expected": {
+        "candidate_count": 13,
+        "candidate_set_hash": "11df694f0a8cc4a67535abb02115f6a277ac742bfc09eb67c6fa27bec303a488",
+        "chosen": {
+          "edit_distance": 1,
+          "passages_after": [
+            [
+              "c02",
+              "c03"
+            ],
+            [
+              "c02",
+              "dp00"
+            ],
+            [
+              "c03",
+              "c08"
+            ],
+            [
+              "c07",
+              "c08"
+            ],
+            [
+              "c07",
+              "c09"
+            ],
+            [
+              "c07",
+              "c12"
+            ],
+            [
+              "c08",
+              "c10"
+            ],
+            [
+              "c10",
+              "dp00"
+            ]
+          ],
+          "retained_milli": 889,
+          "shape": {
+            "degree_histogram": [
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                3,
+                3
+              ]
+            ],
+            "door_count": 9,
+            "leaves": 2,
+            "loops": 1,
+            "max_depth": 4,
+            "mean_depth_milli": 2125
+          },
+          "shape_score_micro": 9972222,
+          "shape_violations": 0
+        },
+        "chosen_rank": 2,
+        "consistency_relaxed": false,
+        "door_threshold_id": "c02|c11",
+        "h_universe": [
+          [
+            "c02",
+            "c03"
+          ],
+          [
+            "c02",
+            "dp00"
+          ],
+          [
+            "c03",
+            "c07"
+          ],
+          [
+            "c03",
+            "c08"
+          ],
+          [
+            "c07",
+            "c08"
+          ],
+          [
+            "c07",
+            "c09"
+          ],
+          [
+            "c07",
+            "c12"
+          ],
+          [
+            "c08",
+            "c10"
+          ],
+          [
+            "c10",
+            "dp00"
+          ]
+        ],
+        "in_tolerance_count": 3,
+        "mandatory_passages": [
+          [
+            "c02",
+            "dp00"
+          ],
+          [
+            "c07",
+            "c09"
+          ],
+          [
+            "c07",
+            "c12"
+          ],
+          [
+            "c10",
+            "dp00"
+          ]
+        ],
+        "ok": true,
+        "passages_before": [
+          [
+            "c02",
+            "c03"
+          ],
+          [
+            "c02",
+            "dp00"
+          ],
+          [
+            "c03",
+            "c07"
+          ],
+          [
+            "c03",
+            "c08"
+          ],
+          [
+            "c07",
+            "c08"
+          ],
+          [
+            "c07",
+            "c09"
+          ],
+          [
+            "c07",
+            "c12"
+          ],
+          [
+            "c08",
+            "c10"
+          ],
+          [
+            "c10",
+            "dp00"
+          ]
+        ],
+        "pinned_passages": [
+          [
+            "c02",
+            "dp00"
+          ],
+          [
+            "c07",
+            "c09"
+          ],
+          [
+            "c07",
+            "c12"
+          ],
+          [
+            "c10",
+            "dp00"
+          ]
+        ],
+        "reason": "",
+        "root_cell_id": "c02",
+        "shape_before": {
+          "degree_histogram": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              4,
+              1
+            ]
+          ],
+          "door_count": 10,
+          "leaves": 2,
+          "loops": 2,
+          "max_depth": 3,
+          "mean_depth_milli": 1750
+        },
+        "shortlist": [
+          {
+            "edit_distance": 1,
+            "passages_after": [
+              [
+                "c02",
+                "c03"
+              ],
+              [
+                "c02",
+                "dp00"
+              ],
+              [
+                "c03",
+                "c07"
+              ],
+              [
+                "c03",
+                "c08"
+              ],
+              [
+                "c07",
+                "c09"
+              ],
+              [
+                "c07",
+                "c12"
+              ],
+              [
+                "c08",
+                "c10"
+              ],
+              [
+                "c10",
+                "dp00"
+              ]
+            ],
+            "retained_milli": 889,
+            "shape": {
+              "degree_histogram": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ]
+              ],
+              "door_count": 9,
+              "leaves": 2,
+              "loops": 1,
+              "max_depth": 3,
+              "mean_depth_milli": 1750
+            },
+            "shape_score_micro": 8222222,
+            "shape_violations": 0
+          },
+          {
+            "edit_distance": 1,
+            "passages_after": [
+              [
+                "c02",
+                "c03"
+              ],
+              [
+                "c02",
+                "dp00"
+              ],
+              [
+                "c03",
+                "c08"
+              ],
+              [
+                "c07",
+                "c08"
+              ],
+              [
+                "c07",
+                "c09"
+              ],
+              [
+                "c07",
+                "c12"
+              ],
+              [
+                "c08",
+                "c10"
+              ],
+              [
+                "c10",
+                "dp00"
+              ]
+            ],
+            "retained_milli": 889,
+            "shape": {
+              "degree_histogram": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ]
+              ],
+              "door_count": 9,
+              "leaves": 2,
+              "loops": 1,
+              "max_depth": 4,
+              "mean_depth_milli": 2125
+            },
+            "shape_score_micro": 9972222,
+            "shape_violations": 0
+          },
+          {
+            "edit_distance": 1,
+            "passages_after": [
+              [
+                "c02",
+                "c03"
+              ],
+              [
+                "c02",
+                "dp00"
+              ],
+              [
+                "c03",
+                "c07"
+              ],
+              [
+                "c03",
+                "c08"
+              ],
+              [
+                "c07",
+                "c08"
+              ],
+              [
+                "c07",
+                "c09"
+              ],
+              [
+                "c07",
+                "c12"
+              ],
+              [
+                "c10",
+                "dp00"
+              ]
+            ],
+            "retained_milli": 889,
+            "shape": {
+              "degree_histogram": [
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  1
+                ]
+              ],
+              "door_count": 9,
+              "leaves": 3,
+              "loops": 1,
+              "max_depth": 3,
+              "mean_depth_milli": 1750
+            },
+            "shape_score_micro": 10222222,
+            "shape_violations": 0
+          }
+        ],
+        "shortlist_size": 3,
+        "target_cells": [
+          "c02",
+          "c03",
+          "c07",
+          "c08",
+          "c09",
+          "c10",
+          "c12",
+          "dp00"
+        ],
+        "threshold_id": "c11:p0",
+        "variable_count": 5
+      },
+      "from_cell": "c02",
+      "map_id": "gmap-279-gmap-0.13.0",
+      "name": "seed279_rich",
+      "to_cell": "c11"
+    },
+    {
+      "event_index": 1,
+      "expected": {
+        "candidate_count": 3,
+        "candidate_set_hash": "a103a6f8d2f7317bab829cf5d5010377253068cd534416719f15c399e66140bb",
+        "chosen": {
+          "edit_distance": 1,
+          "passages_after": [
+            [
+              "c00",
+              "c01"
+            ],
+            [
+              "c00",
+              "c04"
+            ],
+            [
+              "c04",
+              "c05"
+            ],
+            [
+              "c04",
+              "c06"
+            ],
+            [
+              "c05",
+              "c06"
+            ],
+            [
+              "c06",
+              "c11"
+            ]
+          ],
+          "retained_milli": 1000,
+          "shape": {
+            "degree_histogram": [
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                3,
+                2
+              ]
+            ],
+            "door_count": 7,
+            "leaves": 1,
+            "loops": 1,
+            "max_depth": 4,
+            "mean_depth_milli": 2000
+          },
+          "shape_score_micro": 10333333,
+          "shape_violations": 0
+        },
+        "chosen_rank": 1,
+        "consistency_relaxed": false,
+        "door_threshold_id": "c02|c11",
+        "h_universe": [
+          [
+            "c00",
+            "c01"
+          ],
+          [
+            "c00",
+            "c04"
+          ],
+          [
+            "c04",
+            "c05"
+          ],
+          [
+            "c04",
+            "c06"
+          ],
+          [
+            "c05",
+            "c06"
+          ],
+          [
+            "c06",
+            "c11"
+          ]
+        ],
+        "in_tolerance_count": 2,
+        "mandatory_passages": [
+          [
+            "c00",
+            "c01"
+          ],
+          [
+            "c06",
+            "c11"
+          ]
+        ],
+        "ok": true,
+        "passages_before": [
+          [
+            "c00",
+            "c01"
+          ],
+          [
+            "c00",
+            "c04"
+          ],
+          [
+            "c04",
+            "c05"
+          ],
+          [
+            "c04",
+            "c06"
+          ],
+          [
+            "c06",
+            "c11"
+          ]
+        ],
+        "pinned_passages": [
+          [
+            "c00",
+            "c01"
+          ],
+          [
+            "c06",
+            "c11"
+          ]
+        ],
+        "reason": "",
+        "root_cell_id": "c11",
+        "shape_before": {
+          "degree_histogram": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              1
+            ]
+          ],
+          "door_count": 6,
+          "leaves": 2,
+          "loops": 0,
+          "max_depth": 4,
+          "mean_depth_milli": 2167
+        },
+        "shortlist": [
+          {
+            "edit_distance": 1,
+            "passages_after": [
+              [
+                "c00",
+                "c01"
+              ],
+              [
+                "c00",
+                "c04"
+              ],
+              [
+                "c04",
+                "c05"
+              ],
+              [
+                "c04",
+                "c06"
+              ],
+              [
+                "c05",
+                "c06"
+              ],
+              [
+                "c06",
+                "c11"
+              ]
+            ],
+            "retained_milli": 1000,
+            "shape": {
+              "degree_histogram": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  2
+                ]
+              ],
+              "door_count": 7,
+              "leaves": 1,
+              "loops": 1,
+              "max_depth": 4,
+              "mean_depth_milli": 2000
+            },
+            "shape_score_micro": 10333333,
+            "shape_violations": 0
+          },
+          {
+            "edit_distance": 2,
+            "passages_after": [
+              [
+                "c00",
+                "c01"
+              ],
+              [
+                "c00",
+                "c04"
+              ],
+              [
+                "c04",
+                "c06"
+              ],
+              [
+                "c05",
+                "c06"
+              ],
+              [
+                "c06",
+                "c11"
+              ]
+            ],
+            "retained_milli": 800,
+            "shape": {
+              "degree_histogram": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  1
+                ]
+              ],
+              "door_count": 6,
+              "leaves": 2,
+              "loops": 0,
+              "max_depth": 4,
+              "mean_depth_milli": 2000
+            },
+            "shape_score_micro": 733333,
+            "shape_violations": 0
+          }
+        ],
+        "shortlist_size": 2,
+        "target_cells": [
+          "c00",
+          "c01",
+          "c04",
+          "c05",
+          "c06",
+          "c11"
+        ],
+        "threshold_id": "c02:p2",
+        "variable_count": 4
+      },
+      "from_cell": "c11",
+      "map_id": "gmap-279-gmap-0.13.0",
+      "name": "seed279_spawn_island",
+      "to_cell": "c02"
+    },
+    {
+      "event_index": 1,
+      "expected": {
+        "candidate_count": 3,
+        "candidate_set_hash": "a55b0932a7b0fbcb1dd0684f22a784e7ad5f452f5614020a0dc76ac5b5198ba1",
+        "chosen": {
+          "edit_distance": 2,
+          "passages_after": [
+            [
+              "c00",
+              "c01"
+            ],
+            [
+              "c00",
+              "c04"
+            ],
+            [
+              "c04",
+              "c06"
+            ],
+            [
+              "c05",
+              "c06"
+            ]
+          ],
+          "retained_milli": 750,
+          "shape": {
+            "degree_histogram": [
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                1
+              ]
+            ],
+            "door_count": 5,
+            "leaves": 2,
+            "loops": 0,
+            "max_depth": 3,
+            "mean_depth_milli": 1400
+          },
+          "shape_score_micro": 900000,
+          "shape_violations": 0
+        },
+        "chosen_rank": 2,
+        "consistency_relaxed": false,
+        "door_threshold_id": "c06|c11",
+        "h_universe": [
+          [
+            "c00",
+            "c01"
+          ],
+          [
+            "c00",
+            "c04"
+          ],
+          [
+            "c04",
+            "c05"
+          ],
+          [
+            "c04",
+            "c06"
+          ],
+          [
+            "c05",
+            "c06"
+          ]
+        ],
+        "in_tolerance_count": 2,
+        "mandatory_passages": [
+          [
+            "c00",
+            "c01"
+          ]
+        ],
+        "ok": true,
+        "passages_before": [
+          [
+            "c00",
+            "c01"
+          ],
+          [
+            "c00",
+            "c04"
+          ],
+          [
+            "c04",
+            "c05"
+          ],
+          [
+            "c04",
+            "c06"
+          ]
+        ],
+        "pinned_passages": [
+          [
+            "c00",
+            "c01"
+          ]
+        ],
+        "reason": "",
+        "root_cell_id": "c06",
+        "shape_before": {
+          "degree_histogram": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              1
+            ]
+          ],
+          "door_count": 5,
+          "leaves": 2,
+          "loops": 0,
+          "max_depth": 3,
+          "mean_depth_milli": 1600
+        },
+        "shortlist": [
+          {
+            "edit_distance": 1,
+            "passages_after": [
+              [
+                "c00",
+                "c01"
+              ],
+              [
+                "c00",
+                "c04"
+              ],
+              [
+                "c04",
+                "c05"
+              ],
+              [
+                "c04",
+                "c06"
+              ],
+              [
+                "c05",
+                "c06"
+              ]
+            ],
+            "retained_milli": 1000,
+            "shape": {
+              "degree_histogram": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ]
+              ],
+              "door_count": 6,
+              "leaves": 1,
+              "loops": 1,
+              "max_depth": 3,
+              "mean_depth_milli": 1400
+            },
+            "shape_score_micro": 10400000,
+            "shape_violations": 0
+          },
+          {
+            "edit_distance": 2,
+            "passages_after": [
+              [
+                "c00",
+                "c01"
+              ],
+              [
+                "c00",
+                "c04"
+              ],
+              [
+                "c04",
+                "c06"
+              ],
+              [
+                "c05",
+                "c06"
+              ]
+            ],
+            "retained_milli": 750,
+            "shape": {
+              "degree_histogram": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  1
+                ]
+              ],
+              "door_count": 5,
+              "leaves": 2,
+              "loops": 0,
+              "max_depth": 3,
+              "mean_depth_milli": 1400
+            },
+            "shape_score_micro": 900000,
+            "shape_violations": 0
+          }
+        ],
+        "shortlist_size": 2,
+        "target_cells": [
+          "c00",
+          "c01",
+          "c04",
+          "c05",
+          "c06"
+        ],
+        "threshold_id": "c11:e0",
+        "variable_count": 4
+      },
+      "from_cell": "c06",
+      "map_id": "gmap-279-gmap-0.13.0",
+      "name": "seed279_ramp_door",
+      "to_cell": "c11"
+    },
+    {
+      "event_index": 1,
+      "expected": {
+        "candidate_count": 0,
+        "candidate_set_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "chosen": null,
+        "chosen_rank": 0,
+        "consistency_relaxed": false,
+        "door_threshold_id": "c03|c05",
+        "h_universe": [
+          [
+            "c04",
+            "c05"
+          ],
+          [
+            "c05",
+            "c06"
+          ],
+          [
+            "c05",
+            "c09"
+          ],
+          [
+            "c06",
+            "c08"
+          ]
+        ],
+        "in_tolerance_count": 0,
+        "mandatory_passages": [],
+        "ok": false,
+        "passages_before": [
+          [
+            "c04",
+            "c05"
+          ],
+          [
+            "c05",
+            "c06"
+          ],
+          [
+            "c05",
+            "c09"
+          ],
+          [
+            "c06",
+            "c08"
+          ]
+        ],
+        "pinned_passages": [],
+        "reason": "no_candidate_in_tier",
+        "root_cell_id": "c05",
+        "shape_before": {
+          "degree_histogram": [
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              4,
+              1
+            ]
+          ],
+          "door_count": 5,
+          "leaves": 3,
+          "loops": 0,
+          "max_depth": 2,
+          "mean_depth_milli": 1000
+        },
+        "shortlist": [],
+        "shortlist_size": 0,
+        "target_cells": [
+          "c04",
+          "c05",
+          "c06",
+          "c08",
+          "c09"
+        ],
+        "threshold_id": "c03:e0",
+        "variable_count": 4
+      },
+      "from_cell": "c05",
+      "map_id": "gmap-1-gmap-0.13.0",
+      "name": "seed1_no_candidate",
+      "to_cell": "c03"
+    }
+  ],
+  "seed_279_rich": {
+    "candidate_count": 13,
+    "candidate_set_hash": "11df694f0a8cc4a67535abb02115f6a277ac742bfc09eb67c6fa27bec303a488",
+    "chosen": {
+      "edit_distance": 1,
+      "passages_after": [
+        [
+          "c02",
+          "c03"
+        ],
+        [
+          "c02",
+          "dp00"
+        ],
+        [
+          "c03",
+          "c08"
+        ],
+        [
+          "c07",
+          "c08"
+        ],
+        [
+          "c07",
+          "c09"
+        ],
+        [
+          "c07",
+          "c12"
+        ],
+        [
+          "c08",
+          "c10"
+        ],
+        [
+          "c10",
+          "dp00"
+        ]
+      ],
+      "retained_milli": 889,
+      "shape": {
+        "degree_histogram": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "door_count": 9,
+        "leaves": 2,
+        "loops": 1,
+        "max_depth": 4,
+        "mean_depth_milli": 2125
+      },
+      "shape_score_micro": 9972222,
+      "shape_violations": 0
+    },
+    "chosen_rank": 2,
+    "consistency_relaxed": false,
+    "door_threshold_id": "c02|c11",
+    "h_universe": [
+      [
+        "c02",
+        "c03"
+      ],
+      [
+        "c02",
+        "dp00"
+      ],
+      [
+        "c03",
+        "c07"
+      ],
+      [
+        "c03",
+        "c08"
+      ],
+      [
+        "c07",
+        "c08"
+      ],
+      [
+        "c07",
+        "c09"
+      ],
+      [
+        "c07",
+        "c12"
+      ],
+      [
+        "c08",
+        "c10"
+      ],
+      [
+        "c10",
+        "dp00"
+      ]
+    ],
+    "in_tolerance_count": 3,
+    "mandatory_passages": [
+      [
+        "c02",
+        "dp00"
+      ],
+      [
+        "c07",
+        "c09"
+      ],
+      [
+        "c07",
+        "c12"
+      ],
+      [
+        "c10",
+        "dp00"
+      ]
+    ],
+    "ok": true,
+    "passages_before": [
+      [
+        "c02",
+        "c03"
+      ],
+      [
+        "c02",
+        "dp00"
+      ],
+      [
+        "c03",
+        "c07"
+      ],
+      [
+        "c03",
+        "c08"
+      ],
+      [
+        "c07",
+        "c08"
+      ],
+      [
+        "c07",
+        "c09"
+      ],
+      [
+        "c07",
+        "c12"
+      ],
+      [
+        "c08",
+        "c10"
+      ],
+      [
+        "c10",
+        "dp00"
+      ]
+    ],
+    "pinned_passages": [
+      [
+        "c02",
+        "dp00"
+      ],
+      [
+        "c07",
+        "c09"
+      ],
+      [
+        "c07",
+        "c12"
+      ],
+      [
+        "c10",
+        "dp00"
+      ]
+    ],
+    "reason": "",
+    "root_cell_id": "c02",
+    "shape_before": {
+      "degree_histogram": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "door_count": 10,
+      "leaves": 2,
+      "loops": 2,
+      "max_depth": 3,
+      "mean_depth_milli": 1750
+    },
+    "shortlist": [
+      {
+        "edit_distance": 1,
+        "passages_after": [
+          [
+            "c02",
+            "c03"
+          ],
+          [
+            "c02",
+            "dp00"
+          ],
+          [
+            "c03",
+            "c07"
+          ],
+          [
+            "c03",
+            "c08"
+          ],
+          [
+            "c07",
+            "c09"
+          ],
+          [
+            "c07",
+            "c12"
+          ],
+          [
+            "c08",
+            "c10"
+          ],
+          [
+            "c10",
+            "dp00"
+          ]
+        ],
+        "retained_milli": 889,
+        "shape": {
+          "degree_histogram": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              3
+            ]
+          ],
+          "door_count": 9,
+          "leaves": 2,
+          "loops": 1,
+          "max_depth": 3,
+          "mean_depth_milli": 1750
+        },
+        "shape_score_micro": 8222222,
+        "shape_violations": 0
+      },
+      {
+        "edit_distance": 1,
+        "passages_after": [
+          [
+            "c02",
+            "c03"
+          ],
+          [
+            "c02",
+            "dp00"
+          ],
+          [
+            "c03",
+            "c08"
+          ],
+          [
+            "c07",
+            "c08"
+          ],
+          [
+            "c07",
+            "c09"
+          ],
+          [
+            "c07",
+            "c12"
+          ],
+          [
+            "c08",
+            "c10"
+          ],
+          [
+            "c10",
+            "dp00"
+          ]
+        ],
+        "retained_milli": 889,
+        "shape": {
+          "degree_histogram": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              3
+            ]
+          ],
+          "door_count": 9,
+          "leaves": 2,
+          "loops": 1,
+          "max_depth": 4,
+          "mean_depth_milli": 2125
+        },
+        "shape_score_micro": 9972222,
+        "shape_violations": 0
+      },
+      {
+        "edit_distance": 1,
+        "passages_after": [
+          [
+            "c02",
+            "c03"
+          ],
+          [
+            "c02",
+            "dp00"
+          ],
+          [
+            "c03",
+            "c07"
+          ],
+          [
+            "c03",
+            "c08"
+          ],
+          [
+            "c07",
+            "c08"
+          ],
+          [
+            "c07",
+            "c09"
+          ],
+          [
+            "c07",
+            "c12"
+          ],
+          [
+            "c10",
+            "dp00"
+          ]
+        ],
+        "retained_milli": 889,
+        "shape": {
+          "degree_histogram": [
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              4,
+              1
+            ]
+          ],
+          "door_count": 9,
+          "leaves": 3,
+          "loops": 1,
+          "max_depth": 3,
+          "mean_depth_milli": 1750
+        },
+        "shape_score_micro": 10222222,
+        "shape_violations": 0
+      }
+    ],
+    "shortlist_size": 3,
+    "target_cells": [
+      "c02",
+      "c03",
+      "c07",
+      "c08",
+      "c09",
+      "c10",
+      "c12",
+      "dp00"
+    ],
+    "threshold_id": "c11:p0",
+    "variable_count": 5
+  },
+  "stream": "door-reroll:gmap-0.13.0",
+  "summary": {
+    "directions": 11,
+    "directions_with_pool": 5,
+    "seed_279_rich_hard": 13,
+    "seed_279_rich_in_tolerance": 3,
+    "seed_3_directions": 0,
+    "spawn_pinned_pool_directions": 2
+  },
+  "worked_example": {
+    "candidates": [
+      {
+        "edit_distance": 1,
+        "in_shortlist": true,
+        "name": "C1",
+        "passages_after": [
+          [
+            "c01",
+            "c02"
+          ],
+          [
+            "c01",
+            "c05"
+          ],
+          [
+            "c01",
+            "c10"
+          ],
+          [
+            "c05",
+            "c10"
+          ],
+          [
+            "c05",
+            "c11"
+          ],
+          [
+            "c10",
+            "c12"
+          ]
+        ],
+        "retained_milli": 1000,
+        "shape": {
+          "degree_histogram": [
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              4,
+              1
+            ]
+          ],
+          "door_count": 7,
+          "leaves": 3,
+          "loops": 1,
+          "max_depth": 2,
+          "mean_depth_milli": 1167
+        },
+        "shape_violations": 0
+      },
+      {
+        "edit_distance": 2,
+        "in_shortlist": true,
+        "name": "C2",
+        "passages_after": [
+          [
+            "c01",
+            "c02"
+          ],
+          [
+            "c01",
+            "c10"
+          ],
+          [
+            "c05",
+            "c10"
+          ],
+          [
+            "c05",
+            "c11"
+          ],
+          [
+            "c10",
+            "c12"
+          ]
+        ],
+        "retained_milli": 800,
+        "shape": {
+          "degree_histogram": [
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          "door_count": 6,
+          "leaves": 3,
+          "loops": 0,
+          "max_depth": 3,
+          "mean_depth_milli": 1500
+        },
+        "shape_violations": 0
+      },
+      {
+        "edit_distance": 2,
+        "in_shortlist": false,
+        "name": "C3",
+        "passages_after": [
+          [
+            "c01",
+            "c02"
+          ],
+          [
+            "c01",
+            "c05"
+          ],
+          [
+            "c01",
+            "c10"
+          ],
+          [
+            "c05",
+            "c11"
+          ],
+          [
+            "c10",
+            "c12"
+          ]
+        ],
+        "retained_milli": 800,
+        "shape": {
+          "degree_histogram": [
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              4,
+              1
+            ]
+          ],
+          "door_count": 6,
+          "leaves": 3,
+          "loops": 0,
+          "max_depth": 2,
+          "mean_depth_milli": 1167
+        },
+        "shape_violations": 1
+      }
+    ],
+    "chosen": "C2",
+    "chosen_rank": 2,
+    "consistency_relaxed": false,
+    "door_threshold_id": "c00|c01",
+    "event_index": 1,
+    "from_cell": "c01",
+    "projection": {
+      "candidate_count": 3,
+      "candidate_set_hash": "689a08e132574d71b9a6b1d46d7b5183b2623048534621fe3a710b3eb840ba59",
+      "chosen": {
+        "edit_distance": 2,
+        "passages_after": [
+          [
+            "c01",
+            "c02"
+          ],
+          [
+            "c01",
+            "c10"
+          ],
+          [
+            "c05",
+            "c10"
+          ],
+          [
+            "c05",
+            "c11"
+          ],
+          [
+            "c10",
+            "c12"
+          ]
+        ],
+        "retained_milli": 800,
+        "shape": {
+          "degree_histogram": [
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          "door_count": 6,
+          "leaves": 3,
+          "loops": 0,
+          "max_depth": 3,
+          "mean_depth_milli": 1500
+        },
+        "shape_score_micro": 400000,
+        "shape_violations": 0
+      },
+      "chosen_rank": 2,
+      "consistency_relaxed": false,
+      "door_threshold_id": "c00|c01",
+      "h_universe": [
+        [
+          "c01",
+          "c02"
+        ],
+        [
+          "c01",
+          "c05"
+        ],
+        [
+          "c01",
+          "c10"
+        ],
+        [
+          "c05",
+          "c10"
+        ],
+        [
+          "c05",
+          "c11"
+        ],
+        [
+          "c10",
+          "c12"
+        ]
+      ],
+      "in_tolerance_count": 2,
+      "mandatory_passages": [
+        [
+          "c10",
+          "c12"
+        ]
+      ],
+      "ok": true,
+      "passages_before": [
+        [
+          "c01",
+          "c02"
+        ],
+        [
+          "c01",
+          "c05"
+        ],
+        [
+          "c05",
+          "c10"
+        ],
+        [
+          "c05",
+          "c11"
+        ],
+        [
+          "c10",
+          "c12"
+        ]
+      ],
+      "pinned_passages": [
+        [
+          "c10",
+          "c12"
+        ]
+      ],
+      "reason": "",
+      "root_cell_id": "c01",
+      "shape_before": {
+        "degree_histogram": [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "door_count": 6,
+        "leaves": 3,
+        "loops": 0,
+        "max_depth": 3,
+        "mean_depth_milli": 1500
+      },
+      "shortlist": [
+        {
+          "edit_distance": 1,
+          "passages_after": [
+            [
+              "c01",
+              "c02"
+            ],
+            [
+              "c01",
+              "c05"
+            ],
+            [
+              "c01",
+              "c10"
+            ],
+            [
+              "c05",
+              "c10"
+            ],
+            [
+              "c05",
+              "c11"
+            ],
+            [
+              "c10",
+              "c12"
+            ]
+          ],
+          "retained_milli": 1000,
+          "shape": {
+            "degree_histogram": [
+              [
+                1,
+                3
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                4,
+                1
+              ]
+            ],
+            "door_count": 7,
+            "leaves": 3,
+            "loops": 1,
+            "max_depth": 2,
+            "mean_depth_milli": 1167
+          },
+          "shape_score_micro": 9666667,
+          "shape_violations": 0
+        },
+        {
+          "edit_distance": 2,
+          "passages_after": [
+            [
+              "c01",
+              "c02"
+            ],
+            [
+              "c01",
+              "c10"
+            ],
+            [
+              "c05",
+              "c10"
+            ],
+            [
+              "c05",
+              "c11"
+            ],
+            [
+              "c10",
+              "c12"
+            ]
+          ],
+          "retained_milli": 800,
+          "shape": {
+            "degree_histogram": [
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                2
+              ]
+            ],
+            "door_count": 6,
+            "leaves": 3,
+            "loops": 0,
+            "max_depth": 3,
+            "mean_depth_milli": 1500
+          },
+          "shape_score_micro": 400000,
+          "shape_violations": 0
+        }
+      ],
+      "shortlist_size": 2,
+      "target_cells": [
+        "c01",
+        "c02",
+        "c05",
+        "c10",
+        "c11",
+        "c12"
+      ],
+      "threshold_id": "c00:p0",
+      "variable_count": 5
+    },
+    "seed": 32,
+    "shortlist": [
+      "C1",
+      "C2"
+    ],
+    "threshold_id": "c00:p0",
+    "to_cell": "c00"
+  }
+}
