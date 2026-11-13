@@ -1,0 +1,75 @@
+{
+	"failures": [],
+	"map_id": "gmap-279-gmap-0.13.0",
+	"map_sha256_after": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c",
+	"map_sha256_before": "51d296d0113d2c01852845389cbc6d64ac85f232e04d0cf7a8116e9bd05e995c",
+	"negative_controls": {
+		"invalid_lamp": true,
+		"invalid_state": true,
+		"landmark_refused": true,
+		"module_refused": true,
+		"unknown_cell": true
+	},
+	"positive": {
+		"after_state": "dead",
+		"before_state": "on",
+		"changed_cells": 1,
+		"checked_cells": 14,
+		"failures": [],
+		"geometry_unchanged": true,
+		"lamp_index": 2,
+		"override_replay": true,
+		"reentry_checks": 2,
+		"route_visits": 5,
+		"target_cell": "c04"
+	},
+	"runtime": {
+		"change_class": "lamp_state",
+		"edit_count": 1,
+		"failures": [],
+		"lamp_index": 2,
+		"reentry_checks": 2,
+		"state_after": "flicker",
+		"target_cell": "c04",
+		"visit_count": 5
+	},
+	"visibility": {
+		"by_cell": {
+			"c03": {
+				"depth_one": [
+					"c02",
+					"c03",
+					"c07",
+					"c08"
+				],
+				"depth_two": [
+					"c00",
+					"c02",
+					"c03",
+					"c07",
+					"c08",
+					"c09",
+					"c10",
+					"c11",
+					"c12",
+					"dp00"
+				]
+			},
+			"c09": {
+				"depth_one": [
+					"c07",
+					"c09"
+				],
+				"depth_two": [
+					"c03",
+					"c07",
+					"c08",
+					"c09",
+					"c12"
+				]
+			}
+		},
+		"checks": 2,
+		"failures": []
+	}
+}

@@ -20,6 +20,8 @@ extends Node3D
 
 const BUILDER := preload("res://scripts/shape_room_builder.gd")
 const MATERIALS := preload("res://scripts/shape_room_materials.gd")
+const LIGHT_CONTROLLER := preload("res://scripts/maze_light_controller.gd")
+const FOLLOWER_RUNTIME := preload("res://scripts/maze_follower_runtime.gd")
 const PLAYER_SCENE := preload("res://scenes/player.tscn")
 const WALK_PLAYER := preload("res://scripts/walk_player.gd")
 const PSX_PRESET := preload("res://scripts/library_psx_preset.gd")
@@ -114,6 +116,11 @@ func _ready() -> void:
 	_build_environment(String(map_data.get("generator_version", "")) in LIT_VERSIONS)
 	assemble(map_data, room_specs)
 	_build_player()
+	var follower := FOLLOWER_RUNTIME.new()
+	follower.name = "MazeFollowerRuntime"
+	add_child(follower)
+	follower.setup(self, player)
+	set_meta("maze_follower_runtime", follower)
 	_apply_psx_preset()
 	set_meta("walkthrough_ready", true)
 	set_meta("operator_approved", false)
@@ -133,12 +140,14 @@ func assemble(map_data: Dictionary, room_specs: Dictionary) -> void:
 	for cell: Dictionary in map.cells:
 		var cell_id := String(cell.cell_id)
 		if specs.has(cell_id):
-			rooms[cell_id] = BUILDER.build(self, specs[cell_id], materials_for(specs[cell_id]), _forced_closed(specs[cell_id]),
+			var room_materials := materials_for(specs[cell_id])
+			rooms[cell_id] = BUILDER.build(self, specs[cell_id], room_materials, _forced_closed(specs[cell_id]),
 				_module_joints(specs[cell_id]),
 				{"diagonal_collision": diagonal_collision, "diagonal_pullback": diagonal_pullback,
 				"light_layer": _light_layer(cell_id)})
 			(rooms[cell_id] as Node3D).position.y = float(cell.get("floor_y", 0.0))
 			_tag_reverb(rooms[cell_id], cell)
+			LIGHT_CONTROLLER.tag_room(rooms[cell_id], specs[cell_id], room_materials.get("lamp"))
 	_add_risers()
 	_add_safety_net()
 	origin_cell = String(map.cells[0].cell_id)
@@ -208,6 +217,54 @@ func set_room_reverb(cell_id: String, enabled: bool) -> bool:
 		return false
 	room.set_meta("reverb_enabled", enabled)
 	return true
+
+
+## Runtime mutation point for the M2 follower lamp edit (#232). Generated rooms
+## only: a library module's lamp is baked into its hash-pinned scene, and the
+## landmark is operator-approved and frozen. The map document is never edited.
+func set_cell_light(cell_id: String, lamp_index: int, state: String,
+		flicker_seed: int = -1) -> bool:
+	if module_rooms.has(cell_id) or not specs.has(cell_id):
+		return false
+	if LIGHT_CONTROLLER.is_landmark(specs[cell_id]):
+		return false
+	var room := room_node(cell_id)
+	if room == null:
+		return false
+	return LIGHT_CONTROLLER.apply_lamp_state(room, lamp_index, state, flicker_seed)
+
+
+## Apply one folded overlay record (`lamp_state` and/or `lamp_flicker`) to a room.
+func apply_cell_light_override(cell_id: String, override: Dictionary) -> bool:
+	if module_rooms.has(cell_id) or not specs.has(cell_id):
+		return false
+	if LIGHT_CONTROLLER.is_landmark(specs[cell_id]):
+		return false
+	var room := room_node(cell_id)
+	if room == null or not room.has_meta("maze_lamp_states"):
+		return false
+	return LIGHT_CONTROLLER.apply_override(room, override)
+
+
+func cell_light_state(cell_id: String, lamp_index: int) -> String:
+	var room := room_node(cell_id)
+	if room == null:
+		return ""
+	return LIGHT_CONTROLLER.lamp_state(room, lamp_index)
+
+
+func cell_light_states(cell_id: String) -> Array:
+	var room := room_node(cell_id)
+	if room == null:
+		return []
+	return LIGHT_CONTROLLER.lamp_states(room)
+
+
+func cell_lamp_flicker_seeds(cell_id: String) -> Array:
+	var room := room_node(cell_id)
+	if room == null:
+		return []
+	return LIGHT_CONTROLLER.lamp_flicker_seeds(room)
 
 
 ## Walkable cell under a world-space point, or "" outside every room. The
