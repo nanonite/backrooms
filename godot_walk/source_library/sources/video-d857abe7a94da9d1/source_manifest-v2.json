@@ -1,0 +1,37 @@
+{
+  "canonical_video": {
+    "metadata": {
+      "duration_seconds": 356.565624,
+      "fps": 24.0,
+      "frame_count": 8556,
+      "height": 720,
+      "width": 1280
+    },
+    "path": "data/videos/Max Cooper - Repetition (Official Video By Kevin McGloughlin).mp4",
+    "sha256": "d857abe7a94da9d19a4a1410a707e7632c32df6f3ded1ddd4d77317df1732bb8"
+  },
+  "created_at_utc": "2026-10-26T21:23:23.085904+00:00",
+  "frame_references": [],
+  "historical_artifacts": [],
+  "hunyuan": {
+    "attempts": [],
+    "historical_invocations": 0,
+    "status": "not_attempted"
+  },
+  "manifest_version": 2,
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity.",
+  "recorded_at_utc": "2026-11-13T19:31:10.081279+00:00",
+  "registration_accepted": false,
+  "room_adaptations": [],
+  "scale_calibrated": false,
+  "schema_version": 2,
+  "source_id": "video-d857abe7a94da9d1",
+  "source_review": {
+    "decision": null,
+    "status": "pending_operator_review"
+  },
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/source_manifest.json",
+    "sha256": "fe496ed03bf19c0abf6e9aa7851fe06752af9fb86a8f5d7a74ea8a44c512401d"
+  }
+}

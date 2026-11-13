@@ -62,7 +62,7 @@ def _batch_root(tmp_path: Path) -> tuple[Path, list[str]]:
     videos = root / "data/videos"
     videos.mkdir(parents=True)
     source_ids = []
-    for index in range(7):
+    for index in range(10):
         video = videos / f"sample-{index}.mp4"
         video.write_bytes(f"sample video {index}".encode())
         source_ids.append(register_video(video, root, fake_probe))
@@ -72,7 +72,7 @@ def _batch_root(tmp_path: Path) -> tuple[Path, list[str]]:
         "issue": 195,
         "template_version": "generation-template-0.1.0",
         "sources": [
-            {"issue": 174 + index, "source_id": source_id}
+            {"issue": 171 + index, "source_id": source_id}
             for index, source_id in enumerate(source_ids)
         ],
     }
@@ -88,8 +88,11 @@ def _source_dir(root: Path, source_id: str) -> Path:
 
 def test_batch_descriptor_is_the_195_sources() -> None:
     record = batch.load_batch(ROOT)
-    assert [item["issue"] for item in record["sources"]] == list(range(174, 181))
+    assert [item["issue"] for item in record["sources"]] == list(range(171, 181))
     assert [item["source_id"] for item in record["sources"]] == [
+        "video-c9115d943f6c3fe4",
+        "video-22909eb734e4d8e2",
+        "video-d857abe7a94da9d1",
         "video-d92fc1fa764aa3a2",
         "video-102caf53423018b7",
         "video-2671b32f256a4ee7",
@@ -119,7 +122,7 @@ def test_upgrade_writes_a_v2_bridge_then_a_v3_snapshot(tmp_path: Path) -> None:
         for source_id in source_ids
     }
     results = batch.upgrade_batch(root)
-    assert [result["status"] for result in results] == ["created"] * 7
+    assert [result["status"] for result in results] == ["created"] * 10
     entries = {entry["source_id"]: entry for entry in validate_index(root)}
     for source_id in source_ids:
         entry = entries[source_id]
@@ -170,8 +173,8 @@ def test_upgrade_is_idempotent(tmp_path: Path) -> None:
         for source_id in source_ids
     }
     results = batch.upgrade_batch(root)
-    assert [result["status"] for result in results] == ["unchanged"] * 7
-    assert [result["event"] for result in results] == ["unchanged"] * 7
+    assert [result["status"] for result in results] == ["unchanged"] * 10
+    assert [result["event"] for result in results] == ["unchanged"] * 10
     assert hashes == {
         entry["source_id"]: entry["manifest_sha256"] for entry in validate_index(root)
     }
@@ -277,7 +280,7 @@ def test_module_contract_accepts_admitted_modules_and_reports_missing_parts() ->
 def test_batch_check_passes_and_operator_flags_stay_false() -> None:
     assert batch.batch_errors(ROOT) == []
     status = batch.batch_status(ROOT)
-    assert status["source_count"] == 7
+    assert status["source_count"] == 10
     modules = {entry["source_id"]: [] for entry in validate_index(ROOT)}
     for source in status["sources"]:
         assert source["manifest_schema_version"] == 3

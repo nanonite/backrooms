@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "index_version": 23,
+  "index_version": 24,
   "sources": [
     {
       "source_id": "picture-set-d160eaa3cc847d5c",
@@ -20,8 +20,8 @@
       "source_id": "video-22909eb734e4d8e2",
       "source_path": "data/videos/Antelope Canyon in 4K - World's Most Iconic Slot Canyon - UHD 4K.mp4",
       "source_sha256": "22909eb734e4d8e2feede084e0305ae0aecefcc6dd5b46ca7ef884277e2a274a",
-      "manifest_path": "godot_walk/source_library/sources/video-22909eb734e4d8e2/source_manifest.json",
-      "manifest_sha256": "0d12bfbf6b10d6d782f7f3b9c3e2203592823c39d74c7dfcbd5eb76c85b11f73"
+      "manifest_path": "godot_walk/source_library/sources/video-22909eb734e4d8e2/source_manifest-v3.json",
+      "manifest_sha256": "1d3a4137c56a40949f178d8b295bb4087bc0bbb12f66aa27c6398156f1c03f83"
     },
     {
       "source_id": "video-2671b32f256a4ee7",
@@ -55,8 +55,8 @@
       "source_id": "video-c9115d943f6c3fe4",
       "source_path": "data/videos/Backrooms - Found Footage #55 (Hills of Synthetic Verdure).mp4",
       "source_sha256": "c9115d943f6c3fe46fbe79b826c8c76e6378c8339736ae885e7a5a3d21ee9fae",
-      "manifest_path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/source_manifest.json",
-      "manifest_sha256": "bba626c6036253a2649355b46d0632e311656c9d8bb5d77388763c0a5e52aa37"
+      "manifest_path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/source_manifest-v3.json",
+      "manifest_sha256": "ae6eee3881e287d56b2a2ba65881daff635a0e906b5c1d7eb1a701a87f4a433e"
     },
     {
       "source_id": "video-ccf9722164a0bdc8",
@@ -69,8 +69,8 @@
       "source_id": "video-d857abe7a94da9d1",
       "source_path": "data/videos/Max Cooper - Repetition (Official Video By Kevin McGloughlin).mp4",
       "source_sha256": "d857abe7a94da9d19a4a1410a707e7632c32df6f3ded1ddd4d77317df1732bb8",
-      "manifest_path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/source_manifest.json",
-      "manifest_sha256": "fe496ed03bf19c0abf6e9aa7851fe06752af9fb86a8f5d7a74ea8a44c512401d"
+      "manifest_path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/source_manifest-v3.json",
+      "manifest_sha256": "87bc8e05cbdd34bb8cfc9a016b05dd17a552a5b0a69711215999b0453f7cd93e"
     },
     {
       "source_id": "video-d92fc1fa764aa3a2",

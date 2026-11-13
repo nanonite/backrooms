@@ -6,6 +6,18 @@
   "template_version": "generation-template-0.1.0",
   "sources": [
     {
+      "issue": 171,
+      "source_id": "video-c9115d943f6c3fe4"
+    },
+    {
+      "issue": 172,
+      "source_id": "video-22909eb734e4d8e2"
+    },
+    {
+      "issue": 173,
+      "source_id": "video-d857abe7a94da9d1"
+    },
+    {
       "issue": 174,
       "source_id": "video-d92fc1fa764aa3a2"
     },

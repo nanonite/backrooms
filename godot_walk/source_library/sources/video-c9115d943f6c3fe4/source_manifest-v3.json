@@ -1,0 +1,74 @@
+{
+  "capture": {
+    "camera_model": null,
+    "capture_height_m": null,
+    "distortion": null,
+    "intrinsics": {
+      "cx": null,
+      "cy": null,
+      "fx": null,
+      "fy": null
+    },
+    "lens": null,
+    "orientation": null
+  },
+  "content": {
+    "audio": {
+      "path": null,
+      "present": false,
+      "sha256": null
+    },
+    "picture_set": null,
+    "video": {
+      "metadata": {
+        "duration_seconds": 581.381224,
+        "fps": 23.976024,
+        "frame_count": 13937,
+        "height": 720,
+        "width": 1280
+      },
+      "path": "data/videos/Backrooms - Found Footage #55 (Hills of Synthetic Verdure).mp4",
+      "sha256": "c9115d943f6c3fe46fbe79b826c8c76e6378c8339736ae885e7a5a3d21ee9fae"
+    }
+  },
+  "created_at_utc": "2026-10-26T21:23:22.340427+00:00",
+  "frame_references": [],
+  "historical_artifacts": [],
+  "hunyuan": {
+    "attempts": [],
+    "historical_invocations": 0,
+    "status": "not_attempted"
+  },
+  "lighting": {
+    "color_temp_k": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "fixtures": [],
+    "illuminance_lux": null,
+    "status": "unknown"
+  },
+  "manifest_version": 3,
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity.",
+  "recorded_at_utc": "2026-11-13T19:31:10.065466+00:00",
+  "registration_accepted": false,
+  "room_adaptations": [],
+  "scale": {
+    "anchor": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "method": null,
+    "status": "uncalibrated"
+  },
+  "scale_calibrated": false,
+  "schema_version": 3,
+  "source_id": "video-c9115d943f6c3fe4",
+  "source_kind": "video",
+  "source_review": {
+    "decision": null,
+    "status": "pending_operator_review"
+  },
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/source_manifest-v2.json",
+    "sha256": "c4f0cc413d6be15029fbd6fc736e44a563eb4659266779d6a874b0ebe86a647d"
+  }
+}

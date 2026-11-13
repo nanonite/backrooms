@@ -52,8 +52,8 @@ LIBRARY_INDEX_PATH = Path(
 )
 TEMPLATE_VERSION = "generation-template-0.1.0"
 UPGRADE_EVENT = "source_manifest_v3_recorded"
-EXPECTED_BATCH_SIZE = 7
-EXPECTED_ISSUES = tuple(range(174, 181))
+EXPECTED_BATCH_SIZE = 10
+EXPECTED_ISSUES = tuple(range(171, 181))
 
 
 class BatchError(ValueError):
@@ -107,13 +107,13 @@ def batch_record_errors(record: dict[str, Any]) -> list[str]:
             continue
         issue, source_id = source.get("issue"), source.get("source_id")
         if issue not in EXPECTED_ISSUES:
-            errors.append(f"sources[{index}].issue is outside #174-#180")
+            errors.append(f"sources[{index}].issue is outside #171-#180")
         if not isinstance(source_id, str) or not source_id.startswith("video-"):
             errors.append(f"sources[{index}].source_id must be a video source")
         issues.append(issue)
         source_ids.append(source_id)
     if sorted(issues) != list(EXPECTED_ISSUES):
-        errors.append("batch must cover each issue #174-#180 exactly once")
+        errors.append("batch must cover each issue #171-#180 exactly once")
     if len(set(source_ids)) != len(source_ids):
         errors.append("batch source IDs must be unique")
     return errors
