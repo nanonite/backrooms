@@ -1,0 +1,71 @@
+{
+  "source": "one real facebook/dinov2-base embedding from the #246 cache",
+  "image_sha256": "0094e907535d0fee26ded752c013bda66864dd79b5a56989b393b6f1bbf789a1",
+  "model": {
+    "embedding_dim": 768,
+    "model_id": "facebook/dinov2-base",
+    "preprocessing_version": "dinov2-cls-resize256-centercrop224-imagenet-v1",
+    "weights_sha256": "d73036b56966966d07975d696bde331762f37297e2f095de8cea0040c3aa0841"
+  },
+  "result": {
+    "k_values": [
+      3,
+      5,
+      8
+    ],
+    "view_count": 1,
+    "variants": {
+      "k3": {
+        "effective_k": 0,
+        "reference_frame_id": "0094e907535d0fee26ded752c013bda66864dd79b5a56989b393b6f1bbf789a1",
+        "outlier_threshold": null,
+        "outlier_frame_ids": []
+      },
+      "k5": {
+        "effective_k": 0,
+        "reference_frame_id": "0094e907535d0fee26ded752c013bda66864dd79b5a56989b393b6f1bbf789a1",
+        "outlier_threshold": null,
+        "outlier_frame_ids": []
+      },
+      "k8": {
+        "effective_k": 0,
+        "reference_frame_id": "0094e907535d0fee26ded752c013bda66864dd79b5a56989b393b6f1bbf789a1",
+        "outlier_threshold": null,
+        "outlier_frame_ids": []
+      }
+    },
+    "views": [
+      {
+        "frame_id": "0094e907535d0fee26ded752c013bda66864dd79b5a56989b393b6f1bbf789a1",
+        "consensus": {
+          "k3": {
+            "score": 0.0,
+            "rank": 1,
+            "is_reference": true,
+            "relevance_to_reference": 1.0,
+            "outlier": false,
+            "outlier_threshold": null
+          },
+          "k5": {
+            "score": 0.0,
+            "rank": 1,
+            "is_reference": true,
+            "relevance_to_reference": 1.0,
+            "outlier": false,
+            "outlier_threshold": null
+          },
+          "k8": {
+            "score": 0.0,
+            "rank": 1,
+            "is_reference": true,
+            "relevance_to_reference": 1.0,
+            "outlier": false,
+            "outlier_threshold": null
+          }
+        }
+      }
+    ]
+  },
+  "schema": "issue-248-single-view-consensus-v1",
+  "note": "One real facebook/dinov2-base embedding from the #246 text-only cache, scored by the committed FreeView consensus core. No model invocation and no image bytes."
+}

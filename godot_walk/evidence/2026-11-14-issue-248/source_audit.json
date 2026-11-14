@@ -1,0 +1,134 @@
+{
+  "schema": "issue-248-source-audit-v1",
+  "index": {
+    "schema_version": 2,
+    "index_version": 24,
+    "source_counts": {
+      "video": 12,
+      "picture_set": 1,
+      "single_image": 0
+    }
+  },
+  "picture_set": {
+    "source_id": "picture-set-d160eaa3cc847d5c",
+    "source_kind": "picture_set",
+    "source_path": "data/pictures/single_backrooms_esq",
+    "source_sha256": "d160eaa3cc847d5cc7bfb621b59ab6925ec03067ed06336b80b1c188a22c1b6c",
+    "source_manifest_path": "godot_walk/source_library/sources/picture-set-d160eaa3cc847d5c/source_manifest-v3.json",
+    "source_manifest_sha256": "6123576ee0bc0bfb31026c9c2bf49d80a73435978b1e915216db06a4a1f994c5",
+    "image_count": 57,
+    "source_review_status": "pending_operator_review",
+    "source_decision": null,
+    "selected_seed": null,
+    "hunyuan_status": "not_attempted",
+    "attempts_used": 0,
+    "attempt_limit": 3,
+    "can_start_attempt": false,
+    "next_worker_actions": [
+      "review-source"
+    ],
+    "registration_accepted": false,
+    "scale_calibrated": false
+  },
+  "hunyuan_attempts": {
+    "count": 8,
+    "picture_set_count": 0,
+    "video_count": 8,
+    "configs": [
+      {
+        "source_id": "video-b9161c467ed2d30a",
+        "attempt_id": "attempt-001",
+        "seed_frame_id": "frame_2731",
+        "seed_frame_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2731.png",
+        "width": 512,
+        "height": 256,
+        "aspect": "2:1",
+        "diagnostic_profile": "memory-diagnostic-512x256-v1",
+        "config_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/hunyuan/attempt-001/attempt_config.json"
+      },
+      {
+        "source_id": "video-ccf9722164a0bdc8",
+        "attempt_id": "attempt-001",
+        "seed_frame_id": "frame_1097",
+        "seed_frame_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+        "width": 768,
+        "height": 384,
+        "aspect": "2:1",
+        "diagnostic_profile": null,
+        "config_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-001/attempt_config.json"
+      },
+      {
+        "source_id": "video-ccf9722164a0bdc8",
+        "attempt_id": "attempt-002",
+        "seed_frame_id": "frame_1097",
+        "seed_frame_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+        "width": 768,
+        "height": 384,
+        "aspect": "2:1",
+        "diagnostic_profile": null,
+        "config_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-002/attempt_config.json"
+      },
+      {
+        "source_id": "video-ccf9722164a0bdc8",
+        "attempt_id": "attempt-003",
+        "seed_frame_id": "frame_1097",
+        "seed_frame_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+        "width": 512,
+        "height": 256,
+        "aspect": "2:1",
+        "diagnostic_profile": null,
+        "config_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-003/attempt_config.json"
+      },
+      {
+        "source_id": "video-ccf9722164a0bdc8",
+        "attempt_id": "attempt-004-retry-001",
+        "seed_frame_id": "frame_1097",
+        "seed_frame_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+        "width": 512,
+        "height": 256,
+        "aspect": "2:1",
+        "diagnostic_profile": "memory-diagnostic-512x256-v1",
+        "config_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-004-retry-001/attempt_config.json"
+      },
+      {
+        "source_id": "video-ccf9722164a0bdc8",
+        "attempt_id": "attempt-004",
+        "seed_frame_id": "frame_1097",
+        "seed_frame_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+        "width": 512,
+        "height": 256,
+        "aspect": "2:1",
+        "diagnostic_profile": "memory-diagnostic-512x256-v1",
+        "config_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-004/attempt_config.json"
+      },
+      {
+        "source_id": "video-ccf9722164a0bdc8",
+        "attempt_id": "attempt-005",
+        "seed_frame_id": "frame_1097",
+        "seed_frame_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+        "width": 512,
+        "height": 256,
+        "aspect": "2:1",
+        "diagnostic_profile": "memory-diagnostic-512x256-v1",
+        "config_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/attempt_config.json"
+      },
+      {
+        "source_id": "video-ccf9722164a0bdc8",
+        "attempt_id": "attempt-006",
+        "seed_frame_id": "frame_4560",
+        "seed_frame_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png",
+        "width": 512,
+        "height": 256,
+        "aspect": "2:1",
+        "diagnostic_profile": "memory-diagnostic-512x256-v1",
+        "config_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-006/attempt_config.json"
+      }
+    ]
+  },
+  "notes": [
+    "The picture source has no operator-approved seed and no Hunyuan attempt.",
+    "All recorded attempt configs are video sources and pass exactly one seed frame each.",
+    "The 57 photos are unrelated individual pictures; they are not a multi-view scene.",
+    "No source was registered or modified for issue 248."
+  ]
+}
