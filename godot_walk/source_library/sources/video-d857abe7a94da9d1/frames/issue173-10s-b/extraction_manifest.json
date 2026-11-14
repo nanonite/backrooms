@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "source_video": "data/videos/Max Cooper - Repetition (Official Video By Kevin McGloughlin).mp4",
+  "source_video_sha256": "d857abe7a94da9d19a4a1410a707e7632c32df6f3ded1ddd4d77317df1732bb8",
+  "metadata": {
+    "width": 1280,
+    "height": 720,
+    "fps": 24.0,
+    "frame_count": 8556,
+    "duration_seconds": 356.565624
+  },
+  "decoder": "ffmpeg select by decoded zero-based frame index",
+  "created_at_utc": "2026-11-14T17:52:17.027088+00:00",
+  "frames": [
+    {
+      "frame_id": "frame_2881",
+      "index_zero_based": 2880,
+      "timestamp_seconds": 120.0,
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-b/frame_2881.png",
+      "sha256": "0c1e25404c9003de4de6a01620400543218395012bb3097d1227daad6a1823fc",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_3121",
+      "index_zero_based": 3120,
+      "timestamp_seconds": 130.0,
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-b/frame_3121.png",
+      "sha256": "0946d604a03b30c59fc9f207359b2b33eba76f9512a415406bf2adf55e6534f3",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_3361",
+      "index_zero_based": 3360,
+      "timestamp_seconds": 140.0,
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-b/frame_3361.png",
+      "sha256": "66c8d03317ae94db04bdac9d25f39c4cdcf49e1a4d28fbe860a54d45736ad723",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_3601",
+      "index_zero_based": 3600,
+      "timestamp_seconds": 150.0,
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-b/frame_3601.png",
+      "sha256": "60b5d5d481a3540b28909bcb0cc9c95ac6423b6975b82eb26e87b17e8239519d",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_3841",
+      "index_zero_based": 3840,
+      "timestamp_seconds": 160.0,
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-b/frame_3841.png",
+      "sha256": "04ac1e5fd6999fe891a11a95d41ae4e979722caf58f85445823c6f65e0c46e5c",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_4081",
+      "index_zero_based": 4080,
+      "timestamp_seconds": 170.0,
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-b/frame_4081.png",
+      "sha256": "6bf5ecac6b8839e7d0f9902e844f18c1f769b5ad53a5fedaa2513b1ad236a4b8",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_4321",
+      "index_zero_based": 4320,
+      "timestamp_seconds": 180.0,
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-b/frame_4321.png",
+      "sha256": "4eaf4f634aab67cfb603dd5ee7588dad1eae31ffe7b98cb63dd059fb927c43a6",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_4561",
+      "index_zero_based": 4560,
+      "timestamp_seconds": 190.0,
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-b/frame_4561.png",
+      "sha256": "1e2ba7bc5254c7a742af83cd9caf39e845afc7052ca7d739196ef21136dec244",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_4801",
+      "index_zero_based": 4800,
+      "timestamp_seconds": 200.0,
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-b/frame_4801.png",
+      "sha256": "f35d4bf5b6dec1516fe28810eb90bed71269b2f3c00ee8d68afb07b00aea6544",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_5041",
+      "index_zero_based": 5040,
+      "timestamp_seconds": 210.0,
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-b/frame_5041.png",
+      "sha256": "b4c9b881cb159351e19b867999975bbcc83d4b78ff3845a22edb9c1a6b068ab7",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_5281",
+      "index_zero_based": 5280,
+      "timestamp_seconds": 220.0,
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-b/frame_5281.png",
+      "sha256": "19d1b339280a5f74d9f39921ad6d8587927747199315e61fdaee49b36999e615",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_5521",
+      "index_zero_based": 5520,
+      "timestamp_seconds": 230.0,
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-b/frame_5521.png",
+      "sha256": "fc0ac907ea8de16e6e3d0a68ab64574049113d8b5ebca44f3776486bc0ef176d",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    }
+  ]
+}
