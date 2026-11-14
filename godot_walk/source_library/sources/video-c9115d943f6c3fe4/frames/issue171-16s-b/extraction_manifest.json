@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "source_video": "data/videos/Backrooms - Found Footage #55 (Hills of Synthetic Verdure).mp4",
+  "source_video_sha256": "c9115d943f6c3fe46fbe79b826c8c76e6378c8339736ae885e7a5a3d21ee9fae",
+  "metadata": {
+    "width": 1280,
+    "height": 720,
+    "fps": 23.976023976023978,
+    "frame_count": 13937,
+    "duration_seconds": 581.381224
+  },
+  "decoder": "ffmpeg select by decoded zero-based frame index",
+  "created_at_utc": "2026-11-14T16:37:59.856281+00:00",
+  "frames": [
+    {
+      "frame_id": "frame_4891",
+      "index_zero_based": 4890,
+      "timestamp_seconds": 203.95374999999999,
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-b/frame_4891.png",
+      "sha256": "b191f94e07a244d329a9d2ee9e5fc771f0fd7fc1ab3b7685a05a3dfe18704378",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_5275",
+      "index_zero_based": 5274,
+      "timestamp_seconds": 219.96974999999998,
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-b/frame_5275.png",
+      "sha256": "073a88f69226d4f3f7c3072f4c7b1295fcc10e31eaa7f30eadc12ba76bebe07a",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_5658",
+      "index_zero_based": 5657,
+      "timestamp_seconds": 235.94404166666666,
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-b/frame_5658.png",
+      "sha256": "a02ef6e7d839abf1e85e23f3816d7cccc974d0215e96e33c1b0ce0640f8b0237",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_6042",
+      "index_zero_based": 6041,
+      "timestamp_seconds": 251.96004166666665,
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-b/frame_6042.png",
+      "sha256": "73a999aaf9a6ad42e500d669c7be20746a300a42f1e300098f32271cf28fff30",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_6426",
+      "index_zero_based": 6425,
+      "timestamp_seconds": 267.9760416666667,
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-b/frame_6426.png",
+      "sha256": "00d59f24315096e9d97f53c970ff2f8bc16ef8f0c96fe632e6fe182de890fb73",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_6809",
+      "index_zero_based": 6808,
+      "timestamp_seconds": 283.95033333333333,
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-b/frame_6809.png",
+      "sha256": "52392bcff1bd3c035a948263883f0a5a58590ec8ce1cf641363f4594f21ad155",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_7193",
+      "index_zero_based": 7192,
+      "timestamp_seconds": 299.9663333333333,
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-b/frame_7193.png",
+      "sha256": "22fbcd6e1059810ac21f42d8aafd236c2ae464b4a2a4164871d1b05492cee999",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_7576",
+      "index_zero_based": 7575,
+      "timestamp_seconds": 315.94062499999995,
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-b/frame_7576.png",
+      "sha256": "c2e12f2fdd9a725469b1716eb35288ba88d322377fcdd93f550e2f7d56c37699",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_7960",
+      "index_zero_based": 7959,
+      "timestamp_seconds": 331.956625,
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-b/frame_7960.png",
+      "sha256": "5d54782240eeaf8d3295dba7975ed156fa3e83ba0cfea04bb4f7b793f15fa0ea",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_8343",
+      "index_zero_based": 8342,
+      "timestamp_seconds": 347.93091666666663,
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-b/frame_8343.png",
+      "sha256": "73f1b2e3b35ce1de007a714452c6c991287446425b080f4ff00f2b730af6c6c6",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_8727",
+      "index_zero_based": 8726,
+      "timestamp_seconds": 363.94691666666665,
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-b/frame_8727.png",
+      "sha256": "d66b77f985bf0bb5e5ea5547447470b3569ad71baf596f983e2940f54cf66a6e",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_9110",
+      "index_zero_based": 9109,
+      "timestamp_seconds": 379.9212083333333,
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-b/frame_9110.png",
+      "sha256": "3a48bbbdb8f92d9bdf5748404793be48f2649518648ca3d13e7a14662a485683",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    }
+  ]
+}
