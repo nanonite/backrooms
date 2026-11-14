@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "source_video": "data/videos/Angel (Joseph Cornell, 1957).mp4",
+  "source_video_sha256": "d92fc1fa764aa3a25a40910f01858def4b72dd3b51ca4af8d5d012d788567428",
+  "metadata": {
+    "width": 636,
+    "height": 480,
+    "fps": 29.97002997002997,
+    "frame_count": 6782,
+    "duration_seconds": 226.348118
+  },
+  "decoder": "ffmpeg select by decoded zero-based frame index",
+  "created_at_utc": "2026-11-14T18:24:28.932967+00:00",
+  "frames": [
+    {
+      "frame_id": "frame_1799",
+      "index_zero_based": 1798,
+      "timestamp_seconds": 59.99326666666667,
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_1799.png",
+      "sha256": "a6ce10cc53402feaa160af64050c476b150d21148e60bf60b49cf3a0ed224ca7",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_1949",
+      "index_zero_based": 1948,
+      "timestamp_seconds": 64.99826666666667,
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_1949.png",
+      "sha256": "9ccff74ba73d69af126d2dd489bd359ffb2c597d5bb0ff350e6d0fd371a9bfa4",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_2099",
+      "index_zero_based": 2098,
+      "timestamp_seconds": 70.00326666666666,
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2099.png",
+      "sha256": "0b7e4e46bb0dfaf057c5694ba29d52f45688cce5cfb8e9c28bba1d26fe1eb385",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_2249",
+      "index_zero_based": 2248,
+      "timestamp_seconds": 75.00826666666667,
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2249.png",
+      "sha256": "13939d7b0b3e7022ff6fc872c6943ca45f9e52c6103a442a6349797c693278f3",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_2399",
+      "index_zero_based": 2398,
+      "timestamp_seconds": 80.01326666666667,
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2399.png",
+      "sha256": "e192b788d4e173ff1fad5febd18292489aa3ce80742af11edfeefbc0e42283ce",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_2548",
+      "index_zero_based": 2547,
+      "timestamp_seconds": 84.9849,
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2548.png",
+      "sha256": "37d8172e5d6d3b8f407a1417cc8c871dda3e4922032b8ee66947e80d52325ac9",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_2698",
+      "index_zero_based": 2697,
+      "timestamp_seconds": 89.9899,
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2698.png",
+      "sha256": "c66b4d725ffcb490c7fa69f9e9e9e413e95dd2025b873b97b888bd3665a65a91",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_2848",
+      "index_zero_based": 2847,
+      "timestamp_seconds": 94.9949,
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2848.png",
+      "sha256": "0dad833dd6fce41585daa9355fb4b2454295a33897ec40818bb1a601a2cb4fbd",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_2998",
+      "index_zero_based": 2997,
+      "timestamp_seconds": 99.9999,
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2998.png",
+      "sha256": "2091c3f928b8eae37b9abc9d1456273d921041c324b13c22b7aa1684fb738a39",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_3148",
+      "index_zero_based": 3147,
+      "timestamp_seconds": 105.0049,
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_3148.png",
+      "sha256": "e417078bd88e933df42b6bb11a62825beb8671e14d068fcf47d6c8ebae093cac",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_3298",
+      "index_zero_based": 3297,
+      "timestamp_seconds": 110.0099,
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_3298.png",
+      "sha256": "5f53fcfabec95fe032a6514661ae5f10f9d7bd0d09f51a3958725cb425a3e572",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_3448",
+      "index_zero_based": 3447,
+      "timestamp_seconds": 115.0149,
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_3448.png",
+      "sha256": "469775850e2e839d68c8d0c85404a7bb886ec5f19bb2c92e625c5bfd6bbab432",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    }
+  ]
+}

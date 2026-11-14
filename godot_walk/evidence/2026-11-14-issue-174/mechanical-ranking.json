@@ -1,0 +1,1281 @@
+{
+  "candidate_batches": [
+    {
+      "frame_count": 12,
+      "manifest_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/extraction_manifest.json",
+      "manifest_sha256": "5767db098c89ef86be33ee133369abaf82b1e7a8c76a8eda67bd55edca9ca07c",
+      "run_id": "issue174-5s-a"
+    },
+    {
+      "frame_count": 12,
+      "manifest_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/extraction_manifest.json",
+      "manifest_sha256": "08d7c863e3210f060709875cc8f9a3df30888f6488ae79f855c3b134c18fc8a6",
+      "run_id": "issue174-5s-b"
+    },
+    {
+      "frame_count": 12,
+      "manifest_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/extraction_manifest.json",
+      "manifest_sha256": "0dbeed6c0da940d4d38e49282dd3677ee4c35f7f35b25f3b6590acea80baccab",
+      "run_id": "issue174-5s-c"
+    },
+    {
+      "frame_count": 11,
+      "manifest_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-d/extraction_manifest.json",
+      "manifest_sha256": "2a8d25fb321dd2325b7907c4cedda370466fdb44903f6aaaf2274d839451dd0a",
+      "run_id": "issue174-5s-d"
+    }
+  ],
+  "consensus_status": "not_requested",
+  "consensus_variants": null,
+  "ground_truth": [],
+  "issue": 210,
+  "k_sweep": [
+    3,
+    5,
+    8
+  ],
+  "mechanical_order": [
+    "frame_4347",
+    "frame_4497",
+    "frame_4197",
+    "frame_2848",
+    "frame_2998",
+    "frame_0600",
+    "frame_0301",
+    "frame_0451",
+    "frame_1500",
+    "frame_1649",
+    "frame_2399",
+    "frame_2249",
+    "frame_2099",
+    "frame_1050",
+    "frame_1350",
+    "frame_1949",
+    "frame_1200",
+    "frame_1799",
+    "frame_2698",
+    "frame_5545",
+    "frame_5396",
+    "frame_3448",
+    "frame_5246",
+    "frame_3148",
+    "frame_2548",
+    "frame_3298",
+    "frame_4946",
+    "frame_5096",
+    "frame_3597",
+    "frame_4796",
+    "frame_3747",
+    "frame_4646",
+    "frame_0900",
+    "frame_0750",
+    "frame_5995",
+    "frame_6295",
+    "frame_6145",
+    "frame_6445",
+    "frame_3897",
+    "frame_4047",
+    "frame_6594",
+    "frame_5845",
+    "frame_5695",
+    "frame_6782",
+    "frame_6744",
+    "frame_0151",
+    "frame_0001"
+  ],
+  "mode": "inventory",
+  "model": null,
+  "schema_version": 1,
+  "source": {
+    "duration_seconds": 226.348118,
+    "fps": 29.97003,
+    "frame_count": 6782,
+    "height": 480,
+    "manifest_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/source_manifest-v3.json",
+    "manifest_sha256": "28c01ed69ccbe6acc9854b659cbfb3a8b902903a6257542bb289f9a042b8f77f",
+    "source_id": "video-d92fc1fa764aa3a2",
+    "video_path": "data/videos/Angel (Joseph Cornell, 1957).mp4",
+    "video_sha256": "d92fc1fa764aa3a25a40910f01858def4b72dd3b51ca4af8d5d012d788567428",
+    "width": 636
+  },
+  "tool": "freeview_consensus",
+  "tool_version": "1.1.0",
+  "unique_frame_count": 47,
+  "views": [
+    {
+      "batches": [
+        "issue174-5s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0001",
+      "index_zero_based": 0,
+      "mechanical": {
+        "duplicate_similarity": 0.999429,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 1.0,
+        "exposure_mean_luminance": 0.019608,
+        "exposure_score": 0.0,
+        "focus_analysis_laplacian_variance": 0.0,
+        "focus_native_laplacian_variance": 0.0,
+        "focus_score": 0.0,
+        "mechanical_rank": 47,
+        "mechanical_score": 0.100086,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/frame_0001.png",
+      "pts_seconds": 0.0,
+      "sha256": "9778d1e248f7ed5467d6cde92a71022b2d0b2db9c5638ef470380a03aecfd9e2"
+    },
+    {
+      "batches": [
+        "issue174-5s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0151",
+      "index_zero_based": 150,
+      "mechanical": {
+        "duplicate_similarity": 0.999429,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.974024,
+        "exposure_mean_luminance": 0.020202,
+        "exposure_score": 0.0,
+        "focus_analysis_laplacian_variance": 1.052474,
+        "focus_native_laplacian_variance": 1.037461,
+        "focus_score": 0.002328,
+        "mechanical_rank": 46,
+        "mechanical_score": 0.10125,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/frame_0151.png",
+      "pts_seconds": 5.005,
+      "sha256": "72fc93117bdd1c986e40f0a0673f1ef1d975386ab2b0fb047a1189b951c17857"
+    },
+    {
+      "batches": [
+        "issue174-5s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0301",
+      "index_zero_based": 300,
+      "mechanical": {
+        "duplicate_similarity": 0.99092,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.452547,
+        "exposure_score": 0.933566,
+        "focus_analysis_laplacian_variance": 219.441033,
+        "focus_native_laplacian_variance": 152.533707,
+        "focus_score": 0.485418,
+        "mechanical_rank": 7,
+        "mechanical_score": 0.577462,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/frame_0301.png",
+      "pts_seconds": 10.01,
+      "sha256": "443afff0306bcdc9b03270e53f52a0555fa14a89cad6d3cc6d2e47a0b1534a29"
+    },
+    {
+      "batches": [
+        "issue174-5s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0451",
+      "index_zero_based": 450,
+      "mechanical": {
+        "duplicate_similarity": 0.980273,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.4491,
+        "exposure_score": 0.92874,
+        "focus_analysis_laplacian_variance": 201.8873,
+        "focus_native_laplacian_variance": 145.984133,
+        "focus_score": 0.446588,
+        "mechanical_rank": 8,
+        "mechanical_score": 0.558438,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/frame_0451.png",
+      "pts_seconds": 15.015,
+      "sha256": "b4387b978404182e35dfa5ff0fed02bdd68a71a168575e79264e79085b2c4d2b"
+    },
+    {
+      "batches": [
+        "issue174-5s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0600",
+      "index_zero_based": 599,
+      "mechanical": {
+        "duplicate_similarity": 0.99092,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.447051,
+        "exposure_score": 0.925872,
+        "focus_analysis_laplacian_variance": 223.41592,
+        "focus_native_laplacian_variance": 154.988594,
+        "focus_score": 0.494211,
+        "mechanical_rank": 6,
+        "mechanical_score": 0.579935,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/frame_0600.png",
+      "pts_seconds": 19.986633333333334,
+      "sha256": "09c2046ac653191e842d700bdacfea65e4c5ce1491a39ea0a1daef5a62f54465"
+    },
+    {
+      "batches": [
+        "issue174-5s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0750",
+      "index_zero_based": 749,
+      "mechanical": {
+        "duplicate_similarity": 0.985114,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.588972,
+        "exposure_score": 0.875439,
+        "focus_analysis_laplacian_variance": 64.895208,
+        "focus_native_laplacian_variance": 47.903249,
+        "focus_score": 0.143552,
+        "mechanical_rank": 34,
+        "mechanical_score": 0.392869,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/frame_0750.png",
+      "pts_seconds": 24.991633333333333,
+      "sha256": "4e838e2a494830d52328a7bb47c897be20011fe450f546302eedd2629a4a1ea0"
+    },
+    {
+      "batches": [
+        "issue174-5s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0900",
+      "index_zero_based": 899,
+      "mechanical": {
+        "duplicate_similarity": 0.985114,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.58768,
+        "exposure_score": 0.877248,
+        "focus_analysis_laplacian_variance": 70.236528,
+        "focus_native_laplacian_variance": 51.698356,
+        "focus_score": 0.155368,
+        "mechanical_rank": 33,
+        "mechanical_score": 0.399229,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/frame_0900.png",
+      "pts_seconds": 29.996633333333335,
+      "sha256": "32f04eeee33c59af11ac6a4df54cba379d97f6c25590df798be009f422849a53"
+    },
+    {
+      "batches": [
+        "issue174-5s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_1050",
+      "index_zero_based": 1049,
+      "mechanical": {
+        "duplicate_similarity": 0.99128,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.478748,
+        "exposure_score": 0.970247,
+        "focus_analysis_laplacian_variance": 139.879748,
+        "focus_native_laplacian_variance": 94.407783,
+        "focus_score": 0.309423,
+        "mechanical_rank": 14,
+        "mechanical_score": 0.498581,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/frame_1050.png",
+      "pts_seconds": 35.00163333333333,
+      "sha256": "d04aef8d3993a7c34647f9116e8aacf95b16551751e1822c17cc6167ced5e481"
+    },
+    {
+      "batches": [
+        "issue174-5s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_1200",
+      "index_zero_based": 1199,
+      "mechanical": {
+        "duplicate_similarity": 0.99128,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.47302,
+        "exposure_score": 0.962229,
+        "focus_analysis_laplacian_variance": 132.997431,
+        "focus_native_laplacian_variance": 89.338404,
+        "focus_score": 0.294199,
+        "mechanical_rank": 17,
+        "mechanical_score": 0.488965,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/frame_1200.png",
+      "pts_seconds": 40.00663333333333,
+      "sha256": "6602e125edd4e208fe174c9e8b87db47d9e8a862dc80b4251d52f01252b6b491"
+    },
+    {
+      "batches": [
+        "issue174-5s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_1350",
+      "index_zero_based": 1349,
+      "mechanical": {
+        "duplicate_similarity": 0.971032,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.476964,
+        "exposure_score": 0.967749,
+        "focus_analysis_laplacian_variance": 135.927517,
+        "focus_native_laplacian_variance": 89.066477,
+        "focus_score": 0.30068,
+        "mechanical_rank": 15,
+        "mechanical_score": 0.496623,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/frame_1350.png",
+      "pts_seconds": 45.011633333333336,
+      "sha256": "78eb85fd3695d062bdfdc7e4ec7c90a9ac2e5d064c7c60b6057a46e026dc41b9"
+    },
+    {
+      "batches": [
+        "issue174-5s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_1500",
+      "index_zero_based": 1499,
+      "mechanical": {
+        "duplicate_similarity": 0.957475,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.504671,
+        "exposure_score": 0.99346,
+        "focus_analysis_laplacian_variance": 174.488828,
+        "focus_native_laplacian_variance": 134.781361,
+        "focus_score": 0.385981,
+        "mechanical_rank": 9,
+        "mechanical_score": 0.547734,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/frame_1500.png",
+      "pts_seconds": 50.01663333333333,
+      "sha256": "9139ce3d1c776bd711d204c06bc1cc7100eb799115a650d511819d81b1d4d019"
+    },
+    {
+      "batches": [
+        "issue174-5s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_1649",
+      "index_zero_based": 1648,
+      "mechanical": {
+        "duplicate_similarity": 0.957475,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.505656,
+        "exposure_score": 0.992081,
+        "focus_analysis_laplacian_variance": 167.950729,
+        "focus_native_laplacian_variance": 122.759591,
+        "focus_score": 0.371518,
+        "mechanical_rank": 10,
+        "mechanical_score": 0.540158,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-a/frame_1649.png",
+      "pts_seconds": 54.98826666666667,
+      "sha256": "d19600531fcacca5c4e8904a9da901ffb539833a7e5ed35dc3292be971f8d55f"
+    },
+    {
+      "batches": [
+        "issue174-5s-b"
+      ],
+      "consensus": {},
+      "frame_id": "frame_1799",
+      "index_zero_based": 1798,
+      "mechanical": {
+        "duplicate_similarity": 0.982698,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.384523,
+        "exposure_score": 0.838333,
+        "focus_analysis_laplacian_variance": 147.415043,
+        "focus_native_laplacian_variance": 112.502182,
+        "focus_score": 0.326092,
+        "mechanical_rank": 18,
+        "mechanical_score": 0.475224,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_1799.png",
+      "pts_seconds": 59.99326666666667,
+      "sha256": "a6ce10cc53402feaa160af64050c476b150d21148e60bf60b49cf3a0ed224ca7"
+    },
+    {
+      "batches": [
+        "issue174-5s-b"
+      ],
+      "consensus": {},
+      "frame_id": "frame_1949",
+      "index_zero_based": 1948,
+      "mechanical": {
+        "duplicate_similarity": 0.962986,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.386943,
+        "exposure_score": 0.84172,
+        "focus_analysis_laplacian_variance": 157.221102,
+        "focus_native_laplacian_variance": 115.771547,
+        "focus_score": 0.347783,
+        "mechanical_rank": 16,
+        "mechanical_score": 0.489874,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_1949.png",
+      "pts_seconds": 64.99826666666667,
+      "sha256": "9ccff74ba73d69af126d2dd489bd359ffb2c597d5bb0ff350e6d0fd371a9bfa4"
+    },
+    {
+      "batches": [
+        "issue174-5s-b"
+      ],
+      "consensus": {},
+      "frame_id": "frame_2099",
+      "index_zero_based": 2098,
+      "mechanical": {
+        "duplicate_similarity": 0.982698,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.391784,
+        "exposure_score": 0.848497,
+        "focus_analysis_laplacian_variance": 182.287925,
+        "focus_native_laplacian_variance": 136.935135,
+        "focus_score": 0.403233,
+        "mechanical_rank": 13,
+        "mechanical_score": 0.516336,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2099.png",
+      "pts_seconds": 70.00326666666666,
+      "sha256": "0b7e4e46bb0dfaf057c5694ba29d52f45688cce5cfb8e9c28bba1d26fe1eb385"
+    },
+    {
+      "batches": [
+        "issue174-5s-b"
+      ],
+      "consensus": {},
+      "frame_id": "frame_2249",
+      "index_zero_based": 2248,
+      "mechanical": {
+        "duplicate_similarity": 0.848089,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.355081,
+        "exposure_score": 0.797113,
+        "focus_analysis_laplacian_variance": 175.893073,
+        "focus_native_laplacian_variance": 132.844176,
+        "focus_score": 0.389087,
+        "mechanical_rank": 12,
+        "mechanical_score": 0.516608,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2249.png",
+      "pts_seconds": 75.00826666666667,
+      "sha256": "13939d7b0b3e7022ff6fc872c6943ca45f9e52c6103a442a6349797c693278f3"
+    },
+    {
+      "batches": [
+        "issue174-5s-b"
+      ],
+      "consensus": {},
+      "frame_id": "frame_2399",
+      "index_zero_based": 2398,
+      "mechanical": {
+        "duplicate_similarity": 0.891529,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 7e-06,
+        "exposure_mean_luminance": 0.275939,
+        "exposure_score": 0.686311,
+        "focus_analysis_laplacian_variance": 224.373351,
+        "focus_native_laplacian_variance": 171.642243,
+        "focus_score": 0.496328,
+        "mechanical_rank": 11,
+        "mechanical_score": 0.536013,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2399.png",
+      "pts_seconds": 80.01326666666667,
+      "sha256": "e192b788d4e173ff1fad5febd18292489aa3ce80742af11edfeefbc0e42283ce"
+    },
+    {
+      "batches": [
+        "issue174-5s-b"
+      ],
+      "consensus": {},
+      "frame_id": "frame_2548",
+      "index_zero_based": 2547,
+      "mechanical": {
+        "duplicate_similarity": 0.895611,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.231435,
+        "exposure_score": 0.624009,
+        "focus_analysis_laplacian_variance": 148.294349,
+        "focus_native_laplacian_variance": 97.772831,
+        "focus_score": 0.328037,
+        "mechanical_rank": 25,
+        "mechanical_score": 0.435679,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2548.png",
+      "pts_seconds": 84.9849,
+      "sha256": "37d8172e5d6d3b8f407a1417cc8c871dda3e4922032b8ee66947e80d52325ac9"
+    },
+    {
+      "batches": [
+        "issue174-5s-b"
+      ],
+      "consensus": {},
+      "frame_id": "frame_2698",
+      "index_zero_based": 2697,
+      "mechanical": {
+        "duplicate_similarity": 0.869868,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.245192,
+        "exposure_score": 0.643269,
+        "focus_analysis_laplacian_variance": 165.100182,
+        "focus_native_laplacian_variance": 108.588987,
+        "focus_score": 0.365212,
+        "mechanical_rank": 19,
+        "mechanical_score": 0.462943,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2698.png",
+      "pts_seconds": 89.9899,
+      "sha256": "c66b4d725ffcb490c7fa69f9e9e9e413e95dd2025b873b97b888bd3665a65a91"
+    },
+    {
+      "batches": [
+        "issue174-5s-b"
+      ],
+      "consensus": {},
+      "frame_id": "frame_2848",
+      "index_zero_based": 2847,
+      "mechanical": {
+        "duplicate_similarity": 0.888706,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 7e-06,
+        "exposure_mean_luminance": 0.386151,
+        "exposure_score": 0.840607,
+        "focus_analysis_laplacian_variance": 275.836068,
+        "focus_native_laplacian_variance": 207.405582,
+        "focus_score": 0.610167,
+        "mechanical_rank": 4,
+        "mechanical_score": 0.63193,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2848.png",
+      "pts_seconds": 94.9949,
+      "sha256": "0dad833dd6fce41585daa9355fb4b2454295a33897ec40818bb1a601a2cb4fbd"
+    },
+    {
+      "batches": [
+        "issue174-5s-b"
+      ],
+      "consensus": {},
+      "frame_id": "frame_2998",
+      "index_zero_based": 2997,
+      "mechanical": {
+        "duplicate_similarity": 0.843915,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.420318,
+        "exposure_score": 0.888445,
+        "focus_analysis_laplacian_variance": 243.977274,
+        "focus_native_laplacian_variance": 176.361485,
+        "focus_score": 0.539694,
+        "mechanical_rank": 5,
+        "mechanical_score": 0.615371,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_2998.png",
+      "pts_seconds": 99.9999,
+      "sha256": "2091c3f928b8eae37b9abc9d1456273d921041c324b13c22b7aa1684fb738a39"
+    },
+    {
+      "batches": [
+        "issue174-5s-b"
+      ],
+      "consensus": {},
+      "frame_id": "frame_3148",
+      "index_zero_based": 3147,
+      "mechanical": {
+        "duplicate_similarity": 0.988465,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.405204,
+        "exposure_score": 0.867285,
+        "focus_analysis_laplacian_variance": 108.183941,
+        "focus_native_laplacian_variance": 82.778597,
+        "focus_score": 0.23931,
+        "mechanical_rank": 24,
+        "mechanical_score": 0.438206,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_3148.png",
+      "pts_seconds": 105.0049,
+      "sha256": "e417078bd88e933df42b6bb11a62825beb8671e14d068fcf47d6c8ebae093cac"
+    },
+    {
+      "batches": [
+        "issue174-5s-b"
+      ],
+      "consensus": {},
+      "frame_id": "frame_3298",
+      "index_zero_based": 3297,
+      "mechanical": {
+        "duplicate_similarity": 0.988465,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.411299,
+        "exposure_score": 0.875819,
+        "focus_analysis_laplacian_variance": 102.324358,
+        "focus_native_laplacian_variance": 78.93767,
+        "focus_score": 0.226348,
+        "mechanical_rank": 26,
+        "mechanical_score": 0.433859,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_3298.png",
+      "pts_seconds": 110.0099,
+      "sha256": "5f53fcfabec95fe032a6514661ae5f10f9d7bd0d09f51a3958725cb425a3e572"
+    },
+    {
+      "batches": [
+        "issue174-5s-b"
+      ],
+      "consensus": {},
+      "frame_id": "frame_3448",
+      "index_zero_based": 3447,
+      "mechanical": {
+        "duplicate_similarity": 0.976934,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.304869,
+        "exposure_score": 0.726817,
+        "focus_analysis_laplacian_variance": 139.657491,
+        "focus_native_laplacian_variance": 107.310417,
+        "focus_score": 0.308931,
+        "mechanical_rank": 22,
+        "mechanical_score": 0.43963,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-b/frame_3448.png",
+      "pts_seconds": 115.0149,
+      "sha256": "469775850e2e839d68c8d0c85404a7bb886ec5f19bb2c92e625c5bfd6bbab432"
+    },
+    {
+      "batches": [
+        "issue174-5s-c"
+      ],
+      "consensus": {},
+      "frame_id": "frame_3597",
+      "index_zero_based": 3596,
+      "mechanical": {
+        "duplicate_similarity": 0.993191,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.30548,
+        "exposure_score": 0.727673,
+        "focus_analysis_laplacian_variance": 121.503507,
+        "focus_native_laplacian_variance": 90.198343,
+        "focus_score": 0.268774,
+        "mechanical_rank": 29,
+        "mechanical_score": 0.417326,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_3597.png",
+      "pts_seconds": 119.98653333333334,
+      "sha256": "cfcf3d943cd0ace0f9972e2830d1787283f6bc8a45cd12c30f1e783b36030b3d"
+    },
+    {
+      "batches": [
+        "issue174-5s-c"
+      ],
+      "consensus": {},
+      "frame_id": "frame_3747",
+      "index_zero_based": 3746,
+      "mechanical": {
+        "duplicate_similarity": 0.993191,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.301458,
+        "exposure_score": 0.722041,
+        "focus_analysis_laplacian_variance": 119.699887,
+        "focus_native_laplacian_variance": 89.938574,
+        "focus_score": 0.264784,
+        "mechanical_rank": 31,
+        "mechanical_score": 0.413924,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_3747.png",
+      "pts_seconds": 124.99153333333334,
+      "sha256": "4e6aa75948bd7beb9fc78b3fdd8f53c55e289cb3196fcad3007cfa8962a33b27"
+    },
+    {
+      "batches": [
+        "issue174-5s-c"
+      ],
+      "consensus": {},
+      "frame_id": "frame_3897",
+      "index_zero_based": 3896,
+      "mechanical": {
+        "duplicate_similarity": 0.984835,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.289132,
+        "exposure_score": 0.704785,
+        "focus_analysis_laplacian_variance": 66.435156,
+        "focus_native_laplacian_variance": 53.875917,
+        "focus_score": 0.146959,
+        "mechanical_rank": 39,
+        "mechanical_score": 0.35195,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_3897.png",
+      "pts_seconds": 129.99653333333333,
+      "sha256": "2875d106c3f4eaf042596b8c6b13941c052e3316e37b8058e66608e505560747"
+    },
+    {
+      "batches": [
+        "issue174-5s-c"
+      ],
+      "consensus": {},
+      "frame_id": "frame_4047",
+      "index_zero_based": 4046,
+      "mechanical": {
+        "duplicate_similarity": 0.984835,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.284528,
+        "exposure_score": 0.69834,
+        "focus_analysis_laplacian_variance": 67.482205,
+        "focus_native_laplacian_variance": 54.637317,
+        "focus_score": 0.149275,
+        "mechanical_rank": 40,
+        "mechanical_score": 0.351497,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_4047.png",
+      "pts_seconds": 135.00153333333333,
+      "sha256": "e087d0733eb2731a8899bf41b7532a4d925ae0e3e9374bb7af3e24583bddba98"
+    },
+    {
+      "batches": [
+        "issue174-5s-c"
+      ],
+      "consensus": {},
+      "frame_id": "frame_4197",
+      "index_zero_based": 4196,
+      "mechanical": {
+        "duplicate_similarity": 0.988764,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.413621,
+        "exposure_score": 0.879069,
+        "focus_analysis_laplacian_variance": 415.17046,
+        "focus_native_laplacian_variance": 288.180444,
+        "focus_score": 0.918384,
+        "mechanical_rank": 3,
+        "mechanical_score": 0.780645,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_4197.png",
+      "pts_seconds": 140.00653333333332,
+      "sha256": "fa5f979fff8db67bb1b09a65dda9099db1f9a47e1ff15394de37cf93fe528604"
+    },
+    {
+      "batches": [
+        "issue174-5s-c"
+      ],
+      "consensus": {},
+      "frame_id": "frame_4347",
+      "index_zero_based": 4346,
+      "mechanical": {
+        "duplicate_similarity": 0.988764,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.411018,
+        "exposure_score": 0.875426,
+        "focus_analysis_laplacian_variance": 452.066302,
+        "focus_native_laplacian_variance": 311.980759,
+        "focus_score": 1.0,
+        "mechanical_rank": 1,
+        "mechanical_score": 0.820542,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_4347.png",
+      "pts_seconds": 145.01153333333335,
+      "sha256": "ae59a84fb9aa07612b5b100c2ee5b5ab5645836dd5bccc665b862acd51ab500f"
+    },
+    {
+      "batches": [
+        "issue174-5s-c"
+      ],
+      "consensus": {},
+      "frame_id": "frame_4497",
+      "index_zero_based": 4496,
+      "mechanical": {
+        "duplicate_similarity": 0.984819,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.417907,
+        "exposure_score": 0.88507,
+        "focus_analysis_laplacian_variance": 441.84408,
+        "focus_native_laplacian_variance": 310.342276,
+        "focus_score": 0.977388,
+        "mechanical_rank": 2,
+        "mechanical_score": 0.812239,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_4497.png",
+      "pts_seconds": 150.01653333333334,
+      "sha256": "0a3fa5734182726073cd7f8b0e5af8f2442ee1e9d97de2a5b14004c8ac854157"
+    },
+    {
+      "batches": [
+        "issue174-5s-c"
+      ],
+      "consensus": {},
+      "frame_id": "frame_4646",
+      "index_zero_based": 4645,
+      "mechanical": {
+        "duplicate_similarity": 0.967839,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.327953,
+        "exposure_score": 0.759135,
+        "focus_analysis_laplacian_variance": 106.860773,
+        "focus_native_laplacian_variance": 73.604409,
+        "focus_score": 0.236383,
+        "mechanical_rank": 32,
+        "mechanical_score": 0.412799,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_4646.png",
+      "pts_seconds": 154.98816666666667,
+      "sha256": "1ce65c11a2dfa27cf09fb4944e5ff4dfd30868934b537a3b37e42ebdfa5d9267"
+    },
+    {
+      "batches": [
+        "issue174-5s-c"
+      ],
+      "consensus": {},
+      "frame_id": "frame_4796",
+      "index_zero_based": 4795,
+      "mechanical": {
+        "duplicate_similarity": 0.967839,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.325295,
+        "exposure_score": 0.755413,
+        "focus_analysis_laplacian_variance": 111.518628,
+        "focus_native_laplacian_variance": 75.263915,
+        "focus_score": 0.246686,
+        "mechanical_rank": 30,
+        "mechanical_score": 0.417021,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_4796.png",
+      "pts_seconds": 159.99316666666667,
+      "sha256": "c356afea89f67c0389e66a7be769baef54f4023d3e4943c1bb851e5742a4e2d1"
+    },
+    {
+      "batches": [
+        "issue174-5s-c"
+      ],
+      "consensus": {},
+      "frame_id": "frame_4946",
+      "index_zero_based": 4945,
+      "mechanical": {
+        "duplicate_similarity": 0.979848,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.440902,
+        "exposure_score": 0.917263,
+        "focus_analysis_laplacian_variance": 91.006658,
+        "focus_native_laplacian_variance": 66.510777,
+        "focus_score": 0.201313,
+        "mechanical_rank": 27,
+        "mechanical_score": 0.432995,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_4946.png",
+      "pts_seconds": 164.99816666666666,
+      "sha256": "5cd8763c3f4d8b3d056084fad29498d7beb8142cde29c287c7fae6f48c38dc4a"
+    },
+    {
+      "batches": [
+        "issue174-5s-c"
+      ],
+      "consensus": {},
+      "frame_id": "frame_5096",
+      "index_zero_based": 5095,
+      "mechanical": {
+        "duplicate_similarity": 0.979848,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.441213,
+        "exposure_score": 0.917698,
+        "focus_analysis_laplacian_variance": 88.239531,
+        "focus_native_laplacian_variance": 63.490979,
+        "focus_score": 0.195192,
+        "mechanical_rank": 28,
+        "mechanical_score": 0.430043,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_5096.png",
+      "pts_seconds": 170.00316666666666,
+      "sha256": "c4213a1b0b18c47747b88cbc3d1d5966265a476436228e6b61091a60b06ef34c"
+    },
+    {
+      "batches": [
+        "issue174-5s-c"
+      ],
+      "consensus": {},
+      "frame_id": "frame_5246",
+      "index_zero_based": 5245,
+      "mechanical": {
+        "duplicate_similarity": 0.990797,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.36424,
+        "exposure_score": 0.809937,
+        "focus_analysis_laplacian_variance": 122.399306,
+        "focus_native_laplacian_variance": 90.25133,
+        "focus_score": 0.270755,
+        "mechanical_rank": 23,
+        "mechanical_score": 0.439242,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_5246.png",
+      "pts_seconds": 175.00816666666668,
+      "sha256": "b3b942ddf1c44b6358f7da505e5cef42d577ae5dd85a638af6b6c3004bc91659"
+    },
+    {
+      "batches": [
+        "issue174-5s-d"
+      ],
+      "consensus": {},
+      "frame_id": "frame_5396",
+      "index_zero_based": 5395,
+      "mechanical": {
+        "duplicate_similarity": 0.990797,
+        "exposure_clipped_high_fraction": 3e-06,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.36722,
+        "exposure_score": 0.814106,
+        "focus_analysis_laplacian_variance": 125.282604,
+        "focus_native_laplacian_variance": 94.139767,
+        "focus_score": 0.277133,
+        "mechanical_rank": 21,
+        "mechanical_score": 0.443473,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-d/frame_5396.png",
+      "pts_seconds": 180.01316666666668,
+      "sha256": "540b983c62a226ea739cf0c9f078b9b84504e40a6ca20dbe483d0d6dd911afdd"
+    },
+    {
+      "batches": [
+        "issue174-5s-d"
+      ],
+      "consensus": {},
+      "frame_id": "frame_5545",
+      "index_zero_based": 5544,
+      "mechanical": {
+        "duplicate_similarity": 0.931281,
+        "exposure_clipped_high_fraction": 3e-06,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.370094,
+        "exposure_score": 0.81813,
+        "focus_analysis_laplacian_variance": 127.883568,
+        "focus_native_laplacian_variance": 93.875649,
+        "focus_score": 0.282887,
+        "mechanical_rank": 20,
+        "mechanical_score": 0.456284,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-d/frame_5545.png",
+      "pts_seconds": 184.9848,
+      "sha256": "3e6d525564ed924b42a77a61afdf1725b499fd0635edb5c08fb36889e61eadbe"
+    },
+    {
+      "batches": [
+        "issue174-5s-d"
+      ],
+      "consensus": {},
+      "frame_id": "frame_5695",
+      "index_zero_based": 5694,
+      "mechanical": {
+        "duplicate_similarity": 0.979952,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.281689,
+        "exposure_score": 0.694364,
+        "focus_analysis_laplacian_variance": 57.675356,
+        "focus_native_laplacian_variance": 38.848375,
+        "focus_score": 0.127582,
+        "mechanical_rank": 43,
+        "mechanical_score": 0.340389,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-d/frame_5695.png",
+      "pts_seconds": 189.9898,
+      "sha256": "6f2c7f8321686351a88456ec73087c629bd3ea2b9e1ecc198bfc76be80c066be"
+    },
+    {
+      "batches": [
+        "issue174-5s-d"
+      ],
+      "consensus": {},
+      "frame_id": "frame_5845",
+      "index_zero_based": 5844,
+      "mechanical": {
+        "duplicate_similarity": 0.979952,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.280349,
+        "exposure_score": 0.692488,
+        "focus_analysis_laplacian_variance": 58.967986,
+        "focus_native_laplacian_variance": 39.546698,
+        "focus_score": 0.130441,
+        "mechanical_rank": 42,
+        "mechanical_score": 0.34135,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-d/frame_5845.png",
+      "pts_seconds": 194.9948,
+      "sha256": "80fa3f1e5d5069cdcdc858bdcf5edc61bad82c7eece0a4045f250a2a56565ae7"
+    },
+    {
+      "batches": [
+        "issue174-5s-d"
+      ],
+      "consensus": {},
+      "frame_id": "frame_5995",
+      "index_zero_based": 5994,
+      "mechanical": {
+        "duplicate_similarity": 0.990326,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.405918,
+        "exposure_score": 0.868285,
+        "focus_analysis_laplacian_variance": 57.468759,
+        "focus_native_laplacian_variance": 45.084251,
+        "focus_score": 0.127125,
+        "mechanical_rank": 35,
+        "mechanical_score": 0.382085,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-d/frame_5995.png",
+      "pts_seconds": 199.9998,
+      "sha256": "5bd379bc7132797122e6e93fec3a2f833ffea3c52ebf127cbbaf18ad0302da39"
+    },
+    {
+      "batches": [
+        "issue174-5s-d"
+      ],
+      "consensus": {},
+      "frame_id": "frame_6145",
+      "index_zero_based": 6144,
+      "mechanical": {
+        "duplicate_similarity": 0.990326,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.407239,
+        "exposure_score": 0.870135,
+        "focus_analysis_laplacian_variance": 54.344028,
+        "focus_native_laplacian_variance": 41.600459,
+        "focus_score": 0.120213,
+        "mechanical_rank": 37,
+        "mechanical_score": 0.379091,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-d/frame_6145.png",
+      "pts_seconds": 205.00480000000002,
+      "sha256": "56b1fec373aa8bbb71059ce71de91957f0a838658ce5004f763e001e4b0ed416"
+    },
+    {
+      "batches": [
+        "issue174-5s-d"
+      ],
+      "consensus": {},
+      "frame_id": "frame_6295",
+      "index_zero_based": 6294,
+      "mechanical": {
+        "duplicate_similarity": 0.963243,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.413978,
+        "exposure_score": 0.879569,
+        "focus_analysis_laplacian_variance": 49.372595,
+        "focus_native_laplacian_variance": 41.435004,
+        "focus_score": 0.109215,
+        "mechanical_rank": 36,
+        "mechanical_score": 0.380013,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 5.005
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-d/frame_6295.png",
+      "pts_seconds": 210.0098,
+      "sha256": "b5689491ae9638eedb0b831650b8c918b80c51bf085161ca08cfa9b0ca4c3739"
+    },
+    {
+      "batches": [
+        "issue174-5s-d"
+      ],
+      "consensus": {},
+      "frame_id": "frame_6445",
+      "index_zero_based": 6444,
+      "mechanical": {
+        "duplicate_similarity": 0.98153,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.379309,
+        "exposure_score": 0.831033,
+        "focus_analysis_laplacian_variance": 43.205851,
+        "focus_native_laplacian_variance": 36.768796,
+        "focus_score": 0.095574,
+        "mechanical_rank": 38,
+        "mechanical_score": 0.358316,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-d/frame_6445.png",
+      "pts_seconds": 215.0148,
+      "sha256": "a1cf3b907ca604227836f7fce219edead6241e09e9e0d0be1d19ca70cf8639ee"
+    },
+    {
+      "batches": [
+        "issue174-5s-d"
+      ],
+      "consensus": {},
+      "frame_id": "frame_6594",
+      "index_zero_based": 6593,
+      "mechanical": {
+        "duplicate_similarity": 0.982889,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.368117,
+        "exposure_score": 0.815364,
+        "focus_analysis_laplacian_variance": 39.507856,
+        "focus_native_laplacian_variance": 33.332455,
+        "focus_score": 0.087394,
+        "mechanical_rank": 41,
+        "mechanical_score": 0.350105,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 4.971633
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-d/frame_6594.png",
+      "pts_seconds": 219.98643333333334,
+      "sha256": "8882007e965e6fe5add59b20ab279ae7f93e8df9bceef93b69baab633d0b1daa"
+    },
+    {
+      "batches": [
+        "issue174-5s-d"
+      ],
+      "consensus": {},
+      "frame_id": "frame_6744",
+      "index_zero_based": 6743,
+      "mechanical": {
+        "duplicate_similarity": 0.988905,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.357319,
+        "exposure_score": 0.800246,
+        "focus_analysis_laplacian_variance": 31.105946,
+        "focus_native_laplacian_variance": 26.788699,
+        "focus_score": 0.068808,
+        "mechanical_rank": 45,
+        "mechanical_score": 0.33613,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 1.267933
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-d/frame_6744.png",
+      "pts_seconds": 224.99143333333333,
+      "sha256": "226432cc530387c7ba07d1929268243c2d0198acb24536f9305f4de21945de9b"
+    },
+    {
+      "batches": [
+        "issue174-5s-d"
+      ],
+      "consensus": {},
+      "frame_id": "frame_6782",
+      "index_zero_based": 6781,
+      "mechanical": {
+        "duplicate_similarity": 0.988905,
+        "exposure_clipped_high_fraction": 0.0,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.365705,
+        "exposure_score": 0.811987,
+        "focus_analysis_laplacian_variance": 29.074783,
+        "focus_native_laplacian_variance": 24.376815,
+        "focus_score": 0.064315,
+        "mechanical_rank": 44,
+        "mechanical_score": 0.336818,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 1.267933
+      },
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-d/frame_6782.png",
+      "pts_seconds": 226.25936666666666,
+      "sha256": "f309ac56bcb749fd6227e8966092ee76e90a4f332500e0c467845b90a8149b3b"
+    }
+  ]
+}
