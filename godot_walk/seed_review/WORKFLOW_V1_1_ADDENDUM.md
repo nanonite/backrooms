@@ -64,10 +64,16 @@ standard deviation. The version string is
 ## Local-weights policy
 
 No download path exists. `weights` scans the Hugging Face hub cache and the
-torch hub checkpoint directory; `rank` requires `--model-dir` pointing at a
-local Hugging Face snapshot with `config.json` and `model.safetensors` (or
-`pytorch_model.bin`). Both `HF_HUB_OFFLINE` and `TRANSFORMERS_OFFLINE` are set
-before the model is loaded.
+torch hub checkpoint directory, and also resolves an explicit `--model-dir`
+snapshot (a snapshot outside the hub cache is normal); `rank` requires
+`--model-dir` pointing at a local Hugging Face snapshot with `config.json` and
+`model.safetensors` (or `pytorch_model.bin`). Both `HF_HUB_OFFLINE` and
+`TRANSFORMERS_OFFLINE` are set before the model is loaded.
+
+DINOv2 is patch-based: the official `facebook/dinov2-base` config records
+`image_size: 518`, while this contract runs inference at 224 and lets the model
+interpolate its position embeddings. The snapshot check therefore validates the
+patch size and the 224-pixel grid, not the pretraining image size.
 
 The accepted model families and approximate single-file sizes are:
 
@@ -85,7 +91,8 @@ so the existing GPU/RAM guard cannot be bypassed.
 Report local weights without calling a model:
 
 ```bash
-python3 godot_walk/scripts/run_freeview_consensus.py weights
+python3 godot_walk/scripts/run_freeview_consensus.py weights \
+  --model-dir /path/to/local/dinov2-base
 ```
 
 List candidate frames and the existing mechanical ranks; no embeddings and no
@@ -95,18 +102,47 @@ model call:
 python3 godot_walk/scripts/run_freeview_consensus.py inventory \
   --source-id video-ccf9722164a0bdc8 \
   --ground-truth frame_4560 \
-  --output godot_walk/evidence/2026-11-13-issue-210/mechanical-ranking.json
+  --output godot_walk/evidence/2026-11-13-issue-210/mechanical-ranking-industrial.json
 ```
 
-Compute the consensus report from an approved local snapshot:
+Compute the consensus report from an approved local snapshot. `rank` needs an
+interpreter that provides torch and transformers; the system `python3` does not.
+The operator-approved environment for issue #210 is
+`/home/goya/.venvs/freeview/bin/python`:
 
 ```bash
-python3 godot_walk/scripts/run_freeview_consensus.py rank \
+/home/goya/.venvs/freeview/bin/python godot_walk/scripts/run_freeview_consensus.py rank \
   --source-id video-ccf9722164a0bdc8 \
   --model-dir /path/to/local/dinov2-base \
-  --ground-truth frame_4560 \
-  --output godot_walk/evidence/2026-11-13-issue-210/view-consensus.json
+  --ground-truth frame_4560 --ground-truth frame_1097 \
+  --output godot_walk/evidence/2026-11-13-issue-210/view-consensus-industrial.json
 ```
+
+## First validation result (2026-11-14)
+
+The retrospective run used the operator-approved `facebook/dinov2-base` snapshot
+(weight SHA-256 `d73036b5…`, 768-d CLS) and the approved CPU interpreter. It was
+computed over the two direct-source video pools that have operator-approved
+seeds, sweeping `k = 3, 5, 8`.
+
+The result is mixed and is recorded in full in
+`evidence/2026-11-13-issue-210/REPORT.md`:
+
+- The earlier approved industrial seed `frame_1097` ranked 4 / 1 / 2 of 17
+  (mechanical rank 4), so it is top-five at every `k`.
+- The current approved industrial seed `frame_4560` ranked 14 / 16 / 16 of 17
+  (mechanical rank 7). It belongs to a second, visibly different room; the
+  score and the outlier flag both select the majority room instead.
+- The Viola seed `frame_2731` ranked 2 / 3 / 3 of 5 (mechanical rank 3), but all
+  five frames are near-identical and the top two differ by less than 0.001
+  cosine, so the rank is not a meaningful preference.
+
+The appearance-outlier flag flagged the six later-room industrial frames,
+including the approved `frame_4560`. No labelled foreign/off-scene frames exist
+in either pool, so this run does not demonstrate distractor rejection. The
+appearance cue must not be used as an automatic pre-Hunyuan filter: it splits
+on viewpoint/scene change, not on relevance to the operator's chosen subject.
+The geometry-aware cue remains the separate, optional follow-up.
 
 ## Boundary with v1
 

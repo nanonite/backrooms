@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import io
 import json
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 
 import numpy as np
@@ -24,6 +26,7 @@ from freeview_embeddings import (
     resolve_local_model,
     runtime_status,
 )
+from run_freeview_consensus import main as run_freeview_main
 
 SHA_A = "a" * 64
 SHA_B = "b" * 64
@@ -108,10 +111,19 @@ class LocalModelTests(unittest.TestCase):
         self.assertIn("https://huggingface.co/facebook/dinov2-base", message)
         self.assertIn("--model-dir", message)
 
-    def test_wrong_backbone_geometry_is_rejected(self) -> None:
+    def test_pretraining_image_size_may_differ_from_preprocessing(self) -> None:
         snapshot = _snapshot(self.directory)
         (snapshot / "config.json").write_text(
             json.dumps({"image_size": 518, "patch_size": 14, "hidden_size": 768}),
+            encoding="utf-8",
+        )
+        model = resolve_local_model(snapshot, "facebook/dinov2-base")
+        self.assertEqual(768, model.embedding_dim)
+
+    def test_wrong_backbone_geometry_is_rejected(self) -> None:
+        snapshot = _snapshot(self.directory)
+        (snapshot / "config.json").write_text(
+            json.dumps({"image_size": 224, "patch_size": 16, "hidden_size": 768}),
             encoding="utf-8",
         )
         with self.assertRaises(EmbeddingUnavailableError):
@@ -235,6 +247,55 @@ class CacheReuseTests(unittest.TestCase):
         self.cache.save()
         reloaded = EmbeddingCache.load(self.cache.path, self.identity)
         self.assertEqual([1.0, 0.0, 0.0], reloaded.get(SHA_B))
+
+
+class WeightsCommandTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temporary = tempfile.TemporaryDirectory()
+        self.directory = Path(self.temporary.name)
+
+    def tearDown(self) -> None:
+        self.temporary.cleanup()
+
+    def test_model_dir_outside_the_hub_cache_reports_available(self) -> None:
+        snapshot = _snapshot(self.directory)
+        output = io.StringIO()
+        with redirect_stdout(output):
+            code = run_freeview_main(
+                [
+                    "weights",
+                    "--hf-cache",
+                    (self.directory / "empty-hub").as_posix(),
+                    "--torch-checkpoints",
+                    (self.directory / "empty-checkpoints").as_posix(),
+                    "--model-dir",
+                    snapshot.as_posix(),
+                ]
+            )
+        report = json.loads(output.getvalue())
+        self.assertEqual(0, code)
+        self.assertEqual("available", report["status"])
+        self.assertEqual("available", report["requested_model"]["status"])
+        self.assertEqual("facebook/dinov2-base", report["requested_model"]["model_id"])
+
+    def test_missing_model_dir_reports_missing_without_a_model_call(self) -> None:
+        output = io.StringIO()
+        with redirect_stdout(output):
+            code = run_freeview_main(
+                [
+                    "weights",
+                    "--hf-cache",
+                    (self.directory / "empty-hub").as_posix(),
+                    "--torch-checkpoints",
+                    (self.directory / "empty-checkpoints").as_posix(),
+                    "--model-dir",
+                    (self.directory / "missing").as_posix(),
+                ]
+            )
+        report = json.loads(output.getvalue())
+        self.assertEqual(3, code)
+        self.assertEqual("missing", report["status"])
+        self.assertEqual("missing", report["requested_model"]["status"])
 
 
 if __name__ == "__main__":

@@ -1,0 +1,497 @@
+{
+  "candidate_batches": [
+    {
+      "frame_count": 2,
+      "manifest_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/extraction_manifest.json",
+      "manifest_sha256": "0e69656d6fe92427dc6e77043889b1cec6793fcf9b4e172e2f0ea83b27797629",
+      "run_id": "issue169-room-context-001"
+    },
+    {
+      "frame_count": 3,
+      "manifest_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/extraction_manifest.json",
+      "manifest_sha256": "fcb56e066e7a0aa11aadf77a42d4c24680de57c1178e897b8e37d861d7f1dbc2",
+      "run_id": "issue169-seed-91s"
+    }
+  ],
+  "consensus_status": "computed",
+  "consensus_variants": {
+    "k_values": [
+      3,
+      5,
+      8
+    ],
+    "variants": {
+      "k3": {
+        "effective_k": 3,
+        "outlier_frame_ids": [],
+        "outlier_threshold": null,
+        "reference_frame_id": "frame_2730"
+      },
+      "k5": {
+        "effective_k": 4,
+        "outlier_frame_ids": [],
+        "outlier_threshold": null,
+        "reference_frame_id": "frame_2730"
+      },
+      "k8": {
+        "effective_k": 4,
+        "outlier_frame_ids": [],
+        "outlier_threshold": null,
+        "reference_frame_id": "frame_2730"
+      }
+    },
+    "view_count": 5,
+    "views": [
+      {
+        "consensus": {
+          "k3": {
+            "is_reference": false,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 4,
+            "relevance_to_reference": 0.968362,
+            "score": 0.967013
+          },
+          "k5": {
+            "is_reference": false,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 4,
+            "relevance_to_reference": 0.968362,
+            "score": 0.963502
+          },
+          "k8": {
+            "is_reference": false,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 4,
+            "relevance_to_reference": 0.968362,
+            "score": 0.963502
+          }
+        },
+        "frame_id": "frame_0820"
+      },
+      {
+        "consensus": {
+          "k3": {
+            "is_reference": true,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 1,
+            "relevance_to_reference": 1.0,
+            "score": 0.98832
+          },
+          "k5": {
+            "is_reference": true,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 1,
+            "relevance_to_reference": 1.0,
+            "score": 0.97921
+          },
+          "k8": {
+            "is_reference": true,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 1,
+            "relevance_to_reference": 1.0,
+            "score": 0.97921
+          }
+        },
+        "frame_id": "frame_2730"
+      },
+      {
+        "consensus": {
+          "k3": {
+            "is_reference": false,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 2,
+            "relevance_to_reference": 0.999561,
+            "score": 0.987698
+          },
+          "k5": {
+            "is_reference": false,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 3,
+            "relevance_to_reference": 0.999561,
+            "score": 0.978649
+          },
+          "k8": {
+            "is_reference": false,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 3,
+            "relevance_to_reference": 0.999561,
+            "score": 0.978649
+          }
+        },
+        "frame_id": "frame_2731"
+      },
+      {
+        "consensus": {
+          "k3": {
+            "is_reference": false,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 3,
+            "relevance_to_reference": 0.997038,
+            "score": 0.987018
+          },
+          "k5": {
+            "is_reference": false,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 2,
+            "relevance_to_reference": 0.997038,
+            "score": 0.978761
+          },
+          "k8": {
+            "is_reference": false,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 2,
+            "relevance_to_reference": 0.997038,
+            "score": 0.978761
+          }
+        },
+        "frame_id": "frame_2732"
+      },
+      {
+        "consensus": {
+          "k3": {
+            "is_reference": false,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 5,
+            "relevance_to_reference": 0.951879,
+            "score": 0.952946
+          },
+          "k5": {
+            "is_reference": false,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 5,
+            "relevance_to_reference": 0.951879,
+            "score": 0.952585
+          },
+          "k8": {
+            "is_reference": false,
+            "outlier": false,
+            "outlier_threshold": null,
+            "rank": 5,
+            "relevance_to_reference": 0.951879,
+            "score": 0.952585
+          }
+        },
+        "frame_id": "frame_4642"
+      }
+    ]
+  },
+  "embedding_cache": {
+    "cached_total": 5,
+    "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/freeview/embeddings-facebook-dinov2-base-d73036b56966.json"
+  },
+  "ground_truth": [
+    {
+      "consensus_rank_by_k": {
+        "k3": 2,
+        "k5": 3,
+        "k8": 3
+      },
+      "frame_id": "frame_2731",
+      "mechanical_rank": 3,
+      "mechanical_score": 0.699556
+    }
+  ],
+  "issue": 210,
+  "k_sweep": [
+    3,
+    5,
+    8
+  ],
+  "mechanical_order": [
+    "frame_0820",
+    "frame_4642",
+    "frame_2731",
+    "frame_2730",
+    "frame_2732"
+  ],
+  "mode": "rank",
+  "model": {
+    "device": "cpu",
+    "embedding_dim": 768,
+    "model_id": "facebook/dinov2-base",
+    "preprocessing_version": "dinov2-cls-resize256-centercrop224-imagenet-v1",
+    "weights_sha256": "d73036b56966966d07975d696bde331762f37297e2f095de8cea0040c3aa0841"
+  },
+  "schema_version": 1,
+  "source": {
+    "duration_seconds": 182.021224,
+    "fps": 30.0,
+    "frame_count": 5459,
+    "height": 720,
+    "manifest_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/source_manifest-v2.json",
+    "manifest_sha256": "4d1ea9a8bc54b81cdc97d0df656d224327cf6d011e873f2e0fec635d2917cd11",
+    "source_id": "video-b9161c467ed2d30a",
+    "video_path": "data/videos/Bill Viola 'The Sleep of Reason' 1988.mp4",
+    "video_sha256": "b9161c467ed2d30aefa6bf2969c2ed63fc79a387d93016197e356e9bf531ddaa",
+    "width": 1280
+  },
+  "tool": "freeview_consensus",
+  "tool_version": "1.1.0",
+  "unique_frame_count": 5,
+  "views": [
+    {
+      "batches": [
+        "issue169-room-context-001"
+      ],
+      "consensus": {
+        "k3": {
+          "is_reference": false,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 4,
+          "relevance_to_reference": 0.968362,
+          "score": 0.967013
+        },
+        "k5": {
+          "is_reference": false,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 4,
+          "relevance_to_reference": 0.968362,
+          "score": 0.963502
+        },
+        "k8": {
+          "is_reference": false,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 4,
+          "relevance_to_reference": 0.968362,
+          "score": 0.963502
+        }
+      },
+      "frame_id": "frame_0820",
+      "index_zero_based": 819,
+      "mechanical": {
+        "duplicate_similarity": 0.969861,
+        "exposure_clipped_high_fraction": 0.000804,
+        "exposure_clipped_low_fraction": 0.005276,
+        "exposure_mean_luminance": 0.433141,
+        "exposure_score": 0.90275,
+        "focus_analysis_laplacian_variance": 141.726606,
+        "focus_native_laplacian_variance": 63.899551,
+        "focus_score": 1.0,
+        "mechanical_rank": 1,
+        "mechanical_score": 0.830208,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 63.666667
+      },
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/frame_0820.png",
+      "pts_seconds": 27.3,
+      "sha256": "96919aefe094b7171c93a98fbef3feec384ec476030d4924ce4fc3ba00df2f86"
+    },
+    {
+      "batches": [
+        "issue169-seed-91s"
+      ],
+      "consensus": {
+        "k3": {
+          "is_reference": true,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 1,
+          "relevance_to_reference": 1.0,
+          "score": 0.98832
+        },
+        "k5": {
+          "is_reference": true,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 1,
+          "relevance_to_reference": 1.0,
+          "score": 0.97921
+        },
+        "k8": {
+          "is_reference": true,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 1,
+          "relevance_to_reference": 1.0,
+          "score": 0.97921
+        }
+      },
+      "frame_id": "frame_2730",
+      "index_zero_based": 2729,
+      "mechanical": {
+        "duplicate_similarity": 0.999943,
+        "exposure_clipped_high_fraction": 0.000765,
+        "exposure_clipped_low_fraction": 0.006341,
+        "exposure_mean_luminance": 0.434064,
+        "exposure_score": 0.903426,
+        "focus_analysis_laplacian_variance": 132.024609,
+        "focus_native_laplacian_variance": 62.662489,
+        "focus_score": 0.931544,
+        "mechanical_rank": 4,
+        "mechanical_score": 0.698304,
+        "temporal_coverage_score": 0.066667,
+        "temporal_gap_seconds": 0.033333
+      },
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2730.png",
+      "pts_seconds": 90.96666666666667,
+      "sha256": "43f3dd13a8904ab6bdbc90e70e6c6e50d58cc7c7d897e5b8255fe02647eb6b64"
+    },
+    {
+      "batches": [
+        "issue169-seed-91s"
+      ],
+      "consensus": {
+        "k3": {
+          "is_reference": false,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 2,
+          "relevance_to_reference": 0.999561,
+          "score": 0.987698
+        },
+        "k5": {
+          "is_reference": false,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 3,
+          "relevance_to_reference": 0.999561,
+          "score": 0.978649
+        },
+        "k8": {
+          "is_reference": false,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 3,
+          "relevance_to_reference": 0.999561,
+          "score": 0.978649
+        }
+      },
+      "frame_id": "frame_2731",
+      "index_zero_based": 2730,
+      "mechanical": {
+        "duplicate_similarity": 0.999943,
+        "exposure_clipped_high_fraction": 0.000763,
+        "exposure_clipped_low_fraction": 0.006374,
+        "exposure_mean_luminance": 0.434034,
+        "exposure_score": 0.903366,
+        "focus_analysis_laplacian_variance": 132.383655,
+        "focus_native_laplacian_variance": 64.748704,
+        "focus_score": 0.934078,
+        "mechanical_rank": 3,
+        "mechanical_score": 0.699556,
+        "temporal_coverage_score": 0.066667,
+        "temporal_gap_seconds": 0.033333
+      },
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2731.png",
+      "pts_seconds": 91.0,
+      "sha256": "b5e623658f40f3f5fe195dbffb475d941755a1b4ecbcfd78aa838f4539203822"
+    },
+    {
+      "batches": [
+        "issue169-seed-91s"
+      ],
+      "consensus": {
+        "k3": {
+          "is_reference": false,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 3,
+          "relevance_to_reference": 0.997038,
+          "score": 0.987018
+        },
+        "k5": {
+          "is_reference": false,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 2,
+          "relevance_to_reference": 0.997038,
+          "score": 0.978761
+        },
+        "k8": {
+          "is_reference": false,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 2,
+          "relevance_to_reference": 0.997038,
+          "score": 0.978761
+        }
+      },
+      "frame_id": "frame_2732",
+      "index_zero_based": 2731,
+      "mechanical": {
+        "duplicate_similarity": 0.99928,
+        "exposure_clipped_high_fraction": 0.000766,
+        "exposure_clipped_low_fraction": 0.005974,
+        "exposure_mean_luminance": 0.433474,
+        "exposure_score": 0.90282,
+        "focus_analysis_laplacian_variance": 130.292474,
+        "focus_native_laplacian_variance": 61.648852,
+        "focus_score": 0.919323,
+        "mechanical_rank": 5,
+        "mechanical_score": 0.692141,
+        "temporal_coverage_score": 0.066667,
+        "temporal_gap_seconds": 0.033333
+      },
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2732.png",
+      "pts_seconds": 91.03333333333333,
+      "sha256": "15e66b2e8706d1a5075401134144c9073e72747408e66867fa348316d0af91cd"
+    },
+    {
+      "batches": [
+        "issue169-room-context-001"
+      ],
+      "consensus": {
+        "k3": {
+          "is_reference": false,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 5,
+          "relevance_to_reference": 0.951879,
+          "score": 0.952946
+        },
+        "k5": {
+          "is_reference": false,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 5,
+          "relevance_to_reference": 0.951879,
+          "score": 0.952585
+        },
+        "k8": {
+          "is_reference": false,
+          "outlier": false,
+          "outlier_threshold": null,
+          "rank": 5,
+          "relevance_to_reference": 0.951879,
+          "score": 0.952585
+        }
+      },
+      "frame_id": "frame_4642",
+      "index_zero_based": 4641,
+      "mechanical": {
+        "duplicate_similarity": 0.988147,
+        "exposure_clipped_high_fraction": 0.00077,
+        "exposure_clipped_low_fraction": 0.006788,
+        "exposure_mean_luminance": 0.436976,
+        "exposure_score": 0.907231,
+        "focus_analysis_laplacian_variance": 132.773342,
+        "focus_native_laplacian_variance": 64.961061,
+        "focus_score": 0.936827,
+        "mechanical_rank": 2,
+        "mechanical_score": 0.796999,
+        "temporal_coverage_score": 1.0,
+        "temporal_gap_seconds": 63.666667
+      },
+      "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-room-context-001/frame_4642.png",
+      "pts_seconds": 154.7,
+      "sha256": "0a00dc9220a1f7a36898d3180ee100ffa35132eaca37c1b5727bcaa7d5c8bcea"
+    }
+  ]
+}

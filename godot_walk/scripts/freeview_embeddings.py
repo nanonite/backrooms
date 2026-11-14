@@ -270,15 +270,19 @@ def _weights_path(model_dir: Path, required: bool = True) -> Path | None:
 
 
 def _validate_backbone_config(config: dict[str, Any], model_dir: Path) -> None:
-    if int(config.get("image_size", IMAGE_SIZE)) != IMAGE_SIZE:
+    # DINOv2 is patch-based, so inference resolution is free to differ from the
+    # pretraining image_size recorded in the config (the official snapshot says
+    # 518). Only the patch contract and the preprocessing grid must agree.
+    patch_size = int(config.get("patch_size", PATCH_SIZE))
+    if patch_size != PATCH_SIZE:
         raise EmbeddingUnavailableError(
-            f"{model_dir} expects image size {config['image_size']}; this "
-            f"preprocessing contract uses {IMAGE_SIZE}"
-        )
-    if int(config.get("patch_size", PATCH_SIZE)) != PATCH_SIZE:
-        raise EmbeddingUnavailableError(
-            f"{model_dir} expects patch size {config['patch_size']}; this "
+            f"{model_dir} expects patch size {patch_size}; this "
             f"preprocessing contract uses {PATCH_SIZE}"
+        )
+    if IMAGE_SIZE % patch_size != 0:
+        raise EmbeddingUnavailableError(
+            f"Preprocessing size {IMAGE_SIZE} is not a multiple of patch size "
+            f"{patch_size}"
         )
     if "hidden_size" not in config:
         raise EmbeddingUnavailableError(f"{model_dir} config has no hidden_size")

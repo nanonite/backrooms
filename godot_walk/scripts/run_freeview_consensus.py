@@ -91,6 +91,8 @@ def _weights_parser(subparsers: Any) -> None:
     )
     parser.add_argument("--hf-cache", type=Path)
     parser.add_argument("--torch-checkpoints", type=Path)
+    parser.add_argument("--model-dir", type=Path)
+    parser.add_argument("--model-id", default=DEFAULT_MODEL_ID)
 
 
 def _inventory_parser(subparsers: Any) -> None:
@@ -125,15 +127,39 @@ def _run_weights(args: argparse.Namespace) -> int:
         or Path.home() / ".cache" / "torch" / "hub" / "checkpoints"
     )
     local_weights = discover_local_weights(hf_cache, torch_checkpoints)
+    requested = (
+        _requested_model(args.model_dir, args.model_id) if args.model_dir else None
+    )
+    available = bool(local_weights) or bool(
+        requested is not None and requested["status"] == "available"
+    )
     report = {
-        "status": "available" if local_weights else "missing",
+        "status": "available" if available else "missing",
         "default_model_id": DEFAULT_MODEL_ID,
         "runtime": runtime_status(),
         "model_catalog": MODEL_CATALOG,
         "local_weights": local_weights,
+        "requested_model": requested,
     }
     print(json.dumps(report, indent=2, sort_keys=True))
-    return 0 if local_weights else 3
+    return 0 if report["status"] == "available" else 3
+
+
+def _requested_model(model_dir: Path, model_id: str) -> dict[str, Any]:
+    try:
+        model = resolve_local_model(resolve_cli_path(model_dir, ROOT), model_id)
+    except EmbeddingUnavailableError as error:
+        return {
+            "model_dir": model_dir.as_posix(),
+            "status": "missing",
+            "error": str(error),
+        }
+    _validate_model_catalog(model.model_id, model.embedding_dim)
+    return {
+        "model_dir": model.model_dir.as_posix(),
+        "status": "available",
+        **model.identity().to_dict(),
+    }
 
 
 def _run_inventory(args: argparse.Namespace) -> int:
@@ -165,7 +191,7 @@ def _run_rank(args: argparse.Namespace) -> int:
         encoder,
         cache,
     )
-    cache_status = cache.save()
+    cache.save()
     embeddings = _cached_embeddings(inventory, cache)
     frame_ids = [candidate.frame_id for candidate in inventory.candidates]
     variants = evaluate_consensus(frame_ids, embeddings, args.k)
@@ -174,14 +200,22 @@ def _run_rank(args: argparse.Namespace) -> int:
     report["model"] = {**model.identity().to_dict(), "device": "cpu"}
     report["embedding_cache"] = {
         "path": _repo_relative(cache_path, root),
-        "status": cache_status,
-        **counts,
+        "cached_total": counts["cached_total"],
     }
     report["consensus_variants"] = variants
     _attach_consensus(report, variants)
     report["ground_truth"] = _ground_truth(args.ground_truth, report["views"], variants)
     status = _write_report(resolve_cli_path(Path(args.output), root), report)
-    print(json.dumps({"status": status, "output": args.output}))
+    print(
+        json.dumps(
+            {
+                "status": status,
+                "output": args.output,
+                "encoded": counts["encoded"],
+                "reused": counts["reused"],
+            }
+        )
+    )
     return 0
 
 
