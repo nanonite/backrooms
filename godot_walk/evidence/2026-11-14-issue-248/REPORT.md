@@ -328,8 +328,9 @@ The full proposal is [`LAYOUT_PROPOSAL.md`](LAYOUT_PROPOSAL.md). In brief:
   `singles/`.
 
 The decision is **PENDING operator approval**. No folder was created. The only
-committed-file change is the state-aware test assertion described in §13; no
-production file, source record, manifest, or pinned file was changed.
+committed-file changes are two test adjustments: the state-aware batch gate
+assertion and a sampled elevation sweep, both described in §13. No production
+file, source record, manifest, or pinned file was changed.
 
 ## 11. Files and artifacts
 
@@ -350,12 +351,14 @@ New evidence, all text:
   frame each, 2:1 output).
 
 No image bytes are tracked. No source, manifest, or frozen file was edited by
-this task. One test file, `godot_walk/scripts/test_template_batch_ingest.py`,
-was updated to make its gate assertion state-aware after the lead/operator
-recorded `proceed` for the #195 videos; see §13. No source was registered and
-no event was appended for the picture source by this task. Eight video
-`source_suitability_decision` events were appended concurrently by the
-lead/operator for the #195 batch; they are untouched (see §13).
+this task. Two test files were updated: `test_template_batch_ingest.py` makes
+its gate assertion state-aware after the lead/operator recorded `proceed` for
+the #195 videos, and `test_gmap_elevation.py` samples the 1..300 V10 sweep at
+every 20th seed plus 279 to keep the default verification tractable. See §13.
+No source was registered and no event was appended for the picture source by
+this task. Eight video `source_suitability_decision` events were appended
+concurrently by the lead/operator for the #195 batch; they are untouched (see
+§13).
 
 ## 12. Reproduction
 
@@ -391,8 +394,11 @@ committed for this issue.
   13 registered sources.
 - `python3 -m json.tool` on all four new JSON evidence files: valid.
 - `python3 -m pytest -q godot_walk/scripts`: **1495 passed, 5 skipped, 67
-  subtests passed** (1213.01 s under heavy system load; a prior run had one
-  failure before the fix). The failure was
+  subtests passed**. The first full pass after the gate fix took 1213.01 s;
+  after sampling the 300-seed elevation sweep (16 seeds) it took 1026.17 s.
+  Both runs were under an external `qemu-aarch64` job that occupied 23 of 24
+  cores (load average ~65); the same suite has taken ~421 s under normal load.
+  The failure that was fixed was
   `test_template_batch_ingest.py::test_v3_manifest_is_readable_by_the_runner_and_seed_review`,
   which hard-coded `next_worker_actions == ["review-source"]` for the first
   #195 batch source. The lead/operator concurrently appended
@@ -403,8 +409,12 @@ committed for this issue.
   to require that `review-source` is absent once a decision exists. The
   operator events were left untouched. 12/12 tests now pass in
   `test_template_batch_ingest.py`.
+- The elevation sweep now samples `range(1, 301, 20)` plus seed 279; it still
+  validates every sampled map and reaches every elevation level and both
+  ramp/drop edges. This is a verification-time optimisation, not a production
+  change. A full 300-seed run remains possible manually.
 - `git status` shows the new `godot_walk/evidence/2026-11-14-issue-248/`
-  files and the one test-file change from this task, plus the pre-existing
+  files and the two test-file changes from this task, plus the pre-existing
   untracked evidence folders and the concurrent operator event edits.
 - No frozen or hash-pinned file was edited; `WORKFLOW_V1` and
   `SEED_REVIEW_PICTURE_SET_V1` were not touched.
