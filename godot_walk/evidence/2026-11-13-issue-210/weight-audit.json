@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "issue": 210,
+  "checked_on": "2026-11-13",
+  "status": "missing",
+  "operator_rule": "No downloads, no package installs from the network, no model calls beyond local embedding extraction.",
+  "conclusion": "No usable DINOv2 weights are present on this machine. The DINOv2 embedding step and the retrospective ranking were not run.",
+  "tool_output": {
+    "status": "missing",
+    "default_model_id": "facebook/dinov2-base",
+    "runtime": {
+      "torch": null,
+      "transformers": null
+    },
+    "model_catalog": {
+      "facebook/dinov2-small": {
+        "embedding_dim": 384,
+        "source": "https://huggingface.co/facebook/dinov2-small",
+        "weights_megabytes": 88
+      },
+      "facebook/dinov2-base": {
+        "embedding_dim": 768,
+        "source": "https://huggingface.co/facebook/dinov2-base",
+        "weights_megabytes": 346
+      },
+      "facebook/dinov2-large": {
+        "embedding_dim": 1024,
+        "source": "https://huggingface.co/facebook/dinov2-large",
+        "weights_megabytes": 1210
+      }
+    },
+    "local_weights": []
+  },
+  "searched_locations": [
+    {
+      "location": "~/.cache/huggingface/hub",
+      "command": "find ~/.cache/huggingface/hub -maxdepth 1 -type d | sort",
+      "result": "76 top-level cache entries (model repositories, dataset repositories and cache bookkeeping); none named models--facebook--dinov2-small, -base or -large."
+    },
+    {
+      "location": "~/.cache/torch/hub/checkpoints",
+      "command": "find ~/.cache/torch/hub/checkpoints -iname '*dino*'",
+      "result": "No DINOv2 checkpoint. The directory holds vgg16, alexnet, inception, spynet, NAFNet, ESRGAN/RealESRGAN, SwinIR and stylegan checkpoints, none of which is DINOv2."
+    },
+    {
+      "location": "~/.cache/clip",
+      "command": "find ~/.cache/clip -maxdepth 2",
+      "result": "ViT-B-32.pt only; OpenAI CLIP, not DINOv2."
+    },
+    {
+      "location": "/nix/store",
+      "command": "find /nix/store -maxdepth 6 -iname '*dinov2*'; find /nix/store -maxdepth 4 -iname '*dino*' \\( -name '*.safetensors' -o -name '*.bin' -o -name '*.pth' -o -name '*.pt' \\)",
+      "result": "Transformers source, tests and documentation only (a transformers 5.17.0 source tree plus a python3.12-transformers-4.46.2 package). No DINOv2 weight file."
+    },
+    {
+      "location": "/home/goya/nix/store",
+      "command": "ls /home/goya/nix/store | grep -i dino; find /home/goya/nix/store -maxdepth 2 -iname '*dino*'",
+      "result": "No DINOv2 package or weight file."
+    },
+    {
+      "location": "/mnt/sharedOs/backrooms-track-a-runtime",
+      "command": "ls /mnt/sharedOs/backrooms-track-a-runtime",
+      "result": "Path is absent. The Hunyuan attempt configs point at this runtime and at its hf-cache, but neither is mounted now."
+    },
+    {
+      "location": "build/vggt",
+      "command": "find build/vggt -maxdepth 3 \\( -name '*.pt' -o -name '*.pth' -o -name '*.safetensors' -o -name '*.ckpt' \\)",
+      "result": "VGGT code checkout only (127 MB); no model checkpoint. VGGT's aggregator references dinov2_vitl14_reg but ships no weights."
+    },
+    {
+      "location": "repository data and caches",
+      "command": "find /home/goya /mnt /opt /srv /var/lib /usr/local -iname '*dino*' -not -path '*/.cache/uv/*' -not -path '*/node_modules/*'",
+      "result": "Petgraph branch names, Linux package names and transformers model modules only. No DINOv2 weights."
+    }
+  ],
+  "runtime_audit": {
+    "system_python3": {
+      "path": "/usr/bin/python3",
+      "numpy": "2.5.3",
+      "Pillow": "10.2.0",
+      "pytest": "9.1.1",
+      "torch": "absent",
+      "transformers": "absent"
+    },
+    "nerfstudio_conda_env": {
+      "path": "/home/goya/anaconda3/envs/nerfstudio/bin/python",
+      "torch": "2.3.1+cu121",
+      "timm": "0.6.7",
+      "transformers": "absent"
+    },
+    "nix_store": {
+      "torch_package": "python3.12-torch-2.5.1 is present in /nix/store",
+      "transformers_package": "python3.12-transformers-4.46.2 is present in /nix/store",
+      "combined_environment": "No /nix/store python3-3.12 env contains both torch and transformers."
+    }
+  },
+  "required_for_next_attempt": {
+    "recommended": {
+      "model_id": "facebook/dinov2-base",
+      "embedding_dim": 768,
+      "weights_megabytes": 346,
+      "source": "https://huggingface.co/facebook/dinov2-base",
+      "files": ["config.json", "model.safetensors"]
+    },
+    "alternatives": [
+      {
+        "model_id": "facebook/dinov2-small",
+        "embedding_dim": 384,
+        "weights_megabytes": 88,
+        "source": "https://huggingface.co/facebook/dinov2-small"
+      },
+      {
+        "model_id": "facebook/dinov2-large",
+        "embedding_dim": 1024,
+        "weights_megabytes": 1210,
+        "source": "https://huggingface.co/facebook/dinov2-large"
+      }
+    ],
+    "interpreter": "A Python with torch and transformers. The system python3 has neither; the nerfstudio env has torch but not transformers; the nix store has both as separate packages but no combined env. An operator decision is needed on the cache location and interpreter.",
+    "placement": "Any local directory passed with --model-dir; the tool never downloads and never follows a Hugging Face model ID over the network."
+  },
+  "not_used": {
+    "openai_clip": "The machine has /home/goya/.cache/clip/ViT-B-32.pt and Hugging Face CLIP ViT-L/14-336 and CLIP-ViT-H-14 caches. They are not DINOv2 and were not substituted because the issue and operator direction require DINOv2.",
+    "vggt": "No VGGT checkpoint is present, so the optional geometry-aware cue is not available either."
+  }
+}

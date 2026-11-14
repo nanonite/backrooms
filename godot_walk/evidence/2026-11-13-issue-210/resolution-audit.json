@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "issue": 210,
+  "checked_on": "2026-11-13",
+  "question": "What native size did each operator-approved seed have, and what size did Hunyuan accept?",
+  "source_of_truth": [
+    "godot_walk/source_library/sources/*/events.jsonl seed_selected payloads",
+    "godot_walk/source_library/sources/*/hunyuan/attempt-*/attempt_config.json",
+    "godot_walk/source_library/sources/*/hunyuan/attempt-*/attempt_result.json and gpu_guard.json",
+    "the seed PNG dimensions read directly from the recorded paths"
+  ],
+  "approved_seeds": [
+    {
+      "source_id": "video-ccf9722164a0bdc8",
+      "frame_id": "frame_1097",
+      "selection_status": "Selected at event 4; replaced by frame_4560 at event 32. No explicit deselect event exists; the later selection is the current one.",
+      "timestamp_seconds": 36.53333333333333,
+      "native_width": 1280,
+      "native_height": 720,
+      "frame_sha256": "61ca4b37295a948c8aa61686c912da51c7cff6dd16aac012b5c2f02bf051b2af",
+      "seed_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/seed-check-36s/frame_1097.png",
+      "hunyuan_attempts": [
+        {
+          "attempt_id": "attempt-001",
+          "requested_panorama": [768, 384],
+          "status": "failed",
+          "produced_panorama": null
+        },
+        {
+          "attempt_id": "attempt-002",
+          "requested_panorama": [768, 384],
+          "status": "failed",
+          "produced_panorama": null
+        },
+        {
+          "attempt_id": "attempt-003",
+          "requested_panorama": [512, 256],
+          "status": "failed",
+          "produced_panorama": null
+        },
+        {
+          "attempt_id": "attempt-004",
+          "requested_panorama": [512, 256],
+          "status": "preflight_blocked",
+          "produced_panorama": null,
+          "note": "Blocked with 21851205632 bytes RAM available; the policy needed 34359738368."
+        },
+        {
+          "attempt_id": "attempt-004-retry-001",
+          "requested_panorama": [512, 256],
+          "status": "resource_stopped",
+          "produced_panorama": null
+        },
+        {
+          "attempt_id": "attempt-005",
+          "requested_panorama": [512, 256],
+          "status": "produced",
+          "produced_panorama": {
+            "width": 512,
+            "height": 256,
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-005/panorama/panorama.png",
+            "sha256": "ab6ed18a33d959d53612f63d5bbc0700fd6ff89220d4a4cfb0bccdccdaca5213"
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "video-ccf9722164a0bdc8",
+      "frame_id": "frame_4560",
+      "selection_status": "Selected at event 32; current seed for the second-zone industrial-hall / debris-window attempt.",
+      "timestamp_seconds": 151.96666666666667,
+      "native_width": 1280,
+      "native_height": 720,
+      "frame_sha256": "7a2b3dd1b43478fa491447731c06b0f36fce71e2b80cbb089d3744cb02abcd0f",
+      "seed_path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/frames/issue168-seed-152s/frame_4560.png",
+      "hunyuan_attempts": [
+        {
+          "attempt_id": "attempt-006",
+          "requested_panorama": [512, 256],
+          "status": "produced",
+          "produced_panorama": {
+            "width": 512,
+            "height": 256,
+            "path": "godot_walk/source_library/sources/video-ccf9722164a0bdc8/hunyuan/attempt-006/panorama/panorama.png",
+            "sha256": "15b8c00629845935c38fe644e317bd57edbe129fa0605453d6ba1c906cd5cb65"
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "video-b9161c467ed2d30a",
+      "frame_id": "frame_2731",
+      "selection_status": "Selected at event 4; current seed for the Bill Viola room.",
+      "timestamp_seconds": 91.0,
+      "native_width": 1280,
+      "native_height": 720,
+      "frame_sha256": "b5e623658f40f3f5fe195dbffb475d941755a1b4ecbcfd78aa838f4539203822",
+      "seed_path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/frames/issue169-seed-91s/frame_2731.png",
+      "hunyuan_attempts": [
+        {
+          "attempt_id": "attempt-001",
+          "requested_panorama": [512, 256],
+          "status": "produced",
+          "produced_panorama": {
+            "width": 512,
+            "height": 256,
+            "path": "godot_walk/source_library/sources/video-b9161c467ed2d30a/hunyuan/attempt-001/panorama/panorama.png",
+            "sha256": "30d880488e796b6cc2e21ef9986f7cd5855d4e97b7162fb6d4613ad35e87b9ad"
+          }
+        }
+      ]
+    }
+  ],
+  "answer": {
+    "native_seed_size": "All three approved seeds are 1280x720 native direct-source PNGs.",
+    "repo_side_input_handling": "run_source_hunyuan.py passes the seed PNG path and its SHA-256 to run_source_panogen.py; the panorama launcher passes the same path to the Hunyuan demo. No repository code resizes, crops or composites the seed.",
+    "input_size_recorded_by_hunyuan": "No input width/height is recorded for video attempts. attempt_config.json width/height are the requested panorama output dimensions, not the seed input. Only picture-set GPU guards record seed_image_width/seed_image_height.",
+    "panorama_output_size": "Every produced panorama is 512x256. Two frame_1097 attempts requested 768x384 and failed; no 768x384 panorama was produced.",
+    "upstream_unknown": "The Hunyuan/Panogen runtime path recorded in the configs (/mnt/sharedOs/backrooms-track-a-runtime) is absent now, so its internal input preprocessing cannot be inspected. Do not infer the accepted input size from this record.",
+    "open_question": "Whether a sharper or larger seed frame improves a panorama is not answered by these configs or by arXiv 2610.33656. Testing it needs GPU attempts, which the operator must authorise."
+  }
+}
