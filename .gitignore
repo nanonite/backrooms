@@ -99,3 +99,6 @@ godot_walk/evidence/**/*.mp4
 godot_walk/evidence/**/*.webm
 godot_walk/evidence/**/*.glb
 godot_walk/evidence/**/*.ply
+
+# Transient embedding-cache lock files under evidence
+godot_walk/evidence/**/*.json.lock
