@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "source_video": "data/videos/corridor_t.mp4",
+  "source_video_sha256": "2671b32f256a4ee7f326fae67290bcec2143efabb4f1000fc4bcfa9507260409",
+  "metadata": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24.0,
+    "frame_count": 96,
+    "duration_seconds": 4.0
+  },
+  "decoder": "ffmpeg select by decoded zero-based frame index",
+  "created_at_utc": "2026-11-14T19:13:54.858370+00:00",
+  "frames": [
+    {
+      "frame_id": "frame_0001",
+      "index_zero_based": 0,
+      "timestamp_seconds": 0.0,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0001.png",
+      "sha256": "99bf9d892cce54df6217000ffeccccb6f696fa8134792ea0c4fbc37bace207e1",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0007",
+      "index_zero_based": 6,
+      "timestamp_seconds": 0.25,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0007.png",
+      "sha256": "93464cee7dd12d188a4648bea850704081a0130e30234b9e19254322076f938d",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0013",
+      "index_zero_based": 12,
+      "timestamp_seconds": 0.5,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0013.png",
+      "sha256": "f6b1cc367506f5f26e42841b11b41b054fdcd2a9ee1a29d55ff786af330ead11",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0019",
+      "index_zero_based": 18,
+      "timestamp_seconds": 0.75,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0019.png",
+      "sha256": "1d78c0ba9e63cf8878117801ef433aaf8ed8fd3c5f9ad169897a58d19e0dc0c1",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0025",
+      "index_zero_based": 24,
+      "timestamp_seconds": 1.0,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0025.png",
+      "sha256": "4336023bd1e412f9cdd6bfa586381f6bc224b7dd50f07cbac16c62bc2a1a8c6c",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0031",
+      "index_zero_based": 30,
+      "timestamp_seconds": 1.25,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0031.png",
+      "sha256": "71a21deb6b5165b730f6464ddd03dba0b01548d598c652eeb0cd27f71da38855",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0037",
+      "index_zero_based": 36,
+      "timestamp_seconds": 1.5,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0037.png",
+      "sha256": "24d27203145c88e68f4930f76138f1ca1cca094e1dc92ff00085b550c6317b70",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0043",
+      "index_zero_based": 42,
+      "timestamp_seconds": 1.75,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0043.png",
+      "sha256": "1e421458e4de2d2274a4ec24ae1ae9a10b6756d550c225bb699e0e7ebc13f4ff",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0049",
+      "index_zero_based": 48,
+      "timestamp_seconds": 2.0,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0049.png",
+      "sha256": "cf116f92d97691667ee5a7f6dd6cd110441b37675e597d13c77f49e2dc22df2d",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0055",
+      "index_zero_based": 54,
+      "timestamp_seconds": 2.25,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0055.png",
+      "sha256": "aa57ad6716f1f1dfa58ccb2654d59c2f730ab2c5d96f67ed6aa4394481b0ebf8",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0061",
+      "index_zero_based": 60,
+      "timestamp_seconds": 2.5,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0061.png",
+      "sha256": "041b5453e7cd8c96bd86bcc391c28dac3238678d28ec3bf7527dc5a2534baf03",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0067",
+      "index_zero_based": 66,
+      "timestamp_seconds": 2.75,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0067.png",
+      "sha256": "aedbd6330a6bc2994b369ad3f805c5172a96f0619089e8212a2369c62c831297",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0073",
+      "index_zero_based": 72,
+      "timestamp_seconds": 3.0,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0073.png",
+      "sha256": "1128417cd4aeea615e47fd5fe407c49cf964a50135a292a136c08d4b9e9e7c00",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0079",
+      "index_zero_based": 78,
+      "timestamp_seconds": 3.25,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0079.png",
+      "sha256": "adc145cae6df13963d869c4beba3ca0b3ca853b82fcf8624f850195f83eb1477",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0085",
+      "index_zero_based": 84,
+      "timestamp_seconds": 3.5,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0085.png",
+      "sha256": "3c6a7db07915da334908a4317f0bb1b5f218353937498ed7e2c53cbfad56ace0",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0091",
+      "index_zero_based": 90,
+      "timestamp_seconds": 3.75,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0091.png",
+      "sha256": "6d334f11f0ad9b1e05f417fddf2981c76348c2e39164e1df52f8de985e69bc67",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    },
+    {
+      "frame_id": "frame_0096",
+      "index_zero_based": 95,
+      "timestamp_seconds": 3.9583333333333335,
+      "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0096.png",
+      "sha256": "39442f1ae81cea1cd0eef682a99ca7c8030a6e72824be7626e34188be7cb3d75",
+      "decode_operation": "direct_source_video_decode_no_resize_or_edit"
+    }
+  ]
+}
