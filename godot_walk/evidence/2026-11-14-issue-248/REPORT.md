@@ -348,10 +348,10 @@ New evidence, all text:
   gates, and the eight existing Hunyuan attempt configs (all video, one seed
   frame each, 2:1 output).
 
-No image bytes are tracked. No existing file was edited. No source was
-registered and no event was appended for the picture source by this task. Eight
-video `source_suitability_decision` events were appended concurrently by the
-lead/operator for the #195 batch; they are untouched (see §13).
+No image bytes are tracked. No existing file was edited by this task. No source
+was registered and no event was appended for the picture source by this task.
+Eight video `source_suitability_decision` events were appended concurrently by
+the lead/operator for the #195 batch; they are untouched (see §13).
 
 ## 12. Reproduction
 
