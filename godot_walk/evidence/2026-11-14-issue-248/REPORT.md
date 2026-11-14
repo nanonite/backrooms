@@ -327,8 +327,9 @@ The full proposal is [`LAYOUT_PROPOSAL.md`](LAYOUT_PROPOSAL.md). In brief:
 - The Mip-NeRF `room` scene stays outside git and is never placed in
   `singles/`.
 
-The decision is **PENDING operator approval**. No folder was created and no
-committed file was edited.
+The decision is **PENDING operator approval**. No folder was created. The only
+committed-file change is the state-aware test assertion described in §13; no
+production file, source record, manifest, or pinned file was changed.
 
 ## 11. Files and artifacts
 
@@ -348,10 +349,13 @@ New evidence, all text:
   gates, and the eight existing Hunyuan attempt configs (all video, one seed
   frame each, 2:1 output).
 
-No image bytes are tracked. No existing file was edited by this task. No source
-was registered and no event was appended for the picture source by this task.
-Eight video `source_suitability_decision` events were appended concurrently by
-the lead/operator for the #195 batch; they are untouched (see §13).
+No image bytes are tracked. No source, manifest, or frozen file was edited by
+this task. One test file, `godot_walk/scripts/test_template_batch_ingest.py`,
+was updated to make its gate assertion state-aware after the lead/operator
+recorded `proceed` for the #195 videos; see §13. No source was registered and
+no event was appended for the picture source by this task. Eight video
+`source_suitability_decision` events were appended concurrently by the
+lead/operator for the #195 batch; they are untouched (see §13).
 
 ## 12. Reproduction
 
@@ -386,20 +390,22 @@ committed for this issue.
 - `python3 godot_walk/scripts/register_picture_sources.py validate`: valid,
   13 registered sources.
 - `python3 -m json.tool` on all four new JSON evidence files: valid.
-- `python3 -m pytest -q godot_walk/scripts`: **1494 passed, 5 skipped, 67
-  subtests passed, 1 failed**. The failure is
+- `python3 -m pytest -q godot_walk/scripts`: **1495 passed, 5 skipped, 67
+  subtests passed** (1213.01 s under heavy system load; a prior run had one
+  failure before the fix). The failure was
   `test_template_batch_ingest.py::test_v3_manifest_is_readable_by_the_runner_and_seed_review`,
-  which still asserts `next_worker_actions == ["review-source"]` for the first
+  which hard-coded `next_worker_actions == ["review-source"]` for the first
   #195 batch source. The lead/operator concurrently appended
   `source_suitability_decision: proceed` events for the eight #195 videos
-  (including `video-c9115d943f6c3fe4`) at 2026-11-14T12:57 UTC; the live status
-  is now `["extract-frames", "select-seed"]`. The events are operator work and
-  were not edited by this task. This failure is unrelated to the #248 evidence
-  files and needs an owner decision: either update the stale test or keep the
-  batch sources pending.
-- `git status` shows only the new `godot_walk/evidence/2026-11-14-issue-248/`
-  files from this task, plus the pre-existing untracked evidence folders and
-  the concurrent operator event edits.
+  (including `video-c9115d943f6c3fe4`) at 2026-11-14T12:57 UTC, so the live
+  status is now `["extract-frames", "select-seed"]`. The test assertion was
+  updated to require `review-source` only when `source_decision` is null and
+  to require that `review-source` is absent once a decision exists. The
+  operator events were left untouched. 12/12 tests now pass in
+  `test_template_batch_ingest.py`.
+- `git status` shows the new `godot_walk/evidence/2026-11-14-issue-248/`
+  files and the one test-file change from this task, plus the pre-existing
+  untracked evidence folders and the concurrent operator event edits.
 - No frozen or hash-pinned file was edited; `WORKFLOW_V1` and
   `SEED_REVIEW_PICTURE_SET_V1` were not touched.
 

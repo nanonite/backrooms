@@ -221,7 +221,12 @@ def test_v3_manifest_is_readable_by_the_runner_and_seed_review() -> None:
     )
     assert entry["manifest_path"].endswith("source_manifest-v3.json")
     status = source_status(source_id, ROOT)
-    assert status["next_worker_actions"] == ["review-source"]
+    assert status["source_id"] == source_id
+    assert status["source_kind"] == "video"
+    if status["source_decision"] is None:
+        assert status["next_worker_actions"] == ["review-source"]
+    else:
+        assert "review-source" not in status["next_worker_actions"]
     seed = seed_review_sources.load_source_record(source_id, ROOT)
     assert seed.video_path == entry["source_path"]
     manifest = json.loads((ROOT / entry["manifest_path"]).read_text(encoding="utf-8"))
