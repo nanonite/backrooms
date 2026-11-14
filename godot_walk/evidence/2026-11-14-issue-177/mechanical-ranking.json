@@ -1,0 +1,483 @@
+{
+  "candidate_batches": [
+    {
+      "frame_count": 17,
+      "manifest_path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/extraction_manifest.json",
+      "manifest_sha256": "9880e1f51c688e1a52bf130b396e437b7f6a9d3b451fce7096d4c6dba633d48c",
+      "run_id": "issue177-quarter-s-a"
+    }
+  ],
+  "consensus_status": "not_requested",
+  "consensus_variants": null,
+  "ground_truth": [],
+  "issue": 210,
+  "k_sweep": [
+    3,
+    5,
+    8
+  ],
+  "mechanical_order": [
+    "frame_0085",
+    "frame_0013",
+    "frame_0096",
+    "frame_0091",
+    "frame_0037",
+    "frame_0007",
+    "frame_0019",
+    "frame_0025",
+    "frame_0073",
+    "frame_0061",
+    "frame_0079",
+    "frame_0031",
+    "frame_0067",
+    "frame_0043",
+    "frame_0049",
+    "frame_0001",
+    "frame_0055"
+  ],
+  "mode": "inventory",
+  "model": null,
+  "schema_version": 1,
+  "source": {
+    "duration_seconds": 4.0,
+    "fps": 24.0,
+    "frame_count": 96,
+    "height": 1080,
+    "manifest_path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/source_manifest-v3.json",
+    "manifest_sha256": "af41b7ed362728d9956d5cfb5eb3d0dc71b7f251febfff02f25b2be9dcf6259f",
+    "source_id": "video-61b91dbeb9026dc7",
+    "video_path": "data/videos/corridor_x.mp4",
+    "video_sha256": "61b91dbeb9026dc7b404657f7ba7e081b5588a7e7a4a2abfa553be765d1a7f04",
+    "width": 1920
+  },
+  "tool": "freeview_consensus",
+  "tool_version": "1.1.0",
+  "unique_frame_count": 17,
+  "views": [
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0001",
+      "index_zero_based": 0,
+      "mechanical": {
+        "duplicate_similarity": 0.979749,
+        "exposure_clipped_high_fraction": 0.010734,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.55459,
+        "exposure_score": 0.917135,
+        "focus_analysis_laplacian_variance": 168.385686,
+        "focus_native_laplacian_variance": 450.268852,
+        "focus_score": 0.755616,
+        "mechanical_rank": 16,
+        "mechanical_score": 0.660129,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0001.png",
+      "pts_seconds": 0.0,
+      "sha256": "ca11f45a74533760408734ad0f457471b782661658979cc518249bc92e831b38"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0007",
+      "index_zero_based": 6,
+      "mechanical": {
+        "duplicate_similarity": 0.980687,
+        "exposure_clipped_high_fraction": 0.011079,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.557006,
+        "exposure_score": 0.913544,
+        "focus_analysis_laplacian_variance": 188.769236,
+        "focus_native_laplacian_variance": 472.846137,
+        "focus_score": 0.847085,
+        "mechanical_rank": 6,
+        "mechanical_score": 0.704825,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0007.png",
+      "pts_seconds": 0.25,
+      "sha256": "403709efe6d802297e0b0dfd414d4d384beb566902a5587bae5e336290e65504"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0013",
+      "index_zero_based": 12,
+      "mechanical": {
+        "duplicate_similarity": 0.980687,
+        "exposure_clipped_high_fraction": 0.0114,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.559522,
+        "exposure_score": 0.909828,
+        "focus_analysis_laplacian_variance": 219.545434,
+        "focus_native_laplacian_variance": 607.576529,
+        "focus_score": 0.98519,
+        "mechanical_rank": 2,
+        "mechanical_score": 0.772949,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0013.png",
+      "pts_seconds": 0.5,
+      "sha256": "d13288ec58ff4c6a4f1166f86dd57f6dce30808e74c7ada008521a47372c2160"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0019",
+      "index_zero_based": 18,
+      "mechanical": {
+        "duplicate_similarity": 0.979695,
+        "exposure_clipped_high_fraction": 0.011611,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.563158,
+        "exposure_score": 0.904612,
+        "focus_analysis_laplacian_variance": 186.409861,
+        "focus_native_laplacian_variance": 433.519666,
+        "focus_score": 0.836497,
+        "mechanical_rank": 7,
+        "mechanical_score": 0.697447,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0019.png",
+      "pts_seconds": 0.75,
+      "sha256": "5de78b6b3825906bbc00a11134843b08a4c856bd698c9933adc4a5f5ae17ee79"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0025",
+      "index_zero_based": 24,
+      "mechanical": {
+        "duplicate_similarity": 0.979695,
+        "exposure_clipped_high_fraction": 0.011713,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.564995,
+        "exposure_score": 0.90198,
+        "focus_analysis_laplacian_variance": 182.712378,
+        "focus_native_laplacian_variance": 398.837154,
+        "focus_score": 0.819905,
+        "mechanical_rank": 8,
+        "mechanical_score": 0.688493,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0025.png",
+      "pts_seconds": 1.0,
+      "sha256": "ea263edc263533dabcfda06fe9d5e866722f368f6cd8849d8d7759f09305157f"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0031",
+      "index_zero_based": 30,
+      "mechanical": {
+        "duplicate_similarity": 0.979105,
+        "exposure_clipped_high_fraction": 0.011826,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.565513,
+        "exposure_score": 0.901186,
+        "focus_analysis_laplacian_variance": 180.619366,
+        "focus_native_laplacian_variance": 371.637877,
+        "focus_score": 0.810513,
+        "mechanical_rank": 12,
+        "mechanical_score": 0.683687,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0031.png",
+      "pts_seconds": 1.25,
+      "sha256": "4bd38b445e072fa0ae11679bd4266ca09a479e1feaaea4061779a7e3c7e896dd"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0037",
+      "index_zero_based": 36,
+      "mechanical": {
+        "duplicate_similarity": 0.978554,
+        "exposure_clipped_high_fraction": 0.011847,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.56641,
+        "exposure_score": 0.899918,
+        "focus_analysis_laplacian_variance": 197.774167,
+        "focus_native_laplacian_variance": 435.740505,
+        "focus_score": 0.887494,
+        "mechanical_rank": 5,
+        "mechanical_score": 0.721943,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0037.png",
+      "pts_seconds": 1.5,
+      "sha256": "e5f7449ebff213668a46345f96c808cb126929c67ae607249a307dc9e06cf188"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0043",
+      "index_zero_based": 42,
+      "mechanical": {
+        "duplicate_similarity": 0.97778,
+        "exposure_clipped_high_fraction": 0.011925,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.567596,
+        "exposure_score": 0.898211,
+        "focus_analysis_laplacian_variance": 175.984158,
+        "focus_native_laplacian_variance": 342.851741,
+        "focus_score": 0.789713,
+        "mechanical_rank": 14,
+        "mechanical_score": 0.672742,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0043.png",
+      "pts_seconds": 1.75,
+      "sha256": "c05052fe460aacbc16786fdc783ad87c9b308f1578dccc3eaf4a8fced0dd1214"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0049",
+      "index_zero_based": 48,
+      "mechanical": {
+        "duplicate_similarity": 0.97778,
+        "exposure_clipped_high_fraction": 0.012002,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.566218,
+        "exposure_score": 0.900094,
+        "focus_analysis_laplacian_variance": 171.429679,
+        "focus_native_laplacian_variance": 334.143785,
+        "focus_score": 0.769275,
+        "mechanical_rank": 15,
+        "mechanical_score": 0.662994,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0049.png",
+      "pts_seconds": 2.0,
+      "sha256": "690ce13c6499102ae5ccdbbcccbaa110cb239974fd301f30fb6eb0c652024cbe"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0055",
+      "index_zero_based": 54,
+      "mechanical": {
+        "duplicate_similarity": 0.976486,
+        "exposure_clipped_high_fraction": 0.012004,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.565081,
+        "exposure_score": 0.901684,
+        "focus_analysis_laplacian_variance": 167.370217,
+        "focus_native_laplacian_variance": 315.421196,
+        "focus_score": 0.751059,
+        "mechanical_rank": 17,
+        "mechanical_score": 0.654477,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0055.png",
+      "pts_seconds": 2.25,
+      "sha256": "e75a3a7cd3a40931e9711aa442fc57860e5bf3d4801e4f2c0c65074d8dbcebb3"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0061",
+      "index_zero_based": 60,
+      "mechanical": {
+        "duplicate_similarity": 0.975777,
+        "exposure_clipped_high_fraction": 0.011929,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.563717,
+        "exposure_score": 0.903639,
+        "focus_analysis_laplacian_variance": 181.389575,
+        "focus_native_laplacian_variance": 376.958621,
+        "focus_score": 0.813969,
+        "mechanical_rank": 10,
+        "mechanical_score": 0.686528,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0061.png",
+      "pts_seconds": 2.5,
+      "sha256": "85fc5409908c6c30961932e26c131c81a5e19550ed4174255dbf68ca5e709626"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0067",
+      "index_zero_based": 66,
+      "mechanical": {
+        "duplicate_similarity": 0.975038,
+        "exposure_clipped_high_fraction": 0.011802,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.564498,
+        "exposure_score": 0.902622,
+        "focus_analysis_laplacian_variance": 179.279245,
+        "focus_native_laplacian_variance": 332.616175,
+        "focus_score": 0.804499,
+        "mechanical_rank": 13,
+        "mechanical_score": 0.681649,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0067.png",
+      "pts_seconds": 2.75,
+      "sha256": "9dbdc54fa2007ab378a3c6315586feebae04024d8262faf8c7eaad9cb1d4db4c"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0073",
+      "index_zero_based": 72,
+      "mechanical": {
+        "duplicate_similarity": 0.975433,
+        "exposure_clipped_high_fraction": 0.011379,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.561916,
+        "exposure_score": 0.90649,
+        "focus_analysis_laplacian_variance": 181.367717,
+        "focus_native_laplacian_variance": 334.294191,
+        "focus_score": 0.813871,
+        "mechanical_rank": 9,
+        "mechanical_score": 0.687243,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0073.png",
+      "pts_seconds": 3.0,
+      "sha256": "9188051553793c47ce0ca0695fd0176f4d87839de22d7f8f59f6f250230d8960"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0079",
+      "index_zero_based": 78,
+      "mechanical": {
+        "duplicate_similarity": 0.975433,
+        "exposure_clipped_high_fraction": 0.010919,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.558413,
+        "exposure_score": 0.91167,
+        "focus_analysis_laplacian_variance": 180.388368,
+        "focus_native_laplacian_variance": 332.249167,
+        "focus_score": 0.809476,
+        "mechanical_rank": 11,
+        "mechanical_score": 0.686341,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0079.png",
+      "pts_seconds": 3.25,
+      "sha256": "0bffa759196c1ee33322a8b3b2c68a7b472f78210196b1c2e376f4c243b9b5d4"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0085",
+      "index_zero_based": 84,
+      "mechanical": {
+        "duplicate_similarity": 0.975375,
+        "exposure_clipped_high_fraction": 0.010459,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.555125,
+        "exposure_score": 0.91655,
+        "focus_analysis_laplacian_variance": 222.84572,
+        "focus_native_laplacian_variance": 407.606961,
+        "focus_score": 1.0,
+        "mechanical_rank": 1,
+        "mechanical_score": 0.782831,
+        "temporal_coverage_score": 0.5,
+        "temporal_gap_seconds": 0.25
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0085.png",
+      "pts_seconds": 3.5,
+      "sha256": "6de4922c2f237eeee16013f1b86ce6f3aba945c580d0b20f2fab483989c18c1f"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0091",
+      "index_zero_based": 90,
+      "mechanical": {
+        "duplicate_similarity": 0.979944,
+        "exposure_clipped_high_fraction": 0.010119,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.552723,
+        "exposure_score": 0.920117,
+        "focus_analysis_laplacian_variance": 203.241424,
+        "focus_native_laplacian_variance": 321.167695,
+        "focus_score": 0.912027,
+        "mechanical_rank": 4,
+        "mechanical_score": 0.730718,
+        "temporal_coverage_score": 0.416667,
+        "temporal_gap_seconds": 0.208333
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0091.png",
+      "pts_seconds": 3.75,
+      "sha256": "3ae9a4d4644d687ec627122c8b2820a1695151e81886ac5c7ed10789c16684e4"
+    },
+    {
+      "batches": [
+        "issue177-quarter-s-a"
+      ],
+      "consensus": {},
+      "frame_id": "frame_0096",
+      "index_zero_based": 95,
+      "mechanical": {
+        "duplicate_similarity": 0.979944,
+        "exposure_clipped_high_fraction": 0.009667,
+        "exposure_clipped_low_fraction": 0.0,
+        "exposure_mean_luminance": 0.549586,
+        "exposure_score": 0.92478,
+        "focus_analysis_laplacian_variance": 220.552292,
+        "focus_native_laplacian_variance": 383.703367,
+        "focus_score": 0.989708,
+        "mechanical_rank": 3,
+        "mechanical_score": 0.770724,
+        "temporal_coverage_score": 0.416667,
+        "temporal_gap_seconds": 0.208333
+      },
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0096.png",
+      "pts_seconds": 3.9583333333333335,
+      "sha256": "75db2a6ab48dc7cd1d3185a747c088d8bac1a502cc5eaffced3f16e5a88b3704"
+    }
+  ]
+}
