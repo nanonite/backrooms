@@ -1,0 +1,12 @@
+{
+  "status": "blocked",
+  "source_id": "video-c9115d943f6c3fe4",
+  "attempt_id": "attempt-001",
+  "reason": "GPU preflight blocked by active job(s): 4096426   11324 bash            /bin/bash -c source /home/goya/.claude/shell-snapshots/snapshot-bash-1794385857562-3tkk2w.sh 2>/dev/null || true && shopt -u extglob 2>/dev/null || true && { \\builtin unalias -- 'which'; \\builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \\builtin unalias -- 'unsetenv'; \\builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'L=/home/goya/.local/share/opencode-loop-plugin/chainlink-runs/run_mwig5rij_jfc2m5az.log; for i in $(seq 1 58); do if grep -q \"status: \" $L; then break; fi; sleep 10; done; tail -n 4 $L | cut -c1-300; nvidia-smi --query-gpu=utilization.gpu,memory.used --format=csv,noheader; ls /mnt/sharedOs/backrooms-workspace/godot_walk/source_library/sources/video-c9115d943f6c3fe4/hunyuan 2>&1 | head' < /dev/null && pwd -P >| /tmp/claude-5989-cwd, 4117176 4117174 tee             tee /tmp/opencode/issue171-hunyuan-run.log",
+  "execution_guard_receipt": null,
+  "preflight_details": {
+    "snapshot": null,
+    "resource_policy": null
+  },
+  "checked_at_utc": "2026-11-15T23:18:49.037244+00:00"
+}
