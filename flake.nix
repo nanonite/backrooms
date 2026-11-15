@@ -181,6 +181,90 @@
             echo "===================================="
           '';
         };
+
+        # ------------------------------------------------------------------
+        # Hunyuan Panogen runtime (issue #251).
+        #
+        # Nix only provides the tool (`uv`) and the shared libraries that the
+        # PyPI wheels dlopen at import time. Python and every Python package
+        # come from uv, pinned by tools/hunyuan_runtime/pyproject.toml and
+        # uv.lock. Python 3.10 is uv-managed (uv python install 3.10) because
+        # this nixpkgs no longer ships python310.
+        #
+        # The venv is created outside the repository, at the exact path that
+        # godot_walk/scripts/source_ingestion_gpu.py expects for HUNYUAN_PYTHON:
+        #   /mnt/sharedOs/backrooms-track-a-runtime/hunyuan-env
+        # ------------------------------------------------------------------
+        devShells.hunyuan = let
+          pythonRuntimeLibs = with pkgs; [
+            stdenv.cc.cc.lib
+            zlib
+            glib
+            libGL
+            libGLU
+            libx11
+            libxext
+            libxrender
+            libsm
+            libice
+            libxkbcommon
+          ];
+
+          pythonRuntimeLibPath = pkgs.lib.makeLibraryPath pythonRuntimeLibs;
+        in pkgs.mkShell {
+          name = "backrooms-hunyuan";
+
+          packages = with pkgs; [
+            uv
+            git
+          ] ++ pythonRuntimeLibs;
+
+          shellHook = ''
+            export LD_LIBRARY_PATH=${pythonRuntimeLibPath}''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+
+            # Paths the frozen ingestion scripts expect. Keep them in sync with
+            # godot_walk/scripts/source_ingestion_gpu.py (HUNYUAN_* constants).
+            export HUNYUAN_RUNTIME_ROOT="''${HUNYUAN_RUNTIME_ROOT:-/mnt/sharedOs/backrooms-track-a-runtime}"
+            export HUNYUAN_RUNTIME="$HUNYUAN_RUNTIME_ROOT/HunyuanWorld-1.0"
+            export HUNYUAN_CACHE="$HUNYUAN_RUNTIME_ROOT/hf-cache"
+            export HUNYUAN_ENV="$HUNYUAN_RUNTIME_ROOT/hunyuan-env"
+
+            # uv project = tools/hunyuan_runtime, venv = $HUNYUAN_ENV.
+            # Invoke this shell from the repository root.
+            export HUNYUAN_PROJECT="$PWD/tools/hunyuan_runtime"
+            export UV_PROJECT_ENVIRONMENT="$HUNYUAN_ENV"
+
+            echo ""
+            echo "=== backrooms-hunyuan dev shell ==="
+            _ok()   { printf "  [x] %-10s %s\n" "$1" "$2"; }
+            _miss() { printf "  [ ] %-10s %s\n" "$1" "$2"; }
+
+            command -v uv >/dev/null 2>&1 \
+              && _ok uv "$(uv --version 2>&1)" \
+              || _miss uv "not found — flake.nix should provide it"
+
+            if [[ -x "$HUNYUAN_ENV/bin/python" ]]; then
+              _ok python "$("$HUNYUAN_ENV/bin/python" --version 2>&1) at $HUNYUAN_ENV"
+            else
+              _miss python "no venv at $HUNYUAN_ENV"
+              echo "             rebuild: cd tools/hunyuan_runtime && uv sync --locked"
+            fi
+
+            if git -C "$HUNYUAN_RUNTIME" rev-parse --verify HEAD >/dev/null 2>&1; then
+              _ok checkout "$(git -C "$HUNYUAN_RUNTIME" rev-parse --short HEAD) at $HUNYUAN_RUNTIME"
+            else
+              _miss checkout "no git checkout at $HUNYUAN_RUNTIME"
+            fi
+
+            [[ -d "$HUNYUAN_CACHE/hub" ]] \
+              && _ok hf-cache "$HUNYUAN_CACHE" \
+              || _miss hf-cache "missing $HUNYUAN_CACHE/hub"
+
+            echo ""
+            echo "Rebuild docs: tools/hunyuan_runtime/README.md"
+            echo "===================================="
+          '';
+        };
       }
     );
 }

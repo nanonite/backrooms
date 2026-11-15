@@ -1,0 +1,104 @@
+[project]
+name = "backrooms-hunyuan-runtime"
+version = "0.1.0"
+description = "Pinned HunyuanWorld-1.0 Panogen inference environment for the Backrooms source-ingestion track"
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+
+# The four versions checked by godot_walk/scripts/source_ingestion_gpu.py
+# (_validate_local_runtime) are torch, diffusers, accelerate and transformers.
+dependencies = [
+    # --- checked by _validate_local_runtime ---------------------------------
+    "torch==2.5.0",
+    "diffusers==0.34.0",
+    "accelerate==1.6.0",
+    "transformers==4.51.0",
+    # --- torch stack (upstream tested 2.5.0 + torchvision 0.20.0, cu124) -----
+    "torchvision==0.20.0",
+    # --- diffusers LoRA load/fuse for the PanoDiT adapters -------------------
+    "peft==0.15.0",
+    # --- tokenizer / hub stack pinned with transformers 4.51.0 --------------
+    "huggingface-hub==0.30.2",
+    "tokenizers==0.21.1",
+    "safetensors==0.5.3",
+    "sentencepiece==0.2.0",
+    "protobuf==5.29.3",
+    # --- numeric + imaging stack (numpy 1.x: open3d/MoGe predate numpy 2) ---
+    "numpy==1.24.1",
+    "pillow==11.1.0",
+    "opencv-python==4.11.0.86",
+    "scipy==1.15.2",
+    "scikit-image==0.24.0",
+    "matplotlib==3.10.1",
+    "tqdm==4.67.1",
+    # --- imported by hy3dworld's package __init__ ---------------------------
+    # hy3dworld/__init__.py eagerly imports the scene-generation classes, so
+    # `from hy3dworld import Image2PanoramaPipelines` pulls these modules in
+    # even though the Panogen path never calls them. See README.
+    "open3d==0.19.0",
+    "trimesh==4.6.1",
+    "basicsr-fixed==1.4.2",
+    "realesrgan==0.3.0",
+    "onnx==1.17.0",
+    "onnxruntime-gpu==1.21.1",
+    # zim_anything imports easydict through zim_config; upstream's setup.py
+    # does not declare it, so pin it here.
+    "easydict==1.9",
+    # --- pinned to exact commits of sources this project already used -------
+    "moge",
+    "utils3d",
+    "zim-anything",
+]
+
+[tool.uv]
+package = false
+python-preference = "managed"
+
+[tool.uv.sources]
+# torch 2.5.0 and torchvision 0.20.0 are taken from PyPI on purpose: the PyPI
+# linux wheels for this release *are* the cu124 builds, and their distribution
+# version is exactly "2.5.0" / "0.20.0". The download.pytorch.org/whl/cu124
+# index ships the same code tagged "2.5.0+cu124", which would fail
+# _validate_local_runtime()'s exact-string comparison in
+# godot_walk/scripts/source_ingestion_gpu.py.
+moge = { git = "https://github.com/microsoft/MoGe.git", rev = "0286b495230a074aadf1c76cc5c679e943e5d1c6" }
+utils3d = { git = "https://github.com/EasternJournalist/utils3d.git", rev = "c5daf6f6c244d251f252102d09e9b7bcef791a38" }
+zim-anything = { git = "https://github.com/naver-ai/ZIM.git", rev = "392e613c8a3d395ce4dda3b51edb6dabc1fd0004" }
+
+# realesrgan and gfpgan (upstream Real-ESRGAN / GFPGAN) declare a dependency on
+# PyPI `basicsr` 1.4.2, which cannot import under torchvision >= 0.17. Upstream
+# tells users to install `basicsr-fixed` instead: same module, patched. These
+# overrides point the two requirements at that distribution so uv does not pull
+# a second, broken copy of the `basicsr` module into the same site-packages.
+[[tool.uv.dependency-metadata]]
+name = "realesrgan"
+version = "0.3.0"
+requires-dist = [
+    "basicsr-fixed",
+    "facexlib>=0.2.5",
+    "gfpgan>=1.3.5",
+    "numpy",
+    "opencv-python",
+    "pillow",
+    "torch>=1.7",
+    "torchvision",
+    "tqdm",
+]
+
+[[tool.uv.dependency-metadata]]
+name = "gfpgan"
+version = "1.3.8"
+requires-dist = [
+    "basicsr-fixed",
+    "facexlib",
+    "lmdb",
+    "numpy",
+    "opencv-python",
+    "pyyaml",
+    "scipy",
+    "tb-nightly",
+    "torch>=1.7",
+    "torchvision",
+    "tqdm",
+    "yapf",
+]
