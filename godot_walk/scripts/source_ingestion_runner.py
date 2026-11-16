@@ -32,11 +32,13 @@ from register_video_sources import append_event
 from source_event_reconciliation import plan_reconciliation
 from source_ingestion_policy import (
     ATTEMPT_LIMIT_EXTENSIONS,
-    RETRY_ATTEMPT_SUFFIX,
+    MAX_PREFLIGHT_RETRIES,
     ROOM_ID_PATTERN,
     WorkflowGateError,
     WorkflowState,
+    blocked_attempt_id,
     evaluate_workflow,
+    next_retry_attempt_id,
     require_feedback,
     require_seed_selection,
     require_source_decision,
@@ -861,62 +863,74 @@ def record_preflight_retry_authorization(
     with _source_lock(source_id, root):
         manifest, events, _ = load_source(source_id, root)
         state = evaluate_workflow(manifest, events)
-        blocked_events = [
-            event
+        blocked = _latest_blocked_event(events)
+        retry_count = sum(
+            event["event_type"] == "hunyuan_preflight_retry_approved"
             for event in events
-            if event["event_type"] == "hunyuan_preflight_blocked"
-        ]
+        )
         if (
             state.attempts_used >= state.attempt_limit
             or state.awaiting_feedback
             or not state.selected_seed
             or not state.stopped_reason
             or not state.stopped_reason.startswith("GPU resource preflight blocked:")
-            or len(blocked_events) != 1
-            or any(
-                event["event_type"] == "hunyuan_preflight_retry_approved"
-                for event in events
-            )
+            or blocked is None
         ):
             raise WorkflowGateError(
                 "A preflight retry requires one unused slot that never started "
                 "inference and a terminal resource block"
             )
-        blocked = blocked_events[0]
+        if retry_count >= MAX_PREFLIGHT_RETRIES:
+            raise WorkflowGateError(
+                "The per-source preflight retry limit is already reached"
+            )
         if any(
             event["event_type"] == "hunyuan_attempt_started"
             and event.get("sequence", 0) > blocked.get("sequence", 0)
             for event in events
         ):
             raise WorkflowGateError("The blocked slot already started an inference")
-        blocked_attempt_id = f"attempt-{state.attempts_used + 1:03d}"
+        blocked_id = blocked_attempt_id(blocked)
+        retry_attempt_id = next_retry_attempt_id(blocked_id)
+        if retry_attempt_id is None:
+            raise WorkflowGateError("Blocked guard receipt has no usable attempt id")
         receipt = _verified_blocked_receipt(
-            source_id, blocked, state.selected_seed, blocked_attempt_id, root
+            source_id, blocked, state.selected_seed, blocked_id, root
         )
-        retry_attempt_id = f"{blocked_attempt_id}{RETRY_ATTEMPT_SUFFIX}"
         retry_dir = (
             root / LIBRARY / "sources" / source_id / "hunyuan" / retry_attempt_id
         )
         _reject_symlink_components(retry_dir, root)
         if retry_dir.exists():
             raise FileExistsError(f"Refusing to overwrite retry evidence: {retry_dir}")
-        append_event(
-            source_id,
-            "hunyuan_preflight_retry_approved",
-            {
-                "blocked_event_sequence": blocked["sequence"],
-                "guard_receipt": receipt,
-                "retry_attempt_id": retry_attempt_id,
-                "authorization_source": "explicit_operator_instruction",
-                "rationale": rationale.strip(),
-            },
-            root,
-        )
-        updated = evaluate_workflow(manifest, load_source(source_id, root)[1])
-        if not updated.can_start_attempt:
+        payload = {
+            "blocked_event_sequence": blocked["sequence"],
+            "guard_receipt": receipt,
+            "retry_attempt_id": retry_attempt_id,
+            "authorization_source": "explicit_operator_instruction",
+            "rationale": rationale.strip(),
+        }
+        candidate = {
+            "sequence": len(events) + 1,
+            "event_type": "hunyuan_preflight_retry_approved",
+            "payload": payload,
+        }
+        if not evaluate_workflow(manifest, [*events, candidate]).can_start_attempt:
             raise WorkflowGateError(
                 "Recorded retry authorization did not unlock the unused slot"
             )
+        append_event(source_id, "hunyuan_preflight_retry_approved", payload, root)
+
+
+def _latest_blocked_event(events: list[dict[str, Any]]) -> dict[str, Any] | None:
+    return next(
+        (
+            event
+            for event in reversed(events)
+            if event["event_type"] == "hunyuan_preflight_blocked"
+        ),
+        None,
+    )
 
 
 def _verified_blocked_receipt(

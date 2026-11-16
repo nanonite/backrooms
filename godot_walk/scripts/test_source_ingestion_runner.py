@@ -441,6 +441,50 @@ class SourceIngestionRunnerTests(unittest.TestCase):
                 self.source_id, "A duplicate retry is not authorized.", self.root
             )
 
+    def _block_attempt(self, seed_sha256: str, attempt_id: str) -> Path:
+        attempt_dir = (
+            self.root
+            / "godot_walk/source_library/sources"
+            / self.source_id
+            / "hunyuan"
+            / attempt_id
+        )
+        attempt_dir.mkdir(parents=True)
+        (attempt_dir / "attempt_config.json").write_text(
+            json.dumps(
+                {
+                    "source_id": self.source_id,
+                    "attempt_id": attempt_id,
+                    "seed_frame": {"sha256": seed_sha256},
+                }
+            ),
+            encoding="utf-8",
+        )
+        guard_path = attempt_dir / "gpu_guard.json"
+        guard_path.write_text(
+            json.dumps(
+                {
+                    "status": "blocked",
+                    "source_id": self.source_id,
+                    "attempt_id": attempt_id,
+                }
+            ),
+            encoding="utf-8",
+        )
+        append_event(
+            self.source_id,
+            "hunyuan_preflight_blocked",
+            {
+                "reason": "insufficient RAM",
+                "guard_receipt": {
+                    "path": guard_path.relative_to(self.root).as_posix(),
+                    "sha256": sha256_file(guard_path),
+                },
+            },
+            self.root,
+        )
+        return guard_path
+
     def _block_first_attempt(self) -> tuple[Path, str]:
         self._approve_source()
         source_sha = source_ingestion_runner.load_source(self.source_id, self.root)[2][
@@ -456,48 +500,12 @@ class SourceIngestionRunnerTests(unittest.TestCase):
             "source_video_sha256": source_sha,
         }
         append_event(self.source_id, "seed_selected", seed, self.root)
-        attempt_dir = (
-            self.root
-            / "godot_walk/source_library/sources"
-            / self.source_id
-            / "hunyuan/attempt-001"
-        )
-        attempt_dir.mkdir(parents=True)
-        (attempt_dir / "attempt_config.json").write_text(
-            json.dumps(
-                {
-                    "source_id": self.source_id,
-                    "attempt_id": "attempt-001",
-                    "seed_frame": {"sha256": seed["sha256"]},
-                }
-            ),
-            encoding="utf-8",
-        )
-        guard_path = attempt_dir / "gpu_guard.json"
-        guard_path.write_text(
-            json.dumps(
-                {
-                    "status": "blocked",
-                    "source_id": self.source_id,
-                    "attempt_id": "attempt-001",
-                }
-            ),
-            encoding="utf-8",
-        )
-        guard_hash = sha256_file(guard_path)
-        append_event(
-            self.source_id,
-            "hunyuan_preflight_blocked",
-            {
-                "reason": "insufficient RAM",
-                "guard_receipt": {
-                    "path": guard_path.relative_to(self.root).as_posix(),
-                    "sha256": guard_hash,
-                },
-            },
-            self.root,
-        )
-        return attempt_dir, guard_hash
+        guard_path = self._block_attempt(seed["sha256"], "attempt-001")
+        return guard_path.parent, sha256_file(guard_path)
+
+    def _selected_seed_sha256(self) -> str:
+        status = source_ingestion_runner.source_status(self.source_id, self.root)
+        return status["selected_seed"]["sha256"]
 
     def test_preflight_retry_authorizes_the_blocked_first_slot(self) -> None:
         attempt_dir, guard_hash = self._block_first_attempt()
@@ -563,20 +571,65 @@ class SourceIngestionRunnerTests(unittest.TestCase):
                 self.root,
             )
 
-    def test_second_preflight_retry_authorization_is_refused(self) -> None:
+    def test_second_and_third_preflight_retries_authorize_bounded_ids(self) -> None:
         self._block_first_attempt()
+        seed_sha256 = self._selected_seed_sha256()
         source_ingestion_runner.record_preflight_retry_authorization(
-            self.source_id,
-            "The operator requested one retry.",
-            self.root,
+            self.source_id, "The operator requested the first retry.", self.root
+        )
+        self._block_attempt(seed_sha256, "attempt-001-retry-001")
+
+        source_ingestion_runner.record_preflight_retry_authorization(
+            self.source_id, "The operator requested a second retry.", self.root
         )
 
-        with self.assertRaisesRegex(WorkflowGateError, "unused slot"):
+        status = source_ingestion_runner.source_status(self.source_id, self.root)
+        self.assertEqual(0, status["attempts_used"])
+        self.assertTrue(status["can_start_attempt"])
+        ledger = self._ledger()
+        self.assertEqual(
+            "attempt-001-retry-002", ledger[-1]["payload"]["retry_attempt_id"]
+        )
+
+        self._block_attempt(seed_sha256, "attempt-001-retry-002")
+        source_ingestion_runner.record_preflight_retry_authorization(
+            self.source_id, "The operator requested a third retry.", self.root
+        )
+
+        status = source_ingestion_runner.source_status(self.source_id, self.root)
+        self.assertEqual(0, status["attempts_used"])
+        self.assertTrue(status["can_start_attempt"])
+        self.assertEqual(
+            "attempt-001-retry-003",
+            self._ledger()[-1]["payload"]["retry_attempt_id"],
+        )
+
+    def test_fourth_preflight_retry_authorization_is_refused(self) -> None:
+        self._block_first_attempt()
+        seed_sha256 = self._selected_seed_sha256()
+        for retry_number in (1, 2, 3):
             source_ingestion_runner.record_preflight_retry_authorization(
                 self.source_id,
-                "A duplicate retry is not authorized.",
+                f"The operator requested retry {retry_number}.",
                 self.root,
             )
+            self._block_attempt(
+                seed_sha256, f"attempt-001-retry-{retry_number:03d}"
+            )
+
+        with self.assertRaisesRegex(WorkflowGateError, "retry limit"):
+            source_ingestion_runner.record_preflight_retry_authorization(
+                self.source_id, "A fourth retry is not authorized.", self.root
+            )
+
+    def _ledger(self) -> list[dict]:
+        event_path = (
+            self.root
+            / "godot_walk/source_library/sources"
+            / self.source_id
+            / "events.jsonl"
+        )
+        return [json.loads(line) for line in event_path.read_text().splitlines()]
 
     def test_preflight_retry_requires_an_operator_rationale(self) -> None:
         self._block_first_attempt()

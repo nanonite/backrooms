@@ -316,6 +316,9 @@ def _run_guarded_attempt(
                         if getattr(error, "limits", None) is not None
                         else None
                     ),
+                    "ignored_graphics_processes": getattr(
+                        error, "ignored_graphics_processes", None
+                    ),
                 }
                 return _record_guard_block(
                     source_id,
@@ -353,14 +356,14 @@ def _run_guarded_attempt(
 
 def _capture_preflight() -> dict[str, Any]:
     sys.path.insert(0, str(SCRIPTS))
-    from psx_design_round_resources import check_capture_headroom
+    from source_ingestion_preflight import check_ingestion_headroom
     from source_ingestion_resource_guard import (
         DEFAULT_LIMITS,
         capture_resources,
         check_start_limits,
     )
 
-    baseline = check_capture_headroom()
+    baseline = check_ingestion_headroom()
     snapshot = capture_resources()
     check_start_limits(snapshot)
     return {

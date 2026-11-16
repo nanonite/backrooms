@@ -17,6 +17,7 @@ from source_ingestion_policy import (
     require_seed_selection,
     require_source_decision,
 )
+from source_ingestion_runner import load_source
 
 
 def event(event_type: str, payload: dict) -> dict:
@@ -542,7 +543,7 @@ class SourceIngestionPolicyTests(unittest.TestCase):
         )
         valid["sequence"] = len(events) + 1
         duplicate = {**valid, "sequence": len(events) + 2}
-        with self.assertRaisesRegex(WorkflowGateError, "Only one preflight retry"):
+        with self.assertRaisesRegex(WorkflowGateError, "authorization is invalid"):
             evaluate_workflow(self.manifest, events + [valid, duplicate])
 
     def _blocked_attempt_receipt(
@@ -575,7 +576,9 @@ class SourceIngestionPolicyTests(unittest.TestCase):
         rationale: str = "The operator requested one retry after the guard was corrected.",
     ) -> dict:
         blocked = next(
-            item for item in events if item["event_type"] == "hunyuan_preflight_blocked"
+            item
+            for item in reversed(events)
+            if item["event_type"] == "hunyuan_preflight_blocked"
         )
         authorization = event(
             "hunyuan_preflight_retry_approved",
@@ -589,6 +592,17 @@ class SourceIngestionPolicyTests(unittest.TestCase):
         )
         authorization["sequence"] = max(item.get("sequence", 0) for item in events) + 1
         return authorization
+
+    def _with_block(self, events: list[dict], attempt_id: str) -> list[dict]:
+        blocked = event(
+            "hunyuan_preflight_blocked",
+            {
+                "reason": "insufficient RAM",
+                "guard_receipt": self._blocked_attempt_receipt(attempt_id),
+            },
+        )
+        blocked["sequence"] = max(item.get("sequence", 0) for item in events) + 1
+        return [*events, blocked]
 
     def test_first_slot_preflight_retry_unlocks_the_blocked_slot(self) -> None:
         events = self._first_slot_block()
@@ -624,13 +638,60 @@ class SourceIngestionPolicyTests(unittest.TestCase):
         with self.assertRaisesRegex(WorkflowGateError, "authorization is invalid"):
             evaluate_workflow(self.manifest, events + [started, authorization])
 
-    def test_second_preflight_retry_authorization_is_refused(self) -> None:
+    def test_second_and_third_preflight_retry_authorizations_are_accepted(self) -> None:
         events = self._first_slot_block()
         first = self._retry_authorization(events)
-        second = self._retry_authorization(events + [first])
+        events = [*events, first]
+        self.assertTrue(evaluate_workflow(self.manifest, events).can_start_attempt)
 
-        with self.assertRaisesRegex(WorkflowGateError, "Only one preflight retry"):
-            evaluate_workflow(self.manifest, events + [first, second])
+        events = self._with_block(events, "attempt-001-retry-001")
+        second = self._retry_authorization(events, attempt_id="attempt-001-retry-002")
+        events = [*events, second]
+        second_state = evaluate_workflow(self.manifest, events)
+        self.assertTrue(second_state.can_start_attempt)
+        self.assertEqual(0, second_state.attempts_used)
+
+        events = self._with_block(events, "attempt-001-retry-002")
+        third = self._retry_authorization(events, attempt_id="attempt-001-retry-003")
+        third_state = evaluate_workflow(self.manifest, [*events, third])
+        self.assertTrue(third_state.can_start_attempt)
+        self.assertEqual(DEFAULT_ATTEMPT_LIMIT, third_state.attempt_limit)
+
+    def test_fourth_preflight_retry_authorization_is_refused(self) -> None:
+        events = self._first_slot_block()
+        events = [*events, self._retry_authorization(events)]
+        for retry_number in (1, 2):
+            events = self._with_block(
+                events, f"attempt-001-retry-{retry_number:03d}"
+            )
+            events = [
+                *events,
+                self._retry_authorization(
+                    events,
+                    attempt_id=f"attempt-001-retry-{retry_number + 1:03d}",
+                ),
+            ]
+        events = self._with_block(events, "attempt-001-retry-003")
+        fourth = self._retry_authorization(
+            events, attempt_id="attempt-001-retry-004"
+        )
+
+        with self.assertRaisesRegex(WorkflowGateError, "retry limit"):
+            evaluate_workflow(self.manifest, [*events, fourth])
+
+    def test_preflight_retry_is_refused_after_the_blocked_slot_started(self) -> None:
+        events = self._first_slot_block()
+        events = [*events, self._retry_authorization(events)]
+        started = event(
+            "hunyuan_attempt_started", {"attempt_id": "attempt-001-retry-001"}
+        )
+        started["sequence"] = events[-1]["sequence"] + 1
+        events = [*events, started]
+        events = self._with_block(events, "attempt-001-retry-001")
+        second = self._retry_authorization(events, attempt_id="attempt-001-retry-002")
+
+        with self.assertRaisesRegex(WorkflowGateError, "authorization is invalid"):
+            evaluate_workflow(self.manifest, [*events, second])
 
     def test_preflight_retry_reuses_the_room_bound_final_slot(self) -> None:
         events, seed = self._five_attempt_room_history()
@@ -687,6 +748,48 @@ class SourceIngestionPolicyTests(unittest.TestCase):
         self.assertEqual(
             "per-source Hunyuan invocation cap reached", started_state.stopped_reason
         )
+
+    def test_preflight_retry_reuses_the_room_bound_slot_through_a_second_retry(
+        self,
+    ) -> None:
+        events, seed = self._five_attempt_room_history()
+        events.append(
+            event(
+                "hunyuan_room_attempt_authorized",
+                {
+                    "schema_version": 1,
+                    "room_id": "debris-window-interior",
+                    "scope": "one_new_room_panorama",
+                    "attempt_id": "attempt-006",
+                    "seed_frame": seed,
+                    "authorization_source": "explicit_operator_instruction",
+                    "rationale": "Operator approved the room-bound final attempt.",
+                },
+            )
+        )
+        events = self._with_block(events, "attempt-006")
+        events = [
+            *events,
+            self._retry_authorization(events, attempt_id="attempt-006-retry-001"),
+        ]
+        events = self._with_block(events, "attempt-006-retry-001")
+        second = self._retry_authorization(events, attempt_id="attempt-006-retry-002")
+
+        retry_state = evaluate_workflow(self.manifest, [*events, second])
+        self.assertEqual(5, retry_state.attempts_used)
+        self.assertTrue(retry_state.can_start_attempt)
+
+        started = event(
+            "hunyuan_attempt_started",
+            {
+                "attempt_id": "attempt-006-retry-002",
+                "seed_frame_sha256": seed["sha256"],
+            },
+        )
+        started["sequence"] = second["sequence"] + 1
+        consumed = evaluate_workflow(self.manifest, [*events, second, started])
+        self.assertEqual(6, consumed.attempts_used)
+        self.assertFalse(consumed.can_start_attempt)
 
     def test_preflight_retry_requires_a_non_empty_rationale(self) -> None:
         events = self._first_slot_block()
@@ -772,6 +875,32 @@ class SourceIngestionPolicyTests(unittest.TestCase):
         )
         state = evaluate_workflow(self.manifest, events)
         self.assertIsNone(state.stopped_reason)
+
+
+class RecordedHistoryReplayTests(unittest.TestCase):
+    def test_recorded_first_retry_history_stays_at_the_latest_block(self) -> None:
+        manifest, events, _ = load_source("video-c9115d943f6c3fe4")
+
+        state = evaluate_workflow(manifest, events)
+
+        self.assertEqual(0, state.attempts_used)
+        self.assertFalse(state.can_start_attempt)
+        self.assertIn(
+            "pid=28826 type=G command=gnome-text-editor", state.stopped_reason or ""
+        )
+
+    def test_recorded_extension_and_retry_history_stays_at_the_cap(self) -> None:
+        manifest, events, _ = load_source("video-ccf9722164a0bdc8")
+
+        state = evaluate_workflow(manifest, events)
+
+        self.assertEqual(6, state.attempts_used)
+        self.assertEqual(6, state.attempt_limit)
+        self.assertTrue(state.awaiting_feedback)
+        self.assertEqual(
+            "per-source Hunyuan invocation cap reached", state.stopped_reason
+        )
+        self.assertFalse(state.can_start_attempt)
 
 
 if __name__ == "__main__":

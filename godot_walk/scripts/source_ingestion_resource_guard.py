@@ -98,6 +98,11 @@ def runtime_stop_reason(
 
 
 def external_compute_pids(process_group_id: int) -> list[str]:
+    """Return compute-context PIDs outside the run's process group.
+
+    ``--query-compute-apps`` never reports graphics-only contexts, so desktop
+    applications with a type G row do not stop a running inference.
+    """
     result = subprocess.run(
         ["nvidia-smi", "--query-compute-apps=pid", "--format=csv,noheader,nounits"],
         capture_output=True,

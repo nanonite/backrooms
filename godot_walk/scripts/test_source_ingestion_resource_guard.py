@@ -8,7 +8,7 @@ import tempfile
 import time
 import unittest
 from pathlib import Path
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -19,6 +19,7 @@ from source_ingestion_resource_guard import (
     ResourceGuardError,
     ResourceLimits,
     check_start_limits,
+    external_compute_pids,
     runtime_stop_reason,
 )
 
@@ -171,6 +172,35 @@ class ResourceGuardTests(unittest.TestCase):
         self.assertEqual("stopped_by_guard", result["status"])
         self.assertEqual("hard inference timeout reached", result["stop_reason"])
         self.assertEqual(124, result["return_code"])
+
+
+class ExternalComputeProcessTests(unittest.TestCase):
+    def test_only_external_compute_pids_are_reported(self) -> None:
+        result = Mock()
+        result.returncode = 0
+        result.stdout = "123\n456\n789\n"
+        result.stderr = ""
+        with (
+            patch(
+                "source_ingestion_resource_guard.subprocess.run",
+                return_value=result,
+            ) as run,
+            patch(
+                "source_ingestion_resource_guard.os.getpgid",
+                side_effect=lambda pid: {123: 77, 456: 88, 789: 99}[pid],
+            ),
+        ):
+            pids = external_compute_pids(77)
+
+        self.assertEqual(["456", "789"], pids)
+        self.assertEqual(
+            [
+                "nvidia-smi",
+                "--query-compute-apps=pid",
+                "--format=csv,noheader,nounits",
+            ],
+            run.call_args.args[0],
+        )
 
 
 class ZfsArcCreditTests(unittest.TestCase):

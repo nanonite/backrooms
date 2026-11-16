@@ -21,6 +21,7 @@ import source_ingestion_gpu
 import source_ingestion_runner
 from gpu_job_lock import exclusive_gpu_job
 from register_video_sources import register_video
+from source_ingestion_preflight import GpuProcessBlockedError
 from source_ingestion_resource_guard import ResourceGuardError, ResourceLimits
 from video_source_library import SourceLibraryError, sha256_file
 
@@ -249,6 +250,128 @@ class SourceIngestionGpuTests(unittest.TestCase):
         status = source_ingestion_runner.source_status(self.source_id, self.root)
         self.assertEqual(1, status["attempts_used"])
         self.assertTrue(status["awaiting_feedback"])
+
+    def test_second_preflight_retry_after_the_retry_was_blocked(self) -> None:
+        def blocked_guard() -> dict[str, str]:
+            raise RuntimeError("insufficient free VRAM")
+
+        for _ in range(2):
+            blocked = source_ingestion_gpu.run_panorama_attempt(
+                self.source_id,
+                "A test interior panorama prompt.",
+                root=self.root,
+                guard=blocked_guard,
+                runner=self._fake_runner,
+                sampler_factory=FakeSampler,
+            )
+            self.assertEqual("blocked", blocked["status"])
+            source_ingestion_runner.record_preflight_retry_authorization(
+                self.source_id,
+                "The operator requested a bounded retry.",
+                self.root,
+            )
+
+        result = source_ingestion_gpu.run_panorama_attempt(
+            self.source_id,
+            "A test interior panorama prompt.",
+            root=self.root,
+            guard=lambda: {"guard_policy_version": "test"},
+            runner=self._fake_runner,
+            sampler_factory=FakeSampler,
+        )
+
+        self.assertEqual("produced", result["status"])
+        attempt_dir = (
+            self.root
+            / "godot_walk/source_library/sources"
+            / self.source_id
+            / "hunyuan/attempt-001-retry-002"
+        )
+        settings = json.loads(
+            (attempt_dir / "attempt_config.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual("attempt-001-retry-002", settings["attempt_id"])
+        status = source_ingestion_runner.source_status(self.source_id, self.root)
+        self.assertEqual(1, status["attempts_used"])
+
+    def test_preflight_receipt_records_ignored_graphics_rows(self) -> None:
+        baseline = {
+            "guard_policy_version": "2.2.0",
+            "ignored_graphics_processes": [
+                {"pid": "28826", "type": "G", "command": "gnome-text-editor"}
+            ],
+        }
+        snapshot = {
+            "ram_available_bytes": 40 * 1024**3,
+            "swap_free_bytes": 20 * 1024**3,
+            "gpu_free_bytes": 10 * 1024**3,
+        }
+        with (
+            patch(
+                "source_ingestion_preflight.check_ingestion_headroom",
+                return_value=baseline,
+            ),
+            patch(
+                "source_ingestion_resource_guard.capture_resources",
+                return_value=snapshot,
+            ),
+            patch("source_ingestion_resource_guard.check_start_limits"),
+        ):
+            preflight = source_ingestion_gpu._capture_preflight()
+
+        self.assertEqual(
+            baseline["ignored_graphics_processes"],
+            preflight["ignored_graphics_processes"],
+        )
+        self.assertEqual("2.2.0", preflight["guard_policy_version"])
+
+    def test_next_attempt_id_advances_through_a_bounded_retry_chain(self) -> None:
+        events = [
+            {
+                "event_type": "hunyuan_preflight_retry_approved",
+                "payload": {"retry_attempt_id": "attempt-001-retry-001"},
+            },
+            {"event_type": "hunyuan_preflight_blocked", "payload": {}},
+            {
+                "event_type": "hunyuan_preflight_retry_approved",
+                "payload": {"retry_attempt_id": "attempt-001-retry-002"},
+            },
+        ]
+
+        self.assertEqual(
+            "attempt-001-retry-002", source_ingestion_gpu._next_attempt_id(0, events)
+        )
+
+    def test_blocked_receipt_records_ignored_graphics_rows(self) -> None:
+        ignored = [{"pid": "28826", "type": "G", "command": "gnome-text-editor"}]
+
+        def guard() -> dict[str, object]:
+            raise GpuProcessBlockedError(
+                "GPU preflight blocked by active GPU process(es): "
+                "pid=700 type=C command=python",
+                ignored,
+            )
+
+        result = source_ingestion_gpu.run_panorama_attempt(
+            self.source_id,
+            "A test interior panorama prompt.",
+            root=self.root,
+            guard=guard,
+            runner=self._fake_runner,
+            sampler_factory=FakeSampler,
+        )
+        attempt_dir = (
+            self.root
+            / "godot_walk/source_library/sources"
+            / self.source_id
+            / "hunyuan/attempt-001"
+        )
+        receipt = json.loads((attempt_dir / "gpu_guard.json").read_text())
+
+        self.assertEqual("blocked", result["status"])
+        self.assertEqual(
+            ignored, receipt["preflight_details"]["ignored_graphics_processes"]
+        )
 
     def test_resource_guard_block_receipt_records_snapshot_and_policy(self) -> None:
         snapshot = {

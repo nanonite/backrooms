@@ -19,6 +19,8 @@ ALLOWED_IMPROVEMENT = {"improved", "no_improvement", "uncertain"}
 ROOM_ID_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 ATTEMPT_ID_PATTERN = re.compile(r"^attempt-\d{3}$")
 RETRY_ATTEMPT_SUFFIX = "-retry-001"
+RETRY_ATTEMPT_ID_PATTERN = re.compile(r"^attempt-(\d{3})-retry-(\d{3})$")
+MAX_PREFLIGHT_RETRIES = 3
 
 
 class WorkflowGateError(ValueError):
@@ -65,15 +67,8 @@ def evaluate_workflow(
     source_decision = _latest_value(events, "source_suitability_decision", "decision")
     selected_seed = _latest_payload(events, "seed_selected")
     attempt_state = _attempt_state(events, historical, limit)
-    preflight_retry = _preflight_retry_authorization(
-        events, attempt_state["attempts_used"], historical, limit
-    )
-    blocked = _blocking_event(
-        events,
-        preflight_retry["payload"]["blocked_event_sequence"]
-        if preflight_retry
-        else None,
-    )
+    preflight_retries = _preflight_retry_state(events, historical, limit)
+    blocked = _blocking_event(events, preflight_retries)
     manual_decision = _latest_value(events, "manual_fallback_decision", "choice")
     stop_reason = _stop_reason(
         source_decision, historical, limit, attempt_state, blocked, manual_decision
@@ -259,15 +254,19 @@ def _room_attempt_authorization(
         for event in events[authorization_index + 1 :]
         if event["event_type"] == "hunyuan_attempt_started"
     ]
-    retry_attempt_id = f"{attempt_id}{RETRY_ATTEMPT_SUFFIX}"
     retry_authorizations = {
         event["payload"].get("retry_attempt_id")
         for event in events
         if event["event_type"] == "hunyuan_preflight_retry_approved"
     }
     allowed_attempt_ids = {attempt_id}
-    if retry_attempt_id in retry_authorizations:
-        allowed_attempt_ids.add(retry_attempt_id)
+    candidate_retry_id = attempt_id
+    for _ in range(MAX_PREFLIGHT_RETRIES):
+        candidate_retry_id = next_retry_attempt_id(candidate_retry_id)
+        if candidate_retry_id is None:
+            break
+        if candidate_retry_id in retry_authorizations:
+            allowed_attempt_ids.add(candidate_retry_id)
     matching_starts = [
         event
         for event in starts
@@ -380,127 +379,182 @@ def _repeated_failure_modes(feedback: dict[str, dict[str, Any]]) -> set[str]:
 
 
 def _blocking_event(
-    events: list[dict[str, Any]], authorized_sequence: int | None
+    events: list[dict[str, Any]], authorized_sequences: set[int]
 ) -> str | None:
     for event in events:
-        if event["event_type"] == "hunyuan_preflight_blocked" and not (
-            authorized_sequence is not None
-            and event.get("sequence") == authorized_sequence
+        if event["event_type"] == "hunyuan_preflight_blocked" and (
+            event.get("sequence") not in authorized_sequences
         ):
             reason = event["payload"].get("reason", "unspecified guard condition")
             return f"GPU resource preflight blocked: {reason}"
     return None
 
 
-def _preflight_retry_authorization(
-    events: list[dict[str, Any]], attempts_used: int, historical: int, limit: int
-) -> dict[str, Any] | None:
+def _preflight_retry_state(
+    events: list[dict[str, Any]], historical: int, limit: int
+) -> set[int]:
+    """Validate every retry authorization and return the blocked sequences it covers."""
     authorizations = [
         event
         for event in events
         if event["event_type"] == "hunyuan_preflight_retry_approved"
     ]
-    if not authorizations:
-        return None
-    if len(authorizations) != 1:
-        raise WorkflowGateError("Only one preflight retry authorization is supported")
-    authorization = authorizations[0]
+    if len(authorizations) > MAX_PREFLIGHT_RETRIES:
+        raise WorkflowGateError("Per-source preflight retry limit exceeded")
+    authorized_sequences: set[int] = set()
+    used_retry_ids: set[str] = set()
+    for authorization in authorizations:
+        _validate_preflight_retry_authorization(
+            events,
+            authorization,
+            authorized_sequences,
+            used_retry_ids,
+            historical,
+            limit,
+        )
+        authorized_sequences.add(authorization["payload"]["blocked_event_sequence"])
+        used_retry_ids.add(authorization["payload"]["retry_attempt_id"])
+    return authorized_sequences
+
+
+def _validate_preflight_retry_authorization(
+    events: list[dict[str, Any]],
+    authorization: dict[str, Any],
+    authorized_sequences: set[int],
+    used_retry_ids: set[str],
+    historical: int,
+    limit: int,
+) -> None:
     payload = authorization["payload"]
     blocked_sequence = payload.get("blocked_event_sequence")
-    blocked = next(
-        (
-            event
-            for event in events
-            if event["event_type"] == "hunyuan_preflight_blocked"
-            and event.get("sequence") == blocked_sequence
-        ),
-        None,
-    )
     authorization_sequence = authorization.get("sequence", 0)
-    starts_before_authorization = sum(
+    blocked = _blocked_event_at(events, blocked_sequence)
+    blocked_id = blocked_attempt_id(blocked)
+    retry_id = payload.get("retry_attempt_id")
+    expected_id = next_retry_attempt_id(blocked_id)
+    slot_number = _attempt_slot_number(blocked_id)
+    starts_before = sum(
         1
         for event in events
         if event["event_type"] == "hunyuan_attempt_started"
         and event.get("sequence", 0) < authorization_sequence
     )
-    retry_number = historical + starts_before_authorization + 1
-    expected_id = f"attempt-{retry_number:03d}{RETRY_ATTEMPT_SUFFIX}"
-    blocked_id = f"attempt-{retry_number:03d}"
-    next_extension = next(
-        (
-            event
-            for event in events
-            if event["event_type"] == "hunyuan_budget_extension_approved"
-            and event.get("sequence", 0) > authorization_sequence
-        ),
-        None,
-    )
-    retry_window_end = (
-        next_extension.get("sequence", 0) if next_extension is not None else None
-    )
-    starts_during_retry_window = [
-        event
-        for event in events
-        if event["event_type"] == "hunyuan_attempt_started"
-        and event.get("sequence", 0) > authorization_sequence
-        and (retry_window_end is None or event.get("sequence", 0) < retry_window_end)
-    ]
-    all_retry_starts = [
-        event
-        for event in events
-        if event["event_type"] == "hunyuan_attempt_started"
-        and event["payload"].get("attempt_id") == expected_id
-    ]
-    retry_start_sequence = min(
-        (event.get("sequence", 0) for event in all_retry_starts), default=None
-    )
-    starts_before_retry = [
-        event
-        for event in starts_during_retry_window
-        if retry_start_sequence is None
-        or event.get("sequence", 0) < retry_start_sequence
-    ]
     if (
         blocked is None
-        or not isinstance(blocked_sequence, int)
-        or isinstance(blocked_sequence, bool)
-        or _blocked_attempt_id(blocked) != blocked_id
+        or not _is_sequence_number(blocked_sequence)
+        or not _is_sequence_number(authorization_sequence)
+        or blocked_id is None
+        or expected_id is None
+        or slot_number != historical + starts_before + 1
+        or slot_number > limit
         or authorization_sequence <= blocked_sequence
+        or blocked_sequence in authorized_sequences
+        or retry_id != expected_id
+        or retry_id in used_retry_ids
+        or _retry_ordinal(retry_id) > MAX_PREFLIGHT_RETRIES
         or payload.get("authorization_source") != "explicit_operator_instruction"
-        or payload.get("retry_attempt_id") != expected_id
         or payload.get("guard_receipt") != blocked["payload"].get("guard_receipt")
         or not isinstance(payload.get("rationale"), str)
         or not payload["rationale"].strip()
-        or retry_number > limit
-        or attempts_used > limit
-        or any(
-            event["payload"].get("attempt_id") != expected_id
-            for event in starts_before_retry
-        )
-        or any(
-            event["event_type"] == "hunyuan_attempt_started"
-            and event["payload"].get("attempt_id") == blocked_id
-            for event in events
-        )
-        or len(all_retry_starts) > 1
-        or any(
-            event["event_type"] == "hunyuan_attempt_started"
-            and blocked_sequence < event.get("sequence", 0) < authorization_sequence
-            for event in events
-        )
+        or _blocked_event_superseded(events, blocked_sequence, authorization_sequence)
+        or _started_between(events, blocked_sequence, authorization_sequence)
+        or _attempt_started_for(events, blocked_id)
     ):
         raise WorkflowGateError("Preflight retry authorization is invalid")
-    return authorization
 
 
-def _blocked_attempt_id(blocked: dict[str, Any] | None) -> str | None:
+def _blocked_event_at(
+    events: list[dict[str, Any]], sequence: Any
+) -> dict[str, Any] | None:
+    if not _is_sequence_number(sequence):
+        return None
+    return next(
+        (
+            event
+            for event in events
+            if event["event_type"] == "hunyuan_preflight_blocked"
+            and event.get("sequence") == sequence
+        ),
+        None,
+    )
+
+
+def _is_sequence_number(value: Any) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool)
+
+
+def _blocked_event_superseded(
+    events: list[dict[str, Any]], blocked_sequence: int, authorization_sequence: int
+) -> bool:
+    return any(
+        event["event_type"] == "hunyuan_preflight_blocked"
+        and blocked_sequence < event.get("sequence", 0) < authorization_sequence
+        for event in events
+    )
+
+
+def _started_between(
+    events: list[dict[str, Any]], blocked_sequence: int, authorization_sequence: int
+) -> bool:
+    return any(
+        event["event_type"] == "hunyuan_attempt_started"
+        and blocked_sequence < event.get("sequence", 0) < authorization_sequence
+        for event in events
+    )
+
+
+def _attempt_started_for(events: list[dict[str, Any]], attempt_id: str) -> bool:
+    return any(
+        event["event_type"] == "hunyuan_attempt_started"
+        and event["payload"].get("attempt_id") == attempt_id
+        for event in events
+    )
+
+
+def _attempt_slot_number(attempt_id: str | None) -> int | None:
+    if attempt_id is None:
+        return None
+    retry_match = RETRY_ATTEMPT_ID_PATTERN.fullmatch(attempt_id)
+    if retry_match is not None:
+        return int(retry_match.group(1))
+    if ATTEMPT_ID_PATTERN.fullmatch(attempt_id) is not None:
+        return int(attempt_id.removeprefix("attempt-"))
+    return None
+
+
+def _retry_ordinal(attempt_id: Any) -> int:
+    if not isinstance(attempt_id, str):
+        return 0
+    retry_match = RETRY_ATTEMPT_ID_PATTERN.fullmatch(attempt_id)
+    return int(retry_match.group(2)) if retry_match is not None else 0
+
+
+def blocked_attempt_id(blocked: dict[str, Any] | None) -> str | None:
     if blocked is None:
         return None
     receipt = blocked["payload"].get("guard_receipt")
     if not isinstance(receipt, dict) or not isinstance(receipt.get("path"), str):
         return None
     attempt_id = PurePosixPath(receipt["path"]).parent.name
-    return attempt_id if ATTEMPT_ID_PATTERN.fullmatch(attempt_id) else None
+    if (
+        ATTEMPT_ID_PATTERN.fullmatch(attempt_id) is not None
+        or RETRY_ATTEMPT_ID_PATTERN.fullmatch(attempt_id) is not None
+    ):
+        return attempt_id
+    return None
+
+
+def next_retry_attempt_id(attempt_id: str | None) -> str | None:
+    """Return the next bounded retry id for a blocked attempt, or None."""
+    if attempt_id is None:
+        return None
+    retry_match = RETRY_ATTEMPT_ID_PATTERN.fullmatch(attempt_id)
+    if retry_match is not None:
+        number, retry_number = retry_match.groups()
+        return f"attempt-{number}-retry-{int(retry_number) + 1:03d}"
+    if ATTEMPT_ID_PATTERN.fullmatch(attempt_id) is not None:
+        return f"{attempt_id}{RETRY_ATTEMPT_SUFFIX}"
+    return None
 
 
 def _stop_reason(
