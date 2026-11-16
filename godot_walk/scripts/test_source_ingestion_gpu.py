@@ -119,6 +119,22 @@ class SourceIngestionGpuTests(unittest.TestCase):
         return subprocess.CompletedProcess(command, 0, "complete", "")
 
     def test_next_attempt_id_uses_retry_path_once_then_advances_ordinal(self) -> None:
+        first_slot = {
+            "event_type": "hunyuan_preflight_retry_approved",
+            "payload": {"retry_attempt_id": "attempt-001-retry-001"},
+        }
+        self.assertEqual(
+            "attempt-001-retry-001",
+            source_ingestion_gpu._next_attempt_id(0, [first_slot]),
+        )
+        first_slot_started = {
+            "event_type": "hunyuan_attempt_started",
+            "payload": {"attempt_id": "attempt-001-retry-001"},
+        }
+        self.assertEqual(
+            "attempt-002",
+            source_ingestion_gpu._next_attempt_id(1, [first_slot, first_slot_started]),
+        )
         authorization = {
             "event_type": "hunyuan_preflight_retry_approved",
             "payload": {"retry_attempt_id": "attempt-004-retry-001"},
@@ -190,6 +206,49 @@ class SourceIngestionGpuTests(unittest.TestCase):
         self.assertEqual(0, status["attempts_used"])
         self.assertIn("preflight blocked", status["stopped_reason"])
         self.assertTrue(status["manual_fallback_allowed"])
+
+    def test_first_slot_preflight_retry_runs_the_blocked_slot_once(self) -> None:
+        def blocked_guard() -> dict[str, str]:
+            raise RuntimeError("insufficient free VRAM")
+
+        blocked = source_ingestion_gpu.run_panorama_attempt(
+            self.source_id,
+            "A test interior panorama prompt.",
+            root=self.root,
+            guard=blocked_guard,
+            runner=self._fake_runner,
+            sampler_factory=FakeSampler,
+        )
+        self.assertEqual("blocked", blocked["status"])
+
+        source_ingestion_runner.record_preflight_retry_authorization(
+            self.source_id,
+            "The operator requested one retry after the guard was corrected.",
+            self.root,
+        )
+        result = source_ingestion_gpu.run_panorama_attempt(
+            self.source_id,
+            "A test interior panorama prompt.",
+            root=self.root,
+            guard=lambda: {"guard_policy_version": "test"},
+            runner=self._fake_runner,
+            sampler_factory=FakeSampler,
+        )
+
+        self.assertEqual("produced", result["status"])
+        attempt_dir = (
+            self.root
+            / "godot_walk/source_library/sources"
+            / self.source_id
+            / "hunyuan/attempt-001-retry-001"
+        )
+        settings = json.loads(
+            (attempt_dir / "attempt_config.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual("attempt-001-retry-001", settings["attempt_id"])
+        status = source_ingestion_runner.source_status(self.source_id, self.root)
+        self.assertEqual(1, status["attempts_used"])
+        self.assertTrue(status["awaiting_feedback"])
 
     def test_resource_guard_block_receipt_records_snapshot_and_policy(self) -> None:
         snapshot = {

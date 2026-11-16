@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+from pathlib import PurePosixPath
 from typing import Any
 
 DEFAULT_ATTEMPT_LIMIT = 3
@@ -16,6 +17,8 @@ ATTEMPT_LIMIT_EXTENSIONS = (
 ALLOWED_SOURCE_DECISIONS = {"proceed", "proceed_with_limitations", "reject"}
 ALLOWED_IMPROVEMENT = {"improved", "no_improvement", "uncertain"}
 ROOM_ID_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+ATTEMPT_ID_PATTERN = re.compile(r"^attempt-\d{3}$")
+RETRY_ATTEMPT_SUFFIX = "-retry-001"
 
 
 class WorkflowGateError(ValueError):
@@ -256,8 +259,19 @@ def _room_attempt_authorization(
         for event in events[authorization_index + 1 :]
         if event["event_type"] == "hunyuan_attempt_started"
     ]
+    retry_attempt_id = f"{attempt_id}{RETRY_ATTEMPT_SUFFIX}"
+    retry_authorizations = {
+        event["payload"].get("retry_attempt_id")
+        for event in events
+        if event["event_type"] == "hunyuan_preflight_retry_approved"
+    }
+    allowed_attempt_ids = {attempt_id}
+    if retry_attempt_id in retry_authorizations:
+        allowed_attempt_ids.add(retry_attempt_id)
     matching_starts = [
-        event for event in starts if event["payload"].get("attempt_id") == attempt_id
+        event
+        for event in starts
+        if event["payload"].get("attempt_id") in allowed_attempt_ids
     ]
     if (
         any(event not in matching_starts for event in starts)
@@ -403,13 +417,15 @@ def _preflight_retry_authorization(
         None,
     )
     authorization_sequence = authorization.get("sequence", 0)
-    expected_id = f"attempt-{ONE_TIME_EXTENDED_LIMIT:03d}-retry-001"
     starts_before_authorization = sum(
         1
         for event in events
         if event["event_type"] == "hunyuan_attempt_started"
         and event.get("sequence", 0) < authorization_sequence
     )
+    retry_number = historical + starts_before_authorization + 1
+    expected_id = f"attempt-{retry_number:03d}{RETRY_ATTEMPT_SUFFIX}"
+    blocked_id = f"attempt-{retry_number:03d}"
     next_extension = next(
         (
             event
@@ -435,21 +451,36 @@ def _preflight_retry_authorization(
         if event["event_type"] == "hunyuan_attempt_started"
         and event["payload"].get("attempt_id") == expected_id
     ]
+    retry_start_sequence = min(
+        (event.get("sequence", 0) for event in all_retry_starts), default=None
+    )
+    starts_before_retry = [
+        event
+        for event in starts_during_retry_window
+        if retry_start_sequence is None
+        or event.get("sequence", 0) < retry_start_sequence
+    ]
     if (
         blocked is None
         or not isinstance(blocked_sequence, int)
         or isinstance(blocked_sequence, bool)
+        or _blocked_attempt_id(blocked) != blocked_id
         or authorization_sequence <= blocked_sequence
         or payload.get("authorization_source") != "explicit_operator_instruction"
         or payload.get("retry_attempt_id") != expected_id
         or payload.get("guard_receipt") != blocked["payload"].get("guard_receipt")
         or not isinstance(payload.get("rationale"), str)
         or not payload["rationale"].strip()
-        or historical + starts_before_authorization != ONE_TIME_EXTENDED_LIMIT - 1
+        or retry_number > limit
         or attempts_used > limit
         or any(
             event["payload"].get("attempt_id") != expected_id
-            for event in starts_during_retry_window
+            for event in starts_before_retry
+        )
+        or any(
+            event["event_type"] == "hunyuan_attempt_started"
+            and event["payload"].get("attempt_id") == blocked_id
+            for event in events
         )
         or len(all_retry_starts) > 1
         or any(
@@ -460,6 +491,16 @@ def _preflight_retry_authorization(
     ):
         raise WorkflowGateError("Preflight retry authorization is invalid")
     return authorization
+
+
+def _blocked_attempt_id(blocked: dict[str, Any] | None) -> str | None:
+    if blocked is None:
+        return None
+    receipt = blocked["payload"].get("guard_receipt")
+    if not isinstance(receipt, dict) or not isinstance(receipt.get("path"), str):
+        return None
+    attempt_id = PurePosixPath(receipt["path"]).parent.name
+    return attempt_id if ATTEMPT_ID_PATTERN.fullmatch(attempt_id) else None
 
 
 def _stop_reason(

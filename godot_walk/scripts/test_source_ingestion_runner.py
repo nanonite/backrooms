@@ -436,9 +436,168 @@ class SourceIngestionRunnerTests(unittest.TestCase):
         self.assertTrue(state["can_start_attempt"])
         self.assertEqual(original_guard_hash, sha256_file(guard_path))
         self.assertFalse((attempt_dir.parent / "attempt-004-retry-001").exists())
-        with self.assertRaisesRegex(WorkflowGateError, "unused final slot"):
+        with self.assertRaisesRegex(WorkflowGateError, "unused slot"):
             source_ingestion_runner.record_preflight_retry_authorization(
                 self.source_id, "A duplicate retry is not authorized.", self.root
+            )
+
+    def _block_first_attempt(self) -> tuple[Path, str]:
+        self._approve_source()
+        source_sha = source_ingestion_runner.load_source(self.source_id, self.root)[2][
+            "source_sha256"
+        ]
+        seed = {
+            "frame_id": "frame_0001",
+            "index_zero_based": 0,
+            "timestamp_seconds": 0.0,
+            "path": "godot_walk/source_library/test/frame_0001.png",
+            "sha256": "b" * 64,
+            "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+            "source_video_sha256": source_sha,
+        }
+        append_event(self.source_id, "seed_selected", seed, self.root)
+        attempt_dir = (
+            self.root
+            / "godot_walk/source_library/sources"
+            / self.source_id
+            / "hunyuan/attempt-001"
+        )
+        attempt_dir.mkdir(parents=True)
+        (attempt_dir / "attempt_config.json").write_text(
+            json.dumps(
+                {
+                    "source_id": self.source_id,
+                    "attempt_id": "attempt-001",
+                    "seed_frame": {"sha256": seed["sha256"]},
+                }
+            ),
+            encoding="utf-8",
+        )
+        guard_path = attempt_dir / "gpu_guard.json"
+        guard_path.write_text(
+            json.dumps(
+                {
+                    "status": "blocked",
+                    "source_id": self.source_id,
+                    "attempt_id": "attempt-001",
+                }
+            ),
+            encoding="utf-8",
+        )
+        guard_hash = sha256_file(guard_path)
+        append_event(
+            self.source_id,
+            "hunyuan_preflight_blocked",
+            {
+                "reason": "insufficient RAM",
+                "guard_receipt": {
+                    "path": guard_path.relative_to(self.root).as_posix(),
+                    "sha256": guard_hash,
+                },
+            },
+            self.root,
+        )
+        return attempt_dir, guard_hash
+
+    def test_preflight_retry_authorizes_the_blocked_first_slot(self) -> None:
+        attempt_dir, guard_hash = self._block_first_attempt()
+        blocked = source_ingestion_runner.source_status(self.source_id, self.root)
+        self.assertEqual(0, blocked["attempts_used"])
+        self.assertFalse(blocked["can_start_attempt"])
+        self.assertTrue(blocked["manual_fallback_allowed"])
+
+        source_ingestion_runner.record_preflight_retry_authorization(
+            self.source_id,
+            "The operator requested one retry after the guard was corrected.",
+            self.root,
+        )
+
+        status = source_ingestion_runner.source_status(self.source_id, self.root)
+        self.assertEqual(0, status["attempts_used"])
+        self.assertEqual(3, status["attempt_limit"])
+        self.assertTrue(status["can_start_attempt"])
+        self.assertFalse(status["manual_fallback_allowed"])
+        event_path = (
+            self.root
+            / "godot_walk/source_library/sources"
+            / self.source_id
+            / "events.jsonl"
+        )
+        ledger = [json.loads(line) for line in event_path.read_text().splitlines()]
+        self.assertEqual("hunyuan_preflight_retry_approved", ledger[-1]["event_type"])
+        self.assertEqual(
+            "attempt-001-retry-001", ledger[-1]["payload"]["retry_attempt_id"]
+        )
+        self.assertEqual(guard_hash, sha256_file(attempt_dir / "gpu_guard.json"))
+        self.assertFalse((attempt_dir.parent / "attempt-001-retry-001").exists())
+
+    def test_preflight_retry_refuses_a_slot_that_started_after_the_block(self) -> None:
+        self._block_first_attempt()
+        append_event(
+            self.source_id,
+            "hunyuan_attempt_started",
+            {"attempt_id": "attempt-001"},
+            self.root,
+        )
+        append_event(
+            self.source_id,
+            "hunyuan_attempt_result",
+            {"attempt_id": "attempt-001", "status": "produced"},
+            self.root,
+        )
+        append_event(
+            self.source_id,
+            "hunyuan_operator_feedback",
+            {
+                "attempt_id": "attempt-001",
+                "improvement": "improved",
+                "reason": "The blocked slot eventually produced a panorama.",
+            },
+            self.root,
+        )
+
+        with self.assertRaisesRegex(WorkflowGateError, "already started an inference"):
+            source_ingestion_runner.record_preflight_retry_authorization(
+                self.source_id,
+                "The operator requested one retry.",
+                self.root,
+            )
+
+    def test_second_preflight_retry_authorization_is_refused(self) -> None:
+        self._block_first_attempt()
+        source_ingestion_runner.record_preflight_retry_authorization(
+            self.source_id,
+            "The operator requested one retry.",
+            self.root,
+        )
+
+        with self.assertRaisesRegex(WorkflowGateError, "unused slot"):
+            source_ingestion_runner.record_preflight_retry_authorization(
+                self.source_id,
+                "A duplicate retry is not authorized.",
+                self.root,
+            )
+
+    def test_preflight_retry_requires_an_operator_rationale(self) -> None:
+        self._block_first_attempt()
+
+        with self.assertRaisesRegex(WorkflowGateError, "operator rationale"):
+            source_ingestion_runner.record_preflight_retry_authorization(
+                self.source_id, "   ", self.root
+            )
+
+        status = source_ingestion_runner.source_status(self.source_id, self.root)
+        self.assertFalse(status["can_start_attempt"])
+
+    def test_preflight_retry_refuses_to_overwrite_existing_evidence(self) -> None:
+        attempt_dir, _guard_hash = self._block_first_attempt()
+        (attempt_dir.parent / "attempt-001-retry-001").mkdir()
+
+        with self.assertRaisesRegex(FileExistsError, "retry evidence"):
+            source_ingestion_runner.record_preflight_retry_authorization(
+                self.source_id,
+                "The operator requested one retry.",
+                self.root,
             )
 
     def test_presentation_timestamp_uses_ffprobe_frame_pts_by_index(self) -> None:

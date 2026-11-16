@@ -145,6 +145,7 @@ def _create_attempt_dir(root: Path, source_id: str, attempt_id: str) -> Path:
 
 
 def _next_attempt_id(attempts_used: int, events: list[dict[str, Any]]) -> str:
+    """Reuse the authorized retry id once, then continue with the next slot."""
     retry_authorization = next(
         (
             event["payload"]

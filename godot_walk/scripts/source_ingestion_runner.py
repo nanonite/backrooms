@@ -32,7 +32,7 @@ from register_video_sources import append_event
 from source_event_reconciliation import plan_reconciliation
 from source_ingestion_policy import (
     ATTEMPT_LIMIT_EXTENSIONS,
-    ONE_TIME_EXTENDED_LIMIT,
+    RETRY_ATTEMPT_SUFFIX,
     ROOM_ID_PATTERN,
     WorkflowGateError,
     WorkflowState,
@@ -867,32 +867,33 @@ def record_preflight_retry_authorization(
             if event["event_type"] == "hunyuan_preflight_blocked"
         ]
         if (
-            state.attempt_limit != ONE_TIME_EXTENDED_LIMIT
-            or state.attempts_used != state.attempt_limit - 1
+            state.attempts_used >= state.attempt_limit
             or state.awaiting_feedback
             or not state.selected_seed
             or not state.stopped_reason
             or not state.stopped_reason.startswith("GPU resource preflight blocked:")
-            or not blocked_events
+            or len(blocked_events) != 1
             or any(
                 event["event_type"] == "hunyuan_preflight_retry_approved"
                 for event in events
             )
         ):
             raise WorkflowGateError(
-                "A preflight retry requires one unused final slot and a terminal resource block"
+                "A preflight retry requires one unused slot that never started "
+                "inference and a terminal resource block"
             )
-        blocked = blocked_events[-1]
+        blocked = blocked_events[0]
         if any(
             event["event_type"] == "hunyuan_attempt_started"
             and event.get("sequence", 0) > blocked.get("sequence", 0)
             for event in events
         ):
             raise WorkflowGateError("The blocked slot already started an inference")
+        blocked_attempt_id = f"attempt-{state.attempts_used + 1:03d}"
         receipt = _verified_blocked_receipt(
-            source_id, blocked, state.selected_seed, root
+            source_id, blocked, state.selected_seed, blocked_attempt_id, root
         )
-        retry_attempt_id = f"attempt-{state.attempt_limit:03d}-retry-001"
+        retry_attempt_id = f"{blocked_attempt_id}{RETRY_ATTEMPT_SUFFIX}"
         retry_dir = (
             root / LIBRARY / "sources" / source_id / "hunyuan" / retry_attempt_id
         )
@@ -922,41 +923,43 @@ def _verified_blocked_receipt(
     source_id: str,
     blocked: dict[str, Any],
     selected_seed: dict[str, Any],
+    expected_attempt_id: str,
     root: Path,
 ) -> dict[str, str]:
     receipt = blocked["payload"].get("guard_receipt")
     if not isinstance(receipt, dict) or not isinstance(receipt.get("path"), str):
         raise WorkflowGateError("Blocked event has no verifiable guard receipt")
     expected_path = (
-        f"{LIBRARY.as_posix()}/sources/{source_id}/hunyuan/attempt-004/gpu_guard.json"
+        f"{LIBRARY.as_posix()}/sources/{source_id}/hunyuan/"
+        f"{expected_attempt_id}/gpu_guard.json"
     )
     if receipt["path"] != expected_path:
         raise WorkflowGateError(
-            "Blocked guard receipt is not the recorded fourth attempt"
+            f"Blocked guard receipt is not the recorded {expected_attempt_id} attempt"
         )
     receipt_path = root / receipt["path"]
     _reject_symlink_components(receipt_path, root)
     if (
         not receipt_path.is_file()
         or receipt.get("sha256") != sha256_file(receipt_path)
-        or receipt_path.parent.name != "attempt-004"
+        or receipt_path.parent.name != expected_attempt_id
     ):
         raise WorkflowGateError("Blocked guard receipt is missing or has changed")
     record = json.loads(receipt_path.read_text(encoding="utf-8"))
     if (
         record.get("status") != "blocked"
         or record.get("source_id") != source_id
-        or record.get("attempt_id") != "attempt-004"
+        or record.get("attempt_id") != expected_attempt_id
     ):
         raise WorkflowGateError(
-            "Guard receipt does not describe the fourth blocked attempt"
+            f"Guard receipt does not describe the {expected_attempt_id} blocked attempt"
         )
     config_path = receipt_path.parent / "attempt_config.json"
     _reject_symlink_components(config_path, root)
     config = json.loads(config_path.read_text(encoding="utf-8"))
     if (
         config.get("source_id") != source_id
-        or config.get("attempt_id") != "attempt-004"
+        or config.get("attempt_id") != expected_attempt_id
         or config.get("seed_frame", {}).get("sha256") != selected_seed.get("sha256")
     ):
         raise WorkflowGateError("Blocked attempt configuration is inconsistent")

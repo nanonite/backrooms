@@ -9,6 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from source_ingestion_policy import (
+    DEFAULT_ATTEMPT_LIMIT,
     WorkflowGateError,
     evaluate_workflow,
     require_attempt_start,
@@ -543,6 +544,210 @@ class SourceIngestionPolicyTests(unittest.TestCase):
         duplicate = {**valid, "sequence": len(events) + 2}
         with self.assertRaisesRegex(WorkflowGateError, "Only one preflight retry"):
             evaluate_workflow(self.manifest, events + [valid, duplicate])
+
+    def _blocked_attempt_receipt(
+        self, attempt_id: str = "attempt-001"
+    ) -> dict[str, str]:
+        return {
+            "path": f"{attempt_id}/gpu_guard.json",
+            "sha256": "a" * 64,
+        }
+
+    def _first_slot_block(self) -> list[dict]:
+        events = list(self.source_and_seed)
+        events.append(
+            event(
+                "hunyuan_preflight_blocked",
+                {
+                    "reason": "insufficient RAM",
+                    "guard_receipt": self._blocked_attempt_receipt(),
+                },
+            )
+        )
+        for sequence, item in enumerate(events, start=1):
+            item["sequence"] = sequence
+        return events
+
+    def _retry_authorization(
+        self,
+        events: list[dict],
+        attempt_id: str = "attempt-001-retry-001",
+        rationale: str = "The operator requested one retry after the guard was corrected.",
+    ) -> dict:
+        blocked = next(
+            item for item in events if item["event_type"] == "hunyuan_preflight_blocked"
+        )
+        authorization = event(
+            "hunyuan_preflight_retry_approved",
+            {
+                "blocked_event_sequence": blocked["sequence"],
+                "guard_receipt": blocked["payload"]["guard_receipt"],
+                "retry_attempt_id": attempt_id,
+                "authorization_source": "explicit_operator_instruction",
+                "rationale": rationale,
+            },
+        )
+        authorization["sequence"] = max(item.get("sequence", 0) for item in events) + 1
+        return authorization
+
+    def test_first_slot_preflight_retry_unlocks_the_blocked_slot(self) -> None:
+        events = self._first_slot_block()
+        blocked_state = evaluate_workflow(self.manifest, events)
+        self.assertEqual(0, blocked_state.attempts_used)
+        self.assertEqual(DEFAULT_ATTEMPT_LIMIT, blocked_state.attempt_limit)
+        self.assertFalse(blocked_state.can_start_attempt)
+        self.assertIn("preflight blocked", blocked_state.stopped_reason)
+
+        authorization = self._retry_authorization(events)
+        retry_state = evaluate_workflow(self.manifest, events + [authorization])
+        self.assertEqual(0, retry_state.attempts_used)
+        self.assertEqual(DEFAULT_ATTEMPT_LIMIT, retry_state.attempt_limit)
+        self.assertTrue(retry_state.can_start_attempt)
+        require_attempt_start(retry_state)
+
+        started = event(
+            "hunyuan_attempt_started", {"attempt_id": "attempt-001-retry-001"}
+        )
+        started["sequence"] = authorization["sequence"] + 1
+        started_state = evaluate_workflow(
+            self.manifest, events + [authorization, started]
+        )
+        self.assertEqual(1, started_state.attempts_used)
+        self.assertTrue(started_state.awaiting_feedback)
+
+    def test_preflight_retry_refuses_a_slot_that_started_after_the_block(self) -> None:
+        events = self._first_slot_block()
+        started = event("hunyuan_attempt_started", {"attempt_id": "attempt-001"})
+        started["sequence"] = len(events) + 1
+        authorization = self._retry_authorization(events + [started])
+
+        with self.assertRaisesRegex(WorkflowGateError, "authorization is invalid"):
+            evaluate_workflow(self.manifest, events + [started, authorization])
+
+    def test_second_preflight_retry_authorization_is_refused(self) -> None:
+        events = self._first_slot_block()
+        first = self._retry_authorization(events)
+        second = self._retry_authorization(events + [first])
+
+        with self.assertRaisesRegex(WorkflowGateError, "Only one preflight retry"):
+            evaluate_workflow(self.manifest, events + [first, second])
+
+    def test_preflight_retry_reuses_the_room_bound_final_slot(self) -> None:
+        events, seed = self._five_attempt_room_history()
+        events.append(
+            event(
+                "hunyuan_room_attempt_authorized",
+                {
+                    "schema_version": 1,
+                    "room_id": "debris-window-interior",
+                    "scope": "one_new_room_panorama",
+                    "attempt_id": "attempt-006",
+                    "seed_frame": seed,
+                    "authorization_source": "explicit_operator_instruction",
+                    "rationale": "Operator approved the room-bound final attempt.",
+                },
+            )
+        )
+        events.append(
+            event(
+                "hunyuan_preflight_blocked",
+                {
+                    "reason": "insufficient RAM",
+                    "guard_receipt": {
+                        "path": "attempt-006/gpu_guard.json",
+                        "sha256": "a" * 64,
+                    },
+                },
+            )
+        )
+        for sequence, item in enumerate(events, start=1):
+            item["sequence"] = sequence
+        authorization = self._retry_authorization(
+            events, attempt_id="attempt-006-retry-001"
+        )
+
+        retry_state = evaluate_workflow(self.manifest, events + [authorization])
+        self.assertEqual(5, retry_state.attempts_used)
+        self.assertEqual(6, retry_state.attempt_limit)
+        self.assertTrue(retry_state.can_start_attempt)
+
+        started = event(
+            "hunyuan_attempt_started",
+            {
+                "attempt_id": "attempt-006-retry-001",
+                "seed_frame_sha256": seed["sha256"],
+            },
+        )
+        started["sequence"] = authorization["sequence"] + 1
+        started_state = evaluate_workflow(
+            self.manifest, events + [authorization, started]
+        )
+        self.assertEqual(6, started_state.attempts_used)
+        self.assertFalse(started_state.can_start_attempt)
+        self.assertEqual(
+            "per-source Hunyuan invocation cap reached", started_state.stopped_reason
+        )
+
+    def test_preflight_retry_requires_a_non_empty_rationale(self) -> None:
+        events = self._first_slot_block()
+        authorization = self._retry_authorization(events, rationale="   ")
+
+        with self.assertRaisesRegex(WorkflowGateError, "authorization is invalid"):
+            evaluate_workflow(self.manifest, events + [authorization])
+
+    def test_first_slot_retry_still_counts_toward_the_started_inference_cap(
+        self,
+    ) -> None:
+        events = self._first_slot_block()
+        authorization = self._retry_authorization(events)
+        events.append(authorization)
+        retry_id = "attempt-001-retry-001"
+        events.extend(
+            [
+                event("hunyuan_attempt_started", {"attempt_id": retry_id}),
+                event(
+                    "hunyuan_attempt_result",
+                    {"attempt_id": retry_id, "status": "produced"},
+                ),
+                event(
+                    "hunyuan_operator_feedback",
+                    {
+                        "attempt_id": retry_id,
+                        "improvement": "improved",
+                        "reason": "The retried panorama was useful.",
+                    },
+                ),
+            ]
+        )
+        for number in (2, 3):
+            attempt_id = f"attempt-{number:03d}"
+            events.extend(
+                [
+                    event("hunyuan_attempt_started", {"attempt_id": attempt_id}),
+                    event(
+                        "hunyuan_attempt_result",
+                        {"attempt_id": attempt_id, "status": "produced"},
+                    ),
+                    event(
+                        "hunyuan_operator_feedback",
+                        {
+                            "attempt_id": attempt_id,
+                            "improvement": "improved",
+                            "reason": "The panorama was useful.",
+                        },
+                    ),
+                ]
+            )
+        for sequence, item in enumerate(events, start=1):
+            item["sequence"] = sequence
+
+        state = evaluate_workflow(self.manifest, events)
+
+        self.assertEqual(3, state.attempts_used)
+        self.assertEqual(
+            "per-source Hunyuan invocation cap reached", state.stopped_reason
+        )
+        self.assertFalse(state.can_start_attempt)
 
     def test_repeated_failure_requires_operator_plausibility_assessment(self) -> None:
         with self.assertRaisesRegex(WorkflowGateError, "plausible next step"):
