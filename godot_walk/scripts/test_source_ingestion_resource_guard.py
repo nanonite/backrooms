@@ -173,5 +173,21 @@ class ResourceGuardTests(unittest.TestCase):
         self.assertEqual(124, result["return_code"])
 
 
+class ZfsArcCreditTests(unittest.TestCase):
+    def test_arc_above_floor_is_reclaimable(self) -> None:
+        import tempfile
+        from pathlib import Path
+
+        from source_ingestion_resource_guard import _zfs_arc_reclaimable_bytes
+
+        with tempfile.TemporaryDirectory() as directory:
+            stats = Path(directory) / "arcstats"
+            stats.write_text("header\nc_min 4 2000\nsize 4 9000\nc_max 4 20000\n")
+            self.assertEqual(_zfs_arc_reclaimable_bytes(stats), 7000)
+            stats.write_text("c_min 4 2000\nsize 4 1000\n")
+            self.assertEqual(_zfs_arc_reclaimable_bytes(stats), 0)
+            self.assertEqual(_zfs_arc_reclaimable_bytes(Path(directory) / "none"), 0)
+
+
 if __name__ == "__main__":
     unittest.main()

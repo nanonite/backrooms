@@ -14,7 +14,7 @@ GIB = 1024**3
 
 @dataclass(frozen=True)
 class ResourceLimits:
-    policy_version: str = "hunyuan-sequential-offload-2"
+    policy_version: str = "hunyuan-sequential-offload-3"
     min_start_ram_bytes: int = 32 * GIB
     min_start_swap_free_bytes: int = 16 * GIB
     min_start_vram_bytes: int = 8 * GIB
@@ -126,11 +126,31 @@ def _memory_values() -> dict[str, int]:
             values[key] = int(value.split()[0]) * 1024
     if set(values) != {"MemAvailable", "SwapFree", "SwapTotal"}:
         raise RuntimeError("Could not read host RAM and swap from /proc/meminfo")
+    arc_reclaimable = _zfs_arc_reclaimable_bytes()
     return {
-        "ram_available_bytes": values["MemAvailable"],
+        # /proc/meminfo MemAvailable does not credit the ZFS ARC, which the kernel
+        # gives back under pressure; operator-approved 2026-11-15 to count it.
+        "ram_available_bytes": values["MemAvailable"] + arc_reclaimable,
+        "ram_available_meminfo_bytes": values["MemAvailable"],
+        "zfs_arc_reclaimable_bytes": arc_reclaimable,
         "swap_free_bytes": values["SwapFree"],
         "swap_total_bytes": values["SwapTotal"],
     }
+
+
+def _zfs_arc_reclaimable_bytes(
+    arcstats: Path = Path("/proc/spl/kstat/zfs/arcstats"),
+) -> int:
+    """ARC size above its floor (c_min); 0 when ZFS is absent or unreadable."""
+    try:
+        fields = {}
+        for line in arcstats.read_text(encoding="utf-8").splitlines():
+            parts = line.split()
+            if len(parts) == 3 and parts[0] in {"size", "c_min"}:
+                fields[parts[0]] = int(parts[2])
+        return max(0, fields["size"] - fields["c_min"])
+    except (OSError, KeyError, ValueError):
+        return 0
 
 
 def _gpu_values() -> dict[str, int]:
