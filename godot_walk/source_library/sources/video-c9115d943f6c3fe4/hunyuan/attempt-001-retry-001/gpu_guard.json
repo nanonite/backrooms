@@ -1,0 +1,12 @@
+{
+  "status": "blocked",
+  "source_id": "video-c9115d943f6c3fe4",
+  "attempt_id": "attempt-001-retry-001",
+  "reason": "GPU preflight blocked by active GPU process(es): pid=28826 type=G command=gnome-text-editor",
+  "execution_guard_receipt": null,
+  "preflight_details": {
+    "snapshot": null,
+    "resource_policy": null
+  },
+  "checked_at_utc": "2026-11-16T02:20:08.291952+00:00"
+}
