@@ -1,0 +1,52 @@
+{
+  "status": "produced",
+  "return_code": 0,
+  "elapsed_seconds": 274.88,
+  "resources": {
+    "start_snapshot": {
+      "timestamp_utc": "2026-11-16T05:57:50.177122+00:00",
+      "ram_available_bytes": 48067263368,
+      "ram_available_meminfo_bytes": 25276841984,
+      "zfs_arc_reclaimable_bytes": 22790421384,
+      "swap_free_bytes": 85084995584,
+      "swap_total_bytes": 102546530304,
+      "gpu_free_bytes": 11429478400,
+      "gpu_used_bytes": 1017118720,
+      "gpu_total_bytes": 12878610432,
+      "gpu_utilization_pct": 7,
+      "process_group_rss_bytes": 0
+    },
+    "observed_tail": {
+      "peak_process_group_rss_bytes": 14093885440,
+      "peak_gpu_used_bytes": 1625292800,
+      "minimum_ram_available_bytes": 43112296848,
+      "minimum_swap_free_bytes": 58924163072,
+      "minimum_gpu_free_bytes": 10821304320,
+      "sample_count": 32,
+      "sampled_from_utc": "2026-11-16T06:01:50.004665+00:00",
+      "sampled_to_utc": "2026-11-16T06:02:23.096541+00:00"
+    },
+    "sample_file": {
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/hunyuan/attempt-002/resource_samples.manual.jsonl",
+      "sha256": "c07a71d4eddf2f0bc9e492909dbde0cb4cb70f356a9c73e3a396f265d32dfbe2"
+    },
+    "stop_reason": null,
+    "sampling_caveat": "The runner's guard sampler was lost with the supervisor process; only the last 32 seconds were observed by a manual 1 Hz sampler. Peaks for the first 3 min 42 s (pipeline load, fp8 quantization, early denoising) are unknown."
+  },
+  "outputs": [
+    {
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/hunyuan/attempt-002/panorama/panorama.png",
+      "sha256": "52a7d84330caac26a89fd1cba81ae4c7687a33a579a07e4e56b1e8cfc578bcad"
+    }
+  ],
+  "finished_at_utc": "2026-11-16T06:02:25.137208+00:00",
+  "recording": {
+    "recorded_by": "worker session after the attempt finished",
+    "supervisor": "lost",
+    "supervisor_loss_reason": "The agent harness killed the `run_source_hunyuan.py` supervisor when the previous worker turn ended. The Panogen child was started with start_new_session=True and kept running to completion in its own session.",
+    "return_code_source": "inferred: the child wrote a valid 512x256 panorama.png, stderr has no traceback and the process exited on its own; the true exit status was reaped by init and is not recoverable",
+    "elapsed_source": "manual process-exit polling, +/- 1 s",
+    "guard_enforcement": "GPU start lock and start limits passed before spawn (execution_guard.json and gpu_guard.json). Runtime stop conditions were mirrored by a manual observer (RAM/swap/VRAM floors, swap growth, external compute, 2700 s); none tripped. The process ended after 274.9 s of the 2700 s budget.",
+    "attempt_started_utc": "2026-11-16T05:57:50.257330+00:00"
+  }
+}

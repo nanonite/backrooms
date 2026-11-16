@@ -883,7 +883,7 @@ class RecordedHistoryReplayTests(unittest.TestCase):
 
         state = evaluate_workflow(manifest, events)
 
-        self.assertEqual(1, state.attempts_used)
+        self.assertEqual(2, state.attempts_used)
         self.assertTrue(state.awaiting_feedback)
         self.assertFalse(state.can_start_attempt)
         self.assertIsNone(state.stopped_reason)
@@ -893,9 +893,11 @@ class RecordedHistoryReplayTests(unittest.TestCase):
             if event["event_type"] == "hunyuan_attempt_result"
         ]
         self.assertEqual(
-            ["attempt-001-retry-002"], [item["attempt_id"] for item in attempts]
+            ["attempt-001-retry-002", "attempt-002"],
+            [item["attempt_id"] for item in attempts],
         )
-        self.assertEqual("failed", attempts[-1]["status"])
+        self.assertEqual("failed", attempts[0]["status"])
+        self.assertEqual("produced", attempts[-1]["status"])
 
     def test_recorded_extension_and_retry_history_stays_at_the_cap(self) -> None:
         manifest, events, _ = load_source("video-ccf9722164a0bdc8")
