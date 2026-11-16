@@ -8,6 +8,7 @@ one source-ingestion-specific module instead of rewriting recorded hashes.
 from __future__ import annotations
 
 import os
+import re
 import subprocess
 from typing import Any
 
@@ -16,14 +17,15 @@ from psx_design_round_resources import (
     MIN_RENDER_VRAM_BYTES,
     RAM_HEADROOM_FRACTION,
     VRAM_HEADROOM_FRACTION,
-    _active_named_jobs,
+    _ancestor_pids,
     _available_ram_bytes,
     _compute_apps,
     _gpu_process_name,
     _gpu_snapshot,
+    _process_rows,
 )
 
-INGESTION_GUARD_POLICY_VERSION = "2.2.0"
+INGESTION_GUARD_POLICY_VERSION = "2.3.0"
 GRAPHICS_ONLY_PROCESS_TYPE = "G"
 GPU_PROCESS_POLICY = (
     "block compute contexts (type C or C+G); ignore graphics-only contexts"
@@ -63,6 +65,37 @@ def check_ingestion_headroom() -> dict[str, Any]:
         "vram_headroom_fraction": VRAM_HEADROOM_FRACTION,
         "ram_headroom_fraction": RAM_HEADROOM_FRACTION,
     }
+
+
+NAMED_JOB_PATTERN = re.compile(r"hunyuan|hunyuanworld|qemu-system|(^|\s)qemu(\s|$)")
+JOB_EXECUTABLE_PATTERN = re.compile(r"^(python[\d.]*|qemu.*)$")
+
+
+def _active_named_jobs() -> list[str]:
+    """Real job processes (python, qemu) that name a heavy job; ignores orchestrators.
+
+    The chainlink loop and the opencode agents carry the whole prompt in their
+    command line, so matching every process mentioning the job name blocked runs
+    whose supervisor was launched detached from an agent shell.
+    """
+    result = subprocess.run(
+        ["ps", "-eo", "pid=,ppid=,comm=,args="],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    rows = _process_rows(result.stdout)
+    ancestors = _ancestor_pids(rows)
+    matches = []
+    for pid, row in rows.items():
+        if pid in ancestors or JOB_EXECUTABLE_PATTERN.fullmatch(row["name"]) is None:
+            continue
+        lowered = " ".join((row["name"], row["args"]))
+        if "hunyuan_review_server.py" in lowered:
+            continue
+        if NAMED_JOB_PATTERN.search(lowered):
+            matches.append(row["line"])
+    return matches
 
 
 def _require_no_named_jobs() -> None:

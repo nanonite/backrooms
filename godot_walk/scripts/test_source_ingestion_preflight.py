@@ -166,7 +166,7 @@ class IngestionHeadroomTests(unittest.TestCase):
         result = self._headroom({"blocked": [], "ignored_graphics": ignored})
 
         self.assertEqual(INGESTION_GUARD_POLICY_VERSION, result["guard_policy_version"])
-        self.assertEqual("2.2.0", result["guard_policy_version"])
+        self.assertEqual("2.3.0", result["guard_policy_version"])
         self.assertEqual(ignored, result["ignored_graphics_processes"])
         self.assertEqual([], result["compute_apps"])
 
@@ -252,6 +252,43 @@ class IngestionHeadroomTests(unittest.TestCase):
         ):
             with self.assertRaisesRegex(RuntimeError, "free VRAM"):
                 check_ingestion_headroom()
+
+
+class NamedJobScanTests(unittest.TestCase):
+    PS = (
+        "100 1 bun /bin/bun chainlink-loop --prompt run_source_hunyuan.py\n"
+        "101 100 opencode opencode run worker run_source_hunyuan.py\n"
+        "102 1 bash /bin/bash -c python3 run_source_hunyuan.py\n"
+        "103 1 tee tee /tmp/hunyuan-run.log\n"
+        "104 1 python3 python3 demo_panogen.py hunyuanworld\n"
+        "105 1 qemu-aarch64 qemu-system-aarch64 -m 4G\n"
+        "106 1 python3 python3 hunyuan_review_server.py\n"
+        "107 1 python3 python3 something_else.py\n"
+    )
+
+    def _scan(self) -> list[str]:
+        from unittest.mock import MagicMock, patch
+
+        import source_ingestion_preflight as preflight
+
+        completed = MagicMock(stdout=self.PS)
+        with (
+            patch("source_ingestion_preflight.subprocess.run", return_value=completed),
+            patch("source_ingestion_preflight.os.getpid", return_value=999),
+        ):
+            return preflight._active_named_jobs()
+
+    def test_only_real_job_executables_match(self) -> None:
+        jobs = self._scan()
+        self.assertEqual(len(jobs), 2)
+        self.assertTrue(any(line.startswith("104 ") for line in jobs))
+        self.assertTrue(any(line.startswith("105 ") for line in jobs))
+
+    def test_orchestrators_and_review_server_never_match(self) -> None:
+        for line in self._scan():
+            self.assertFalse(
+                line.startswith(("100 ", "101 ", "102 ", "103 ", "106 ", "107 "))
+            )
 
 
 if __name__ == "__main__":
