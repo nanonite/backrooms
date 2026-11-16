@@ -105,10 +105,15 @@ instead (same `basicsr` module, patched). `[tool.uv.dependency-metadata]` in
 `pyproject.toml` redirects those two requirements to `basicsr-fixed==1.4.2` so
 uv does not install two copies of the same module.
 
+`sageattention==1.0.6` (Triton build, no compile) **is** installed: the ingestion runner
+enables fp8 attention, and `hy3dworld/AngelSlim/attention_quantization_processor.py` calls
+`sageattn` (the first #171 attempt died with `NameError: name 'sageattn' is not defined`
+without it).
+
 Deliberately **not** installed, because neither `demo_panogen.py` nor the
 Panogen pipeline imports them (they belong to the scene-generation step and are
 not needed to produce a panorama): `pytorch3d`, `flash-attn`, `natten`,
-`sageattention`, `xformers`, `ultralytics`, `qwen-vl-utils`, `decord`,
+`xformers`, `ultralytics`, `qwen-vl-utils`, `decord`,
 `webdataset`, `hydra-core`, `pytorch-lightning`, `diffdist`.
 
 ## Verification

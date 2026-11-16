@@ -48,6 +48,7 @@ dependencies = [
     "moge",
     "utils3d",
     "zim-anything",
+    "sageattention==1.0.6",
 ]
 
 [tool.uv]
