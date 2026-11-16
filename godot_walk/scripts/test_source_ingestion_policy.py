@@ -878,16 +878,24 @@ class SourceIngestionPolicyTests(unittest.TestCase):
 
 
 class RecordedHistoryReplayTests(unittest.TestCase):
-    def test_recorded_first_retry_history_stays_at_the_latest_block(self) -> None:
+    def test_recorded_retry_history_records_the_started_failure(self) -> None:
         manifest, events, _ = load_source("video-c9115d943f6c3fe4")
 
         state = evaluate_workflow(manifest, events)
 
-        self.assertEqual(0, state.attempts_used)
+        self.assertEqual(1, state.attempts_used)
+        self.assertTrue(state.awaiting_feedback)
         self.assertFalse(state.can_start_attempt)
-        self.assertIn(
-            "pid=28826 type=G command=gnome-text-editor", state.stopped_reason or ""
+        self.assertIsNone(state.stopped_reason)
+        attempts = [
+            event["payload"]
+            for event in events
+            if event["event_type"] == "hunyuan_attempt_result"
+        ]
+        self.assertEqual(
+            ["attempt-001-retry-002"], [item["attempt_id"] for item in attempts]
         )
+        self.assertEqual("failed", attempts[-1]["status"])
 
     def test_recorded_extension_and_retry_history_stays_at_the_cap(self) -> None:
         manifest, events, _ = load_source("video-ccf9722164a0bdc8")

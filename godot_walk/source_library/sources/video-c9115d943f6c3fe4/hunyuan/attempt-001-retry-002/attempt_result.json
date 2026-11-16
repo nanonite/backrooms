@@ -1,0 +1,34 @@
+{
+  "status": "failed",
+  "return_code": 1,
+  "elapsed_seconds": 74.055,
+  "resources": {
+    "policy": {
+      "policy_version": "hunyuan-sequential-offload-3",
+      "min_start_ram_bytes": 34359738368,
+      "min_start_swap_free_bytes": 17179869184,
+      "min_start_vram_bytes": 8589934592,
+      "min_runtime_ram_bytes": 8589934592,
+      "min_runtime_swap_free_bytes": 17179869184,
+      "min_runtime_vram_bytes": 2147483648,
+      "max_swap_growth_bytes": 68719476736,
+      "max_execution_seconds": 2700,
+      "sample_period_seconds": 1.0
+    },
+    "sample_count": 69,
+    "peak_process_group_rss_bytes": 27473936384,
+    "peak_gpu_memory_used_bytes": 1455423488,
+    "minimum_gpu_free_bytes": 10990125056,
+    "minimum_ram_available_bytes": 38736110592,
+    "minimum_swap_free_bytes": 71414935552,
+    "swap_free_at_start_bytes": 89769656320,
+    "gpu_free_at_start_bytes": 11640242176,
+    "sample_file": {
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/hunyuan/attempt-001-retry-002/resource_samples.jsonl",
+      "sha256": "8cf964031ffa27f96ce5b17ea2859c281a8284235e6e6c0f5267720c270bf408"
+    },
+    "stop_reason": null
+  },
+  "outputs": [],
+  "finished_at_utc": "2026-11-16T05:01:47.328630+00:00"
+}
