@@ -884,8 +884,9 @@ class RecordedHistoryReplayTests(unittest.TestCase):
         state = evaluate_workflow(manifest, events)
 
         self.assertEqual(2, state.attempts_used)
-        self.assertTrue(state.awaiting_feedback)
-        self.assertFalse(state.can_start_attempt)
+        # Operator feedback on attempt-002 was recorded (a5a6243): attempt 3 is open.
+        self.assertFalse(state.awaiting_feedback)
+        self.assertTrue(state.can_start_attempt)
         self.assertIsNone(state.stopped_reason)
         attempts = [
             event["payload"]
