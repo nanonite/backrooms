@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "frame_manifest": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/frames/issue171-16s-a/extraction_manifest.json",
+  "frame_manifest_sha256": "e7f7005672145790d6f1313c0754f8a0fd216e5f39289e09985dc69d6376568a",
+  "operation": "direct_rectangular_crop_no_resize_or_color_edit",
+  "crops": [
+    {
+      "name": "carpet_floor",
+      "frame_id": "frame_3357",
+      "source_pixel_bounds_xyxy": [
+        420,
+        600,
+        940,
+        685
+      ],
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/rooms/wooden-verdure-hall-v1/textures/carpet_floor.png",
+      "dimensions": [
+        520,
+        85
+      ],
+      "sha256": "8baa2e8761d462877aef0d5a9494d975c0b2698c5c4a206fea42d7ddb9d57907"
+    },
+    {
+      "name": "wood_wall",
+      "frame_id": "frame_3357",
+      "source_pixel_bounds_xyxy": [
+        930,
+        330,
+        1090,
+        520
+      ],
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/rooms/wooden-verdure-hall-v1/textures/wood_wall.png",
+      "dimensions": [
+        160,
+        190
+      ],
+      "sha256": "412006257a4f3dddab957aa45f821ff0e0d7b68b6f644873ef33ff08582133b2"
+    },
+    {
+      "name": "sash_window",
+      "frame_id": "frame_3357",
+      "source_pixel_bounds_xyxy": [
+        390,
+        330,
+        545,
+        525
+      ],
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/rooms/wooden-verdure-hall-v1/textures/sash_window.png",
+      "dimensions": [
+        155,
+        195
+      ],
+      "sha256": "e6b7571eabcd696add35ea51f6e10946e59dd874553af3f1e51ce3aa6a298246"
+    },
+    {
+      "name": "ceiling_slats",
+      "frame_id": "frame_3357",
+      "source_pixel_bounds_xyxy": [
+        330,
+        60,
+        850,
+        210
+      ],
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/rooms/wooden-verdure-hall-v1/textures/ceiling_slats.png",
+      "dimensions": [
+        520,
+        150
+      ],
+      "sha256": "ca2a93a32350b897f7c73ea0639ad5a0fb8e44ddc045759a88bfce404d5a464c"
+    },
+    {
+      "name": "chair_reference",
+      "frame_id": "frame_3357",
+      "source_pixel_bounds_xyxy": [
+        765,
+        500,
+        855,
+        610
+      ],
+      "path": "godot_walk/source_library/sources/video-c9115d943f6c3fe4/rooms/wooden-verdure-hall-v1/textures/chair_reference.png",
+      "dimensions": [
+        90,
+        110
+      ],
+      "sha256": "68a32a85bc02d4e686832b0d22ce3de5c64ef42ff53cc7ef2f5f2fa92a6e7a56"
+    }
+  ]
+}

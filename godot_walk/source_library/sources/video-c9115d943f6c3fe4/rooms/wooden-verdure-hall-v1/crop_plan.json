@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source_frame_id": "frame_3357",
+  "source_frame_sha256": "b1846b7aff1252e93130d388f75e7fd3b017b8d141d70fb5936763137e96b2b8",
+  "crops": [
+    {
+      "name": "carpet_floor",
+      "frame_id": "frame_3357",
+      "source_pixel_bounds_xyxy": [420, 600, 940, 685]
+    },
+    {
+      "name": "wood_wall",
+      "frame_id": "frame_3357",
+      "source_pixel_bounds_xyxy": [930, 330, 1090, 520]
+    },
+    {
+      "name": "sash_window",
+      "frame_id": "frame_3357",
+      "source_pixel_bounds_xyxy": [390, 330, 545, 525]
+    },
+    {
+      "name": "ceiling_slats",
+      "frame_id": "frame_3357",
+      "source_pixel_bounds_xyxy": [330, 60, 850, 210]
+    },
+    {
+      "name": "chair_reference",
+      "frame_id": "frame_3357",
+      "source_pixel_bounds_xyxy": [765, 500, 855, 610]
+    }
+  ]
+}
