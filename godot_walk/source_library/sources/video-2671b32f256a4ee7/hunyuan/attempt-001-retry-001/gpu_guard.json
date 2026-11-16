@@ -1,0 +1,105 @@
+{
+  "status": "passed",
+  "source_id": "video-2671b32f256a4ee7",
+  "source_kind": "video",
+  "source_sha256": "2671b32f256a4ee7f326fae67290bcec2143efabb4f1000fc4bcfa9507260409",
+  "source_manifest_sha256": "101159bf8200611ef994a1f5b8ba5f4eaa86ff839972128150eb15e1a16245ae",
+  "seed_frame_sha256": "39442f1ae81cea1cd0eef682a99ca7c8030a6e72824be7626e34188be7cb3d75",
+  "checked_at_utc": "2026-11-16T19:33:58.074273+00:00",
+  "preflight": {
+    "guard_policy_version": "2.3.0",
+    "gpu_process_policy": "block compute contexts (type C or C+G); ignore graphics-only contexts",
+    "free_vram_bytes": 11534336000,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 0,
+    "compute_apps": [],
+    "ignored_graphics_processes": [
+      {
+        "pid": "5672",
+        "type": "G",
+        "command": "xorg"
+      },
+      {
+        "pid": "5848",
+        "type": "G",
+        "command": "gnome-shell"
+      },
+      {
+        "pid": "6821",
+        "type": "G",
+        "command": "kitty"
+      },
+      {
+        "pid": "8347",
+        "type": "G",
+        "command": "kitty"
+      },
+      {
+        "pid": "10246",
+        "type": "G",
+        "command": "kitty"
+      },
+      {
+        "pid": "528794",
+        "type": "G",
+        "command": "kitty"
+      },
+      {
+        "pid": "1817747",
+        "type": "G",
+        "command": "firefox"
+      },
+      {
+        "pid": "2548866",
+        "type": "G",
+        "command": "kitty"
+      },
+      {
+        "pid": "2585319",
+        "type": "G",
+        "command": "code"
+      },
+      {
+        "pid": "2751161",
+        "type": "G",
+        "command": "kitty"
+      },
+      {
+        "pid": "4123114",
+        "type": "G",
+        "command": "kitty"
+      }
+    ],
+    "ram_available_bytes": 26976759808,
+    "vram_after_headroom_bytes": 9227468800,
+    "ram_after_headroom_bytes": 20232569856,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25,
+    "hunyuan_resource_policy": {
+      "policy_version": "hunyuan-sequential-offload-3",
+      "min_start_ram_bytes": 34359738368,
+      "min_start_swap_free_bytes": 17179869184,
+      "min_start_vram_bytes": 8589934592,
+      "min_runtime_ram_bytes": 8589934592,
+      "min_runtime_swap_free_bytes": 17179869184,
+      "min_runtime_vram_bytes": 2147483648,
+      "max_swap_growth_bytes": 68719476736,
+      "max_execution_seconds": 2700,
+      "sample_period_seconds": 1.0
+    },
+    "hunyuan_start_snapshot": {
+      "timestamp_utc": "2026-11-16T19:33:58.074123+00:00",
+      "ram_available_bytes": 51954708016,
+      "ram_available_meminfo_bytes": 26976759808,
+      "zfs_arc_reclaimable_bytes": 24977948208,
+      "swap_free_bytes": 82952470528,
+      "swap_total_bytes": 102546530304,
+      "gpu_free_bytes": 11534336000,
+      "gpu_used_bytes": 912261120,
+      "gpu_total_bytes": 12878610432,
+      "gpu_utilization_pct": 0,
+      "process_group_rss_bytes": 0
+    }
+  },
+  "source_video_sha256": "2671b32f256a4ee7f326fae67290bcec2143efabb4f1000fc4bcfa9507260409"
+}
