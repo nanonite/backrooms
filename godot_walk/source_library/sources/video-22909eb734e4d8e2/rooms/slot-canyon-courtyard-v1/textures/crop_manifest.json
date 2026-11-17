@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "frame_manifest": "godot_walk/source_library/sources/video-22909eb734e4d8e2/frames/issue172-2s-a/extraction_manifest.json",
+  "frame_manifest_sha256": "03bf05a8669035515c664f0e39db46991d0b2ca3076eae78331651c5284ca177",
+  "operation": "direct_rectangular_crop_no_resize_or_color_edit",
+  "crops": [
+    {
+      "name": "wall_strata_dark",
+      "frame_id": "frame_1363",
+      "source_pixel_bounds_xyxy": [
+        180,
+        30,
+        470,
+        420
+      ],
+      "path": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/wall_strata_dark.png",
+      "dimensions": [
+        290,
+        390
+      ],
+      "sha256": "12faee7da0c2a95ddb7051bbb6a8061c669b44fba1b7cb7330f265e44cb2048c"
+    },
+    {
+      "name": "wall_strata_warm",
+      "frame_id": "frame_1363",
+      "source_pixel_bounds_xyxy": [
+        800,
+        150,
+        990,
+        470
+      ],
+      "path": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/wall_strata_warm.png",
+      "dimensions": [
+        190,
+        320
+      ],
+      "sha256": "560704094b4cc765b9fa3265fc0d2137a1df15df0402f87003defea3c81c3070"
+    },
+    {
+      "name": "sandy_floor",
+      "frame_id": "frame_1363",
+      "source_pixel_bounds_xyxy": [
+        540,
+        400,
+        810,
+        580
+      ],
+      "path": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/sandy_floor.png",
+      "dimensions": [
+        270,
+        180
+      ],
+      "sha256": "5a08e0e2f7f38eaa357567ca54a14410d150c4f3b7e2a01b470dd471e321f183"
+    },
+    {
+      "name": "slot_glow",
+      "frame_id": "frame_1363",
+      "source_pixel_bounds_xyxy": [
+        500,
+        0,
+        770,
+        220
+      ],
+      "path": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/slot_glow.png",
+      "dimensions": [
+        270,
+        220
+      ],
+      "sha256": "50a854a08f80c3565ca9d2dab44d1252c865a897b85f870b9379b055d35e1202"
+    },
+    {
+      "name": "rock_rubble",
+      "frame_id": "frame_1363",
+      "source_pixel_bounds_xyxy": [
+        560,
+        420,
+        820,
+        560
+      ],
+      "path": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/rock_rubble.png",
+      "dimensions": [
+        260,
+        140
+      ],
+      "sha256": "2f39c9172f43f4e3de34d8d5dfea4ce01f4c8725f4d8379ce457e880fb942165"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source_frame_id": "frame_1363",
+  "source_frame_sha256": "e500b55c57fdb74fc0186fedc5dff07ade81f9e3a84eba8a06f752ab06c6e28e",
+  "crops": [
+    {
+      "name": "wall_strata_dark",
+      "frame_id": "frame_1363",
+      "source_pixel_bounds_xyxy": [180, 30, 470, 420]
+    },
+    {
+      "name": "wall_strata_warm",
+      "frame_id": "frame_1363",
+      "source_pixel_bounds_xyxy": [800, 150, 990, 470]
+    },
+    {
+      "name": "sandy_floor",
+      "frame_id": "frame_1363",
+      "source_pixel_bounds_xyxy": [540, 400, 810, 580]
+    },
+    {
+      "name": "slot_glow",
+      "frame_id": "frame_1363",
+      "source_pixel_bounds_xyxy": [500, 0, 770, 220]
+    },
+    {
+      "name": "rock_rubble",
+      "frame_id": "frame_1363",
+      "source_pixel_bounds_xyxy": [560, 420, 820, 560]
+    }
+  ]
+}

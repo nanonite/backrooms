@@ -1,0 +1,43 @@
+{
+	"godot_static_memory_bytes": 56520321,
+	"panorama_role": "camera-centered background visual; no spatial parallax",
+	"registration_accepted": false,
+	"renderer": "Godot Forward+ Vulkan with the project PSX compositor",
+	"sampled_frame_time_ms": {
+		"basis": "SceneTree process-frame intervals after 120-frame warmup; includes display sync",
+		"mean": 16.6699833333333,
+		"p95": 16.835,
+		"p99": 16.886,
+		"samples": 300
+	},
+	"scale_calibrated": false,
+	"scene": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/room.tscn",
+	"scene_instantiate_ms": 0.039,
+	"scene_load_ms": 7.868,
+	"views": [
+		{
+			"height": 648,
+			"id": "spawn_up_corridor",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/captures/spawn_up_corridor.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "bend_turn",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/captures/bend_turn.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "west_wall_strata",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/captures/west_wall_strata.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "open_sky_slot",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/captures/open_sky_slot.png",
+			"width": 1152
+		}
+	]
+}
