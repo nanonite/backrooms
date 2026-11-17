@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "frame_manifest": "godot_walk/source_library/sources/video-102caf53423018b7/frames/issue175-quarter-s-a/extraction_manifest.json",
+  "frame_manifest_sha256": "792d25587e148054cb32a875ecdf52a2286c85f6d3f79c5ab24d27ecd8165432",
+  "operation": "direct_rectangular_crop_no_resize_or_color_edit",
+  "crops": [
+    {
+      "name": "carpet_floor",
+      "frame_id": "frame_0013",
+      "source_pixel_bounds_xyxy": [
+        1200,
+        860,
+        1700,
+        1040
+      ],
+      "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/carpet_floor.png",
+      "dimensions": [
+        500,
+        180
+      ],
+      "sha256": "9027d7d2633a60aaa60fb238d22b04de796da292506e0d6fb474e3a3830b945e"
+    },
+    {
+      "name": "chevron_wallpaper",
+      "frame_id": "frame_0013",
+      "source_pixel_bounds_xyxy": [
+        40,
+        340,
+        360,
+        640
+      ],
+      "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/chevron_wallpaper.png",
+      "dimensions": [
+        320,
+        300
+      ],
+      "sha256": "3c49bf22c35f286ecdb459956254c8fa6b474f7e1d6dd1862dc4534be6d15ad1"
+    },
+    {
+      "name": "drop_ceiling",
+      "frame_id": "frame_0013",
+      "source_pixel_bounds_xyxy": [
+        760,
+        10,
+        1120,
+        180
+      ],
+      "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/drop_ceiling.png",
+      "dimensions": [
+        360,
+        170
+      ],
+      "sha256": "cb86a5f8522b00e055a77267c08790edd0d58c1bc671c5db97494ec7810fde38"
+    }
+  ]
+}
