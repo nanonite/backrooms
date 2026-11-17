@@ -1,0 +1,649 @@
+{
+  "schema_version": 3,
+  "contract_id": "godot_video_room_completion",
+  "contract_version": "3.0.0",
+  "contract_freeze": {
+    "path": "godot_walk/room_catalog/contract_freeze_v3.json",
+    "sha256": "91c0cb1b47f980193a47d8e221b366f2d452256fa7b383adc818a177c9813ba1"
+  },
+  "adaptation_id": "nested-light-corridor-v1",
+  "status": "candidate_pending_review",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_observations": {
+    "video": {
+      "path": "data/videos/Max Cooper - Repetition (Official Video By Kevin McGloughlin).mp4",
+      "sha256": "d857abe7a94da9d19a4a1410a707e7632c32df6f3ded1ddd4d77317df1732bb8",
+      "width": 1280,
+      "height": 720,
+      "fps": 24.0,
+      "frame_count": 8556,
+      "duration_seconds": 356.565624
+    },
+    "suitability": {
+      "decision": "proceed_with_limitations",
+      "rationale": [
+        "Operator decided review-source = proceed (issue 173, event 3).",
+        "Operator approved one local Hunyuan attempt and accepted attempt-001 (improvement: improved, 'all look good other than the dead end'); no further attempt was run.",
+        "The source is a 356 s montage of many built spaces; only the selected 280 s interior is considered here.",
+        "The 512x256 panorama is a broad visual reference only; no metric scale or parallax is inferred from it.",
+        "Fine appearance uses direct crops of the native 1280x720 seed frame, not panorama pixels.",
+        "Rhythm/repetition rules for the generative map remain a separate operator decision; this candidate does not claim them."
+      ]
+    },
+    "frames": [
+      {
+        "frame_id": "frame_6721",
+        "index_zero_based": 6720,
+        "timestamp_seconds": 280.0,
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-c/frame_6721.png",
+        "sha256": "5e0e9c637b1df13ded90d05789b51a9bbae78a19f387a1eb87299b5f1b314208",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": [
+          {
+            "role": "floor_surface",
+            "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/reflective_floor.png",
+            "sha256": "cd3838c18622fd449db3199285fc3efe609229bbd4728c702da215ba73be506c",
+            "source_pixel_bounds_xyxy": [
+              430,
+              440,
+              850,
+              700
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "wall_surface",
+            "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/gloss_wall.png",
+            "sha256": "17060379d1fa5c1b994f104ed730bf7a13e19ab4b495f193a7b12beb791adfdc",
+            "source_pixel_bounds_xyxy": [
+              180,
+              120,
+              400,
+              430
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "wall_light_panel",
+            "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/light_panel.png",
+            "sha256": "9c1cea2ebb5756f321e1b7bea7f59f38e35c19449613cc732c1f6e67ef3259cc",
+            "source_pixel_bounds_xyxy": [
+              130,
+              60,
+              185,
+              430
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "ceiling_surface",
+            "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/ceiling_strips.png",
+            "sha256": "d3698d4d38d8bd9ef579208c9255dfb1694520c44d605ebd29492507f76429aa",
+            "source_pixel_bounds_xyxy": [
+              380,
+              0,
+              900,
+              90
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "far_wall_surface",
+            "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/far_light.png",
+            "sha256": "cd2d05f2496c572f4a2965908f27d722dbfd5b4e952a393770e0463dbc5d807a",
+            "source_pixel_bounds_xyxy": [
+              520,
+              130,
+              780,
+              400
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          }
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "claim": "The seed frame shows a dark symmetrical interior corridor: glossy black wall sections, tall vertical white light panels, a mirror-black floor crossed by bright white transverse strips, a dark ceiling with strip lights and an overexposed white far wall.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_6721"
+        ]
+      },
+      {
+        "claim": "The accepted 512x256 panorama shows nested glowing white rectangular frames receding toward a small overexposed white square in darkness, with no visible opening beyond it.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_6721"
+        ]
+      },
+      {
+        "claim": "The clip is a montage of many built spaces; the selected 280 s frame is one interior and does not establish one continuous camera move, a full perimeter or room connectivity.",
+        "certainty": "partially_observed",
+        "frame_ids": [
+          "frame_6721"
+        ]
+      },
+      {
+        "claim": "The far bright wall reads as a terminal surface: no doorway, destination or continuation is visible, and the operator explicitly flagged the dead end.",
+        "certainty": "partially_observed",
+        "frame_ids": [
+          "frame_6721"
+        ]
+      }
+    ],
+    "unknowns": [
+      "Real dimensions, camera pose, metric scale, hidden wall faces, full perimeter and ceiling height are unknown.",
+      "The bright far wall does not establish a doorway, socket, destination or connection; the operator called out the dead end.",
+      "The panorama is 512x256 with no spatial parallax and is not a registered mesh or collision source.",
+      "The authored rectangular shell and repeated bright portal frames are an interpretation, not a claim that the source room is rectangular or has measured frames.",
+      "The source video contains other distinct spaces; only the room around frame_6721 is considered here.",
+      "Any rhythm/repetition rule for the generative map is not derived or claimed by this candidate."
+    ]
+  },
+  "reusable_requirements": {
+    "coordinate_convention": "Godot local X/Z with +Y up; authored design units, not calibrated meters.",
+    "supported_footprint_representation": "Finite simple orthogonal polygon in XZ; candidate uses one authored rectangle.",
+    "player": {
+      "controller_scene": "godot_walk/scenes/player.tscn",
+      "capsule_radius": 0.3,
+      "capsule_height": 1.2,
+      "safe_spawn_and_reset": "Spawn at [0,0.6,10.0] on the authored floor; R restores this pose with zero velocity."
+    },
+    "floor_and_ceiling": "Floor is authored at Y=0. Portal headers and ceiling strips leave an authored clear height of 4.56; no video-derived height is claimed.",
+    "collision_policy": "Separate authored floor, four closed perimeter boundaries and two static panel-plinth obstacles; no doors, entities, moving or animated props.",
+    "render_placement_policy": "Record authored room AABB separately from the camera-centered panorama background; panorama is not collision geometry.",
+    "socket_policy": "No authored sockets. The bright far wall is a source observation only; all playable edges are capped and the candidate is standalone.",
+    "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+    "additional_constraints": [
+      "Godot 4.6.3 only.",
+      "Use existing player/controller, URSC 1.5 material conversion and native PSX compositor.",
+      "Keep registration_accepted=false and scale_calibrated=false.",
+      "Static props only: no doors, entities, moving or animated props."
+    ]
+  },
+  "resolved_adaptation": {
+    "candidate_version": "nested-light-corridor-v1",
+    "catalog_admission": "candidate_not_admitted",
+    "scene_path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/room.tscn",
+    "catalog_module_refs": [],
+    "walkable_space": {
+      "coordinate_system": "local Godot X/Z, +Y up; uncalibrated design units",
+      "footprint": {
+        "representation": "simple_orthogonal_polygon_xz",
+        "vertices_xz": [
+          [
+            -5.0,
+            -12.0
+          ],
+          [
+            5.0,
+            -12.0
+          ],
+          [
+            5.0,
+            12.0
+          ],
+          [
+            -5.0,
+            12.0
+          ]
+        ]
+      },
+      "floor_elevation": 0.0,
+      "safe_spawn_xyz": [
+        0.0,
+        0.6,
+        10.0
+      ],
+      "measurement": {
+        "method": "Godot standalone CharacterBody3D traversal with floor and boundary ray checks; no capsule-clear area grid",
+        "resolution": 0.1,
+        "spawn_connected_area": null,
+        "status": "pending"
+      }
+    },
+    "boundary_and_obstacle_collision": {
+      "collision_origin": "Explicit StaticBody3D and BoxShape3D nodes in room.gd, separate from visible meshes.",
+      "floor_bodies": [
+        "AuthoredBoundaries/WalkableFloor"
+      ],
+      "boundaries": [
+        "AuthoredBoundaries/WestBoundary",
+        "AuthoredBoundaries/EastBoundary",
+        "AuthoredBoundaries/SouthBoundary",
+        "AuthoredBoundaries/NorthBoundary"
+      ],
+      "obstacles": [
+        "AuthoredObstacles/PanelPlinthCollision_00",
+        "AuthoredObstacles/PanelPlinthCollision_01"
+      ],
+      "exposed_boundary_policy": "All four edges are closed and collidable; no gameplay socket is open. SafetyNet is a recovery aid, not walkable area."
+    },
+    "rendered_placement_envelope": {
+      "representation": "conservative_aabb_xyz",
+      "bounds_xyz": {
+        "min": [
+          -5.3,
+          -0.24,
+          -12.3
+        ],
+        "max": [
+          5.3,
+          4.96,
+          12.3
+        ]
+      },
+      "footprint": {
+        "representation": "simple_orthogonal_polygon_xz",
+        "vertices_xz": [
+          [
+            -5.3,
+            -12.3
+          ],
+          [
+            5.3,
+            -12.3
+          ],
+          [
+            5.3,
+            12.3
+          ],
+          [
+            -5.3,
+            12.3
+          ]
+        ]
+      },
+      "background_geometry": [
+        "attempt-001 panorama as camera-centered PanoramaSkyMaterial; not spatially bounded or collidable."
+      ],
+      "containment_method": "Authored walls close all playable sides. Panorama is a renderer background, not part of the authored room AABB."
+    },
+    "surfaces": [
+      {
+        "surface_id": "reflective_floor",
+        "geometry_origin": "Authored rectangular BoxMesh.",
+        "appearance_origin": "Direct dark reflective floor crop from frame_6721, including its white transverse strips.",
+        "placement_basis": "Centered in the authored footprint at floor Y=0; rhythm is authored, not measured.",
+        "collision_origin": "Separate WalkableFloor StaticBody3D.",
+        "evidence_refs": [
+          "frame_6721",
+          "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/reflective_floor.png"
+        ]
+      },
+      {
+        "surface_id": "gloss_walls_and_light_panels",
+        "geometry_origin": "Authored four-sided closed shell with ten repeated thin light-panel boxes.",
+        "appearance_origin": "Direct gloss_wall and light_panel crops from frame_6721.",
+        "placement_basis": "Panels on both long walls in an authored repeating rhythm; walls stay continuous behind each panel.",
+        "collision_origin": "Perimeter StaticBody3D boxes only; panels are visual.",
+        "evidence_refs": [
+          "frame_6721",
+          "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/gloss_wall.png",
+          "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/light_panel.png"
+        ]
+      },
+      {
+        "surface_id": "nested_portal_trim",
+        "geometry_origin": "Five authored bright rectangular portal outlines (two jambs and a header each).",
+        "appearance_origin": "Authored solid PSX bright trim color; no panorama pixels are used.",
+        "placement_basis": "Five frames spaced along the authored corridor to echo the panorama's nested rings.",
+        "collision_origin": "None; trim is visual only.",
+        "evidence_refs": [
+          "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/panorama/panorama.png",
+          "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/room.gd"
+        ]
+      },
+      {
+        "surface_id": "strip_ceiling",
+        "geometry_origin": "Authored flat ceiling plane plus five bright transverse strip boxes.",
+        "appearance_origin": "Direct ceiling_strips crop from frame_6721 plus authored solid bright strips.",
+        "placement_basis": "Authored clear height 4.56 under portal headers and strips.",
+        "collision_origin": "None; ceiling mesh is visual only.",
+        "evidence_refs": [
+          "frame_6721",
+          "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/ceiling_strips.png"
+        ]
+      },
+      {
+        "surface_id": "far_light_wall",
+        "geometry_origin": "Authored bright panel with dark border on the closed north boundary.",
+        "appearance_origin": "Direct far_light crop from frame_6721 (overexposed far wall).",
+        "placement_basis": "Centered on the far wall; kept closed, no socket or doorway.",
+        "collision_origin": "Only the NorthBoundary StaticBody3D behind it.",
+        "evidence_refs": [
+          "frame_6721",
+          "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/far_light.png"
+        ]
+      },
+      {
+        "surface_id": "panorama_background",
+        "geometry_origin": "No room mesh; renderer background only.",
+        "appearance_origin": "Hunyuan attempt-001 panorama generated from direct source seed frame_6721.",
+        "placement_basis": "Camera-centered equirectangular projection; no translation parallax. Fully occluded by the authored shell in playable views.",
+        "collision_origin": "None.",
+        "evidence_refs": [
+          "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/panorama/panorama.png"
+        ]
+      }
+    ],
+    "sockets": [],
+    "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+    "dependencies": [
+      {
+        "path": "data/videos/Max Cooper - Repetition (Official Video By Kevin McGloughlin).mp4",
+        "sha256": "d857abe7a94da9d19a4a1410a707e7632c32df6f3ded1ddd4d77317df1732bb8",
+        "role": "canonical source video"
+      },
+      {
+        "path": "godot_walk/project.godot",
+        "sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+        "role": "Godot project renderer and input settings"
+      },
+      {
+        "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+        "role": "immutable catalog snapshot"
+      },
+      {
+        "path": "godot_walk/room_catalog/contract_freeze_v3.json",
+        "sha256": "91c0cb1b47f980193a47d8e221b366f2d452256fa7b383adc818a177c9813ba1",
+        "role": "contract freeze v3"
+      },
+      {
+        "path": "godot_walk/scenes/player.tscn",
+        "sha256": "2fc7064e58713029897facd54812886154f6661d8e4ba14c5f7a3d99bda5dbea",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/scripts/gpu_job_lock.py",
+        "sha256": "1bca85202f82c6e192426ff8e0d774428534ae454dc4dea61b32a23f5f929db5",
+        "role": "shared exclusive GPU lock"
+      },
+      {
+        "path": "godot_walk/scripts/library_psx_preset.gd",
+        "sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/scripts/player.gd",
+        "sha256": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/scripts/psx/psx_post_effect.gd",
+        "sha256": "5b06eff8e0f1fc0a5c98711633eb50d03db39db4c1e73b309433e444dd3c5795",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "sha256": "b1a4c839f1346d64586dae4cda6175b06793d4de95cb0ada8ba57c0851e80ba5",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/scripts/psx_design_round_resources.py",
+        "sha256": "98444163f9d29337dae413541c604f8a9956c3066f55c9d1b04b03f12d9877f5",
+        "role": "shared GPU/RAM preflight and sampler"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_resource_graph.py",
+        "sha256": "84f0677bda60d2ff4b07664abc8c70e2fc815f4d002eda4af5d581473cb44cb0",
+        "role": "resource graph validator"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_runner.py",
+        "sha256": "62f2fb131bd49a278082abe3b353c0ff863a6628c5b2abe7c74ba175d30e7f17",
+        "role": "source crop pipeline implementation"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_validation.py",
+        "sha256": "44803981db7ef2563c76832f7ea3ce6dd48a51274b51d9aa47cc04e0d6aff8cd",
+        "role": "read-only adaptation validator"
+      },
+      {
+        "path": "godot_walk/shaders/library_psx_textured.gdshader",
+        "sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/shaders/library_psx_vertex.gdshader",
+        "sha256": "7feecf393ff762b9dee1caaf43cc5e7e3a548371f0fb7a3c28d562c03be4176f",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-c/extraction_manifest.json",
+        "sha256": "bacd03315c4558c189d5b8e59cb94d903309e9f27353f091cad4cd2ca4feec09",
+        "role": "direct frame extraction manifest"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-c/frame_6721.png",
+        "sha256": "5e0e9c637b1df13ded90d05789b51a9bbae78a19f387a1eb87299b5f1b314208",
+        "role": "selected native-resolution source frame"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/attempt_config.json",
+        "sha256": "956a63848b86a37cc48261c601c906560bf1d4c70cb0ab14a822150c7ddb81df",
+        "role": "accepted Hunyuan attempt configuration"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/attempt_result.json",
+        "sha256": "98c7ce7183d36459ffb5acb9cdeb7fc00c13e8176c5547b9579c5a2ef6576a49",
+        "role": "accepted Hunyuan attempt result"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/execution_guard.json",
+        "sha256": "31264da614569475ccc4218f660d49b2687cffd4638a3f66d2bb4f0bb02206ad",
+        "role": "Hunyuan runtime guard receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/gpu_guard.json",
+        "sha256": "e1654327188c00a12c8afbdccf7fb62a68e313d1c23d7e1c842c4d7045eb4cd9",
+        "role": "Hunyuan GPU preflight receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/panorama/panorama.png",
+        "sha256": "01d5a7ebdb971ef24a783201d7013275db56165fe099a447c18d6d1047095693",
+        "role": "reviewed 512x256 Hunyuan panorama (visual reference only)"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/resource_samples.jsonl",
+        "sha256": "4b804d4b4192e47b70c9cf4f05115fd8b03c3d9b536b527bb1176e41005a8f04",
+        "role": "Hunyuan resource samples"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/stderr.log",
+        "sha256": "53b74b44be25d5af641b79e72b6848bf96cafc08961376d82e706fc5cd9d76c8",
+        "role": "Hunyuan stderr"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/stdout.log",
+        "sha256": "022e240a8a36eccb82cb85828e1adc60d43fb25bbee2e81d7ee363361654e718",
+        "role": "Hunyuan stdout"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/capture_resource_run.json",
+        "sha256": "7319be13df3f51932fb4573daf3ad0025621275f3a3557836a58a38a12b52270",
+        "role": "guarded capture resource receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/capture_room.gd",
+        "sha256": "2e6953d0eaddb96515a9e3c73723a68c7ad8d8a5b1196a06c7bf8a0835fc4fae",
+        "role": "capture and frame-profile harness"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/captures/capture_manifest.json",
+        "sha256": "4b4807cb63e87eeb71e8602dd6ffcd72065920bf138859d5bb2d2915ecec6bdd",
+        "role": "guarded capture manifest"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/captures/far_light_wall.png",
+        "sha256": "ee673593bcaa2120f836367ff481a742cfce1ef1617ef97762182da589bcfad7",
+        "role": "guarded render capture"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/captures/lit_wall_panels.png",
+        "sha256": "a231972ec89022ad0d9b28de98534cef0031b95b7f2a7a070ddee8b71568f174",
+        "role": "guarded render capture"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/captures/nested_portal_frames.png",
+        "sha256": "dbb13e8a2c07894c57375a2fc279187721e6d428deca661ad3c4a9378f8b618e",
+        "role": "guarded render capture"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/captures/spawn_toward_far_light.png",
+        "sha256": "4866e567c0f8230dd77d039b7949081b3b64601e70988000e39d0b12daeb590d",
+        "role": "guarded render capture"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/crop_plan.json",
+        "sha256": "32bdff830ebce830f70126ccf415942337c04c9090626971fb8bda59ce6a342d",
+        "role": "direct source crop plan"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/room.gd",
+        "sha256": "7ddd30ee278fe527d8632663e2efcaca15572be32191f1f17148d19869dac601",
+        "role": "authored room geometry and gameplay script"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/room.tscn",
+        "sha256": "243bef67365413f535c7dfc3d7f31469955c07426e2c826aa43a97ffe20e3e8c",
+        "role": "playable candidate scene"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/run_capture_guarded.py",
+        "sha256": "aebcc7ab934ec39b1bb82fa7d9a574fe4640149d64095049713c144c86d7fda6",
+        "role": "shared GPU lock and resource guard wrapper"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/standalone_test_receipt.json",
+        "sha256": "31e38658147e37a3d1944daabb158a0745aab496c8f61a3c61b5f4745de07725",
+        "role": "standalone runtime test receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/test_room.gd",
+        "sha256": "fea2f09aee5891e01ca5019c7f2394df79ed31005fd4a9c05859617e8fc8f19c",
+        "role": "authored room geometry and gameplay script"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/crop_manifest.json",
+        "sha256": "3e738d5b5d2446c76013e33b1ae8429d466b12a424768ac96aba7999920e37b1",
+        "role": "direct source appearance crop"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/ceiling_strips.png",
+        "sha256": "d3698d4d38d8bd9ef579208c9255dfb1694520c44d605ebd29492507f76429aa",
+        "role": "direct source appearance crop"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/far_light.png",
+        "sha256": "cd2d05f2496c572f4a2965908f27d722dbfd5b4e952a393770e0463dbc5d807a",
+        "role": "direct source appearance crop"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/gloss_wall.png",
+        "sha256": "17060379d1fa5c1b994f104ed730bf7a13e19ab4b495f193a7b12beb791adfdc",
+        "role": "direct source appearance crop"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/light_panel.png",
+        "sha256": "9c1cea2ebb5756f321e1b7bea7f59f38e35c19449613cc732c1f6e67ef3259cc",
+        "role": "direct source appearance crop"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/reflective_floor.png",
+        "sha256": "cd3838c18622fd449db3199285fc3efe609229bbd4728c702da215ba73be506c",
+        "role": "direct source appearance crop"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/source_manifest-v3.json",
+        "sha256": "87bc8e05cbdd34bb8cfc9a016b05dd17a552a5b0a69711215999b0453f7cd93e",
+        "role": "immutable source registration manifest"
+      },
+      {
+        "path": "godot_walk/vendor/ursc/common.gdshaderinc",
+        "sha256": "c2bba1e4d8491d91684efd246458196d7750a4951a21c1bbef58b82537288a49",
+        "role": "transitive Godot shader include dependency"
+      },
+      {
+        "path": "godot_walk/vendor/ursc/utilities.gdshaderinc",
+        "sha256": "0a56e85852069315945e54fdb692dd5f9140dee9ae2ad15bce958987c7b0f011",
+        "role": "transitive Godot shader include dependency"
+      }
+    ],
+    "authoring_log": {
+      "manual_decisions": [
+        "Author a 10x24 design-unit rectangle; no dimensions are inferred from the source.",
+        "Use attempt-001 panorama as a static visual reference and direct source-frame crops for close surfaces.",
+        "Author glossy walls, repeating vertical light panels, five bright portal outlines, a dark strip ceiling, a reflective floor and a bright far wall.",
+        "Keep the far bright wall closed: it is a source observation, not a socket, doorway or connection.",
+        "Retain the accepted controller and current PSX settings; leave both calibration flags false."
+      ],
+      "operator_interventions": 1,
+      "effort": "One bounded candidate authored; no model, inference or paid call was run in this stage."
+    },
+    "room_clearance": {
+      "floor_elevation": 0.0,
+      "ceiling_elevation": 4.56,
+      "basis": "authored"
+    },
+    "dynamic_resource_declarations": [
+      {
+        "script_path": "godot_walk/scripts/library_psx_preset.gd",
+        "line": 49,
+        "call_index": 0,
+        "expression": "\"res://shaders/library_psx_%s.gdshader\" % shader_name",
+        "resource_paths": [
+          "godot_walk/shaders/library_psx_textured.gdshader",
+          "godot_walk/shaders/library_psx_vertex.gdshader"
+        ]
+      }
+    ]
+  },
+  "validation": {
+    "mechanical_status": "passed",
+    "stages": [
+      {
+        "stage_id": "standalone_spawn_floor_boundary_reset",
+        "status": "passed",
+        "candidate_fingerprint": "968536959a6bf9247c82e618e251c66102853a707fc92d9ef4d5ca5f992fa5e7",
+        "artifacts": [
+          {
+            "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/standalone_test_receipt.json",
+            "sha256": "31e38658147e37a3d1944daabb158a0745aab496c8f61a3c61b5f4745de07725",
+            "role": "Godot headless runtime controls"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/test_room.gd",
+            "sha256": "fea2f09aee5891e01ca5019c7f2394df79ed31005fd4a9c05859617e8fc8f19c",
+            "role": "standalone test harness"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/room.tscn",
+            "sha256": "243bef67365413f535c7dfc3d7f31469955c07426e2c826aa43a97ffe20e3e8c",
+            "role": "playable candidate scene"
+          }
+        ],
+        "notes": [
+          "Runtime-tested floor support, closed perimeter, plinth collision, walk and backtrack, no boundary escape, R reset, and floor/boundary negative controls."
+        ]
+      }
+    ]
+  },
+  "operator_decision": {
+    "status": "pending",
+    "decision_record_path": null,
+    "decision_sha256": null,
+    "candidate_fingerprint": null,
+    "scope": "Panorama accepted only as a broad visual reference. Room appearance, traversal, catalog admission and promotion await operator review."
+  },
+  "catalog_snapshot": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+    "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+    "catalog_id": "godot_psx_room_kit",
+    "catalog_version": "0.2.0"
+  },
+  "candidate_identity": "968536959a6bf9247c82e618e251c66102853a707fc92d9ef4d5ca5f992fa5e7"
+}

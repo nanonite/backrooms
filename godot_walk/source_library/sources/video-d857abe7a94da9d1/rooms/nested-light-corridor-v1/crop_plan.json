@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source_frame_id": "frame_6721",
+  "source_frame_sha256": "5e0e9c637b1df13ded90d05789b51a9bbae78a19f387a1eb87299b5f1b314208",
+  "crops": [
+    {
+      "name": "reflective_floor",
+      "frame_id": "frame_6721",
+      "source_pixel_bounds_xyxy": [430, 440, 850, 700]
+    },
+    {
+      "name": "gloss_wall",
+      "frame_id": "frame_6721",
+      "source_pixel_bounds_xyxy": [180, 120, 400, 430]
+    },
+    {
+      "name": "light_panel",
+      "frame_id": "frame_6721",
+      "source_pixel_bounds_xyxy": [130, 60, 185, 430]
+    },
+    {
+      "name": "ceiling_strips",
+      "frame_id": "frame_6721",
+      "source_pixel_bounds_xyxy": [380, 0, 900, 90]
+    },
+    {
+      "name": "far_light",
+      "frame_id": "frame_6721",
+      "source_pixel_bounds_xyxy": [520, 130, 780, 400]
+    }
+  ]
+}

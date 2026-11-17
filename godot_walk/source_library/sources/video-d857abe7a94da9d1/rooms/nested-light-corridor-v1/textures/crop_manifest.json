@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "frame_manifest": "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-c/extraction_manifest.json",
+  "frame_manifest_sha256": "bacd03315c4558c189d5b8e59cb94d903309e9f27353f091cad4cd2ca4feec09",
+  "operation": "direct_rectangular_crop_no_resize_or_color_edit",
+  "crops": [
+    {
+      "name": "reflective_floor",
+      "frame_id": "frame_6721",
+      "source_pixel_bounds_xyxy": [
+        430,
+        440,
+        850,
+        700
+      ],
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/reflective_floor.png",
+      "dimensions": [
+        420,
+        260
+      ],
+      "sha256": "cd3838c18622fd449db3199285fc3efe609229bbd4728c702da215ba73be506c"
+    },
+    {
+      "name": "gloss_wall",
+      "frame_id": "frame_6721",
+      "source_pixel_bounds_xyxy": [
+        180,
+        120,
+        400,
+        430
+      ],
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/gloss_wall.png",
+      "dimensions": [
+        220,
+        310
+      ],
+      "sha256": "17060379d1fa5c1b994f104ed730bf7a13e19ab4b495f193a7b12beb791adfdc"
+    },
+    {
+      "name": "light_panel",
+      "frame_id": "frame_6721",
+      "source_pixel_bounds_xyxy": [
+        130,
+        60,
+        185,
+        430
+      ],
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/light_panel.png",
+      "dimensions": [
+        55,
+        370
+      ],
+      "sha256": "9c1cea2ebb5756f321e1b7bea7f59f38e35c19449613cc732c1f6e67ef3259cc"
+    },
+    {
+      "name": "ceiling_strips",
+      "frame_id": "frame_6721",
+      "source_pixel_bounds_xyxy": [
+        380,
+        0,
+        900,
+        90
+      ],
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/ceiling_strips.png",
+      "dimensions": [
+        520,
+        90
+      ],
+      "sha256": "d3698d4d38d8bd9ef579208c9255dfb1694520c44d605ebd29492507f76429aa"
+    },
+    {
+      "name": "far_light",
+      "frame_id": "frame_6721",
+      "source_pixel_bounds_xyxy": [
+        520,
+        130,
+        780,
+        400
+      ],
+      "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/far_light.png",
+      "dimensions": [
+        260,
+        270
+      ],
+      "sha256": "cd2d05f2496c572f4a2965908f27d722dbfd5b4e952a393770e0463dbc5d807a"
+    }
+  ]
+}
