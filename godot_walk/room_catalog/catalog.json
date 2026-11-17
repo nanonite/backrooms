@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "catalog_id": "godot_psx_room_kit",
-  "catalog_version": "0.5.0",
+  "catalog_version": "0.6.0",
   "engine": "Godot 4.6.3",
   "registration_accepted": false,
   "scale_calibrated": false,
@@ -1629,6 +1629,894 @@
         "peak_gpu_memory_used_bytes": 896532480,
         "peak_gpu_memory_delta_bytes": 186646528,
         "evidence_path": "godot_walk/evidence/2026-11-02-issue-169-bill-viola-seed-91s/capture_resource_run_v4.json"
+      }
+    },
+    {
+      "id": "video_22909eb734e4d8e2_slot_canyon_courtyard_v1",
+      "version": 1,
+      "kind": "authored_bounded_room",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/room.tscn",
+      "variant_status": "operator_accepted_standalone_room_cataloged",
+      "layout_eligible": false,
+      "coordinate_units": "uncalibrated_godot_world_units",
+      "registration_accepted": false,
+      "scale_calibrated": false,
+      "candidate_identity": "80cb05a357dffef917a30c14f65aadd58605890adf48fffa86b8d23bf7e9ff4d",
+      "source_provenance": [
+        "data/videos/Antelope Canyon in 4K - World's Most Iconic Slot Canyon - UHD 4K.mp4",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/frames/issue172-2s-a/frame_1363.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/adaptation_standalone_accepted_v1.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/operator_review.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/crop_manifest.json"
+      ],
+      "visual_assets": [
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/room.tscn",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/room.gd",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/rock_rubble.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/sandy_floor.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/slot_glow.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/wall_strata_dark.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/wall_strata_warm.png"
+      ],
+      "collision_provenance": "Explicit StaticBody3D and BoxShape3D nodes in room.gd, separate from visible meshes.",
+      "placement_footprint_xz": [
+        [
+          -4.0,
+          -10.0
+        ],
+        [
+          4.0,
+          -10.0
+        ],
+        [
+          4.0,
+          2.0
+        ],
+        [
+          11.0,
+          2.0
+        ],
+        [
+          11.0,
+          8.0
+        ],
+        [
+          -4.0,
+          8.0
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          -4.3,
+          -10.3
+        ],
+        [
+          11.3,
+          -10.3
+        ],
+        [
+          11.3,
+          8.3
+        ],
+        [
+          -4.3,
+          8.3
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          -4.0,
+          -10.0
+        ],
+        [
+          4.0,
+          -10.0
+        ],
+        [
+          4.0,
+          2.0
+        ],
+        [
+          11.0,
+          2.0
+        ],
+        [
+          11.0,
+          8.0
+        ],
+        [
+          -4.0,
+          8.0
+        ]
+      ],
+      "observed_openings": [],
+      "observed_opening_note": "No opening is visible in the sampled camera views; openings outside the views remain unknown.",
+      "floor_elevation_m": 0.0,
+      "ceiling_elevation_m": 7.0,
+      "vertical_bound_basis": "authored",
+      "closed_unused_sockets": "No authored sockets. All perimeter boundaries are closed by visible walls and matching colliders.",
+      "dependencies": [
+        "data/videos/Antelope Canyon in 4K - World's Most Iconic Slot Canyon - UHD 4K.mp4",
+        "godot_walk/project.godot",
+        "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "godot_walk/room_catalog/contract_freeze_v3.json",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/gpu_job_lock.py",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/scripts/psx_design_round_resources.py",
+        "godot_walk/scripts/video_adaptation_resource_graph.py",
+        "godot_walk/scripts/video_adaptation_runner.py",
+        "godot_walk/scripts/video_adaptation_validation.py",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/vendor/ursc/common.gdshaderinc",
+        "godot_walk/vendor/ursc/utilities.gdshaderinc",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/source_manifest-v3.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/frames/issue172-2s-a/extraction_manifest.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/frames/issue172-2s-a/frame_1363.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/hunyuan/attempt-001/attempt_config.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/hunyuan/attempt-001/attempt_result.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/hunyuan/attempt-001/execution_guard.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/hunyuan/attempt-001/gpu_guard.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/hunyuan/attempt-001/panorama/panorama.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/hunyuan/attempt-001/resource_samples.jsonl",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/hunyuan/attempt-001/stderr.log",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/hunyuan/attempt-001/stdout.log",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/capture_resource_run.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/capture_room.gd",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/captures/capture_manifest.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/captures/spawn_up_corridor.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/captures/bend_turn.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/captures/west_wall_strata.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/captures/open_sky_slot.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/crop_plan.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/room.gd",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/room.tscn",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/run_capture_guarded.py",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/standalone_test_receipt.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/test_room.gd",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/crop_manifest.json",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/wall_strata_dark.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/wall_strata_warm.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/sandy_floor.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/slot_glow.png",
+        "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/textures/rock_rubble.png"
+      ],
+      "sockets": [],
+      "tested_connectors": [],
+      "integration_scope": "Standalone module only. The operator admitted this room without sockets, tested connector pairs or inferred source connectivity. It is excluded from automatic layout until a separate operator-reviewed socket/adapter decision.",
+      "standalone_validation": {
+        "status": "passed",
+        "record_path": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/standalone_test_receipt.json"
+      }
+    },
+    {
+      "id": "video_d857abe7a94da9d1_nested_light_corridor_v1",
+      "version": 1,
+      "kind": "authored_bounded_room",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/room.tscn",
+      "variant_status": "operator_accepted_standalone_room_cataloged",
+      "layout_eligible": false,
+      "coordinate_units": "uncalibrated_godot_world_units",
+      "registration_accepted": false,
+      "scale_calibrated": false,
+      "candidate_identity": "968536959a6bf9247c82e618e251c66102853a707fc92d9ef4d5ca5f992fa5e7",
+      "source_provenance": [
+        "data/videos/Max Cooper - Repetition (Official Video By Kevin McGloughlin).mp4",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-c/frame_6721.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/adaptation_standalone_accepted_v1.json",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/operator_review.json",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/crop_manifest.json"
+      ],
+      "visual_assets": [
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/room.tscn",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/room.gd",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/ceiling_strips.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/far_light.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/gloss_wall.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/light_panel.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/reflective_floor.png"
+      ],
+      "collision_provenance": "Explicit StaticBody3D and BoxShape3D nodes in room.gd, separate from visible meshes.",
+      "placement_footprint_xz": [
+        [
+          -5.0,
+          -12.0
+        ],
+        [
+          5.0,
+          -12.0
+        ],
+        [
+          5.0,
+          12.0
+        ],
+        [
+          -5.0,
+          12.0
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          -5.3,
+          -12.3
+        ],
+        [
+          5.3,
+          -12.3
+        ],
+        [
+          5.3,
+          12.3
+        ],
+        [
+          -5.3,
+          12.3
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          -5.0,
+          -12.0
+        ],
+        [
+          5.0,
+          -12.0
+        ],
+        [
+          5.0,
+          12.0
+        ],
+        [
+          -5.0,
+          12.0
+        ]
+      ],
+      "observed_openings": [],
+      "observed_opening_note": "No opening is visible in the sampled camera views; openings outside the views remain unknown.",
+      "floor_elevation_m": 0.0,
+      "ceiling_elevation_m": 4.56,
+      "vertical_bound_basis": "authored",
+      "closed_unused_sockets": "No authored sockets. All perimeter boundaries are closed by visible walls and matching colliders.",
+      "dependencies": [
+        "data/videos/Max Cooper - Repetition (Official Video By Kevin McGloughlin).mp4",
+        "godot_walk/project.godot",
+        "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "godot_walk/room_catalog/contract_freeze_v3.json",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/gpu_job_lock.py",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/scripts/psx_design_round_resources.py",
+        "godot_walk/scripts/video_adaptation_resource_graph.py",
+        "godot_walk/scripts/video_adaptation_runner.py",
+        "godot_walk/scripts/video_adaptation_validation.py",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-c/extraction_manifest.json",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/frames/issue173-10s-c/frame_6721.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/attempt_config.json",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/attempt_result.json",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/execution_guard.json",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/gpu_guard.json",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/panorama/panorama.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/resource_samples.jsonl",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/stderr.log",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/hunyuan/attempt-001/stdout.log",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/capture_resource_run.json",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/capture_room.gd",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/captures/capture_manifest.json",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/captures/far_light_wall.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/captures/lit_wall_panels.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/captures/nested_portal_frames.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/captures/spawn_toward_far_light.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/crop_plan.json",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/room.gd",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/room.tscn",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/run_capture_guarded.py",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/standalone_test_receipt.json",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/test_room.gd",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/crop_manifest.json",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/ceiling_strips.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/far_light.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/gloss_wall.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/light_panel.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/textures/reflective_floor.png",
+        "godot_walk/source_library/sources/video-d857abe7a94da9d1/source_manifest-v3.json",
+        "godot_walk/vendor/ursc/common.gdshaderinc",
+        "godot_walk/vendor/ursc/utilities.gdshaderinc"
+      ],
+      "sockets": [],
+      "tested_connectors": [],
+      "integration_scope": "Standalone module only. The operator admitted this room without sockets, tested connector pairs or inferred source connectivity. It is excluded from automatic layout until a separate operator-reviewed socket/adapter decision.",
+      "standalone_validation": {
+        "status": "passed",
+        "record_path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/standalone_test_receipt.json"
+      }
+    },
+    {
+      "id": "video_d92fc1fa764aa3a2_snow_garden_courtyard_v2",
+      "version": 1,
+      "kind": "authored_bounded_room",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/room.tscn",
+      "variant_status": "operator_accepted_standalone_room_cataloged",
+      "layout_eligible": false,
+      "coordinate_units": "uncalibrated_godot_world_units",
+      "registration_accepted": false,
+      "scale_calibrated": false,
+      "candidate_identity": "3ab070183f63c27b538af23a99196106338ec818252b8d3f6766a247af676cb9",
+      "source_provenance": [
+        "data/videos/Angel (Joseph Cornell, 1957).mp4",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_4347.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/adaptation_standalone_accepted_v1.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/operator_review.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/crop_manifest.json"
+      ],
+      "visual_assets": [
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/room.tscn",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/room.gd",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/branch_canopy.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/branch_fine.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/evergreen_foliage.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/stone_figure.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/stone_robe.png"
+      ],
+      "collision_provenance": "Explicit StaticBody3D and BoxShape3D nodes in room.gd, separate from visible meshes.",
+      "placement_footprint_xz": [
+        [
+          -10.0,
+          -8.0
+        ],
+        [
+          10.0,
+          -8.0
+        ],
+        [
+          10.0,
+          8.0
+        ],
+        [
+          -10.0,
+          8.0
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          -10.4,
+          -8.4
+        ],
+        [
+          10.4,
+          -8.4
+        ],
+        [
+          10.4,
+          8.4
+        ],
+        [
+          -10.4,
+          8.4
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          -10.0,
+          -8.0
+        ],
+        [
+          10.0,
+          -8.0
+        ],
+        [
+          10.0,
+          8.0
+        ],
+        [
+          -10.0,
+          8.0
+        ]
+      ],
+      "observed_openings": [],
+      "observed_opening_note": "No opening is visible in the sampled camera views; openings outside the views remain unknown.",
+      "floor_elevation_m": 0.0,
+      "ceiling_elevation_m": 8.0,
+      "vertical_bound_basis": "authored",
+      "closed_unused_sockets": "No authored sockets. All perimeter boundaries are closed by visible walls and matching colliders.",
+      "dependencies": [
+        "data/videos/Angel (Joseph Cornell, 1957).mp4",
+        "godot_walk/project.godot",
+        "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "godot_walk/room_catalog/contract_freeze_v3.json",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/gpu_job_lock.py",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/scripts/psx_design_round_resources.py",
+        "godot_walk/scripts/video_adaptation_resource_graph.py",
+        "godot_walk/scripts/video_adaptation_runner.py",
+        "godot_walk/scripts/video_adaptation_validation.py",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/vendor/ursc/common.gdshaderinc",
+        "godot_walk/vendor/ursc/utilities.gdshaderinc",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/source_manifest-v3.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/extraction_manifest.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/frame_4347.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/hunyuan/attempt-001-retry-001/attempt_config.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/hunyuan/attempt-001-retry-001/attempt_result.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/hunyuan/attempt-001-retry-001/execution_guard.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/hunyuan/attempt-001-retry-001/gpu_guard.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/hunyuan/attempt-001-retry-001/panorama/panorama.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/hunyuan/attempt-001-retry-001/resource_samples.jsonl",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/hunyuan/attempt-001-retry-001/stderr.log",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/hunyuan/attempt-001-retry-001/stdout.log",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/capture_resource_run.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/capture_room.gd",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/captures/capture_manifest.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/captures/open_winter_sky.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/captures/snow_drift_and_posts.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/captures/spawn_toward_bench.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/captures/statue_detail.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/captures/stone_bench.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/captures/tree_line.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/crop_plan.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/room.gd",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/room.tscn",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/run_capture_guarded.py",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/standalone_test_receipt.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/test_room.gd",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/branch_canopy.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/branch_fine.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/crop_manifest.json",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/evergreen_foliage.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/stone_figure.png",
+        "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/stone_robe.png"
+      ],
+      "sockets": [],
+      "tested_connectors": [],
+      "integration_scope": "Standalone module only. The operator admitted this room without sockets, tested connector pairs or inferred source connectivity. It is excluded from automatic layout until a separate operator-reviewed socket/adapter decision.",
+      "standalone_validation": {
+        "status": "passed",
+        "record_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/standalone_test_receipt.json"
+      }
+    },
+    {
+      "id": "video_102caf53423018b7_chevron_corridor_v1",
+      "version": 1,
+      "kind": "authored_bounded_room",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/room.tscn",
+      "variant_status": "operator_accepted_standalone_room_cataloged",
+      "layout_eligible": false,
+      "coordinate_units": "uncalibrated_godot_world_units",
+      "registration_accepted": false,
+      "scale_calibrated": false,
+      "candidate_identity": "444bcbae77518a77f2b4e8e2559c1e9f611520e978c75cfdd7dc91b1597e459e",
+      "source_provenance": [
+        "data/videos/corridor_straight.mp4",
+        "godot_walk/source_library/sources/video-102caf53423018b7/frames/issue175-quarter-s-a/frame_0013.png",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/adaptation_standalone_accepted_v1.json",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/operator_review.json",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/crop_manifest.json"
+      ],
+      "visual_assets": [
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/room.tscn",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/room.gd",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/carpet_floor.png",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/chevron_wallpaper.png",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/drop_ceiling.png"
+      ],
+      "collision_provenance": "Explicit StaticBody3D and BoxShape3D nodes in room.gd, separate from visible meshes.",
+      "placement_footprint_xz": [
+        [
+          -6.0,
+          -10.0
+        ],
+        [
+          6.0,
+          -10.0
+        ],
+        [
+          6.0,
+          10.0
+        ],
+        [
+          -6.0,
+          10.0
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          -6.3,
+          -10.3
+        ],
+        [
+          6.3,
+          -10.3
+        ],
+        [
+          6.3,
+          10.3
+        ],
+        [
+          -6.3,
+          10.3
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          -6.0,
+          -10.0
+        ],
+        [
+          6.0,
+          -10.0
+        ],
+        [
+          6.0,
+          10.0
+        ],
+        [
+          -6.0,
+          10.0
+        ]
+      ],
+      "observed_openings": [],
+      "observed_opening_note": "No opening is visible in the sampled camera views; openings outside the views remain unknown.",
+      "floor_elevation_m": 0.0,
+      "ceiling_elevation_m": 3.6,
+      "vertical_bound_basis": "authored",
+      "closed_unused_sockets": "No authored sockets. All perimeter boundaries are closed by visible walls and matching colliders.",
+      "dependencies": [
+        "data/videos/corridor_straight.mp4",
+        "godot_walk/project.godot",
+        "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "godot_walk/room_catalog/contract_freeze_v3.json",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/gpu_job_lock.py",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/scripts/psx_design_round_resources.py",
+        "godot_walk/scripts/video_adaptation_resource_graph.py",
+        "godot_walk/scripts/video_adaptation_runner.py",
+        "godot_walk/scripts/video_adaptation_validation.py",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/source_library/sources/video-102caf53423018b7/frames/issue175-quarter-s-a/extraction_manifest.json",
+        "godot_walk/source_library/sources/video-102caf53423018b7/frames/issue175-quarter-s-a/frame_0013.png",
+        "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/attempt_config.json",
+        "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/attempt_result.json",
+        "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/execution_guard.json",
+        "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/gpu_guard.json",
+        "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/panorama/panorama.png",
+        "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/resource_samples.jsonl",
+        "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/stderr.log",
+        "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/stdout.log",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/capture_resource_run.json",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/capture_room.gd",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/captures/capture_manifest.json",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/captures/ceiling_lights.png",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/captures/pillar_row.png",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/captures/spawn_toward_far_wall.png",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/captures/wallpaper_wall.png",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/crop_plan.json",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/room.gd",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/room.tscn",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/run_capture_guarded.py",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/standalone_test_receipt.json",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/test_room.gd",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/carpet_floor.png",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/chevron_wallpaper.png",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/drop_ceiling.png",
+        "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/crop_manifest.json",
+        "godot_walk/source_library/sources/video-102caf53423018b7/source_manifest-v3.json",
+        "godot_walk/vendor/ursc/common.gdshaderinc",
+        "godot_walk/vendor/ursc/utilities.gdshaderinc"
+      ],
+      "sockets": [],
+      "tested_connectors": [],
+      "integration_scope": "Standalone module only. The operator admitted this room without sockets, tested connector pairs or inferred source connectivity. It is excluded from automatic layout until a separate operator-reviewed socket/adapter decision.",
+      "standalone_validation": {
+        "status": "passed",
+        "record_path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/standalone_test_receipt.json"
+      }
+    },
+    {
+      "id": "video_2671b32f256a4ee7_chevron_corridor_v1",
+      "version": 1,
+      "kind": "authored_bounded_room",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/room.tscn",
+      "variant_status": "operator_accepted_standalone_room_cataloged",
+      "layout_eligible": false,
+      "coordinate_units": "uncalibrated_godot_world_units",
+      "registration_accepted": false,
+      "scale_calibrated": false,
+      "candidate_identity": "a34cb9e1e25be7d0c22f66d585e9f0e52564d6bdce4651170c74ba3a1b78197b",
+      "source_provenance": [
+        "data/videos/corridor_t.mp4",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0096.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/adaptation_standalone_accepted_v1.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/operator_review.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/crop_manifest.json"
+      ],
+      "visual_assets": [
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/room.tscn",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/room.gd",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/carpet_floor.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/ceiling_grid.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/chevron_wall.png"
+      ],
+      "collision_provenance": "Explicit StaticBody3D and BoxShape3D nodes in room.gd, separate from visible meshes.",
+      "placement_footprint_xz": [
+        [
+          -8.0,
+          -10.0
+        ],
+        [
+          8.0,
+          -10.0
+        ],
+        [
+          8.0,
+          10.0
+        ],
+        [
+          -8.0,
+          10.0
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          -8.3,
+          -10.3
+        ],
+        [
+          8.3,
+          -10.3
+        ],
+        [
+          8.3,
+          10.3
+        ],
+        [
+          -8.3,
+          10.3
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          -8.0,
+          -10.0
+        ],
+        [
+          8.0,
+          -10.0
+        ],
+        [
+          8.0,
+          10.0
+        ],
+        [
+          -8.0,
+          10.0
+        ]
+      ],
+      "observed_openings": [],
+      "observed_opening_note": "No opening is visible in the sampled camera views; openings outside the views remain unknown.",
+      "floor_elevation_m": 0.0,
+      "ceiling_elevation_m": 4.2,
+      "vertical_bound_basis": "authored",
+      "closed_unused_sockets": "No authored sockets. All perimeter boundaries are closed by visible walls and matching colliders.",
+      "dependencies": [
+        "data/videos/corridor_t.mp4",
+        "godot_walk/project.godot",
+        "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "godot_walk/room_catalog/contract_freeze_v3.json",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/gpu_job_lock.py",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/scripts/psx_design_round_resources.py",
+        "godot_walk/scripts/video_adaptation_resource_graph.py",
+        "godot_walk/scripts/video_adaptation_runner.py",
+        "godot_walk/scripts/video_adaptation_validation.py",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/extraction_manifest.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0096.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/attempt_config.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/attempt_result.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/execution_guard.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/gpu_guard.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/panorama/panorama.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/resource_samples.jsonl",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/stderr.log",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/stdout.log",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/capture_resource_run.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/capture_room.gd",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/capture_manifest.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/spawn_toward_partitions.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/wallpaper_partition.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/drop_ceiling.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/far_light_panel.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/crop_plan.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/room.gd",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/room.tscn",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/run_capture_guarded.py",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/standalone_test_receipt.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/test_room.gd",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/carpet_floor.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/chevron_wall.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/ceiling_grid.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/crop_manifest.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/source_manifest-v3.json",
+        "godot_walk/vendor/ursc/common.gdshaderinc",
+        "godot_walk/vendor/ursc/utilities.gdshaderinc"
+      ],
+      "sockets": [],
+      "tested_connectors": [],
+      "integration_scope": "Standalone module only. The operator admitted this room without sockets, tested connector pairs or inferred source connectivity. It is excluded from automatic layout until a separate operator-reviewed socket/adapter decision.",
+      "standalone_validation": {
+        "status": "passed",
+        "record_path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/standalone_test_receipt.json"
+      }
+    },
+    {
+      "id": "video_61b91dbeb9026dc7_chevron_cross_corridor_v1",
+      "version": 1,
+      "kind": "authored_bounded_room",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/room.tscn",
+      "variant_status": "operator_accepted_standalone_room_cataloged",
+      "layout_eligible": false,
+      "coordinate_units": "uncalibrated_godot_world_units",
+      "registration_accepted": false,
+      "scale_calibrated": false,
+      "candidate_identity": "c7bae06b6f7cb3ca19a834aeefb4b427c51adba754943a4e5aa94c25432cba94",
+      "source_provenance": [
+        "data/videos/corridor_x.mp4",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0085.png",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/adaptation_standalone_accepted_v1.json",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/operator_review.json",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/textures/crop_manifest.json"
+      ],
+      "visual_assets": [
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/room.tscn",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/room.gd",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/textures/carpet_floor.png",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/textures/ceiling_grid.png",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/textures/chevron_wall.png"
+      ],
+      "collision_provenance": "Explicit StaticBody3D and BoxShape3D nodes in room.gd, separate from visible meshes.",
+      "placement_footprint_xz": [
+        [
+          -8.0,
+          -10.0
+        ],
+        [
+          8.0,
+          -10.0
+        ],
+        [
+          8.0,
+          10.0
+        ],
+        [
+          -8.0,
+          10.0
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          -8.3,
+          -10.3
+        ],
+        [
+          8.3,
+          -10.3
+        ],
+        [
+          8.3,
+          10.3
+        ],
+        [
+          -8.3,
+          10.3
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          -8.0,
+          -10.0
+        ],
+        [
+          8.0,
+          -10.0
+        ],
+        [
+          8.0,
+          10.0
+        ],
+        [
+          -8.0,
+          10.0
+        ]
+      ],
+      "observed_openings": [],
+      "observed_opening_note": "No opening is visible in the sampled camera views; openings outside the views remain unknown.",
+      "floor_elevation_m": 0.0,
+      "ceiling_elevation_m": 4.2,
+      "vertical_bound_basis": "authored",
+      "closed_unused_sockets": "No authored sockets. All perimeter boundaries are closed by visible walls and matching colliders.",
+      "dependencies": [
+        "data/videos/corridor_x.mp4",
+        "godot_walk/project.godot",
+        "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "godot_walk/room_catalog/contract_freeze_v3.json",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/gpu_job_lock.py",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/scripts/psx_design_round_resources.py",
+        "godot_walk/scripts/video_adaptation_resource_graph.py",
+        "godot_walk/scripts/video_adaptation_runner.py",
+        "godot_walk/scripts/video_adaptation_validation.py",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/extraction_manifest.json",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/frames/issue177-quarter-s-a/frame_0085.png",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/hunyuan/attempt-001/attempt_config.json",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/hunyuan/attempt-001/attempt_result.json",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/hunyuan/attempt-001/execution_guard.json",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/hunyuan/attempt-001/gpu_guard.json",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/hunyuan/attempt-001/panorama/panorama.png",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/hunyuan/attempt-001/resource_samples.jsonl",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/hunyuan/attempt-001/stderr.log",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/hunyuan/attempt-001/stdout.log",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/capture_resource_run.json",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/capture_room.gd",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/captures/capture_manifest.json",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/captures/spawn_toward_partitions.png",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/captures/wallpaper_partition.png",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/captures/drop_ceiling.png",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/captures/far_light_panel.png",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/crop_plan.json",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/room.gd",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/room.tscn",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/run_capture_guarded.py",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/standalone_test_receipt.json",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/test_room.gd",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/textures/carpet_floor.png",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/textures/chevron_wall.png",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/textures/ceiling_grid.png",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/textures/crop_manifest.json",
+        "godot_walk/source_library/sources/video-61b91dbeb9026dc7/source_manifest-v3.json",
+        "godot_walk/vendor/ursc/common.gdshaderinc",
+        "godot_walk/vendor/ursc/utilities.gdshaderinc"
+      ],
+      "sockets": [],
+      "tested_connectors": [],
+      "integration_scope": "Standalone module only. The operator admitted this room without sockets, tested connector pairs or inferred source connectivity. It is excluded from automatic layout until a separate operator-reviewed socket/adapter decision.",
+      "standalone_validation": {
+        "status": "passed",
+        "record_path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/standalone_test_receipt.json"
       }
     }
   ],
