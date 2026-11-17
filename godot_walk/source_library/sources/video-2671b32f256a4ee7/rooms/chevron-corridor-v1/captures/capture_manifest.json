@@ -1,0 +1,43 @@
+{
+	"godot_static_memory_bytes": 56926692,
+	"panorama_role": "camera-centered background visual; no spatial parallax",
+	"registration_accepted": false,
+	"renderer": "Godot Forward+ Vulkan with the project PSX compositor",
+	"sampled_frame_time_ms": {
+		"basis": "SceneTree process-frame intervals after 120-frame warmup; includes display sync",
+		"mean": 16.67034,
+		"p95": 16.746,
+		"p99": 16.942,
+		"samples": 300
+	},
+	"scale_calibrated": false,
+	"scene": "res://source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/room.tscn",
+	"scene_instantiate_ms": 0.039,
+	"scene_load_ms": 7.992,
+	"views": [
+		{
+			"height": 648,
+			"id": "spawn_toward_partitions",
+			"path": "res://source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/spawn_toward_partitions.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "wallpaper_partition",
+			"path": "res://source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/wallpaper_partition.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "drop_ceiling",
+			"path": "res://source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/drop_ceiling.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "far_light_panel",
+			"path": "res://source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/far_light_panel.png",
+			"width": 1152
+		}
+	]
+}
