@@ -1,0 +1,43 @@
+{
+	"godot_static_memory_bytes": 56924901,
+	"panorama_role": "camera-centered background visual; no spatial parallax",
+	"registration_accepted": false,
+	"renderer": "Godot Forward+ Vulkan with the project PSX compositor",
+	"sampled_frame_time_ms": {
+		"basis": "SceneTree process-frame intervals after 120-frame warmup; includes display sync",
+		"mean": 16.6702966666667,
+		"p95": 16.754,
+		"p99": 16.879,
+		"samples": 300
+	},
+	"scale_calibrated": false,
+	"scene": "res://source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v1/room.tscn",
+	"scene_instantiate_ms": 0.036,
+	"scene_load_ms": 7.649,
+	"views": [
+		{
+			"height": 648,
+			"id": "spawn_toward_bench",
+			"path": "res://source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v1/captures/spawn_toward_bench.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "tree_line",
+			"path": "res://source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v1/captures/tree_line.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "stone_bench",
+			"path": "res://source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v1/captures/stone_bench.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "open_winter_sky",
+			"path": "res://source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v1/captures/open_winter_sky.png",
+			"width": 1152
+		}
+	]
+}

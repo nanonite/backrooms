@@ -1,0 +1,38 @@
+{
+  "label": "snow-garden-courtyard-v1-capture",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v1/capture_room.gd",
+    "--",
+    "--out=res://source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v1/captures"
+  ],
+  "output_dir": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v1/captures",
+  "timeout_seconds": 240,
+  "return_code": 0,
+  "timed_out": false,
+  "error": null,
+  "elapsed_seconds": 9.7,
+  "finished_at_utc": "2026-11-17T06:32:19.446724+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11876171776,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 0,
+    "compute_apps": [],
+    "ram_available_bytes": 52998438912,
+    "vram_after_headroom_bytes": 9500937420,
+    "ram_after_headroom_bytes": 39748829184,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "peak_resources": {
+    "peak_child_rss_bytes": 552652800,
+    "gpu_memory_start_bytes": 570425344,
+    "peak_gpu_memory_used_bytes": 865075200,
+    "peak_gpu_memory_delta_bytes": 294649856,
+    "gpu_sample_period_ms": 500
+  }
+}

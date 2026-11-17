@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "source_frame_id": "frame_4347",
+  "source_frame_sha256": "ae59a84fb9aa07612b5b100c2ee5b5ab5645836dd5bccc665b862acd51ab500f",
+  "crops": [
+    {
+      "name": "stone_figure",
+      "frame_id": "frame_4347",
+      "source_pixel_bounds_xyxy": [190, 200, 430, 480]
+    },
+    {
+      "name": "branch_canopy",
+      "frame_id": "frame_4347",
+      "source_pixel_bounds_xyxy": [60, 20, 380, 200]
+    }
+  ]
+}

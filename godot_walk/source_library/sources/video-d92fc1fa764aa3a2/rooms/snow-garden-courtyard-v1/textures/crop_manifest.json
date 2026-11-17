@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "frame_manifest": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/extraction_manifest.json",
+  "frame_manifest_sha256": "0dbeed6c0da940d4d38e49282dd3677ee4c35f7f35b25f3b6590acea80baccab",
+  "operation": "direct_rectangular_crop_no_resize_or_color_edit",
+  "crops": [
+    {
+      "name": "stone_figure",
+      "frame_id": "frame_4347",
+      "source_pixel_bounds_xyxy": [
+        190,
+        200,
+        430,
+        480
+      ],
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v1/textures/stone_figure.png",
+      "dimensions": [
+        240,
+        280
+      ],
+      "sha256": "eb13c7afdc0d5c1b62ad292205685fe85e8f1af1741182c4d25042ef72958a23"
+    },
+    {
+      "name": "branch_canopy",
+      "frame_id": "frame_4347",
+      "source_pixel_bounds_xyxy": [
+        60,
+        20,
+        380,
+        200
+      ],
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v1/textures/branch_canopy.png",
+      "dimensions": [
+        320,
+        180
+      ],
+      "sha256": "efcc29875612c7ffd87d6d168941caf2c8f5e58d9360bbb9f6e1b2067fb0c6af"
+    }
+  ]
+}
