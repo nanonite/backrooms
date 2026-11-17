@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "candidate_id": "chevron-cross-corridor-v1",
+  "stage": "standalone_runtime_checks",
+  "status": "passed",
+  "engine": "Godot 4.6.3.stable.official.7d41c59c4",
+  "command": "godot4 --headless --path godot_walk --script res://source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/test_room.gd",
+  "output": [
+    "Chevron cross corridor candidate reset to safe spawn",
+    "CHEVRON_CROSS_CORRIDOR_TESTS_PASSED"
+  ],
+  "checks": {
+    "spawn_floor_support": "passed",
+    "floor_ray": "passed",
+    "north_boundary_ray": "passed",
+    "partition_obstacle_collision": "passed",
+    "walk_and_backtrack": "passed",
+    "no_boundary_escape": "passed",
+    "missing_floor_negative_control": "passed",
+    "open_boundary_negative_control": "passed",
+    "safe_spawn_reset": "passed"
+  },
+  "artifacts": [
+    {
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/test_room.gd",
+      "sha256": "27d883fb7cd28e80bed6f3d0907021e7d20e525c4d607d69133f7a105ba1c85a"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/room.tscn",
+      "sha256": "ba2f691af8ae660127f07daea7140264790bd6f15cff8a966eaaa5637210d376"
+    }
+  ],
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "recorded_at_utc": "2026-11-17T07:39:10.098971+00:00"
+}

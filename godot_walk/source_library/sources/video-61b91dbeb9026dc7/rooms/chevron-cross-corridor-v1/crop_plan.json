@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source_frame_id": "frame_0085",
+  "source_frame_sha256": "6de4922c2f237eeee16013f1b86ce6f3aba945c580d0b20f2fab483989c18c1f",
+  "crops": [
+    {
+      "name": "carpet_floor",
+      "frame_id": "frame_0085",
+      "source_pixel_bounds_xyxy": [400, 860, 1400, 1060]
+    },
+    {
+      "name": "chevron_wall",
+      "frame_id": "frame_0085",
+      "source_pixel_bounds_xyxy": [1000, 180, 1500, 760]
+    },
+    {
+      "name": "ceiling_grid",
+      "frame_id": "frame_0085",
+      "source_pixel_bounds_xyxy": [120, 0, 820, 210]
+    }
+  ]
+}
