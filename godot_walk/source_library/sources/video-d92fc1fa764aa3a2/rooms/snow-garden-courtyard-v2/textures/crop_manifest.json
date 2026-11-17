@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "frame_manifest": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/extraction_manifest.json",
+  "frame_manifest_sha256": "0dbeed6c0da940d4d38e49282dd3677ee4c35f7f35b25f3b6590acea80baccab",
+  "operation": "direct_rectangular_crop_no_resize_or_color_edit",
+  "crops": [
+    {
+      "name": "stone_figure",
+      "frame_id": "frame_4347",
+      "source_pixel_bounds_xyxy": [
+        190,
+        200,
+        430,
+        480
+      ],
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/stone_figure.png",
+      "dimensions": [
+        240,
+        280
+      ],
+      "sha256": "eb13c7afdc0d5c1b62ad292205685fe85e8f1af1741182c4d25042ef72958a23"
+    },
+    {
+      "name": "stone_robe",
+      "frame_id": "frame_4347",
+      "source_pixel_bounds_xyxy": [
+        200,
+        280,
+        380,
+        470
+      ],
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/stone_robe.png",
+      "dimensions": [
+        180,
+        190
+      ],
+      "sha256": "a4c0ce7f700084f6ae77577450cc4af3e8efa20b4efde4206f7894c1291dd7aa"
+    },
+    {
+      "name": "branch_canopy",
+      "frame_id": "frame_4347",
+      "source_pixel_bounds_xyxy": [
+        60,
+        20,
+        380,
+        200
+      ],
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/branch_canopy.png",
+      "dimensions": [
+        320,
+        180
+      ],
+      "sha256": "efcc29875612c7ffd87d6d168941caf2c8f5e58d9360bbb9f6e1b2067fb0c6af"
+    },
+    {
+      "name": "branch_fine",
+      "frame_id": "frame_4347",
+      "source_pixel_bounds_xyxy": [
+        380,
+        0,
+        636,
+        150
+      ],
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/branch_fine.png",
+      "dimensions": [
+        256,
+        150
+      ],
+      "sha256": "d42ec46a70874184b6337b06b0834ae6beee1356033d3a913180f1be3b737111"
+    },
+    {
+      "name": "evergreen_foliage",
+      "frame_id": "frame_4347",
+      "source_pixel_bounds_xyxy": [
+        0,
+        0,
+        130,
+        200
+      ],
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/evergreen_foliage.png",
+      "dimensions": [
+        130,
+        200
+      ],
+      "sha256": "24cacd0bada96e0b1c7b82caaaaaaa51ecda0e48e8a2d2de8c072ffed18ba7ea"
+    }
+  ]
+}

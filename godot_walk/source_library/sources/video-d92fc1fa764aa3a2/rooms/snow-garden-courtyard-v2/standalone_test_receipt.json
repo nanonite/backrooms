@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "candidate_id": "snow-garden-courtyard-v2",
+  "stage": "standalone_runtime_checks",
+  "status": "passed",
+  "engine": "Godot 4.6.3.stable.official.7d41c59c4",
+  "command": "godot4 --headless --path godot_walk --script res://source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/test_room.gd",
+  "output": [
+    "Snow garden courtyard v2 reset to safe spawn",
+    "SNOW_GARDEN_V2_TESTS_PASSED"
+  ],
+  "checks": {
+    "spawn_floor_support": "passed",
+    "floor_ray": "passed",
+    "north_boundary_ray": "passed",
+    "tree_obstacle_collision": "passed",
+    "stone_statue_obstacle_collision": "passed",
+    "walk_and_backtrack": "passed",
+    "no_boundary_escape": "passed",
+    "missing_floor_negative_control": "passed",
+    "open_boundary_negative_control": "passed",
+    "safe_spawn_reset": "passed",
+    "authored_detail_geometry_present": "passed"
+  },
+  "artifacts": [
+    {
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/test_room.gd",
+      "sha256": "8702f682c3b43ea0dcd33bc828a3b3e52afcf4815b1fa555f52fde14d0f997d3"
+    },
+    {
+      "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/room.tscn",
+      "sha256": "78053120103abbb72118d8f35effdb9b5bb94525533fa7407aadd9a7735af07a"
+    }
+  ],
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "recorded_at_utc": "2026-11-17T00:00:00Z"
+}
