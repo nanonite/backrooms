@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "adaptation_id": "snow-garden-courtyard-v2",
+  "candidate_identity": "3ab070183f63c27b538af23a99196106338ec818252b8d3f6766a247af676cb9",
+  "decision": "accepted",
+  "reviewed_at_utc": "2026-11-17T18:29:36.549459+00:00",
+  "scope": "Operator accepted this exact candidate identity as a bounded standalone room: authored appearance and traversal only, as reviewed from the render captures. It does not accept catalog admission, any socket or connector, source-video connectivity, registration, metric scale, or any other room.",
+  "operator_feedback": "Operator 2026-11-17: “on paper ( what i see) , the room is good enough for me approve”; then asked to formalize the approval.",
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

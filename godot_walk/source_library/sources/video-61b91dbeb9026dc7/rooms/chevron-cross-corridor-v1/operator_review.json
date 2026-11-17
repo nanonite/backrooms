@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "adaptation_id": "chevron-cross-corridor-v1",
+  "candidate_identity": "c7bae06b6f7cb3ca19a834aeefb4b427c51adba754943a4e5aa94c25432cba94",
+  "decision": "accepted",
+  "reviewed_at_utc": "2026-11-17T18:29:36.549459+00:00",
+  "scope": "Operator accepted this exact candidate identity as a bounded standalone room: authored appearance and traversal only, as reviewed from the render captures. It does not accept catalog admission, any socket or connector, source-video connectivity, registration, metric scale, or any other room.",
+  "operator_feedback": "Operator 2026-11-17: “all the backroom ones look very nice”; then asked to formalize the approval.",
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

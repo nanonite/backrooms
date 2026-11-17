@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "adaptation_id": "chevron-corridor-v1",
+  "candidate_identity": "a34cb9e1e25be7d0c22f66d585e9f0e52564d6bdce4651170c74ba3a1b78197b",
+  "decision": "accepted",
+  "reviewed_at_utc": "2026-11-17T18:29:36.549459+00:00",
+  "scope": "Operator accepted this exact candidate identity as a bounded standalone room: authored appearance and traversal only, as reviewed from the render captures. It does not accept catalog admission, any socket or connector, source-video connectivity, registration, metric scale, or any other room.",
+  "operator_feedback": "Operator 2026-11-17: “all the backroom ones look very nice , my favorite one being corridor_t”; then asked to formalize the approval.",
+  "registration_accepted": false,
+  "scale_calibrated": false
+}
