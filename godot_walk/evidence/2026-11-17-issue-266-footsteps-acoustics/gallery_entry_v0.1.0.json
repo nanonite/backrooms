@@ -1,0 +1,65 @@
+{
+  "entries": [
+    {
+      "audition_status": "pending_operator_listening",
+      "floor_class": "rock_sand",
+      "footstep_tag": "debris",
+      "module": "video_22909eb734e4d8e2_slot_canyon_courtyard_v1@1",
+      "reverb_character": "open_courtyard",
+      "room_id": "slot-canyon-courtyard-v1",
+      "source_id": "video-22909eb734e4d8e2"
+    },
+    {
+      "audition_status": "pending_operator_listening",
+      "floor_class": "concrete_tile",
+      "footstep_tag": "tile",
+      "module": "video_d857abe7a94da9d1_nested_light_corridor_v1@1",
+      "reverb_character": "enclosed_corridor",
+      "room_id": "nested-light-corridor-v1",
+      "source_id": "video-d857abe7a94da9d1"
+    },
+    {
+      "audition_status": "pending_operator_listening",
+      "floor_class": "snow",
+      "footstep_tag": "default (fallback, not a match)",
+      "module": "video_d92fc1fa764aa3a2_snow_garden_courtyard_v2@1",
+      "reverb_character": "open_courtyard",
+      "room_id": "snow-garden-courtyard-v2",
+      "source_id": "video-d92fc1fa764aa3a2"
+    },
+    {
+      "audition_status": "pending_operator_listening",
+      "floor_class": "carpet",
+      "footstep_tag": "carpet",
+      "module": "video_102caf53423018b7_chevron_corridor_v1@1",
+      "reverb_character": "enclosed_corridor",
+      "room_id": "chevron-corridor-v1",
+      "source_id": "video-102caf53423018b7"
+    },
+    {
+      "audition_status": "pending_operator_listening",
+      "floor_class": "carpet",
+      "footstep_tag": "carpet",
+      "module": "video_2671b32f256a4ee7_chevron_corridor_v1@1",
+      "reverb_character": "enclosed_corridor",
+      "room_id": "chevron-corridor-v1",
+      "source_id": "video-2671b32f256a4ee7"
+    },
+    {
+      "audition_status": "pending_operator_listening",
+      "floor_class": "carpet",
+      "footstep_tag": "carpet",
+      "module": "video_61b91dbeb9026dc7_chevron_cross_corridor_v1@1",
+      "reverb_character": "enclosed_corridor",
+      "room_id": "chevron-cross-corridor-v1",
+      "source_id": "video-61b91dbeb9026dc7"
+    }
+  ],
+  "generator": "godot_walk/scripts/issue266_room_audio.py",
+  "generator_version": "issue266-room-audio-0.1.0",
+  "issue": 266,
+  "note": "This is a gallery entry listing material assignments, not a built scene. No new audio was authored; operator listening and any walkable audition scene remain pending.",
+  "operator_listening": "pending",
+  "schema_version": 1,
+  "style": "issue-207 strip list: each row is a walkable material entry"
+}

@@ -1,0 +1,201 @@
+{
+  "audio_authoring_status": "none: no new footstep audio was synthesised or claimed correct",
+  "footstep_generator": "footsteps-0.3.0",
+  "footstep_tags_in_use": [
+    "carpet",
+    "concrete",
+    "tile",
+    "plaster",
+    "metal",
+    "wood",
+    "debris",
+    "default"
+  ],
+  "generator": "godot_walk/scripts/issue266_room_audio.py",
+  "generator_version": "issue266-room-audio-0.1.0",
+  "issue": 266,
+  "missing_layers": [
+    {
+      "material": "snow",
+      "needed_for": [
+        "video_d92fc1fa764aa3a2_snow_garden_courtyard_v2@1"
+      ],
+      "reason": "Snow-garden floor has a snow class but no synthesised layer.",
+      "required_before_audio": [
+        "Add a 'snow' tag with transient_soft, transient_hard, body and texture profiles to generate_footstep_audio.PROFILES (footsteps-0.4.0, new version).",
+        "Bake four deterministic variants and extend audio/footsteps/provenance.json through the generator, never by hand.",
+        "Add 'snow' to footstep_audit.AUDITION_TAGS/DISTANCE_TAGS and re-run the loudness and separability audit so all pairs pass.",
+        "Operator listens to an audition sheet and approves before use."
+      ],
+      "target_character": "soft, low-frequency crunch with a short damped body"
+    },
+    {
+      "material": "rock_sand",
+      "needed_for": [
+        "video_22909eb734e4d8e2_slot_canyon_courtyard_v1@1"
+      ],
+      "reason": "The existing 'debris' layer is a granular proxy for a sandy/rocky floor.",
+      "required_before_audio": [
+        "Decide whether a dedicated 'rock' or 'sand' tag is needed after operator listening; if so, add a new versioned generator profile and stems as for snow.",
+        "Re-run the #202 audit before adopting any new tag."
+      ],
+      "target_character": "dry granular crunch, mid-low modal body, bright short transient"
+    }
+  ],
+  "operator_listening": "pending",
+  "provenance": "derived_from_accepted_surface_textures",
+  "rooms": {
+    "video_102caf53423018b7_chevron_corridor_v1@1": {
+      "floor_class": "carpet",
+      "floor_evidence": {
+        "sha256": "3e8c0b9ba5b1bfbf326235c2b90129187444f3b2fa81a7889282061868830c0a",
+        "solid_material": null,
+        "source": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/room.gd",
+        "texture": "carpet_floor.png"
+      },
+      "footstep_tag": "carpet",
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/module_poetics_v1.json",
+        "sha256": "4fbd62ccf21653862218ec4dc8afcd16dac672f358a4045ecf6efcb14b7801df"
+      },
+      "rationale": "Walkable floor uses carpet_floor.png; the existing heavily damped 'carpet' layer matches a soft floor.",
+      "room_id": "chevron-corridor-v1",
+      "runtime_fallback": null,
+      "source_id": "video-102caf53423018b7",
+      "status": "existing_tag",
+      "surfaces": [
+        "carpet_floor.png",
+        "chevron_wallpaper.png",
+        "drop_ceiling.png"
+      ]
+    },
+    "video_22909eb734e4d8e2_slot_canyon_courtyard_v1@1": {
+      "floor_class": "rock_sand",
+      "floor_evidence": {
+        "sha256": "e79cd5969a9100658cc200a6c673aebc50c3b6dc78b02af4df9c94ab961c5081",
+        "solid_material": null,
+        "source": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/room.gd",
+        "texture": "sandy_floor.png"
+      },
+      "footstep_tag": "debris",
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/module_poetics_v1.json",
+        "sha256": "af94126e2212a6937c2aa657b71f9dc2f2376606faa483d41b7bd7e333e62dd7"
+      },
+      "rationale": "Walkable floor uses sandy_floor.png, a granular rock/sand surface; the existing 'debris' crunch layer is the closest available proxy, not a dedicated rock or sand layer.",
+      "room_id": "slot-canyon-courtyard-v1",
+      "runtime_fallback": null,
+      "source_id": "video-22909eb734e4d8e2",
+      "status": "proxy_existing_tag",
+      "surfaces": [
+        "rock_rubble.png",
+        "sandy_floor.png",
+        "slot_glow.png",
+        "wall_strata_dark.png",
+        "wall_strata_warm.png"
+      ]
+    },
+    "video_2671b32f256a4ee7_chevron_corridor_v1@1": {
+      "floor_class": "carpet",
+      "floor_evidence": {
+        "sha256": "e260c2e4ae250435bbbefa6b871971d5daa701ceb8c8238d55385bb359277495",
+        "solid_material": null,
+        "source": "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/room.gd",
+        "texture": "carpet_floor.png"
+      },
+      "footstep_tag": "carpet",
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/module_poetics_v1.json",
+        "sha256": "3b788631a7501e6688f7ca5cc7734e909e18e94283d08790b22de20dc6a09371"
+      },
+      "rationale": "Walkable floor uses carpet_floor.png; the existing heavily damped 'carpet' layer matches a soft floor.",
+      "room_id": "chevron-corridor-v1",
+      "runtime_fallback": null,
+      "source_id": "video-2671b32f256a4ee7",
+      "status": "existing_tag",
+      "surfaces": [
+        "carpet_floor.png",
+        "ceiling_grid.png",
+        "chevron_wall.png"
+      ]
+    },
+    "video_61b91dbeb9026dc7_chevron_cross_corridor_v1@1": {
+      "floor_class": "carpet",
+      "floor_evidence": {
+        "sha256": "ac82bcd9729d9f9dcecbc69e93bd903ec4da76883007ad37dacc61c2ab48e1a6",
+        "solid_material": null,
+        "source": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/room.gd",
+        "texture": "carpet_floor.png"
+      },
+      "footstep_tag": "carpet",
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v1/module_poetics_v1.json",
+        "sha256": "bedc4dea7cc2262cae3963619e1f5641a02979291b4927ccebb464c30861a130"
+      },
+      "rationale": "Walkable floor uses carpet_floor.png; the existing heavily damped 'carpet' layer matches a soft floor.",
+      "room_id": "chevron-cross-corridor-v1",
+      "runtime_fallback": null,
+      "source_id": "video-61b91dbeb9026dc7",
+      "status": "existing_tag",
+      "surfaces": [
+        "carpet_floor.png",
+        "ceiling_grid.png",
+        "chevron_wall.png"
+      ]
+    },
+    "video_d857abe7a94da9d1_nested_light_corridor_v1@1": {
+      "floor_class": "concrete_tile",
+      "floor_evidence": {
+        "sha256": "7ddd30ee278fe527d8632663e2efcaca15572be32191f1f17148d19869dac601",
+        "solid_material": null,
+        "source": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/room.gd",
+        "texture": "reflective_floor.png"
+      },
+      "footstep_tag": "tile",
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/module_poetics_v1.json",
+        "sha256": "e14d40a86510fe37633e4d6937f6cdeaa4e7a2a028dddf787a480bed336a26fc"
+      },
+      "rationale": "Walkable floor uses reflective_floor.png, a hard reflective surface read as polished tile; the existing bright, short 'tile' layer matches.",
+      "room_id": "nested-light-corridor-v1",
+      "runtime_fallback": null,
+      "source_id": "video-d857abe7a94da9d1",
+      "status": "existing_tag",
+      "surfaces": [
+        "ceiling_strips.png",
+        "far_light.png",
+        "gloss_wall.png",
+        "light_panel.png",
+        "reflective_floor.png"
+      ]
+    },
+    "video_d92fc1fa764aa3a2_snow_garden_courtyard_v2@1": {
+      "floor_class": "snow",
+      "floor_evidence": {
+        "sha256": "2f18644b1001dbe990af4640be3bcca66064c6df83a1ecdde545dc72e89049d3",
+        "solid_material": "snow",
+        "source": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/room.gd",
+        "texture": null
+      },
+      "footstep_tag": null,
+      "poetics": {
+        "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/module_poetics_v1.json",
+        "sha256": "4280ff52a3e35d6ffbfaf53cf60b1d779b7f88fb6ffaa56d9a84c1e7b59c44a2"
+      },
+      "rationale": "Walkable floor uses snow (an authored solid snow material; no snow texture). No snow footstep layer exists, so no material tag is asserted.",
+      "room_id": "snow-garden-courtyard-v2",
+      "runtime_fallback": "default",
+      "source_id": "video-d92fc1fa764aa3a2",
+      "status": "missing_layer",
+      "surfaces": [
+        "branch_canopy.png",
+        "branch_fine.png",
+        "evergreen_foliage.png",
+        "stone_figure.png",
+        "stone_robe.png"
+      ]
+    }
+  },
+  "schema_version": 1,
+  "scope": "the six operator-accepted standalone video rooms of #266"
+}
