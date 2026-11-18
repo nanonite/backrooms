@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-271-pinned-supplement-v1",
+  "note": "Hashes computed from the working tree by generate_pinned_supplement_v1.py, not authored by hand. These files must not be edited by this slice.",
+  "files": {
+    "godot_walk/room_catalog/MATERIAL_LANGUAGE.md": "0e479479da8069ecbce0a56914517e43fbfa6ae564b173c76aba6390587fcc86",
+    "godot_walk/room_catalog/material_palettes/PALETTES.md": "fbb689217c900283bede2a75fec54dcb6d137925b172b1b53fc544c96b365e7e",
+    "godot_walk/room_catalog/catalog.json": "b1d60a876e52d1e98dc8afe6b2391d00deeba42e8f8a4347057fe584c7127b82",
+    "godot_walk/project.godot": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+    "godot_walk/scripts/player.gd": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23",
+    "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/room.gd": "2f18644b1001dbe990af4640be3bcca66064c6df83a1ecdde545dc72e89049d3",
+    "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/adaptation_standalone_accepted_v1.json": "9d3a492b2a5e2a18d06472df7ea24252f373b6cfd7ae0a3746162a48173ec394",
+    "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/crop_plan.json": "a992cfb9b0ece818a35d9882539d0042280e90d79d0603c87612b4525568d659",
+    "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/crop_manifest.json": "7f0936c32384f388a93f0addef6a5b052383cc552170d0608484c440512996ff",
+    "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/stone_robe.png": "a4c0ce7f700084f6ae77577450cc4af3e8efa20b4efde4206f7894c1291dd7aa",
+    "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/stone_figure.png": "eb13c7afdc0d5c1b62ad292205685fe85e8f1af1741182c4d25042ef72958a23"
+  }
+}

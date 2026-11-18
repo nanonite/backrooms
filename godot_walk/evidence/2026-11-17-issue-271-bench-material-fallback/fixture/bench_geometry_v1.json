@@ -1,0 +1,388 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-271-bench-geometry-v1",
+  "purpose": "Geometry and collision declarations copied from the accepted snow-garden v2 room script. They are identical for the reference and candidate views; only the bench material assignment differs.",
+  "source_reference": {
+    "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/room.gd",
+    "sha256": "2f18644b1001dbe990af4640be3bcca66064c6df83a1ecdde545dc72e89049d3"
+  },
+  "shared_script": "res://evidence/2026-11-17-issue-271-bench-material-fallback/fixture/bench_fixture_v1.gd",
+  "scenes": {
+    "reference": "res://evidence/2026-11-17-issue-271-bench-material-fallback/fixture/bench_reference_v1.tscn",
+    "candidate": "res://evidence/2026-11-17-issue-271-bench-material-fallback/fixture/bench_candidate_v1.tscn"
+  },
+  "scene_mode_property": "bench_material_mode",
+  "scene_mode_values": {
+    "reference": "reference",
+    "candidate": "candidate"
+  },
+  "geometry_not_branch_dependent": true,
+  "collision_not_branch_dependent": true,
+  "bench_parts": [
+    {
+      "part": "BenchPlinth",
+      "kind": "box",
+      "center": [
+        0.0,
+        0.15,
+        0.0
+      ],
+      "size": [
+        3.4,
+        0.3,
+        1.6
+      ],
+      "material_key": "stone_or_bench_stone"
+    },
+    {
+      "part": "BenchLeg-1_0-1_0",
+      "kind": "box",
+      "center": [
+        -1.35,
+        0.45,
+        -0.5
+      ],
+      "size": [
+        0.32,
+        0.6,
+        0.32
+      ],
+      "material_key": "stone_or_bench_stone"
+    },
+    {
+      "part": "BenchLeg-1_01_0",
+      "kind": "box",
+      "center": [
+        -1.35,
+        0.45,
+        0.5
+      ],
+      "size": [
+        0.32,
+        0.6,
+        0.32
+      ],
+      "material_key": "stone_or_bench_stone"
+    },
+    {
+      "part": "BenchLeg1_0-1_0",
+      "kind": "box",
+      "center": [
+        1.35,
+        0.45,
+        -0.5
+      ],
+      "size": [
+        0.32,
+        0.6,
+        0.32
+      ],
+      "material_key": "stone_or_bench_stone"
+    },
+    {
+      "part": "BenchLeg1_01_0",
+      "kind": "box",
+      "center": [
+        1.35,
+        0.45,
+        0.5
+      ],
+      "size": [
+        0.32,
+        0.6,
+        0.32
+      ],
+      "material_key": "stone_or_bench_stone"
+    },
+    {
+      "part": "BenchSeat",
+      "kind": "box",
+      "center": [
+        0.0,
+        0.8,
+        0.0
+      ],
+      "size": [
+        3.2,
+        0.18,
+        1.25
+      ],
+      "material_key": "stone_or_bench_stone"
+    },
+    {
+      "part": "BenchBackPost0",
+      "kind": "box",
+      "center": [
+        -1.3,
+        1.25,
+        -0.55
+      ],
+      "size": [
+        0.18,
+        0.95,
+        0.18
+      ],
+      "material_key": "stone_or_bench_stone"
+    },
+    {
+      "part": "BenchBackPost1",
+      "kind": "box",
+      "center": [
+        0.0,
+        1.25,
+        -0.55
+      ],
+      "size": [
+        0.18,
+        0.95,
+        0.18
+      ],
+      "material_key": "stone_or_bench_stone"
+    },
+    {
+      "part": "BenchBackPost2",
+      "kind": "box",
+      "center": [
+        1.3,
+        1.25,
+        -0.55
+      ],
+      "size": [
+        0.18,
+        0.95,
+        0.18
+      ],
+      "material_key": "stone_or_bench_stone"
+    },
+    {
+      "part": "BenchBackSlat0",
+      "kind": "box",
+      "center": [
+        0.0,
+        0.95,
+        -0.58
+      ],
+      "size": [
+        3.0,
+        0.14,
+        0.12
+      ],
+      "material_key": "stone_or_bench_stone"
+    },
+    {
+      "part": "BenchBackSlat1",
+      "kind": "box",
+      "center": [
+        0.0,
+        1.19,
+        -0.58
+      ],
+      "size": [
+        3.0,
+        0.14,
+        0.12
+      ],
+      "material_key": "stone_or_bench_stone"
+    },
+    {
+      "part": "BenchBackSlat2",
+      "kind": "box",
+      "center": [
+        0.0,
+        1.43,
+        -0.58
+      ],
+      "size": [
+        3.0,
+        0.14,
+        0.12
+      ],
+      "material_key": "stone_or_bench_stone"
+    },
+    {
+      "part": "BenchBollard-1_0-1_0",
+      "kind": "cylinder",
+      "center": [
+        -2.25,
+        0.28,
+        -1.35
+      ],
+      "radius": 0.12,
+      "height": 0.56,
+      "material_key": "post"
+    },
+    {
+      "part": "BenchBollard-1_01_0",
+      "kind": "cylinder",
+      "center": [
+        -2.25,
+        0.28,
+        1.35
+      ],
+      "radius": 0.12,
+      "height": 0.56,
+      "material_key": "post"
+    },
+    {
+      "part": "BenchBollard1_0-1_0",
+      "kind": "cylinder",
+      "center": [
+        2.25,
+        0.28,
+        -1.35
+      ],
+      "radius": 0.12,
+      "height": 0.56,
+      "material_key": "post"
+    },
+    {
+      "part": "BenchBollard1_01_0",
+      "kind": "cylinder",
+      "center": [
+        2.25,
+        0.28,
+        1.35
+      ],
+      "radius": 0.12,
+      "height": 0.56,
+      "material_key": "post"
+    }
+  ],
+  "statue_plinth": {
+    "part": "StatuePlinth",
+    "kind": "box",
+    "center": [
+      -4.6,
+      0.28,
+      0.8
+    ],
+    "size": [
+      1.2,
+      0.56,
+      1.1
+    ],
+    "material_key": "stone"
+  },
+  "colliders": [
+    {
+      "name": "WalkableFloor",
+      "center": [
+        0.0,
+        -0.12,
+        0.0
+      ],
+      "size": [
+        20.0,
+        0.24,
+        16.0
+      ],
+      "parent": "AuthoredBoundaries"
+    },
+    {
+      "name": "SouthWall",
+      "center": [
+        0.0,
+        1.2,
+        -8.15
+      ],
+      "size": [
+        20.3,
+        2.4,
+        0.3
+      ],
+      "parent": "AuthoredBoundaries"
+    },
+    {
+      "name": "NorthWall",
+      "center": [
+        0.0,
+        1.2,
+        8.15
+      ],
+      "size": [
+        20.3,
+        2.4,
+        0.3
+      ],
+      "parent": "AuthoredBoundaries"
+    },
+    {
+      "name": "WestWall",
+      "center": [
+        -10.15,
+        1.2,
+        0.0
+      ],
+      "size": [
+        0.3,
+        2.4,
+        16.3
+      ],
+      "parent": "AuthoredBoundaries"
+    },
+    {
+      "name": "EastWall",
+      "center": [
+        10.15,
+        1.2,
+        0.0
+      ],
+      "size": [
+        0.3,
+        2.4,
+        16.3
+      ],
+      "parent": "AuthoredBoundaries"
+    },
+    {
+      "name": "StoneBenchCollision",
+      "center": [
+        0.0,
+        0.8,
+        -0.1
+      ],
+      "size": [
+        3.6,
+        1.6,
+        1.9
+      ],
+      "parent": "AuthoredObstacles"
+    },
+    {
+      "name": "StatueCollision",
+      "center": [
+        -4.6,
+        1.2,
+        0.8
+      ],
+      "size": [
+        1.2,
+        2.4,
+        1.1
+      ],
+      "parent": "AuthoredObstacles"
+    },
+    {
+      "name": "SafetyNet",
+      "center": [
+        0.0,
+        -3.1,
+        0.0
+      ],
+      "size": [
+        22.0,
+        0.12,
+        18.0
+      ],
+      "parent": "SafetyNet"
+    }
+  ],
+  "tree_collider_count": 18,
+  "unchanged_relative_to_reference": true,
+  "flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "operator_approved": false
+  },
+  "node_name_note": "Godot replaces \".\" with \"_\" in node names derived from signed float format strings; part names below are the actual scene node names."
+}

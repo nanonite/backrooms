@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-271-bench-material-decision-v1",
+  "issue": 271,
+  "title": "Record and preview an authored prop material fallback for the snow-garden bench",
+  "status": "candidate_pending_review",
+  "preview_only": true,
+  "note": "This is a preview for operator review, not acceptance, catalog admission or registration. No model, GPU inference, download or paid call was used. The authored material is an explicitly project-authored fallback; it is not a source reconstruction and makes no claim that its pixels were observed in the source.",
+  "source_reference": {
+    "used_as": "visual and geometric context only; the accepted room is not modified",
+    "source_id": "video-d92fc1fa764aa3a2",
+    "accepted_record_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/adaptation_standalone_accepted_v1.json",
+    "accepted_record_sha256": "9d3a492b2a5e2a18d06472df7ea24252f373b6cfd7ae0a3746162a48173ec394",
+    "room_script_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/room.gd",
+    "room_script_sha256": "2f18644b1001dbe990af4640be3bcca66064c6df83a1ecdde545dc72e89049d3",
+    "crop_plan_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/crop_plan.json",
+    "crop_plan_sha256": "a992cfb9b0ece818a35d9882539d0042280e90d79d0603c87612b4525568d659",
+    "crop_manifest_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/crop_manifest.json",
+    "crop_manifest_sha256": "7f0936c32384f388a93f0addef6a5b052383cc552170d0608484c440512996ff",
+    "seed_frame_id": "frame_4347",
+    "seed_frame_sha256": "ae59a84fb9aa07612b5b100c2ee5b5ab5645836dd5bccc665b862acd51ab500f"
+  },
+  "source_crop_evidence": {
+    "crop_name": "stone_robe",
+    "frame_id": "frame_4347",
+    "source_pixel_bounds_xyxy": [
+      200,
+      280,
+      380,
+      470
+    ],
+    "extraction": "direct_rectangular_crop_no_resize_or_color_edit",
+    "crop_file_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/stone_robe.png",
+    "crop_sha256": "a4c0ce7f700084f6ae77577450cc4af3e8efa20b4efde4206f7894c1291dd7aa",
+    "accepted_record_role_label": "stone_bench_surface",
+    "assessment": "The accepted record labels this crop stone_bench_surface, but #255's report identifies the pixels as the angel's robe, not bench stone; the bench is only glimpsed in the panorama and its articulation and placement are authored. Provenance of the crop does not establish that it depicts the material assigned to the bench.",
+    "assigned_to_bench_in_candidate": false,
+    "assigned_to_statue_plinth_in_both_views": true,
+    "note": "This crop evidence is recorded separately from the authored fallback; it is not used as the bench surface in the candidate view."
+  },
+  "authored_material": {
+    "material_key": "bench_stone",
+    "origin": "project_authored",
+    "intended_role": "stone_like_bench_surface",
+    "parameters": {
+      "albedo_color_rgba": [
+        0.42,
+        0.44,
+        0.47,
+        1.0
+      ],
+      "roughness": 1.0,
+      "shading_mode": "unshaded",
+      "albedo_texture": null,
+      "texture_filter": "nearest",
+      "metallic": 0.0
+    },
+    "rationale": "The reference does not establish a faithful bench surface: the only stone-assigned crop is the seed angel's robe. An explicit locally authored solid colour avoids assigning unrelated robe pixels to the bench while matching the project's unshaded stone/post treatment. It is a project-authored fallback, not a source reconstruction or a claim of observed pixels.",
+    "source_pixels_observed_for_this_surface": false,
+    "no_claim_authored_pixels_observed_in_source": true,
+    "source_faithfulness_claimed": false
+  },
+  "bench_assignments": [
+    {
+      "part": "BenchPlinth",
+      "kind": "box",
+      "reference_material_key": "stone",
+      "reference_material_origin": "source_crop:stone_robe",
+      "candidate_material_key": "bench_stone",
+      "candidate_material_origin": "project_authored",
+      "changed_relative_to_reference": true
+    },
+    {
+      "part": "BenchLeg-1_0-1_0",
+      "kind": "box",
+      "reference_material_key": "stone",
+      "reference_material_origin": "source_crop:stone_robe",
+      "candidate_material_key": "bench_stone",
+      "candidate_material_origin": "project_authored",
+      "changed_relative_to_reference": true
+    },
+    {
+      "part": "BenchLeg-1_01_0",
+      "kind": "box",
+      "reference_material_key": "stone",
+      "reference_material_origin": "source_crop:stone_robe",
+      "candidate_material_key": "bench_stone",
+      "candidate_material_origin": "project_authored",
+      "changed_relative_to_reference": true
+    },
+    {
+      "part": "BenchLeg1_0-1_0",
+      "kind": "box",
+      "reference_material_key": "stone",
+      "reference_material_origin": "source_crop:stone_robe",
+      "candidate_material_key": "bench_stone",
+      "candidate_material_origin": "project_authored",
+      "changed_relative_to_reference": true
+    },
+    {
+      "part": "BenchLeg1_01_0",
+      "kind": "box",
+      "reference_material_key": "stone",
+      "reference_material_origin": "source_crop:stone_robe",
+      "candidate_material_key": "bench_stone",
+      "candidate_material_origin": "project_authored",
+      "changed_relative_to_reference": true
+    },
+    {
+      "part": "BenchSeat",
+      "kind": "box",
+      "reference_material_key": "stone",
+      "reference_material_origin": "source_crop:stone_robe",
+      "candidate_material_key": "bench_stone",
+      "candidate_material_origin": "project_authored",
+      "changed_relative_to_reference": true
+    },
+    {
+      "part": "BenchBackPost0",
+      "kind": "box",
+      "reference_material_key": "stone",
+      "reference_material_origin": "source_crop:stone_robe",
+      "candidate_material_key": "bench_stone",
+      "candidate_material_origin": "project_authored",
+      "changed_relative_to_reference": true
+    },
+    {
+      "part": "BenchBackPost1",
+      "kind": "box",
+      "reference_material_key": "stone",
+      "reference_material_origin": "source_crop:stone_robe",
+      "candidate_material_key": "bench_stone",
+      "candidate_material_origin": "project_authored",
+      "changed_relative_to_reference": true
+    },
+    {
+      "part": "BenchBackPost2",
+      "kind": "box",
+      "reference_material_key": "stone",
+      "reference_material_origin": "source_crop:stone_robe",
+      "candidate_material_key": "bench_stone",
+      "candidate_material_origin": "project_authored",
+      "changed_relative_to_reference": true
+    },
+    {
+      "part": "BenchBackSlat0",
+      "kind": "box",
+      "reference_material_key": "stone",
+      "reference_material_origin": "source_crop:stone_robe",
+      "candidate_material_key": "bench_stone",
+      "candidate_material_origin": "project_authored",
+      "changed_relative_to_reference": true
+    },
+    {
+      "part": "BenchBackSlat1",
+      "kind": "box",
+      "reference_material_key": "stone",
+      "reference_material_origin": "source_crop:stone_robe",
+      "candidate_material_key": "bench_stone",
+      "candidate_material_origin": "project_authored",
+      "changed_relative_to_reference": true
+    },
+    {
+      "part": "BenchBackSlat2",
+      "kind": "box",
+      "reference_material_key": "stone",
+      "reference_material_origin": "source_crop:stone_robe",
+      "candidate_material_key": "bench_stone",
+      "candidate_material_origin": "project_authored",
+      "changed_relative_to_reference": true
+    },
+    {
+      "part": "BenchBollard-1_0-1_0",
+      "kind": "cylinder",
+      "reference_material_key": "post",
+      "reference_material_origin": "project_authored_solid",
+      "candidate_material_key": "post",
+      "candidate_material_origin": "project_authored_solid",
+      "changed_relative_to_reference": false
+    },
+    {
+      "part": "BenchBollard-1_01_0",
+      "kind": "cylinder",
+      "reference_material_key": "post",
+      "reference_material_origin": "project_authored_solid",
+      "candidate_material_key": "post",
+      "candidate_material_origin": "project_authored_solid",
+      "changed_relative_to_reference": false
+    },
+    {
+      "part": "BenchBollard1_0-1_0",
+      "kind": "cylinder",
+      "reference_material_key": "post",
+      "reference_material_origin": "project_authored_solid",
+      "candidate_material_key": "post",
+      "candidate_material_origin": "project_authored_solid",
+      "changed_relative_to_reference": false
+    },
+    {
+      "part": "BenchBollard1_01_0",
+      "kind": "cylinder",
+      "reference_material_key": "post",
+      "reference_material_origin": "project_authored_solid",
+      "candidate_material_key": "post",
+      "candidate_material_origin": "project_authored_solid",
+      "changed_relative_to_reference": false
+    }
+  ],
+  "robe_crop_bench_assignments_in_candidate": 0,
+  "statue_plinth": {
+    "part": "StatuePlinth",
+    "material_key_in_both_views": "stone",
+    "material_origin_in_both_views": "source_crop:stone_robe",
+    "unchanged_relative_to_reference": true,
+    "note": "The reference shares materials.stone between the bench and the statue plinth. The candidate splits that assignment: only the bench's stone parts move to the authored material; the plinth keeps the original stone crop so it is not silently changed."
+  },
+  "geometry_and_collision": {
+    "unchanged_relative_to_reference": true,
+    "declaration_record": "fixture/bench_geometry_v1.json",
+    "note": "Both comparison scenes instantiate one shared script; only bench_material_mode differs. Geometry and collision construction is not branch-dependent. The headless test compares both instantiated scenes node by node."
+  },
+  "preserved": {
+    "accepted_room_and_frozen_files_unchanged": true,
+    "catalog_admission": false,
+    "ledger_events_written": false,
+    "registration_accepted": false,
+    "scale_calibrated": false
+  },
+  "flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "operator_approved": false
+  }
+}

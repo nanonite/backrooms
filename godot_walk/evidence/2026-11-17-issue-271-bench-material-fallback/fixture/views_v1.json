@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-271-bench-views-v1",
+  "note": "Identical camera records are reused byte-for-byte by the reference and candidate captures. Positions and targets are authored inspection viewpoints in uncalibrated design units; the camera is the InspectionCamera of each instantiated scene. bench_close and wider_scene are the required comparable pair; bench_oblique adds a second bench angle and plinth_check shows that the shared stone crop on the statue plinth is unchanged.",
+  "views": [
+    {"id": "bench_close", "position": [0.0, 1.45, 3.2], "target": [0.0, 0.8, 0.0], "description": "required close bench view, looking at the seat/back from the south"},
+    {"id": "bench_oblique", "position": [4.6, 1.8, 3.0], "target": [0.0, 0.85, 0.0], "description": "oblique bench view for legs, bollards and plinth separation"},
+    {"id": "wider_scene", "position": [0.0, 3.6, 7.2], "target": [0.0, 1.0, -2.0], "description": "required wider scene view: bench, tree line, boundary and sky"},
+    {"id": "plinth_check", "position": [-4.6, 1.5, 3.2], "target": [-4.6, 0.4, 0.8], "description": "statue plinth close view; it keeps the reference stone crop in both scenes"}
+  ],
+  "status": "candidate_pending_review",
+  "flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "operator_approved": false
+  }
+}
