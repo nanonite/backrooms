@@ -1,0 +1,161 @@
+{
+	"camera": {
+		"basis": "Player/Head/Camera3D from the hash-pinned player.tscn",
+		"far": 4000.0,
+		"fov_degrees": 75.0,
+		"near": 0.0500000007450581
+	},
+	"panorama_role": "camera-centered background visual; no spatial parallax",
+	"registration_accepted": false,
+	"renderer": "Godot Forward+ Vulkan with the project PSX compositor",
+	"scale_calibrated": false,
+	"scene": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/room.tscn",
+	"views": [
+		{
+			"height": 648,
+			"id": "spawn_up_corridor",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/spawn_up_corridor.png",
+			"position": [
+				0.0,
+				0.600000023841858,
+				-7.0
+			],
+			"target": [
+				0.0,
+				3.0,
+				6.0
+			],
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "bend_turn",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/bend_turn.png",
+			"position": [
+				1.5,
+				0.600000023841858,
+				3.5
+			],
+			"target": [
+				8.0,
+				3.0,
+				5.0
+			],
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "west_wall_strata",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/west_wall_strata.png",
+			"position": [
+				-1.0,
+				0.600000023841858,
+				-2.0
+			],
+			"target": [
+				-4.0,
+				4.0,
+				1.0
+			],
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "open_sky_slot",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/open_sky_slot.png",
+			"position": [
+				0.0,
+				0.600000023841858,
+				0.0
+			],
+			"target": [
+				0.0,
+				7.0,
+				1.5
+			],
+			"width": 1152
+		}
+	],
+	"walk_path": [
+		{
+			"height": 648,
+			"id": "walk_00_spawn",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/walk_00_spawn.png",
+			"position": [
+				0.0,
+				0.600000023841858,
+				-7.0
+			],
+			"target": [
+				0.0,
+				3.0,
+				6.0
+			],
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "walk_01_forward",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/walk_01_forward.png",
+			"position": [
+				0.0,
+				0.600000023841858,
+				-4.0
+			],
+			"target": [
+				0.0,
+				3.0,
+				6.0
+			],
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "walk_02_mid",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/walk_02_mid.png",
+			"position": [
+				0.800000011920929,
+				0.600000023841858,
+				-1.0
+			],
+			"target": [
+				4.0,
+				3.0,
+				2.0
+			],
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "walk_03_bend",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/walk_03_bend.png",
+			"position": [
+				2.0,
+				0.600000023841858,
+				3.5
+			],
+			"target": [
+				8.0,
+				3.0,
+				5.0
+			],
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "walk_04_bend_exit",
+			"path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/walk_04_bend_exit.png",
+			"position": [
+				6.0,
+				0.600000023841858,
+				4.5
+			],
+			"target": [
+				10.0,
+				3.0,
+				6.0
+			],
+			"width": 1152
+		}
+	]
+}

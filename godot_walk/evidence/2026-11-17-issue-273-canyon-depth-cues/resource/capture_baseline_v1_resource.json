@@ -1,0 +1,39 @@
+{
+  "label": "slot-canyon-courtyard-v2-paired-capture",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://evidence/2026-11-17-issue-273-canyon-depth-cues/fixture/paired_capture.gd",
+    "--",
+    "--scene=res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/room.tscn",
+    "--out=res://evidence/2026-11-17-issue-273-canyon-depth-cues/captures/baseline_v1"
+  ],
+  "output_dir": "godot_walk/evidence/2026-11-17-issue-273-canyon-depth-cues/captures/baseline_v1",
+  "timeout_seconds": 300,
+  "return_code": 0,
+  "timed_out": false,
+  "error": null,
+  "elapsed_seconds": 3.22,
+  "finished_at_utc": "2026-11-18T17:21:49.091596+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11319377920,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 0,
+    "compute_apps": [],
+    "ram_available_bytes": 14208180224,
+    "vram_after_headroom_bytes": 9055502336,
+    "ram_after_headroom_bytes": 10656135168,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "peak_resources": {
+    "peak_child_rss_bytes": 551550976,
+    "gpu_memory_start_bytes": 1126170624,
+    "peak_gpu_memory_used_bytes": 1450180608,
+    "peak_gpu_memory_delta_bytes": 324009984,
+    "gpu_sample_period_ms": 500
+  }
+}

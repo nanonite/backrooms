@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-273-baseline-vs-variant-v1",
+  "operator_review": "pending",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_video": "godot_walk/source_library/sources/video-22909eb734e4d8e2/source_manifest-v3.json",
+  "seed_frame": "frame_1363",
+  "panorama_attempt": "attempt-001 (accepted previously, not rerun)",
+  "baseline": {
+    "room_id": "slot-canyon-courtyard-v1",
+    "status": "operator-accepted standalone candidate; unchanged by this slice",
+    "scene": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/room.tscn",
+    "scene_sha256": "66ffe41bdf5ea3065a469b9b268f81db33bae2bbfbbe669d635101c72850c952",
+    "script_sha256": "e79cd5969a9100658cc200a6c673aebc50c3b6dc78b02af4df9c94ab961c5081",
+    "candidate_sha256": "4518172ded5a076f21c5545e8b90d6bb8bc84f162b020bceb23afa1588acd0dd",
+    "capture_manifest": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v1/captures/capture_manifest.json",
+    "capture_manifest_sha256": "aa8f1b0d12635bb4dcb0f31168b3ecbef386e54fb49a3dd54795e334450708d1",
+    "captures_in_new_harness": "godot_walk/evidence/2026-11-17-issue-273-canyon-depth-cues/captures/baseline_v1",
+    "new_harness_manifest_sha256": "ec4ae45be0172b1c60bfbfdaf5d302b94300c4c08d7c16718ae85dcae85678ef",
+    "guard_receipt": {
+      "path": "godot_walk/evidence/2026-11-17-issue-273-canyon-depth-cues/resource/capture_baseline_v1_resource.json",
+      "sha256": "75fbc2118e4643b5e8870cd2ec3272896290d5bd7f21390afe6247cd089fef35",
+      "return_code": 0,
+      "timed_out": false,
+      "error": null,
+      "finished_at_utc": "2026-11-18T17:21:49.091596+00:00"
+    }
+  },
+  "variant": {
+    "room_id": "slot-canyon-courtyard-v2",
+    "status": "experimental visual-only depth variant; candidate_pending_review",
+    "scene": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/room.tscn",
+    "scene_sha256": "a302b0c0e11164e3beccb381ddb71e44d650461ae43f78064cea36299206ff43",
+    "script_sha256": "7ce0433869c5c10ac182b9bb8eb486d75121d25e295d81b50808247958a06527",
+    "capture_manifest": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/capture_manifest.json",
+    "capture_manifest_sha256": "55830fc87d05f6926a8a6a3c91ee12fc2b9c87cf10801c0774c1c9c134c50dd5",
+    "guard_receipt": {
+      "path": "godot_walk/source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/capture_resource_run.json",
+      "sha256": "138f46026afb896bfd056360bd494a98251a572250102468e25cbd71717ff244",
+      "return_code": 0,
+      "timed_out": false,
+      "error": null,
+      "finished_at_utc": "2026-11-18T17:21:58.655147+00:00"
+    }
+  },
+  "matched_capture": {
+    "harness": "godot_walk/evidence/2026-11-17-issue-273-canyon-depth-cues/fixture/paired_capture.gd",
+    "harness_sha256": "8d19c055d0c28b848d8620491386b4eee3ca5288e255ac045617b87a18c554e0",
+    "same_harness_for_both_scenes": true,
+    "camera_baseline": {
+      "basis": "Player/Head/Camera3D from the hash-pinned player.tscn",
+      "far": 4000.0,
+      "fov_degrees": 75.0,
+      "near": 0.0500000007450581
+    },
+    "camera_variant": {
+      "basis": "Player/Head/Camera3D from the hash-pinned player.tscn",
+      "far": 4000.0,
+      "fov_degrees": 75.0,
+      "near": 0.0500000007450581
+    },
+    "views_baseline": [
+      {
+        "height": 648,
+        "id": "spawn_up_corridor",
+        "path": "res://evidence/2026-11-17-issue-273-canyon-depth-cues/captures/baseline_v1/spawn_up_corridor.png",
+        "position": [
+          0.0,
+          0.600000023841858,
+          -7.0
+        ],
+        "target": [
+          0.0,
+          3.0,
+          6.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "bend_turn",
+        "path": "res://evidence/2026-11-17-issue-273-canyon-depth-cues/captures/baseline_v1/bend_turn.png",
+        "position": [
+          1.5,
+          0.600000023841858,
+          3.5
+        ],
+        "target": [
+          8.0,
+          3.0,
+          5.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "west_wall_strata",
+        "path": "res://evidence/2026-11-17-issue-273-canyon-depth-cues/captures/baseline_v1/west_wall_strata.png",
+        "position": [
+          -1.0,
+          0.600000023841858,
+          -2.0
+        ],
+        "target": [
+          -4.0,
+          4.0,
+          1.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "open_sky_slot",
+        "path": "res://evidence/2026-11-17-issue-273-canyon-depth-cues/captures/baseline_v1/open_sky_slot.png",
+        "position": [
+          0.0,
+          0.600000023841858,
+          0.0
+        ],
+        "target": [
+          0.0,
+          7.0,
+          1.5
+        ],
+        "width": 1152
+      }
+    ],
+    "views_variant": [
+      {
+        "height": 648,
+        "id": "spawn_up_corridor",
+        "path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/spawn_up_corridor.png",
+        "position": [
+          0.0,
+          0.600000023841858,
+          -7.0
+        ],
+        "target": [
+          0.0,
+          3.0,
+          6.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "bend_turn",
+        "path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/bend_turn.png",
+        "position": [
+          1.5,
+          0.600000023841858,
+          3.5
+        ],
+        "target": [
+          8.0,
+          3.0,
+          5.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "west_wall_strata",
+        "path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/west_wall_strata.png",
+        "position": [
+          -1.0,
+          0.600000023841858,
+          -2.0
+        ],
+        "target": [
+          -4.0,
+          4.0,
+          1.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "open_sky_slot",
+        "path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/open_sky_slot.png",
+        "position": [
+          0.0,
+          0.600000023841858,
+          0.0
+        ],
+        "target": [
+          0.0,
+          7.0,
+          1.5
+        ],
+        "width": 1152
+      }
+    ],
+    "walk_path_baseline": [
+      {
+        "height": 648,
+        "id": "walk_00_spawn",
+        "path": "res://evidence/2026-11-17-issue-273-canyon-depth-cues/captures/baseline_v1/walk_00_spawn.png",
+        "position": [
+          0.0,
+          0.600000023841858,
+          -7.0
+        ],
+        "target": [
+          0.0,
+          3.0,
+          6.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "walk_01_forward",
+        "path": "res://evidence/2026-11-17-issue-273-canyon-depth-cues/captures/baseline_v1/walk_01_forward.png",
+        "position": [
+          0.0,
+          0.600000023841858,
+          -4.0
+        ],
+        "target": [
+          0.0,
+          3.0,
+          6.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "walk_02_mid",
+        "path": "res://evidence/2026-11-17-issue-273-canyon-depth-cues/captures/baseline_v1/walk_02_mid.png",
+        "position": [
+          0.800000011920929,
+          0.600000023841858,
+          -1.0
+        ],
+        "target": [
+          4.0,
+          3.0,
+          2.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "walk_03_bend",
+        "path": "res://evidence/2026-11-17-issue-273-canyon-depth-cues/captures/baseline_v1/walk_03_bend.png",
+        "position": [
+          2.0,
+          0.600000023841858,
+          3.5
+        ],
+        "target": [
+          8.0,
+          3.0,
+          5.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "walk_04_bend_exit",
+        "path": "res://evidence/2026-11-17-issue-273-canyon-depth-cues/captures/baseline_v1/walk_04_bend_exit.png",
+        "position": [
+          6.0,
+          0.600000023841858,
+          4.5
+        ],
+        "target": [
+          10.0,
+          3.0,
+          6.0
+        ],
+        "width": 1152
+      }
+    ],
+    "walk_path_variant": [
+      {
+        "height": 648,
+        "id": "walk_00_spawn",
+        "path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/walk_00_spawn.png",
+        "position": [
+          0.0,
+          0.600000023841858,
+          -7.0
+        ],
+        "target": [
+          0.0,
+          3.0,
+          6.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "walk_01_forward",
+        "path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/walk_01_forward.png",
+        "position": [
+          0.0,
+          0.600000023841858,
+          -4.0
+        ],
+        "target": [
+          0.0,
+          3.0,
+          6.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "walk_02_mid",
+        "path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/walk_02_mid.png",
+        "position": [
+          0.800000011920929,
+          0.600000023841858,
+          -1.0
+        ],
+        "target": [
+          4.0,
+          3.0,
+          2.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "walk_03_bend",
+        "path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/walk_03_bend.png",
+        "position": [
+          2.0,
+          0.600000023841858,
+          3.5
+        ],
+        "target": [
+          8.0,
+          3.0,
+          5.0
+        ],
+        "width": 1152
+      },
+      {
+        "height": 648,
+        "id": "walk_04_bend_exit",
+        "path": "res://source_library/sources/video-22909eb734e4d8e2/rooms/slot-canyon-courtyard-v2/captures/walk_04_bend_exit.png",
+        "position": [
+          6.0,
+          0.600000023841858,
+          4.5
+        ],
+        "target": [
+          10.0,
+          3.0,
+          6.0
+        ],
+        "width": 1152
+      }
+    ],
+    "walk_path_is_deterministic_teleport_sequence": true
+  },
+  "negative_control": {
+    "kind": "boundary_check_reversal",
+    "description": "The v2 headless test disables the NorthWall collider and asserts the boundary ray misses, then disables all six walls and asserts the ray misses again, restoring colliders between checks. This demonstrates the boundary check can detect an escape or a missing boundary."
+  },
+  "no_new_collidable_obstacles": true,
+  "invented_details": "All relief fins, overhead ledges and boulder caps are authored visual-only boxes. Their count, positions, sizes, tilts and materials are invented, not measured or inferred from the source. They have no collider and may visually overlap collidable walls and boulders."
+}
