@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-269-matched-views-v1",
+  "note": "Identical camera positions and targets are reused byte-for-byte for the baseline and variant captures. Positions are authored inspection viewpoints in uncalibrated design units; the camera is the Player/Head/Camera3D of each instantiated scene. These five named viewpoints form the operator comparison plan.",
+  "views": [
+    {"id": "front", "position": [0.0, 1.6, 10.0], "target": [0.0, 0.6, 0.0], "description": "front, eye height, full plot and drift silhouettes"},
+    {"id": "side", "position": [10.0, 1.6, 0.0], "target": [0.0, 0.6, 0.0], "description": "side, eye height, cross-plot relief profile"},
+    {"id": "oblique", "position": [7.5, 2.4, 7.5], "target": [-1.0, 0.3, -1.0], "description": "oblique, eye height, drift continuity and shadow reach"},
+    {"id": "close", "position": [-6.0, 1.4, -0.5], "target": [-3.6, 0.3, -1.9], "description": "close, one tree base and its originating shadow"},
+    {"id": "elevated", "position": [7.0, 8.0, 7.0], "target": [0.0, 0.0, 0.0], "description": "elevated, whole relief pattern and common shadow direction"}
+  ],
+  "status": "candidate_pending_review",
+  "flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "operator_approved": false
+  }
+}

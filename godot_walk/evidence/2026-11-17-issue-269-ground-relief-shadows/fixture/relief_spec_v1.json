@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-269-relief-spec-v1",
+  "description": "Authored shallow irregular relief over a finite inspection plot. All values are uncalibrated design units, not a measured reconstruction or a metric scale.",
+  "grid": {
+    "min_x": -9.0,
+    "max_x": 9.0,
+    "min_z": -9.0,
+    "max_z": 9.0,
+    "step": 0.5
+  },
+  "base_height": 0.0,
+  "drifts": [
+    {"id": "drift_a", "center_x": -4.5, "center_z": -3.0, "amplitude": 0.32, "sigma_x": 2.2, "sigma_z": 1.3},
+    {"id": "drift_b", "center_x": 3.0, "center_z": -4.5, "amplitude": 0.28, "sigma_x": 1.4, "sigma_z": 2.4},
+    {"id": "drift_c", "center_x": -2.5, "center_z": 4.0, "amplitude": 0.34, "sigma_x": 2.6, "sigma_z": 1.7},
+    {"id": "drift_d", "center_x": 5.0, "center_z": 3.5, "amplitude": 0.24, "sigma_x": 1.8, "sigma_z": 1.6},
+    {"id": "swale_a", "center_x": 0.5, "center_z": 0.5, "amplitude": -0.20, "sigma_x": 3.0, "sigma_z": 2.0}
+  ],
+  "visible_height_bound": 0.35,
+  "min_relief_variation": 0.15,
+  "collision": {
+    "policy": "flat",
+    "surface_y": 0.0,
+    "center_y": -0.1,
+    "thickness": 0.2,
+    "size_x": 18.0,
+    "size_z": 18.0,
+    "visual_collision_height_bound": 0.35,
+    "note": "Collision stays flat at y=0; visible relief deviates from the collider top by at most the bound. Traversal is on a flat plane, not on the relief."
+  },
+  "status": "candidate_pending_review",
+  "flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "operator_approved": false
+  }
+}

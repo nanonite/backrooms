@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-269-shadow-spec-v1",
+  "description": "Authored long static tree-shadow polygons. Each shadow starts at its tree base and shares one documented assumed light direction. Authored approximation, not measured illumination.",
+  "assumed_light": {
+    "azimuth_deg": 210.0,
+    "note": "Assumed light arrives from azimuth 210 deg, so shadows are cast toward azimuth 30 deg. Direction is authored, not measured from the source video."
+  },
+  "shadow_direction_xz": [0.8660254037844386, 0.5],
+  "shadow_direction_azimuth_deg": 30.0,
+  "min_shadow_length": 5.0,
+  "shadow_lift": 0.02,
+  "trees": [
+    {"id": "tree_a", "x": -4.5, "z": -3.0, "trunk_height": 3.8, "canopy_radius": 0.95},
+    {"id": "tree_b", "x": 3.0, "z": -4.5, "trunk_height": 3.4, "canopy_radius": 0.85},
+    {"id": "tree_c", "x": -2.5, "z": 4.0, "trunk_height": 4.0, "canopy_radius": 1.0},
+    {"id": "tree_d", "x": 5.0, "z": 3.5, "trunk_height": 3.6, "canopy_radius": 0.9}
+  ],
+  "shadows": [
+    {"id": "shadow_a", "tree_id": "tree_a", "origin_x": -4.5, "origin_z": -3.0, "direction_xz": [0.8660254037844386, 0.5], "length": 6.4, "width_start": 0.95, "width_end": 0.30},
+    {"id": "shadow_b", "tree_id": "tree_b", "origin_x": 3.0, "origin_z": -4.5, "direction_xz": [0.8660254037844386, 0.5], "length": 6.0, "width_start": 0.90, "width_end": 0.28},
+    {"id": "shadow_c", "tree_id": "tree_c", "origin_x": -2.5, "origin_z": 4.0, "direction_xz": [0.8660254037844386, 0.5], "length": 6.8, "width_start": 1.0, "width_end": 0.32},
+    {"id": "shadow_d", "tree_id": "tree_d", "origin_x": 5.0, "origin_z": 3.5, "direction_xz": [0.8660254037844386, 0.5], "length": 6.2, "width_start": 0.92, "width_end": 0.30}
+  ],
+  "status": "candidate_pending_review",
+  "flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "operator_approved": false
+  }
+}

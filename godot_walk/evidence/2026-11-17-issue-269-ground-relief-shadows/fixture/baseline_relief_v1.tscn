@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://evidence/2026-11-17-issue-269-ground-relief-shadows/fixture/baseline_relief_v1.gd" id="1_baseline"]
+
+[node name="BaselineReliefV1Fixture" type="Node3D"]
+script = ExtResource("1_baseline")

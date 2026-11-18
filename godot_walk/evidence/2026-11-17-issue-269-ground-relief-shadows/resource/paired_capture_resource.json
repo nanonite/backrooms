@@ -1,0 +1,38 @@
+{
+  "label": "snow-garden-courtyard-v2-capture",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://evidence/2026-11-17-issue-269-ground-relief-shadows/fixture/capture_views.gd",
+    "--",
+    "--out=res://evidence/2026-11-17-issue-269-ground-relief-shadows/captures/paired_v1"
+  ],
+  "output_dir": "godot_walk/evidence/2026-11-17-issue-269-ground-relief-shadows/captures/paired_v1",
+  "timeout_seconds": 240,
+  "return_code": 0,
+  "timed_out": false,
+  "error": null,
+  "elapsed_seconds": 4.95,
+  "finished_at_utc": "2026-11-18T06:16:09.932343+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11424235520,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 0,
+    "compute_apps": [],
+    "ram_available_bytes": 23054692352,
+    "vram_after_headroom_bytes": 9139388416,
+    "ram_after_headroom_bytes": 17291019264,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "peak_resources": {
+    "peak_child_rss_bytes": 548909056,
+    "gpu_memory_start_bytes": 1022361600,
+    "peak_gpu_memory_used_bytes": 1200619520,
+    "peak_gpu_memory_delta_bytes": 178257920,
+    "gpu_sample_period_ms": 500
+  }
+}
