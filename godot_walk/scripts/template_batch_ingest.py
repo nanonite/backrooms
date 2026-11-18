@@ -396,11 +396,24 @@ def batch_errors(root: Path = ROOT) -> list[str]:
             errors.append(f"{label} source event log is missing")
             continue
         events = _read_events(events_path)
+        chain_hashes = {entry["manifest_sha256"]}
+        chain_manifest = manifest
+        for _ in range(64):
+            # Later admissions (e.g. standalone rooms) supersede the v3 upgrade
+            # manifest; the audit event may match any manifest in that chain.
+            link = chain_manifest.get("supersedes")
+            if not isinstance(link, dict) or "path" not in link:
+                break
+            try:
+                chain_manifest = load_manifest(root / link["path"])
+            except (SourceLibraryError, OSError, ValueError):
+                break
+            chain_hashes.add(link.get("sha256"))
         if not any(
             event.get("event_type") == UPGRADE_EVENT
-            and event.get("source_manifest_sha256") == entry["manifest_sha256"]
+            and event.get("source_manifest_sha256") in chain_hashes
             and event.get("payload", {}).get("manifest_sha256")
-            == entry["manifest_sha256"]
+            == event.get("source_manifest_sha256")
             for event in events
         ):
             errors.append(f"{label} missing the v3 manifest audit event")

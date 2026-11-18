@@ -11,7 +11,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from register_source_room import register_room
+from register_source_room import _verify_visual_decision, register_room
 from register_video_sources import register_video, write_index_snapshot
 from source_ingestion_runner import load_source
 from template_batch_ingest import upgrade_source
@@ -214,6 +214,48 @@ class RegisterSourceRoomTests(unittest.TestCase):
         )
         self.assertFalse(manifest["registration_accepted"])
         self.assertFalse(manifest["scale_calibrated"])
+
+
+class VisualDecisionBindingTests(unittest.TestCase):
+    IDENT = "a" * 64
+    PATH = "rooms/x/adaptation_standalone_accepted_v1.json"
+
+    def _decision(self, **extra: object) -> dict:
+        base = {
+            "decision": "accepted",
+            "candidate_identity": self.IDENT,
+            "adaptation_id": "x-v1",
+            "registration_accepted": False,
+            "scale_calibrated": False,
+        }
+        base.update(extra)
+        return base
+
+    def _verify(self, decision: dict) -> None:
+        _verify_visual_decision(
+            decision, {"adaptation_id": "x-v1"}, self.PATH, self.IDENT
+        )
+
+    def test_decision_without_record_path_is_accepted(self) -> None:
+        self._verify(self._decision())
+
+    def test_decision_naming_this_record_is_accepted(self) -> None:
+        self._verify(self._decision(accepted_record_path=self.PATH))
+
+    def test_decision_naming_another_record_is_rejected(self) -> None:
+        with self.assertRaisesRegex(SourceLibraryError, "visual decision"):
+            self._verify(self._decision(accepted_record_path="rooms/y/other.json"))
+
+    def test_identity_and_flag_mismatches_are_rejected(self) -> None:
+        for change in (
+            {"candidate_identity": "b" * 64},
+            {"adaptation_id": "other"},
+            {"decision": "rejected"},
+            {"registration_accepted": True},
+            {"scale_calibrated": True},
+        ):
+            with self.subTest(change=change), self.assertRaises(SourceLibraryError):
+                self._verify(self._decision(**change))
 
 
 if __name__ == "__main__":

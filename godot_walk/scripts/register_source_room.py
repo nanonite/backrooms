@@ -201,7 +201,11 @@ def _verify_visual_decision(
         visual_decision.get("decision") != "accepted"
         or visual_decision.get("candidate_identity") != candidate_identity
         or visual_decision.get("adaptation_id") != adaptation.get("adaptation_id")
-        or visual_decision.get("accepted_record_path") != adaptation_path
+        # A decision may omit accepted_record_path: the accepted record's
+        # operator_decision then binds it by path and sha256 (verified by the
+        # caller). If the decision does name a record, it must be this one.
+        or visual_decision.get("accepted_record_path", adaptation_path)
+        != adaptation_path
         or visual_decision.get("registration_accepted") is not False
         or visual_decision.get("scale_calibrated") is not False
     ):

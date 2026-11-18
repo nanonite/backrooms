@@ -1,0 +1,96 @@
+{
+  "capture": {
+    "camera_model": null,
+    "capture_height_m": null,
+    "distortion": null,
+    "intrinsics": {
+      "cx": null,
+      "cy": null,
+      "fx": null,
+      "fy": null
+    },
+    "lens": null,
+    "orientation": null
+  },
+  "content": {
+    "audio": {
+      "path": null,
+      "present": false,
+      "sha256": null
+    },
+    "picture_set": null,
+    "video": {
+      "metadata": {
+        "duration_seconds": 226.348118,
+        "fps": 29.97003,
+        "frame_count": 6782,
+        "height": 480,
+        "width": 636
+      },
+      "path": "data/videos/Angel (Joseph Cornell, 1957).mp4",
+      "sha256": "d92fc1fa764aa3a25a40910f01858def4b72dd3b51ca4af8d5d012d788567428"
+    }
+  },
+  "created_at_utc": "2026-10-26T21:23:22.111832+00:00",
+  "frame_references": [],
+  "historical_artifacts": [],
+  "hunyuan": {
+    "attempts": [],
+    "historical_invocations": 0,
+    "status": "not_attempted"
+  },
+  "lighting": {
+    "color_temp_k": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "fixtures": [],
+    "illuminance_lux": null,
+    "status": "unknown"
+  },
+  "manifest_version": 4,
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity.",
+  "recorded_at_utc": "2026-11-18T01:49:56.512387+00:00",
+  "registration_accepted": false,
+  "room_adaptations": [
+    {
+      "issue": 265,
+      "adaptation_id": "snow-garden-courtyard-v2",
+      "adaptation_version": "snow-garden-courtyard-v2",
+      "candidate_identity": "3ab070183f63c27b538af23a99196106338ec818252b8d3f6766a247af676cb9",
+      "adaptation_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/adaptation_standalone_accepted_v1.json",
+      "adaptation_sha256": "9d3a492b2a5e2a18d06472df7ea24252f373b6cfd7ae0a3746162a48173ec394",
+      "decision_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/catalog_admission_decision.json",
+      "decision_sha256": "8c2a374f845146f19206ae9a6249aee371e86bf56fa123e62794144f993668ba",
+      "decision_status": "accepted_catalog_admission",
+      "scene_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/room.tscn",
+      "scene_sha256": "78053120103abbb72118d8f35effdb9b5bb94525533fa7407aadd9a7735af07a",
+      "catalog_snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.6.0.json",
+      "catalog_snapshot_sha256": "2095b4e67742f8de17f83da3f0900397f1603f1d10cb4367ae74ca4e1dad1cce",
+      "catalog_admission": {
+        "status": "admitted",
+        "module_id": "video_d92fc1fa764aa3a2_snow_garden_courtyard_v2",
+        "module_version": 1,
+        "catalog_version": "0.6.0"
+      }
+    }
+  ],
+  "scale": {
+    "anchor": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "method": null,
+    "status": "uncalibrated"
+  },
+  "scale_calibrated": false,
+  "schema_version": 3,
+  "source_id": "video-d92fc1fa764aa3a2",
+  "source_kind": "video",
+  "source_review": {
+    "decision": null,
+    "status": "pending_operator_review"
+  },
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/source_manifest-v3.json",
+    "sha256": "28c01ed69ccbe6acc9854b659cbfb3a8b902903a6257542bb289f9a042b8f77f"
+  }
+}

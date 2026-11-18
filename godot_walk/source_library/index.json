@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "index_version": 24,
+  "index_version": 30,
   "sources": [
     {
       "source_id": "picture-set-d160eaa3cc847d5c",
@@ -13,22 +13,22 @@
       "source_id": "video-102caf53423018b7",
       "source_path": "data/videos/corridor_straight.mp4",
       "source_sha256": "102caf53423018b75dfd1976b5a2346b0576bdd316429f246aee87a884ba3d4b",
-      "manifest_path": "godot_walk/source_library/sources/video-102caf53423018b7/source_manifest-v3.json",
-      "manifest_sha256": "6c4863b240d035cdc52b78fc6a33b79dc07b610df5d6663d19cc8f6f7364d626"
+      "manifest_path": "godot_walk/source_library/sources/video-102caf53423018b7/source_manifest-v4.json",
+      "manifest_sha256": "c455f6d7e4eca7fd3601ffe1dba5c3ea3d46ec7b598c1fe0b1350dcb18ab4116"
     },
     {
       "source_id": "video-22909eb734e4d8e2",
       "source_path": "data/videos/Antelope Canyon in 4K - World's Most Iconic Slot Canyon - UHD 4K.mp4",
       "source_sha256": "22909eb734e4d8e2feede084e0305ae0aecefcc6dd5b46ca7ef884277e2a274a",
-      "manifest_path": "godot_walk/source_library/sources/video-22909eb734e4d8e2/source_manifest-v3.json",
-      "manifest_sha256": "1d3a4137c56a40949f178d8b295bb4087bc0bbb12f66aa27c6398156f1c03f83"
+      "manifest_path": "godot_walk/source_library/sources/video-22909eb734e4d8e2/source_manifest-v4.json",
+      "manifest_sha256": "93cf097e9ed1b36266d6505140c39c747b2e629179ab7d08641e288218a2df51"
     },
     {
       "source_id": "video-2671b32f256a4ee7",
       "source_path": "data/videos/corridor_t.mp4",
       "source_sha256": "2671b32f256a4ee7f326fae67290bcec2143efabb4f1000fc4bcfa9507260409",
-      "manifest_path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/source_manifest-v3.json",
-      "manifest_sha256": "101159bf8200611ef994a1f5b8ba5f4eaa86ff839972128150eb15e1a16245ae"
+      "manifest_path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/source_manifest-v4.json",
+      "manifest_sha256": "d785061702c8aea96c113ff562283bcfc0c3edf9e7478680084834c9b1ebd9a6"
     },
     {
       "source_id": "video-51abd379f94b8f84",
@@ -41,8 +41,8 @@
       "source_id": "video-61b91dbeb9026dc7",
       "source_path": "data/videos/corridor_x.mp4",
       "source_sha256": "61b91dbeb9026dc7b404657f7ba7e081b5588a7e7a4a2abfa553be765d1a7f04",
-      "manifest_path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/source_manifest-v3.json",
-      "manifest_sha256": "af41b7ed362728d9956d5cfb5eb3d0dc71b7f251febfff02f25b2be9dcf6259f"
+      "manifest_path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/source_manifest-v4.json",
+      "manifest_sha256": "fa3f8cbf038cdb26389d453a328db3862674f9c8a8346b18a051475ce688b88c"
     },
     {
       "source_id": "video-b9161c467ed2d30a",
@@ -69,15 +69,15 @@
       "source_id": "video-d857abe7a94da9d1",
       "source_path": "data/videos/Max Cooper - Repetition (Official Video By Kevin McGloughlin).mp4",
       "source_sha256": "d857abe7a94da9d19a4a1410a707e7632c32df6f3ded1ddd4d77317df1732bb8",
-      "manifest_path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/source_manifest-v3.json",
-      "manifest_sha256": "87bc8e05cbdd34bb8cfc9a016b05dd17a552a5b0a69711215999b0453f7cd93e"
+      "manifest_path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/source_manifest-v4.json",
+      "manifest_sha256": "75e25c2537123c72852e1bc1a1b2a7aa197fdb71ea730bd844d74bdd6acb1ab1"
     },
     {
       "source_id": "video-d92fc1fa764aa3a2",
       "source_path": "data/videos/Angel (Joseph Cornell, 1957).mp4",
       "source_sha256": "d92fc1fa764aa3a25a40910f01858def4b72dd3b51ca4af8d5d012d788567428",
-      "manifest_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/source_manifest-v3.json",
-      "manifest_sha256": "28c01ed69ccbe6acc9854b659cbfb3a8b902903a6257542bb289f9a042b8f77f"
+      "manifest_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/source_manifest-v4.json",
+      "manifest_sha256": "696c8183d2867bf87ec65bd20c827efca05b437b616fd2d7e2b8ce34e840f912"
     },
     {
       "source_id": "video-ef0ec21cd4ae7b26",

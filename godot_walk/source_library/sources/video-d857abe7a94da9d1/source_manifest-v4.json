@@ -1,0 +1,96 @@
+{
+  "capture": {
+    "camera_model": null,
+    "capture_height_m": null,
+    "distortion": null,
+    "intrinsics": {
+      "cx": null,
+      "cy": null,
+      "fx": null,
+      "fy": null
+    },
+    "lens": null,
+    "orientation": null
+  },
+  "content": {
+    "audio": {
+      "path": null,
+      "present": false,
+      "sha256": null
+    },
+    "picture_set": null,
+    "video": {
+      "metadata": {
+        "duration_seconds": 356.565624,
+        "fps": 24.0,
+        "frame_count": 8556,
+        "height": 720,
+        "width": 1280
+      },
+      "path": "data/videos/Max Cooper - Repetition (Official Video By Kevin McGloughlin).mp4",
+      "sha256": "d857abe7a94da9d19a4a1410a707e7632c32df6f3ded1ddd4d77317df1732bb8"
+    }
+  },
+  "created_at_utc": "2026-10-26T21:23:23.085904+00:00",
+  "frame_references": [],
+  "historical_artifacts": [],
+  "hunyuan": {
+    "attempts": [],
+    "historical_invocations": 0,
+    "status": "not_attempted"
+  },
+  "lighting": {
+    "color_temp_k": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "fixtures": [],
+    "illuminance_lux": null,
+    "status": "unknown"
+  },
+  "manifest_version": 4,
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity.",
+  "recorded_at_utc": "2026-11-18T01:49:56.099974+00:00",
+  "registration_accepted": false,
+  "room_adaptations": [
+    {
+      "issue": 265,
+      "adaptation_id": "nested-light-corridor-v1",
+      "adaptation_version": "nested-light-corridor-v1",
+      "candidate_identity": "968536959a6bf9247c82e618e251c66102853a707fc92d9ef4d5ca5f992fa5e7",
+      "adaptation_path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/adaptation_standalone_accepted_v1.json",
+      "adaptation_sha256": "ff0f400a8ef5f5027431552b1c5ba10dc6568f7c1aa69b4c04a1ad7b1ac307a6",
+      "decision_path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/catalog_admission_decision.json",
+      "decision_sha256": "3a46ce8fa591c2420a2f5baf566c19e4af20d831acc763bacc9c93f9cb7eda61",
+      "decision_status": "accepted_catalog_admission",
+      "scene_path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v1/room.tscn",
+      "scene_sha256": "243bef67365413f535c7dfc3d7f31469955c07426e2c826aa43a97ffe20e3e8c",
+      "catalog_snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.6.0.json",
+      "catalog_snapshot_sha256": "2095b4e67742f8de17f83da3f0900397f1603f1d10cb4367ae74ca4e1dad1cce",
+      "catalog_admission": {
+        "status": "admitted",
+        "module_id": "video_d857abe7a94da9d1_nested_light_corridor_v1",
+        "module_version": 1,
+        "catalog_version": "0.6.0"
+      }
+    }
+  ],
+  "scale": {
+    "anchor": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "method": null,
+    "status": "uncalibrated"
+  },
+  "scale_calibrated": false,
+  "schema_version": 3,
+  "source_id": "video-d857abe7a94da9d1",
+  "source_kind": "video",
+  "source_review": {
+    "decision": null,
+    "status": "pending_operator_review"
+  },
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/source_manifest-v3.json",
+    "sha256": "87bc8e05cbdd34bb8cfc9a016b05dd17a552a5b0a69711215999b0453f7cd93e"
+  }
+}
