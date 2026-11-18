@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-272-lit-psx-views-v1",
+  "note": "Identical camera records are reused byte-for-byte by every baseline/lit, solid/textured and light-on/light-off capture. Positions and targets are authored inspection viewpoints in uncalibrated design units; the camera is the InspectionCamera of each instantiated scene. surface_survey is the required wide comparison and sphere_close resolves normal-dependent lighting response on a curved surface.",
+  "views": [
+    {"id": "surface_survey", "position": [0.0, 3.4, 9.0], "target": [0.0, 1.1, -0.5], "description": "wide view of floor, cuboid, sphere, cylinder and back wall"},
+    {"id": "sphere_close", "position": [1.6, 1.7, 3.4], "target": [0.4, 0.95, 0.0], "description": "close view of the sphere to resolve lighting response across normals"}
+  ],
+  "status": "candidate_pending_review",
+  "flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "operator_approved": false
+  }
+}

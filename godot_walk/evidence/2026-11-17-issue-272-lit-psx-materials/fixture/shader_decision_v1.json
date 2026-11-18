@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-272-lit-psx-shader-decision-v1",
+  "status": "candidate_pending_review",
+  "scope": "opt-in lit PSX material variants in a disposable isolated fixture; no production migration",
+  "source_reference": {
+    "research_doc": "docs/research/issue-263-psx-lighting.md",
+    "accepted_shader_solid": "godot_walk/shaders/library_psx_vertex.gdshader",
+    "accepted_shader_textured": "godot_walk/shaders/library_psx_textured.gdshader",
+    "shared_include": "godot_walk/vendor/ursc/common.gdshaderinc",
+    "accepted_room": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/room.gd"
+  },
+  "shader_variants": {
+    "psx_solid_baseline_v1": {
+      "path": "godot_walk/evidence/2026-11-17-issue-272-lit-psx-materials/fixture/psx_solid_baseline_v1.gdshader",
+      "path_kind": "solid",
+      "lighting_mode": "baseline",
+      "unshaded_defined": true,
+      "fog_disabled_defined": true,
+      "texture_path": "TEXTURE_DISABLED",
+      "derived_from": "godot_walk/shaders/library_psx_vertex.gdshader",
+      "is_new_file": true
+    },
+    "psx_solid_lit_v1": {
+      "path": "godot_walk/evidence/2026-11-17-issue-272-lit-psx-materials/fixture/psx_solid_lit_v1.gdshader",
+      "path_kind": "solid",
+      "lighting_mode": "lit",
+      "unshaded_defined": false,
+      "fog_disabled_defined": true,
+      "texture_path": "TEXTURE_DISABLED",
+      "derived_from": "godot_walk/shaders/library_psx_vertex.gdshader",
+      "is_new_file": true,
+      "change": "UNSHADED removed only; common include selects diffuse_lambert_wrap + vertex_lighting"
+    },
+    "psx_textured_baseline_v1": {
+      "path": "godot_walk/evidence/2026-11-17-issue-272-lit-psx-materials/fixture/psx_textured_baseline_v1.gdshader",
+      "path_kind": "textured",
+      "lighting_mode": "baseline",
+      "unshaded_defined": true,
+      "fog_disabled_defined": true,
+      "texture_path": "TEXTURE_REPEAT",
+      "derived_from": "godot_walk/shaders/library_psx_textured.gdshader",
+      "is_new_file": true
+    },
+    "psx_textured_lit_v1": {
+      "path": "godot_walk/evidence/2026-11-17-issue-272-lit-psx-materials/fixture/psx_textured_lit_v1.gdshader",
+      "path_kind": "textured",
+      "lighting_mode": "lit",
+      "unshaded_defined": false,
+      "fog_disabled_defined": true,
+      "texture_path": "TEXTURE_REPEAT",
+      "derived_from": "godot_walk/shaders/library_psx_textured.gdshader",
+      "is_new_file": true,
+      "change": "UNSHADED removed only; common include selects diffuse_lambert_wrap + vertex_lighting"
+    }
+  },
+  "fog": {
+    "setting": "FOG_DISABLED",
+    "unchanged_between_baseline_and_lit": true,
+    "environment_fog_enabled": false,
+    "note": "Fog is a separate, explicitly controlled choice and is held constant in all four variants and both light states."
+  },
+  "material_parameters": {
+    "solid_albedo_rgba": [0.62, 0.66, 0.71, 1.0],
+    "solid_color_authored_not_source_derived": true,
+    "checker_size_px": 64,
+    "checker_cells": 8,
+    "checker_color_a_rgba": [0.86, 0.83, 0.75, 1.0],
+    "checker_color_b_rgba": [0.27, 0.32, 0.39, 1.0],
+    "checker_is_generated_in_code": true,
+    "checker_is_source_derived": false,
+    "albedo_texture_tint": [1.0, 1.0, 1.0, 1.0],
+    "uv_scale": [3.0, 3.0]
+  },
+  "light": {
+    "type": "DirectionalLight3D",
+    "key_energy": 1.7,
+    "key_color_rgba": [1.0, 0.93, 0.82, 1.0],
+    "key_rotation_deg": [-38.0, 28.0, 0.0],
+    "shadow_enabled": false,
+    "shadow_note": "The shared URSC include declares shadows_disabled; no shadow maps are cast in any variant.",
+    "ambient_source": "Environment.AMBIENT_SOURCE_COLOR",
+    "ambient_energy_on": 0.4,
+    "ambient_color_rgba": [0.5, 0.55, 0.62, 1.0],
+    "ambient_energy_off": 0.0,
+    "toggle_method": "set_light_on(bool)",
+    "toggle_effect": "key_light.visible and ambient_light_energy switch together; repeatable",
+    "light_states_compared": [false, true]
+  },
+  "geometry": {
+    "identical_across_all_variants": true,
+    "shapes": ["Floor", "Cuboid", "Sphere", "Cylinder", "BackWall"],
+    "note": "One shared script builds the same meshes, transforms, camera and light in all four scenes. Only the shader parameter and light state differ."
+  },
+  "comparison": {
+    "surface_paths": ["solid", "textured"],
+    "lighting_modes": ["baseline", "lit"],
+    "independently_selectable": true,
+    "baseline_available": true,
+    "response_preclaimed": false,
+    "response_note": "Whether surfaces visibly respond to light is recorded from captures mechanically; success is not claimed in advance and appearance needs operator review."
+  },
+  "preserved": {
+    "accepted_room_and_frozen_files_unchanged": true,
+    "catalog_admission": false,
+    "ledger_events_written": false,
+    "catalog_json_edited": false,
+    "model_calls": false,
+    "downloads": false
+  },
+  "flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "operator_approved": false
+  }
+}
