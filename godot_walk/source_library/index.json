@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "index_version": 30,
+  "index_version": 31,
   "sources": [
     {
       "source_id": "picture-set-d160eaa3cc847d5c",
@@ -13,8 +13,8 @@
       "source_id": "video-102caf53423018b7",
       "source_path": "data/videos/corridor_straight.mp4",
       "source_sha256": "102caf53423018b75dfd1976b5a2346b0576bdd316429f246aee87a884ba3d4b",
-      "manifest_path": "godot_walk/source_library/sources/video-102caf53423018b7/source_manifest-v4.json",
-      "manifest_sha256": "c455f6d7e4eca7fd3601ffe1dba5c3ea3d46ec7b598c1fe0b1350dcb18ab4116"
+      "manifest_path": "godot_walk/source_library/sources/video-102caf53423018b7/source_manifest-v5.json",
+      "manifest_sha256": "a6f5201c4733ea71351859eb7bd61bc815ba7f598e9bdca51fc80609a1b7ecce"
     },
     {
       "source_id": "video-22909eb734e4d8e2",

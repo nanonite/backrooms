@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "decision": "accepted",
+  "issue": 275,
+  "adaptation_id": "chevron-corridor-v2-north-south-socket",
+  "candidate_identity": "4367485987d2fded92732e6c1801a47b64a22048c1933749e2d200b4bf9aedf3",
+  "reviewed_at_utc": "2026-11-18T05:05:00.037012+00:00",
+  "scope": "sockets_declared",
+  "layout_eligible": false,
+  "tested_connector_pairs": [],
+  "operator_directive": "OPERATOR DECISION 2026-11-18 (issue 265 comment 653; issue 275): approved a NEW two-socket THROUGH variant of the accepted chevron-corridor-v1 room with north (x=0,z=-10,normal 0,0,-1) and south (x=0,z=+10,normal 0,0,+1) sockets, each level_doorway_2m_v1, clear 2.0x2.1, approach clearance 1.2, circulation_role through. Sockets are declared but UNTESTED; layout_eligible is false. No map is generated or committed. Connector-pair testing against godot_source_textured_large_room_v1 hall_end (90-degree rotation, floor 0.0) is a separate operator step. accept-module-metadata and decide-integration stay operator-only.",
+  "catalog_path": "godot_walk/room_catalog/catalog.json",
+  "catalog_version": "0.7.0",
+  "catalog_snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.7.0.json",
+  "catalog_snapshot_sha256": "b1d60a876e52d1e98dc8afe6b2391d00deeba42e8f8a4347057fe584c7127b82",
+  "module_id": "video_102caf53423018b7_chevron_corridor_v2_north_south_socket_v1",
+  "module_version": 1,
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

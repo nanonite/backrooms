@@ -1,0 +1,692 @@
+{
+  "schema_version": 3,
+  "contract_id": "godot_video_room_completion",
+  "contract_version": "3.0.0",
+  "contract_freeze": {
+    "path": "godot_walk/room_catalog/contract_freeze_v3.json",
+    "sha256": "91c0cb1b47f980193a47d8e221b366f2d452256fa7b383adc818a177c9813ba1"
+  },
+  "adaptation_id": "chevron-corridor-v2-north-south-socket",
+  "status": "accepted_reference",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "source_observations": {
+    "video": {
+      "path": "data/videos/corridor_straight.mp4",
+      "sha256": "102caf53423018b75dfd1976b5a2346b0576bdd316429f246aee87a884ba3d4b",
+      "width": 1920,
+      "height": 1080,
+      "fps": 24.0,
+      "frame_count": 96,
+      "duration_seconds": 4.0
+    },
+    "suitability": {
+      "decision": "proceed",
+      "rationale": [
+        "The operator selected direct-source frame_0013 and authorized one Hunyuan attempt for this source.",
+        "The operator accepted the 512x256 panorama from attempt-001-retry-001 (improved) as a broad visual reference only.",
+        "Low resolution and missing parallax limit the panorama to character and layout guidance; no metric scale is inferred.",
+        "Fine appearance uses direct crops of the original 1920x1080 seed frame, not panorama pixels.",
+        "Approval covers one bounded candidate only; it does not establish scale, connectivity, catalog admission or room acceptance."
+      ]
+    },
+    "frames": [
+      {
+        "frame_id": "frame_0013",
+        "index_zero_based": 12,
+        "timestamp_seconds": 0.5,
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/frames/issue175-quarter-s-a/frame_0013.png",
+        "sha256": "a836cd3e2f90deb9bbf5ad3f23fe09fba156199f315e307a02fe332bb5eb38f1",
+        "decode_operation": "direct_source_video_decode_no_resize_or_edit",
+        "crops": [
+          {
+            "role": "floor_surface",
+            "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/carpet_floor.png",
+            "sha256": "9027d7d2633a60aaa60fb238d22b04de796da292506e0d6fb474e3a3830b945e",
+            "source_pixel_bounds_xyxy": [
+              1200,
+              860,
+              1700,
+              1040
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "wall_surface",
+            "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/chevron_wallpaper.png",
+            "sha256": "3c49bf22c35f286ecdb459956254c8fa6b474f7e1d6dd1862dc4534be6d15ad1",
+            "source_pixel_bounds_xyxy": [
+              40,
+              340,
+              360,
+              640
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          },
+          {
+            "role": "ceiling_surface",
+            "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/drop_ceiling.png",
+            "sha256": "cb86a5f8522b00e055a77267c08790edd0d58c1bc671c5db97494ec7810fde38",
+            "source_pixel_bounds_xyxy": [
+              760,
+              10,
+              1120,
+              180
+            ],
+            "operation": "direct_rectangular_crop_no_resize_or_color_edit"
+          }
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "claim": "The seed frame shows a carpeted, wallpapered corridor with a large square cream pillar, chevron-patterned green-gold wall covering, a white-baseboarded wall line and a drop ceiling with bright rectangular light panels; no doorways, openings or room boundaries are visible.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_0013"
+        ]
+      },
+      {
+        "claim": "The accepted 512x256 panorama shows a yellow-carpeted corridor with green chevron wallpaper on both sides, bright ceiling lights, a central cream pillar and a bright far wall (a dead end); it is a low-resolution visual reference only.",
+        "certainty": "directly_observed",
+        "frame_ids": [
+          "frame_0013"
+        ]
+      },
+      {
+        "claim": "The source clip name suggests a straight corridor but no openings or connectivity are observed in the sampled frames; none are authored.",
+        "certainty": "partially_observed",
+        "frame_ids": [
+          "frame_0013"
+        ]
+      },
+      {
+        "claim": "The two 2.0 x 2.1 doorways at north (x=0,z=-10) and south (x=0,z=+10) are authored by operator decision on 2026-11-18 (issue 275); no opening is visible in the source frames and the sockets are untested.",
+        "certainty": "authored_not_observed",
+        "frame_ids": [
+          "frame_0013"
+        ]
+      }
+    ],
+    "unknowns": [
+      "Real dimensions, camera pose, metric scale, hidden wall faces, full perimeter and ceiling height are unknown.",
+      "No doorway, destination, socket or connection to another room is observed or authored; all edges are capped.",
+      "The panorama is 512x256 with no spatial parallax and is not a registered mesh or collision source.",
+      "The authored rectangular shell with a flat drop ceiling and three static pillars is an interpretation, not a claim that the source space is rectangular or flat-ceilinged.",
+      "The source video may contain other distinct spaces; only the view around frame_0013 is considered here.",
+      "The authored sockets are not observed in the video, are not tested against any connector pair, and do not imply connectivity."
+    ]
+  },
+  "reusable_requirements": {
+    "coordinate_convention": "Godot local X/Z with +Y up; authored design units, not calibrated meters.",
+    "supported_footprint_representation": "Finite simple orthogonal polygon in XZ; candidate uses one authored rectangle.",
+    "player": {
+      "controller_scene": "godot_walk/scenes/player.tscn",
+      "capsule_radius": 0.3,
+      "capsule_height": 1.2,
+      "safe_spawn_and_reset": "Spawn at [0,0.6,8.4] on the authored carpet floor; R restores this pose with zero velocity."
+    },
+    "floor_and_ceiling": "Carpet floor is authored at Y=0. Drop ceiling underside and grid ribs define authored clear height 3.6; no video-derived height is claimed.",
+    "collision_policy": "Separate authored floor, west/east closed perimeter boundaries, north/south doorway returns and headers, and three square-pillar obstacles; no moving props.",
+    "render_placement_policy": "Record authored room AABB separately from the camera-centered panorama background; panorama is not collision geometry.",
+    "socket_policy": "Two authored sockets: north (x=0,z=-10,normal 0,0,-1) and south (x=0,z=+10,normal 0,0,+1), each level_doorway_2m_v1, clear 2.0x2.1, approach clearance 1.2, circulation_role through. Both are UNTESTED; no connector pair or source-video connectivity is claimed.",
+    "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+    "additional_constraints": [
+      "Godot 4.6.3 only.",
+      "Use existing player/controller, URSC 1.5 material conversion and native PSX compositor.",
+      "Keep registration_accepted=false and scale_calibrated=false.",
+      "Static props only: no doors, entities, moving or animated props.",
+      "The new through variant is a separate module; the accepted standalone room and hash-pinned files are untouched."
+    ]
+  },
+  "resolved_adaptation": {
+    "candidate_version": "chevron-corridor-v2-north-south-socket",
+    "catalog_admission": "admitted",
+    "scene_path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v2-north-south-socket/room.tscn",
+    "catalog_module_refs": [
+      "video_102caf53423018b7_chevron_corridor_v2_north_south_socket_v1"
+    ],
+    "walkable_space": {
+      "coordinate_system": "local Godot X/Z, +Y up; uncalibrated design units",
+      "footprint": {
+        "representation": "simple_orthogonal_polygon_xz",
+        "vertices_xz": [
+          [
+            -6.0,
+            -10.0
+          ],
+          [
+            6.0,
+            -10.0
+          ],
+          [
+            6.0,
+            10.0
+          ],
+          [
+            -6.0,
+            10.0
+          ]
+        ]
+      },
+      "floor_elevation": 0.0,
+      "safe_spawn_xyz": [
+        0.0,
+        0.6,
+        8.4
+      ],
+      "measurement": {
+        "method": "Godot standalone CharacterBody3D traversal with floor and boundary ray checks; no capsule-clear area grid",
+        "resolution": 0.1,
+        "spawn_connected_area": null,
+        "status": "pending"
+      }
+    },
+    "boundary_and_obstacle_collision": {
+      "collision_origin": "Explicit StaticBody3D and BoxShape3D nodes in room.gd, separate from visible meshes.",
+      "floor_bodies": [
+        "AuthoredBoundaries/WalkableFloor"
+      ],
+      "boundaries": [
+        "AuthoredBoundaries/WestBoundary",
+        "AuthoredBoundaries/EastBoundary",
+        "AuthoredBoundaries/NorthBoundaryWest",
+        "AuthoredBoundaries/NorthBoundaryEast",
+        "AuthoredBoundaries/NorthSocketHeader",
+        "AuthoredBoundaries/SouthBoundaryWest",
+        "AuthoredBoundaries/SouthBoundaryEast",
+        "AuthoredBoundaries/SouthSocketHeader"
+      ],
+      "obstacles": [
+        "AuthoredObstacles/PillarCollision_00",
+        "AuthoredObstacles/PillarCollision_01",
+        "AuthoredObstacles/PillarCollision_02"
+      ],
+      "exposed_boundary_policy": "North and south edges have open 2.0x2.1 doorways with collider returns and headers; west and east are closed. Both sockets are untested and excluded from automatic layout. SafetyNet is a recovery aid, not walkable area."
+    },
+    "rendered_placement_envelope": {
+      "representation": "conservative_aabb_xyz",
+      "bounds_xyz": {
+        "min": [
+          -6.3,
+          -0.24,
+          -10.3
+        ],
+        "max": [
+          6.3,
+          4.0,
+          10.3
+        ]
+      },
+      "footprint": {
+        "representation": "simple_orthogonal_polygon_xz",
+        "vertices_xz": [
+          [
+            -6.3,
+            -10.3
+          ],
+          [
+            6.3,
+            -10.3
+          ],
+          [
+            6.3,
+            10.3
+          ],
+          [
+            -6.3,
+            10.3
+          ]
+        ]
+      },
+      "background_geometry": [
+        "Attempt-001-retry-001 panorama as camera-centered PanoramaSkyMaterial; not spatially bounded or collidable."
+      ],
+      "containment_method": "Authored walls close all playable sides. Panorama is a renderer background, not part of the authored room AABB."
+    },
+    "surfaces": [
+      {
+        "surface_id": "carpet_floor",
+        "geometry_origin": "Authored rectangular BoxMesh.",
+        "appearance_origin": "Direct yellow-carpet crop from frame_0013.",
+        "placement_basis": "Centered in the authored footprint at floor Y=0.",
+        "collision_origin": "Separate WalkableFloor StaticBody3D.",
+        "evidence_refs": [
+          "frame_0013",
+          "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/carpet_floor.png"
+        ]
+      },
+      {
+        "surface_id": "chevron_wallpaper_walls",
+        "geometry_origin": "Authored four-sided closed shell.",
+        "appearance_origin": "Direct green-gold chevron wallpaper crop from frame_0013.",
+        "placement_basis": "Edges follow the authored 12x20 design-unit footprint.",
+        "collision_origin": "Separate perimeter StaticBody3D boxes.",
+        "evidence_refs": [
+          "frame_0013",
+          "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/chevron_wallpaper.png"
+        ]
+      },
+      {
+        "surface_id": "drop_ceiling",
+        "geometry_origin": "Authored flat ceiling plane plus eleven transverse grid ribs.",
+        "appearance_origin": "Direct drop-ceiling crop from frame_0013.",
+        "placement_basis": "Authored clear height 3.6 under the ribs.",
+        "collision_origin": "None; ceiling mesh is visual only.",
+        "evidence_refs": [
+          "frame_0013",
+          "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/drop_ceiling.png"
+        ]
+      },
+      {
+        "surface_id": "square_pillars",
+        "geometry_origin": "Three authored static square pillar props with accent bases.",
+        "appearance_origin": "Solid warm-cream and gold materials; no panorama pixels used.",
+        "placement_basis": "Pillar rhythm is authored to echo the receding pillar seen in the seed; positions are not measured.",
+        "collision_origin": "One separate obstacle collider per pillar.",
+        "evidence_refs": [
+          "frame_0013"
+        ]
+      },
+      {
+        "surface_id": "ceiling_lights_and_baseboards",
+        "geometry_origin": "Five bright ceiling panels and four thin baseboard strips.",
+        "appearance_origin": "Solid bright and cream materials; no panorama pixels used.",
+        "placement_basis": "Rhythm and placement are authored from the seed view.",
+        "collision_origin": "None; visual only.",
+        "evidence_refs": [
+          "frame_0013"
+        ]
+      },
+      {
+        "surface_id": "panorama_background",
+        "geometry_origin": "No room mesh; renderer background only.",
+        "appearance_origin": "Hunyuan attempt-001-retry-001 panorama generated from direct source seed frame_0013.",
+        "placement_basis": "Camera-centered equirectangular projection; no translation parallax. Fully occluded by the authored shell in playable views.",
+        "collision_origin": "None.",
+        "evidence_refs": [
+          "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/panorama/panorama.png"
+        ]
+      }
+    ],
+    "sockets": [
+      {
+        "id": "north",
+        "local_floor_center": [
+          0.0,
+          0.0,
+          -10.0
+        ],
+        "outward_normal": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "clear_size_m": [
+          2.0,
+          2.1
+        ],
+        "floor_elevation_m": 0.0,
+        "approach_clearance_m": 1.2,
+        "compatibility_type": "level_doorway_2m_v1",
+        "circulation_role": "through",
+        "test_status": "untested",
+        "closure_behavior": "Open visual doorway with matching collider returns and header; untested, pair-only until the operator approves a connector pair."
+      },
+      {
+        "id": "south",
+        "local_floor_center": [
+          0.0,
+          0.0,
+          10.0
+        ],
+        "outward_normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "clear_size_m": [
+          2.0,
+          2.1
+        ],
+        "floor_elevation_m": 0.0,
+        "approach_clearance_m": 1.2,
+        "compatibility_type": "level_doorway_2m_v1",
+        "circulation_role": "through",
+        "test_status": "untested",
+        "closure_behavior": "Open visual doorway with matching collider returns and header; untested, pair-only until the operator approves a connector pair."
+      }
+    ],
+    "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+    "dependencies": [
+      {
+        "path": "data/videos/corridor_straight.mp4",
+        "sha256": "102caf53423018b75dfd1976b5a2346b0576bdd316429f246aee87a884ba3d4b",
+        "role": "canonical source video"
+      },
+      {
+        "path": "godot_walk/project.godot",
+        "sha256": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+        "role": "Godot project renderer and input settings"
+      },
+      {
+        "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "sha256": "8feb31a3a8fe82924f4eaf6086e5f6e56c4643b2cffc1239a55a65ff98f3b80d",
+        "role": "immutable catalog snapshot"
+      },
+      {
+        "path": "godot_walk/room_catalog/contract_freeze_v3.json",
+        "sha256": "91c0cb1b47f980193a47d8e221b366f2d452256fa7b383adc818a177c9813ba1",
+        "role": "contract freeze v3"
+      },
+      {
+        "path": "godot_walk/scenes/player.tscn",
+        "sha256": "2fc7064e58713029897facd54812886154f6661d8e4ba14c5f7a3d99bda5dbea",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/scripts/gpu_job_lock.py",
+        "sha256": "1bca85202f82c6e192426ff8e0d774428534ae454dc4dea61b32a23f5f929db5",
+        "role": "shared exclusive GPU lock"
+      },
+      {
+        "path": "godot_walk/scripts/library_psx_preset.gd",
+        "sha256": "c78c041a0b1d16315d80b3f1cc99da0984f87f7eda5fca060c9a035598f18e87",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/scripts/player.gd",
+        "sha256": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/scripts/psx/psx_post_effect.gd",
+        "sha256": "5b06eff8e0f1fc0a5c98711633eb50d03db39db4c1e73b309433e444dd3c5795",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "sha256": "b1a4c839f1346d64586dae4cda6175b06793d4de95cb0ada8ba57c0851e80ba5",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/scripts/psx_design_round_resources.py",
+        "sha256": "98444163f9d29337dae413541c604f8a9956c3066f55c9d1b04b03f12d9877f5",
+        "role": "shared GPU/RAM preflight and sampler"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_resource_graph.py",
+        "sha256": "84f0677bda60d2ff4b07664abc8c70e2fc815f4d002eda4af5d581473cb44cb0",
+        "role": "resource graph validator"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_runner.py",
+        "sha256": "62f2fb131bd49a278082abe3b353c0ff863a6628c5b2abe7c74ba175d30e7f17",
+        "role": "source crop pipeline implementation"
+      },
+      {
+        "path": "godot_walk/scripts/video_adaptation_validation.py",
+        "sha256": "44803981db7ef2563c76832f7ea3ce6dd48a51274b51d9aa47cc04e0d6aff8cd",
+        "role": "read-only adaptation validator"
+      },
+      {
+        "path": "godot_walk/shaders/library_psx_textured.gdshader",
+        "sha256": "1c16325266cad146fd6fb928c96a0c44e1b8b2aaefb31594a9c2f093240ae16c",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/shaders/library_psx_vertex.gdshader",
+        "sha256": "7feecf393ff762b9dee1caaf43cc5e7e3a548371f0fb7a3c28d562c03be4176f",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/frames/issue175-quarter-s-a/extraction_manifest.json",
+        "sha256": "792d25587e148054cb32a875ecdf52a2286c85f6d3f79c5ab24d27ecd8165432",
+        "role": "direct frame extraction manifest"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/frames/issue175-quarter-s-a/frame_0013.png",
+        "sha256": "a836cd3e2f90deb9bbf5ad3f23fe09fba156199f315e307a02fe332bb5eb38f1",
+        "role": "selected native-resolution source frame"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/attempt_config.json",
+        "sha256": "51c9ea3df48eb2975a5edc715b96bbff61f695e14761658de85fa0538f229f44",
+        "role": "accepted Hunyuan attempt configuration"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/attempt_result.json",
+        "sha256": "42e45d8686164847bfdc03a02a265531c047dafa972368172a4a95709e592f62",
+        "role": "accepted Hunyuan attempt result"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/execution_guard.json",
+        "sha256": "df83be0f3407aa8de40dc28ed037dca3e6845440048b3560270da4f5c8c49ca5",
+        "role": "Hunyuan runtime guard receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/gpu_guard.json",
+        "sha256": "05fde7869a7a65e09af6031d020ff9a0ad8fd2359667f062617c3a95a88596a8",
+        "role": "Hunyuan GPU preflight receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/panorama/panorama.png",
+        "sha256": "4c5360c16e9e2f3727c2777e958f126f5a8eeb9820806ce9c696b4b562a69002",
+        "role": "reviewed 512x256 Hunyuan panorama (visual reference only)"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/resource_samples.jsonl",
+        "sha256": "95a2f0941e5a8e5a760fd8da35487de3119b6f26f80858311cd2f5942dad12fd",
+        "role": "Hunyuan resource samples"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/stderr.log",
+        "sha256": "46061d29b87b68333c211ad2c24b61b0c0d372971f519b3e12ec231f52c3b6ce",
+        "role": "Hunyuan stderr"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/hunyuan/attempt-001-retry-001/stdout.log",
+        "sha256": "022e240a8a36eccb82cb85828e1adc60d43fb25bbee2e81d7ee363361654e718",
+        "role": "Hunyuan stdout"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/capture_resource_run.json",
+        "sha256": "c2a46d0333df8ccec3335a5691bb25a09bfe479b9f71942835af3edaa172115d",
+        "role": "guarded capture resource receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/capture_room.gd",
+        "sha256": "9faadae52b5487aea74536b969855e426324c6082f4317d3edb39c0264a542a3",
+        "role": "capture and frame-profile harness"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/captures/capture_manifest.json",
+        "sha256": "693718e9b64e986e9be3437b6340c85be831af837f8b585178c681ba24020768",
+        "role": "guarded capture manifest"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/captures/ceiling_lights.png",
+        "sha256": "dc45c026a2e140959a7ef14ccbfc0cd2023d841d3426a45adeee1193374896b5",
+        "role": "guarded render capture"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/captures/pillar_row.png",
+        "sha256": "1c1054a0cc2a56815887c5275e0e2a2d639242d79496785be7897f8bbd9dbad6",
+        "role": "guarded render capture"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/captures/spawn_toward_far_wall.png",
+        "sha256": "d80564c79e14b80d648b899996751589eacd14f1291d8b8ce7e1416dcb5d0a7b",
+        "role": "guarded render capture"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/captures/wallpaper_wall.png",
+        "sha256": "b74af94918549bae7587e86c60b8bc56bbf0719403e4d67bead03b34a3057f4c",
+        "role": "guarded render capture"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/crop_plan.json",
+        "sha256": "bd07ccfacc10b2abbc676801ef7b691ceab0112c4aae7bf61484e29a6b01447f",
+        "role": "direct source crop plan"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/room.gd",
+        "sha256": "3e8c0b9ba5b1bfbf326235c2b90129187444f3b2fa81a7889282061868830c0a",
+        "role": "authored room geometry and gameplay script"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/room.tscn",
+        "sha256": "6523d8cee0de3f9f6aecdf4dd98be2b4bfbf6c2aa5c19dd1ab73db2e9af01bc5",
+        "role": "playable Godot scene"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/run_capture_guarded.py",
+        "sha256": "db374836deb0640fc2d87b52c9f58b1735873d87e9a5f78508bb952d6fcb709d",
+        "role": "shared GPU lock and resource guard wrapper"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/standalone_test_receipt.json",
+        "sha256": "8312012febcbfb5ffcf6feaa4dc691f3dae3dacab454d75c9c3a8a5217190020",
+        "role": "standalone runtime test receipt"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/test_room.gd",
+        "sha256": "b28519d676ec81936407c4b9a768f71dd44b14ee803aecc30e40ab283dc824fc",
+        "role": "standalone runtime test harness"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/carpet_floor.png",
+        "sha256": "9027d7d2633a60aaa60fb238d22b04de796da292506e0d6fb474e3a3830b945e",
+        "role": "direct source appearance crop: carpet_floor"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/chevron_wallpaper.png",
+        "sha256": "3c49bf22c35f286ecdb459956254c8fa6b474f7e1d6dd1862dc4534be6d15ad1",
+        "role": "direct source appearance crop: chevron_wallpaper"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/crop_manifest.json",
+        "sha256": "48accb32f9779009fe9e42c5c2d58d9abd55218fa0ab5d22ac51f93aab9bfc17",
+        "role": "direct source crop manifest"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/textures/drop_ceiling.png",
+        "sha256": "cb86a5f8522b00e055a77267c08790edd0d58c1bc671c5db97494ec7810fde38",
+        "role": "direct source appearance crop: drop_ceiling"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v2-north-south-socket/capture_room.gd",
+        "sha256": "8c13aa81efed5ed9205beab576310ea463a15f38ac1fb18e362cf771061189e1",
+        "role": "guarded capture harness"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v2-north-south-socket/room.gd",
+        "sha256": "51f80cc15ffa81e07113bb0a0de42c03ee57c34f89ac24968fd19621280155bc",
+        "role": "variant room script"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v2-north-south-socket/room.tscn",
+        "sha256": "6a24d13a0d85cfe16a0624ecc76c4a8abc081a6b5fab8e4d8f1363d6da52b4e5",
+        "role": "variant playable scene"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v2-north-south-socket/run_capture_guarded.py",
+        "sha256": "cf77428fcbbd4a73bcb2e6173006b3ca9a26aaab5068c89e02b2878cb80d4339",
+        "role": "guarded capture runner"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v2-north-south-socket/test_room.gd",
+        "sha256": "ab234d2c3190cf2bef50b5a1c5fe47ae4755d503940c7c15d7833333fca2d5d8",
+        "role": "standalone headless test harness"
+      },
+      {
+        "path": "godot_walk/source_library/sources/video-102caf53423018b7/source_manifest-v3.json",
+        "sha256": "6c4863b240d035cdc52b78fc6a33b79dc07b610df5d6663d19cc8f6f7364d626",
+        "role": "immutable source registration manifest"
+      },
+      {
+        "path": "godot_walk/vendor/ursc/common.gdshaderinc",
+        "sha256": "c2bba1e4d8491d91684efd246458196d7750a4951a21c1bbef58b82537288a49",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      },
+      {
+        "path": "godot_walk/vendor/ursc/utilities.gdshaderinc",
+        "sha256": "0a56e85852069315945e54fdb692dd5f9140dee9ae2ad15bce958987c7b0f011",
+        "role": "transitive Godot scene, script, shader or texture dependency"
+      }
+    ],
+    "authoring_log": {
+      "manual_decisions": [
+        "Author a 12x20 design-unit rectangle; no dimensions are inferred from the source.",
+        "Use attempt-001-retry-001 panorama as a static visual reference and direct source-frame crops for close surfaces.",
+        "Author chevron wallpaper walls, yellow carpet, three static square pillars, a flat drop ceiling with grid ribs and light panels, white baseboards and a far light panel.",
+        "Keep every edge closed; no openings, sockets or connectivity are authored.",
+        "Retain the accepted controller and current PSX settings; leave both calibration flags false.",
+        "2026-11-18 issue 275: authored north/south two-socket through variant from the accepted chevron-corridor-v1 room; the far light panel was removed so the north doorway is clear; openings are operator-approved but untested."
+      ],
+      "operator_interventions": 1,
+      "effort": "One bounded candidate authored; no model, inference or paid call was run in this stage."
+    },
+    "room_clearance": {
+      "floor_elevation": 0.0,
+      "ceiling_elevation": 3.6,
+      "basis": "authored"
+    },
+    "dynamic_resource_declarations": [
+      {
+        "script_path": "godot_walk/scripts/library_psx_preset.gd",
+        "line": 49,
+        "call_index": 0,
+        "expression": "\"res://shaders/library_psx_%s.gdshader\" % shader_name",
+        "resource_paths": [
+          "godot_walk/shaders/library_psx_textured.gdshader",
+          "godot_walk/shaders/library_psx_vertex.gdshader"
+        ]
+      }
+    ]
+  },
+  "validation": {
+    "mechanical_status": "passed",
+    "stages": [
+      {
+        "stage_id": "standalone_spawn_floor_boundary_reset",
+        "status": "passed",
+        "candidate_fingerprint": "444bcbae77518a77f2b4e8e2559c1e9f611520e978c75cfdd7dc91b1597e459e",
+        "artifacts": [
+          {
+            "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/standalone_test_receipt.json",
+            "sha256": "8312012febcbfb5ffcf6feaa4dc691f3dae3dacab454d75c9c3a8a5217190020",
+            "role": "Godot headless runtime controls"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/test_room.gd",
+            "sha256": "b28519d676ec81936407c4b9a768f71dd44b14ee803aecc30e40ab283dc824fc",
+            "role": "standalone test harness"
+          },
+          {
+            "path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v1/room.tscn",
+            "sha256": "6523d8cee0de3f9f6aecdf4dd98be2b4bfbf6c2aa5c19dd1ab73db2e9af01bc5",
+            "role": "playable candidate scene"
+          }
+        ],
+        "notes": [
+          "Runtime-tested floor support, closed perimeter, pillar collision, walk and backtrack, no boundary escape, R reset, and floor/boundary negative controls."
+        ]
+      }
+    ]
+  },
+  "operator_decision": {
+    "status": "accepted",
+    "decision_record_path": "godot_walk/source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v2-north-south-socket/catalog_admission_decision.json",
+    "decision_sha256": "e4fb599f594bd2f1c4c037221c20bbabe494145d5bd3bdfa1db6a29046b83e78",
+    "candidate_fingerprint": "4367485987d2fded92732e6c1801a47b64a22048c1933749e2d200b4bf9aedf3",
+    "scope": "Operator-approved new through variant with two declared but UNTESTED sockets (issue 275). No connector pair, generated map, registration or metric scale is accepted."
+  },
+  "catalog_snapshot": {
+    "path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.6.0.json",
+    "sha256": "2095b4e67742f8de17f83da3f0900397f1603f1d10cb4367ae74ca4e1dad1cce",
+    "catalog_id": "godot_psx_room_kit",
+    "catalog_version": "0.6.0"
+  },
+  "candidate_identity": "4367485987d2fded92732e6c1801a47b64a22048c1933749e2d200b4bf9aedf3"
+}
