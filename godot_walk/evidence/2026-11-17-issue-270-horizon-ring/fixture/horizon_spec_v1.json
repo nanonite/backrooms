@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-270-horizon-ring-spec-v1",
+  "description": "Finite authored world-fixed silhouette ring for a visual-only parallax experiment. All values are uncalibrated design units; this is not a reconstruction, not a metric scale and not a navigable destination.",
+  "ring": {
+    "center_x": 0.0,
+    "center_z": 0.0,
+    "radius": 36.0,
+    "segment_count": 24,
+    "panel_width": 10.0,
+    "panel_thickness": 0.12,
+    "panel_base_y": 0.0,
+    "face_center": true
+  },
+  "panel_heights": [
+    2.2, 3.1, 1.8, 4.0,
+    2.7, 3.6, 2.0, 3.3,
+    4.4, 2.5, 1.9, 3.8,
+    2.9, 2.1, 3.5, 4.2,
+    2.4, 3.0, 1.7, 3.9,
+    2.6, 3.7, 2.3, 3.2
+  ],
+  "silhouette": {
+    "color": [0.16, 0.20, 0.24],
+    "shading": "unshaded",
+    "classification": "authored"
+  },
+  "sky": {
+    "type": "procedural_gradient_sky",
+    "rendered_at": "infinity",
+    "note": "Static sky background drawn at infinity; it does not parallax under camera translation and provides the fixed backdrop for the finite ring."
+  },
+  "collision": {
+    "policy": "none",
+    "note": "The finite horizon ring has no collider, no floor and no implied route. The camera path is an authored inspection path, not traversal."
+  },
+  "camera_path": {
+    "bounded": true,
+    "min_x": -3.0,
+    "max_x": 3.0,
+    "y": 1.6,
+    "z": 0.0,
+    "orientation_forward": [0.0, 0.0, -1.0],
+    "note": "Bounded horizontal inspection path. No player/character controller is added to either scene."
+  },
+  "parallax": {
+    "min_angular_shift_deg": 1.0,
+    "sampled_panel_index": 18,
+    "note": "Panel 18 sits near -Z, directly ahead of both same-orientation views. Its horizontal angular shift between translate_a and translate_b must exceed the threshold; the sky background shift is zero by construction."
+  },
+  "source_reference": {
+    "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/adaptation_standalone_accepted_v1.json",
+    "role": "visual context only; not modified, not admitted, not registered"
+  },
+  "status": "candidate_pending_review",
+  "flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "operator_approved": false
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-270-pinned-supplement-v1",
+  "note": "Hashes computed from the working tree by generate_pinned_supplement_v1.py, not authored by hand. These files must not be edited by this slice.",
+  "files": {
+    "godot_walk/room_catalog/MATERIAL_LANGUAGE.md": "0e479479da8069ecbce0a56914517e43fbfa6ae564b173c76aba6390587fcc86",
+    "godot_walk/room_catalog/material_palettes/PALETTES.md": "fbb689217c900283bede2a75fec54dcb6d137925b172b1b53fc544c96b365e7e",
+    "godot_walk/room_catalog/catalog.json": "b1d60a876e52d1e98dc8afe6b2391d00deeba42e8f8a4347057fe584c7127b82",
+    "godot_walk/project.godot": "a84e5567df657859d4265f2f36a9f2a18d2fe69ebf39f05b36bb95eadf59ccf7",
+    "godot_walk/scripts/player.gd": "67746b987e8db645bb72bebd915d0ea263167c12d2e9fcb020ab72b07ab18c23"
+  }
+}

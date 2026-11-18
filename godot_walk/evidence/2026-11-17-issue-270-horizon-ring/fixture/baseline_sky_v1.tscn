@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://evidence/2026-11-17-issue-270-horizon-ring/fixture/baseline_sky_v1.gd" id="1_baseline"]
+[ext_resource type="Script" path="res://evidence/2026-11-17-issue-270-horizon-ring/fixture/static_sky_v1.gd" id="2_sky"]
+
+[node name="BaselineSkyV1Fixture" type="Node3D"]
+script = ExtResource("1_baseline")
+
+[node name="StaticSkyBackground" type="Node" parent="."]
+script = ExtResource("2_sky")

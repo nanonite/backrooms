@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-270-horizon-views-v1",
+  "note": "Identical camera records are reused byte-for-byte by the baseline and variant captures. Positions are authored inspection viewpoints in uncalibrated design units; the camera is the InspectionCamera of each instantiated scene. translate_a and translate_b are separated along X with the SAME look direction (target minus position is [0,0,-10] for both); rotated holds the translate_a position but changes orientation in place; seam_check is a slightly elevated oblique diagnostic. The movement sequence walks the bounded path in five recorded steps. on_path=false marks the elevated seam diagnostic, which is exempt from the ground path bounds.",
+  "views": [
+    {"id": "translate_a", "position": [-3.0, 1.6, 0.0], "target": [-3.0, 1.6, -10.0], "on_path": true, "description": "left end of bounded path, looking -Z"},
+    {"id": "translate_b", "position": [3.0, 1.6, 0.0], "target": [3.0, 1.6, -10.0], "on_path": true, "description": "right end of bounded path, identical orientation to translate_a"},
+    {"id": "rotated", "position": [-3.0, 1.6, 0.0], "target": [7.0, 1.6, 0.0], "on_path": true, "description": "in-place rotation from translate_a, looking +X"},
+    {"id": "seam_check", "position": [0.0, 3.2, 0.0], "target": [0.0, 1.4, -10.0], "on_path": false, "description": "slightly elevated diagnostic for seam, clipping and occlusion inspection; off the bounded inspection path"}
+  ],
+  "movement_sequence": {
+    "note": "Short bounded translation from translate_a to translate_b at fixed height and orientation; recorded transforms are written to the capture manifest.",
+    "steps": [
+      {"id": "move_00", "position": [-3.0, 1.6, 0.0], "target": [-3.0, 1.6, -10.0]},
+      {"id": "move_01", "position": [-1.5, 1.6, 0.0], "target": [-1.5, 1.6, -10.0]},
+      {"id": "move_02", "position": [0.0, 1.6, 0.0], "target": [0.0, 1.6, -10.0]},
+      {"id": "move_03", "position": [1.5, 1.6, 0.0], "target": [1.5, 1.6, -10.0]},
+      {"id": "move_04", "position": [3.0, 1.6, 0.0], "target": [3.0, 1.6, -10.0]}
+    ]
+  },
+  "status": "candidate_pending_review",
+  "flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "operator_approved": false
+  }
+}
