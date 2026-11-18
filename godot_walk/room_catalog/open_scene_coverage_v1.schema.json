@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/open_scene_coverage_v1.schema.json",
+  "title": "Open-scene finite-coverage candidate contract, v1",
+  "description": "Separately versioned contract for a finite supported open-air coverage footprint. It does not reinterpret the frozen enclosed-room contract, does not admit anything to the room catalog, and does not implement the traversal policy at runtime.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "contract_id",
+    "contract_version",
+    "candidate_id",
+    "status",
+    "scene_category",
+    "registration_accepted",
+    "scale_calibrated",
+    "catalog_scope",
+    "coverage",
+    "safe_spawn_xyz",
+    "exterior_classification",
+    "visual_horizon",
+    "boundary",
+    "obstacles",
+    "traversal_policy",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "contract_id": {
+      "const": "godot_open_scene_coverage"
+    },
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "candidate_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "status": {
+      "enum": ["candidate_pending_review", "rejected"]
+    },
+    "scene_category": {
+      "const": "open_world"
+    },
+    "registration_accepted": {
+      "const": false
+    },
+    "scale_calibrated": {
+      "const": false
+    },
+    "catalog_scope": {
+      "const": "not_admitted_pending_integration_design"
+    },
+    "coverage": {
+      "type": "object",
+      "required": ["representation", "vertices_xz", "floor_elevation", "basis", "evidence_ref"],
+      "properties": {
+        "representation": {
+          "const": "simple_orthogonal_polygon_xz"
+        },
+        "vertices_xz": {
+          "type": "array",
+          "minItems": 4,
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              { "type": "number" },
+              { "type": "number" }
+            ],
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "floor_elevation": {
+          "type": "number"
+        },
+        "basis": {
+          "enum": ["authored", "estimated", "observed"]
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "safe_spawn_xyz": {
+      "type": "array",
+      "prefixItems": [
+        { "type": "number" },
+        { "type": "number" },
+        { "type": "number" }
+      ],
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "exterior_classification": {
+      "const": "unknown"
+    },
+    "visual_horizon": {
+      "type": "object",
+      "required": ["open_sky", "visual_only", "is_observed_geometry"],
+      "properties": {
+        "open_sky": {
+          "const": true
+        },
+        "visual_only": {
+          "const": true
+        },
+        "is_observed_geometry": {
+          "const": false
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "boundary": {
+      "type": "object",
+      "required": [
+        "wall_ring_present",
+        "boundary_collider_present",
+        "edge_is_observed_geometry",
+        "coverage_limit_representation",
+        "exits"
+      ],
+      "properties": {
+        "wall_ring_present": {
+          "const": false
+        },
+        "boundary_collider_present": {
+          "const": false
+        },
+        "edge_is_observed_geometry": {
+          "const": false
+        },
+        "coverage_limit_representation": {
+          "enum": [
+            "nonphysical_coverage_edge",
+            "player_facing_indication_only",
+            "authored_visual_marker_not_observed_geometry"
+          ]
+        },
+        "exits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind", "destination_classification", "observed"],
+            "properties": {
+              "kind": {
+                "const": "coverage_limit"
+              },
+              "destination_classification": {
+                "const": "unknown"
+              },
+              "observed": {
+                "const": false
+              },
+              "notes": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "obstacles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "provenance", "evidence_ref"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "provenance": {
+            "enum": ["observed", "authored"]
+          },
+          "evidence_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "is_coverage_edge": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "traversal_policy": {
+      "$ref": "#/$defs/traversalPolicy"
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source_kind", "scale_status", "connectivity_status"],
+      "properties": {
+        "source_kind": {
+          "enum": ["video", "picture_set", "synthetic_fixture"]
+        },
+        "scale_status": {
+          "enum": ["uncalibrated"]
+        },
+        "connectivity_status": {
+          "enum": ["unknown"]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "synthetic_fixture": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "traversalPolicy": {
+      "type": "object",
+      "required": ["policy", "coverage_indication"],
+      "properties": {
+        "policy": {
+          "enum": ["stop", "return"],
+          "default": "stop"
+        },
+        "coverage_indication": {
+          "type": "object",
+          "required": ["kind", "player_facing_text"],
+          "properties": {
+            "kind": {
+              "enum": [
+                "coverage_limit_reached",
+                "boundary_not_observed"
+              ]
+            },
+            "player_facing_text": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

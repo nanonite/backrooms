@@ -1,0 +1,79 @@
+{
+  "boundary": {
+    "boundary_collider_present": false,
+    "coverage_limit_representation": "nonphysical_coverage_edge",
+    "edge_is_observed_geometry": false,
+    "exits": [
+      {
+        "destination_classification": "unknown",
+        "kind": "coverage_limit",
+        "notes": "no claimed or observed destination",
+        "observed": false
+      }
+    ],
+    "wall_ring_present": false
+  },
+  "candidate_id": "synthetic-open-field-v1",
+  "catalog_scope": "not_admitted_pending_integration_design",
+  "contract_id": "godot_open_scene_coverage",
+  "contract_version": "1.0.0",
+  "coverage": {
+    "basis": "authored",
+    "evidence_ref": "synthetic:no_real_source",
+    "floor_elevation": 0.0,
+    "representation": "simple_orthogonal_polygon_xz",
+    "vertices_xz": [
+      [
+        0,
+        0
+      ],
+      [
+        12,
+        0
+      ],
+      [
+        12,
+        9
+      ],
+      [
+        0,
+        9
+      ]
+    ]
+  },
+  "exterior_classification": "unknown",
+  "obstacles": [
+    {
+      "evidence_ref": "synthetic:no_real_source",
+      "id": "authored-rock-a",
+      "notes": "authored stand-in, not measured",
+      "provenance": "authored"
+    }
+  ],
+  "provenance": {
+    "connectivity_status": "unknown",
+    "notes": "CPU-only synthetic fixture; no real source, no model, no operator acceptance",
+    "scale_status": "uncalibrated",
+    "source_kind": "synthetic_fixture"
+  },
+  "registration_accepted": false,
+  "safe_spawn_xyz": [
+    6.0,
+    0.0,
+    4.5
+  ],
+  "scale_calibrated": false,
+  "scene_category": "open_world",
+  "schema_version": 1,
+  "status": "candidate_pending_review",
+  "synthetic_fixture": true,
+  "traversal_policy": {
+    "policy": "stop"
+  },
+  "visual_horizon": {
+    "is_observed_geometry": false,
+    "notes": "synthetic panorama stand-in, appearance only",
+    "open_sky": true,
+    "visual_only": true
+  }
+}

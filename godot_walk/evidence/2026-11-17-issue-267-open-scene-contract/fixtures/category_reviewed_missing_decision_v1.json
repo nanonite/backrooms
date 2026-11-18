@@ -1,0 +1,20 @@
+{
+  "category": "open_world",
+  "contract_id": "godot_intake_scene_category",
+  "contract_version": "1.0.0",
+  "provenance": {
+    "basis": "observed",
+    "evidence_ref": "synthetic:no_real_source",
+    "notes": "CPU-only fixture"
+  },
+  "review": {
+    "notes": "synthetic review stand-in used only to exercise routing logic",
+    "recorded_at_utc": "2026-11-17T00:00:00Z",
+    "reviewer": "synthetic-test-double-not-a-real-operator",
+    "state": "operator_reviewed"
+  },
+  "schema_version": 1,
+  "source_id": "video-0000000000000001",
+  "source_manifest_path": "data/videos/synthetic.mp4",
+  "synthetic_fixture": true
+}

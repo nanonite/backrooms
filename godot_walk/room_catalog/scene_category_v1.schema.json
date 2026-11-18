@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backrooms.local/godot_walk/room_catalog/scene_category_v1.schema.json",
+  "title": "Versioned intake scene-category record, contract v1",
+  "description": "Operator-reviewed scene category attached to a video or picture-set source. Legacy sources have no such record and route to the enclosed workflow. This record never approves a scene or changes a source manifest.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "contract_id",
+    "contract_version",
+    "source_id",
+    "category",
+    "review",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "contract_id": {
+      "const": "godot_intake_scene_category"
+    },
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "source_manifest_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "enum": ["enclosed", "open_world", "unknown"]
+    },
+    "review": {
+      "type": "object",
+      "required": ["state"],
+      "properties": {
+        "state": {
+          "enum": ["pending", "operator_reviewed", "rejected"]
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision_record": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recorded_at_utc": {
+          "type": "string",
+          "minLength": 1
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "operator_reviewed"
+              }
+            },
+            "required": ["state"]
+          },
+          "then": {
+            "required": ["reviewer", "decision_record", "recorded_at_utc"]
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["basis", "evidence_ref"],
+      "properties": {
+        "basis": {
+          "enum": ["observed", "inferred", "authored", "unknown"]
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "synthetic_fixture": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}
