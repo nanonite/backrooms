@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-268-matched-views-v1",
+  "note": "Identical camera positions and targets are used for the baseline and variant captures so the five views are paired. Positions are authored inspection viewpoints in the fixture's uncalibrated design units; the camera is the Player/Head/Camera3D of each instantiated scene.",
+  "views": [
+    {"id": "front", "position": [0.0, 1.6, 7.0], "target": [0.0, 3.2, 0.0], "description": "front, eye height, full tree"},
+    {"id": "side", "position": [7.0, 1.6, 0.0], "target": [0.0, 3.2, 0.0], "description": "side, eye height, canopy edge silhouette"},
+    {"id": "oblique", "position": [5.0, 1.7, 5.0], "target": [0.0, 3.4, 0.0], "description": "oblique, eye height, layered-card depth"},
+    {"id": "close", "position": [0.0, 1.6, 2.2], "target": [0.0, 2.6, 0.0], "description": "close, trunk and lower canopy crop edges"},
+    {"id": "elevated", "position": [4.5, 6.5, 4.5], "target": [0.0, 4.2, 0.0], "description": "elevated, canopy top and card gaps"}
+  ],
+  "flags": {
+    "registration_accepted": false,
+    "scale_calibrated": false,
+    "operator_approved": false
+  }
+}

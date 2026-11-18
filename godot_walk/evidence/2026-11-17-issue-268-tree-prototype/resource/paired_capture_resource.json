@@ -1,0 +1,38 @@
+{
+  "label": "snow-garden-courtyard-v2-capture",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://evidence/2026-11-17-issue-268-tree-prototype/fixture/capture_views.gd",
+    "--",
+    "--out=res://evidence/2026-11-17-issue-268-tree-prototype/captures/paired_v1"
+  ],
+  "output_dir": "godot_walk/evidence/2026-11-17-issue-268-tree-prototype/captures/paired_v1",
+  "timeout_seconds": 240,
+  "return_code": 0,
+  "timed_out": false,
+  "error": null,
+  "elapsed_seconds": 5.016,
+  "finished_at_utc": "2026-11-18T03:36:21.402356+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11450449920,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 0,
+    "compute_apps": [],
+    "ram_available_bytes": 22067400704,
+    "vram_after_headroom_bytes": 9160359936,
+    "ram_after_headroom_bytes": 16550550528,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "peak_resources": {
+    "peak_child_rss_bytes": 547987456,
+    "gpu_memory_start_bytes": 996147200,
+    "peak_gpu_memory_used_bytes": 1173356544,
+    "peak_gpu_memory_delta_bytes": 177209344,
+    "gpu_sample_period_ms": 500
+  }
+}

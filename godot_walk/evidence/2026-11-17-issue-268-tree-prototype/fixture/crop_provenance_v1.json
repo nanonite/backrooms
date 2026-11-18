@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-268-tree-crop-provenance-v1",
+  "purpose": "Traceability for the isolated one-tree prototype. Canopy cards reuse existing source-backed crops; the trunk appearance is explicitly authored (see bark_crop_assessment).",
+  "source": {
+    "source_video": "data/videos/Angel (Joseph Cornell, 1957).mp4",
+    "source_video_sha256": "d92fc1fa764aa3a25a40910f01858def4b72dd3b51ca4af8d5d012d788567428",
+    "frame_manifest": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/frames/issue174-5s-c/extraction_manifest.json",
+    "frame_manifest_sha256": "0dbeed6c0da940d4d38e49282dd3677ee4c35f7f35b25f3b6590acea80baccab",
+    "source_frame_id": "frame_4347",
+    "source_frame_sha256": "ae59a84fb9aa07612b5b100c2ee5b5ab5645836dd5bccc665b862acd51ab500f",
+    "operation": "crops copied byte-for-byte from an existing accepted-room crop manifest; no resize, re-encode or colour edit"
+  },
+  "origin_crop_manifest": {
+    "path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/crop_manifest.json",
+    "note": "Read-only provenance source. The accepted room, its pinned inputs and this manifest were not edited."
+  },
+  "crops": [
+    {
+      "name": "branch_canopy",
+      "frame_id": "frame_4347",
+      "source_pixel_bounds_xyxy": [60, 20, 380, 200],
+      "origin_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/branch_canopy.png",
+      "sha256": "efcc29875612c7ffd87d6d168941caf2c8f5e58d9360bbb9f6e1b2067fb0c6af",
+      "dimensions": [320, 180],
+      "fixture_path": "godot_walk/evidence/2026-11-17-issue-268-tree-prototype/fixture/textures/branch_canopy.png",
+      "fixture_sha256": "efcc29875612c7ffd87d6d168941caf2c8f5e58d9360bbb9f6e1b2067fb0c6af",
+      "classification": "source_backed_canopy_crop"
+    },
+    {
+      "name": "branch_fine",
+      "frame_id": "frame_4347",
+      "source_pixel_bounds_xyxy": [380, 0, 636, 150],
+      "origin_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/branch_fine.png",
+      "sha256": "d42ec46a70874184b6337b06b0834ae6beee1356033d3a913180f1be3b737111",
+      "dimensions": [256, 150],
+      "fixture_path": "godot_walk/evidence/2026-11-17-issue-268-tree-prototype/fixture/textures/branch_fine.png",
+      "fixture_sha256": "d42ec46a70874184b6337b06b0834ae6beee1356033d3a913180f1be3b737111",
+      "classification": "source_backed_canopy_crop"
+    },
+    {
+      "name": "evergreen_foliage",
+      "frame_id": "frame_4347",
+      "source_pixel_bounds_xyxy": [0, 0, 130, 200],
+      "origin_path": "godot_walk/source_library/sources/video-d92fc1fa764aa3a2/rooms/snow-garden-courtyard-v2/textures/evergreen_foliage.png",
+      "sha256": "24cacd0bada96e0b1c7b82caaaaaaa51ecda0e48e8a2d2de8c072ffed18ba7ea",
+      "dimensions": [130, 200],
+      "fixture_path": "godot_walk/evidence/2026-11-17-issue-268-tree-prototype/fixture/textures/evergreen_foliage.png",
+      "fixture_sha256": "24cacd0bada96e0b1c7b82caaaaaaa51ecda0e48e8a2d2de8c072ffed18ba7ea",
+      "classification": "source_backed_canopy_crop"
+    }
+  ],
+  "bark_crop_assessment": {
+    "result": "no_appropriate_bark_crop_found",
+    "frames_inspected": [
+      "frame_3597",
+      "frame_3747",
+      "frame_3897",
+      "frame_4047",
+      "frame_4197",
+      "frame_4347",
+      "frame_4497"
+    ],
+    "finding": "Trunks and branches in the available decoded frames appear as near-black silhouettes or water reflections against blue sky. No frame contains an unobstructed, well-lit bark region with resolvable texture detail that could serve as a trunk albedo without inventing content or overstating source evidence.",
+    "decision": "Retain an explicitly authored tapered trunk appearance. Do not claim any source-backed trunk texture. Canopy cards remain source-backed via the three traceable crops above.",
+    "see_also": "authored_vs_source_v1.md"
+  },
+  "authored_vs_source": {
+    "source_backed": ["canopy card albedo textures (three crops above)"],
+    "authored": [
+      "trunk taper, radius, height and solid bark-like colour",
+      "branch count, angles, lengths and geometry",
+      "canopy card placement, orientations, depth offsets, sizes and counts",
+      "finite inspection floor, spawn, lighting, camera views and all collision"
+    ],
+    "flags": {
+      "registration_accepted": false,
+      "scale_calibrated": false,
+      "operator_approved": false
+    },
+    "status": "candidate_pending_review"
+  }
+}

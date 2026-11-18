@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "record_id": "issue-268-canopy-card-specs-v1",
+  "note": "Authored placement only. Design units, uncalibrated. Crop names must resolve against crop_provenance_v1.json. Azimuth is the authored radial direction in degrees; the card normal is derived from it. Every azimuth, radial offset and centre height is distinct so the layered cards differ in orientation and depth.",
+  "cards": [
+    {"id": "CanopyCard00", "crop": "branch_canopy", "azimuth_deg": 0, "radial_offset": 1.35, "center_y": 4.90, "tilt_deg": 0, "size_x": 1.90, "size_y": 1.05},
+    {"id": "CanopyCard01", "crop": "branch_fine", "azimuth_deg": 45, "radial_offset": 1.55, "center_y": 4.60, "tilt_deg": -8, "size_x": 1.70, "size_y": 0.95},
+    {"id": "CanopyCard02", "crop": "evergreen_foliage", "azimuth_deg": 90, "radial_offset": 1.25, "center_y": 5.15, "tilt_deg": 6, "size_x": 1.20, "size_y": 1.60},
+    {"id": "CanopyCard03", "crop": "branch_canopy", "azimuth_deg": 135, "radial_offset": 1.70, "center_y": 4.35, "tilt_deg": -12, "size_x": 1.80, "size_y": 1.00},
+    {"id": "CanopyCard04", "crop": "branch_fine", "azimuth_deg": 180, "radial_offset": 1.40, "center_y": 4.95, "tilt_deg": 10, "size_x": 1.60, "size_y": 0.90},
+    {"id": "CanopyCard05", "crop": "evergreen_foliage", "azimuth_deg": 240, "radial_offset": 1.50, "center_y": 4.70, "tilt_deg": -5, "size_x": 1.15, "size_y": 1.50},
+    {"id": "CanopyCard06", "crop": "branch_canopy", "azimuth_deg": 300, "radial_offset": 1.60, "center_y": 5.25, "tilt_deg": 14, "size_x": 1.75, "size_y": 0.95}
+  ]
+}
