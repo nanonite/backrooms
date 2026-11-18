@@ -122,10 +122,9 @@ def _validate_module(module: dict[str, Any]) -> None:
         raise ValueError(f"Module {module.get('id')} has duplicate sockets")
     if layout_eligible and not socket_ids:
         raise ValueError(f"Module {module.get('id')} must declare unique sockets")
-    if not layout_eligible and socket_ids:
-        raise ValueError(
-            f"Non-layout module {module.get('id')} must not declare sockets"
-        )
+    # A non-layout module may declare untested sockets (operator-approved
+    # designs); layout selection ignores it, but every declared socket is
+    # still validated below.
     if len(module.get("placement_footprint_xz", [])) < 3:
         raise ValueError(f"Module {module.get('id')} has no polygon footprint")
     if (
@@ -133,9 +132,7 @@ def _validate_module(module: dict[str, Any]) -> None:
         or module.get("ceiling_elevation_m") is None
     ):
         raise ValueError(f"Module {module.get('id')} has incomplete vertical bounds")
-    if not layout_eligible:
-        return
-    for socket in module["sockets"]:
+    for socket in module.get("sockets", []):
         if socket["compatibility_type"] != "level_doorway_2m_v1":
             raise ValueError(f"Unsupported socket type in module {module['id']}")
         if socket["clear_size_m"] != [2.0, 2.1]:

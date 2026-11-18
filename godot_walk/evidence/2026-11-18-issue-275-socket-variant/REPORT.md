@@ -215,3 +215,16 @@ Added: `godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.7.0.json`
 the new `chevron-corridor-v2-north-south-socket/` room folder (scene, scripts,
 test, captures, decision, adaptation, poetics draft, module profile), and this
 report.
+
+## Addendum 2026-11-18 (operator-approved resolution of the two escalated blockers)
+
+- Blocker 1 (layout validator): operator chose to allow declared-but-untested sockets
+  on non-layout modules. `issue149_layout_core._validate_module` no longer rejects them;
+  every declared socket still gets the type/size/duplicate checks, and layout selection
+  still ignores modules with `layout_eligible: false`. New tests:
+  `godot_walk/scripts/test_issue149_untested_sockets.py` (includes a 40-seed check that
+  layout never places a non-layout module).
+- Blocker 2 (profile sidecar): operator chose to drop the sidecar. `module_profile_v1.json`
+  was removed from the variant folder; references to it above are historical. The derived
+  `module_poetics_v1.json` draft remains. A profile may be added when the variant becomes
+  layout-eligible.
