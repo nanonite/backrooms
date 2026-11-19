@@ -1,0 +1,57 @@
+{
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--rendering-driver",
+    "vulkan",
+    "--fixed-fps",
+    "30",
+    "--quit-after",
+    "120",
+    "--write-movie",
+    "/mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-11-19-issue-276-movie-maker-audio/captures/synthetic-png-1/movie.png",
+    "--script",
+    "res://evidence/2026-11-19-issue-276-movie-maker-audio/fixture/audio_probe.gd",
+    "--",
+    "--mode=tone_then_clip"
+  ],
+  "display": ":1",
+  "duration_seconds": 4.0,
+  "elapsed_seconds": 2.217,
+  "error": null,
+  "format": "png",
+  "fps": 30,
+  "frames": 120,
+  "generator": "godot_walk/scripts/issue276_capture_audio.py",
+  "godot_version": "4.6.3.stable.official.7d41c59c4",
+  "issue": 276,
+  "mode": "synthetic",
+  "name": "synthetic-png-1",
+  "peak_resources": {
+    "gpu_memory_start_bytes": 757071872,
+    "gpu_sample_period_ms": 500,
+    "peak_child_rss_bytes": 524124160,
+    "peak_gpu_memory_delta_bytes": 160432128,
+    "peak_gpu_memory_used_bytes": 917504000
+  },
+  "preflight": {
+    "compute_apps": [],
+    "free_vram_bytes": 11689525248,
+    "guard_policy_version": "2.1.0",
+    "ram_after_headroom_bytes": 35105104896,
+    "ram_available_bytes": 46806806528,
+    "ram_headroom_fraction": 0.25,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 0,
+    "vram_after_headroom_bytes": 9351620198,
+    "vram_headroom_fraction": 0.2
+  },
+  "return_code": 0,
+  "room": null,
+  "timed_out": false,
+  "verification_failures": [
+    "input does not exist: /mnt/sharedOs/backrooms-workspace/godot_walk/evidence/2026-11-19-issue-276-movie-maker-audio/captures/synthetic-png-1/movie.png"
+  ],
+  "verification_pass": false
+}

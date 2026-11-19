@@ -1,0 +1,17 @@
+{
+  "centroid_delta_hz": 188.0394,
+  "clipping_delta_samples": 0,
+  "duration_delta_s": 0.0,
+  "frames_identical": false,
+  "json_identical": false,
+  "pass": false,
+  "peak_delta_linear": 0.00326538,
+  "rms_delta_linear": 0.00986451,
+  "tolerances": {
+    "centroid_delta_hz": 0.001,
+    "clipping_delta_samples": 0,
+    "duration_delta_s": 1e-06,
+    "peak_delta_linear": 1e-06,
+    "rms_delta_linear": 1e-06
+  }
+}

@@ -265,6 +265,40 @@
             echo "===================================="
           '';
         };
+
+        # ------------------------------------------------------------------
+        # Issue #276 — offline audio analysis for Godot Movie Maker captures.
+        # Purely additive: no existing input, devShell, package or pinned hash
+        # is changed. ffmpeg decodes the .avi / .png-sibling .wav to 48 kHz
+        # mono; numpy (and scipy for follow-up work) compute the measurements
+        # used by godot_walk/scripts/issue276_analyze_audio.py. uv is provided
+        # for the optional uv-based Python path; no model or download is part
+        # of this shell.
+        # ------------------------------------------------------------------
+        devShells.audioAnalysis = pkgs.mkShell {
+          name = "backrooms-audio-analysis";
+
+          packages = with pkgs; [
+            ffmpeg
+            uv
+            (python3.withPackages (pythonPackages: with pythonPackages; [
+              numpy
+              scipy
+            ]))
+          ];
+
+          shellHook = ''
+            echo ""
+            echo "=== backrooms-audio-analysis dev shell (issue #276) ==="
+            command -v ffmpeg >/dev/null 2>&1 \
+              && echo "  [x] ffmpeg  $(ffmpeg -version 2>&1 | head -1 | cut -d' ' -f1-3)" \
+              || echo "  [ ] ffmpeg missing"
+            python3 -c "import numpy, scipy; print('  [x] numpy', numpy.__version__, 'scipy', scipy.__version__)" 2>/dev/null \
+              || echo "  [ ] numpy/scipy missing"
+            echo "  selftest: python3 godot_walk/scripts/issue276_analyze_audio.py selftest"
+            echo "===================================="
+          '';
+        };
       }
     );
 }

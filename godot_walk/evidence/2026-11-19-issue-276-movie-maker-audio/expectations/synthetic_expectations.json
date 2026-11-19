@@ -1,0 +1,10 @@
+{
+  "max_duration_seconds": 4.1,
+  "max_peak": 1.0,
+  "min_clipped_samples": 20000,
+  "min_duration_seconds": 3.9,
+  "min_peak": 0.99,
+  "require_clipping": true,
+  "tone_hz": 440.0,
+  "tone_tolerance_hz": 120.0
+}
