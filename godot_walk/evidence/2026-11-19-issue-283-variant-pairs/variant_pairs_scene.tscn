@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://evidence/2026-11-19-issue-283-variant-pairs/variant_pairs_scene.gd" id="1_pairs"]
+
+[node name="Issue283VariantPairs" type="Node3D"]
+script = ExtResource("1_pairs")

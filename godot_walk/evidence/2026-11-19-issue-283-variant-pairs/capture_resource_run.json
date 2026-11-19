@@ -1,0 +1,38 @@
+{
+  "label": "issue283-variant-pairs-capture",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://evidence/2026-11-19-issue-283-variant-pairs/capture_variant_pairs.gd",
+    "--",
+    "--out=res://evidence/2026-11-19-issue-283-variant-pairs/captures"
+  ],
+  "output_dir": "godot_walk/evidence/2026-11-19-issue-283-variant-pairs/captures",
+  "timeout_seconds": 300,
+  "return_code": 0,
+  "timed_out": false,
+  "error": null,
+  "elapsed_seconds": 6.185,
+  "finished_at_utc": "2026-11-19T18:50:53.803800+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11553210368,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 14,
+    "compute_apps": [],
+    "ram_available_bytes": 30963675136,
+    "vram_after_headroom_bytes": 9242568294,
+    "ram_after_headroom_bytes": 23222756352,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "peak_resources": {
+    "peak_child_rss_bytes": 577560576,
+    "gpu_memory_start_bytes": 893386752,
+    "peak_gpu_memory_used_bytes": 1476395008,
+    "peak_gpu_memory_delta_bytes": 583008256,
+    "gpu_sample_period_ms": 500
+  }
+}

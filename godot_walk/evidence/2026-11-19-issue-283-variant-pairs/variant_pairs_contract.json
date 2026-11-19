@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "candidate_version": "issue283-variant-connector-pairs-v1",
+  "status": "provisional_pair_tests_pending_operator_review",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "socket_test_status": "untested",
+  "layout_eligible": false,
+  "scope": "pair_tests_only_no_map_no_catalog_edit_no_integration_decision",
+  "rotation_convention": {
+    "source": "godot_walk/scripts/issue149_layout_core.py::_rotate_xz",
+    "yaw_degrees_to_xz": {
+      "0": "[x, z]",
+      "90": "[z, -x]",
+      "180": "[-x, -z]",
+      "270": "[-z, x]"
+    },
+    "godot_equivalence": "rotation.y = deg_to_rad(yaw_degrees)",
+    "note": "All four pairs are straight chains on the z axis. With x=0 sockets and yaw 0 or 180, the x coordinate stays 0 and the z normals either keep or flip sign. We use yaw 0 for every room; the yaw-180 mirror is noted per pair."
+  },
+  "rooms": [
+    {
+      "issue": 175,
+      "key": "chevron_175",
+      "room_id": "chevron_corridor_v2_north_south_socket",
+      "video": "video-102caf53423018b7",
+      "scene": "res://source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v2-north-south-socket/room.tscn",
+      "half_width_x": 6.0,
+      "half_depth_z": 10.0,
+      "room_height": 3.8,
+      "north_socket": {"local_floor_center": [0.0, 0.0, -10.0], "outward_normal": [0.0, 0.0, -1.0]},
+      "south_socket": {"local_floor_center": [0.0, 0.0, 10.0], "outward_normal": [0.0, 0.0, 1.0]},
+      "clear_size_m": [2.0, 2.1],
+      "floor_elevation_m": 0.0,
+      "compatibility_type": "level_doorway_2m_v1"
+    },
+    {
+      "issue": 173,
+      "key": "nested_light_173",
+      "room_id": "nested_light_corridor_v2_north_south_socket",
+      "video": "video-d857abe7a94da9d1",
+      "scene": "res://source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v2-north-south-socket/room.tscn",
+      "half_width_x": 5.0,
+      "half_depth_z": 12.0,
+      "room_height": 4.8,
+      "north_socket": {"local_floor_center": [0.0, 0.0, -12.0], "outward_normal": [0.0, 0.0, -1.0]},
+      "south_socket": {"local_floor_center": [0.0, 0.0, 12.0], "outward_normal": [0.0, 0.0, 1.0]},
+      "clear_size_m": [2.0, 2.1],
+      "floor_elevation_m": 0.0,
+      "compatibility_type": "level_doorway_2m_v1"
+    },
+    {
+      "issue": 176,
+      "key": "chevron_176",
+      "room_id": "chevron_corridor_v2_north_south_socket",
+      "video": "video-2671b32f256a4ee7",
+      "scene": "res://source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/room.tscn",
+      "half_width_x": 8.0,
+      "half_depth_z": 10.0,
+      "room_height": 4.2,
+      "north_socket": {"local_floor_center": [0.0, 0.0, -10.0], "outward_normal": [0.0, 0.0, -1.0]},
+      "south_socket": {"local_floor_center": [0.0, 0.0, 10.0], "outward_normal": [0.0, 0.0, 1.0]},
+      "clear_size_m": [2.0, 2.1],
+      "floor_elevation_m": 0.0,
+      "compatibility_type": "level_doorway_2m_v1"
+    },
+    {
+      "issue": 177,
+      "key": "chevron_cross_177",
+      "room_id": "chevron_cross_corridor_v2_north_south_socket",
+      "video": "video-61b91dbeb9026dc7",
+      "scene": "res://source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v2-north-south-socket/room.tscn",
+      "half_width_x": 8.0,
+      "half_depth_z": 10.0,
+      "room_height": 4.2,
+      "north_socket": {"local_floor_center": [0.0, 0.0, -10.0], "outward_normal": [0.0, 0.0, -1.0]},
+      "south_socket": {"local_floor_center": [0.0, 0.0, 10.0], "outward_normal": [0.0, 0.0, 1.0]},
+      "clear_size_m": [2.0, 2.1],
+      "floor_elevation_m": 0.0,
+      "compatibility_type": "level_doorway_2m_v1"
+    }
+  ],
+  "pairs": [
+    {
+      "id": "p1_chevron175_south__chevron176_north",
+      "from": {"issue": 175, "socket": "south"},
+      "to": {"issue": 176, "socket": "north"},
+      "from_origin": [0.0, 0.0, 0.0],
+      "from_yaw_degrees": 0,
+      "to_origin": [0.0, 0.0, 20.0],
+      "to_yaw_degrees": 0,
+      "seam_world_z": 10.0,
+      "arithmetic": "from south (0,0,+10) yaw0 -> (0,0,+10); to north (0,0,-10) yaw0 -> (0,0,-10); to_origin = (0,0,10) - (0,0,-10) = (0,0,20); normals +z vs -z dot -1",
+      "width_mismatch": "from width 12.0 (half 6.0) vs to width 16.0 (half 8.0): to room is 2.0 m wider on each side of the doorway; opening x in [-1,1] still common",
+      "ceiling_height_seam": "from 3.8 m vs to 4.2 m: 0.4 m visible step at the ceiling; floor both 0.0 so no walking step"
+    },
+    {
+      "id": "p2_chevron176_south__chevron177_north",
+      "from": {"issue": 176, "socket": "south"},
+      "to": {"issue": 177, "socket": "north"},
+      "from_origin": [0.0, 0.0, 0.0],
+      "from_yaw_degrees": 0,
+      "to_origin": [0.0, 0.0, 20.0],
+      "to_yaw_degrees": 0,
+      "seam_world_z": 10.0,
+      "arithmetic": "from south (0,0,+10) yaw0 -> (0,0,+10); to north (0,0,-10) yaw0 -> (0,0,-10); to_origin = (0,0,10) - (0,0,-10) = (0,0,20); normals +z vs -z dot -1",
+      "width_mismatch": "from width 16.0 (half 8.0) vs to width 16.0 (half 8.0): no width mismatch",
+      "ceiling_height_seam": "from 4.2 m vs to 4.2 m: no ceiling step; floor both 0.0 so no walking step"
+    },
+    {
+      "id": "p3_chevron177_south__nestedlight173_north",
+      "from": {"issue": 177, "socket": "south"},
+      "to": {"issue": 173, "socket": "north"},
+      "from_origin": [0.0, 0.0, 0.0],
+      "from_yaw_degrees": 0,
+      "to_origin": [0.0, 0.0, 22.0],
+      "to_yaw_degrees": 0,
+      "seam_world_z": 10.0,
+      "arithmetic": "from south (0,0,+10) yaw0 -> (0,0,+10); to north (0,0,-12) yaw0 -> (0,0,-12); to_origin = (0,0,10) - (0,0,-12) = (0,0,22); normals +z vs -z dot -1",
+      "width_mismatch": "from width 16.0 (half 8.0) vs to width 10.0 (half 5.0): to room is 3.0 m narrower on each side of the doorway; opening x in [-1,1] still common",
+      "ceiling_height_seam": "from 4.2 m vs to 4.8 m: 0.6 m visible step at the ceiling (the 4.2 vs 4.8 case named in the issue); floor both 0.0 so no walking step"
+    },
+    {
+      "id": "p4_nestedlight173_south__chevron175_north",
+      "from": {"issue": 173, "socket": "south"},
+      "to": {"issue": 175, "socket": "north"},
+      "from_origin": [0.0, 0.0, 0.0],
+      "from_yaw_degrees": 0,
+      "to_origin": [0.0, 0.0, 22.0],
+      "to_yaw_degrees": 0,
+      "seam_world_z": 12.0,
+      "arithmetic": "from south (0,0,+12) yaw0 -> (0,0,+12); to north (0,0,-10) yaw0 -> (0,0,-10); to_origin = (0,0,12) - (0,0,-10) = (0,0,22); normals +z vs -z dot -1",
+      "width_mismatch": "from width 10.0 (half 5.0) vs to width 12.0 (half 6.0): to room is 1.0 m wider on each side of the doorway; opening x in [-1,1] still common",
+      "ceiling_height_seam": "from 4.8 m vs to 3.8 m: 1.0 m visible step at the ceiling; floor both 0.0 so no walking step"
+    }
+  ],
+  "negative_controls": {
+    "applied": "per_pair",
+    "shared_assertion": "both controls run through the same _pair_geometry_errors() used by every nominal pair",
+    "mismatched_yaw": "to_yaw 180 with to_origin.z = seam_z - to_half_depth so XZ centers still align; to north normal flips to +z and dot becomes +1, rejected only by 'socket normals do not oppose'",
+    "floor_offset_0_3m": "to_origin.y = 0.3 with nominal yaw/placement; rejected only by 'connector floor elevations differ'"
+  },
+  "evidence": {
+    "assembly": "godot_walk/evidence/2026-11-19-issue-283-variant-pairs/variant_pairs_scene.tscn",
+    "headless_test": "godot_walk/evidence/2026-11-19-issue-283-variant-pairs/test_variant_pairs.gd",
+    "traversal": "godot_walk/evidence/2026-11-19-issue-283-variant-pairs/mechanics/traversal.json",
+    "capture_manifest": "godot_walk/evidence/2026-11-19-issue-283-variant-pairs/captures/capture_manifest.json",
+    "resource_receipt": "godot_walk/evidence/2026-11-19-issue-283-variant-pairs/capture_resource_run.json",
+    "report": "godot_walk/evidence/2026-11-19-issue-283-variant-pairs/REPORT.md"
+  }
+}

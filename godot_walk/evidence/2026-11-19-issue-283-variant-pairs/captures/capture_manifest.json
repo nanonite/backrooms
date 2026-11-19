@@ -1,0 +1,112 @@
+{
+	"engine": "4.6.3-stable (official)",
+	"frame_profile": {
+		"mean_frame_ms": 4.17524666666667,
+		"measured_frames": 300,
+		"p95_frame_ms": 6.076,
+		"p99_frame_ms": 8.698,
+		"warmup_frames": 120
+	},
+	"layout_eligible": false,
+	"placements": [
+		{
+			"from_origin": "(0.0, 0.0, 0.0)",
+			"from_yaw_degrees": 0,
+			"pair": "p1_chevron175_south__chevron176_north",
+			"seam_world_z": 10.0,
+			"to_origin": "(0.0, 0.0, 20.0)",
+			"to_yaw_degrees": 0
+		},
+		{
+			"from_origin": "(0.0, 0.0, 0.0)",
+			"from_yaw_degrees": 0,
+			"pair": "p2_chevron176_south__chevron177_north",
+			"seam_world_z": 10.0,
+			"to_origin": "(0.0, 0.0, 20.0)",
+			"to_yaw_degrees": 0
+		},
+		{
+			"from_origin": "(0.0, 0.0, 0.0)",
+			"from_yaw_degrees": 0,
+			"pair": "p3_chevron177_south__nestedlight173_north",
+			"seam_world_z": 10.0,
+			"to_origin": "(0.0, 0.0, 22.0)",
+			"to_yaw_degrees": 0
+		},
+		{
+			"from_origin": "(0.0, 0.0, 0.0)",
+			"from_yaw_degrees": 0,
+			"pair": "p4_nestedlight173_south__chevron175_north",
+			"seam_world_z": 12.0,
+			"to_origin": "(0.0, 0.0, 22.0)",
+			"to_yaw_degrees": 0
+		}
+	],
+	"registration_accepted": false,
+	"scale_calibrated": false,
+	"scene": "res://evidence/2026-11-19-issue-283-variant-pairs/variant_pairs_scene.tscn",
+	"scene_ready_ms": 149.626,
+	"socket_test_status": "untested",
+	"views": [
+		{
+			"name": "p1_from_a_to_b.png",
+			"position": "(0.0, 1.42, 6.5)",
+			"target": "(0.0, 1.3, 14.0)"
+		},
+		{
+			"name": "p1_from_b_to_a.png",
+			"position": "(0.0, 1.42, 13.5)",
+			"target": "(0.0, 1.3, 6.0)"
+		},
+		{
+			"name": "p1_doorway_side.png",
+			"position": "(2.6, 1.42, 7.6)",
+			"target": "(0.0, 1.35, 10.4)"
+		},
+		{
+			"name": "p2_from_a_to_b.png",
+			"position": "(0.0, 1.42, 6.5)",
+			"target": "(0.0, 1.3, 14.0)"
+		},
+		{
+			"name": "p2_from_b_to_a.png",
+			"position": "(0.0, 1.42, 13.5)",
+			"target": "(0.0, 1.3, 6.0)"
+		},
+		{
+			"name": "p2_doorway_side.png",
+			"position": "(2.6, 1.42, 7.6)",
+			"target": "(0.0, 1.35, 10.4)"
+		},
+		{
+			"name": "p3_from_a_to_b.png",
+			"position": "(0.0, 1.42, 6.5)",
+			"target": "(0.0, 1.3, 14.0)"
+		},
+		{
+			"name": "p3_from_b_to_a.png",
+			"position": "(0.0, 1.42, 13.5)",
+			"target": "(0.0, 1.3, 6.0)"
+		},
+		{
+			"name": "p3_doorway_side.png",
+			"position": "(2.6, 1.42, 7.6)",
+			"target": "(0.0, 1.35, 10.4)"
+		},
+		{
+			"name": "p4_from_a_to_b.png",
+			"position": "(0.0, 1.42, 8.5)",
+			"target": "(0.0, 1.3, 16.0)"
+		},
+		{
+			"name": "p4_from_b_to_a.png",
+			"position": "(0.0, 1.42, 15.5)",
+			"target": "(0.0, 1.3, 8.0)"
+		},
+		{
+			"name": "p4_doorway_side.png",
+			"position": "(2.6, 1.42, 9.6)",
+			"target": "(0.0, 1.35, 12.4)"
+		}
+	]
+}

@@ -1,0 +1,442 @@
+{
+	"candidate_status": "pending_operator_review",
+	"failures": [],
+	"issue": 283,
+	"layout_eligible": false,
+	"pairs": {
+		"P1": {
+			"aperture": {
+				"center_open": true,
+				"header_blocks": true,
+				"jamb_blocks": true,
+				"near_side_open": true
+			},
+			"ceiling_step_m": 0.4,
+			"center_xz_error": 0.0,
+			"clear_size_from": [
+				2.0,
+				2.1
+			],
+			"clear_size_to": [
+				2.0,
+				2.1
+			],
+			"doorway_capsule_samples_clear": 31,
+			"errors": [],
+			"exterior_closure": {
+				"closed_probes": 4,
+				"from_other_socket_open": true,
+				"probe_count": 4,
+				"to_other_socket_open": true
+			},
+			"floor_continuity": {
+				"supported": true,
+				"worst_abs_error": 0.00000000745058059692383
+			},
+			"floor_delta": 0.0,
+			"footprint_overlap": {
+				"no_overlap_beyond_doorway": true,
+				"overlap_x": 12.0,
+				"overlap_z": 0.0
+			},
+			"id": "p1_chevron175_south__chevron176_north",
+			"negative_controls": {
+				"floor_offset_0_3m": {
+					"errors": [
+						"connector floor elevations differ (delta=0.300000)"
+					],
+					"floor_delta": 0.300000011920929,
+					"rejected": true,
+					"to_origin": "(0.0, 0.3, 20.0)"
+				},
+				"mismatched_yaw": {
+					"errors": [
+						"socket normals do not oppose (dot=1.000000)"
+					],
+					"normal_dot": 1.0,
+					"rejected": true,
+					"to_origin": "(0.0, 0.0, 0.0)",
+					"to_yaw_degrees": 180
+				}
+			},
+			"normal_dot": -1.0,
+			"placement": {
+				"from_origin": "(0.0, 0.0, 0.0)",
+				"from_yaw_degrees": 0,
+				"seam_world_z": 10.0,
+				"to_origin": "(0.0, 0.0, 20.0)",
+				"to_yaw_degrees": 0
+			},
+			"traversal": {
+				"after_a_to_b": {
+					"on_floor": true,
+					"position": "(0.000002, 0.6, 15.99999)",
+					"rotation_y_degrees": -179.999991348578
+				},
+				"after_b_to_a": {
+					"on_floor": true,
+					"position": "(-0.0, 0.6, 4.0)",
+					"rotation_y_degrees": -179.999991348578
+				},
+				"after_reset": {
+					"on_floor": true,
+					"position": "(0.0, 0.6, 4.0)",
+					"rotation_y_degrees": 180.000005008956
+				},
+				"reached_to_room": true,
+				"reset_restored_spawn": true,
+				"returned_to_from_room": true,
+				"spawn": {
+					"on_floor": true,
+					"position": "(0.0, 0.6, 4.0)",
+					"rotation_y_degrees": -179.999991348578
+				}
+			},
+			"walking_step_m": 0.0,
+			"width_delta_each_side_m": 2.0
+		},
+		"P2": {
+			"aperture": {
+				"center_open": true,
+				"header_blocks": true,
+				"jamb_blocks": true,
+				"near_side_open": true
+			},
+			"ceiling_step_m": 0.0,
+			"center_xz_error": 0.0,
+			"clear_size_from": [
+				2.0,
+				2.1
+			],
+			"clear_size_to": [
+				2.0,
+				2.1
+			],
+			"doorway_capsule_samples_clear": 31,
+			"errors": [],
+			"exterior_closure": {
+				"closed_probes": 4,
+				"from_other_socket_open": true,
+				"probe_count": 4,
+				"to_other_socket_open": true
+			},
+			"floor_continuity": {
+				"supported": true,
+				"worst_abs_error": 0.00000000745058059692383
+			},
+			"floor_delta": 0.0,
+			"footprint_overlap": {
+				"no_overlap_beyond_doorway": true,
+				"overlap_x": 16.0,
+				"overlap_z": 0.0
+			},
+			"id": "p2_chevron176_south__chevron177_north",
+			"negative_controls": {
+				"floor_offset_0_3m": {
+					"errors": [
+						"connector floor elevations differ (delta=0.300000)"
+					],
+					"floor_delta": 0.300000011920929,
+					"rejected": true,
+					"to_origin": "(0.0, 0.3, 20.0)"
+				},
+				"mismatched_yaw": {
+					"errors": [
+						"socket normals do not oppose (dot=1.000000)"
+					],
+					"normal_dot": 1.0,
+					"rejected": true,
+					"to_origin": "(0.0, 0.0, 0.0)",
+					"to_yaw_degrees": 180
+				}
+			},
+			"normal_dot": -1.0,
+			"placement": {
+				"from_origin": "(0.0, 0.0, 0.0)",
+				"from_yaw_degrees": 0,
+				"seam_world_z": 10.0,
+				"to_origin": "(0.0, 0.0, 20.0)",
+				"to_yaw_degrees": 0
+			},
+			"traversal": {
+				"after_a_to_b": {
+					"on_floor": true,
+					"position": "(0.000002, 0.6, 15.99999)",
+					"rotation_y_degrees": -179.999991348578
+				},
+				"after_b_to_a": {
+					"on_floor": true,
+					"position": "(-0.0, 0.6, 4.0)",
+					"rotation_y_degrees": -179.999991348578
+				},
+				"after_reset": {
+					"on_floor": true,
+					"position": "(0.0, 0.6, 4.0)",
+					"rotation_y_degrees": 180.000005008956
+				},
+				"reached_to_room": true,
+				"reset_restored_spawn": true,
+				"returned_to_from_room": true,
+				"spawn": {
+					"on_floor": true,
+					"position": "(0.0, 0.6, 4.0)",
+					"rotation_y_degrees": -179.999991348578
+				}
+			},
+			"walking_step_m": 0.0,
+			"width_delta_each_side_m": 0.0
+		},
+		"P3": {
+			"aperture": {
+				"center_open": true,
+				"header_blocks": true,
+				"jamb_blocks": true,
+				"near_side_open": true
+			},
+			"ceiling_step_m": 0.6,
+			"center_xz_error": 0.0,
+			"clear_size_from": [
+				2.0,
+				2.1
+			],
+			"clear_size_to": [
+				2.0,
+				2.1
+			],
+			"doorway_capsule_samples_clear": 31,
+			"errors": [],
+			"exterior_closure": {
+				"closed_probes": 4,
+				"from_other_socket_open": true,
+				"probe_count": 4,
+				"to_other_socket_open": true
+			},
+			"floor_continuity": {
+				"supported": true,
+				"worst_abs_error": 0.00000000745058059692383
+			},
+			"floor_delta": 0.0,
+			"footprint_overlap": {
+				"no_overlap_beyond_doorway": true,
+				"overlap_x": 10.0,
+				"overlap_z": 0.0
+			},
+			"id": "p3_chevron177_south__nestedlight173_north",
+			"negative_controls": {
+				"floor_offset_0_3m": {
+					"errors": [
+						"connector floor elevations differ (delta=0.300000)"
+					],
+					"floor_delta": 0.300000011920929,
+					"rejected": true,
+					"to_origin": "(0.0, 0.3, 22.0)"
+				},
+				"mismatched_yaw": {
+					"errors": [
+						"socket normals do not oppose (dot=1.000000)"
+					],
+					"normal_dot": 1.0,
+					"rejected": true,
+					"to_origin": "(0.0, 0.0, -2.0)",
+					"to_yaw_degrees": 180
+				}
+			},
+			"normal_dot": -1.0,
+			"placement": {
+				"from_origin": "(0.0, 0.0, 0.0)",
+				"from_yaw_degrees": 0,
+				"seam_world_z": 10.0,
+				"to_origin": "(0.0, 0.0, 22.0)",
+				"to_yaw_degrees": 0
+			},
+			"traversal": {
+				"after_a_to_b": {
+					"on_floor": true,
+					"position": "(0.000002, 0.6, 15.99999)",
+					"rotation_y_degrees": -179.999991348578
+				},
+				"after_b_to_a": {
+					"on_floor": true,
+					"position": "(-0.0, 0.6, 4.0)",
+					"rotation_y_degrees": -179.999991348578
+				},
+				"after_reset": {
+					"on_floor": true,
+					"position": "(0.0, 0.6, 4.0)",
+					"rotation_y_degrees": 180.000005008956
+				},
+				"reached_to_room": true,
+				"reset_restored_spawn": true,
+				"returned_to_from_room": true,
+				"spawn": {
+					"on_floor": true,
+					"position": "(0.0, 0.6, 4.0)",
+					"rotation_y_degrees": -179.999991348578
+				}
+			},
+			"walking_step_m": 0.0,
+			"width_delta_each_side_m": -3.0
+		},
+		"P4": {
+			"aperture": {
+				"center_open": true,
+				"header_blocks": true,
+				"jamb_blocks": true,
+				"near_side_open": true
+			},
+			"ceiling_step_m": -1.0,
+			"center_xz_error": 0.0,
+			"clear_size_from": [
+				2.0,
+				2.1
+			],
+			"clear_size_to": [
+				2.0,
+				2.1
+			],
+			"doorway_capsule_samples_clear": 31,
+			"errors": [],
+			"exterior_closure": {
+				"closed_probes": 4,
+				"from_other_socket_open": true,
+				"probe_count": 4,
+				"to_other_socket_open": true
+			},
+			"floor_continuity": {
+				"supported": true,
+				"worst_abs_error": 0.00000000745058059692383
+			},
+			"floor_delta": 0.0,
+			"footprint_overlap": {
+				"no_overlap_beyond_doorway": true,
+				"overlap_x": 10.0,
+				"overlap_z": 0.0
+			},
+			"id": "p4_nestedlight173_south__chevron175_north",
+			"negative_controls": {
+				"floor_offset_0_3m": {
+					"errors": [
+						"connector floor elevations differ (delta=0.300000)"
+					],
+					"floor_delta": 0.300000011920929,
+					"rejected": true,
+					"to_origin": "(0.0, 0.3, 22.0)"
+				},
+				"mismatched_yaw": {
+					"errors": [
+						"socket normals do not oppose (dot=1.000000)"
+					],
+					"normal_dot": 1.0,
+					"rejected": true,
+					"to_origin": "(0.0, 0.0, 2.0)",
+					"to_yaw_degrees": 180
+				}
+			},
+			"normal_dot": -1.0,
+			"placement": {
+				"from_origin": "(0.0, 0.0, 0.0)",
+				"from_yaw_degrees": 0,
+				"seam_world_z": 12.0,
+				"to_origin": "(0.0, 0.0, 22.0)",
+				"to_yaw_degrees": 0
+			},
+			"traversal": {
+				"after_a_to_b": {
+					"on_floor": true,
+					"position": "(0.000002, 0.6, 18.00002)",
+					"rotation_y_degrees": -179.999991348578
+				},
+				"after_b_to_a": {
+					"on_floor": true,
+					"position": "(-0.0, 0.6, 6.000001)",
+					"rotation_y_degrees": -179.999991348578
+				},
+				"after_reset": {
+					"on_floor": true,
+					"position": "(0.0, 0.6, 6.0)",
+					"rotation_y_degrees": 180.000005008956
+				},
+				"reached_to_room": true,
+				"reset_restored_spawn": true,
+				"returned_to_from_room": true,
+				"spawn": {
+					"on_floor": true,
+					"position": "(0.0, 0.6, 6.0)",
+					"rotation_y_degrees": -179.999991348578
+				}
+			},
+			"walking_step_m": 0.0,
+			"width_delta_each_side_m": 1.0
+		}
+	},
+	"registration_accepted": false,
+	"result_lines": [
+		"P1_NOMINAL_CENTER_XZ_ERROR 0.000000",
+		"P1_NOMINAL_FLOOR_DELTA 0.000000",
+		"P1_NOMINAL_NORMAL_DOT -1.000000",
+		"P1_NOMINAL_CLEAR_SIZE [2.0, 2.1] vs [2.0, 2.1]",
+		"P1_CEILING_SEAM from_h=3.800000 to_h=4.200000 step=0.400000 walking_step=0.000000",
+		"P1_WIDTH_SEAM from_w=12.000000 to_w=16.000000 delta_each_side=2.000000",
+		"P1_DOORWAY_CAPSULE_SAMPLES_CLEAR 31/31",
+		"P1_FLOOR_CONTINUITY_SUPPORTED true worst_abs_error=0.000000",
+		"P1_APERTURE_CENTER_OPEN true NEAR_SIDE_OPEN true JAMB_BLOCKS true HEADER_BLOCKS true",
+		"P1_FOOTPRINT_OVERLAP_X 12.000000 OVERLAP_Z 0.000000 NO_OVERLAP true",
+		"P1_EXTERIOR_BOUNDARIES_CLOSED 4/4 UNCONNECTED_SOCKETS_OPEN 2/2",
+		"P1_TRAVERSAL_A_TO_B x=0.000002 y=0.600000 z=15.999989 on_floor=true",
+		"P1_TRAVERSAL_B_TO_A x=-0.000000 y=0.600000 z=4.000000 on_floor=true",
+		"P1_TRAVERSAL_RESET x=0.000000 y=0.600000 z=4.000000",
+		"P1_NEGATIVE_MISMATCHED_YAW_REJECTED normal_dot=1.000000 errors=[\"socket normals do not oppose (dot=1.000000)\"]",
+		"P1_NEGATIVE_FLOOR_OFFSET_REJECTED floor_delta=0.300000 errors=[\"connector floor elevations differ (delta=0.300000)\"]",
+		"P2_NOMINAL_CENTER_XZ_ERROR 0.000000",
+		"P2_NOMINAL_FLOOR_DELTA 0.000000",
+		"P2_NOMINAL_NORMAL_DOT -1.000000",
+		"P2_NOMINAL_CLEAR_SIZE [2.0, 2.1] vs [2.0, 2.1]",
+		"P2_CEILING_SEAM from_h=4.200000 to_h=4.200000 step=0.000000 walking_step=0.000000",
+		"P2_WIDTH_SEAM from_w=16.000000 to_w=16.000000 delta_each_side=0.000000",
+		"P2_DOORWAY_CAPSULE_SAMPLES_CLEAR 31/31",
+		"P2_FLOOR_CONTINUITY_SUPPORTED true worst_abs_error=0.000000",
+		"P2_APERTURE_CENTER_OPEN true NEAR_SIDE_OPEN true JAMB_BLOCKS true HEADER_BLOCKS true",
+		"P2_FOOTPRINT_OVERLAP_X 16.000000 OVERLAP_Z 0.000000 NO_OVERLAP true",
+		"P2_EXTERIOR_BOUNDARIES_CLOSED 4/4 UNCONNECTED_SOCKETS_OPEN 2/2",
+		"P2_TRAVERSAL_A_TO_B x=0.000002 y=0.600000 z=15.999989 on_floor=true",
+		"P2_TRAVERSAL_B_TO_A x=-0.000000 y=0.600000 z=4.000000 on_floor=true",
+		"P2_TRAVERSAL_RESET x=0.000000 y=0.600000 z=4.000000",
+		"P2_NEGATIVE_MISMATCHED_YAW_REJECTED normal_dot=1.000000 errors=[\"socket normals do not oppose (dot=1.000000)\"]",
+		"P2_NEGATIVE_FLOOR_OFFSET_REJECTED floor_delta=0.300000 errors=[\"connector floor elevations differ (delta=0.300000)\"]",
+		"P3_NOMINAL_CENTER_XZ_ERROR 0.000000",
+		"P3_NOMINAL_FLOOR_DELTA 0.000000",
+		"P3_NOMINAL_NORMAL_DOT -1.000000",
+		"P3_NOMINAL_CLEAR_SIZE [2.0, 2.1] vs [2.0, 2.1]",
+		"P3_CEILING_SEAM from_h=4.200000 to_h=4.800000 step=0.600000 walking_step=0.000000",
+		"P3_WIDTH_SEAM from_w=16.000000 to_w=10.000000 delta_each_side=-3.000000",
+		"P3_DOORWAY_CAPSULE_SAMPLES_CLEAR 31/31",
+		"P3_FLOOR_CONTINUITY_SUPPORTED true worst_abs_error=0.000000",
+		"P3_APERTURE_CENTER_OPEN true NEAR_SIDE_OPEN true JAMB_BLOCKS true HEADER_BLOCKS true",
+		"P3_FOOTPRINT_OVERLAP_X 10.000000 OVERLAP_Z 0.000000 NO_OVERLAP true",
+		"P3_EXTERIOR_BOUNDARIES_CLOSED 4/4 UNCONNECTED_SOCKETS_OPEN 2/2",
+		"P3_TRAVERSAL_A_TO_B x=0.000002 y=0.600000 z=15.999989 on_floor=true",
+		"P3_TRAVERSAL_B_TO_A x=-0.000000 y=0.600000 z=4.000000 on_floor=true",
+		"P3_TRAVERSAL_RESET x=0.000000 y=0.600000 z=4.000000",
+		"P3_NEGATIVE_MISMATCHED_YAW_REJECTED normal_dot=1.000000 errors=[\"socket normals do not oppose (dot=1.000000)\"]",
+		"P3_NEGATIVE_FLOOR_OFFSET_REJECTED floor_delta=0.300000 errors=[\"connector floor elevations differ (delta=0.300000)\"]",
+		"P4_NOMINAL_CENTER_XZ_ERROR 0.000000",
+		"P4_NOMINAL_FLOOR_DELTA 0.000000",
+		"P4_NOMINAL_NORMAL_DOT -1.000000",
+		"P4_NOMINAL_CLEAR_SIZE [2.0, 2.1] vs [2.0, 2.1]",
+		"P4_CEILING_SEAM from_h=4.800000 to_h=3.800000 step=-1.000000 walking_step=0.000000",
+		"P4_WIDTH_SEAM from_w=10.000000 to_w=12.000000 delta_each_side=1.000000",
+		"P4_DOORWAY_CAPSULE_SAMPLES_CLEAR 31/31",
+		"P4_FLOOR_CONTINUITY_SUPPORTED true worst_abs_error=0.000000",
+		"P4_APERTURE_CENTER_OPEN true NEAR_SIDE_OPEN true JAMB_BLOCKS true HEADER_BLOCKS true",
+		"P4_FOOTPRINT_OVERLAP_X 10.000000 OVERLAP_Z 0.000000 NO_OVERLAP true",
+		"P4_EXTERIOR_BOUNDARIES_CLOSED 4/4 UNCONNECTED_SOCKETS_OPEN 2/2",
+		"P4_TRAVERSAL_A_TO_B x=0.000002 y=0.600000 z=18.000017 on_floor=true",
+		"P4_TRAVERSAL_B_TO_A x=-0.000000 y=0.600000 z=6.000001 on_floor=true",
+		"P4_TRAVERSAL_RESET x=0.000000 y=0.600000 z=6.000000",
+		"P4_NEGATIVE_MISMATCHED_YAW_REJECTED normal_dot=1.000000 errors=[\"socket normals do not oppose (dot=1.000000)\"]",
+		"P4_NEGATIVE_FLOOR_OFFSET_REJECTED floor_delta=0.300000 errors=[\"connector floor elevations differ (delta=0.300000)\"]"
+	],
+	"scale_calibrated": false,
+	"schema_version": 1,
+	"socket_test_status": "untested"
+}
