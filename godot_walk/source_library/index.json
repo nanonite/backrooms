@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "index_version": 33,
+  "index_version": 34,
   "sources": [
     {
       "source_id": "picture-set-d160eaa3cc847d5c",
@@ -41,8 +41,8 @@
       "source_id": "video-61b91dbeb9026dc7",
       "source_path": "data/videos/corridor_x.mp4",
       "source_sha256": "61b91dbeb9026dc7b404657f7ba7e081b5588a7e7a4a2abfa553be765d1a7f04",
-      "manifest_path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/source_manifest-v4.json",
-      "manifest_sha256": "fa3f8cbf038cdb26389d453a328db3862674f9c8a8346b18a051475ce688b88c"
+      "manifest_path": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/source_manifest-v5.json",
+      "manifest_sha256": "d58415364755a16caae2225cfac507eb6a8bad749a9bbcd25c80721b7544fa2a"
     },
     {
       "source_id": "video-b9161c467ed2d30a",

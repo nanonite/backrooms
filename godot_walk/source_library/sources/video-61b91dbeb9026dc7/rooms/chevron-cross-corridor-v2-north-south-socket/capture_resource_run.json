@@ -1,0 +1,38 @@
+{
+  "label": "chevron-cross-corridor-v2-north-south-socket-capture",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v2-north-south-socket/capture_room.gd",
+    "--",
+    "--out=res://source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v2-north-south-socket/captures"
+  ],
+  "output_dir": "godot_walk/source_library/sources/video-61b91dbeb9026dc7/rooms/chevron-cross-corridor-v2-north-south-socket/captures",
+  "timeout_seconds": 240,
+  "return_code": 0,
+  "timed_out": false,
+  "error": null,
+  "elapsed_seconds": 5.152,
+  "finished_at_utc": "2026-11-19T05:59:03.145800+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11662262272,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 0,
+    "compute_apps": [],
+    "ram_available_bytes": 39603113984,
+    "vram_after_headroom_bytes": 9329809817,
+    "ram_after_headroom_bytes": 29702335488,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "peak_resources": {
+    "peak_child_rss_bytes": 559689728,
+    "gpu_memory_start_bytes": 784334848,
+    "peak_gpu_memory_used_bytes": 1179648000,
+    "peak_gpu_memory_delta_bytes": 395313152,
+    "gpu_sample_period_ms": 500
+  }
+}
