@@ -1,0 +1,44 @@
+{
+	"godot_static_memory_bytes": 58250400,
+	"panorama_role": "camera-centered background visual; no spatial parallax",
+	"registration_accepted": false,
+	"renderer": "Godot Forward+ Vulkan with the project PSX compositor",
+	"sampled_frame_time_ms": {
+		"basis": "SceneTree process-frame intervals after 120-frame warmup; includes display sync",
+		"mean": 4.16674,
+		"p95": 4.219,
+		"p99": 4.26,
+		"samples": 300
+	},
+	"scale_calibrated": false,
+	"scene": "res://source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v2-north-south-socket/room.tscn",
+	"scene_instantiate_ms": 0.033,
+	"scene_load_ms": 11.126,
+	"socket_test_status": "untested",
+	"views": [
+		{
+			"height": 648,
+			"id": "spawn_toward_north_opening",
+			"path": "res://source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v2-north-south-socket/captures/spawn_toward_north_opening.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "north_doorway",
+			"path": "res://source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v2-north-south-socket/captures/north_doorway.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "south_doorway",
+			"path": "res://source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v2-north-south-socket/captures/south_doorway.png",
+			"width": 1152
+		},
+		{
+			"height": 648,
+			"id": "east_wall_panels",
+			"path": "res://source_library/sources/video-d857abe7a94da9d1/rooms/nested-light-corridor-v2-north-south-socket/captures/east_wall_panels.png",
+			"width": 1152
+		}
+	]
+}

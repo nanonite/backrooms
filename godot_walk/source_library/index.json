@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "index_version": 31,
+  "index_version": 32,
   "sources": [
     {
       "source_id": "picture-set-d160eaa3cc847d5c",
@@ -69,8 +69,8 @@
       "source_id": "video-d857abe7a94da9d1",
       "source_path": "data/videos/Max Cooper - Repetition (Official Video By Kevin McGloughlin).mp4",
       "source_sha256": "d857abe7a94da9d19a4a1410a707e7632c32df6f3ded1ddd4d77317df1732bb8",
-      "manifest_path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/source_manifest-v4.json",
-      "manifest_sha256": "75e25c2537123c72852e1bc1a1b2a7aa197fdb71ea730bd844d74bdd6acb1ab1"
+      "manifest_path": "godot_walk/source_library/sources/video-d857abe7a94da9d1/source_manifest-v5.json",
+      "manifest_sha256": "1e49f0b641cdea5c0246b73d69bc0b937dba0b1f36202a2e313724e5e1af2c73"
     },
     {
       "source_id": "video-d92fc1fa764aa3a2",

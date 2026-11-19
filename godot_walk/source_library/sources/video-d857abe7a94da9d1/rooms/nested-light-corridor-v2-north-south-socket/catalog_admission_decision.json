@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "decision": "accepted",
+  "issue": 277,
+  "adaptation_id": "nested-light-corridor-v2-north-south-socket",
+  "candidate_identity": "53b89178df9a05fff2c617d6c744d5820987dd479b270ddc598f5c2d8c97cacf",
+  "reviewed_at_utc": "2026-11-19T05:13:30.038945+00:00",
+  "scope": "sockets_declared",
+  "layout_eligible": false,
+  "tested_connector_pairs": [],
+  "operator_directive": "OPERATOR PROPOSAL 2026-11-19 (issue 277, child of #265): build a NEW two-socket THROUGH variant of the accepted nested-light-corridor-v1 room with north (x=0,z=-12,normal 0,0,-1) and south (x=0,z=+12,normal 0,0,+1) sockets, each level_doorway_2m_v1, clear 2.0x2.1, approach clearance 1.2, circulation_role through. Sockets are declared but UNTESTED; layout_eligible is false. No map is generated or committed. Socket-placement approval, connector-pair testing, accept-module-metadata and decide-integration stay operator-only.",
+  "catalog_path": "godot_walk/room_catalog/catalog.json",
+  "catalog_version": "0.8.0",
+  "catalog_snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.8.0.json",
+  "catalog_snapshot_sha256": "d1ebeeb3ea1901a75d79bfd01ef6427e2dba41e9fa29f3f3c2801c1673d0f920",
+  "module_id": "video_d857abe7a94da9d1_nested_light_corridor_v2_north_south_socket_v1",
+  "module_version": 1,
+  "registration_accepted": false,
+  "scale_calibrated": false
+}
