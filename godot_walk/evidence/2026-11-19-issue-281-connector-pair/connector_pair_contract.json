@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "candidate_version": "issue281-chevron-v2-north__large-room-hall-end-v1",
+  "status": "provisional_pair_test_pending_operator_review",
+  "registration_accepted": false,
+  "scale_calibrated": false,
+  "socket_test_status": "untested",
+  "layout_eligible": false,
+  "scope": "pair_test_only_no_map_no_catalog_edit_no_integration_decision",
+  "rotation_convention": {
+    "source": "godot_walk/scripts/issue149_layout_core.py::_rotate_xz",
+    "yaw_degrees_to_xz": {
+      "0": "[x, z]",
+      "90": "[z, -x]",
+      "180": "[-x, -z]",
+      "270": "[-z, x]"
+    },
+    "godot_equivalence": "rotation.y = deg_to_rad(yaw_degrees)"
+  },
+  "module_placements": [
+    {
+      "role": "B",
+      "module_id": "godot_source_textured_large_room_v1",
+      "catalog_socket_id": "hall_end",
+      "scene": "res://scenes/issue164_room_large_baseline.tscn",
+      "test_only_opening_scene": "res://evidence/2026-11-19-issue-281-connector-pair/test_only_hall_end_adapter.tscn",
+      "world_origin_design_units": [0.0, 0.0, 0.0],
+      "world_yaw_degrees": 0,
+      "authored_socket": {
+        "id": "hall_end",
+        "local_floor_center": [13.06, 0.0, 0.0],
+        "outward_normal": [1.0, 0.0, 0.0],
+        "clear_size_m": [2.0, 2.1],
+        "floor_elevation_m": 0.0,
+        "approach_clearance_m": 1.2,
+        "compatibility_type": "level_doorway_2m_v1",
+        "test_status": "untested",
+        "closure_behavior": "Potential authored socket only; the accepted baseline wall and collider remain closed."
+      },
+      "opening_note": "Accepted baseline wall/collider are not edited. The test-only adapter scene frees HallEndBoundaryVisual/HallEndBoundary and rebuilds two returns plus a header at floor 0.0; it does not apply the issue164 -1.27099049 library-floor shift."
+    },
+    {
+      "role": "A",
+      "module_id": "video_102caf53423018b7_chevron_corridor_v2_north_south_socket_v1",
+      "catalog_socket_id": "north",
+      "scene": "res://source_library/sources/video-102caf53423018b7/rooms/chevron-corridor-v2-north-south-socket/room.tscn",
+      "world_origin_design_units": [23.06, 0.0, 0.0],
+      "world_yaw_degrees": 90,
+      "authored_socket": {
+        "id": "north",
+        "local_floor_center": [0.0, 0.0, -10.0],
+        "outward_normal": [0.0, 0.0, -1.0],
+        "clear_size_m": [2.0, 2.1],
+        "floor_elevation_m": 0.0,
+        "approach_clearance_m": 1.2,
+        "compatibility_type": "level_doorway_2m_v1",
+        "circulation_role": "through",
+        "test_status": "untested",
+        "closure_behavior": "Open visual doorway with matching collider returns and header; untested, pair-only until the operator approves a connector pair."
+      },
+      "other_socket": {
+        "id": "south",
+        "local_floor_center": [0.0, 0.0, 10.0],
+        "outward_normal": [0.0, 0.0, 1.0],
+        "test_status": "untested",
+        "note": "Declared opening, remains open and unconnected at yaw 90; world normal becomes +x (same as B hall_end) so it cannot oppose B at this yaw."
+      }
+    }
+  ],
+  "placement_arithmetic": {
+    "b_socket_world_center": [13.06, 0.0, 0.0],
+    "b_socket_world_normal": [1.0, 0.0, 0.0],
+    "required_a_world_normal": [-1.0, 0.0, 0.0],
+    "a_local_north_center_xz": [0.0, -10.0],
+    "a_local_north_normal_xz": [0.0, -1.0],
+    "yaw_90_rotation_of_north_center_xz": [-10.0, 0.0],
+    "yaw_90_rotation_of_north_normal_xz": [-1.0, 0.0],
+    "a_origin_x": "13.06 - (-10.0) = 23.06",
+    "a_origin_z": "0 - 0 = 0",
+    "a_origin_y": "0 - 0 = 0 (both sockets declare floor 0.0)",
+    "resulting_a_origin": [23.06, 0.0, 0.0],
+    "yaw_usability": {
+      "0": "north (0,0,-1) and south (0,0,+1) keep their z normals; dot with B (+x) is 0 for both. Not usable.",
+      "90": "north becomes (-1,0,0): opposes B, usable (chosen). south becomes (+1,0,0): parallel to B, not usable.",
+      "180": "north becomes (0,0,+1), south (0,0,-1); dot with B is 0 for both. Not usable.",
+      "270": "north becomes (+1,0,0): not usable. south becomes (-1,0,0): opposes B, usable as the symmetric alternative."
+    },
+    "symmetric_alternative": "yaw 270 with A south socket; same A origin (23.06, 0, 0) because the two sockets are symmetric about A's center."
+  },
+  "connection": {
+    "id": "chevron_v2_north__large_room_hall_end_v1",
+    "kind": "authored_direct_doorway_pair_test",
+    "world_socket_center_design_units": [13.06, 0.0, 0.0],
+    "center_alignment_tolerance_m": 0.001,
+    "outward_normal_dot_expected": -1.0,
+    "floor_y": 0.0,
+    "clear_width_height_design_units": [2.0, 2.1],
+    "compatibility_type": "level_doorway_2m_v1",
+    "capsule_radius_height_design_units": [0.3, 1.2],
+    "approach_clearance_design_units": 1.2,
+    "assembly_only_nodes": [
+      "ConnectorVisuals/DoorwayThresholdVisual",
+      "ConnectorBoundaries/DoorwayFloorSeam"
+    ],
+    "b_opening_nodes_from_test_only_adapter": [
+      "HallSocketNorthReturn",
+      "HallSocketSouthReturn",
+      "HallSocketHeader",
+      "Socket_HallEnd_Authored"
+    ],
+    "a_opening_nodes_from_unmodified_room": [
+      "NorthBoundaryWest",
+      "NorthBoundaryEast",
+      "NorthSocketHeader"
+    ]
+  },
+  "negative_controls": [
+    {
+      "id": "mismatched_yaw",
+      "a_yaw_degrees": 0,
+      "a_origin": [13.06, 0.0, 10.0],
+      "expected_rejection": "socket normals do not oppose (dot=0.000000)",
+      "isolates": "normal opposition only; XZ centers and floors still align"
+    },
+    {
+      "id": "floor_offset_0_3m",
+      "a_yaw_degrees": 90,
+      "a_origin": [23.06, 0.3, 0.0],
+      "expected_rejection": "connector floor elevations differ (delta=0.300000)",
+      "isolates": "floor continuity only; XZ centers and normals still align"
+    }
+  ],
+  "evidence": {
+    "assembly": "godot_walk/evidence/2026-11-19-issue-281-connector-pair/connector_pair_scene.tscn",
+    "headless_test": "godot_walk/evidence/2026-11-19-issue-281-connector-pair/test_connector_pair.gd",
+    "traversal": "godot_walk/evidence/2026-11-19-issue-281-connector-pair/mechanics/traversal.json",
+    "capture_manifest": "godot_walk/evidence/2026-11-19-issue-281-connector-pair/captures/capture_manifest.json",
+    "resource_receipt": "godot_walk/evidence/2026-11-19-issue-281-connector-pair/capture_resource_run.json",
+    "report": "godot_walk/evidence/2026-11-19-issue-281-connector-pair/REPORT.md"
+  }
+}

@@ -1,0 +1,109 @@
+{
+	"aperture": {
+		"center_open": true,
+		"header_blocks": true,
+		"jamb_blocks": true,
+		"near_side_open": true
+	},
+	"candidate_status": "pending_operator_review",
+	"doorway_capsule_samples_clear": 31,
+	"exterior_closure": {
+		"closed_probes": 6,
+		"declared_unconnected_south_open": true,
+		"probe_count": 6
+	},
+	"failures": [],
+	"floor_continuity": {
+		"supported": true,
+		"worst_abs_error": 0.00000000745058059692383
+	},
+	"footprint_overlap": {
+		"no_overlap_beyond_doorway": true,
+		"overlap_x": -0.0600000000000005,
+		"overlap_z": 10.0
+	},
+	"issue": 281,
+	"negative_controls": {
+		"floor_offset_0_3m": {
+			"a_origin": "(23.06, 0.3, 0.0)",
+			"errors": [
+				"connector floor elevations differ (delta=0.300000)"
+			],
+			"floor_delta": 0.300000011920929,
+			"rejected": true
+		},
+		"mismatched_yaw": {
+			"a_origin": "(13.06, 0.0, 10.0)",
+			"a_yaw_degrees": 0,
+			"errors": [
+				"socket normals do not oppose (dot=0.000000)"
+			],
+			"normal_dot": 0.0,
+			"rejected": true
+		}
+	},
+	"pair": "chevron_corridor_v2_north__textured_large_room_hall_end",
+	"pair_geometry": {
+		"a_normal": "(-1.0, 0.0, 0.0)",
+		"a_north_center": "(13.06, 0.0, 0.0)",
+		"b_hall_end_center": "(13.06, 0.0, 0.0)",
+		"b_normal": "(1.0, 0.0, 0.0)",
+		"center_xz_error": 0.00000104907735476445,
+		"clear_size_a": [
+			2.0,
+			2.1
+		],
+		"clear_size_b": [
+			2.0,
+			2.1
+		],
+		"errors": [],
+		"floor_delta": 0.0,
+		"normal_dot": -1.0
+	},
+	"registration_accepted": false,
+	"result_lines": [
+		"NOMINAL_PAIR_CENTER_XZ_ERROR 0.000001",
+		"NOMINAL_PAIR_FLOOR_DELTA 0.000000",
+		"NOMINAL_PAIR_NORMAL_DOT -1.000000",
+		"NOMINAL_PAIR_CLEAR_SIZE [2.0, 2.1] vs [2.0, 2.1]",
+		"DOORWAY_CAPSULE_SAMPLES_CLEAR 31/31",
+		"FLOOR_CONTINUITY_SUPPORTED true worst_abs_error=0.000000",
+		"APERTURE_CENTER_OPEN true NEAR_SIDE_OPEN true JAMB_BLOCKS true HEADER_BLOCKS true",
+		"FOOTPRINT_OVERLAP_X -0.060000 OVERLAP_Z 10.000000 NO_OVERLAP true",
+		"EXTERIOR_BOUNDARIES_CLOSED 6/6 DECLARED_SOUTH_OPEN true",
+		"TRAVERSAL_A_TO_B x=4.000011 y=0.600000 z=0.000001 on_floor=true",
+		"TRAVERSAL_B_TO_A x=16.000000 y=0.600000 z=0.000000 on_floor=true",
+		"TRAVERSAL_RESET x=16.000000 y=0.600000 z=0.000000",
+		"NEGATIVE_MISMATCHED_YAW_REJECTED normal_dot=0.000000 errors=[\"socket normals do not oppose (dot=0.000000)\"]",
+		"NEGATIVE_FLOOR_OFFSET_REJECTED floor_delta=0.300000 errors=[\"connector floor elevations differ (delta=0.300000)\"]"
+	],
+	"scale_calibrated": false,
+	"schema_version": 1,
+	"socket_test_status": "untested",
+	"traversal": {
+		"after_a_to_b": {
+			"on_floor": true,
+			"position": "(4.000011, 0.6, 0.000001)",
+			"rotation_y_degrees": 90.0000025044782
+		},
+		"after_b_to_a": {
+			"on_floor": true,
+			"position": "(16.0, 0.6, 0.0)",
+			"rotation_y_degrees": 90.0000025044782
+		},
+		"after_reset": {
+			"on_floor": true,
+			"position": "(16.0, 0.6, 0.0)",
+			"rotation_y_degrees": 90.0000025044782
+		},
+		"reached_b_main_room": true,
+		"reset_restored_spawn": true,
+		"returned_to_a": true,
+		"spawn": {
+			"on_floor": true,
+			"position": "(16.0, 0.6, 0.0)",
+			"rotation_y_degrees": 90.0000025044782
+		}
+	}
+}

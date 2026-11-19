@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://evidence/2026-11-19-issue-281-connector-pair/test_only_hall_end_adapter.gd" id="1_adapter"]
+
+[node name="TestOnlyHallEndAdapter" type="Node3D"]
+script = ExtResource("1_adapter")
+include_player = false

@@ -1,0 +1,38 @@
+{
+  "label": "issue281-connector-pair-capture",
+  "command": [
+    "godot4",
+    "--path",
+    "godot_walk",
+    "--script",
+    "res://evidence/2026-11-19-issue-281-connector-pair/capture_connector_pair.gd",
+    "--",
+    "--out=res://evidence/2026-11-19-issue-281-connector-pair/captures"
+  ],
+  "output_dir": "godot_walk/evidence/2026-11-19-issue-281-connector-pair/captures",
+  "timeout_seconds": 240,
+  "return_code": 0,
+  "timed_out": false,
+  "error": null,
+  "elapsed_seconds": 3.303,
+  "finished_at_utc": "2026-11-19T14:43:43.601603+00:00",
+  "preflight": {
+    "guard_policy_version": "2.1.0",
+    "free_vram_bytes": 11566841856,
+    "total_vram_bytes": 12878610432,
+    "utilization_pct": 1,
+    "compute_apps": [],
+    "ram_available_bytes": 30431563776,
+    "vram_after_headroom_bytes": 9253473484,
+    "ram_after_headroom_bytes": 22823672832,
+    "vram_headroom_fraction": 0.2,
+    "ram_headroom_fraction": 0.25
+  },
+  "peak_resources": {
+    "peak_child_rss_bytes": 565510144,
+    "gpu_memory_start_bytes": 879755264,
+    "peak_gpu_memory_used_bytes": 1190133760,
+    "peak_gpu_memory_delta_bytes": 310378496,
+    "gpu_sample_period_ms": 500
+  }
+}

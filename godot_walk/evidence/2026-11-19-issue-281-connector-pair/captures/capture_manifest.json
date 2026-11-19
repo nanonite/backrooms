@@ -1,0 +1,43 @@
+{
+	"engine": "4.6.3-stable (official)",
+	"frame_profile": {
+		"mean_frame_ms": 4.16572,
+		"measured_frames": 300,
+		"p95_frame_ms": 4.335,
+		"p99_frame_ms": 4.386,
+		"warmup_frames": 120
+	},
+	"placement": {
+		"a_origin": "(23.06, 0.0, 0.0)",
+		"a_socket_id": "north",
+		"a_yaw_degrees": 90,
+		"b_origin": "(0.0, 0.0, 0.0)"
+	},
+	"registration_accepted": false,
+	"scale_calibrated": false,
+	"scene": "res://evidence/2026-11-19-issue-281-connector-pair/connector_pair_scene.tscn",
+	"scene_ready_ms": 80.988,
+	"socket_test_status": "untested",
+	"views": [
+		{
+			"camera_position": "(16.5, 1.42, 0.0)",
+			"look_at": "(10.0, 1.3, 0.0)",
+			"path": "from_chevron_to_large_room.png"
+		},
+		{
+			"camera_position": "(9.0, 1.42, 0.0)",
+			"look_at": "(16.5, 1.3, 0.0)",
+			"path": "from_large_room_to_chevron.png"
+		},
+		{
+			"camera_position": "(15.2, 1.42, 2.2)",
+			"look_at": "(13.06, 1.3, 0.0)",
+			"path": "chevron_side_doorway.png"
+		},
+		{
+			"camera_position": "(10.5, 1.42, 1.2)",
+			"look_at": "(13.3, 1.3, 0.0)",
+			"path": "large_room_hall_end.png"
+		}
+	]
+}
