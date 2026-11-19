@@ -1,0 +1,117 @@
+{
+  "capture": {
+    "camera_model": null,
+    "capture_height_m": null,
+    "distortion": null,
+    "intrinsics": {
+      "cx": null,
+      "cy": null,
+      "fx": null,
+      "fy": null
+    },
+    "lens": null,
+    "orientation": null
+  },
+  "content": {
+    "audio": {
+      "path": null,
+      "present": false,
+      "sha256": null
+    },
+    "picture_set": null,
+    "video": {
+      "metadata": {
+        "duration_seconds": 4.0,
+        "fps": 24.0,
+        "frame_count": 96,
+        "height": 1080,
+        "width": 1920
+      },
+      "path": "data/videos/corridor_t.mp4",
+      "sha256": "2671b32f256a4ee7f326fae67290bcec2143efabb4f1000fc4bcfa9507260409"
+    }
+  },
+  "created_at_utc": "2026-10-26T21:23:22.725815+00:00",
+  "frame_references": [],
+  "historical_artifacts": [],
+  "hunyuan": {
+    "attempts": [],
+    "historical_invocations": 0,
+    "status": "not_attempted"
+  },
+  "lighting": {
+    "color_temp_k": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "fixtures": [],
+    "illuminance_lux": null,
+    "status": "unknown"
+  },
+  "manifest_version": 5,
+  "modeling_note": "Video-to-room multiplicity is zero-or-more; index records do not infer room boundaries or connectivity.",
+  "recorded_at_utc": "2026-11-19T05:37:22.047855+00:00",
+  "registration_accepted": false,
+  "room_adaptations": [
+    {
+      "issue": 265,
+      "adaptation_id": "chevron-corridor-v1",
+      "adaptation_version": "chevron-corridor-v1",
+      "candidate_identity": "a34cb9e1e25be7d0c22f66d585e9f0e52564d6bdce4651170c74ba3a1b78197b",
+      "adaptation_path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/adaptation_standalone_accepted_v1.json",
+      "adaptation_sha256": "cdd330f21233a0fa69ede2504878823558c755d51c6d508a7b0fbeaec34b1d3d",
+      "decision_path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/catalog_admission_decision.json",
+      "decision_sha256": "58543d487f5dd3c748fa81592d65a3fc40e807db897a7378a0c9766355ec3fa2",
+      "decision_status": "accepted_catalog_admission",
+      "scene_path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/room.tscn",
+      "scene_sha256": "026f0b292f0f2662a3d68ccc4cdfa8c48035b1580f04b2be8a0ef208df7d50fb",
+      "catalog_snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.6.0.json",
+      "catalog_snapshot_sha256": "2095b4e67742f8de17f83da3f0900397f1603f1d10cb4367ae74ca4e1dad1cce",
+      "catalog_admission": {
+        "status": "admitted",
+        "module_id": "video_2671b32f256a4ee7_chevron_corridor_v1",
+        "module_version": 1,
+        "catalog_version": "0.6.0"
+      }
+    },
+    {
+      "issue": 278,
+      "adaptation_id": "chevron-corridor-v2-north-south-socket",
+      "adaptation_version": "chevron-corridor-v2-north-south-socket",
+      "candidate_identity": "68ad5e8d36cb108f696278f0e38342d00202ed743e0ad1a33ff1ca926c19bbde",
+      "adaptation_path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/adaptation_catalog_v1.json",
+      "adaptation_sha256": "335d4e22d4b5e9840213e5565601eeb3817eb88ab22b98fbb64cded5b5a8c70c",
+      "decision_path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/catalog_admission_decision.json",
+      "decision_sha256": "65b516d4a3844d86f92b6b5eea7862e972d099fa0cde84940c44f79309e1520e",
+      "decision_status": "accepted_catalog_admission",
+      "scene_path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/room.tscn",
+      "scene_sha256": "9fff30bcf30a6eba475691da6b436faff0f01b23b1ee047c08c84c067d7a0c9f",
+      "catalog_snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.9.0.json",
+      "catalog_snapshot_sha256": "0b394553f528517326e3eafa19f81502b320713b0183d80528760fad57453be3",
+      "catalog_admission": {
+        "status": "admitted",
+        "module_id": "video_2671b32f256a4ee7_chevron_corridor_v2_north_south_socket_v1",
+        "module_version": 1,
+        "catalog_version": "0.9.0"
+      }
+    }
+  ],
+  "scale": {
+    "anchor": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "method": null,
+    "status": "uncalibrated"
+  },
+  "scale_calibrated": false,
+  "schema_version": 3,
+  "source_id": "video-2671b32f256a4ee7",
+  "source_kind": "video",
+  "source_review": {
+    "decision": null,
+    "status": "pending_operator_review"
+  },
+  "supersedes": {
+    "path": "godot_walk/source_library/sources/video-2671b32f256a4ee7/source_manifest-v4.json",
+    "sha256": "d785061702c8aea96c113ff562283bcfc0c3edf9e7478680084834c9b1ebd9a6"
+  }
+}

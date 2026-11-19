@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "decision": "accepted",
+  "issue": 278,
+  "adaptation_id": "chevron-corridor-v2-north-south-socket",
+  "candidate_identity": "68ad5e8d36cb108f696278f0e38342d00202ed743e0ad1a33ff1ca926c19bbde",
+  "reviewed_at_utc": "2026-11-19T05:37:06.057523+00:00",
+  "scope": "sockets_declared",
+  "layout_eligible": false,
+  "tested_connector_pairs": [],
+  "operator_directive": "OPERATOR PROPOSAL 2026-11-19 (issue 278, child of #265), following the #275 pattern: build a NEW two-socket THROUGH variant of the accepted #176 room (video-2671b32f256a4ee7/rooms/chevron-corridor-v1) with north (x=0,z=-10,normal 0,0,-1) and south (x=0,z=+10,normal 0,0,+1) sockets, each level_doorway_2m_v1, clear 2.0x2.1, floor 0.0, approach clearance 1.2, circulation_role through. These are the two clear ends of the central lane; the four interior partitions at x=+/-4.5 are unchanged and do not block either approach. Sockets are declared but UNTESTED; layout_eligible is false. No map is generated or committed. Socket-placement approval, connector-pair testing, accept-module-metadata and decide-integration stay operator-only.",
+  "catalog_path": "godot_walk/room_catalog/catalog.json",
+  "catalog_version": "0.9.0",
+  "catalog_snapshot_path": "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.9.0.json",
+  "catalog_snapshot_sha256": "0b394553f528517326e3eafa19f81502b320713b0183d80528760fad57453be3",
+  "module_id": "video_2671b32f256a4ee7_chevron_corridor_v2_north_south_socket_v1",
+  "module_version": 1,
+  "registration_accepted": false,
+  "scale_calibrated": false
+}

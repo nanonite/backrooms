@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "catalog_id": "godot_psx_room_kit",
-  "catalog_version": "0.8.0",
+  "catalog_version": "0.9.0",
   "engine": "Godot 4.6.3",
   "registration_accepted": false,
   "scale_calibrated": false,
@@ -2883,6 +2883,198 @@
             0.0,
             0.0,
             12.0
+          ],
+          "outward_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "floor_elevation_m": 0.0,
+          "approach_clearance_m": 1.2,
+          "compatibility_type": "level_doorway_2m_v1",
+          "circulation_role": "through",
+          "test_status": "untested",
+          "closure_behavior": "Open visual doorway with matching collider returns and header; untested, pair-only until the operator approves a connector pair."
+        }
+      ],
+      "tested_connectors": [],
+      "integration_scope": "Two sockets declared and UNTESTED. Excluded from automatic layout; no connector pair may be inferred or generated. Connector-pair testing and any integration remain operator-only."
+    },
+    {
+      "id": "video_2671b32f256a4ee7_chevron_corridor_v2_north_south_socket_v1",
+      "version": 1,
+      "kind": "authored_room_variant",
+      "psx_profile_id": "library-psx-ursc-1.5-native-compositor",
+      "scene": "res://source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/room.tscn",
+      "variant_status": "operator_declared_sockets_untested_not_layout_eligible",
+      "layout_eligible": false,
+      "coordinate_units": "uncalibrated_godot_world_units",
+      "registration_accepted": false,
+      "scale_calibrated": false,
+      "candidate_identity": "68ad5e8d36cb108f696278f0e38342d00202ed743e0ad1a33ff1ca926c19bbde",
+      "source_provenance": [
+        "data/videos/corridor_t.mp4",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0096.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/adaptation_catalog_v1.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/catalog_admission_decision.json"
+      ],
+      "visual_assets": [
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/room.tscn",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/room.gd",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/room.tscn",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/room.gd",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/carpet_floor.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/ceiling_grid.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/chevron_wall.png"
+      ],
+      "collision_provenance": "Explicit StaticBody3D and BoxShape3D nodes in the variant room.gd; north/south doorway returns and headers are separate colliders. The four inherited partitions are unchanged. Source collision is not used.",
+      "placement_footprint_xz": [
+        [
+          -8.0,
+          -10.0
+        ],
+        [
+          8.0,
+          -10.0
+        ],
+        [
+          8.0,
+          10.0
+        ],
+        [
+          -8.0,
+          10.0
+        ]
+      ],
+      "visual_placement_envelope_xz": [
+        [
+          -8.3,
+          -10.3
+        ],
+        [
+          8.3,
+          -10.3
+        ],
+        [
+          8.3,
+          10.3
+        ],
+        [
+          -8.3,
+          10.3
+        ]
+      ],
+      "collision_footprint_xz": [
+        [
+          -8.0,
+          -10.0
+        ],
+        [
+          8.0,
+          -10.0
+        ],
+        [
+          8.0,
+          10.0
+        ],
+        [
+          -8.0,
+          10.0
+        ]
+      ],
+      "observed_openings": [],
+      "observed_opening_note": "Both doorways are authored from the 2026-11-19 operator proposal; no opening is visible in the source frames.",
+      "floor_elevation_m": 0.0,
+      "ceiling_elevation_m": 4.2,
+      "vertical_bound_basis": "authored",
+      "closed_unused_sockets": "West and east edges remain closed by matching visual wall and collider. The four interior partitions are unchanged.",
+      "dependencies": [
+        "data/videos/corridor_t.mp4",
+        "godot_walk/project.godot",
+        "godot_walk/room_catalog/catalog_snapshots/godot_psx_room_kit-0.2.0.json",
+        "godot_walk/room_catalog/contract_freeze_v3.json",
+        "godot_walk/scenes/player.tscn",
+        "godot_walk/scripts/gpu_job_lock.py",
+        "godot_walk/scripts/library_psx_preset.gd",
+        "godot_walk/scripts/player.gd",
+        "godot_walk/scripts/psx/psx_post_effect.gd",
+        "godot_walk/scripts/psx/shaders/psx_post.glsl",
+        "godot_walk/scripts/psx_design_round_resources.py",
+        "godot_walk/scripts/video_adaptation_resource_graph.py",
+        "godot_walk/scripts/video_adaptation_runner.py",
+        "godot_walk/scripts/video_adaptation_validation.py",
+        "godot_walk/shaders/library_psx_textured.gdshader",
+        "godot_walk/shaders/library_psx_vertex.gdshader",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/extraction_manifest.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/frames/issue176-quarter-s-a/frame_0096.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/attempt_config.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/attempt_result.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/execution_guard.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/gpu_guard.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/panorama/panorama.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/resource_samples.jsonl",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/stderr.log",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/hunyuan/attempt-001-retry-001/stdout.log",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/capture_resource_run.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/capture_room.gd",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/capture_manifest.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/spawn_toward_partitions.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/wallpaper_partition.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/drop_ceiling.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/captures/far_light_panel.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/crop_plan.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/room.gd",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/room.tscn",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/run_capture_guarded.py",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/standalone_test_receipt.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/test_room.gd",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/carpet_floor.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/chevron_wall.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/ceiling_grid.png",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v1/textures/crop_manifest.json",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/source_manifest-v3.json",
+        "godot_walk/vendor/ursc/common.gdshaderinc",
+        "godot_walk/vendor/ursc/utilities.gdshaderinc",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/room.gd",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/room.tscn",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/test_room.gd",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/capture_room.gd",
+        "godot_walk/source_library/sources/video-2671b32f256a4ee7/rooms/chevron-corridor-v2-north-south-socket/run_capture_guarded.py"
+      ],
+      "sockets": [
+        {
+          "id": "north",
+          "local_floor_center": [
+            0.0,
+            0.0,
+            -10.0
+          ],
+          "outward_normal": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "clear_size_m": [
+            2.0,
+            2.1
+          ],
+          "floor_elevation_m": 0.0,
+          "approach_clearance_m": 1.2,
+          "compatibility_type": "level_doorway_2m_v1",
+          "circulation_role": "through",
+          "test_status": "untested",
+          "closure_behavior": "Open visual doorway with matching collider returns and header; untested, pair-only until the operator approves a connector pair."
+        },
+        {
+          "id": "south",
+          "local_floor_center": [
+            0.0,
+            0.0,
+            10.0
           ],
           "outward_normal": [
             0.0,
