@@ -36,6 +36,12 @@ from deterministic_json import (
     write_deterministic,
 )
 from gpu_job_lock import exclusive_gpu_job
+from issue280_spectrogram import (
+    SPECTROGRAM_PARAMETERS,
+    png_dimensions,
+    render_spectrogram,
+    render_waveform,
+)
 from psx_design_round_resources import (
     PeakResourceSampler,
     check_capture_headroom,
@@ -94,6 +100,12 @@ def _arguments() -> argparse.Namespace:
     capture_parser.add_argument("--step-every", type=int, default=15)
     capture_parser.add_argument("--reverb", choices=("on", "off"), default="on")
     capture_parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT_SECONDS)
+    capture_parser.add_argument(
+        "--waveform", action="store_true", help="also write an optional waveform PNG (issue #280)"
+    )
+    capture_parser.add_argument(
+        "--no-spectrogram", action="store_true", help="skip the spectrogram PNG (issue #280)"
+    )
     return parser.parse_args()
 
 
@@ -182,6 +194,8 @@ def _capture(arguments: argparse.Namespace) -> int:
         "frames": frames,
         "duration_seconds": round(frames / arguments.fps, 6),
         "godot_version": _godot_version(arguments.godot),
+        "spectrogram_enabled": not arguments.no_spectrogram,
+        "waveform_enabled": arguments.waveform,
     }
     command: list[str] = []
     with exclusive_gpu_job(ROOT):
@@ -242,6 +256,41 @@ def _after_run(
                         ("normalized_wav", normalised)):
         if path.is_file():
             receipt[f"sha256_{label}"] = sha256_file(path)
+    if not arguments.no_spectrogram and normalised.is_file():
+        _add_spectrogram(receipt, arguments, normalised, measurement_path)
+
+
+def _add_spectrogram(
+    receipt: dict[str, Any], arguments: argparse.Namespace,
+    normalised: Path, measurement_path: Path,
+) -> None:
+    """Additive issue #280 step: PNGs beside the measurement JSON, paths recorded."""
+    stem = measurement_path.stem.removesuffix("_measurement")
+    spectrogram_path = measurement_path.with_name(f"{stem}_spectrogram.png")
+    render_spectrogram(normalised, spectrogram_path)
+    receipt["spectrogram_png"] = str(spectrogram_path.relative_to(ROOT))
+    receipt["spectrogram_sha256"] = sha256_file(spectrogram_path)
+    width, height = png_dimensions(spectrogram_path)
+    receipt["spectrogram_size"] = f"{width}x{height}"
+    print(f"ISSUE280_SPECTROGRAM {receipt['spectrogram_png']} "
+          f"sha256={receipt['spectrogram_sha256']} size={width}x{height} legend=true")
+    if arguments.waveform:
+        waveform_path = measurement_path.with_name(f"{stem}_waveform.png")
+        render_waveform(normalised, waveform_path)
+        receipt["waveform_png"] = str(waveform_path.relative_to(ROOT))
+        receipt["waveform_sha256"] = sha256_file(waveform_path)
+        print(f"ISSUE280_WAVEFORM {receipt['waveform_png']} sha256={receipt['waveform_sha256']}")
+    _record_png_paths(measurement_path, receipt)
+
+
+def _record_png_paths(measurement_path: Path, receipt: dict[str, Any]) -> None:
+    """Add new PNG path fields without altering any existing measurement field."""
+    result = json.loads(measurement_path.read_text(encoding="utf-8"))
+    result["spectrogram_png"] = receipt["spectrogram_png"]
+    result["spectrogram_parameters"] = dict(SPECTROGRAM_PARAMETERS)
+    if "waveform_png" in receipt:
+        result["waveform_png"] = receipt["waveform_png"]
+    measurement_path.write_bytes(canonical_bytes(result))
 
 
 def _write_receipt(path: Path, receipt: dict[str, Any]) -> None:

@@ -1,0 +1,37 @@
+{
+  "calibration_440hz_row": 430,
+  "check_legend": false,
+  "checks": {
+    "clip_broadband": true,
+    "clip_near_nyquist": true,
+    "silence_gaps_near_zero": true,
+    "tone_at_440hz_row": true
+  },
+  "clip_broadband_rows": 130,
+  "clip_peak_row": 0,
+  "image_size": "1600x900",
+  "parameters": {
+    "color": "intensity",
+    "drange_db": 80,
+    "filter": "showspectrumpic",
+    "fscale": "log",
+    "legend": true,
+    "limit_dbfs": 0,
+    "mode": "combined",
+    "scale": "log",
+    "size": "1600x900",
+    "start_hz": 20,
+    "stop_hz": 24000,
+    "waveform_filter": "showwavespic",
+    "waveform_scale": "lin",
+    "waveform_size": "1600x220",
+    "window": "hann"
+  },
+  "pass": true,
+  "selftest_signal": "issue276 440 Hz tone + full-scale clip + silence gaps",
+  "silence_column_energy": [
+    0.0,
+    0.0
+  ],
+  "tone_peak_row": 430
+}
