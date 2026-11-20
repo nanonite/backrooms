@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "adaptation_id": "wooden-verdure-hall-v1",
+  "candidate_identity": "3262fc81646c8433f8743fd324dbdc16c3be7db03c136db5d3e52d5c4e794e4a",
+  "decision": "accepted",
+  "reviewed_at_utc": "2026-11-20T02:28:08.414669+00:00",
+  "scope": "Operator accepted this exact candidate identity as a bounded standalone room: authored appearance and traversal only, as reviewed in the live walk on 2026-11-19. Audio and jumping were not implemented in the reviewed run and are not covered. No catalog admission, socket, connector, integration, map, source-video connectivity, registration, metric scale or any other room is accepted; registration_accepted and scale_calibrated remain false.",
+  "operator_feedback": "Operator 2026-11-19 (live walk): “this room looks good, i cant jump in it and dont hear anything but that is fine if that was the intent”; later “audio nor jumping was not working or implemented in any of those simulation runs”; then “we can close 275 and 171 formulation”.",
+  "registration_accepted": false,
+  "scale_calibrated": false
+}
